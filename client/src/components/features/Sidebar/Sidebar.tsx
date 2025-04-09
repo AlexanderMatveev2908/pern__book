@@ -2,7 +2,7 @@ import { FC, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatchType, RootStateType } from "../../../store/store";
 import { setIsSideOpen } from "../Header/headerSlice";
-import UserEmail from "./components/UserEmail";
+// import UserEmail from "./components/UserEmail";
 import { sideFieldsAllUsers } from "../../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
@@ -28,6 +28,8 @@ const Sidebar: FC = () => {
     };
   }, [dispatch]);
 
+  const isLogged = false;
+
   return (
     <>
       <div
@@ -42,9 +44,9 @@ const Sidebar: FC = () => {
         } `}
       >
         <div className="max-w-full relative grid gap-4">
-          <UserEmail {...{ email: "JohnDoe@gmail.com" }} />
+          {/* <UserEmail {...{ email: "JohnDoe@gmail.com" }} /> */}
 
-          <div className="grid gap-5 px-5">
+          <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
             {sideFieldsAllUsers.map((el) => (
               <SideLink key={el.id} {...{ el }} />
             ))}

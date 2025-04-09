@@ -20,8 +20,8 @@ run();
 const start = async () => {
   try {
     await connectDB();
-    makeRelations();
     await syncDB();
+    makeRelations();
 
     app.listen(PORT, "0.0.0.0", () =>
       console.log(`=> server running on ${PORT}...`)
