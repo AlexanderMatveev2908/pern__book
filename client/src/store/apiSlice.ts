@@ -16,6 +16,6 @@ export const apiSlice = createApi({
   // tags that we use for invalidation of cache api data like in tanstack use query
   tagTypes: [],
   // i can leave key of slice by default to api of naming as i want
-  reducerPath: "pernAPI",
+  reducerPath: "appAPI",
   endpoints: () => ({}),
 });

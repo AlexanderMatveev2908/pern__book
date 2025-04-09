@@ -1,16 +1,18 @@
 import { FC, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatchType, RootStateType } from "../../store/store";
+import { DispatchType, RootStateType } from "../../store/store";
 import { setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
 import { sideFieldsAllUsers } from "../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
+import { useLocation } from "react-router-dom";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
+  const path = useLocation().pathname;
 
-  const dispatch: AppDispatchType = useDispatch();
+  const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(
     (state: RootStateType) => state.sidebar.isSideOpen
   );
@@ -48,7 +50,10 @@ const Sidebar: FC = () => {
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
             {sideFieldsAllUsers.map((el) => (
-              <SideLink key={el.id} {...{ el }} />
+              <SideLink
+                key={el.id}
+                {...{ el, isIn: new RegExp(`.*${path}.*`).test(el.path) }}
+              />
             ))}
 
             <NonLoggedDrop />

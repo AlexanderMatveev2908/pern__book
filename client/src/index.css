@@ -44,10 +44,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 /* ICONS */
 
 .icon__md {
-  @apply min-w-[30px] sm:min-w-[35px] min-h-[30px] sm:min-h-[35px] text-white;
+  @apply min-w-[30px] sm:min-w-[35px] min-h-[30px] sm:min-h-[35px];
 }
 .icon__lg {
-  @apply min-w-[40px] min-h-[40px] text-white;
+  @apply min-w-[40px] min-h-[40px];
 }
 .icon__with_txt {
   @apply transition-all duration-300 group-hover:text-blue-600;

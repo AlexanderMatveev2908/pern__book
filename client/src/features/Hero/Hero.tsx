@@ -1,7 +1,7 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { heroImages } from "../../config/assetsDev/assetsDev";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import "./Hero.css";
+import style from "./Hero.module.css";
 import { tailwindBreak } from "../../config/breakpoints";
 
 const totLen = heroImages.length;
@@ -50,7 +50,10 @@ const Hero: FC = () => {
   return (
     <div className="w-full flex px-10">
       <div className="w-full grid text-white mt-10 relative">
-        <button onClick={decSlide} className="btn__hero group -left-[20px]">
+        <button
+          onClick={decSlide}
+          className={`${style.btn__hero} group -left-[20px]`}
+        >
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
@@ -78,7 +81,7 @@ const Hero: FC = () => {
             handleClickRef();
             incSlide();
           }}
-          className="btn__hero -right-[20px] group"
+          className={`${style.btn__hero} -right-[20px] group`}
         >
           <FaChevronRight className="icon__md icon__with_txt" />
         </button>
