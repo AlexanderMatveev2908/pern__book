@@ -43,15 +43,35 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 
 /* ICONS */
 
-.icon__big {
+.icon__lg {
   @apply min-w-[40px] min-h-[40px] text-white;
 }
-
+.icon__md {
+  @apply min-w-[30px] sm:min-w-[35px] min-h-[30px] sm:min-h-[35px] text-white;
+}
+.icon__with_txt {
+  @apply transition-all duration-300 group-hover:text-blue-600;
+}
 .icon__logic {
   @apply transition-all duration-300 hover:text-blue-600 hover:scale-120 cursor-pointer;
 }
 .icon__close {
   @apply min-w-[50px] min-h-[50px] text-white transition-all duration-300 hover:text-red-600 hover:scale-120 cursor-pointer;
+}
+
+/* UTILS */
+
+.el__flow {
+  @apply transition-all duration-300;
+}
+.el__after_below {
+  @apply relative max-w-fit cursor-pointer;
+}
+.el__after_below::after {
+  @apply absolute content-[""] -bottom-2 left-1/2 w-0 h-[3px] bg-blue-600 transition-all duration-300 -translate-x-1/2;
+}
+.el__after_below:hover::after {
+  @apply w-full;
 }
 
 /* BUTTONS */

@@ -24,7 +24,7 @@ const Header: FC = () => {
             {isSideOpen ? (
               <IoCloseSharp className="icon__close" />
             ) : (
-              <RxHamburgerMenu className="icon__big icon__logic" />
+              <RxHamburgerMenu className="icon__lg icon__logic" />
             )}
           </button>
         </div>
