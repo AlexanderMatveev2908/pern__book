@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
-import DropHandler from "../../../common/DropHandler/DropHandler";
+import DropHandler from "../../../components/common/DropHandler/DropHandler";
 import {
   fieldAccountNonLogged,
   sideFieldsNonLogged,
-} from "../../../../config/fields/Sidebar/sidebarFields";
+} from "../../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./SideLink";
 
 const NonLoggedDrop: FC = () => {

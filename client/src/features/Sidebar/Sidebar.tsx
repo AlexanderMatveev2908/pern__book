@@ -1,9 +1,9 @@
 import { FC, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatchType, RootStateType } from "../../../store/store";
+import { AppDispatchType, RootStateType } from "../../store/store";
 import { setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
-import { sideFieldsAllUsers } from "../../../config/fields/Sidebar/sidebarFields";
+import { sideFieldsAllUsers } from "../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
 

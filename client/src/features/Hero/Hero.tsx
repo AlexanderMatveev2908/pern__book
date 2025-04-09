@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { heroImages } from "../../../config/assetsDev/assetsDev";
+import { heroImages } from "../../config/assetsDev/assetsDev";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./Hero.css";
-import { tailwindBreak } from "../../../config/breakpoints";
+import { tailwindBreak } from "../../config/breakpoints";
 
 const totLen = heroImages.length;
 
@@ -42,7 +42,7 @@ const Hero: FC = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       if (!clickedRef.current) incSlide();
-    }, 1000);
+    }, 1250);
 
     return () => clearInterval(interval);
   }, [incSlide]);
@@ -62,7 +62,11 @@ const Hero: FC = () => {
             }}
           >
             {heroImages.map((el, i) => (
-              <div key={el.id} style={{ width: wImg, height: wImg }}>
+              <div
+                key={el.id}
+                className="rounded-xl overflow-hidden"
+                style={{ width: wImg, height: wImg }}
+              >
                 <img src={el.src} alt={`img__${i}`} className="w-full h-full" />
               </div>
             ))}

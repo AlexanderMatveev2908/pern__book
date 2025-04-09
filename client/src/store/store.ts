@@ -1,6 +1,6 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
-import sideReducer from "../components/features/Header/headerSlice";
+import sideReducer from "../features/Header/headerSlice";
 
 export const store = configureStore({
   reducer: {

@@ -2,7 +2,7 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { AppDispatchType, RootStateType } from "../../../store/store";
+import { AppDispatchType, RootStateType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { toggleSide } from "./headerSlice";
 

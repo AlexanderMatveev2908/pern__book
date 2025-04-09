@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { SideFieldType } from "../../../../config/fields/Sidebar/sidebarFields";
+import { SideFieldType } from "../../../config/fields/Sidebar/sidebarFields";
 
 type PropsType = {
   el: SideFieldType;

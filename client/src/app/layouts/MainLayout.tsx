@@ -1,8 +1,8 @@
 import { FC } from "react";
 import { Outlet } from "react-router-dom";
-import Header from "../../components/features/Header/Header";
-import Sidebar from "../../components/features/Sidebar/Sidebar";
-import Hero from "../../components/features/Hero/Hero";
+import Header from "../../features/Header/Header";
+import Sidebar from "../../features/Sidebar/Sidebar";
+import Hero from "../../features/Hero/Hero";
 
 const MainLayout: FC = () => {
   return (
