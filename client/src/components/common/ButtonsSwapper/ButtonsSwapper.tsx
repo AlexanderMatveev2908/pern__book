@@ -10,7 +10,7 @@ type PropsType = {
 
 const ButtonsSwapper: FC<PropsType> = ({ currForm, setCurrForm, totLen }) => {
   return (
-    <div className="w-full grid grid-cols-2 items-center">
+    <div className="w-full grid grid-cols-3 items-center">
       <button
         onClick={() => currForm && setCurrForm((prev) => prev - 1)}
         disabled={!currForm}
@@ -20,6 +20,8 @@ const ButtonsSwapper: FC<PropsType> = ({ currForm, setCurrForm, totLen }) => {
       >
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>
+
+      <div className=""></div>
 
       <button
         onClick={() => currForm < totLen - 1 && setCurrForm((prev) => prev + 1)}

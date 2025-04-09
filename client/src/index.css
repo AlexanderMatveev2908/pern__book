@@ -62,7 +62,7 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   @apply transition-all duration-300 hover:text-blue-600 hover:scale-120 cursor-pointer;
 }
 .icon__close {
-  @apply min-w-[50px] min-h-[50px] text-white transition-all duration-300 hover:text-red-600 hover:scale-120 cursor-pointer;
+  @apply min-w-[50px] min-h-[50px] text-[whitesmoke] transition-all duration-300 hover:text-red-600 hover:scale-120 cursor-pointer;
 }
 
 /* UTILS */

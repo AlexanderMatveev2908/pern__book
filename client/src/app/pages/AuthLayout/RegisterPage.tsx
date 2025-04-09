@@ -4,7 +4,7 @@ import Register from "../../../features/AuthLayout/Register/Register";
 
 const RegisterPage: FC = () => {
   return (
-    <div className="w-full grid text-white justify-items-center gap-10">
+    <div className="w-full grid justify-items-center gap-5">
       <Title {...{ title: "Register" }} />
 
       <Register />

@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { FormFieldBasic } from "../../types/generalFields";
+import { FormFieldBasic } from "../../../types/generalFields";
 
 type PropsType = {
   el: FormFieldBasic;

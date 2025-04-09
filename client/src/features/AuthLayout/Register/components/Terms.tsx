@@ -1,8 +1,6 @@
 import { FC, useEffect, useRef, useState } from "react";
 import style from "./Terms.module.css";
 
-type PropsType = {};
-
 const Terms: FC = () => {
   const [check, setCheck] = useState<boolean | null>(null);
   const checkRef = useRef<HTMLDivElement | null>(null);

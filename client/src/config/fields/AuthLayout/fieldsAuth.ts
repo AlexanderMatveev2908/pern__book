@@ -1,7 +1,7 @@
 import { v4 } from "uuid";
 import { FormFieldBasic } from "../../../types/generalFields";
 
-export const fieldsAuth__1: FormFieldBasic[] = [
+export const fieldsAuth__0: FormFieldBasic[] = [
   {
     field: "firstName",
     label: "First Name",
@@ -34,7 +34,7 @@ export const confirmPasswordField = {
   type: "password",
 };
 
-export const fieldsAuth__2: FormFieldBasic[] = [
+export const fieldsAuth__1: FormFieldBasic[] = [
   emailField,
   passwordField,
   confirmPasswordField,
