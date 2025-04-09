@@ -1,0 +1,61 @@
+@import "tailwindcss";
+
+/* 
+IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
+*/
+
+* {
+  font-family: "Sour Gummy";
+}
+
+/* INDEX*/
+
+.z__header {
+  z-index: 1000;
+}
+.z__sidebar_bg {
+  z-index: 500;
+}
+.z__sidebar {
+  z-index: 1000;
+}
+
+/* TXT */
+
+.txt__0 {
+  @apply text-xs md:text-sm lg:text-base;
+}
+.txt__1 {
+  @apply text-sm md:text-base lg:text-lg;
+}
+.txt__2 {
+  @apply text-base md:text-lg lg:text-xl;
+}
+.txt__3 {
+  @apply text-lg md:text-xl lg:text-2xl;
+}
+.txt__4 {
+  @apply text-xl md:text-2xl lg:text-3xl;
+}
+.txt__5 {
+  @apply text-3xl md:text-4xl lg:text-5xl;
+}
+
+/* ICONS */
+
+.icon__big {
+  @apply min-w-[40px] min-h-[40px] text-white;
+}
+
+.icon__logic {
+  @apply transition-all duration-300 hover:text-blue-600 hover:scale-120 cursor-pointer;
+}
+.icon__close {
+  @apply min-w-[50px] min-h-[50px] text-white transition-all duration-300 hover:text-red-600 hover:scale-120 cursor-pointer;
+}
+
+/* BUTTONS */
+
+.btn__clear {
+  appearance: none;
+}
