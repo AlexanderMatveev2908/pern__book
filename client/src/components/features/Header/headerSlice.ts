@@ -12,14 +12,14 @@ const sidebarSlice = createSlice({
   name: "sidebar",
   initialState: initState,
   reducers: {
-    toggleSide: (state, action: PayloadAction<boolean>) => {
+    setIsSideOpen: (state, action: PayloadAction<boolean>) => {
       state.isSideOpen = action.payload;
     },
-    toggleSideNoPay: (state) => {
+    toggleSide: (state) => {
       state.isSideOpen = !state.isSideOpen;
     },
   },
 });
 
-export const { toggleSide, toggleSideNoPay } = sidebarSlice.actions;
+export const { setIsSideOpen, toggleSide } = sidebarSlice.actions;
 export default sidebarSlice.reducer;

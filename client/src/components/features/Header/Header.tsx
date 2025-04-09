@@ -4,7 +4,7 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatchType, RootStateType } from "../../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
-import { toggleSideNoPay } from "./headerSlice";
+import { toggleSide } from "./headerSlice";
 
 const Header: FC = () => {
   const dispatch: AppDispatchType = useDispatch();
@@ -20,10 +20,7 @@ const Header: FC = () => {
         </Link>
 
         <div className="w-full flex justify-end">
-          <button
-            onClick={() => dispatch(toggleSideNoPay())}
-            className="btn__clear"
-          >
+          <button onClick={() => dispatch(toggleSide())} className="btn__clear">
             {isSideOpen ? (
               <IoCloseSharp className="icon__close" />
             ) : (

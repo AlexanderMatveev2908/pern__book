@@ -59,3 +59,27 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 .btn__clear {
   appearance: none;
 }
+
+/* GENERAL */
+
+.scrollbar__hidden::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar__app::-webkit-scrollbar-thumb {
+  @apply bg-blue-600 rounded-lg cursor-pointer;
+}
+.scrollbar__app::-webkit-scrollbar-track {
+  @apply bg-neutral-800;
+}
+.scrollbar__x::-webkit-scrollbar {
+  @apply h-[8px];
+}
+.scrollbar__y::-webkit-scrollbar {
+  @apply w-[10px];
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
