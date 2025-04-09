@@ -22,7 +22,7 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   },
   {
     label: "Books",
-    path: "",
+    path: "to-do",
     icon: FaBook,
   },
 ].map((el) => ({
@@ -33,22 +33,22 @@ export const sideFieldsAllUsers: SideFieldType[] = [
 export const sideFieldsNonLogged: SideFieldType[] = [
   {
     label: "Register",
-    path: "",
+    path: "/auth/register",
     icon: LuUserPen,
   },
   {
     label: "Login",
-    path: "",
+    path: "to-do",
     icon: MdLogin,
   },
   {
     label: "Verify email",
-    path: "",
+    path: "to-do",
     icon: FaRegCheckCircle,
   },
   {
     label: "Recover account",
-    path: "",
+    path: "to-do",
     icon: FaKey,
   },
 ].map((el) => ({

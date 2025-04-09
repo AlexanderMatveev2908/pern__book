@@ -38,6 +38,9 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   @apply text-xl md:text-2xl lg:text-3xl;
 }
 .txt__5 {
+  @apply text-2xl md:text-3xl lg:text-4xl;
+}
+.txt__6 {
   @apply text-3xl md:text-4xl lg:text-5xl;
 }
 
@@ -72,6 +75,15 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 }
 .el__after_below:hover::after {
   @apply w-full;
+}
+.nav_link.active::after {
+  @apply w-full;
+}
+.nav_link.active {
+  @apply text-blue-600;
+}
+.nav_link.active i {
+  @apply text-blue-600;
 }
 
 /* BUTTONS */

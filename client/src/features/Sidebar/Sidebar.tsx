@@ -6,11 +6,9 @@ import { setIsSideOpen } from "../Header/headerSlice";
 import { sideFieldsAllUsers } from "../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
-import { useLocation } from "react-router-dom";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
-  const path = useLocation().pathname;
 
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(
@@ -50,10 +48,7 @@ const Sidebar: FC = () => {
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
             {sideFieldsAllUsers.map((el) => (
-              <SideLink
-                key={el.id}
-                {...{ el, isIn: new RegExp(`.*${path}.*`).test(el.path) }}
-              />
+              <SideLink key={el.id} {...{ el }} />
             ))}
 
             <NonLoggedDrop />

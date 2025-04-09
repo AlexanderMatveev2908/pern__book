@@ -13,8 +13,9 @@ const MainLayout: FC = () => {
       <Header />
       {REG_PATH_HOME.test(path) && <Hero />}
       <Sidebar />
-      <div className="w-full px-10 grid content-center"></div>
-      <Outlet />
+      <div className="w-full px-10 pt-6 pb-[100px] flex justify-center">
+        <Outlet />
+      </div>
     </div>
   );
 };
