@@ -46,6 +46,9 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 
 /* ICONS */
 
+.icon__sm {
+  @apply min-w-[25px] sm:min-w-[30px] min-h-[25px] sm:min-h-[30px];
+}
 .icon__md {
   @apply min-w-[30px] sm:min-w-[35px] min-h-[30px] sm:min-h-[35px];
 }
@@ -84,6 +87,17 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 }
 .nav_link.active i {
   @apply text-blue-600;
+}
+
+/* INPUTS */
+
+.input__base {
+  @apply w-full border-2 border-blue-600 rounded-xl px-5 py-1 outline-0 transition-all duration-300;
+  appearance: none;
+}
+.input__base:focus {
+  @apply ring-2 ring-blue-600;
+  box-shadow: 0 0 10px #2563eb, 0 0 20px #2563eb;
 }
 
 /* BUTTONS */
