@@ -16,21 +16,18 @@ const BreadCrumbForm: FC<PropsType> = ({ currForm, totLen }) => {
         <div
           className="absolute border-[3px] border-blue-600 top-1/4
         left-0 w-full z-10 h-[25px] rounded-full transition-all duration-500"
-          style={{
-            maxWidth: `${100 - 100 / totLen / 2}%`,
-          }}
         ></div>
 
         <div
           className={`absolute border-[3px] border-blue-600 bg-blue-600 top-1/4
         left-0 w-full z-10 h-[25px] rounded-full transition-all duration-500`}
           style={{
-            width: `${(100 / totLen) * (currForm + 1) - 100 / totLen / 2}%`,
+            width: `${(100 / totLen) * (currForm + 1)}%`,
           }}
         ></div>
 
         {ids.map((id, i) => (
-          <div key={id} className="w-full flex z-30 justify-center">
+          <div key={id} className="w-full flex z-30 justify-end">
             <div
               className={`border-[3px]  rounded-full h-[50px] w-[50px] flex justify-center items-center transition-all duration-500 text-[whitesmoke] ${
                 i === currForm ? "scale-[1.25]" : ""
