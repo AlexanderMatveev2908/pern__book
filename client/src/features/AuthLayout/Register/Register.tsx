@@ -106,6 +106,13 @@ const Register: FC = () => {
     listenErr();
   }, [currForm, errors, isNextDisabled, vals]);
 
+  useEffect(() => {
+    const listenClosePwd = () => {
+      if ((!currForm && !mainPwd.isPwd) || !confirmPwd.isPwd) closeAllPwd();
+    };
+    listenClosePwd();
+  }, [currForm, mainPwd, confirmPwd, closeAllPwd]);
+
   return (
     <div className="w-full grid justify-items-center gap-5">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
