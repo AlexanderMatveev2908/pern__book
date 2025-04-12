@@ -56,7 +56,7 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
           transform: "translateY(50px)",
         }}
       >
-        <span className="txt__1">Copied Clipboard</span>
+        <span className="txt__1">Copied to clipboard</span>
       </div>
     </button>
   );

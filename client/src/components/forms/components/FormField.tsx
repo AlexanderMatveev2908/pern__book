@@ -26,7 +26,7 @@ const FormField: FC<PropsType> = ({ el, register, errors }) => {
         />
 
         <div
-          className={`absolute top-1/6 right-0 transition-all duration-300 text-red-600 border-2 border-red-600 rounded-xl py-1 px-5 bg-[#000] z-60 ${
+          className={`absolute top-1/6 right-0 transition-all pointer-events-none duration-300 text-red-600 border-2 border-red-600 rounded-xl py-1 px-5 bg-[#000] z-60 ${
             errors[el.field]?.message
               ? "translate-y-0 opacity-100"
               : "translate-y-[200%] opacity-0"

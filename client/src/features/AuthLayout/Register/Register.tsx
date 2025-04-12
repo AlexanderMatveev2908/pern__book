@@ -8,14 +8,16 @@ import {
 import ButtonsSwapper from "../../../components/common/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
 import FormField from "../../../components/forms/components/FormField";
-import BreadCrumbForm from "../../../components/common/BreadCrumbForm";
+import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm";
 import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REG_NAME, REG_PWD } from "../../../config/regex";
 import { useForm } from "react-hook-form";
 import { getErrCurrSwap, getErrLen } from "../../../lib/forms";
-import CreatePwd from "../../../components/common/CreatePwd";
+import CreatePwd from "../../../components/forms/components/CreatePwd";
+import PwdField from "../../../components/forms/components/PwdField/PwdField";
+import { useShowPwd } from "../../../hooks/useShowPwd";
 
 const schema = z
   .object({
@@ -33,6 +35,7 @@ const schema = z
     password: z
       .string()
       .min(1, "Password is required")
+      .max(30, "Password too long")
       .regex(REG_PWD, "Invalid password format"),
     confirmPassword: z.string().min(1, "You must confirm your password"),
     terms: z.boolean().nullable(),
@@ -43,7 +46,7 @@ const schema = z
   })
   .refine((data) => data.email !== data.password, {
     message: "Email and Password must be different",
-    path: ["email", "password"],
+    path: ["password"],
   })
   .refine((data) => data.terms, {
     message: "You must accept the terms",
@@ -60,7 +63,6 @@ const Register: FC = () => {
     formState: { errors },
     watch,
     setValue,
-    getValues,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -73,6 +75,8 @@ const Register: FC = () => {
       terms: null,
     },
   });
+
+  const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
 
   const isDisabled = useMemo(() => getErrLen(errors), [errors]);
   const vals = watch();
@@ -132,7 +136,15 @@ const Register: FC = () => {
             }`}
           >
             {fieldsAuth__1.map((el) => (
-              <FormField key={el.id} {...{ el, register, errors }} />
+              <PwdField
+                key={el.id}
+                {...{
+                  el,
+                  register,
+                  errors,
+                  ...(el.field === "password" ? mainPwd : confirmPwd),
+                }}
+              />
             ))}
 
             <CreatePwd />
