@@ -1,9 +1,12 @@
 import { FC } from "react";
 import Title from "../../../components/common/Title";
 import Register from "../../../features/AuthLayout/Register/Register";
+import SpinnerPage from "../../../components/common/spinners/SpinnerPage/SpinnerPage";
 
 const RegisterPage: FC = () => {
-  return (
+  return "1" ? (
+    <SpinnerPage />
+  ) : (
     <div className="w-full grid justify-items-center gap-5">
       <Title {...{ title: "Register" }} />
 

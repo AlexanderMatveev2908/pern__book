@@ -51,7 +51,7 @@ const Register: FC = () => {
           </div>
 
           <ButtonsSwapper {...{ currForm, setCurrForm, totLen: 2 }}>
-            <Button {...{ isPending: true }} />
+            <Button {...{ isPending: false }} />
           </ButtonsSwapper>
         </div>
       </div>
