@@ -5,10 +5,12 @@ import { v4 } from "uuid";
 const makeRandomMinMax = (min: number, max: number) =>
   Math.random() * (max - min) + min;
 
+const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
+
 const Button: FC = () => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   // const bubbleRefs = useRef<HTMLDivElement | null>(null);
-  const [ids] = useState(Array.from({ length: 20 }, () => v4()));
+  const [ids] = useState(Array.from({ length: 30 }, () => v4()));
 
   useEffect(() => {
     const animate = (e: MouseEvent) => {
@@ -62,7 +64,7 @@ const Button: FC = () => {
         <div
           key={id}
           {...{ id }}
-          className={`absolute bottom-1/2 rounded-full ${
+          className={`absolute bottom-1/2 rounded-full pointer-events-none ${
             i % 2 === 0
               ? "w-[8px] h-[8px] border-2 border-blue-600"
               : "h-[5px] w-[5px] bg-blue-600"
@@ -73,10 +75,7 @@ const Button: FC = () => {
               top: "50%",
               translate: "-50% -50%",
 
-              "--pos": `${makeRandomMinMax(-1000, 1000)}%, ${makeRandomMinMax(
-                -1000,
-                1000
-              )}%`,
+              "--pos": `${makeRandomBtn()}%, ${makeRandomBtn()}%`,
               transform: "scale(0)",
               opacity: "0",
             } as React.CSSProperties
