@@ -6,7 +6,8 @@ import {
 import ButtonsSwapper from "../../../components/common/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
 import FormField from "../../../components/forms/components/FormField";
-import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm";
+import BreadCrumbForm from "../../../components/common/BreadCrumbForm";
+import Button from "../../../components/HOC/buttons/Button/Button";
 
 const Register: FC = () => {
   const [currForm, setCurrForm] = useState(0);
@@ -20,7 +21,7 @@ const Register: FC = () => {
           <div
             className={`min-w-[200%] flex transition-all duration-500 ${
               !currForm
-                ? "max-h-[200px] min-h-[200px]"
+                ? "max-h-[350px] min-h-[350px]"
                 : " max-h-[350px] min-h-[350px]"
             }`}
             style={{
@@ -49,7 +50,9 @@ const Register: FC = () => {
             </div>
           </div>
 
-          <ButtonsSwapper {...{ currForm, setCurrForm, totLen: 2 }} />
+          <ButtonsSwapper {...{ currForm, setCurrForm, totLen: 2 }}>
+            <Button />
+          </ButtonsSwapper>
         </div>
       </div>
     </div>

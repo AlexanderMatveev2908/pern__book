@@ -29,10 +29,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   @apply text-sm md:text-base lg:text-lg;
 }
 .txt__2 {
-  @apply text-base md:text-lg lg:text-xl;
+  @apply text-base md:text-lg lg:text-xl font-semibold;
 }
 .txt__3 {
-  @apply text-lg md:text-xl lg:text-2xl;
+  @apply text-lg md:text-xl lg:text-2xl font-bold;
 }
 .txt__4 {
   @apply text-xl md:text-2xl lg:text-3xl;

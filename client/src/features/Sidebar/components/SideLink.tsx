@@ -15,7 +15,7 @@ const SideLink: FC<PropsType> = ({ el, handleSideClick }) => {
       className="w-fit flex justify-start gap-5 group el__after_below items-center nav_link"
     >
       <el.icon className="icon__with_txt icon__md" />
-      <span className="txt__2 el__flow group-hover:text-blue-600 font-semibold">
+      <span className="txt__2 el__flow group-hover:text-blue-600">
         {el.label}
       </span>
     </NavLink>

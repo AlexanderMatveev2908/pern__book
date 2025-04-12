@@ -1,0 +1,14 @@
+.btn__container {
+  transition: 0.3s;
+  position: relative;
+}
+.btn__container:enabled:hover {
+  transform: scale(1.1);
+  background-color: #2563eb;
+  color: whitesmoke;
+  cursor: pointer;
+}
+.btn__container:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}

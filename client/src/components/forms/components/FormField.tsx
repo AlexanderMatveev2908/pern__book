@@ -9,7 +9,7 @@ const FormField: FC<PropsType> = ({ el }) => {
   return (
     <div className="w-full grid">
       <label className="grid w-full gap-2">
-        <span className="txt__2 font-semibold">{el.label}</span>
+        <span className="txt__2">{el.label}</span>
 
         <input
           type={el.type ?? "text"}

@@ -17,7 +17,7 @@ const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
       <div className="w-fit flex gap-5 justify-start items-center">
         <el.icon className="icon__md icon__with_txt" />
 
-        <span className="txt__2 group-hover:text-blue-600 el__flow font-semibold">
+        <span className="txt__2 group-hover:text-blue-600 el__flow">
           {el.label}
         </span>
       </div>
