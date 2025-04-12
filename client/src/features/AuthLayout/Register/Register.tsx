@@ -5,9 +5,8 @@ import {
   fieldsAuth__1,
   groupFieldsByArea,
 } from "../../../config/fields/AuthLayout/fieldsAuth";
-import ButtonsSwapper from "../../../components/common/ButtonsSwapper/ButtonsSwapper";
+import ButtonsSwapper from "../../../components/forms/components/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
-import FormField from "../../../components/forms/components/FormField";
 import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm";
 import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
@@ -16,8 +15,9 @@ import { REG_NAME, REG_PWD } from "../../../config/regex";
 import { useForm } from "react-hook-form";
 import { getErrCurrSwap, getErrLen } from "../../../lib/forms";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
-import PwdField from "../../../components/forms/components/PwdField/PwdField";
 import { useShowPwd } from "../../../hooks/useShowPwd";
+import FormField from "../../../components/forms/components/inputs/FormField";
+import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
 
 const schema = z
   .object({
