@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+@keyframes circle_out {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes circle_in_el {
+  0% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+
 .el__spinner_page_in {
   @apply absolute w-[200px] sm:w-[300px] h-[200px] sm:h-[300px];
 }
@@ -8,6 +28,8 @@
   @apply content-[""] absolute inset-0 w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] rounded-full bg-blue-600;
   box-shadow: 0 0 10px #2563eb, 0 0 20px #2563eb, 0 0 30px #2563eb,
     0 0 40px #2563eb;
+  animation: circle_in_el 1s linear infinite;
+  animation-delay: var(--delay_page);
 }
 .el__spinner_page_in,
 .el__spinner_page_container {
@@ -15,16 +37,4 @@
 }
 .el__spinner_page_container {
   @apply absolute;
-}
-.el__spinner_page_out {
-  animation: circle 3s linear infinite;
-}
-
-@keyframes circle {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
