@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import {
   fieldsAuth__0,
   fieldsAuth__1,
@@ -55,7 +55,7 @@ const schema = z
 
 type RegisterFormType = z.infer<typeof schema>;
 const Register: FC = () => {
-  const [currForm, setCurrForm] = useState(0);
+  const [currForm, setCurrFormBeforeCB] = useState(0);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
 
   const {
@@ -106,12 +106,13 @@ const Register: FC = () => {
     listenErr();
   }, [currForm, errors, isNextDisabled, vals]);
 
-  useEffect(() => {
-    const listenClosePwd = () => {
-      if ((!currForm && !mainPwd.isPwd) || !confirmPwd.isPwd) closeAllPwd();
-    };
-    listenClosePwd();
-  }, [currForm, mainPwd, confirmPwd, closeAllPwd]);
+  const setCurrForm = useCallback(
+    (val: number) => {
+      closeAllPwd();
+      setCurrFormBeforeCB(val);
+    },
+    [closeAllPwd]
+  );
 
   return (
     <div className="w-full grid justify-items-center gap-5">
@@ -122,7 +123,7 @@ const Register: FC = () => {
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm
               ? "max-h-[300px] min-h-[300px]"
-              : " max-h-[350px] min-h-[350px]"
+              : " max-h-[400px] min-h-[400px]"
           }`}
           style={{
             transform: `translateX(-${currForm * 50}%)`,

@@ -4,7 +4,7 @@ import style from "./ButtonsSwapper.module.css";
 
 type PropsType = {
   currForm: number;
-  setCurrForm: React.Dispatch<React.SetStateAction<number>>;
+  setCurrForm: (val: number) => void;
   totLen: number;
   children?: ReactNode;
   isNextDisabled: boolean;
@@ -20,7 +20,7 @@ const ButtonsSwapper: FC<PropsType> = ({
   return (
     <div className="w-full grid grid-cols-[50px_1fr_50px] items-center">
       <button
-        onClick={() => currForm && setCurrForm((prev) => prev - 1)}
+        onClick={() => currForm && setCurrForm(currForm - 1)}
         disabled={!currForm}
         className={`justify-self-start ${currForm ? "group" : ""} ${
           style.btn__swapper
@@ -44,9 +44,7 @@ const ButtonsSwapper: FC<PropsType> = ({
       {currForm === totLen - 1 ? null : (
         <button
           disabled={isNextDisabled}
-          onClick={() =>
-            currForm < totLen - 1 && setCurrForm((prev) => prev + 1)
-          }
+          onClick={() => currForm < totLen - 1 && setCurrForm(currForm + 1)}
           className={`justify-self-end ${isNextDisabled ? "" : "group"} ${
             style.btn__swapper
           }`}
