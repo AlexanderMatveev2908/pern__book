@@ -15,6 +15,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { REG_NAME, REG_PWD } from "../../../config/regex";
 import { useForm } from "react-hook-form";
 import { getErrCurrSwap, getErrLen } from "../../../lib/forms";
+import CreatePwd from "../../../components/common/CreatePwd";
 
 const schema = z
   .object({
@@ -129,6 +130,8 @@ const Register: FC = () => {
               {fieldsAuth__1.map((el) => (
                 <FormField key={el.id} {...{ el, register, errors }} />
               ))}
+
+              <CreatePwd />
 
               <Terms {...{ setValue, watch, errors }} />
             </div>

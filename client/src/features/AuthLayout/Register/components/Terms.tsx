@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 import style from "./Terms.module.css";
 import { FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
 import { useSavePrevErr } from "../../../../hooks/useSavePrevErr";

@@ -1,0 +1,37 @@
+@import "tailwindcss";
+
+.el__cpy_txt {
+  transition: 0.3s;
+}
+.el__cpy_txt:hover {
+  transform: scale(1.1);
+}
+.el__cpy_txt:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
+.el__tooltip {
+  animation: appear 1.5s ease-in forwards;
+}
+
+@keyframes appear {
+  0% {
+    transform: translateY(50px) scale(0);
+    opacity: 0;
+  }
+
+  10% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+
+  75% {
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(50px) scale(0);
+    opacity: 0;
+  }
+}
