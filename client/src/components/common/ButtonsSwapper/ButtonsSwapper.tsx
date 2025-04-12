@@ -16,7 +16,7 @@ const ButtonsSwapper: FC<PropsType> = ({
   children,
 }) => {
   return (
-    <div className="w-full grid grid-cols-3 items-center">
+    <div className="w-full grid grid-cols-[100px_1fr_100px] items-center">
       <button
         onClick={() => currForm && setCurrForm((prev) => prev - 1)}
         disabled={!currForm}
@@ -27,15 +27,9 @@ const ButtonsSwapper: FC<PropsType> = ({
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>
 
-      {currForm === totLen - 1 && children ? (
-        children
-      ) : (
-        <div className=""></div>
-      )}
+      {currForm === totLen - 1 && children ? children : <div></div>}
 
-      {currForm === totLen - 1 ? (
-        <div className=""></div>
-      ) : (
+      {currForm === totLen - 1 ? null : (
         <button
           onClick={() =>
             currForm < totLen - 1 && setCurrForm((prev) => prev + 1)

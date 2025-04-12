@@ -10,9 +10,12 @@ const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 
 type PropsType = {
   isPending: boolean;
+  type?: "button" | "submit";
+  label?: string;
+  Icon?: React.ElementType;
 };
 
-const Button: FC<PropsType> = ({ isPending }) => {
+const Button: FC<PropsType> = ({ isPending, label, type = "submit", Icon }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   // const bubbleRefs = useRef<HTMLDivElement | null>(null);
   const [ids] = useState(Array.from({ length: 30 }, () => v4()));
@@ -44,8 +47,9 @@ const Button: FC<PropsType> = ({ isPending }) => {
     <SpinnerBtn />
   ) : (
     <button
+      type={type}
       ref={btnRef}
-      className={`appearance-none min-w-full border-2 border-blue-600 rounded-xl py-2 px-10 flex justify-center items-center ${"btn__container"}`}
+      className={`appearance-none w-full border-2 border-blue-600 rounded-xl py-2 px-10 flex justify-center items-center ${"btn__container"}`}
     >
       {/* <div ref={bubbleRefs}></div> */}
       {ids.map((id, i) => (
@@ -70,7 +74,11 @@ const Button: FC<PropsType> = ({ isPending }) => {
           }
         ></div>
       ))}
-      <span className="txt__3">Button</span>
+      <div className="w-full flex justify-center items-center gap-5">
+        {Icon && <Icon className="icon__sm" />}
+
+        <span className="txt__3">{label}</span>
+      </div>
     </button>
   );
 };

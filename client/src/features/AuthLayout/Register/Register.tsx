@@ -51,7 +51,14 @@ const Register: FC = () => {
           </div>
 
           <ButtonsSwapper {...{ currForm, setCurrForm, totLen: 2 }}>
-            <Button {...{ isPending: false }} />
+            <div className="max-w-[250px] justify-self-center">
+              <Button
+                {...{
+                  isPending: false,
+                  label: "Register",
+                }}
+              />
+            </div>
           </ButtonsSwapper>
         </div>
       </div>
