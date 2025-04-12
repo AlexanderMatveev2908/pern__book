@@ -13,9 +13,16 @@ type PropsType = {
   type?: "button" | "submit";
   label?: string;
   Icon?: React.ElementType;
+  isDisabled: boolean;
 };
 
-const Button: FC<PropsType> = ({ isPending, label, type = "submit", Icon }) => {
+const Button: FC<PropsType> = ({
+  isPending,
+  label,
+  type = "submit",
+  Icon,
+  isDisabled,
+}) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   // const bubbleRefs = useRef<HTMLDivElement | null>(null);
   const [ids] = useState(Array.from({ length: 30 }, () => v4()));
@@ -49,7 +56,8 @@ const Button: FC<PropsType> = ({ isPending, label, type = "submit", Icon }) => {
     <button
       type={type}
       ref={btnRef}
-      className={`appearance-none w-full border-2 border-blue-600 rounded-xl py-2 px-10 flex justify-center items-center ${"btn__container"}`}
+      disabled={isDisabled}
+      className={`appearance-none w-full border-2 border-blue-600 rounded-xl py-2 px-10 flex justify-center items-center disabled:opacity-50 ${"btn__container"}`}
     >
       {/* <div ref={bubbleRefs}></div> */}
       {ids.map((id, i) => (

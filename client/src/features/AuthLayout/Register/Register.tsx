@@ -1,7 +1,9 @@
-import { FC, useState } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { FC, useEffect, useMemo, useState } from "react";
 import {
   fieldsAuth__0,
   fieldsAuth__1,
+  groupFieldsByArea,
 } from "../../../config/fields/AuthLayout/fieldsAuth";
 import ButtonsSwapper from "../../../components/common/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
@@ -10,8 +12,9 @@ import BreadCrumbForm from "../../../components/common/BreadCrumbForm";
 import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { REG_NAME } from "../../../config/regex";
+import { REG_NAME, REG_PWD } from "../../../config/regex";
 import { useForm } from "react-hook-form";
+import { getErrCurrSwap, getErrLen } from "../../../lib/forms";
 
 const schema = z
   .object({
@@ -26,11 +29,14 @@ const schema = z
       .max(30, "First Name must be less than 30 characters")
       .regex(REG_NAME, "Invalid Last Name format"),
     email: z.string().email("Invalid Email Format"),
-    password: z.string().min(1, "Password is required"),
+    password: z
+      .string()
+      .min(1, "Password is required")
+      .regex(REG_PWD, "Invalid password format"),
     confirmPassword: z.string().min(1, "You must confirm your password"),
     terms: z.boolean().nullable(),
   })
-  .refine((data) => data.password === data.confirmPassword, {
+  .refine((data) => data.confirmPassword === data.password, {
     message: "Passwords don't match",
     path: ["confirmPassword"],
   })
@@ -46,13 +52,14 @@ const schema = z
 type RegisterFormType = z.infer<typeof schema>;
 const Register: FC = () => {
   const [currForm, setCurrForm] = useState(0);
+  const [isNextDisabled, setIsNextDisabled] = useState(true);
 
   const {
     register,
     formState: { errors },
     watch,
     setValue,
-    handleSubmit,
+    getValues,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -65,6 +72,29 @@ const Register: FC = () => {
       terms: null,
     },
   });
+
+  const isDisabled = useMemo(() => getErrLen(errors), [errors]);
+  const vals = watch();
+
+  useEffect(() => {
+    const listenErr = () => {
+      const currSwapKeys = groupFieldsByArea[currForm];
+      let isValid = getErrCurrSwap(errors, currSwapKeys);
+
+      if (isValid)
+        for (const key in vals) {
+          if (currSwapKeys.includes(key) && !(vals as any)[key]) {
+            isValid = false;
+            break;
+          }
+        }
+
+      if (!isValid && !isNextDisabled) setIsNextDisabled(true);
+      else if (isValid && isNextDisabled) setIsNextDisabled(false);
+    };
+
+    listenErr();
+  }, [currForm, errors, isNextDisabled, vals]);
 
   return (
     <div className="w-full grid justify-items-center gap-5">
@@ -100,15 +130,18 @@ const Register: FC = () => {
                 <FormField key={el.id} {...{ el, register, errors }} />
               ))}
 
-              <Terms />
+              <Terms {...{ setValue, watch, errors }} />
             </div>
           </div>
 
-          <ButtonsSwapper {...{ currForm, setCurrForm, totLen: 2 }}>
+          <ButtonsSwapper
+            {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
+          >
             <div className="max-w-[250px] justify-self-center">
               <Button
                 {...{
                   isPending: false,
+                  isDisabled: isDisabled || isNextDisabled,
                   label: "Register",
                 }}
               />

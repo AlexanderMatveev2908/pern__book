@@ -7,6 +7,7 @@ type PropsType = {
   setCurrForm: React.Dispatch<React.SetStateAction<number>>;
   totLen: number;
   children?: ReactNode;
+  isNextDisabled: boolean;
 };
 
 const ButtonsSwapper: FC<PropsType> = ({
@@ -14,6 +15,7 @@ const ButtonsSwapper: FC<PropsType> = ({
   setCurrForm,
   totLen,
   children,
+  isNextDisabled,
 }) => {
   return (
     <div className="w-full grid grid-cols-[100px_1fr_100px] items-center">
@@ -31,10 +33,13 @@ const ButtonsSwapper: FC<PropsType> = ({
 
       {currForm === totLen - 1 ? null : (
         <button
+          disabled={isNextDisabled}
           onClick={() =>
             currForm < totLen - 1 && setCurrForm((prev) => prev + 1)
           }
-          className={`btn__clear justify-self-end group ${style.btn__swapper}`}
+          className={`btn__clear justify-self-end ${
+            isNextDisabled ? "" : "group"
+          } ${style.btn__swapper}`}
         >
           <FaChevronRight className="icon__sm icon__with_txt" />
         </button>

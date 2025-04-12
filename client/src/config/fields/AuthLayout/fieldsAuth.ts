@@ -43,3 +43,8 @@ export const fieldsAuth__1: FormFieldBasic[] = [
   ...el,
   id: v4(),
 }));
+
+export const groupFieldsByArea = [
+  fieldsAuth__0.map((el) => el.field),
+  [...fieldsAuth__1.map((el) => el.field), "terms"],
+];
