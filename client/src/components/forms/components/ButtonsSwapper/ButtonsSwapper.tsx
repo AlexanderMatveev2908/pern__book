@@ -32,7 +32,7 @@ const ButtonsSwapper: FC<PropsType> = ({
       {currForm === totLen - 1 && children ? (
         <div
           className={`w-full justify-center sm:col-span-1 ${
-            currForm === totLen - 1 ? "col-span-2" : ""
+            currForm === totLen - 1 ? "col-span-2 sm:col-span-1" : ""
           }`}
         >
           {children}

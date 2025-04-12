@@ -18,6 +18,7 @@ import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/useShowPwd";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
+import CheckRegPwd from "../../../components/forms/components/CheckRegPwd";
 
 const schema = z
   .object({
@@ -118,12 +119,12 @@ const Register: FC = () => {
     <div className="w-full grid justify-items-center gap-5">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-      <form className="flex flex-col justify-center border-[3px] p-6 border-blue-600 overflow-hidden rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke]">
+      <form className="max-w-full flex flex-col justify-center border-[3px] p-6 border-blue-600 rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden">
         <div
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm
               ? "max-h-[300px] min-h-[300px]"
-              : " max-h-[400px] min-h-[400px]"
+              : "max-h-[475px] min-h-[475px] sm:max-h-[400px] sm:min-h-[400px]"
           }`}
           style={{
             transform: `translateX(-${currForm * 50}%)`,
@@ -154,6 +155,8 @@ const Register: FC = () => {
                 }}
               />
             ))}
+
+            <CheckRegPwd />
 
             <CreatePwd />
 

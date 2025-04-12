@@ -1,5 +1,8 @@
 import { v4 } from "uuid";
 import { FormFieldBasic } from "../../../types/generalFields";
+import { LuAtSign, LuCaseLower, LuCaseUpper } from "react-icons/lu";
+import { TbNumbers } from "react-icons/tb";
+import { FaRuler } from "react-icons/fa";
 
 export const emailField = {
   field: "email",
@@ -54,3 +57,14 @@ export const charsPwd = "abcdefghilmopqzwyx"
   .flatMap((char) => [char.toUpperCase(), char])
   .concat("0123456789".split(""))
   .concat("~!@#$%^&*()_-=+{}[].?,'".split(""));
+
+export const fieldsCheckReg = [
+  { reg: /^(?=.*[A-Z])$/, icon: LuCaseUpper },
+  { reg: /^(?=.*[a-z])$/, icon: LuCaseLower },
+  { reg: /^(?=.*\d)$/, icon: TbNumbers },
+  { reg: /^(?=.*[\W_])$/, icon: LuAtSign },
+  { reg: /^.{8,}$/, icon: FaRuler },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
