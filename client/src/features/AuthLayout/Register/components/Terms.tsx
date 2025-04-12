@@ -37,7 +37,7 @@ const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
   const check = watch("terms");
 
   return (
-    <div className="w-full flex items-center justify-start gap-5 relative">
+    <div className="w-fit flex items-center justify-start gap-5 relative">
       <div
         onClick={() =>
           setValue("terms", !watch("terms"), { shouldValidate: true })

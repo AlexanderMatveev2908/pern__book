@@ -106,56 +106,54 @@ const Register: FC = () => {
     <div className="w-full grid justify-items-center gap-5">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-      <form className="w-full grid border-[3px] border-blue-600 rounded-xl max-w-[600px] text-[whitesmoke]">
-        <div className="w-full grid p-6 overflow-hidden">
+      <form className="flex flex-col justify-center border-[3px] p-6 border-blue-600 overflow-hidden rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke]">
+        <div
+          className={`w-[200%] flex transition-all duration-500 ${
+            !currForm
+              ? "max-h-[300px] min-h-[300px]"
+              : " max-h-[350px] min-h-[350px]"
+          }`}
+          style={{
+            transform: `translateX(-${currForm * 50}%)`,
+          }}
+        >
           <div
-            className={`min-w-[200%] flex transition-all duration-500 ${
-              !currForm
-                ? "max-h-[300px] min-h-[300px]"
-                : " max-h-[350px] min-h-[350px]"
+            className={`w-full grid gap-5 items-start h-fit el__flow ${
+              !currForm ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
-            style={{
-              transform: `translateX(-${currForm * 50}%)`,
-            }}
           >
-            <div
-              className={`w-full grid gap-5 items-start h-fit el__flow ${
-                !currForm ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            >
-              {fieldsAuth__0.map((el) => (
-                <FormField key={el.id} {...{ el, register, errors }} />
-              ))}
-            </div>
-            <div
-              className={`w-full grid gap-5 items-start h-fit el__flow ${
-                currForm ? "opacity-100" : "opacity-0 pointer-events-none"
-              }`}
-            >
-              {fieldsAuth__1.map((el) => (
-                <FormField key={el.id} {...{ el, register, errors }} />
-              ))}
-
-              <CreatePwd />
-
-              <Terms {...{ setValue, watch, errors }} />
-            </div>
+            {fieldsAuth__0.map((el) => (
+              <FormField key={el.id} {...{ el, register, errors }} />
+            ))}
           </div>
-
-          <ButtonsSwapper
-            {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
+          <div
+            className={`w-full grid gap-5 items-start h-fit el__flow ${
+              currForm ? "opacity-100" : "opacity-0 pointer-events-none"
+            }`}
           >
-            <div className="max-w-[250px] justify-self-center">
-              <Button
-                {...{
-                  isPending: false,
-                  isDisabled: isDisabled || isNextDisabled,
-                  label: "Register",
-                }}
-              />
-            </div>
-          </ButtonsSwapper>
+            {fieldsAuth__1.map((el) => (
+              <FormField key={el.id} {...{ el, register, errors }} />
+            ))}
+
+            <CreatePwd />
+
+            <Terms {...{ setValue, watch, errors }} />
+          </div>
         </div>
+
+        <ButtonsSwapper
+          {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
+        >
+          <div className="max-w-[250px] justify-self-center">
+            <Button
+              {...{
+                isPending: false,
+                isDisabled: isDisabled || isNextDisabled,
+                label: "Register",
+              }}
+            />
+          </div>
+        </ButtonsSwapper>
       </form>
     </div>
   );

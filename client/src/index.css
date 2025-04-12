@@ -8,6 +8,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   font-family: "Sour Gummy";
 }
 
+body {
+  overflow: hidden;
+}
+
 /* INDEX*/
 
 .z__header {

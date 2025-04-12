@@ -18,7 +18,7 @@ const ButtonsSwapper: FC<PropsType> = ({
   isNextDisabled,
 }) => {
   return (
-    <div className="w-full grid grid-cols-[100px_1fr_100px] items-center">
+    <div className="w-full grid grid-cols-[50px_1fr_50px] items-center">
       <button
         onClick={() => currForm && setCurrForm((prev) => prev - 1)}
         disabled={!currForm}
@@ -29,7 +29,17 @@ const ButtonsSwapper: FC<PropsType> = ({
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>
 
-      {currForm === totLen - 1 && children ? children : <div></div>}
+      {currForm === totLen - 1 && children ? (
+        <div
+          className={`w-full justify-center sm:col-span-1 ${
+            currForm === totLen - 1 ? "col-span-2" : ""
+          }`}
+        >
+          {children}
+        </div>
+      ) : (
+        <div></div>
+      )}
 
       {currForm === totLen - 1 ? null : (
         <button
