@@ -35,10 +35,10 @@ const TooltipCpy: FC = () => {
 
       <div
         ref={toolRef}
-        className="absolute border-2 border-blue-600 rounded-xl -top-[120%] py-1 px-5 z-60 bg-[#000] right-1/2 translate-x-1/2 min-w-[200px] flex justify-center tooltip"
+        className="absolute border-2 border-blue-600 rounded-xl -top-[120%] py-1 px-5 z-60 bg-[#000] right-1/2 translate-x-1/2 min-w-[200px] flex justify-center tooltip pointer-events-none"
         style={{
           opacity: "0",
-          transform: "scale(0) translateY(50px)",
+          transform: "translateY(50px)",
         }}
       >
         <span className="txt__1">Copied Clipboard</span>

@@ -17,21 +17,18 @@
 
 @keyframes appear {
   0% {
-    transform: translateY(50px) scale(0);
+    transform: translateY(50px);
     opacity: 0;
   }
-
-  10% {
-    transform: translateY(0) scale(1);
+  15% {
+    transform: translateY(0);
     opacity: 1;
   }
-
   75% {
     opacity: 0;
   }
-
   100% {
-    transform: translateY(50px) scale(0);
+    transform: translateY(50px);
     opacity: 0;
   }
 }
