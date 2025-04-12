@@ -6,7 +6,11 @@ import {
 } from "../../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./SideLink";
 
-const NonLoggedDrop: FC = () => {
+type PropsType = {
+  handleSideClick: () => void;
+};
+
+const NonLoggedDrop: FC<PropsType> = ({ handleSideClick }) => {
   const [isDropOpen, setIsDropOpen] = useState<boolean>(false);
 
   return (
@@ -27,7 +31,7 @@ const NonLoggedDrop: FC = () => {
           }`}
         >
           {sideFieldsNonLogged.map((el) => (
-            <SideLink key={el.id} {...{ el }} />
+            <SideLink key={el.id} {...{ el, handleSideClick }} />
           ))}
         </div>
       </div>

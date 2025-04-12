@@ -4,11 +4,13 @@ import { NavLink } from "react-router-dom";
 
 type PropsType = {
   el: SideFieldType;
+  handleSideClick: () => void;
 };
 
-const SideLink: FC<PropsType> = ({ el }) => {
+const SideLink: FC<PropsType> = ({ el, handleSideClick }) => {
   return (
     <NavLink
+      onClick={handleSideClick}
       to={el.path}
       className="w-fit flex justify-start gap-5 group el__after_below items-center nav_link"
     >
