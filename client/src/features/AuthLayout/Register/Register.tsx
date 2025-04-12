@@ -7,7 +7,7 @@ import ButtonsSwapper from "../../../components/common/ButtonsSwapper/ButtonsSwa
 import Terms from "./components/Terms";
 import FormField from "../../../components/forms/components/FormField";
 import BreadCrumbForm from "../../../components/common/BreadCrumbForm";
-import Button from "../../../components/HOC/buttons/Button/Button";
+import Button from "../../../components/common/buttons/Button/Button";
 
 const Register: FC = () => {
   const [currForm, setCurrForm] = useState(0);
@@ -51,7 +51,7 @@ const Register: FC = () => {
           </div>
 
           <ButtonsSwapper {...{ currForm, setCurrForm, totLen: 2 }}>
-            <Button />
+            <Button {...{ isPending: true }} />
           </ButtonsSwapper>
         </div>
       </div>

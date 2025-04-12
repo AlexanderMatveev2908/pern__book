@@ -1,13 +1,18 @@
 import { FC, useEffect, useRef, useState } from "react";
 import "./Button.css";
 import { v4 } from "uuid";
+import SpinnerBtn from "../../spinners/SPinnerBtn";
 
 const makeRandomMinMax = (min: number, max: number) =>
   Math.random() * (max - min) + min;
 
 const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 
-const Button: FC = () => {
+type PropsType = {
+  isPending: boolean;
+};
+
+const Button: FC<PropsType> = ({ isPending }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   // const bubbleRefs = useRef<HTMLDivElement | null>(null);
   const [ids] = useState(Array.from({ length: 30 }, () => v4()));
@@ -25,36 +30,19 @@ const Button: FC = () => {
           }
 
           curr.classList.remove("el__bubble");
-
           requestAnimationFrame(() => curr.classList.add("el__bubble"));
-
           i++;
         } while (i < ids.length);
       }
     };
 
     document.addEventListener("mousedown", animate);
-
     return () => document.removeEventListener("mousedown", animate);
   }, [ids]);
 
-  // useEffect(() => {
-  //   const animate = (e: MouseEvent) => {
-  //     if (btnRef.current && bubbleRefs.current)
-  //       if (btnRef.current.contains(e.target as Node)) {
-  //         bubbleRefs.current.classList.remove("bubbles");
-  //         requestAnimationFrame(() => {
-  //           bubbleRefs.current?.classList.add("bubbles");
-  //         });
-  //       }
-  //   };
-
-  //   document.addEventListener("mousedown", animate);
-
-  //   return () => document.removeEventListener("mousedown", animate);
-  // }, []);
-
-  return (
+  return isPending ? (
+    <SpinnerBtn />
+  ) : (
     <button
       ref={btnRef}
       className={`appearance-none min-w-full border-2 border-blue-600 rounded-xl py-2 px-10 flex justify-center items-center ${"btn__container"}`}
@@ -87,3 +75,19 @@ const Button: FC = () => {
   );
 };
 export default Button;
+
+// useEffect(() => {
+//   const animate = (e: MouseEvent) => {
+//     if (btnRef.current && bubbleRefs.current)
+//       if (btnRef.current.contains(e.target as Node)) {
+//         bubbleRefs.current.classList.remove("bubbles");
+//         requestAnimationFrame(() => {
+//           bubbleRefs.current?.classList.add("bubbles");
+//         });
+//       }
+//   };
+
+//   document.addEventListener("mousedown", animate);
+
+//   return () => document.removeEventListener("mousedown", animate);
+// }, []);
