@@ -1,10 +1,13 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useRef } from "react";
 import "./TooltipCpy.css";
 
-const TooltipCpy: FC = () => {
+type PropsType = {
+  txt: string;
+};
+
+const TooltipCpy: FC<PropsType> = ({ txt }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const toolRef = useRef<HTMLDivElement | null>(null);
-  const [pwd, setPwd] = useState("");
 
   useEffect(() => {
     const animate = (e: MouseEvent) => {
@@ -30,9 +33,9 @@ const TooltipCpy: FC = () => {
       ref={btnRef}
       className="relative w-full flex justify-center"
     >
-      {pwd && (
+      {txt && (
         <div className="el__cpy_txt border-2 appearance-none border-blue-600 py-1 px-5 rounded-xl cursor-pointer">
-          <span className="txt__2">{pwd}</span>
+          <span className="txt__2">{txt}</span>
         </div>
       )}
 

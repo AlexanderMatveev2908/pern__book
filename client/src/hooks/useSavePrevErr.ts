@@ -6,7 +6,6 @@ export const useSavePrevErr = (errors: FieldErrors, key: string) => {
   const msg = errors?.[key]?.message as string;
 
   useEffect(() => {
-    console.log(errors);
     if (msg && !prevErr) {
       setPrevErr(msg);
     }

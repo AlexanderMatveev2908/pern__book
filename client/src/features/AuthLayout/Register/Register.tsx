@@ -29,7 +29,7 @@ const schema = z
       .min(1, "Last Name is required")
       .max(30, "First Name must be less than 30 characters")
       .regex(REG_NAME, "Invalid Last Name format"),
-    email: z.string().email("Invalid Email Format"),
+    email: z.string().min(1, "Email is required").email("Invalid Email Format"),
     password: z
       .string()
       .min(1, "Password is required")
@@ -84,7 +84,12 @@ const Register: FC = () => {
 
       if (isValid)
         for (const key in vals) {
-          if (currSwapKeys.includes(key) && !(vals as any)[key]) {
+          if (
+            currSwapKeys.includes(key) &&
+            (typeof (vals as any)[key] === "string"
+              ? !(vals as any)[key].trim()
+              : !vals[key as keyof RegisterFormType])
+          ) {
             isValid = false;
             break;
           }

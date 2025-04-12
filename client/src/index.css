@@ -102,8 +102,8 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 
 /* BUTTONS */
 
-.btn__clear {
-  appearance: none;
+button {
+  @apply appearance-none;
 }
 
 /* GENERAL */

@@ -48,3 +48,9 @@ export const groupFieldsByArea = [
   fieldsAuth__0.map((el) => el.field),
   [...fieldsAuth__1.map((el) => el.field), "terms"],
 ];
+
+export const charsPwd = "abcdefghilmopqzwyx"
+  .split("")
+  .flatMap((char) => [char.toUpperCase(), char])
+  .concat("0123456789".split(""))
+  .concat("~!@#$%^&*()_-=+{}[].?,'".split(""));

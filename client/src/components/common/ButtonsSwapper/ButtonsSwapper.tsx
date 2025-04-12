@@ -22,7 +22,7 @@ const ButtonsSwapper: FC<PropsType> = ({
       <button
         onClick={() => currForm && setCurrForm((prev) => prev - 1)}
         disabled={!currForm}
-        className={`btn__clear justify-self-start ${currForm ? "group" : ""} ${
+        className={`justify-self-start ${currForm ? "group" : ""} ${
           style.btn__swapper
         }`}
       >
@@ -37,9 +37,9 @@ const ButtonsSwapper: FC<PropsType> = ({
           onClick={() =>
             currForm < totLen - 1 && setCurrForm((prev) => prev + 1)
           }
-          className={`btn__clear justify-self-end ${
-            isNextDisabled ? "" : "group"
-          } ${style.btn__swapper}`}
+          className={`justify-self-end ${isNextDisabled ? "" : "group"} ${
+            style.btn__swapper
+          }`}
         >
           <FaChevronRight className="icon__sm icon__with_txt" />
         </button>

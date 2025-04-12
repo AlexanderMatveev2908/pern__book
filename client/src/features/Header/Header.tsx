@@ -20,7 +20,7 @@ const Header: FC = () => {
         </Link>
 
         <div className="w-full flex justify-end text-[whitesmoke]">
-          <button onClick={() => dispatch(toggleSide())} className="btn__clear">
+          <button onClick={() => dispatch(toggleSide())}>
             {isSideOpen ? (
               <IoCloseSharp className="icon__close" />
             ) : (
