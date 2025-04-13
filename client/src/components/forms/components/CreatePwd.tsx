@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import { LuBadgeHelp } from "react-icons/lu";
 import TooltipCpy from "../../common/TooltipCpy/TooltipCpy";
-import { mixArr } from "../../../lib/random";
+import { mixArr } from "../../../lib/lib.ts";
 import { charsPwd } from "../../../config/fields/fields.ts";
 import { REG_PWD } from "../../../config/regex";
 

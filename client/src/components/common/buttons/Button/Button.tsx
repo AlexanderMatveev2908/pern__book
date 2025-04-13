@@ -2,7 +2,7 @@ import { FC, useEffect, useRef, useState } from "react";
 import "./Button.css";
 import { v4 } from "uuid";
 import SpinnerBtn from "../../spinners/SpinnerBtn/SpinnerBtn";
-import { makeRandomMinMax } from "../../../../lib/random";
+import { makeRandomMinMax } from "../../../../lib/lib.ts";
 
 const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 

@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
+import NewsLetter from "./components/NewsLetter";
 
 const Footer: FC = () => {
   return (
@@ -7,6 +8,8 @@ const Footer: FC = () => {
       <Link to="/" className="text-blue-600">
         <span className="txt__5">LOGO</span>
       </Link>
+
+      <NewsLetter />
     </div>
   );
 };

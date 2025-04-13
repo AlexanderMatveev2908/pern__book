@@ -6,9 +6,13 @@ export type LabelDropType = {
 };
 
 export type FormFieldBasic = {
-  id: string;
+  id?: string;
   field: string;
   label: string;
   place?: string;
   type?: string;
+};
+
+export type EmailFormType = {
+  email: string;
 };

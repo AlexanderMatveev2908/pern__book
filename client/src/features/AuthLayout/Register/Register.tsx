@@ -13,7 +13,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { REG_NAME, REG_PWD } from "../../../config/regex";
 import { useForm } from "react-hook-form";
-import { getErrCurrSwap, getErrLen } from "../../../lib/forms";
+import { getErrCurrSwap, getErrLen, schemaEmail } from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/useShowPwd";
 import FormField from "../../../components/forms/components/inputs/FormField";
@@ -35,7 +35,7 @@ const schema = z
       .min(1, "Last Name is required")
       .max(30, "First Name must be less than 30 characters")
       .regex(REG_NAME, "Invalid Last Name format"),
-    email: z.string().min(1, "Email is required").email("Invalid Email Format"),
+    ...schemaEmail(),
     password: z
       .string()
       .min(1, "Password is required")

@@ -49,7 +49,7 @@ const Hero: FC = () => {
 
   return (
     <div className="w-full flex px-10">
-      <div className="w-full grid txt__col mt-10 relative">
+      <div className="w-full grid text-[whitesmoke] mt-10 relative">
         <button
           onClick={decSlide}
           className={`${style.btn__hero} group -left-[20px]`}
