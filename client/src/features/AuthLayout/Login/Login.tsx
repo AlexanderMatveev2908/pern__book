@@ -16,6 +16,10 @@ const schema = z
   .refine((data) => data.email !== data.password, {
     message: "Email and Password can not be equal",
     path: ["password"],
+  })
+  .refine((data) => data.email.trim(), {
+    message: "Email is required",
+    path: ["email"],
   });
 
 export type LoginFormType = z.infer<typeof schema>;

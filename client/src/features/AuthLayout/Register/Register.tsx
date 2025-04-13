@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import {
   fieldsAuth__0,
@@ -11,14 +10,8 @@ import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm"
 import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { REG_NAME } from "../../../config/regex";
 import { useForm } from "react-hook-form";
-import {
-  getErrCurrSwap,
-  getErrLen,
-  schemaEmail,
-  schemaPwd,
-} from "../../../lib/lib.ts";
+import { getErrCurrSwap, getErrLen, schemaRegister } from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import FormField from "../../../components/forms/components/inputs/FormField";
@@ -27,37 +20,7 @@ import WrapperFocus from "../../../components/forms/components/WrapperFocus/Wrap
 import { useDispatch } from "react-redux";
 import { openToast, ToastEventType } from "../../Toast/toastSlice";
 
-const schema = z
-  .object({
-    firstName: z
-      .string()
-      .min(1, "First Name is required")
-      .max(30, "First Name must be less than 30 characters")
-      .regex(REG_NAME, "Invalid First Name format"),
-    lastName: z
-      .string()
-      .min(1, "Last Name is required")
-      .max(30, "First Name must be less than 30 characters")
-      .regex(REG_NAME, "Invalid Last Name format"),
-    ...schemaEmail(),
-    ...schemaPwd(),
-    confirmPassword: z.string().min(1, "You must confirm your password"),
-    terms: z.boolean().nullable(),
-  })
-  .refine((data) => data.confirmPassword === data.password, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  })
-  .refine((data) => data.email !== data.password, {
-    message: "Email and Password must be different",
-    path: ["password"],
-  })
-  .refine((data) => data.terms, {
-    message: "You must accept the terms",
-    path: ["terms"],
-  });
-
-type RegisterFormType = z.infer<typeof schema>;
+type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
   const [currForm, setCurrFormBeforeCB] = useState(0);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
@@ -71,23 +34,15 @@ const Register: FC = () => {
     handleSubmit,
   } = useForm<RegisterFormType>({
     mode: "onChange",
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaRegister),
     defaultValues: {
-      firstName: "sss",
-      lastName: "ss",
-      email: "Matveevalexander470@gmail.com",
-      password: "@2}mX_}^]3#lA^w5",
-      confirmPassword: "@2}mX_}^]3#lA^w5",
-      terms: true,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: null,
+      confirmPassword: "",
+      terms: null,
     },
-    // defaultValues: {
-    //   firstName: "",
-    //   lastName: "",
-    //   email: "",
-    //   password: null,
-    //   confirmPassword: "",
-    //   terms: null,
-    // },
   });
   const handleSave = handleSubmit((formData) => {
     console.log(formData);
@@ -113,8 +68,8 @@ const Register: FC = () => {
         for (const key in vals) {
           if (
             currSwapKeys.includes(key) &&
-            (typeof (vals as any)[key] === "string"
-              ? !(vals as any)[key].trim()
+            (typeof vals[key as keyof RegisterFormType] === "string"
+              ? !(vals[key as keyof RegisterFormType] as string)?.trim()
               : !vals[key as keyof RegisterFormType])
           ) {
             isValid = false;

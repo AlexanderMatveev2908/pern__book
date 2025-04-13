@@ -4,7 +4,6 @@ import { schemaEmail } from "../../../lib/lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EmailFormType } from "../../../types/generalFields";
-import ErrorFormField from "../../../components/forms/components/inputs/ErrorFormField";
 import { emailField } from "../../../config/fields/fields";
 import WrapperInput from "../../../components/forms/components/inputs/WrapperInput";
 import Button from "../../../components/common/buttons/Button/Button";
