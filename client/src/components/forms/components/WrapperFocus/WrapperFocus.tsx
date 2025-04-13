@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from "react";
-import PwdField from "./inputs/PwdField/PwdField";
-import CheckRegPwd from "./CheckRegPwd";
+import PwdField from "../inputs/PwdField/PwdField";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { FormFieldBasic } from "../../../types/generalFields";
+import { FormFieldBasic } from "../../../../types/generalFields";
+import CheckRegPwd from "./CheckRegPwd";
 
 type PropsType = {
   register: UseFormRegister<any>;

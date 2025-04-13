@@ -1,6 +1,6 @@
 import { FC } from "react";
-import { useMakeFormEmail } from "../../../hooks/all/useMakeFormEmail";
 import EmailForm from "../../../components/forms/EmailForm/EmailForm";
+import { useMakeFormEmail } from "../../../hooks/all/forms/useMakeFormEmail";
 
 const VerifyAccount: FC = () => {
   const { register, errors, handleSubmit } = useMakeFormEmail();

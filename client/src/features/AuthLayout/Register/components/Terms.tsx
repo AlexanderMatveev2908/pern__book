@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef } from "react";
 import style from "./Terms.module.css";
 import { FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
-import { useSavePrevErr } from "../../../../hooks/all/useSavePrevErr";
+import { useSavePrevErr } from "../../../../hooks/all/forms/useSavePrevErr";
 
 type PropsType = {
   setValue: UseFormSetValue<any>;

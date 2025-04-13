@@ -20,10 +20,10 @@ import {
   schemaPwd,
 } from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
-import { useShowPwd } from "../../../hooks/all/useShowPwd.ts";
+import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
-import WrapperFocus from "../../../components/forms/components/WrapperFocus";
+import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
 import { useDispatch } from "react-redux";
 import { openToast, ToastEventType } from "../../Toast/toastSlice";
 

@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { schemaEmail } from "../../lib/lib";
 import { z } from "zod";
+import { schemaEmail } from "../../../lib/lib";
 
 const schema = z.object({
   ...schemaEmail(),

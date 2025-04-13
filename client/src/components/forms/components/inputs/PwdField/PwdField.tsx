@@ -39,6 +39,7 @@ const PwdField: FC<PropsType> = ({
             onBlur={() => {
               setFocus?.(false);
             }}
+            autoComplete="off"
           />
 
           <button

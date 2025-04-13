@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import { emailField, passwordField } from "../../../config/fields/fields";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
-import { useShowPwd } from "../../../hooks/all/useShowPwd";
+import { useShowPwd } from "../../../hooks/all/forms/useShowPwd";
 import Button from "../../../components/common/buttons/Button/Button";
 
 const schema = z
