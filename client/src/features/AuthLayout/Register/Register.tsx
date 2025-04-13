@@ -26,7 +26,6 @@ import PwdField from "../../../components/forms/components/inputs/PwdField/PwdFi
 import WrapperFocus from "../../../components/forms/components/WrapperFocus";
 import { useDispatch } from "react-redux";
 import { openToast, ToastEventType } from "../../Toast/toastSlice";
-import SwitcherFormAuth from "../../../components/forms/components/SwitcherFormAuth";
 
 const schema = z
   .object({
@@ -208,8 +207,6 @@ const Register: FC = () => {
           </div>
         </ButtonsSwapper>
       </form>
-
-      <SwitcherFormAuth />
     </div>
   );
 };

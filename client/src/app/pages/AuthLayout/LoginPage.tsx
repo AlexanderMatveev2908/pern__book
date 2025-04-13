@@ -1,17 +1,15 @@
 import { FC } from "react";
-import Title from "../../../components/common/Title";
 import { useScroll } from "../../../hooks/useScroll";
 import Login from "../../../features/AuthLayout/Login/Login";
+import WrapperAuthPage from "../../../components/common/WrapperAuthPage";
 
 const LoginPage: FC = () => {
   useScroll();
 
   return (
-    <div className="parent__page">
-      <Title {...{ title: "Login" }} />
-
+    <WrapperAuthPage {...{ title: "LOGIN" }}>
       <Login />
-    </div>
+    </WrapperAuthPage>
   );
 };
 export default LoginPage;

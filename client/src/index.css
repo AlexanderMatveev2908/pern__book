@@ -75,10 +75,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 /* UTILS */
 
 .parent__page {
-  @apply w-full grid justify-items-center gap-5;
+  @apply w-full grid justify-items-center gap-6;
 }
 .parent__form {
-  @apply w-full grid justify-items-center gap-10;
+  @apply w-full grid justify-items-center gap-6;
 }
 .form__content {
   @apply w-full flex flex-col justify-center p-6  max-w-[500px] sm:max-w-[600px] text-gray-300 border-blue-600 rounded-xl border-[3px];
