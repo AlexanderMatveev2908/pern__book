@@ -6,7 +6,6 @@ type PropsType = {
 };
 
 const Title: FC<PropsType> = ({ title, customStyle }) => {
-  console.log(customStyle);
   return (
     <div className="w-full flex justify-center txt__col">
       <h1 className={`${customStyle ?? "txt__5"}`}>{title}</h1>

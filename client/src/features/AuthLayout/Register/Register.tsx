@@ -20,7 +20,7 @@ import {
   schemaPwd,
 } from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
-import { useShowPwd } from "../../../hooks/useShowPwd";
+import { useShowPwd } from "../../../hooks/all/useShowPwd.ts";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
 import WrapperFocus from "../../../components/forms/components/WrapperFocus";
@@ -143,70 +143,72 @@ const Register: FC = () => {
     <div className="parent__form">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-      <form onSubmit={handleSave} className="form__content overflow-hidden">
-        <div
-          className={`w-[200%] flex transition-all duration-500 ${
-            !currForm
-              ? "max-h-[300px] min-h-[300px]"
-              : "max-h-[350px] min-h-[350px]"
-          }`}
-          style={{
-            transform: `translateX(-${currForm * 50}%)`,
-          }}
-        >
+      <div className="form__content">
+        <form onSubmit={handleSave} className="w-full overflow-hidden p-6">
           <div
-            className={`w-full grid gap-5 items-start h-fit el__flow ${
-              !currForm ? "opacity-100" : "opacity-0 pointer-events-none"
+            className={`w-[200%] flex transition-all duration-500 ${
+              !currForm
+                ? "max-h-[300px] min-h-[300px]"
+                : "max-h-[350px] min-h-[350px]"
             }`}
+            style={{
+              transform: `translateX(-${currForm * 50}%)`,
+            }}
           >
-            {fieldsAuth__0.map((el) => (
-              <FormField key={el.id} {...{ el, register, errors }} />
-            ))}
+            <div
+              className={`w-full grid gap-5 items-start h-fit el__flow ${
+                !currForm ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+            >
+              {fieldsAuth__0.map((el) => (
+                <FormField key={el.id} {...{ el, register, errors }} />
+              ))}
+            </div>
+            <div
+              className={`w-full grid gap-5 items-start h-fit el__flow ${
+                currForm ? "opacity-100" : "opacity-0 pointer-events-none"
+              }`}
+            >
+              {fieldsAuth__1.map((el, i) =>
+                !i ? (
+                  <WrapperFocus
+                    key={el.id}
+                    {...{ mainPwd, pwd, register, errors, el }}
+                  />
+                ) : (
+                  <PwdField
+                    key={el.id}
+                    {...{
+                      el,
+                      register,
+                      errors,
+                      ...confirmPwd,
+                    }}
+                  />
+                )
+              )}
+
+              <CreatePwd />
+
+              <Terms {...{ setValue, watch, errors }} />
+            </div>
           </div>
-          <div
-            className={`w-full grid gap-5 items-start h-fit el__flow ${
-              currForm ? "opacity-100" : "opacity-0 pointer-events-none"
-            }`}
+
+          <ButtonsSwapper
+            {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
           >
-            {fieldsAuth__1.map((el, i) =>
-              !i ? (
-                <WrapperFocus
-                  key={el.id}
-                  {...{ mainPwd, pwd, register, errors, el }}
-                />
-              ) : (
-                <PwdField
-                  key={el.id}
-                  {...{
-                    el,
-                    register,
-                    errors,
-                    ...confirmPwd,
-                  }}
-                />
-              )
-            )}
-
-            <CreatePwd />
-
-            <Terms {...{ setValue, watch, errors }} />
-          </div>
-        </div>
-
-        <ButtonsSwapper
-          {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
-        >
-          <div className="max-w-[250px] justify-self-center">
-            <Button
-              {...{
-                isPending: false,
-                isDisabled: isDisabled || isNextDisabled,
-                label: "Register",
-              }}
-            />
-          </div>
-        </ButtonsSwapper>
-      </form>
+            <div className="max-w-[250px] justify-self-center">
+              <Button
+                {...{
+                  isPending: false,
+                  isDisabled: isDisabled || isNextDisabled,
+                  label: "Register",
+                }}
+              />
+            </div>
+          </ButtonsSwapper>
+        </form>
+      </div>
     </div>
   );
 };

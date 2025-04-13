@@ -9,10 +9,12 @@ import { AuthPagesPathType } from "../../../config/fields/fields";
 const SwitcherFormAuth: FC = () => {
   const path = useLocation().pathname;
 
-  const arg =
-    path === AuthPagesPathType.REGISTER
-      ? fieldLoginSwitch
-      : fieldsRegisterSwitch;
+  const arg = [
+    AuthPagesPathType.LOGIN,
+    AuthPagesPathType.FORGOT_PASSWORD,
+  ].includes(path as AuthPagesPathType)
+    ? fieldLoginSwitch
+    : fieldsRegisterSwitch;
 
   return (
     <div className="w-full txt__col grid gap-y-5 md:grid-cols-2 justify-items-center">

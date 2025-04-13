@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import { emailField, passwordField } from "../../../config/fields/fields";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
-import { useShowPwd } from "../../../hooks/useShowPwd";
+import { useShowPwd } from "../../../hooks/all/useShowPwd";
 import Button from "../../../components/common/buttons/Button/Button";
 
 const schema = z
@@ -39,7 +39,7 @@ const Login: FC = () => {
   return (
     <div className="parent__form">
       <form onSubmit={handleSave} className="form__content">
-        <div className="w-full grid gap-5">
+        <div className="w-full grid gap-5 p-6">
           <FormField {...{ register, errors, el: emailField }} />
 
           <PwdField {...{ register, errors, el: passwordField, ...mainPwd }} />
