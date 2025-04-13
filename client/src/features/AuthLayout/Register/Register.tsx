@@ -18,7 +18,7 @@ import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/useShowPwd";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
-import CheckRegPwd from "../../../components/forms/components/CheckRegPwd";
+import WrapperFocus from "../../../components/forms/components/WrapperFocus";
 
 const schema = z
   .object({
@@ -37,7 +37,8 @@ const schema = z
       .string()
       .min(1, "Password is required")
       .max(30, "Password too long")
-      .regex(REG_PWD, "Invalid password format"),
+      .regex(REG_PWD, "Invalid password format")
+      .nullable(),
     confirmPassword: z.string().min(1, "You must confirm your password"),
     terms: z.boolean().nullable(),
   })
@@ -71,7 +72,7 @@ const Register: FC = () => {
       firstName: "",
       lastName: "",
       email: "",
-      password: "",
+      password: null,
       confirmPassword: "",
       terms: null,
     },
@@ -115,16 +116,18 @@ const Register: FC = () => {
     [closeAllPwd]
   );
 
+  const pwd = watch("password");
+
   return (
     <div className="w-full grid justify-items-center gap-5">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-      <form className="max-w-full flex flex-col justify-center border-[3px] p-6 border-blue-600 rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden">
+      <form className="flex flex-col justify-center border-[3px] p-6 border-blue-600 rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden">
         <div
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm
               ? "max-h-[300px] min-h-[300px]"
-              : "max-h-[475px] min-h-[475px] sm:max-h-[400px] sm:min-h-[400px]"
+              : "max-h-[375px] min-h-[375px]"
           }`}
           style={{
             transform: `translateX(-${currForm * 50}%)`,
@@ -144,19 +147,24 @@ const Register: FC = () => {
               currForm ? "opacity-100" : "opacity-0 pointer-events-none"
             }`}
           >
-            {fieldsAuth__1.map((el) => (
-              <PwdField
-                key={el.id}
-                {...{
-                  el,
-                  register,
-                  errors,
-                  ...(el.field === "password" ? mainPwd : confirmPwd),
-                }}
-              />
-            ))}
-
-            <CheckRegPwd />
+            {fieldsAuth__1.map((el, i) =>
+              !i ? (
+                <WrapperFocus
+                  key={el.id}
+                  {...{ mainPwd, pwd, register, errors, el }}
+                />
+              ) : (
+                <PwdField
+                  key={el.id}
+                  {...{
+                    el,
+                    register,
+                    errors,
+                    ...confirmPwd,
+                  }}
+                />
+              )
+            )}
 
             <CreatePwd />
 

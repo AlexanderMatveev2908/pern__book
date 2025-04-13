@@ -59,11 +59,11 @@ export const charsPwd = "abcdefghilmopqzwyx"
   .concat("~!@#$%^&*()_-=+{}[].?,'".split(""));
 
 export const fieldsCheckReg = [
-  { reg: /^(?=.*[A-Z])$/, icon: LuCaseUpper },
-  { reg: /^(?=.*[a-z])$/, icon: LuCaseLower },
-  { reg: /^(?=.*\d)$/, icon: TbNumbers },
-  { reg: /^(?=.*[\W_])$/, icon: LuAtSign },
-  { reg: /^.{8,}$/, icon: FaRuler },
+  { reg: /(?=.*[A-Z])/, icon: LuCaseUpper },
+  { reg: /(?=.*[a-z])/, icon: LuCaseLower },
+  { reg: /(?=.*\d)/, icon: TbNumbers },
+  { reg: /(?=.*[\W_])/, icon: LuAtSign },
+  { reg: /.{8,}/, icon: FaRuler },
 ].map((el) => ({
   ...el,
   id: v4(),

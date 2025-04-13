@@ -13,6 +13,7 @@ type PropsType = {
   errors: FieldErrors;
   isPwd: boolean;
   handleClick: () => void;
+  setFocus?: (val: boolean) => void;
 };
 
 const PwdField: FC<PropsType> = ({
@@ -21,6 +22,7 @@ const PwdField: FC<PropsType> = ({
   errors,
   isPwd,
   handleClick,
+  setFocus,
 }) => {
   return (
     <div className="w-full grid">
@@ -33,6 +35,10 @@ const PwdField: FC<PropsType> = ({
             placeholder={el.place ?? `Your ${el.label}...`}
             className="input__icon txt__2"
             {...register(el.field)}
+            onFocus={() => setFocus?.(true)}
+            onBlur={() => {
+              setFocus?.(false);
+            }}
           />
 
           <button
