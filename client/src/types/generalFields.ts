@@ -13,6 +13,12 @@ export type FormFieldBasic = {
   type?: string;
 };
 
+export type PwdCheckerType = {
+  reg: RegExp;
+  icon: IconType;
+  id?: string;
+};
+
 export type EmailFormType = {
   email: string;
 };
