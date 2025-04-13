@@ -17,7 +17,7 @@ const Header: FC = () => {
           PERN__BOOK
         </Link>
 
-        <div className="w-full flex justify-end text-[whitesmoke]">
+        <div className="w-full flex justify-end txt__col">
           <button onClick={() => dispatch(toggleSide())}>
             {isSideOpen ? (
               <IoCloseSharp className="icon__close" />

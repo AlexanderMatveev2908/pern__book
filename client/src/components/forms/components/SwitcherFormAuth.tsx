@@ -15,7 +15,7 @@ const SwitcherFormAuth: FC = () => {
       : fieldsRegisterSwitch;
 
   return (
-    <div className="w-full text-[whitesmoke] grid gap-y-5 md:grid-cols-2 justify-items-center">
+    <div className="w-full txt__col grid gap-y-5 md:grid-cols-2 justify-items-center">
       {arg.map((el) => (
         <div
           key={el.id}

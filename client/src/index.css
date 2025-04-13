@@ -47,6 +47,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   @apply text-3xl md:text-4xl lg:text-5xl font-extrabold;
 }
 
+.txt__col {
+  @apply text-gray-300;
+}
+
 /* ICONS */
 
 .icon__sm {

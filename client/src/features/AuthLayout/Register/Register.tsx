@@ -149,7 +149,7 @@ const Register: FC = () => {
 
       <form
         onSubmit={handleSave}
-        className="flex flex-col justify-center  p-6 el__border_md max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden"
+        className="flex flex-col justify-center  p-6 el__border_md max-w-[500px] sm:max-w-[600px] txt__col overflow-hidden"
       >
         <div
           className={`w-[200%] flex transition-all duration-500 ${

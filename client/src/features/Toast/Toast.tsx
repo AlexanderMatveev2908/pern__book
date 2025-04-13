@@ -26,7 +26,7 @@ IS IMPORTANT TO BALANCE BETWEEN RERENDER IN STATE IN REFS THAT ARE REALLY USEFUL
 const Toast: FC = () => {
   const toastRef = useRef<HTMLDivElement | null>(null);
   const counterRef = useRef<HTMLDivElement | null>(null);
-  const timerRef = useRef<number | null>(null);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
   const clickRef = useRef<boolean>(false);
 
   const toastState = useSelector(getToast);
@@ -43,7 +43,7 @@ const Toast: FC = () => {
     });
 
     timerRef.current = setTimeout(() => {
-      clearTimeout(timerRef.current as number);
+      clearTimeout(timerRef.current as NodeJS.Timeout);
       timerRef.current = null;
       clickRef.current = true;
       dispatch(closeToast());
@@ -53,7 +53,7 @@ const Toast: FC = () => {
   const animateOut = useCallback(() => {
     clickRef.current = false;
     toastRef?.current?.classList.remove("toast__in");
-    clearTimeout(timerRef.current as number);
+    clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
 
     requestAnimationFrame(() => {
@@ -66,7 +66,7 @@ const Toast: FC = () => {
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add("toast__out");
     });
-    clearTimeout(timerRef.current as number);
+    clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
 
     setTimeout(() => {
@@ -133,7 +133,7 @@ const Toast: FC = () => {
         </button>
 
         {/* TEXT */}
-        <div className="w-full flex justify-start text-[whitesmoke] py-1 px-8">
+        <div className="w-full flex justify-start txt__col py-1 px-8">
           <span className="txt__3">{toast?.msg?.toUpperCase()}</span>
         </div>
 
