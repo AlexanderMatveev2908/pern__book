@@ -1,5 +1,5 @@
 import { DataTypes, Model } from "sequelize";
-import seq from "../config/db.js";
+import seq from "../../config/db.js";
 import { ProductType } from "./Product.js";
 
 export interface UserType extends Model {

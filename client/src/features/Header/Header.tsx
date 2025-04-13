@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DispatchType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "./headerSlice";
+import DropDown from "./components/DropDown";
 
 const Header: FC = () => {
   const dispatch: DispatchType = useDispatch();
@@ -17,8 +18,13 @@ const Header: FC = () => {
           PERN__BOOK
         </Link>
 
-        <div className="w-full flex justify-end txt__col">
-          <button onClick={() => dispatch(toggleSide())}>
+        <div className="w-full flex justify-end gap-6 txt__col items-center">
+          <DropDown />
+
+          <button
+            onClick={() => dispatch(toggleSide())}
+            className="justify-self-end"
+          >
             {isSideOpen ? (
               <IoCloseSharp className="icon__close" />
             ) : (

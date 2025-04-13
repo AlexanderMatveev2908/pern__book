@@ -13,14 +13,14 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 .z__sidebar_bg {
   z-index: 500;
 }
-.z__header {
+.z__sidebar {
   z-index: 1000;
 }
-.z__sidebar {
-  z-index: 1500;
+.z__header {
+  z-index: 2000;
 }
 .z__toast {
-  z-index: 2000;
+  z-index: 2500;
 }
 
 /* TXT */

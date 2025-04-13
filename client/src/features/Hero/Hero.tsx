@@ -48,13 +48,13 @@ const Hero: FC = () => {
     setCurrSlide((prev) => (prev === 0 ? totLen - 1 : prev - 1));
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!clickedRef.current) incSlide();
-  //   }, 1250);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!clickedRef.current) incSlide();
+    }, 1250);
 
-  //   return () => clearInterval(interval);
-  // }, [incSlide]);
+    return () => clearInterval(interval);
+  }, [incSlide]);
 
   return (
     <div className="w-full flex px-10">
