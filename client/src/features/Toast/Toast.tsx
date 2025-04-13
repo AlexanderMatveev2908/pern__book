@@ -1,7 +1,12 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useCallback, useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 import "./Toast.css";
-import { closeToast, getToast, openToast, ToastEventType } from "./toastSlice";
+import {
+  closeToast,
+  getToast,
+  reopenToast,
+  ToastEventType,
+} from "./toastSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./Toast.css";
 
@@ -12,52 +17,62 @@ const Toast: FC = () => {
   const clickRef = useRef<boolean>(null);
 
   const toastState = useSelector(getToast);
-  const { toast, isToast } = toastState;
+  const { toast, isToast, isToastPrev } = toastState;
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   dispatch(
-  //     openToast({
-  //       msg: "user registered",
-  //       type: ToastEventType.OK,
-  //     })
-  //   );
-  // }, [isToast, dispatch]);
+  const animateIn = useCallback(() => {
+    (toastRef.current as HTMLDivElement).classList.remove("toast__out");
+    (counterRef.current as HTMLDivElement).classList.remove("el__timer_toast");
+
+    requestAnimationFrame(() => {
+      toastRef?.current?.classList.add("toast__in");
+      counterRef?.current?.classList.add("el__timer_toast");
+    });
+
+    timerRef.current = setTimeout(() => {
+      clearTimeout(timerRef.current as number);
+      timerRef.current = null;
+      clickRef.current = true;
+      dispatch(closeToast());
+    }, 3000);
+  }, [dispatch]);
+
+  const animateOut = useCallback(() => {
+    clickRef.current = false;
+    toastRef?.current?.classList.remove("toast__in");
+    clearTimeout(timerRef.current as number);
+    timerRef.current = null;
+
+    requestAnimationFrame(() => {
+      toastRef?.current?.classList.add("toast__out");
+    });
+  }, []);
+
+  const animatePrev = useCallback(() => {
+    toastRef?.current?.classList.remove("toast__in");
+    requestAnimationFrame(() => {
+      toastRef?.current?.classList.add("toast__out");
+    });
+    clearTimeout(timerRef.current as number);
+    timerRef.current = null;
+
+    setTimeout(() => {
+      dispatch(reopenToast());
+    }, 500);
+  }, [dispatch]);
 
   useEffect(() => {
     const animate = () => {
-      if (isToast && toastRef.current && counterRef.current) {
-        toastRef.current.classList.remove("toast__out");
-        counterRef.current.classList.remove("el__timer_toast");
+      if (!toastRef || !counterRef) return;
 
-        requestAnimationFrame(() => {
-          toastRef?.current?.classList.add("toast__in");
-          counterRef?.current?.classList.add("el__timer_toast");
-        });
-
-        timerRef.current = setTimeout(() => {
-          clickRef.current = true;
-          dispatch(closeToast());
-        }, 3000);
-      }
+      if (isToast && isToastPrev) animatePrev();
+      else if (isToast && !isToastPrev) animateIn();
+      else if (!isToast && clickRef.current) animateOut();
     };
-
     animate();
-  }, [isToast, dispatch]);
+  }, [isToast, animateIn, animateOut, animatePrev, isToastPrev]);
 
-  useEffect(() => {
-    const animate = () => {
-      if (!isToast && toastRef.current && clickRef.current) {
-        clickRef.current = false;
-        toastRef?.current?.classList.remove("toast__in");
-        requestAnimationFrame(() => {
-          toastRef?.current?.classList.add("toast__out");
-        });
-      }
-    };
-
-    animate();
-  }, [isToast]);
+  useEffect(() => {}, []);
 
   const handleCLick = () => {
     clickRef.current = true;
@@ -112,7 +127,7 @@ const Toast: FC = () => {
         {/* TIMER */}
         <div
           ref={counterRef}
-          className={`absolute left-0 bottom-0 h-[2.5px] ${
+          className={`absolute left-0 bottom-0 h-[3px] ${
             toast?.type === ToastEventType.OK ? "bg-green-600" : "bg-red-600"
           }`}
           style={{

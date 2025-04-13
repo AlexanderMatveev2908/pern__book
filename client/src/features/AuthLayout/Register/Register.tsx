@@ -19,6 +19,8 @@ import { useShowPwd } from "../../../hooks/useShowPwd";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
 import WrapperFocus from "../../../components/forms/components/WrapperFocus";
+import { useDispatch } from "react-redux";
+import { openToast, ToastEventType } from "../../Toast/toastSlice";
 
 const schema = z
   .object({
@@ -60,6 +62,7 @@ const Register: FC = () => {
   const [currForm, setCurrFormBeforeCB] = useState(0);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
 
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -70,16 +73,30 @@ const Register: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schema),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: null,
-      confirmPassword: "",
-      terms: null,
+      firstName: "sss",
+      lastName: "ss",
+      email: "Matveevalexander470@gmail.com",
+      password: "@2}mX_}^]3#lA^w5",
+      confirmPassword: "@2}mX_}^]3#lA^w5",
+      terms: true,
     },
+    // defaultValues: {
+    //   firstName: "",
+    //   lastName: "",
+    //   email: "",
+    //   password: null,
+    //   confirmPassword: "",
+    //   terms: null,
+    // },
   });
   const handleSave = handleSubmit((formData) => {
     console.log(formData);
+    dispatch(
+      openToast({
+        type: ToastEventType.OK,
+        msg: "Registration successful",
+      })
+    );
   });
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();

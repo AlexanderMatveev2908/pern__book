@@ -13,11 +13,13 @@ export interface ToastType {
 }
 
 export interface ToastStateType {
+  isToastPrev: boolean;
   isToast: boolean;
   toast: ToastType | null;
 }
 
 const initState: ToastStateType = {
+  isToastPrev: false,
   isToast: false,
   toast: null,
 };
@@ -27,17 +29,23 @@ const toastSlice = createSlice({
   initialState: initState,
   reducers: {
     openToast: (state, action: PayloadAction<ToastType>) => {
+      state.isToastPrev = state.isToast;
       state.isToast = true;
       state.toast = action.payload;
     },
     closeToast: (state) => {
       // reset just bool cause resetting text div would stretch resulting in an not optimal animation
+      state.isToastPrev = false;
       state.isToast = false;
+    },
+    reopenToast: (state) => {
+      state.isToastPrev = false;
+      state.isToast = true;
     },
   },
 });
 
-export const { openToast, closeToast } = toastSlice.actions;
+export const { openToast, closeToast, reopenToast } = toastSlice.actions;
 export const getToast = (state: RootStateType) => state.toast;
 
 export default toastSlice.reducer;
