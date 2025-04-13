@@ -1,0 +1,12 @@
+@import "tailwindcss";
+
+.btn__toast {
+  transition: 0.3s;
+}
+.btn__toast:hover {
+  @apply cursor-pointer scale-130;
+}
+.btn__toast:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}

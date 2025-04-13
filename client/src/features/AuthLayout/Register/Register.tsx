@@ -65,6 +65,7 @@ const Register: FC = () => {
     formState: { errors },
     watch,
     setValue,
+    handleSubmit,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -76,6 +77,9 @@ const Register: FC = () => {
       confirmPassword: "",
       terms: null,
     },
+  });
+  const handleSave = handleSubmit((formData) => {
+    console.log(formData);
   });
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
@@ -122,7 +126,10 @@ const Register: FC = () => {
     <div className="w-full grid justify-items-center gap-5">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-      <form className="flex flex-col justify-center border-[3px] p-6 border-blue-600 rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden">
+      <form
+        onSubmit={handleSave}
+        className="flex flex-col justify-center border-[3px] p-6 border-blue-600 rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden"
+      >
         <div
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm
