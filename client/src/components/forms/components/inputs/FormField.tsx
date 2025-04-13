@@ -2,7 +2,7 @@
 import { FC } from "react";
 import { FormFieldBasic } from "../../../../types/generalFields";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import ErrorFormField from "./ErrorFormField";
+import WrapperInput from "./WrapperInput";
 
 type PropsType = {
   el: FormFieldBasic;
@@ -16,13 +16,7 @@ const FormField: FC<PropsType> = ({ el, register, errors }) => {
       <label className="grid w-full gap-2 relative">
         <span className="txt__2">{el.label}</span>
 
-        <input
-          type={el.type ?? "text"}
-          placeholder={el.place ?? `Your ${el.label}...`}
-          className="input__base txt__2"
-          {...register(el.field)}
-        />
-        <ErrorFormField {...{ errors, el }} />
+        <WrapperInput {...{ el, register, errors }} />
       </label>
     </div>
   );

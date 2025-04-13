@@ -52,9 +52,8 @@ const PwdField: FC<PropsType> = ({
               <IoMdEye className="icon__sm" />
             )}
           </button>
+          <ErrorFormField {...{ errors, el }} />
         </div>
-
-        <ErrorFormField {...{ errors, el }} />
       </label>
     </div>
   );
