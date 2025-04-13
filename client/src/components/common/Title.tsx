@@ -2,12 +2,14 @@ import { FC } from "react";
 
 type PropsType = {
   title: string;
+  customStyle?: string;
 };
 
-const Title: FC<PropsType> = ({ title }) => {
+const Title: FC<PropsType> = ({ title, customStyle }) => {
+  console.log(customStyle);
   return (
     <div className="w-full flex justify-center txt__col">
-      <h1 className="txt__5">{title}</h1>
+      <h1 className={`${customStyle ?? "txt__5"}`}>{title}</h1>
     </div>
   );
 };

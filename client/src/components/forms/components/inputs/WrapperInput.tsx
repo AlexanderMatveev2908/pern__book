@@ -8,18 +8,16 @@ type PropsType = {
   register: UseFormRegister<any>;
   errors: FieldErrors;
   el: FormFieldBasic;
+  customSTyle?: string;
 };
 
-const WrapperInput: FC<PropsType> = ({ register, errors, el }) => {
+const WrapperInput: FC<PropsType> = ({ register, errors, el, customSTyle }) => {
   return (
-    <div
-      className="w-full flex relative
-"
-    >
+    <div className="w-full relative">
       <input
         type={el.type ?? "text"}
         placeholder={el.place ?? `Your ${el.label}...`}
-        className="input__base txt__2"
+        className={`${customSTyle ?? "input__base"} txt__2`}
         {...register(el.field)}
       />
       <ErrorFormField {...{ errors, el }} />

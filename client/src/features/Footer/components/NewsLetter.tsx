@@ -7,6 +7,8 @@ import { EmailFormType } from "../../../types/generalFields";
 import ErrorFormField from "../../../components/forms/components/inputs/ErrorFormField";
 import { emailField } from "../../../config/fields/fields";
 import WrapperInput from "../../../components/forms/components/inputs/WrapperInput";
+import Button from "../../../components/common/buttons/Button/Button";
+import Title from "../../../components/common/Title";
 
 const schema = z.object({
   ...schemaEmail(),
@@ -16,22 +18,41 @@ const NewsLetter: FC = () => {
   const {
     register,
     formState: { errors },
-    watch,
+    handleSubmit,
   } = useForm<EmailFormType>({
     resolver: zodResolver(schema),
     mode: "onChange",
   });
 
-  console.log(watch());
+  const handleSave = handleSubmit((formData) => {
+    console.log(formData);
+  });
 
   return (
-    <form className="w-full grid grid-cols-2">
-      <div className="w-full grid">
-        <label className="grid w-full gap-2">
-          <WrapperInput {...{ register, errors, el: emailField }} />
-        </label>
+    <div className="w-full grid gap-8 sm:gap-4">
+      <div className="justify-self-start">
+        <Title {...{ title: "Newsletter", customStyle: "txt__4" }} />
       </div>
-    </form>
+      <form
+        onSubmit={handleSave}
+        className="w-full grid sm:grid-cols-2 gap-5 items-center"
+      >
+        <WrapperInput
+          {...{ register, errors, el: emailField, customSTyle: "input__icon" }}
+        />
+
+        <div className="max-w-[200px] justify-self-center sm:justify-self-start">
+          <Button
+            {...{
+              label: "Subscribe",
+              type: "submit",
+              isPending: false,
+              isDisabled: false,
+            }}
+          />
+        </div>
+      </form>
+    </div>
   );
 };
 export default NewsLetter;
