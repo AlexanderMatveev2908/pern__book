@@ -4,19 +4,15 @@ import {
   fieldLoginSwitch,
   fieldsRegisterSwitch,
 } from "../../../config/fields/AuthLayout/fieldsAuth";
-
-enum AuthPages {
-  REGISTER = "/auth/register",
-  LOGIN = "/auth/login",
-  FORGOT_PASSWORD = "/auth/forgot-pwd",
-  VERIFY_EMAIL = "/auth/verify-account",
-}
+import { AuthPagesPathType } from "../../../config/fields/general/fieldsActionsAuth";
 
 const SwitcherFormAuth: FC = () => {
   const path = useLocation().pathname;
 
   const arg =
-    path === AuthPages.REGISTER ? fieldLoginSwitch : fieldsRegisterSwitch;
+    path === AuthPagesPathType.REGISTER
+      ? fieldLoginSwitch
+      : fieldsRegisterSwitch;
 
   return (
     <div className="w-full text-[whitesmoke] grid gap-y-5 md:grid-cols-2 justify-items-center">

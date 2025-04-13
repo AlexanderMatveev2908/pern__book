@@ -78,20 +78,21 @@ export type FieldSwitchFormType = SideFieldType & {
   msgBold: string;
 };
 
-export const fieldLoginSwitch: FieldSwitchFormType[] = [register, forgot].map(
+export const fieldLoginSwitch: FieldSwitchFormType[] = [login, verify].map(
   (el, i) => ({
     ...el,
-    msg: !i ? "Don't have an' account ?" : "Forgot password ?",
-    msgBold: !i ? "Register" : "Recover account",
+    msg: !i ? "Already have an' account ?" : "Email did not arrive ?",
+    msgBold: !i ? "Login" : "Recover account",
     id: v4(),
   })
 );
 
-export const fieldsRegisterSwitch: FieldSwitchFormType[] = [login, verify].map(
-  (el, i) => ({
-    ...el,
-    msg: !i ? "Already have an' account ?" : "Email does not arrive ?",
-    msgBold: !i ? "Login" : "Resend email",
-    id: v4(),
-  })
-);
+export const fieldsRegisterSwitch: FieldSwitchFormType[] = [
+  register,
+  forgot,
+].map((el, i) => ({
+  ...el,
+  msg: !i ? "Don't have an' account ?" : "Forgot password ?",
+  msgBold: !i ? "Register" : "Resend email",
+  id: v4(),
+}));

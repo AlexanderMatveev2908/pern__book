@@ -2,25 +2,32 @@ import { FaKey, FaRegCheckCircle } from "react-icons/fa";
 import { LuUserPen } from "react-icons/lu";
 import { MdLogin } from "react-icons/md";
 
+export enum AuthPagesPathType {
+  REGISTER = "/auth/register",
+  LOGIN = "/auth/login",
+  FORGOT_PASSWORD = "/auth/forgot-pwd",
+  VERIFY_EMAIL = "/auth/verify-account",
+}
+
 export const fieldsActionsAuth = [
   {
     label: "Register",
-    path: "/auth/register",
+    path: AuthPagesPathType.REGISTER,
     icon: LuUserPen,
   },
   {
     label: "Login",
-    path: "/auth/login",
+    path: AuthPagesPathType.LOGIN,
     icon: MdLogin,
   },
   {
     label: "Verify email",
-    path: "/auth/verify-account",
+    path: AuthPagesPathType.VERIFY_EMAIL,
     icon: FaRegCheckCircle,
   },
   {
     label: "Recover account",
-    path: "/auth/forgot-pwd",
+    path: AuthPagesPathType.FORGOT_PASSWORD,
     icon: FaKey,
   },
 ];
