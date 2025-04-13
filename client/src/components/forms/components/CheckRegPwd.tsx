@@ -6,13 +6,19 @@ type PropsType = {
   focus: boolean;
 };
 
-const Wrapper = ({ children }: { children: React.ReactNode }) => {
+const Wrapper = ({
+  children,
+  min,
+}: {
+  children: React.ReactNode;
+  min: number;
+}) => {
   return (
     <div
       className="max-w-full justify-items-center gap-y-5"
       style={{
         display: "grid",
-        gridTemplateColumns: `repeat(auto-fit, minmax(100px, 1fr))`,
+        gridTemplateColumns: `repeat(auto-fit, minmax(${min}px, 1fr))`,
       }}
     >
       {children}
@@ -36,7 +42,7 @@ const CheckRegPwd: FC<PropsType> = ({ pwd, focus }) => {
         focus && !isValid ? "" : "translate-y-full opacity-0"
       }`}
     >
-      <Wrapper>
+      <Wrapper {...{ min: 50 }}>
         {fieldsCheckReg.slice(0, 3).map((el) => (
           <div
             key={el.id}
@@ -52,7 +58,7 @@ const CheckRegPwd: FC<PropsType> = ({ pwd, focus }) => {
           </div>
         ))}
       </Wrapper>
-      <Wrapper>
+      <Wrapper {...{ min: 100 }}>
         {fieldsCheckReg.slice(3, 5).map((el, i, arg) => (
           <div
             key={el.id}

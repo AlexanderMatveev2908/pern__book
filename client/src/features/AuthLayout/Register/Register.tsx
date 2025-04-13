@@ -127,7 +127,7 @@ const Register: FC = () => {
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm
               ? "max-h-[300px] min-h-[300px]"
-              : "max-h-[375px] min-h-[375px]"
+              : "max-h-[400px] min-h-[400px]"
           }`}
           style={{
             transform: `translateX(-${currForm * 50}%)`,
