@@ -4,8 +4,6 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import style from "./Hero.module.css";
 import { tailwindBreak } from "../../config/breakpoints";
 
-const totLen = heroImages.length;
-
 const getSize = () =>
   window.innerWidth >= tailwindBreak.lg
     ? 350
@@ -13,13 +11,24 @@ const getSize = () =>
     ? 300
     : 200;
 
+const getTotLen = () =>
+  window.innerWidth > tailwindBreak.xl
+    ? heroImages.length - 2
+    : window.innerWidth > tailwindBreak.sm
+    ? heroImages.length - 1
+    : heroImages.length;
+
 const Hero: FC = () => {
   const [currSlide, setCurrSlide] = useState<number>(0);
   const [wImg, setWImg] = useState(getSize());
+  const [totLen, setTotLen] = useState(getTotLen());
   const clickedRef = useRef<boolean>(false);
 
   useEffect(() => {
-    const handleResize = () => setWImg(getSize());
+    const handleResize = () => {
+      setWImg(getSize());
+      setTotLen(getTotLen());
+    };
 
     window.addEventListener("resize", handleResize);
 
@@ -32,20 +41,20 @@ const Hero: FC = () => {
   };
   const incSlide = useCallback(
     () => setCurrSlide((prev) => (prev === totLen - 1 ? 0 : prev + 1)),
-    []
+    [totLen]
   );
   const decSlide = () => {
     handleClickRef();
     setCurrSlide((prev) => (prev === 0 ? totLen - 1 : prev - 1));
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!clickedRef.current) incSlide();
-    }, 1250);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (!clickedRef.current) incSlide();
+  //   }, 1250);
 
-    return () => clearInterval(interval);
-  }, [incSlide]);
+  //   return () => clearInterval(interval);
+  // }, [incSlide]);
 
   return (
     <div className="w-full flex px-10">
