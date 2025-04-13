@@ -3,9 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { DispatchType } from "../../store/store";
 import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
-import { sideFieldsAllUsers } from "../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
+import { sideFieldsAllUsers } from "../../config/fields/fields";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);

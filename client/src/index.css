@@ -44,7 +44,7 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   @apply text-2xl md:text-3xl lg:text-4xl font-extrabold;
 }
 .txt__6 {
-  @apply text-3xl md:text-4xl lg:text-5xl;
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold;
 }
 
 /* ICONS */
@@ -70,6 +70,16 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 
 /* UTILS */
 
+.el__border_sm,
+.el__border_md {
+  @apply border-blue-600 rounded-xl;
+}
+.el__border_sm {
+  @apply border-2;
+}
+.el__border_md {
+  @apply border-[3px];
+}
 .el__flow {
   @apply transition-all duration-300;
 }

@@ -3,8 +3,7 @@ import { FormFieldBasic } from "../../../types/generalFields";
 import { LuAtSign, LuCaseLower, LuCaseUpper } from "react-icons/lu";
 import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";
-import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
-import { SideFieldType } from "../Sidebar/sidebarFields";
+import { fieldsActionsAuth, SideFieldType } from "../fields";
 
 export const emailField = {
   field: "email",

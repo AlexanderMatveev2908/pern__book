@@ -55,7 +55,7 @@ const Button: FC<PropsType> = ({
       type={type}
       ref={btnRef}
       disabled={isDisabled}
-      className={`appearance-none w-full border-2 border-blue-600 rounded-xl py-2 px-10 flex justify-center items-center disabled:opacity-50 ${"btn__container"}`}
+      className={`appearance-none w-full el__border_sm py-2 px-10 flex justify-center items-center disabled:opacity-50 ${"btn__container"}`}
     >
       {/* <div ref={bubbleRefs}></div> */}
       {ids.map((id, i) => (

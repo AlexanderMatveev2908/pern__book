@@ -57,7 +57,7 @@ const Hero: FC = () => {
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
-        <div className="w-full flex gap-[25px] overflow-hidden p-5 border-[3px] border-blue-600 rounded-xl">
+        <div className="w-full flex gap-[25px] overflow-hidden p-5 el__border_md">
           <div
             className="flex gap-[25px] transition-all duration-500"
             style={{

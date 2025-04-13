@@ -5,6 +5,7 @@ import Sidebar from "../../features/Sidebar/Sidebar";
 import Hero from "../../features/Hero/Hero";
 import { REG_PATH_HOME } from "../../config/regex";
 import Toast from "../../features/Toast/Toast";
+import Footer from "../../features/Footer/Footer";
 
 const MainLayout: FC = () => {
   const path = useLocation().pathname;
@@ -18,6 +19,7 @@ const MainLayout: FC = () => {
       <div className="w-full px-5 sm:px-10 pt-6 pb-[100px] flex justify-center">
         <Outlet />
       </div>
+      <Footer />
     </div>
   );
 };

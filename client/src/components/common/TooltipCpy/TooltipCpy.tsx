@@ -43,14 +43,14 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
       className="relative w-full flex justify-start"
     >
       {txt && (
-        <div className="el__cpy_txt border-2 appearance-none border-blue-600 py-1 px-5 rounded-xl cursor-pointer">
+        <div className="el__cpy_txt appearance-none el__border_sm py-1 px-5 cursor-pointer">
           <span className="txt__2">{txt}</span>
         </div>
       )}
 
       <div
         ref={toolRef}
-        className="absolute border-2 border-blue-600 rounded-xl -top-[120%] py-1 px-5 z-60 bg-[#000] left-0 min-w-[200px] flex justify-center tooltip pointer-events-none"
+        className="absolute el__border_sm -top-[120%] py-1 px-5 z-60 bg-[#000] left-0 min-w-[200px] flex justify-center tooltip pointer-events-none"
         style={{
           opacity: "0",
           transform: "translateY(50px)",

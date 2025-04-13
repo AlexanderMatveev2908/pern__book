@@ -4,7 +4,7 @@ import {
   fieldsAuth__0,
   fieldsAuth__1,
   groupFieldsByArea,
-} from "../../../config/fields/AuthLayout/fieldsAuth";
+} from "../../../config/fields/fields.ts";
 import ButtonsSwapper from "../../../components/forms/components/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
 import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm";
@@ -149,7 +149,7 @@ const Register: FC = () => {
 
       <form
         onSubmit={handleSave}
-        className="flex flex-col justify-center border-[3px] p-6 border-blue-600 rounded-xl max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden"
+        className="flex flex-col justify-center  p-6 el__border_md max-w-[500px] sm:max-w-[600px] text-[whitesmoke] overflow-hidden"
       >
         <div
           className={`w-[200%] flex transition-all duration-500 ${

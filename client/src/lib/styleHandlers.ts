@@ -1,4 +1,4 @@
-import { SideFieldType } from "../config/fields/Sidebar/sidebarFields";
+import { SideFieldType } from "../config/fields/fields";
 
 export const handleSideLinkStyle = ({
   path,

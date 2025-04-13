@@ -3,8 +3,8 @@ import { Link, useLocation } from "react-router-dom";
 import {
   fieldLoginSwitch,
   fieldsRegisterSwitch,
-} from "../../../config/fields/AuthLayout/fieldsAuth";
-import { AuthPagesPathType } from "../../../config/fields/general/fieldsActionsAuth";
+} from "../../../config/fields/fields.ts";
+import { AuthPagesPathType } from "../../../config/fields/fields";
 
 const SwitcherFormAuth: FC = () => {
   const path = useLocation().pathname;

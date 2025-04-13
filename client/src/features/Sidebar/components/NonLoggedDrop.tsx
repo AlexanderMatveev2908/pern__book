@@ -3,7 +3,7 @@ import DropHandler from "../../../components/common/DropHandler/DropHandler";
 import {
   fieldAccountNonLogged,
   sideFieldsNonLogged,
-} from "../../../config/fields/Sidebar/sidebarFields";
+} from "../../../config/fields/fields.ts";
 import SideLink from "./SideLink";
 
 type PropsType = {

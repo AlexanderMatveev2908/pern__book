@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { fieldsCheckReg } from "../../../config/fields/AuthLayout/fieldsAuth";
+import { fieldsCheckReg } from "../../../config/fields/fields.ts";
 
 type PropsType = {
   pwd: string | null;
