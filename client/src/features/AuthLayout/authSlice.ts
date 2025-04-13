@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/user";
+import { RootStateType } from "../../store/store";
 
 const initState: AuthState = {
   isLogged: !!sessionStorage.getItem("accessToken"),
@@ -19,4 +20,5 @@ const authSlice = createSlice({
 });
 
 export const { login, logout } = authSlice.actions;
+export const getAuthState = (state: RootStateType) => state.auth;
 export default authSlice.reducer;

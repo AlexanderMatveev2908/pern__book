@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DispatchType, RootStateType } from "../../store/store";
-import { setIsSideOpen } from "../Header/headerSlice";
+import { DispatchType } from "../../store/store";
+import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
 import { sideFieldsAllUsers } from "../../config/fields/Sidebar/sidebarFields";
 import SideLink from "./components/SideLink";
@@ -11,9 +11,7 @@ const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
 
   const dispatch: DispatchType = useDispatch();
-  const isSideOpen = useSelector(
-    (state: RootStateType) => state.sidebar.isSideOpen
-  );
+  const isSideOpen = useSelector(getSIde).isSideOpen;
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {

@@ -2,6 +2,7 @@ import { configureStore } from "@reduxjs/toolkit";
 import { apiSlice } from "./apiSlice";
 import sideReducer from "../features/Header/headerSlice";
 import authReducer from "../features/AuthLayout/authSlice";
+import toastReducer from "../features/Toast/toastSlice";
 
 export const store = configureStore({
   reducer: {
@@ -9,6 +10,7 @@ export const store = configureStore({
     appAPI: apiSlice.reducer,
     sidebar: sideReducer,
     auth: authReducer,
+    toast: toastReducer,
     // [apiSlice.reducerPath]: apiSlice.reducer,
   },
   //  by default redux pass middleware to serialize data of obj, loggers , async thunk and we keep them concatenating with our custom one
