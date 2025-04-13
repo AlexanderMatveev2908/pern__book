@@ -3,8 +3,8 @@ import { FaBook } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
-import { LabelDropType } from "../../../types/generalFields";
-import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
+import { LabelDropType } from "../../../../types/generalFields";
+import { fieldsActionsAuth } from "../../all/general/fieldsActionsAuth";
 
 export type SideFieldType = {
   id: string;

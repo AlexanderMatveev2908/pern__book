@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { FormFieldBasic } from "../../../types/generalFields";
+import { FormFieldBasic } from "../../../../types/generalFields";
 import { LuAtSign, LuCaseLower, LuCaseUpper } from "react-icons/lu";
 import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";

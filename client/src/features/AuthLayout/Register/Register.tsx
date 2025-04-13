@@ -11,9 +11,14 @@ import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm"
 import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { REG_NAME, REG_PWD } from "../../../config/regex";
+import { REG_NAME } from "../../../config/regex";
 import { useForm } from "react-hook-form";
-import { getErrCurrSwap, getErrLen, schemaEmail } from "../../../lib/lib.ts";
+import {
+  getErrCurrSwap,
+  getErrLen,
+  schemaEmail,
+  schemaPwd,
+} from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/useShowPwd";
 import FormField from "../../../components/forms/components/inputs/FormField";
@@ -36,12 +41,7 @@ const schema = z
       .max(30, "First Name must be less than 30 characters")
       .regex(REG_NAME, "Invalid Last Name format"),
     ...schemaEmail(),
-    password: z
-      .string()
-      .min(1, "Password is required")
-      .max(30, "Password too long")
-      .regex(REG_PWD, "Invalid password format")
-      .nullable(),
+    ...schemaPwd(),
     confirmPassword: z.string().min(1, "You must confirm your password"),
     terms: z.boolean().nullable(),
   })
@@ -102,8 +102,8 @@ const Register: FC = () => {
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
 
-  const isDisabled = useMemo(() => getErrLen(errors), [errors]);
   const vals = watch();
+  const isDisabled = useMemo(() => getErrLen(errors, vals), [errors, vals]);
 
   useEffect(() => {
     const listenErr = () => {
@@ -140,17 +140,11 @@ const Register: FC = () => {
 
   const pwd = watch("password");
 
-  console.log(isNextDisabled);
-  console.log(isDisabled);
-
   return (
-    <div className="w-full grid justify-items-center gap-10">
+    <div className="parent__form">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-      <form
-        onSubmit={handleSave}
-        className="flex flex-col justify-center  p-6 el__border_md max-w-[500px] sm:max-w-[600px] txt__col overflow-hidden"
-      >
+      <form onSubmit={handleSave} className="form__content overflow-hidden">
         <div
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm

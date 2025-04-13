@@ -16,7 +16,7 @@ const MainLayout: FC = () => {
       <Toast />
       {REG_PATH_HOME.test(path) && <Hero />}
       <Sidebar />
-      <div className="w-full px-5 sm:px-10 pt-6 pb-[200px] flex justify-center">
+      <div className="w-full px-5 sm:px-10 pt-6 pb-[300px] flex justify-center">
         <Outlet />
       </div>
       <Footer />

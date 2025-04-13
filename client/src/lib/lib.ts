@@ -1,3 +1,3 @@
-export * from "./forms/forms";
-export * from "./random";
-export * from "./styleHandlers";
+export * from "./all/forms/forms";
+export * from "./all/random";
+export * from "./all/styleHandlers";
