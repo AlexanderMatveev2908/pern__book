@@ -8,8 +8,8 @@ import {
 enum AuthPages {
   REGISTER = "/auth/register",
   LOGIN = "/auth/login",
-  FORGOT_PASSWORD = "/auth/forgot-password",
-  VERIFY_EMAIL = "/auth/verify-email",
+  FORGOT_PASSWORD = "/auth/forgot-pwd",
+  VERIFY_EMAIL = "/auth/verify-account",
 }
 
 const SwitcherFormAuth: FC = () => {

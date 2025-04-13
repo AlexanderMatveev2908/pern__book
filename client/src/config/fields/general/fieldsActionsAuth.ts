@@ -10,17 +10,17 @@ export const fieldsActionsAuth = [
   },
   {
     label: "Login",
-    path: "to-do",
+    path: "/auth/login",
     icon: MdLogin,
   },
   {
     label: "Verify email",
-    path: "to-do",
+    path: "/auth/verify-account",
     icon: FaRegCheckCircle,
   },
   {
     label: "Recover account",
-    path: "to-do",
+    path: "/auth/forgot-pwd",
     icon: FaKey,
   },
 ];
