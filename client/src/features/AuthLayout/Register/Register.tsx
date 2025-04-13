@@ -21,6 +21,7 @@ import PwdField from "../../../components/forms/components/inputs/PwdField/PwdFi
 import WrapperFocus from "../../../components/forms/components/WrapperFocus";
 import { useDispatch } from "react-redux";
 import { openToast, ToastEventType } from "../../Toast/toastSlice";
+import SwitcherFormAuth from "../../../components/forms/components/SwitcherFormAuth";
 
 const schema = z
   .object({
@@ -139,8 +140,11 @@ const Register: FC = () => {
 
   const pwd = watch("password");
 
+  console.log(isNextDisabled);
+  console.log(isDisabled);
+
   return (
-    <div className="w-full grid justify-items-center gap-5">
+    <div className="w-full grid justify-items-center gap-10">
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
       <form
@@ -151,7 +155,7 @@ const Register: FC = () => {
           className={`w-[200%] flex transition-all duration-500 ${
             !currForm
               ? "max-h-[300px] min-h-[300px]"
-              : "max-h-[400px] min-h-[400px]"
+              : "max-h-[350px] min-h-[350px]"
           }`}
           style={{
             transform: `translateX(-${currForm * 50}%)`,
@@ -210,6 +214,8 @@ const Register: FC = () => {
           </div>
         </ButtonsSwapper>
       </form>
+
+      <SwitcherFormAuth />
     </div>
   );
 };

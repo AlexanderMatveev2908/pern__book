@@ -3,6 +3,8 @@ import { FormFieldBasic } from "../../../types/generalFields";
 import { LuAtSign, LuCaseLower, LuCaseUpper } from "react-icons/lu";
 import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";
+import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
+import { SideFieldType } from "../Sidebar/sidebarFields";
 
 export const emailField = {
   field: "email",
@@ -68,3 +70,28 @@ export const fieldsCheckReg = [
   ...el,
   id: v4(),
 }));
+
+const [register, login, verify, forgot] = fieldsActionsAuth;
+
+export type FieldSwitchFormType = SideFieldType & {
+  msg: string;
+  msgBold: string;
+};
+
+export const fieldLoginSwitch: FieldSwitchFormType[] = [register, forgot].map(
+  (el, i) => ({
+    ...el,
+    msg: !i ? "Don't have an' account ?" : "Forgot password ?",
+    msgBold: !i ? "Register" : "Recover account",
+    id: v4(),
+  })
+);
+
+export const fieldsRegisterSwitch: FieldSwitchFormType[] = [login, verify].map(
+  (el, i) => ({
+    ...el,
+    msg: !i ? "Already have an' account ?" : "Email does not arrive ?",
+    msgBold: !i ? "Login" : "Resend email",
+    id: v4(),
+  })
+);

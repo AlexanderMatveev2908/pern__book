@@ -103,7 +103,7 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   @apply py-1;
 }
 .input__icon {
-  @apply py-3;
+  @apply py-2;
 }
 .input__base:focus,
 .input__icon:focus {

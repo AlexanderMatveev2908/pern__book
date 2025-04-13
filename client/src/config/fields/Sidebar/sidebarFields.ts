@@ -1,11 +1,10 @@
 import { GoHome } from "react-icons/go";
-import { FaBook, FaKey, FaRegCheckCircle } from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
-import { MdLogin } from "react-icons/md";
-import { LuUserPen } from "react-icons/lu";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../types/generalFields";
+import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
 
 export type SideFieldType = {
   id: string;
@@ -30,31 +29,12 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   id: v4(),
 }));
 
-export const sideFieldsNonLogged: SideFieldType[] = [
-  {
-    label: "Register",
-    path: "/auth/register",
-    icon: LuUserPen,
-  },
-  {
-    label: "Login",
-    path: "to-do",
-    icon: MdLogin,
-  },
-  {
-    label: "Verify email",
-    path: "to-do",
-    icon: FaRegCheckCircle,
-  },
-  {
-    label: "Recover account",
-    path: "to-do",
-    icon: FaKey,
-  },
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));
+export const sideFieldsNonLogged: SideFieldType[] = [...fieldsActionsAuth].map(
+  (el) => ({
+    ...el,
+    id: v4(),
+  })
+);
 
 export const fieldAccountNonLogged: LabelDropType = {
   label: "Account",

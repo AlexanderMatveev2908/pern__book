@@ -29,8 +29,8 @@ const BreadCrumbForm: FC<PropsType> = ({ currForm, totLen }) => {
         {ids.map((id, i) => (
           <div key={id} className="w-full flex z-30 justify-end">
             <div
-              className={`border-[3px]  rounded-full h-[50px] w-[50px] flex justify-center items-center transition-all duration-500 text-[whitesmoke] ${
-                i === currForm ? "scale-[1.25]" : ""
+              className={`border-[3px]  rounded-full h-[45px] w-[45px] flex justify-center items-center transition-all duration-500 text-[whitesmoke] ${
+                i === currForm ? "scale-[1.35]" : ""
               } ${
                 currForm >= i
                   ? "bg-blue-600 border-[whitesmoke]"
@@ -40,7 +40,9 @@ const BreadCrumbForm: FC<PropsType> = ({ currForm, totLen }) => {
               {i + 1 === totLen ? (
                 <FaCheck className="min-w-[25px] min-h-[25px]" />
               ) : (
-                <span className="txt__5">{i + 1}</span>
+                <span className={`${i === currForm ? "txt__4" : "txt__3"}`}>
+                  {i + 1}
+                </span>
               )}
             </div>
           </div>
