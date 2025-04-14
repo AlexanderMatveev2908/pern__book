@@ -13,7 +13,7 @@ const App: FC = () => {
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
-        <Route index element={<HomePage />} />
+        <Route index={true} element={<HomePage />} />
 
         <Route path="auth" element={<AuthLayout />}>
           <Route path="register" element={<RegisterPage />} />

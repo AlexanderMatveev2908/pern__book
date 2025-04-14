@@ -22,3 +22,9 @@ export const makeDelay = (cb: () => any) =>
       res(result);
     }, 250)
   );
+
+export const addFlagCB = <T>(cb: T) => {
+  (cb as T & { run: boolean }).run = true;
+
+  return cb;
+};

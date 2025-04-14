@@ -12,6 +12,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
+  addFlagCB,
   getErrCurrSwap,
   getErrLen,
   makeNoticeTxt,
@@ -85,8 +86,8 @@ const Register: FC = () => {
       type: EventApp.OK,
     };
     saveStorage({ data: notice, key: "notice" });
-    const cbRegister: NoticeCB = () => dispatch(login());
-    cbRegister.run = true;
+
+    const cbRegister: NoticeCB = addFlagCB(() => dispatch(login()));
     dispatch(setNotice({ ...notice, cb: cbRegister }));
 
     navigate("/notice", {
