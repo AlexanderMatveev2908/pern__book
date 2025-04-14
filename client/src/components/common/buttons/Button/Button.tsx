@@ -7,7 +7,8 @@ import { makeRandomMinMax } from "../../../../lib/lib.ts";
 const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 
 type PropsType = {
-  isPending: boolean;
+  isAging?: boolean;
+  isPending?: boolean;
   type?: "button" | "submit";
   label?: string;
   Icon?: React.ElementType;
@@ -15,6 +16,7 @@ type PropsType = {
 };
 
 const Button: FC<PropsType> = ({
+  isAging,
   isPending,
   label,
   type = "submit",
@@ -48,13 +50,13 @@ const Button: FC<PropsType> = ({
     return () => document.removeEventListener("mousedown", animate);
   }, [ids]);
 
-  return isPending ? (
+  return isAging ? (
     <SpinnerBtn />
   ) : (
     <button
       type={type}
       ref={btnRef}
-      disabled={isDisabled}
+      disabled={isDisabled || isPending}
       className={`appearance-none w-full el__border_sm py-2 px-10 flex justify-center items-center disabled:opacity-50 ${"btn__container"}`}
     >
       {/* <div ref={bubbleRefs}></div> */}
@@ -83,7 +85,7 @@ const Button: FC<PropsType> = ({
       <div className="w-full flex justify-center items-center gap-5">
         {Icon && <Icon className="icon__sm" />}
 
-        <span className="txt__3">{label}</span>
+        <span className="txt__3">{isPending ? "Pending..." : label}</span>
       </div>
     </button>
   );

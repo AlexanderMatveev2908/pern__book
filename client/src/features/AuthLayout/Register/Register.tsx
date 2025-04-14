@@ -17,19 +17,17 @@ import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
 import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
-import { useDispatch } from "react-redux";
-import { openToast, ToastEventType } from "../../Toast/toastSlice";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useErr } from "@/hooks/hooks.ts";
+import { useWrapAPI } from "@/hooks/hooks.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
   const [currForm, setCurrFormBeforeCB] = useState(0);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
 
-  const { wrapAPI } = useErr();
+  const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
+  const { wrapAPI } = useWrapAPI();
 
-  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -49,8 +47,7 @@ const Register: FC = () => {
     },
   });
 
-  const [registerUser, { isError, error, isLoading, isSuccess }] =
-    useRegisterUserMutation();
+  const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const handleSave = handleSubmit(async (formData) => {
     // eslint-disable-next-line
@@ -62,8 +59,6 @@ const Register: FC = () => {
 
     console.log(res);
   });
-
-  const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
 
   const vals = watch();
   const isDisabled = useMemo(() => getErrLen(errors, vals), [errors, vals]);
@@ -164,7 +159,7 @@ const Register: FC = () => {
             <div className="max-w-[250px] justify-self-center">
               <Button
                 {...{
-                  isPending: false,
+                  isPending: isLoading,
                   isDisabled: isDisabled || isNextDisabled,
                   label: "Register",
                 }}

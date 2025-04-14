@@ -8,5 +8,6 @@ export const registerUser = async (
 
   console.log(newUser);
 
-  return res.status(400).json({ ok: true, msg: "User already exist" });
+  // return res.status(400).end();
+  return res.status(200).json({ ok: true, msg: "User registered" });
 };
