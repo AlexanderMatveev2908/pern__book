@@ -1,8 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import apiSlice, { middlewareAuth } from "./apiSlice";
 import sideReducer from "../features/Header/headerSlice";
 import authReducer from "../features/AuthLayout/authSlice";
 import toastReducer from "../features/Toast/toastSlice";
+import apiSlice from "./apiSlice";
+import { middlewareAuth } from "./middleware/middlewareAuth";
 
 export const store = configureStore({
   reducer: {

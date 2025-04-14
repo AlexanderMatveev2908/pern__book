@@ -9,6 +9,13 @@ export type RegisterParamsAPI = {
 
 export const authAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    refreshToken: builder.mutation({
+      query: (someContent) => ({
+        url: "/auth/login",
+        method: "POST",
+        data: someContent,
+      }),
+    }),
     registerUser: builder.mutation({
       query: (newUser: RegisterParamsAPI) => ({
         url: "/auth/register",
