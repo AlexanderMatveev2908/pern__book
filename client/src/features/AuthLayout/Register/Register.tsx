@@ -53,11 +53,9 @@ const Register: FC = () => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
 
-    const res = await wrapAPI(() =>
+    await wrapAPI(() =>
       registerUser(newUser as NonNullable<RegisterParamsAPI>)
     );
-
-    console.log(res);
   });
 
   const vals = watch();

@@ -8,8 +8,6 @@ export enum ErrAppMsgCode {
   REFRESH_EXPIRED = "REFRESH TOKEN EXPIRED",
   REFRESH_INVALID = "REFRESH TOKEN INVALID",
   REFRESH_NOT_PROVIDED = "REFRESH TOKEN NOT PROVIDED",
-
-  NOT_ALLOWED = "USER DOES NOT HAVE PERMISSION TO PERFORM ACTION",
 }
 
 export const errApp = (res: Response, status: number, msg?: string) =>

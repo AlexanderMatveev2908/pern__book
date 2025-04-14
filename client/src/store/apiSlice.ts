@@ -2,6 +2,8 @@
 import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import { appInstance } from "@/config/axios";
 import { AxiosResponse } from "axios";
+import { isRejectedWithValue } from "@reduxjs/toolkit";
+import { isAccessExpired } from "@/types/all/API";
 
 export type TagTypes = "books" | "user";
 
@@ -12,15 +14,31 @@ export type TagTypes = "books" | "user";
 //   credentials: "include",
 // });
 
+export const middlewareAuth = () => (next: any) => (action: any) => {
+  if (isRejectedWithValue(action)) {
+    if (action.payload.status === 401) {
+      const { response: { data, config } = {} } = action.payload;
+      console.group("MIDDLEWARE APP");
+      console.log(data);
+      console.log(config);
+      console.groupEnd();
+
+      if (isAccessExpired(data?.msg)) console.log("LOGOUT");
+    }
+  }
+
+  return next(action);
+};
+
 const axiosBaseQuery: BaseQueryFn<{
   url: string;
   method: string;
   data?: any;
   params?: any;
 }> = async ({ url, method, data, params }) => {
-  console.group("API SLICE");
-  console.log(data);
-  console.groupEnd();
+  // console.group("API SLICE");
+  // console.log(data);
+  // console.groupEnd();
 
   try {
     const res: AxiosResponse = await appInstance({
