@@ -1,0 +1,26 @@
+@import "tailwindcss";
+
+.icon__notice {
+  @apply min-w-[200px] sm:min-w-[300px] min-h-[200px] sm:min-h-[300px];
+  animation: notice_stuff 0.6s linear forwards;
+}
+@keyframes notice_stuff {
+  0% {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1.4, 0.6);
+  }
+  50% {
+    transform: scale(0.6, 1.4);
+  }
+  70% {
+    transform: scale(1.2, 0.8);
+  }
+  85% {
+    transform: scale(0.9, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}

@@ -6,9 +6,12 @@ import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
 import { sideFieldsAllUsers } from "../../config/fields/fields";
+import { getAuthState } from "../AuthLayout/authSlice";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
+  const authState = useSelector(getAuthState);
+  const isLogged = authState.isLogged;
 
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
@@ -25,8 +28,6 @@ const Sidebar: FC = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, [dispatch]);
-
-  const isLogged = false;
 
   const handleSideClick = () => dispatch(setIsSideOpen(false));
 

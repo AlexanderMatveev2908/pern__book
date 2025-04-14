@@ -11,7 +11,14 @@ import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { getErrCurrSwap, getErrLen, schemaRegister } from "../../../lib/lib.ts";
+import {
+  getErrCurrSwap,
+  getErrLen,
+  makeDelay,
+  makeNoticeTxt,
+  saveStorage,
+  schemaRegister,
+} from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import FormField from "../../../components/forms/components/inputs/FormField";
@@ -19,31 +26,45 @@ import PwdField from "../../../components/forms/components/inputs/PwdField/PwdFi
 import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
 import { useWrapAPI } from "@/hooks/hooks.ts";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { login } from "../authSlice.ts";
+import { AllowedFromNotice, EventApp } from "@/types/types.ts";
+import { NoticeCB, setNotice } from "@/features/Notice/noticeSlice.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
   const [currForm, setCurrFormBeforeCB] = useState(0);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
+  const navigate = useNavigate();
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
   const { wrapAPI } = useWrapAPI();
 
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
     watch,
     setValue,
     handleSubmit,
+    reset,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
     defaultValues: {
-      firstName: "alex",
-      lastName: "matveev",
+      firstName: "ddd",
+      lastName: "ddd",
       email: "matveevalexander470@gmail.com",
       password: "@2}mX_}^]3#lA^w5",
       confirmPassword: "@2}mX_}^]3#lA^w5",
       terms: true,
+      // firstName: "",
+      // lastName: "",
+      // email: "",
+      // password: "",
+      // confirmPassword: "",
+      // terms: null,
     },
   });
 
@@ -53,9 +74,26 @@ const Register: FC = () => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
 
-    await wrapAPI(() =>
-      registerUser(newUser as NonNullable<RegisterParamsAPI>)
-    );
+    // const { accessToken } = await wrapAPI(() =>
+    //   registerUser(newUser as NonNullable<RegisterParamsAPI>)
+    // );
+    // sessionStorage.setItem("accessToken", accessToken as string);
+
+    reset();
+
+    const notice = {
+      notice: makeNoticeTxt("to verify your account"),
+      type: EventApp.OK,
+    };
+    saveStorage({ data: notice, key: "notice" });
+    const cbRegister: NoticeCB = () => dispatch(login());
+    cbRegister.run = true;
+    dispatch(setNotice({ ...notice, cb: cbRegister }));
+
+    navigate("/notice", {
+      replace: true,
+      state: { from: AllowedFromNotice.REGISTER },
+    });
   });
 
   const vals = watch();

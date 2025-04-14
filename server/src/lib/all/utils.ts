@@ -9,3 +9,5 @@ export const calcTimeRun = async (cb: () => Promise<any>) => {
 
   return res;
 };
+
+export const capChar = (txt: string) => txt.at(0)?.toUpperCase() + txt.slice(1);

@@ -1,14 +1,9 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { RootStateType } from "../../store/store";
-
-export enum ToastEventType {
-  OK = "SUCCESS",
-  ERR = "ERROR",
-  INFO = "INFO",
-}
+import { EventApp } from "@/types/types";
 
 export interface ToastType {
-  type: ToastEventType;
+  type: EventApp;
   msg: string;
   statusCode?: number;
 }

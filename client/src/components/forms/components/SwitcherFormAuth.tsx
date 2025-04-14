@@ -3,18 +3,22 @@ import { Link, useLocation } from "react-router-dom";
 import {
   fieldLoginSwitch,
   fieldsRegisterSwitch,
+  fieldsSwitchForgot,
+  fieldsSwitchVerify,
 } from "../../../config/fields/fields.ts";
 import { AuthPagesPathType } from "../../../config/fields/fields";
 
 const SwitcherFormAuth: FC = () => {
   const path = useLocation().pathname;
 
-  const arg = [
-    AuthPagesPathType.LOGIN,
-    AuthPagesPathType.FORGOT_PASSWORD,
-  ].includes(path as AuthPagesPathType)
-    ? fieldLoginSwitch
-    : fieldsRegisterSwitch;
+  const arg =
+    AuthPagesPathType.LOGIN === (path as AuthPagesPathType)
+      ? fieldLoginSwitch
+      : AuthPagesPathType.REGISTER === path
+      ? fieldsRegisterSwitch
+      : AuthPagesPathType.FORGOT_PASSWORD === path
+      ? fieldsSwitchForgot
+      : fieldsSwitchVerify;
 
   return (
     <div className="w-full txt__col grid gap-y-5 md:grid-cols-2 justify-items-center">

@@ -78,25 +78,49 @@ export type FieldSwitchFormType = SideFieldType & {
   msgBold: string;
 };
 
-export const fieldsRegisterSwitch: FieldSwitchFormType[] = [login, forgot].map(
-  (el, i) => ({
-    ...el,
-    msg: !i ? "Already have an' account ?" : "Forgot password ?",
-    msgBold: !i ? "Login" : "Recover account",
-    id: v4(),
-  })
-);
+const registerSwitch = {
+  ...register,
+  msg: "Don't have an' account ?",
+  msgBold: "Register",
+};
+const loginSwitch = {
+  ...login,
+  msg: "Already have an' account ?",
+  msgBold: "Login",
+};
+const verifySwitch = {
+  ...verify,
+  msg: "Email did not arrive ?",
+  msgBold: "Send new email",
+};
+const forgotSwitch = {
+  ...forgot,
+  msg: "Forgot password ?",
+  msgBold: "Recover",
+};
 
-export const fieldLoginSwitch: FieldSwitchFormType[] = [register, verify].map(
-  (el, i) => ({
-    ...el,
-    msg: !i ? "Don't have an' account ?" : "Email did not arrive ?",
-    msgBold: !i ? "Register" : "Resend email",
-    id: v4(),
-  })
-);
+export const fieldsRegisterSwitch: FieldSwitchFormType[] = [
+  loginSwitch,
+  verifySwitch,
+].map((el) => ({
+  ...el,
 
-export const fieldsSwitchForgot = fieldLoginSwitch.map((el) => ({
+  id: v4(),
+}));
+
+export const fieldLoginSwitch: FieldSwitchFormType[] = [
+  registerSwitch,
+  forgotSwitch,
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+
+export const fieldsSwitchForgot = [registerSwitch, verifySwitch].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+export const fieldsSwitchVerify = [registerSwitch, forgotSwitch].map((el) => ({
   ...el,
   id: v4(),
 }));

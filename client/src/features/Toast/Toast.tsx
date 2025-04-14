@@ -1,14 +1,10 @@
 import { FC, useCallback, useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
 import "./Toast.css";
-import {
-  closeToast,
-  getToast,
-  reopenToast,
-  ToastEventType,
-} from "./toastSlice";
+import { closeToast, getToast, reopenToast } from "./toastSlice";
 import { useDispatch, useSelector } from "react-redux";
 import "./Toast.css";
+import { EventApp } from "@/types/types";
 
 /* IMPORTANT => {
 THE FLOW TO MAKE IN A WAY THE ALL WORK IN RIGHT DIRECTION FOR SMOOTH UI AND SYNC IS 
@@ -97,9 +93,7 @@ const Toast: FC = () => {
     <div
       ref={toastRef}
       className={`z__toast fixed top-5 right-5 border-[3px] bg-[#000] rounded-xl w-fit min-w-[300px] sm:min-w-[450px] max-w-[80vw] sm:max-w-[500px] md:max-w-[600px] el__toast_container overflow-hidden ${
-        toast?.type === ToastEventType.OK
-          ? "border-green-600"
-          : "border-red-600"
+        toast?.type === EventApp.OK ? "border-green-600" : "border-red-600"
       }`}
       style={{
         transform: "translateX(150%)",
@@ -110,9 +104,7 @@ const Toast: FC = () => {
         {/* TYPE EVENT */}
         <div
           className={`w-full flex justify-start pt-[4px] px-8 ${
-            toast?.type === ToastEventType.OK
-              ? "text-green-600"
-              : "text-red-600"
+            toast?.type === EventApp.OK ? "text-green-600" : "text-red-600"
           }`}
         >
           <div className="w-full flex items-center gap-3">
@@ -124,7 +116,7 @@ const Toast: FC = () => {
         {/* SIDE LINE */}
         <div
           className={`absolute top-0 bottom-0 left-0 min-w-[10px] min-h-[120%] ${
-            toast?.type === ToastEventType.OK ? "bg-green-600" : "bg-red-600"
+            toast?.type === EventApp.OK ? "bg-green-600" : "bg-red-600"
           }`}
         ></div>
 
@@ -145,7 +137,7 @@ const Toast: FC = () => {
         <div
           ref={counterRef}
           className={`absolute left-0 bottom-0 h-[3px] ${
-            toast?.type === ToastEventType.OK ? "bg-green-600" : "bg-red-600"
+            toast?.type === EventApp.OK ? "bg-green-600" : "bg-red-600"
           }`}
           style={{
             width: "100%",

@@ -6,6 +6,6 @@ import { getAuthState } from "../../features/AuthLayout/authSlice";
 const AuthLayout: FC = () => {
   const isLogged = useSelector(getAuthState).isLogged;
 
-  return isLogged ? <Navigate to="/" replace /> : <Outlet />;
+  return isLogged ? <Navigate to="/" replace={true} /> : <Outlet />;
 };
 export default AuthLayout;

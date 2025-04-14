@@ -1,4 +1,5 @@
-import { openToast, ToastEventType } from "@/features/Toast/toastSlice";
+import { openToast } from "@/features/Toast/toastSlice";
+import { EventApp } from "@/types/types";
 import { useDispatch } from "react-redux";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
@@ -10,7 +11,7 @@ export const useWrapAPI = () => {
       const { status, data } = await cbAPI().unwrap();
       dispatch(
         openToast({
-          type: ToastEventType.OK,
+          type: EventApp.OK,
           msg: data?.msg || "operation successful",
           statusCode: status,
         })
@@ -30,7 +31,7 @@ export const useWrapAPI = () => {
 
       dispatch(
         openToast({
-          type: ToastEventType.ERR,
+          type: EventApp.ERR,
           msg: data?.msg || "Server was tired and take a coffee break ☕",
           statusCode: status,
         })

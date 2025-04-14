@@ -7,3 +7,15 @@ export enum ErrAppMsgCode {
   REFRESH_INVALID = "REFRESH TOKEN INVALID",
   REFRESH_NOT_PROVIDED = "REFRESH TOKEN NOT PROVIDED",
 }
+
+export enum EventApp {
+  OK = "SUCCESS",
+  ERR = "ERROR",
+  INFO = "INFO",
+}
+
+export enum AllowedFromNotice {
+  REGISTER = "/auth/register",
+  VERIFY_ACCOUNT = "/auth/verify-account",
+  FORGOT_PWD = "/auth/forgot-pwd",
+}
