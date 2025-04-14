@@ -13,7 +13,8 @@ export const authAPI = apiSlice.injectEndpoints({
       query: (newUser: RegisterParamsAPI) => ({
         url: "/auth/register",
         method: "POST",
-        body: newUser,
+        // RENAME "BODY" OF RTK QUERY TO "DATA" FOR AXIOS BASE_QUERY
+        data: newUser,
       }),
     }),
   }),
