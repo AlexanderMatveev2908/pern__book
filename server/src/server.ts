@@ -3,8 +3,9 @@ import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
 import { makeRelations } from "./theorySql/models/relations.js";
 import mainRouter from "./routes/route.js";
-import { bindModels } from "./models/models.js";
 import { errMiddleware } from "./middleware/middleware.js";
+import { bindModels } from "./models/models.js";
+import { clearDB } from "./stuff/clear.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -17,6 +18,8 @@ app.use(express.json());
 app.use("/api/v1", mainRouter);
 
 app.use(errMiddleware);
+
+// clearDB();
 
 const start = async () => {
   try {

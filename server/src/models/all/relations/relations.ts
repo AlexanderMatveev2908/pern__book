@@ -36,6 +36,7 @@ const User = seq.define<UserType>(
     role: {
       type: DataTypes.ENUM(...Object.values(UserRole)),
       allowNull: false,
+      defaultValue: UserRole.CUSTOMER,
     },
     isVerified: {
       type: DataTypes.BOOLEAN,
