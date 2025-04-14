@@ -2,7 +2,7 @@
 import { FC, useState } from "react";
 import PwdField from "../inputs/PwdField/PwdField";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { FormFieldBasic } from "../../../../types/generalFields";
+import { FormFieldBasic } from "../../../../types/types.ts";
 import CheckRegPwd from "./CheckRegPwd";
 
 type PropsType = {

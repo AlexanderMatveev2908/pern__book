@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { FaChevronDown } from "react-icons/fa";
-import { LabelDropType } from "../../../types/generalFields";
+import { LabelDropType } from "../../../types/types";
 
 type PropsType = {
   isDropOpen: boolean;

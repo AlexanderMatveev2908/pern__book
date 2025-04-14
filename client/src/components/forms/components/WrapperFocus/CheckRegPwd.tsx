@@ -1,6 +1,6 @@
 import { FC, useCallback, useMemo } from "react";
 import { fieldsCheckReg } from "../../../../config/fields/fields.ts";
-import { PwdCheckerType } from "../../../../types/generalFields.ts";
+import { PwdCheckerType } from "../../../../types/types.ts";
 
 type PropsType = {
   pwd: string | null;

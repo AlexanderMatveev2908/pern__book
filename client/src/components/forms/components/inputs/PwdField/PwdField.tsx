@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
-import { FormFieldBasic } from "../../../../../types/generalFields";
+import { FormFieldBasic } from "../../../../../types/types.ts";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import "./PwdField.css";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";

@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { FieldErrors } from "react-hook-form";
-import { FormFieldBasic } from "../../../../types/generalFields";
+import { FormFieldBasic } from "../../../../types/types.ts";
 import { useSavePrevErr } from "../../../../hooks/all/forms/useSavePrevErr";
 
 type PropsType = {

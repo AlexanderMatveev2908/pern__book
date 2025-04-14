@@ -2,7 +2,7 @@
 import { FC } from "react";
 import ErrorFormField from "./ErrorFormField";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { FormFieldBasic } from "../../../../types/generalFields";
+import { FormFieldBasic } from "../../../../types/types.ts";
 
 type PropsType = {
   register: UseFormRegister<any>;
