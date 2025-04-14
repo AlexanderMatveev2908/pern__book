@@ -7,21 +7,31 @@ export const useWrapAPI = () => {
 
   const wrapAPI = async (cbAPI: () => any) => {
     try {
-      const res = await cbAPI().unwrap();
+      const { status, data } = await cbAPI().unwrap();
       dispatch(
         openToast({
           type: ToastEventType.OK,
-          msg: res?.msg,
+          msg: data?.msg || "operation successful",
+          statusCode: status,
         })
       );
-      return res;
+
+      console.group("DATA API");
+      console.log(data);
+      console.groupEnd();
+
+      return data;
     } catch (err: any) {
-      const { data, status = 500 } = err ?? {};
+      const { response: { data, status } = {} } = err ?? {};
+
+      console.group("ERR API");
+      console.log(err);
+      console.groupEnd();
 
       dispatch(
         openToast({
           type: ToastEventType.ERR,
-          msg: data?.msg || "Something went wrong",
+          msg: data?.msg || "Server was tired and take a coffee break ☕",
           statusCode: status,
         })
       );

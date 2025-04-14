@@ -115,10 +115,8 @@ const Toast: FC = () => {
               : "text-red-600"
           }`}
         >
-          <div className="w-full flex items-center gap-5">
-            {toast?.type === ToastEventType.ERR && (
-              <span className="txt__5">{toast?.statusCode ?? ""}</span>
-            )}
+          <div className="w-full flex items-center gap-3">
+            <span className="txt__5">{toast?.statusCode ?? ""}</span>
             <span className="txt__4">{toast?.type}</span>
           </div>
         </div>
