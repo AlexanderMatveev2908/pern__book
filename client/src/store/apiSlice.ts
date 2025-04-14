@@ -10,7 +10,7 @@ const baseQuery = fetchBaseQuery({
   credentials: "include",
 });
 
-export const apiSlice = createApi({
+const apiSlice = createApi({
   // define a base url with options like in axios with his interceptors
   baseQuery,
   // tags that we use for invalidation of cache api data like in tanstack use query
@@ -19,3 +19,5 @@ export const apiSlice = createApi({
   reducerPath: "appAPI",
   endpoints: () => ({}),
 });
+
+export default apiSlice;

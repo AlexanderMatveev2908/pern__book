@@ -19,11 +19,15 @@ import PwdField from "../../../components/forms/components/inputs/PwdField/PwdFi
 import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
 import { useDispatch } from "react-redux";
 import { openToast, ToastEventType } from "../../Toast/toastSlice";
+import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
+import { useErr } from "@/hooks/hooks.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
   const [currForm, setCurrFormBeforeCB] = useState(0);
   const [isNextDisabled, setIsNextDisabled] = useState(true);
+
+  const { wrapAPI } = useErr();
 
   const dispatch = useDispatch();
   const {
@@ -36,22 +40,27 @@ const Register: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
     defaultValues: {
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: null,
-      confirmPassword: "",
-      terms: null,
+      firstName: "alex",
+      lastName: "matveev",
+      email: "matveevalexander470@gmail.com",
+      password: "@2}mX_}^]3#lA^w5",
+      confirmPassword: "@2}mX_}^]3#lA^w5",
+      terms: true,
     },
   });
-  const handleSave = handleSubmit((formData) => {
-    console.log(formData);
-    dispatch(
-      openToast({
-        type: ToastEventType.OK,
-        msg: "Registration successful",
-      })
+
+  const [registerUser, { isError, error, isLoading, isSuccess }] =
+    useRegisterUserMutation();
+
+  const handleSave = handleSubmit(async (formData) => {
+    // eslint-disable-next-line
+    const { confirmPassword: _, terms: __, ...newUser } = formData;
+
+    const res = await wrapAPI(() =>
+      registerUser(newUser as NonNullable<RegisterParamsAPI>)
     );
+
+    console.log(res);
   });
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();

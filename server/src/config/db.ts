@@ -11,6 +11,6 @@ const seq = new Sequelize({
 });
 
 export const connectDB = async () => await seq.authenticate();
-export const syncDB = async () => await seq.sync({ force: false, alter: true });
+export const syncDB = async () => await seq.sync({ force: true, alter: true });
 
 export default seq;

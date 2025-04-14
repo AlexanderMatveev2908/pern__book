@@ -10,6 +10,7 @@ export enum ToastEventType {
 export interface ToastType {
   type: ToastEventType;
   msg: string;
+  statusCode?: number;
 }
 
 export interface ToastStateType {

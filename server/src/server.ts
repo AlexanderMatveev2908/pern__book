@@ -8,6 +8,7 @@ import { bindModels } from "./models/models.js";
 const app = express();
 const PORT = +process.env.PORT!;
 
+// trust first proxy hop
 app.set("trust proxy", 1);
 
 app.use(express.json());
@@ -32,7 +33,19 @@ const start = async () => {
       err: err.message,
       stack: err.stack,
     });
+    process.exit(1);
   }
 };
+
+// for rejections async not handled in catch
+process.on("unhandledRejection", (reason, promise) => {
+  console.error("=> Unhandled Rejection:", reason);
+  process.exit(1);
+});
+// for sync errors not handled in catch
+process.on("uncaughtException", (err) => {
+  console.error("=> Uncaught Exception:", err);
+  process.exit(1);
+});
 
 start();

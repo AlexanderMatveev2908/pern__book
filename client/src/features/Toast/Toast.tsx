@@ -53,6 +53,7 @@ const Toast: FC = () => {
   const animateOut = useCallback(() => {
     clickRef.current = false;
     toastRef?.current?.classList.remove("toast__in");
+    (counterRef.current as HTMLDivElement).classList.remove("el__timer_toast");
     clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
 
@@ -114,7 +115,10 @@ const Toast: FC = () => {
               : "text-red-600"
           }`}
         >
-          <span className="txt__4">{toast?.type}</span>
+          <div className="w-full flex items-center gap-5">
+            <span className="txt__5">{toast?.statusCode ?? ""}</span>
+            <span className="txt__4">{toast?.type}</span>
+          </div>
         </div>
 
         {/* SIDE LINE */}

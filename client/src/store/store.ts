@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { apiSlice } from "./apiSlice";
+import apiSlice from "./apiSlice";
 import sideReducer from "../features/Header/headerSlice";
 import authReducer from "../features/AuthLayout/authSlice";
 import toastReducer from "../features/Toast/toastSlice";
