@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
-import { err401, ErrAppMsgCode, res200, res201 } from "../../../lib/lib.js";
+import { err400, err401, err409, res200, res201 } from "../../../lib/lib.js";
+import { Token, User } from "../../../models/models.js";
 
 export const registerUser = async (
   req: Request,
@@ -7,10 +8,17 @@ export const registerUser = async (
 ): Promise<any> => {
   const newUser = req.body;
 
-  console.log(newUser);
+  await Token.count({ where: {} });
+  const existingUser = await User.findOne({
+    where: { email: newUser.email },
+  });
+  console.log(User.associations);
+  console.log(Token.associations);
+
+  // if (existingUser) return err409(res);
 
   // return res.status(400).end();
-  return res201(res, { msg: "Registered" });
+  return res200(res, { msg: "Registered" });
 };
 
 export const loginUser = async (req: Request, res: Response): Promise<any> => {

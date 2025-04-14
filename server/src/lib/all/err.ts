@@ -1,6 +1,7 @@
 import { Response } from "express";
+import { isObjOk } from "./validateDataStructure.js";
 
-export enum ErrAppMsgCode {
+export enum ErrAppdataCode {
   ACCESS_EXPIRED = "ACCESS TOKEN EXPIRED",
   ACCESS_INVALID = "ACCESS_TOKEN_INVALID",
   ACCESS_NOT_PROVIDED = "ACCESS TOKEN NOT PROVIDED",
@@ -10,32 +11,38 @@ export enum ErrAppMsgCode {
   REFRESH_NOT_PROVIDED = "REFRESH TOKEN NOT PROVIDED",
 }
 
-export const errApp = (res: Response, status: number, msg?: string) =>
-  res.status(status).json({ ok: false, msg });
+export const errApp = (res: Response, status: number, data?: any) =>
+  res.status(status).json({ ...data, ok: false });
 
-export const err400 = (res: Response, msg?: string) =>
-  errApp(res, 400, msg ?? "Bad request");
+export const err400 = (res: Response, data?: any) =>
+  errApp(res, 400, isObjOk(data) ? data : { msg: "Bad request" });
 
-export const err401 = (res: Response, msg?: string) =>
-  errApp(res, 401, msg ?? "Unauthorized");
+export const err401 = (res: Response, data?: any) =>
+  errApp(res, 401, isObjOk(data) ? data : { msg: "Unauthorized" });
 
-export const err403 = (res: Response, msg?: string) =>
-  errApp(res, 403, msg ?? "Forbidden");
+export const err403 = (res: Response, data?: any) =>
+  errApp(res, 403, isObjOk(data) ? data : { msg: "Forbidden" });
 
-export const err404 = (res: Response, msg?: string) =>
-  errApp(res, 404, msg ?? "Not found");
+export const err404 = (res: Response, data?: any) =>
+  errApp(res, 404, isObjOk(data) ? data : { msg: "Not found" });
 
-export const err409 = (res: Response, msg?: string) =>
-  errApp(res, 409, msg ?? "Conflict");
+export const err409 = (res: Response, data?: any) =>
+  errApp(res, 409, isObjOk(data) ? data : { msg: "Conflict" });
 
 export const err418 = (res: Response) =>
   errApp(res, 418, "I'm a teapot, I can not brew coffee");
 
-export const err422 = (res: Response, msg?: string) =>
-  errApp(res, 422, msg ?? "Unprocessable entity");
+export const err422 = (res: Response, data?: any) =>
+  errApp(res, 422, isObjOk(data) ? data : { msg: "Unprocessable entity" });
 
-export const err429 = (res: Response, msg?: string) =>
-  errApp(res, 429, msg ?? "Too many requests");
+export const err429 = (res: Response, data?: any) =>
+  errApp(res, 429, isObjOk(data) ? data : { msg: "Too many requests" });
 
-export const err500 = (res: Response, msg?: string) =>
-  errApp(res, 500, msg ?? "Server was tired and take a coffee break ☕");
+export const err500 = (res: Response, data?: any) =>
+  errApp(
+    res,
+    500,
+    isObjOk(data)
+      ? data
+      : { msg: "Server was tired and take a coffee break ☕" }
+  );
