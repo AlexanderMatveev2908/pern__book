@@ -10,5 +10,5 @@ export const validateRegister = [
   ...validateEmail,
   ...validatePassword,
 
-  handleValidator(400),
+  handleValidator(422),
 ];
