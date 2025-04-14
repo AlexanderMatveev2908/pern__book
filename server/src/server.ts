@@ -3,6 +3,7 @@ import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
 import { makeRelations } from "./theorySql/models/relations.js";
 import mainRouter from "./routes/route.js";
+import { bindModels } from "./models/models.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -16,7 +17,7 @@ app.use("/api/v1", mainRouter);
 const start = async () => {
   try {
     await connectDB();
-    makeRelations();
+    bindModels();
     await syncDB();
 
     await new Promise<void>((res, rej) => {
