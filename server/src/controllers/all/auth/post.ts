@@ -7,6 +7,7 @@ import {
   res201,
 } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
+import { calcTimeRun } from "../../../lib/all/calcTimeRun.js";
 
 export const registerUser = async (
   req: Request,
@@ -19,7 +20,7 @@ export const registerUser = async (
   });
   if (existingUser) return err409(res, { msg: "User already exists" });
 
-  newUser.password = await hashPwd(newUser.password);
+  newUser.password = await calcTimeRun(() => hashPwd(newUser.password));
   const newSqlUser = await User.create(newUser);
   const accessToken = createTokenHMAC(newSqlUser);
 
