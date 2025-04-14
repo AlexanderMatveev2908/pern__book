@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { err401, ErrAppMsgCode } from "../../../lib/all/err.js";
+import { err401, ErrAppMsgCode, res200 } from "../../../lib/lib.js";
 
 export const registerUser = async (
   req: Request,
@@ -10,7 +10,7 @@ export const registerUser = async (
   console.log(newUser);
 
   // return res.status(400).end();
-  return err401(res, ErrAppMsgCode.ACCESS_EXPIRED);
+  return res200(res, { msg: "Registered" });
 };
 
 export const loginUser = async (req: Request, res: Response): Promise<any> => {

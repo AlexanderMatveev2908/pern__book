@@ -4,7 +4,7 @@ import { connectDB, syncDB } from "./config/db.js";
 import { makeRelations } from "./theorySql/models/relations.js";
 import mainRouter from "./routes/route.js";
 import { bindModels } from "./models/models.js";
-import { errMiddleware } from "./middleware/all/general/errMiddlware.js";
+import { errMiddleware } from "./middleware/middleware.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
