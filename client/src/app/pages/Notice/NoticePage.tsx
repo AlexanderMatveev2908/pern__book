@@ -9,19 +9,12 @@ const NoticePage: FC = () => {
 
   const from = useLocation().state?.from;
 
-  console.log(canStayNotice(from));
-
-  return (
+  return !canStayNotice(from) ? (
+    <Navigate to="/" replace={true} />
+  ) : (
     <div className="parent__page">
       <Notice />
     </div>
   );
-  // return !canStayNotice(from) ? (
-  //   <Navigate to="/" replace={true} />
-  // ) : (
-  //   <div className="parent__page">
-  //     <Notice />
-  //   </div>
-  // );
 };
 export default NoticePage;

@@ -39,6 +39,7 @@ const start = async () => {
       err: err.message,
       stack: err.stack,
     });
+    // 0 fail 1 success
     process.exit(1);
   }
 };
