@@ -7,10 +7,3 @@ export enum ErrAppMsgCode {
   REFRESH_INVALID = "REFRESH TOKEN INVALID",
   REFRESH_NOT_PROVIDED = "REFRESH TOKEN NOT PROVIDED",
 }
-
-export const isAccessExpired = (msg: string) =>
-  [
-    ErrAppMsgCode.ACCESS_EXPIRED,
-    ErrAppMsgCode.ACCESS_INVALID,
-    ErrAppMsgCode.ACCESS_NOT_PROVIDED,
-  ].includes(msg as ErrAppMsgCode);
