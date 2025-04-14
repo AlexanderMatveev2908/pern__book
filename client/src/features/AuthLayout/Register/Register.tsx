@@ -14,7 +14,6 @@ import { useForm } from "react-hook-form";
 import {
   getErrCurrSwap,
   getErrLen,
-  makeDelay,
   makeNoticeTxt,
   saveStorage,
   schemaRegister,
@@ -53,18 +52,18 @@ const Register: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
     defaultValues: {
-      firstName: "ddd",
-      lastName: "ddd",
-      email: "matveevalexander470@gmail.com",
-      password: "@2}mX_}^]3#lA^w5",
-      confirmPassword: "@2}mX_}^]3#lA^w5",
-      terms: true,
-      // firstName: "",
-      // lastName: "",
-      // email: "",
-      // password: "",
-      // confirmPassword: "",
-      // terms: null,
+      // firstName: "ddd",
+      // lastName: "ddd",
+      // email: "matveevalexander470@gmail.com",
+      // password: "@2}mX_}^]3#lA^w5",
+      // confirmPassword: "@2}mX_}^]3#lA^w5",
+      // terms: true,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+      terms: null,
     },
   });
 
@@ -74,10 +73,10 @@ const Register: FC = () => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
 
-    // const { accessToken } = await wrapAPI(() =>
-    //   registerUser(newUser as NonNullable<RegisterParamsAPI>)
-    // );
-    // sessionStorage.setItem("accessToken", accessToken as string);
+    const { accessToken } = await wrapAPI(() =>
+      registerUser(newUser as NonNullable<RegisterParamsAPI>)
+    );
+    saveStorage({ data: accessToken, key: "accessToken" });
 
     reset();
 
