@@ -52,6 +52,7 @@ const start = async () => {
     process.exit(1);
   }
 };
+//
 
 // for rejections async not handled in catch
 process.on("unhandledRejection", (reason, promise) => {
