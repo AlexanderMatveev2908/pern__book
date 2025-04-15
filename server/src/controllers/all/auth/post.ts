@@ -5,10 +5,11 @@ import {
   createTokenHMAC,
   err409,
   hashPwd,
-  res200,
   res201,
+  sendEmailAuth,
 } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
+import { MailEventType } from "../../../types/types.js";
 
 export const registerUser = async (
   req: Request,
@@ -28,6 +29,12 @@ export const registerUser = async (
     lastName: capChar(newUser.lastName),
   });
   const accessToken = createTokenHMAC(newSqlUser);
+
+  await sendEmailAuth({
+    user: newSqlUser,
+    token: accessToken,
+    event: MailEventType.VERIFY_ACCOUNT,
+  });
 
   return res201(res, { msg: "Account created", accessToken });
 };
