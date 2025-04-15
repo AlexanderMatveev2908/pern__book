@@ -4,6 +4,7 @@ import { connectDB, syncDB } from "./config/db.js";
 import { errMiddleware } from "./middleware/middleware.js";
 import { isDev } from "./config/env.js";
 import { getDirClient } from "./lib/lib.js";
+import mainRouter from "./routes/route.js";
 import { clearDB } from "./stuff/clear.js";
 
 const app = express();
@@ -14,7 +15,7 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 
-// app.use("/api/v1", mainRouter);
+app.use("/api/v1", mainRouter);
 
 if (!isDev) {
   app.use(express.static(getDirClient()));

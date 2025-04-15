@@ -8,6 +8,7 @@ import VerifyEmailPage from "./pages/AuthLayout/VerifyEmailPage";
 import ForgotPwdPage from "./pages/AuthLayout/ForgotPwdPage";
 import NoticePage from "./pages/Notice/NoticePage";
 import HomePage from "./pages/Home/HomePage";
+import VerifyPage from "./pages/Verify/VerifyPage";
 
 const App: FC = () => {
   return (
@@ -23,6 +24,8 @@ const App: FC = () => {
         </Route>
 
         <Route path="notice" element={<NoticePage />} />
+
+        <Route path="verify-cb" element={<VerifyPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace={true} />} />

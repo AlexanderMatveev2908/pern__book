@@ -1,8 +1,9 @@
-import { User } from "../config/db.js";
+import { Token, User } from "../config/db.js";
 
 export const clearDB = async () => {
   const start = performance.now();
 
+  await Token.destroy({ where: {} });
   await User.destroy({ where: {} });
 
   const end = performance.now();

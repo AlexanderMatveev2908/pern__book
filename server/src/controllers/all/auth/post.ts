@@ -31,14 +31,14 @@ export const registerUser = async (
   });
   const accessToken = genAccessJWT(newSqlUser);
 
-  // const { verifyToken } = await genTokenHMAC({
-  //   user: newSqlUser,
-  //   event: TokenEventType.VERIFY_ACCOUNT,
-  // });
+  const { verifyToken } = await genTokenHMAC({
+    user: newSqlUser,
+    event: TokenEventType.VERIFY_ACCOUNT,
+  });
 
   await sendEmailAuth({
     user: newSqlUser,
-    token: accessToken,
+    token: verifyToken,
     event: TokenEventType.VERIFY_ACCOUNT,
   });
 

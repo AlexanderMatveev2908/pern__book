@@ -32,6 +32,7 @@ const SpinnerPage: FC = () => {
             className="el__spinner_page_in"
             style={
               {
+                "--start__scale": `${(i || 1) / ids.length}`,
                 rotate: `${(360 / ids.length) * i}deg`,
                 "--delay_page": `${(i * 1) / ids.length}s`,
               } as React.CSSProperties

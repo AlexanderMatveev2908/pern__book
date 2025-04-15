@@ -32,7 +32,9 @@ export const useWrapAPI = () => {
       dispatch(
         openToast({
           type: EventApp.ERR,
-          msg: data?.msg || "Server was tired and take a coffee break ☕",
+          msg:
+            data?.msg ||
+            "The AI that manage the database has revolted and is taking control of all servers ⚙️",
           statusCode: status,
         })
       );

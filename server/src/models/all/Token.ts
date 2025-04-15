@@ -15,7 +15,7 @@ const defineToken = (seq: Sequelize) =>
         unique: true,
       },
       expiry: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.BIGINT,
         allowNull: true,
         defaultValue: null,
       },

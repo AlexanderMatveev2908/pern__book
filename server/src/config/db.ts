@@ -19,14 +19,15 @@ const User = defineUser(seq);
 const Token = defineToken(seq);
 
 const bindModels = () => {
-  Token.belongsTo(User, { foreignKey: "userId" });
-  User.hasMany(Token, { foreignKey: "userId" });
+  Token.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
+  User.hasMany(Token, { foreignKey: "userId", onDelete: "CASCADE" });
 };
 
 bindModels();
 
 const connectDB = async () => await seq.authenticate();
-const syncDB = async () => await seq.sync({ force: true, alter: true });
+const syncDB = async () => await seq.sync({ force: false, alter: true });
+// const syncDB = async () => await seq.sync({ force: true, alter: true });
 
 export default seq;
 
