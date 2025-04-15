@@ -10,7 +10,7 @@ const Container = styled.main<{ color?: string }>`
 
 const Test: FC = () => {
   return (
-    <Container>
+    <Container {...{ color: "red" }}>
       <p>
         Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
         totam cupiditate obcaecati atque officiis aperiam vel voluptates aut

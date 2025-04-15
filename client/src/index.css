@@ -77,6 +77,9 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 .parent__page {
   @apply w-full grid justify-items-center gap-6;
 }
+.center_abs {
+  @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+}
 
 .parent__form {
   @apply w-full grid justify-items-center gap-6;

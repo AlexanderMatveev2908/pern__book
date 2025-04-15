@@ -24,12 +24,12 @@ const SpinnerPage: FC = () => {
   }, []);
 
   return (
-    <div className="el__spinner_page_container">
+    <div className="center_abs">
       <div className="relative">
         {ids.map((id, i) => (
           <div
             key={id}
-            className="el__spinner_page_in"
+            className="el__spinner_page_in center_abs"
             style={
               {
                 "--start__scale": `${(i || 1) / ids.length}`,
