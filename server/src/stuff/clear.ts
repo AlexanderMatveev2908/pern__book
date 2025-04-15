@@ -9,3 +9,17 @@ export const clearDB = async () => {
 
   console.log(`=> DONE ${end - start} ms`);
 };
+
+export const getDataDB = async () => {
+  const users = await User.findAll();
+
+  // await User.update(
+  //   { firstName: "newName" },
+  //   {
+  //     where: {
+  //       id: 1,
+  //     },
+  //   }
+  // );
+  console.log(users);
+};

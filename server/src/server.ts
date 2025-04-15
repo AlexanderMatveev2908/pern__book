@@ -5,7 +5,9 @@ import { makeRelations } from "./theorySql/models/relations.js";
 import mainRouter from "./routes/route.js";
 import { errMiddleware } from "./middleware/middleware.js";
 import { bindModels } from "./models/models.js";
-import { clearDB } from "./stuff/clear.js";
+import { clearDB, getDataDB } from "./stuff/clear.js";
+import { isDev } from "./config/env.js";
+import { getDirClient } from "./lib/lib.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -17,8 +19,15 @@ app.use(express.json());
 
 app.use("/api/v1", mainRouter);
 
+if (!isDev) {
+  app.use(express.static(getDirClient()));
+
+  app.get("*", (_, res) => res.sendFile(getDirClient()));
+}
+
 app.use(errMiddleware);
 
+// getDataDB();
 // clearDB();
 
 const start = async () => {

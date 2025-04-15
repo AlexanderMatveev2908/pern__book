@@ -1,3 +1,6 @@
+import path from "path";
+import { fileURLToPath } from "url";
+
 export const calcTimeRun = async (cb: () => Promise<any>) => {
   const start = performance.now();
 
@@ -11,3 +14,11 @@ export const calcTimeRun = async (cb: () => Promise<any>) => {
 };
 
 export const capChar = (txt: string) => txt.at(0)?.toUpperCase() + txt.slice(1);
+
+export const getDir = () =>
+  path.join(path.dirname(fileURLToPath(import.meta.url)), "../../");
+
+export const getDirClient = () =>
+  path.join(getDir(), "../../../../client/dist/index.html");
+
+export const getCaDir = () => path.join(getDir(), "../certs/ca.pem");
