@@ -13,7 +13,6 @@ import { connectDB, syncDB } from "./config/db.js";
 import { errMiddleware } from "./middleware/middleware.js";
 import { isDev } from "./config/env.js";
 import { getDirClient } from "./lib/lib.js";
-import { bindModels } from "./models/all/relations/relations.js";
 const app = express();
 const PORT = +process.env.PORT;
 // trust first proxy hop
@@ -30,7 +29,6 @@ app.use(errMiddleware);
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {
         yield connectDB();
-        bindModels();
         yield syncDB();
         yield new Promise((res, rej) => {
             app.listen(PORT, (err) => {

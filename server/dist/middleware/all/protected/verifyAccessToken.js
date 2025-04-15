@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { err400, err401, err403, err500, ErrAppMsgCode, verifyJWT, } from "../../../lib/lib.js";
-import { User } from "../../../models/models.js";
 import { UserRole } from "../../../types/types.js";
+import { User } from "../../../config/db.js";
 export const verifyAccessToken = ({ verified = false, role = UserRole.CUSTOMER, }) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const authHeader = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization;

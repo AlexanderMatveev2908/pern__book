@@ -9,8 +9,8 @@ import {
   sendEmailAuth,
   genTokenHMAC,
 } from "../../../lib/lib.js";
-import { User } from "../../../models/models.js";
 import { TokenEventType } from "../../../types/types.js";
+import { User } from "../../../config/db.js";
 
 export const registerUser = async (
   req: Request,

@@ -1,4 +1,4 @@
-import { User } from "../models/models.js";
+import { User } from "../config/db.js";
 
 export const clearDB = async () => {
   const start = performance.now();

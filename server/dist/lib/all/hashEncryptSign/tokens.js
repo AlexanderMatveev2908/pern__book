@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import crypto from "crypto";
 import { mySign } from "../../../config/env.js";
 import { MsgHMAC, } from "../../../types/types.js";
-import { Token } from "../../../models/models.js";
+import { Token } from "../../../config/db.js";
 const hashHMAC = (payload) => crypto.createHmac("sha256", mySign).update(payload).digest("hex");
 export const genTokenHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({ user, event, }) {
     const verifyToken = crypto.randomBytes(32).toString("hex");
