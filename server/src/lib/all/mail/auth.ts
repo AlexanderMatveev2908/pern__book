@@ -1,20 +1,24 @@
 import { frontURL, myMail } from "../../../config/env.js";
 import mailer from "../../../config/mail.js";
 import { UserType } from "../../../models/models.js";
-import { MailEventType } from "../../../types/types.js";
+import { TokenEventType } from "../../../types/types.js";
 import { getHtmlMail } from "./html/template.js";
 
-const getTxt = (event: MailEventType) => {
+const getTxt = (event: TokenEventType) => {
   let txt = "";
   let labelBtn = "";
+  let subject = "";
+
   switch (event) {
-    case MailEventType.VERIFY_ACCOUNT:
+    case TokenEventType.VERIFY_ACCOUNT:
       txt = "verify your account";
       labelBtn = "Verify Account";
+      subject = "VERIFY ACCOUNT";
       break;
-    case MailEventType.FORGOT_PWD:
+    case TokenEventType.FORGOT_PWD:
       txt = "recover your account";
       labelBtn = "Recover Account";
+      subject = "RECOVER ACCOUNT";
       break;
     default:
       throw new Error(`=> Invalid event: ${event}`);
@@ -23,6 +27,7 @@ const getTxt = (event: MailEventType) => {
   return {
     txt,
     labelBtn,
+    subject,
   };
 };
 
@@ -33,18 +38,19 @@ export const sendEmailAuth = async ({
 }: {
   user: UserType;
   token: string;
-  event: MailEventType;
+  event: TokenEventType;
 }) => {
   if ([user, token, event].some((el) => !el)) return;
 
   const verifyURL = `${frontURL}/verify?token=${token}&userID=${
     user.id + ""
   }&event=${event}`;
-  const { txt, labelBtn } = getTxt(event);
+  const { txt, labelBtn, subject } = getTxt(event);
 
   await mailer.sendMail({
     from: myMail,
     to: user.email,
+    subject,
     html: getHtmlMail({
       firstName: user.firstName,
       txt,

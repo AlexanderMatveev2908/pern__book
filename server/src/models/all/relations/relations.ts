@@ -1,7 +1,8 @@
 import { DataTypes } from "sequelize";
 import seq from "../../../config/db.js";
-import { TokenEventType, TokenType } from "../Token.js";
+import { TokenType } from "../Token.js";
 import { UserRole, UserType } from "../User.js";
+import { TokenEventType } from "../../../types/types.js";
 
 const User = seq.define<UserType>(
   "User",
@@ -68,7 +69,7 @@ const Token = seq.define<TokenType>(
       defaultValue: null,
     },
     expiry: {
-      type: DataTypes.DATE,
+      type: DataTypes.INTEGER,
       allowNull: true,
       defaultValue: null,
     },

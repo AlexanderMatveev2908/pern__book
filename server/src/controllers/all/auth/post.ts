@@ -2,14 +2,14 @@ import { Request, Response } from "express";
 import {
   calcTimeRun,
   capChar,
-  createTokenHMAC,
+  genAccessJWT,
   err409,
   hashPwd,
   res201,
   sendEmailAuth,
 } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
-import { MailEventType } from "../../../types/types.js";
+import { TokenEventType } from "../../../types/types.js";
 
 export const registerUser = async (
   req: Request,
@@ -28,12 +28,12 @@ export const registerUser = async (
     firstName: capChar(newUser.firstName),
     lastName: capChar(newUser.lastName),
   });
-  const accessToken = createTokenHMAC(newSqlUser);
+  const accessToken = genAccessJWT(newSqlUser);
 
   await sendEmailAuth({
     user: newSqlUser,
     token: accessToken,
-    event: MailEventType.VERIFY_ACCOUNT,
+    event: TokenEventType.VERIFY_ACCOUNT,
   });
 
   return res201(res, { msg: "Account created", accessToken });

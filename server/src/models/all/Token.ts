@@ -1,14 +1,10 @@
 import { Model } from "sequelize";
-
-export enum TokenEventType {
-  ACCESS = "ACCESS",
-  REFRESH = "REFRESH",
-}
+import { TokenEventType } from "../../types/types.js";
 
 export interface TokenType extends Model {
   id: number;
   type: TokenEventType;
   hashed: string | null;
-  expiry: string | null;
+  expiry: number | null;
   userId: number;
 }

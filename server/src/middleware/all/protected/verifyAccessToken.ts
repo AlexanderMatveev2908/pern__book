@@ -6,7 +6,7 @@ import {
   err403,
   err500,
   ErrAppMsgCode,
-  verifyTokenHMAC,
+  verifyJWT,
 } from "../../../lib/lib.js";
 import { User, UserRole } from "../../../models/models.js";
 
@@ -26,7 +26,7 @@ export const verifyAccessToken =
       return err401(res, { msg: ErrAppMsgCode.ACCESS_NOT_PROVIDED });
 
     try {
-      const decoded: AppJwtPayload = verifyTokenHMAC(accessToken);
+      const decoded: AppJwtPayload = verifyJWT(accessToken);
 
       const user = await User.findByPk(decoded.id);
       if (!user) return err400(res, { msg: "User not found" });
