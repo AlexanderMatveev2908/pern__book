@@ -12,7 +12,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
-  addFlagCB,
   getErrCurrSwap,
   getErrLen,
   makeNoticeTxt,
@@ -25,12 +24,12 @@ import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
 import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useWrapAPI } from "@/hooks/hooks.ts";
+import { useCb, useWrapAPI } from "@/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import { AllowedFromNotice, EventApp } from "@/types/types.ts";
-import { NoticeCB, setNotice } from "@/features/Notice/noticeSlice.ts";
+import { setNotice } from "@/features/Notice/noticeSlice.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -53,31 +52,36 @@ const Register: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
     defaultValues: {
-      // firstName: "ddd",
-      // lastName: "ddd",
-      // email: "matveevalexander470@gmail.com",
-      // password: "@2}mX_}^]3#lA^w5",
-      // confirmPassword: "@2}mX_}^]3#lA^w5",
-      // terms: true,
-      firstName: "",
-      lastName: "",
-      email: "",
-      password: "",
-      confirmPassword: "",
-      terms: null,
+      firstName: "ddd",
+      lastName: "ddd",
+      email: "matveevalexander470@gmail.com",
+      password: "@2}mX_}^]3#lA^w5",
+      confirmPassword: "@2}mX_}^]3#lA^w5",
+      terms: true,
+      // firstName: "",
+      // lastName: "",
+      // email: "",
+      // password: "",
+      // confirmPassword: "",
+      // terms: null,
     },
   });
 
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
+  const { registerCb } = useCb({
+    cb: () => dispatch(login()),
+    alias: "register",
+  });
   const handleSave = handleSubmit(async (formData) => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
 
-    const { accessToken } = await wrapAPI(() =>
+    const res = await wrapAPI(() =>
       registerUser(newUser as NonNullable<RegisterParamsAPI>)
     );
-    saveStorage({ data: accessToken, key: "accessToken" });
+    if (!res?.accessToken) return;
+    saveStorage({ data: res?.accessToken, key: "accessToken" });
 
     reset();
 
@@ -87,8 +91,7 @@ const Register: FC = () => {
     };
     saveStorage({ data: notice, key: "notice" });
 
-    const cbRegister: NoticeCB = addFlagCB(() => dispatch(login()));
-    dispatch(setNotice({ ...notice, cb: cbRegister }));
+    dispatch(setNotice({ ...notice, cb: registerCb }));
 
     navigate("/notice", {
       replace: true,

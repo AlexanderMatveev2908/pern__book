@@ -7,7 +7,8 @@ const seq = new Sequelize(process.env.URI_AIVEN!, {
   logging: false,
   dialectOptions: {
     ssl: {
-      rejectUnauthorized: false,
+      require: true,
+      rejectUnauthorized: true,
       ca: fs.readFileSync(getCaDir()) + "",
     },
   },

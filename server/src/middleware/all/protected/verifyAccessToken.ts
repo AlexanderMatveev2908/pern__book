@@ -19,7 +19,7 @@ export const verifyAccessToken =
     role?: UserRole;
   }) =>
   async (req: Request, res: Response, next: NextFunction): Promise<any> => {
-    const authHeader = req.headers?.authorization || req.headers?.Authorization;
+    const authHeader = req.headers?.authorization;
 
     const accessToken = (authHeader as string)?.split(" ")[1];
     if (!authHeader)

@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import { LuCircleAlert, LuCircleCheckBig } from "react-icons/lu";
 import "./Notice.css";
 import { useSelector } from "react-redux";
@@ -6,12 +6,17 @@ import { getNoticeState } from "./noticeSlice";
 import { EventApp } from "@/types/types";
 
 const Notice: FC = () => {
+  const runRef = useRef<boolean>(false);
   const noticeState = useSelector(getNoticeState);
 
   useEffect(() => {
-    if (typeof noticeState.cb === "function" && noticeState.cb.run) {
+    if (typeof noticeState.cb === "function" && !runRef.current) {
+      runRef.current = true;
       noticeState.cb();
     }
+    // if (typeof noticeState.cb === "function" && noticeState.cb.run) {
+    //   noticeState.cb();
+    // }
   }, [noticeState]);
 
   return (

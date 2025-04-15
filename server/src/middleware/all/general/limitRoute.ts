@@ -18,4 +18,6 @@ export const limitRoute = ({
       ok: false,
     },
     keyGenerator: (req) => req.ip! ?? "unknown-ip",
+    standardHeaders: true,
+    legacyHeaders: false,
   });
