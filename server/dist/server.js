@@ -26,6 +26,7 @@ if (!isDev) {
     app.get("*", (_, res) => res.sendFile(getDirClient()));
 }
 app.use(errMiddleware);
+// getDataDB();
 // clearDB();
 const start = () => __awaiter(void 0, void 0, void 0, function* () {
     try {

@@ -8,15 +8,24 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Sequelize } from "sequelize";
-const seq = new Sequelize({
+const seq = new Sequelize(process.env.URI_AIVEN, {
     dialect: "postgres",
-    host: "localhost",
-    username: "postgres",
-    password: process.env.PWD_PG,
-    database: "__0",
     logging: false,
-    port: 5432,
+    dialectOptions: {
+        ssl: {
+            rejectUnauthorized: false,
+        },
+    },
 });
+// const seq = new Sequelize({
+//   dialect: "postgres",
+//   host: "localhost",
+//   username: "postgres",
+//   password: process.env.PWD_PG,
+//   database: "__0",
+//   logging: false,
+//   port: 5432,
+// });
 export const connectDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.authenticate(); });
 export const syncDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.sync({ force: false, alter: true }); });
 export default seq;

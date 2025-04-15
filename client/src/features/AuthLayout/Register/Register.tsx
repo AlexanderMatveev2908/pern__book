@@ -195,7 +195,7 @@ const Register: FC = () => {
             <div className="max-w-[250px] justify-self-center">
               <Button
                 {...{
-                  isPending: isLoading,
+                  isAging: isLoading,
                   isDisabled: isDisabled || isNextDisabled,
                   label: "Register",
                 }}

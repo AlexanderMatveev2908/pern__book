@@ -7,22 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { User } from "../models/models.js";
-export const clearDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const start = performance.now();
-    yield User.destroy({ where: {} });
-    const end = performance.now();
-    console.log(`=> DONE ${end - start} ms`);
-});
-export const getDataDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const users = yield User.findAll();
-    // await User.update(
-    //   { firstName: "newName" },
-    //   {
-    //     where: {
-    //       id: 1,
-    //     },
-    //   }
-    // );
-    console.log(users);
+import { User } from "../../../models/models.js";
+import { res200 } from "../../../lib/lib.js";
+export const getInfoProfileHome = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { user } = req;
+    const existingUser = yield User.findByPk(user.id, {
+        attributes: { exclude: ["password"] },
+    });
+    return res200(res, { data: existingUser });
 });

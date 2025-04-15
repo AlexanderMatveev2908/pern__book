@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { isObjOk } from "./validateDataStructure.js";
 
-export enum ErrAppdataCode {
+export enum ErrAppMsgCode {
   ACCESS_EXPIRED = "ACCESS TOKEN EXPIRED",
   ACCESS_INVALID = "ACCESS_TOKEN_INVALID",
   ACCESS_NOT_PROVIDED = "ACCESS TOKEN NOT PROVIDED",

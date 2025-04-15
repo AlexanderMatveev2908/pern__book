@@ -19,3 +19,4 @@ export const calcTimeRun = (cb) => __awaiter(void 0, void 0, void 0, function* (
 export const capChar = (txt) => { var _a; return ((_a = txt.at(0)) === null || _a === void 0 ? void 0 : _a.toUpperCase()) + txt.slice(1); };
 export const getDir = () => path.join(path.dirname(fileURLToPath(import.meta.url)), "../../");
 export const getDirClient = () => path.join(getDir(), "../../../../client/dist/index.html");
+export const getCaDir = () => path.join(getDir(), "../certs/ca.pem");

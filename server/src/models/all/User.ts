@@ -1,10 +1,10 @@
 import { Model } from "sequelize";
 
 export enum UserRole {
-  OWNER = "OWNER",
-  MANAGER = "MANAGER",
-  EMPLOYEE = "EMPLOYEE",
   CUSTOMER = "CUSTOMER",
+  EMPLOYEE = "EMPLOYEE",
+  MANAGER = "MANAGER",
+  OWNER = "OWNER",
 }
 
 export interface UserType extends Model {
