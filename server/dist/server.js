@@ -10,17 +10,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import "dotenv/config";
 import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
-import mainRouter from "./routes/route.js";
 import { errMiddleware } from "./middleware/middleware.js";
-import { bindModels } from "./models/models.js";
 import { isDev } from "./config/env.js";
 import { getDirClient } from "./lib/lib.js";
+import { bindModels } from "./models/all/relations/relations.js";
 const app = express();
 const PORT = +process.env.PORT;
 // trust first proxy hop
 app.set("trust proxy", 1);
 app.use(express.json());
-app.use("/api/v1", mainRouter);
+// app.use("/api/v1", mainRouter);
 if (!isDev) {
     app.use(express.static(getDirClient()));
     app.get("*", (_, res) => res.sendFile(getDirClient()));

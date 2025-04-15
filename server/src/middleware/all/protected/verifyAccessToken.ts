@@ -8,7 +8,8 @@ import {
   ErrAppMsgCode,
   verifyJWT,
 } from "../../../lib/lib.js";
-import { User, UserRole } from "../../../models/models.js";
+import { UserRole } from "../../../types/types.js";
+import { User } from "../../../config/db.js";
 
 export const verifyAccessToken =
   ({

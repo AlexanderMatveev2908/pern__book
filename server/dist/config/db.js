@@ -8,12 +8,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Sequelize } from "sequelize";
+import fs from "fs";
+import { getCaDir } from "../lib/lib.js";
 const seq = new Sequelize(process.env.URI_AIVEN, {
     dialect: "postgres",
     logging: false,
     dialectOptions: {
         ssl: {
-            rejectUnauthorized: false,
+            require: true,
+            rejectUnauthorized: true,
+            ca: fs.readFileSync(getCaDir()) + "",
         },
     },
 });
@@ -26,6 +30,6 @@ const seq = new Sequelize(process.env.URI_AIVEN, {
 //   logging: false,
 //   port: 5432,
 // });
-export const connectDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.authenticate(); });
-export const syncDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.sync({ force: false, alter: true }); });
 export default seq;
+export const connectDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.authenticate(); });
+export const syncDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.sync({ force: true, alter: true }); });

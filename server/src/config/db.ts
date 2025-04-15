@@ -1,6 +1,7 @@
 import { Sequelize } from "sequelize";
 import fs from "fs";
 import { getCaDir } from "../lib/lib.js";
+import { defineToken, defineUser } from "../models/models.js";
 
 const seq = new Sequelize(process.env.URI_AIVEN!, {
   dialect: "postgres",
@@ -14,6 +15,23 @@ const seq = new Sequelize(process.env.URI_AIVEN!, {
   },
 });
 
+const User = defineUser(seq);
+const Token = defineToken(seq);
+
+const bindModels = () => {
+  Token.belongsTo(User, { foreignKey: "userId" });
+  User.hasMany(Token, { foreignKey: "userId" });
+};
+
+bindModels();
+
+const connectDB = async () => await seq.authenticate();
+const syncDB = async () => await seq.sync({ force: true, alter: true });
+
+export default seq;
+
+export { connectDB, syncDB, Token, User };
+
 // const seq = new Sequelize({
 //   dialect: "postgres",
 //   host: "localhost",
@@ -23,8 +41,3 @@ const seq = new Sequelize(process.env.URI_AIVEN!, {
 //   logging: false,
 //   port: 5432,
 // });
-
-export const connectDB = async () => await seq.authenticate();
-export const syncDB = async () => await seq.sync({ force: false, alter: true });
-
-export default seq;

@@ -1,10 +1,34 @@
-import { Model } from "sequelize";
-import { TokenEventType } from "../../types/types.js";
+import { DataTypes, Sequelize } from "sequelize";
+import { TokenEventType, TokenType } from "../../types/types.js";
 
-export interface TokenType extends Model {
-  id: number;
-  type: TokenEventType;
-  hashed: string | null;
-  expiry: number | null;
-  userId: number;
-}
+const defineToken = (seq: Sequelize) =>
+  seq.define<TokenType>(
+    "Token",
+    {
+      type: {
+        type: DataTypes.ENUM(...Object.values(TokenEventType)),
+        allowNull: false,
+      },
+      hashed: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        unique: true,
+      },
+      expiry: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+        defaultValue: null,
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        references: {
+          model: "users",
+          key: "id",
+        },
+      },
+    },
+    { timestamps: true, tableName: "tokens" }
+  );
+
+export { defineToken };

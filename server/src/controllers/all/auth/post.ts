@@ -7,6 +7,7 @@ import {
   hashPwd,
   res201,
   sendEmailAuth,
+  genTokenHMAC,
 } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
 import { TokenEventType } from "../../../types/types.js";
@@ -29,6 +30,11 @@ export const registerUser = async (
     lastName: capChar(newUser.lastName),
   });
   const accessToken = genAccessJWT(newSqlUser);
+
+  // const { verifyToken } = await genTokenHMAC({
+  //   user: newSqlUser,
+  //   event: TokenEventType.VERIFY_ACCOUNT,
+  // });
 
   await sendEmailAuth({
     user: newSqlUser,

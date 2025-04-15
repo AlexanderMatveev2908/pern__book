@@ -1,7 +1,6 @@
 import { frontURL, myMail } from "../../../config/env.js";
 import mailer from "../../../config/mail.js";
-import { UserType } from "../../../models/models.js";
-import { TokenEventType } from "../../../types/types.js";
+import { TokenEventType, UserType } from "../../../types/types.js";
 import { getHtmlMail } from "./html/template.js";
 
 const getTxt = (event: TokenEventType) => {

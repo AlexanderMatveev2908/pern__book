@@ -1,5 +1,5 @@
 import { Request } from "express";
-import { UserRole } from "../../models/models.js";
+import { UserRole } from "./userTypes.js";
 
 export interface ReqApp extends Request {
   user?: {
@@ -7,15 +7,6 @@ export interface ReqApp extends Request {
     role: UserRole;
     verified: boolean;
   };
-}
-
-export enum TokenEventType {
-  ACCESS = "ACCESS",
-  REFRESH = "REFRESH",
-  VERIFY_ACCOUNT = "VERIFY_ACCOUNT",
-  FORGOT_PWD = "FORGOT_PWD",
-  CHANGE_PWD = "CHANGE_PWD",
-  CHANGE_EMAIL = "CHANGE_EMAIL",
 }
 
 export enum MsgHMAC {

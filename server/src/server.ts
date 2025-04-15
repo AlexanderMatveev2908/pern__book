@@ -1,13 +1,10 @@
 import "dotenv/config";
 import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
-import { makeRelations } from "./theorySql/models/relations.js";
-import mainRouter from "./routes/route.js";
 import { errMiddleware } from "./middleware/middleware.js";
-import { bindModels } from "./models/models.js";
-import { clearDB, getDataDB } from "./stuff/clear.js";
 import { isDev } from "./config/env.js";
 import { getDirClient } from "./lib/lib.js";
+import { clearDB } from "./stuff/clear.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -17,7 +14,7 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 
-app.use("/api/v1", mainRouter);
+// app.use("/api/v1", mainRouter);
 
 if (!isDev) {
   app.use(express.static(getDirClient()));
@@ -33,7 +30,6 @@ app.use(errMiddleware);
 const start = async () => {
   try {
     await connectDB();
-    bindModels();
     await syncDB();
 
     await new Promise<void>((res, rej) => {

@@ -1,7 +1,7 @@
 import { JWTPayload } from "jose";
-import { UserType } from "../../../models/models.js";
 import jwt from "jsonwebtoken";
 import { mySign } from "../../../config/env.js";
+import { UserType } from "../../../types/types.js";
 
 export interface AppJwtPayload extends JWTPayload {
   id: string;

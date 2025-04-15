@@ -1,5 +1,5 @@
 import express from "express";
-import { loginUser, registerUser } from "../../controllers/all/auth/post.js";
+import { loginUser, registerUser } from "../../controllers/controllers.js";
 import {
   limitRoute,
   validateRegister,
