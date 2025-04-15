@@ -1,10 +1,17 @@
 import { DataTypes, Sequelize } from "sequelize";
 import { TokenEventType, TokenType } from "../../types/types.js";
+import { v4 } from "uuid";
 
 const defineToken = (seq: Sequelize) =>
   seq.define<TokenType>(
     "Token",
     {
+      id: {
+        type: DataTypes.STRING(36),
+        defaultValue: () => v4(),
+        primaryKey: true,
+        allowNull: false,
+      },
       type: {
         type: DataTypes.ENUM(...Object.values(TokenEventType)),
         allowNull: false,
@@ -20,7 +27,7 @@ const defineToken = (seq: Sequelize) =>
         defaultValue: null,
       },
       userId: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.STRING(36),
         allowNull: false,
         references: {
           model: "users",

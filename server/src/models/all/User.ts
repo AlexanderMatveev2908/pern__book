@@ -1,14 +1,19 @@
 import { DataTypes, Sequelize } from "sequelize";
 import { UserRole, UserType } from "../../types/types.js";
+import pkg from "bson-objectid";
+import { v4 } from "uuid";
+
+const ObjectID = pkg.default;
 
 const defineUser = (seq: Sequelize) =>
   seq.define<UserType>(
     "User",
     {
       id: {
-        type: DataTypes.INTEGER,
-        autoIncrement: true,
+        type: DataTypes.STRING(36),
+        defaultValue: () => v4(),
         primaryKey: true,
+        allowNull: false,
       },
       firstName: {
         type: DataTypes.STRING,
