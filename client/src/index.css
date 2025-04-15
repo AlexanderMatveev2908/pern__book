@@ -8,6 +8,13 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   font-family: "Sour Gummy";
 }
 
+:root {
+  --blue__app: #2563eb;
+  --red__app: #dc2626;
+  --green__app: #16a34a;
+  --orange__app: #ea580c;
+}
+
 /* INDEX*/
 
 .z__sidebar_bg {
@@ -136,7 +143,7 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 .input__base:focus,
 .input__icon:focus {
   @apply ring-2 ring-blue-600;
-  box-shadow: 0 0 10px #2563eb, 0 0 20px #2563eb;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app);
 }
 
 /* BUTTONS */

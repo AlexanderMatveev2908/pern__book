@@ -6,7 +6,7 @@
 }
 .btn__container:enabled:hover {
   transform: scale(1.1);
-  background-color: #2563eb;
+  background-color: var(--blue__app);
   color: whitesmoke;
   cursor: pointer;
 }
@@ -41,16 +41,16 @@
 }
 .bubbles::after {
   @apply absolute content-[""] h-full w-full -top-full;
-  background-image: radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%),
-    radial-gradient(circle, #2563eb 20%, transparent 20%);
+  background-image: radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%);
 
   background-repeat: no-repeat;
   background-size: 10% 10%, 20% 20%, 10% 10%, 20% 20%, 10% 10%, 20% 20%, 10% 10%,

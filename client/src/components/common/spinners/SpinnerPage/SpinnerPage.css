@@ -26,8 +26,8 @@
 
 .el__spinner_page_in::after {
   @apply content-[""] absolute inset-0 w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] rounded-full bg-blue-600;
-  box-shadow: 0 0 10px #2563eb, 0 0 20px #2563eb, 0 0 30px #2563eb,
-    0 0 40px #2563eb;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app),
+    0 0 30px var(--blue__app), 0 0 40px var(--blue__app);
   animation: circle_in_el 1s linear infinite;
   animation-delay: var(--delay_page);
   transform: scale(0);
