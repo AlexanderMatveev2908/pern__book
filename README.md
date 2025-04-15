@@ -20,7 +20,7 @@ Welcome to my project, this time i decided to do create an app based on books ca
 ## Before starting project
 
 1. Start installing dependencies frontend and backend with `npm install`
-2. Create an `Aiven` account going to `https://aiven.io/`
+2. Create an `Aiven` account going to https://aiven.io/
 3. After logging in, create a new **PostgreSql** service:
 
 - Chose cloud provider or leave default one
