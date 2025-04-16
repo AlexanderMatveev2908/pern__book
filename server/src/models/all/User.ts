@@ -1,20 +1,31 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import {
+  CreationOptional,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  Sequelize,
+} from "sequelize";
 import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
+import { Token } from "./Token.js";
 
 const ObjectID = pkg.default;
 
-export class User extends Model {
-  declare id: string;
+export class User extends Model<
+  InferAttributes<User>,
+  InferCreationAttributes<Token>
+> {
+  declare id: CreationOptional<string>;
   declare firstName: string;
   declare lastName: string;
   declare email: string;
-  declare tempEmail: string | null;
+  declare tempEmail: CreationOptional<string | null>;
   declare password: string;
-  declare role: UserRole;
-  declare isVerified: boolean;
-  declare isNewsletter: boolean;
+  declare role: CreationOptional<UserRole>;
+  declare isVerified: CreationOptional<boolean>;
+  declare isNewsletter: CreationOptional<boolean>;
 
   async verify(this: User) {
     this.isVerified = true;

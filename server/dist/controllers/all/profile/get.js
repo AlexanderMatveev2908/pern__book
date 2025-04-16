@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { res200 } from "../../../lib/lib.js";
-import { User } from "../../../config/db.js";
+import { User } from "../../../models/models.js";
 export const getInfoProfileHome = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { user } = req;
     const existingUser = yield User.findByPk(user.id, {

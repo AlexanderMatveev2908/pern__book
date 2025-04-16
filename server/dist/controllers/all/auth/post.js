@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { calcTimeRun, capChar, genAccessJWT, err409, hashPwd, res201, sendEmailAuth, genTokenHMAC, } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
-import { User } from "../../../config/db.js";
+import { User } from "../../../models/models.js";
 export const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = req.body;
     const existingUser = yield User.findOne({

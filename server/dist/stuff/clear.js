@@ -7,7 +7,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Token, User } from "../config/db.js";
+import { Token, User } from "../models/models.js";
 export const clearDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const start = performance.now();
     yield Token.destroy({ where: {} });

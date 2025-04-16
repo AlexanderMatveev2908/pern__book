@@ -1,12 +1,22 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import {
+  CreationOptional,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  Model,
+  Sequelize,
+} from "sequelize";
 import { TokenEventType } from "../../types/types.js";
 import { v4 } from "uuid";
 
-export class Token extends Model {
-  declare id: string;
+export class Token extends Model<
+  InferAttributes<Token>,
+  InferCreationAttributes<Token>
+> {
+  declare id: CreationOptional<string>;
   declare event: TokenEventType;
   declare hashed: string;
-  declare expiry: number | null;
+  declare expiry: number;
   declare userID: string;
 }
 

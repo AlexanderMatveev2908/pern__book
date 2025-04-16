@@ -8,8 +8,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { MsgHMAC } from "../../../types/types.js";
-import { User } from "../../../config/db.js";
 import { checkHMAC, err401, err404, err409, formatMsgApp, res200, } from "../../../lib/lib.js";
+import { User } from "../../../models/models.js";
 export const verifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token, userID, event } = req.body;
     const user = yield User.findByPk(userID, {
@@ -28,7 +28,6 @@ export const verifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, fun
     });
     if (result !== MsgHMAC.OK)
         return err401(res, { msg: formatMsgApp(result) });
-    user.isVerified = true;
-    yield user.save();
-    return res200(res);
+    yield user.verify();
+    return res200(res, { msg: "account verified" });
 });

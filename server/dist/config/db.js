@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Sequelize } from "sequelize";
 import fs from "fs";
 import { getCaDir } from "../lib/lib.js";
-import { defineToken, defineUser } from "../models/models.js";
+import { bindModels } from "../models/models.js";
 const seq = new Sequelize(process.env.URI_AIVEN, {
     dialect: "postgres",
     logging: false,
@@ -22,18 +22,11 @@ const seq = new Sequelize(process.env.URI_AIVEN, {
         },
     },
 });
-const User = defineUser(seq);
-const Token = defineToken(seq);
-const bindModels = () => {
-    Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
-    User.hasMany(Token, { foreignKey: "userID", onDelete: "CASCADE" });
-};
-bindModels();
+bindModels(seq);
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.authenticate(); });
 const syncDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.sync({ force: false, alter: true }); });
 // const syncDB = async () => await seq.sync({ force: true, alter: true });
-export default seq;
-export { connectDB, syncDB, Token, User };
+export { connectDB, syncDB, seq };
 // const seq = new Sequelize({
 //   dialect: "postgres",
 //   host: "localhost",
