@@ -53,8 +53,8 @@ const Register: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
     defaultValues: {
-      firstName: "ddd",
-      lastName: "ddd",
+      firstName: "alex",
+      lastName: "matveev",
       email: "matveevalexander470@gmail.com",
       password: "@2}mX_}^]3#lA^w5",
       confirmPassword: "@2}mX_}^]3#lA^w5",

@@ -1,9 +1,9 @@
 import { generateKeyPairSync } from "crypto";
-import { Key, KeyInstance, UserInstance } from "../../../models/models.js";
+import { Key, UserInstance } from "../../../models/models.js";
 import { KeyType } from "../../../types/all/keys.js";
-import { compactDecrypt, CompactEncrypt } from "jose";
+import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
 import { JWEInvalid, JWTExpired } from "jose/errors";
-import { ErrAppMsgCode } from "../../../types/types.js";
+import { ErrAppMsgCode, KeyAlg } from "../../../types/types.js";
 import { Response } from "express";
 import { isDev } from "../../../config/env.js";
 
@@ -30,13 +30,13 @@ export const genPairRSA = async () => {
   });
 
   const publicKey = await Key.create({
-    key: pair.privateKey,
-    alg: "rsa",
-    type: KeyType.PRIV,
+    key: pair.publicKey,
+    alg: KeyAlg.RSA,
+    type: KeyType.PUB,
   });
   const privateKey = await Key.create({
     key: pair.privateKey,
-    alg: "rsa",
+    alg: KeyAlg.RSA,
     type: KeyType.PRIV,
   });
 
@@ -46,15 +46,22 @@ export const genPairRSA = async () => {
 // THE ALG THAT ENCRYPT PAYLOAD IS GALOIS COUNTER MODE THAT RESPECT THE PRINCIPLE OF AVALANCHE THANKS TO A COUNTER THAT MAKE SAME PLAINTEXT PRODUCE DIFFERENT CYPHERTEXT
 // UNDER THE HOOD EACH CHAR OF TEXT IS XOR (exclusive or) WITH THE KEYSTREAM OF BITS PRODUCED BY COUNTER
 
+// THE ALG THAT ENCRYPT THE SYMMETRIC KEY USE OPTIMAL ASYMMETRIC PADDING ENCRYPTION PADDING, THIS GIVE US AN OUTPUT LESS PREDICTABLE AND RESPECT THE PRINCIPLE OF AVALANCHE
+// UNDER THE HOODS IT USE MGF1( MASK GENERATION FUNCTION1 ), IT TAKE AS INPUT PLAINTEXT OF MESSAGE, MASK IS PRODUCED HASHING REPEDEATELY INPUT WITH SHA256, AT THE END MASK IS XOR WITH PLAINTEXT TO ADD PADDING AND IMPREDICTABILITY, THEN WILL BE ENCRYPTED WITH GCM
+
 // WE WILL HAVE THE SYMMETRIC KEY ENCRYPTED WITH THE ASYMMETRIC PUBLIC KEY
 // THE PAYLOAD WILL BE ENCRYPTED WITH THE SYMMETRIC KEY (GCM)
 // ONLY THE PRIVATE KEY IS ABLE TO DECRYPT THE SYMMETRIC KEY , THEN WE CAN DECRYPT THE PAYLOAD
 
-export const getPublicRSA = async () =>
-  await Key.findOne({ where: { type: KeyType.PUB } });
+export const getPublicRSA = async () => {
+  const publicKey = await Key.findOne({ where: { type: KeyType.PUB } });
+  return await importSPKI(publicKey!.key, KeyAlg.RSA);
+};
 
-export const getPrivateRSA = async () =>
-  await Key.findOne({ where: { type: KeyType.PRIV } });
+export const getPrivateRSA = async () => {
+  const privateKey = await Key.findOne({ where: { type: KeyType.PRIV } });
+  return await importPKCS8(privateKey!.key, KeyAlg.RSA);
+};
 
 export const genTokenJWE = async (user: UserInstance) => {
   const count = await Key.count({ where: {} });
@@ -66,15 +73,15 @@ export const genTokenJWE = async (user: UserInstance) => {
     role: user.role,
   };
 
-  const publicKey = (await getPublicRSA()) as KeyInstance;
+  const publicKey = await getPublicRSA();
 
   return await new CompactEncrypt(Buffer.from(JSON.stringify(payload)))
-    .setProtectedHeader({ alg: "RSA-OAEP-256", enc: "A256GCM" })
+    .setProtectedHeader({ alg: KeyAlg.RSA, enc: KeyAlg.GCM })
     .encrypt(publicKey);
 };
 
 export const checkJWE = async (token: string): Promise<PayloadJWE | string> => {
-  const privateKey = (await getPrivateRSA()) as KeyInstance;
+  const privateKey = await getPrivateRSA();
 
   try {
     const { plaintext } = await compactDecrypt(token, privateKey);

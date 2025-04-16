@@ -23,3 +23,14 @@ export enum ErrAppMsgCode {
   REFRESH_INVALID = "REFRESH TOKEN INVALID",
   REFRESH_NOT_PROVIDED = "REFRESH TOKEN NOT PROVIDED",
 }
+
+export const KeyAlg = {
+  RSA: "RSA-OAEP-256",
+  GCM: "A256GCM",
+} as const;
+export const TokAlg = {
+  SHA: "sha256",
+} as const;
+
+export type KeyAlgType = (typeof KeyAlg)[keyof typeof KeyAlg];
+export type TokAlgType = (typeof TokAlg)[keyof typeof TokAlg];

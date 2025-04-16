@@ -1,10 +1,10 @@
 import crypto from "crypto";
 import { mySign } from "../../../config/env.js";
-import { MsgHMAC, TokenEventType } from "../../../types/types.js";
+import { MsgHMAC, TokAlg, TokenEventType } from "../../../types/types.js";
 import { Token, UserInstance } from "../../../models/models.js";
 
 const hashHMAC = (payload: string) =>
-  crypto.createHmac("sha256", mySign!).update(payload).digest("hex");
+  crypto.createHmac(TokAlg.SHA, mySign!).update(payload).digest("hex");
 
 export const genTokenHMAC = async ({
   user,

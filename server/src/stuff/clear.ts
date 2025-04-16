@@ -1,10 +1,11 @@
-import { Token, User } from "../models/models.js";
+import { Key, Token, User } from "../models/models.js";
 
 export const clearDB = async () => {
   const start = performance.now();
 
   await Token.destroy({ where: {} });
   await User.destroy({ where: {} });
+  await Key.destroy({ where: {} });
 
   const end = performance.now();
 

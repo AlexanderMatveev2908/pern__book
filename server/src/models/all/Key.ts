@@ -8,6 +8,7 @@ import {
 } from "sequelize";
 import { v4 } from "uuid";
 import { KeyType } from "../../types/all/keys.js";
+import { KeyAlg, KeyAlgType } from "../../types/types.js";
 
 export class Key extends Model<
   InferAttributes<Key>,
@@ -16,7 +17,7 @@ export class Key extends Model<
   declare id: CreationOptional<string>;
   declare key: string;
   declare type: KeyType;
-  declare alg: string;
+  declare alg: KeyAlgType;
 }
 
 export type KeyInstance = InstanceType<typeof Key>;
@@ -31,7 +32,7 @@ export const defineKey = (seq: Sequelize) =>
         allowNull: false,
       },
       alg: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(...Object.values(KeyAlg)),
         allowNull: false,
       },
       type: {
@@ -39,7 +40,7 @@ export const defineKey = (seq: Sequelize) =>
         allowNull: false,
       },
       key: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
       },
