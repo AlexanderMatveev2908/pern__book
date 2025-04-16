@@ -1,9 +1,11 @@
-import { DataTypes } from "sequelize";
+import { DataTypes, Model } from "sequelize";
 import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
 const ObjectID = pkg.default;
-const defineUser = (seq) => seq.define("User", {
+export class User extends Model {
+}
+const defineUser = (seq) => User.init({
     id: {
         type: DataTypes.STRING(36),
         defaultValue: () => v4(),
@@ -48,7 +50,9 @@ const defineUser = (seq) => seq.define("User", {
         defaultValue: false,
     },
 }, {
+    sequelize: seq,
     tableName: "users",
     timestamps: true,
+    modelName: "User",
 });
 export { defineUser };

@@ -20,7 +20,7 @@ export const getHtmlMail = ({ firstName, txt, url, labelBtn, }) => `     <table 
             padding-bottom: 50px;
           "
         >
-          CLick the button below to be redirected to our website ${txt}
+          CLick the button below to be redirected to our website and ${txt}
         </td>
       </tr>
 

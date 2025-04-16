@@ -6,14 +6,14 @@ import {
   wrapApp,
 } from "../../middleware/middleware.js";
 
-const router = express.Router();
+const authRouter = express.Router();
 
-router.post(
+authRouter.post(
   "/register",
   limitRoute({ max: 10 }),
   validateRegister,
   wrapApp(registerUser)
 );
-router.post("/login", wrapApp(loginUser));
+authRouter.post("/login", wrapApp(loginUser));
 
-export default router;
+export default authRouter;

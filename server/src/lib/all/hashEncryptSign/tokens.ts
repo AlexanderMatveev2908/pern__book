@@ -1,12 +1,7 @@
 import crypto from "crypto";
 import { mySign } from "../../../config/env.js";
-import {
-  MsgHMAC,
-  TokenEventType,
-  TokenType,
-  UserType,
-} from "../../../types/types.js";
-import { Token } from "../../../config/db.js";
+import { MsgHMAC, TokenEventType } from "../../../types/types.js";
+import { Token, TokenInstance, UserInstance } from "../../../models/models.js";
 
 const hashHMAC = (payload: string) =>
   crypto.createHmac("sha256", mySign!).update(payload).digest("hex");
@@ -15,7 +10,7 @@ export const genTokenHMAC = async ({
   user,
   event,
 }: {
-  user: UserType;
+  user: UserInstance;
   event: TokenEventType;
 }): Promise<any> => {
   const verifyToken = crypto.randomBytes(32).toString("hex");
@@ -33,7 +28,7 @@ export const genTokenHMAC = async ({
         event,
         hashed,
         expiry,
-        userId: user.id,
+        userID: user.id,
       });
 
       return { verifyToken };
@@ -52,7 +47,7 @@ export const genTokenHMAC = async ({
 //   user,
 //   event,
 // }: {
-//   user: UserType;
+//   user: UserInstance;
 //   event: TokenEventType;
 // }): Promise<any> => {
 //   const token = crypto.randomBytes(32).toString("hex");
@@ -80,19 +75,20 @@ export const checkHMAC = async ({
   token,
   event,
 }: {
-  user: UserType;
+  user: UserInstance;
   token: string;
-  event: TokenEventType;
+  event: TokenInstance;
 }) => {
-  const hashed = hashHMAC(token);
+  const payload = `${user.id}_${token}`;
+  const hashed = hashHMAC(payload);
 
   const existingToken = (await Token.findOne({
     where: {
       hashed,
       event,
-      userId: user.id,
+      userID: user.id,
     },
-  })) as TokenType;
+  })) as TokenInstance;
 
   if (!existingToken) return MsgHMAC.NOT_FOUND;
   if (!existingToken.hashed) {

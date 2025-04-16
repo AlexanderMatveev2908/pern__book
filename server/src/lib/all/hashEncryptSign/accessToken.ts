@@ -1,7 +1,7 @@
 import { JWTPayload } from "jose";
 import jwt from "jsonwebtoken";
 import { mySign } from "../../../config/env.js";
-import { UserType } from "../../../types/types.js";
+import { UserInstance } from "../../../models/models.js";
 
 export interface AppJwtPayload extends JWTPayload {
   id: string;
@@ -9,7 +9,7 @@ export interface AppJwtPayload extends JWTPayload {
   role: string;
 }
 
-export const genAccessJWT = (user: UserType) =>
+export const genAccessJWT = (user: UserInstance) =>
   jwt.sign(
     {
       id: user.id,

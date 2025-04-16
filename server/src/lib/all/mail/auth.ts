@@ -1,6 +1,7 @@
 import { frontURL, myMail } from "../../../config/env.js";
 import mailer from "../../../config/mail.js";
-import { TokenEventType, UserType } from "../../../types/types.js";
+import { UserInstance } from "../../../models/models.js";
+import { TokenEventType } from "../../../types/types.js";
 import { getHtmlMail } from "./html/template.js";
 
 const getTxt = (event: TokenEventType) => {
@@ -35,15 +36,13 @@ export const sendEmailAuth = async ({
   token,
   event,
 }: {
-  user: UserType;
+  user: UserInstance;
   token: string;
   event: TokenEventType;
 }) => {
   if ([user, token, event].some((el) => !el)) return;
 
-  const verifyURL = `${frontURL}/verify?token=${token}&userID=${
-    user.id + ""
-  }&event=${event}`;
+  const verifyURL = `${frontURL}/verify-cb?token=${token}&userID=${user.id}&event=${event}`;
   const { txt, labelBtn, subject } = getTxt(event);
 
   await mailer.sendMail({

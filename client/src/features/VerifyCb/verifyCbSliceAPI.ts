@@ -11,8 +11,8 @@ const verifyCbAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     verifyAccount: builder.mutation({
       query: (params: ParamsVerifyAccount) => ({
-        url: "/auth/verify-account",
-        method: "POST",
+        url: "/verify/verify-account",
+        method: "PATCH",
         data: params,
       }),
     }),

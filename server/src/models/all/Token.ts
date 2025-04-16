@@ -1,10 +1,19 @@
-import { DataTypes, Sequelize } from "sequelize";
-import { TokenEventType, TokenType } from "../../types/types.js";
+import { DataTypes, Model, Sequelize } from "sequelize";
+import { TokenEventType } from "../../types/types.js";
 import { v4 } from "uuid";
 
+export class Token extends Model {
+  id!: string;
+  event!: TokenEventType;
+  hashed!: string;
+  expiry!: number | null;
+  userID!: string;
+}
+
+export type TokenInstance = InstanceType<typeof Token>;
+
 const defineToken = (seq: Sequelize) =>
-  seq.define<TokenType>(
-    "Token",
+  Token.init(
     {
       id: {
         type: DataTypes.STRING(36),
@@ -26,7 +35,7 @@ const defineToken = (seq: Sequelize) =>
         allowNull: true,
         defaultValue: null,
       },
-      userId: {
+      userID: {
         type: DataTypes.STRING(36),
         allowNull: false,
         references: {
@@ -35,7 +44,12 @@ const defineToken = (seq: Sequelize) =>
         },
       },
     },
-    { timestamps: true, tableName: "tokens" }
+    {
+      sequelize: seq,
+      timestamps: true,
+      tableName: "tokens",
+      modelName: "Token",
+    }
   );
 
 export { defineToken };

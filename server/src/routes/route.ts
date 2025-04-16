@@ -3,16 +3,18 @@ import cookieParser from "cookie-parser";
 import { corsMid } from "../middleware/middleware.js";
 import authRouter from "./all/auth.js";
 import profileRouter from "./all/profile.js";
+import verifyRouter from "./all/verify.js";
 
-const router = express.Router();
+const routerApp = express.Router();
 
-router.use(express.json());
-router.use(express.urlencoded({ extended: true }));
-router.use(cookieParser());
+routerApp.use(express.json());
+routerApp.use(express.urlencoded({ extended: true }));
+routerApp.use(cookieParser());
 
-router.use(corsMid());
+routerApp.use(corsMid());
 
-router.use("/auth", authRouter);
-router.use("/profile", profileRouter);
+routerApp.use("/auth", authRouter);
+routerApp.use("/verify", verifyRouter);
+routerApp.use("/profile", profileRouter);
 
-export default router;
+export default routerApp;

@@ -1,11 +1,11 @@
 import "dotenv/config";
 import express from "express";
-import { connectDB, syncDB } from "./config/db.js";
+import { connectDB, seq, syncDB } from "./config/db.js";
 import { errMiddleware } from "./middleware/middleware.js";
 import { isDev } from "./config/env.js";
 import { getDirClient } from "./lib/lib.js";
-import mainRouter from "./routes/route.js";
 import { clearDB } from "./stuff/clear.js";
+import routerApp from "./routes/route.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -15,7 +15,7 @@ app.set("trust proxy", 1);
 
 app.use(express.json());
 
-app.use("/api/v1", mainRouter);
+app.use("/api/v1", routerApp);
 
 if (!isDev) {
   app.use(express.static(getDirClient()));
@@ -26,7 +26,7 @@ if (!isDev) {
 app.use(errMiddleware);
 
 // getDataDB();
-// clearDB();
+clearDB();
 
 const start = async () => {
   try {

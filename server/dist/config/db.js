@@ -25,8 +25,8 @@ const seq = new Sequelize(process.env.URI_AIVEN, {
 const User = defineUser(seq);
 const Token = defineToken(seq);
 const bindModels = () => {
-    Token.belongsTo(User, { foreignKey: "userId", onDelete: "CASCADE" });
-    User.hasMany(Token, { foreignKey: "userId", onDelete: "CASCADE" });
+    Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
+    User.hasMany(Token, { foreignKey: "userID", onDelete: "CASCADE" });
 };
 bindModels();
 const connectDB = () => __awaiter(void 0, void 0, void 0, function* () { return yield seq.authenticate(); });

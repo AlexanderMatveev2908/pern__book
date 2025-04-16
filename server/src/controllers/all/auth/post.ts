@@ -10,7 +10,7 @@ import {
   genTokenHMAC,
 } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
-import { User } from "../../../config/db.js";
+import { User } from "../../../models/models.js";
 
 export const registerUser = async (
   req: Request,

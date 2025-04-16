@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { res200 } from "../../../lib/lib.js";
 import { ReqApp } from "../../../types/types.js";
-import { User } from "../../../config/db.js";
+import { User } from "../../../models/models.js";
 
 export const getInfoProfileHome = async (
   req: ReqApp,

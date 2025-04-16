@@ -2,8 +2,12 @@ import express from "express";
 import { verifyAccessToken, wrapApp } from "../../middleware/middleware.js";
 import { getInfoProfileHome } from "../../controllers/controllers.js";
 
-const router = express.Router();
+const profileRouter = express.Router();
 
-router.get("/info-home", verifyAccessToken({}), wrapApp(getInfoProfileHome));
+profileRouter.get(
+  "/info-home",
+  verifyAccessToken({}),
+  wrapApp(getInfoProfileHome)
+);
 
-export default router;
+export default profileRouter;

@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import crypto from "crypto";
 import { mySign } from "../../../config/env.js";
-import { MsgHMAC, } from "../../../types/types.js";
+import { MsgHMAC } from "../../../types/types.js";
 import { Token } from "../../../config/db.js";
 const hashHMAC = (payload) => crypto.createHmac("sha256", mySign).update(payload).digest("hex");
 export const genTokenHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({ user, event, }) {
@@ -22,10 +22,10 @@ export const genTokenHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({
     do {
         try {
             yield Token.create({
-                type: event,
+                event,
                 hashed,
                 expiry,
-                userId: user.id,
+                userID: user.id,
             });
             return { verifyToken };
         }
@@ -45,7 +45,7 @@ export const genTokenHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({
 //   user,
 //   event,
 // }: {
-//   user: UserType;
+//   user: UserInstance;
 //   event: TokenEventType;
 // }): Promise<any> => {
 //   const token = crypto.randomBytes(32).toString("hex");
@@ -66,12 +66,13 @@ export const genTokenHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({
 // };
 export const checkHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({ user, token, event, }) {
     var _b;
-    const hashed = hashHMAC(token);
+    const payload = `${user.id}_${token}`;
+    const hashed = hashHMAC(payload);
     const existingToken = (yield Token.findOne({
         where: {
             hashed,
-            type: event,
-            userId: user.id,
+            event,
+            userID: user.id,
         },
     }));
     if (!existingToken)

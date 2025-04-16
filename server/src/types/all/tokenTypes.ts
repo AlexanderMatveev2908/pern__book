@@ -9,10 +9,9 @@ export enum TokenEventType {
   CHANGE_EMAIL = "CHANGE_EMAIL",
 }
 
-export interface TokenType extends Model {
-  id: number;
-  event: TokenEventType;
-  hashed: string | null;
-  expiry: number | null;
-  userId: number;
+export enum MsgHMAC {
+  NOT_FOUND = "VERIFY_TOKEN_NOT_FOUND",
+  NOT_EMITTED = "VERIFY_TOKEN_NOT_EMITTED",
+  EXPIRED = "VERIFY_TOKEN_EXPIRED",
+  OK = "OK",
 }
