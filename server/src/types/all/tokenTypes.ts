@@ -31,6 +31,10 @@ export const KeyAlg = {
 export const TokAlg = {
   SHA: "sha256",
 } as const;
+export const DevAlg = {
+  CBC_HMAC: "aes-256-cbc",
+} as const;
 
 export type KeyAlgType = (typeof KeyAlg)[keyof typeof KeyAlg];
 export type TokAlgType = (typeof TokAlg)[keyof typeof TokAlg];
+export type DevAlgType = (typeof DevAlg)[keyof typeof DevAlg];
