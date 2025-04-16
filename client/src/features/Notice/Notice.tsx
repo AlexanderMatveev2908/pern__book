@@ -10,11 +10,7 @@ const Notice: FC = () => {
   const noticeState = useSelector(getNoticeState);
 
   useEffect(() => {
-    if (
-      typeof noticeState.cb === "function" &&
-      (noticeState.cb + "").split(" ").at(-1) !== "null" &&
-      !runRef.current
-    ) {
+    if (typeof noticeState.cb === "function" && !runRef.current) {
       runRef.current = true;
       noticeState.cb();
     }
@@ -24,7 +20,7 @@ const Notice: FC = () => {
   }, [noticeState]);
 
   return (
-    <div className="w-full grid justify-items-center gap-y-[100px]">
+    <div className="w-full grid justify-items-center gap-y-[75px]">
       <span className="txt__5 txt__col">{noticeState.notice}</span>
 
       {noticeState.type === EventApp.OK ? (

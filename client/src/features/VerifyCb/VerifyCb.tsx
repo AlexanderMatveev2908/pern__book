@@ -1,10 +1,9 @@
 import { FC, useCallback, useEffect, useRef } from "react";
 import { useVerifyAccountMutation } from "./verifyCbSliceAPI";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapAPI } from "@/hooks/hooks";
 import { useDispatch } from "react-redux";
-import { isObjOk } from "@/lib/lib";
 import { TokenEventType } from "@/types/types";
 
 const VerifyCb: FC = () => {
@@ -18,13 +17,16 @@ const VerifyCb: FC = () => {
   const { wrapAPI } = useWrapAPI();
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [verifyAccount, { isLoading, isError, error }] =
     useVerifyAccountMutation();
 
   const handleVerifyAccount = useCallback(async () => {
     const params = { token, userID, event: event as TokenEventType };
-    const res = await wrapAPI(() => verifyAccount(params));
-    if (!isObjOk(res)) return;
+    const res = await wrapAPI({
+      cbAPI: () => verifyAccount(params),
+      pushNotice: [true, () => console.log("ahah i used a cb")],
+    });
   }, [userID, token, event, verifyAccount, wrapAPI]);
 
   useEffect(() => {

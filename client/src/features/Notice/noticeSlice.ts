@@ -4,26 +4,22 @@ import { RootStateType } from "@/store/store";
 import { EventApp } from "@/types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-export type NoticeCB = (() => any) & {
-  run?: boolean;
-};
-
 interface NoticeState {
   notice: string;
   type: EventApp;
-  cb?: NoticeCB;
+  cb?: (() => any) | null;
 }
 
 const savedNotice = getStorage("notice");
 const initState: NoticeState = savedNotice
   ? {
       ...JSON.parse(savedNotice),
-      cb: () => null,
+      cb: null,
     }
   : {
       notice: "",
       type: EventApp.OK,
-      cb: () => null,
+      cb: null,
     };
 
 const noticeSlice = createSlice({

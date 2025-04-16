@@ -29,7 +29,7 @@ import { useCb, useWrapAPI } from "@/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
-import { AllowedFromNotice, EventApp } from "@/types/types.ts";
+import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types.ts";
 import { setNotice } from "@/features/Notice/noticeSlice.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
@@ -78,18 +78,19 @@ const Register: FC = () => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
 
-    const res = await wrapAPI(() =>
-      registerUser(newUser as NonNullable<RegisterParamsAPI>)
-    );
+    const res = await wrapAPI({
+      cbAPI: () => registerUser(newUser as NonNullable<RegisterParamsAPI>),
+    });
+
     if (!isObjOk(res)) return;
 
-    saveStorage({ data: res?.accessToken, key: "accessToken" });
+    saveStorage({ data: res?.accessToken, key: StorageKeys.ACCESS });
     reset();
     const notice = {
       notice: makeNoticeTxt("to verify your account"),
       type: EventApp.OK,
     };
-    saveStorage({ data: notice, key: "notice" });
+    saveStorage({ data: notice, key: StorageKeys.NOTICE });
     dispatch(setNotice({ ...notice, cb: registerCb }));
     navigate("/notice", {
       replace: true,

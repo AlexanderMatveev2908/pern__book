@@ -23,6 +23,6 @@ export enum TokenEventType {
 
 export enum AllowedFromNotice {
   REGISTER = "/auth/register",
-  VERIFY_ACCOUNT = "/auth/verify-account",
   FORGOT_PWD = "/auth/forgot-pwd",
+  VERIFY_ACCOUNT = "/auth/verify-cb",
 }

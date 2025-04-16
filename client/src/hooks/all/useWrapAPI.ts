@@ -1,14 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { setNotice } from "@/features/Notice/noticeSlice";
 import { openToast } from "@/features/Toast/toastSlice";
-import { EventApp } from "@/types/types";
+import { saveStorage } from "@/lib/lib";
+import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
 export const useWrapAPI = () => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
 
   const wrapAPI = useCallback(
-    async (cbAPI: () => any) => {
+    async ({
+      cbAPI,
+      push,
+      pushNotice,
+    }: {
+      cbAPI: () => any;
+      push?: boolean;
+      pushNotice?: [boolean, (() => any)?];
+    }) => {
       try {
         const { status, data } = await cbAPI().unwrap();
         dispatch(
@@ -41,10 +55,36 @@ export const useWrapAPI = () => {
           })
         );
 
+        console.log(pushNotice);
+
+        if (push && pushNotice) {
+          throw new Error("Can not send user to different places at same time");
+        } else if (push) {
+          navigate("/", { replace: true });
+        } else if (pushNotice?.[0]) {
+          dispatch(
+            setNotice({
+              notice: data?.msg,
+              type: EventApp.ERR,
+              cb: pushNotice?.[1] ?? null,
+            })
+          );
+
+          saveStorage({
+            data: { notice: data?.msg, type: EventApp.ERR },
+            key: StorageKeys.NOTICE,
+          });
+
+          navigate("/notice", {
+            replace: true,
+            state: { from: AllowedFromNotice.VERIFY_ACCOUNT },
+          });
+        }
+
         return null;
       }
     },
-    [dispatch]
+    [dispatch, navigate]
   );
 
   return { wrapAPI };
