@@ -1,8 +1,10 @@
 import apiSlice from "@/store/apiSlice";
+import { TokenEventType } from "@/types/types";
 
 export interface ParamsVerifyAccount {
   token: string;
-  userId: string;
+  userID: string;
+  event: TokenEventType;
 }
 
 const verifyCbAPI = apiSlice.injectEndpoints({

@@ -14,6 +14,7 @@ import { useForm } from "react-hook-form";
 import {
   getErrCurrSwap,
   getErrLen,
+  isObjOk,
   makeNoticeTxt,
   saveStorage,
   schemaRegister,
@@ -80,19 +81,16 @@ const Register: FC = () => {
     const res = await wrapAPI(() =>
       registerUser(newUser as NonNullable<RegisterParamsAPI>)
     );
-    if (!res?.accessToken) return;
+    if (!isObjOk(res)) return;
+
     saveStorage({ data: res?.accessToken, key: "accessToken" });
-
     reset();
-
     const notice = {
       notice: makeNoticeTxt("to verify your account"),
       type: EventApp.OK,
     };
     saveStorage({ data: notice, key: "notice" });
-
     dispatch(setNotice({ ...notice, cb: registerCb }));
-
     navigate("/notice", {
       replace: true,
       state: { from: AllowedFromNotice.REGISTER },
