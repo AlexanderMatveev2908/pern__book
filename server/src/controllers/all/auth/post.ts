@@ -1,16 +1,16 @@
 import { Request, Response } from "express";
 import {
-  calcTimeRun,
-  capChar,
   genAccessJWT,
   err409,
-  hashPwd,
   res201,
   sendEmailAuth,
   genTokenHMAC,
+  genTokenJWE,
+  setCookie,
 } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
+import { isDev } from "../../../config/env.js";
 
 export const registerUser = async (
   req: Request,
@@ -31,12 +31,15 @@ export const registerUser = async (
     user: newUser,
     event: TokenEventType.VERIFY_ACCOUNT,
   });
+  const refreshToken = await genTokenJWE(newUser);
 
   await sendEmailAuth({
     user: newUser,
     token: verifyToken,
     event: TokenEventType.VERIFY_ACCOUNT,
   });
+
+  setCookie(res, refreshToken);
 
   return res201(res, { msg: "Account created", accessToken });
 };

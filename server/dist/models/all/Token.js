@@ -1,4 +1,4 @@
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, } from "sequelize";
 import { TokenEventType } from "../../types/types.js";
 import { v4 } from "uuid";
 export class Token extends Model {

@@ -68,13 +68,13 @@ export const checkHMAC = (_a) => __awaiter(void 0, [_a], void 0, function* ({ us
     var _b;
     const payload = `${user.id}_${token}`;
     const hashed = hashHMAC(payload);
-    const existingToken = (yield Token.findOne({
+    const existingToken = yield Token.findOne({
         where: {
             hashed,
             event,
             userID: user.id,
         },
-    }));
+    });
     if (!existingToken)
         return MsgHMAC.NOT_FOUND;
     if (!existingToken.hashed) {

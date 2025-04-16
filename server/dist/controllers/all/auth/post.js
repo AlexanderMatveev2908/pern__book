@@ -7,25 +7,23 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { calcTimeRun, capChar, genAccessJWT, err409, hashPwd, res201, sendEmailAuth, genTokenHMAC, } from "../../../lib/lib.js";
+import { genAccessJWT, err409, res201, sendEmailAuth, genTokenHMAC, } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
 export const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const newUser = req.body;
-    const existingUser = yield User.findOne({
-        where: { email: newUser.email },
-    });
-    if (existingUser)
+    const newUser = User.build(req.body);
+    if (yield newUser.existUser())
         return err409(res, { msg: "User already exists" });
-    newUser.password = yield calcTimeRun(() => hashPwd(newUser.password));
-    const newSqlUser = yield User.create(Object.assign(Object.assign({}, newUser), { firstName: capChar(newUser.firstName), lastName: capChar(newUser.lastName) }));
-    const accessToken = genAccessJWT(newSqlUser);
+    newUser.capitalize();
+    yield newUser.hashPwdUser();
+    yield newUser.save();
+    const accessToken = genAccessJWT(newUser);
     const { verifyToken } = yield genTokenHMAC({
-        user: newSqlUser,
+        user: newUser,
         event: TokenEventType.VERIFY_ACCOUNT,
     });
     yield sendEmailAuth({
-        user: newSqlUser,
+        user: newUser,
         token: verifyToken,
         event: TokenEventType.VERIFY_ACCOUNT,
     });

@@ -1,16 +1,6 @@
 import { Response } from "express";
 import { isObjErrOk } from "./validateDataStructure.js";
 
-export enum ErrAppMsgCode {
-  ACCESS_EXPIRED = "ACCESS TOKEN EXPIRED",
-  ACCESS_INVALID = "ACCESS_TOKEN_INVALID",
-  ACCESS_NOT_PROVIDED = "ACCESS TOKEN NOT PROVIDED",
-
-  REFRESH_EXPIRED = "REFRESH TOKEN EXPIRED",
-  REFRESH_INVALID = "REFRESH TOKEN INVALID",
-  REFRESH_NOT_PROVIDED = "REFRESH TOKEN NOT PROVIDED",
-}
-
 export const errApp = (res: Response, status: number, data?: any) =>
   res.status(status).json({ ...data, ok: false });
 

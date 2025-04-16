@@ -14,3 +14,12 @@ export var MsgHMAC;
     MsgHMAC["EXPIRED"] = "VERIFY_TOKEN_EXPIRED";
     MsgHMAC["OK"] = "OK";
 })(MsgHMAC || (MsgHMAC = {}));
+export var ErrAppMsgCode;
+(function (ErrAppMsgCode) {
+    ErrAppMsgCode["ACCESS_EXPIRED"] = "ACCESS TOKEN EXPIRED";
+    ErrAppMsgCode["ACCESS_INVALID"] = "ACCESS_TOKEN_INVALID";
+    ErrAppMsgCode["ACCESS_NOT_PROVIDED"] = "ACCESS TOKEN NOT PROVIDED";
+    ErrAppMsgCode["REFRESH_EXPIRED"] = "REFRESH TOKEN EXPIRED";
+    ErrAppMsgCode["REFRESH_INVALID"] = "REFRESH TOKEN INVALID";
+    ErrAppMsgCode["REFRESH_NOT_PROVIDED"] = "REFRESH TOKEN NOT PROVIDED";
+})(ErrAppMsgCode || (ErrAppMsgCode = {}));

@@ -3,12 +3,12 @@ import { useVerifyAccountMutation } from "./verifyCbSliceAPI";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapAPI } from "@/hooks/hooks";
-import { useDispatch } from "react-redux";
 import { TokenEventType } from "@/types/types";
 
 const VerifyCb: FC = () => {
   const [searchParams] = useSearchParams();
   const hasRun = useRef<boolean>(false);
+  const navigate = useNavigate();
 
   const userID = searchParams.get("userID") ?? "";
   const token = searchParams.get("token") ?? "";
@@ -20,11 +20,12 @@ const VerifyCb: FC = () => {
 
   const handleVerifyAccount = useCallback(async () => {
     const params = { token, userID, event: event as TokenEventType };
-    const res = await wrapAPI({
+    await wrapAPI({
       cbAPI: () => verifyAccount(params),
-      // pushNotice: [true, () => console.log("ahah i used a cb")],
+      pushNotice: [true],
     });
-  }, [userID, token, event, verifyAccount, wrapAPI]);
+    navigate("/", { replace: true });
+  }, [userID, token, event, verifyAccount, wrapAPI, navigate]);
 
   useEffect(() => {
     if (!hasRun.current) {

@@ -1,6 +1,6 @@
 import "dotenv/config";
 import express from "express";
-import { connectDB, seq, syncDB } from "./config/db.js";
+import { connectDB, syncDB } from "./config/db.js";
 import { errMiddleware } from "./middleware/middleware.js";
 import { isDev } from "./config/env.js";
 import { getDirClient } from "./lib/lib.js";

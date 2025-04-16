@@ -7,8 +7,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { err400, err401, err403, err500, ErrAppMsgCode, verifyJWT, } from "../../../lib/lib.js";
-import { UserRole } from "../../../types/types.js";
+import { err400, err401, err403, err500, verifyJWT, } from "../../../lib/lib.js";
+import { ErrAppMsgCode, UserRole } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
 export const verifyAccessToken = ({ verified = false, role = UserRole.CUSTOMER, }) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;

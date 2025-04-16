@@ -5,10 +5,9 @@ import {
   err401,
   err403,
   err500,
-  ErrAppMsgCode,
   verifyJWT,
 } from "../../../lib/lib.js";
-import { UserRole } from "../../../types/types.js";
+import { ErrAppMsgCode, UserRole } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
 
 export const verifyAccessToken =

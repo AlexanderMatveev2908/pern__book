@@ -7,12 +7,29 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { DataTypes, Model } from "sequelize";
+import { DataTypes, Model, } from "sequelize";
 import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
+import { calcTimeRun, capChar, hashPwd } from "../../lib/lib.js";
 const ObjectID = pkg.default;
 export class User extends Model {
+    existUser() {
+        return __awaiter(this, void 0, void 0, function* () {
+            return yield User.findOne({
+                where: { email: this.email },
+            });
+        });
+    }
+    capitalize() {
+        this.firstName = capChar(this.firstName);
+        this.lastName = capChar(this.lastName);
+    }
+    hashPwdUser() {
+        return __awaiter(this, void 0, void 0, function* () {
+            this.password = yield calcTimeRun(() => hashPwd(this.password));
+        });
+    }
     verify() {
         return __awaiter(this, void 0, void 0, function* () {
             this.isVerified = true;
