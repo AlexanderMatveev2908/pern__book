@@ -9,13 +9,13 @@ import {
 import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
-import { Token } from "./Token.js";
+import { calcTimeRun, capChar, hashPwd } from "../../lib/lib.js";
 
 const ObjectID = pkg.default;
 
 export class User extends Model<
   InferAttributes<User>,
-  InferCreationAttributes<Token>
+  InferCreationAttributes<User>
 > {
   declare id: CreationOptional<string>;
   declare firstName: string;
@@ -26,6 +26,21 @@ export class User extends Model<
   declare role: CreationOptional<UserRole>;
   declare isVerified: CreationOptional<boolean>;
   declare isNewsletter: CreationOptional<boolean>;
+
+  async existUser(this: User) {
+    return await User.findOne({
+      where: { email: this.email },
+    });
+  }
+
+  capitalize(this: User) {
+    this.firstName = capChar(this.firstName);
+    this.lastName = capChar(this.lastName);
+  }
+
+  async hashPwdUser(this: User) {
+    this.password = await calcTimeRun(() => hashPwd(this.password));
+  }
 
   async verify(this: User) {
     this.isVerified = true;

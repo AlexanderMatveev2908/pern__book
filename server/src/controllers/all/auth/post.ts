@@ -16,28 +16,24 @@ export const registerUser = async (
   req: Request,
   res: Response
 ): Promise<any> => {
-  const newUser = req.body;
+  const newUser = User.build(req.body);
 
-  const existingUser = await User.findOne({
-    where: { email: newUser.email },
-  });
-  if (existingUser) return err409(res, { msg: "User already exists" });
+  if (await newUser.existUser())
+    return err409(res, { msg: "User already exists" });
 
-  newUser.password = await calcTimeRun(() => hashPwd(newUser.password));
-  const newSqlUser = await User.create({
-    ...newUser,
-    firstName: capChar(newUser.firstName),
-    lastName: capChar(newUser.lastName),
-  });
-  const accessToken = genAccessJWT(newSqlUser);
+  newUser.capitalize();
+  await newUser.hashPwdUser();
+  await newUser.save();
+
+  const accessToken = genAccessJWT(newUser);
 
   const { verifyToken } = await genTokenHMAC({
-    user: newSqlUser,
+    user: newUser,
     event: TokenEventType.VERIFY_ACCOUNT,
   });
 
   await sendEmailAuth({
-    user: newSqlUser,
+    user: newUser,
     token: verifyToken,
     event: TokenEventType.VERIFY_ACCOUNT,
   });
