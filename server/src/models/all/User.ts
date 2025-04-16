@@ -6,15 +6,20 @@ import { v4 } from "uuid";
 const ObjectID = pkg.default;
 
 export class User extends Model {
-  id!: string;
-  firstName!: string;
-  lastName!: string;
-  email!: string;
-  tempEmail!: string | null;
-  password!: string;
-  role!: UserRole;
-  isVerified!: boolean;
-  isNewsletter!: boolean;
+  declare id: string;
+  declare firstName: string;
+  declare lastName: string;
+  declare email: string;
+  declare tempEmail: string | null;
+  declare password: string;
+  declare role: UserRole;
+  declare isVerified: boolean;
+  declare isNewsletter: boolean;
+
+  async verify(this: User) {
+    this.isVerified = true;
+    await this.save();
+  }
 }
 
 export type UserInstance = InstanceType<typeof User>;

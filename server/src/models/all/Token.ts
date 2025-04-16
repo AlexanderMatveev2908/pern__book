@@ -3,11 +3,11 @@ import { TokenEventType } from "../../types/types.js";
 import { v4 } from "uuid";
 
 export class Token extends Model {
-  id!: string;
-  event!: TokenEventType;
-  hashed!: string;
-  expiry!: number | null;
-  userID!: string;
+  declare id: string;
+  declare event: TokenEventType;
+  declare hashed: string;
+  declare expiry: number | null;
+  declare userID: string;
 }
 
 export type TokenInstance = InstanceType<typeof Token>;

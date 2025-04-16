@@ -31,8 +31,7 @@ export const verifyAccount = async (
   });
   if (result !== MsgHMAC.OK) return err401(res, { msg: formatMsgApp(result) });
 
-  user.isVerified = true;
-  await user.save();
+  await user.verify();
 
-  return res200(res);
+  return res200(res, { msg: "account verified" });
 };

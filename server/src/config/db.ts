@@ -23,16 +23,6 @@ const syncDB = async () => await seq.sync({ force: false, alter: true });
 
 export { connectDB, syncDB, seq };
 
-// const User = defineUser(seq);
-// const Token = defineToken(seq);
-
-// const bindModels = () => {
-//   Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
-//   User.hasMany(Token, { foreignKey: "userID", onDelete: "CASCADE" });
-// };
-
-// bindModels();
-
 // const seq = new Sequelize({
 //   dialect: "postgres",
 //   host: "localhost",
