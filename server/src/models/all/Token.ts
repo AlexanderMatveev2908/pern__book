@@ -12,7 +12,7 @@ const defineToken = (seq: Sequelize) =>
         primaryKey: true,
         allowNull: false,
       },
-      type: {
+      event: {
         type: DataTypes.ENUM(...Object.values(TokenEventType)),
         allowNull: false,
       },

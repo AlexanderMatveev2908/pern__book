@@ -1,16 +1,20 @@
 import { FC, useEffect, useRef } from "react";
-import { LuCircleAlert, LuCircleCheckBig } from "react-icons/lu";
-import "./Notice.css";
+import { LuCircleCheckBig } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { getNoticeState } from "./noticeSlice";
 import { EventApp } from "@/types/types";
+import ErrIcon from "@/components/common/ErrIcon";
 
 const Notice: FC = () => {
   const runRef = useRef<boolean>(false);
   const noticeState = useSelector(getNoticeState);
 
   useEffect(() => {
-    if (typeof noticeState.cb === "function" && !runRef.current) {
+    if (
+      typeof noticeState.cb === "function" &&
+      (noticeState.cb + "").split(" ").at(-1) !== "null" &&
+      !runRef.current
+    ) {
       runRef.current = true;
       noticeState.cb();
     }
@@ -25,12 +29,10 @@ const Notice: FC = () => {
 
       {noticeState.type === EventApp.OK ? (
         <div className="w-fit">
-          <LuCircleCheckBig className="icon__notice text-green-600" />
+          <LuCircleCheckBig className="icon__notice_lg text-green-600" />
         </div>
       ) : (
-        <div className="w-fit">
-          <LuCircleAlert className="icon__notice text-red-600" />
-        </div>
+        <ErrIcon {...{ classCSS: "icon__notice_lg" }} />
       )}
     </div>
   );

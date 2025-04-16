@@ -14,6 +14,13 @@ export enum EventApp {
   INFO = "INFO",
 }
 
+export enum TokenEventType {
+  VERIFY_ACCOUNT = "VERIFY_ACCOUNT",
+  FORGOT_PWD = "FORGOT_PWD",
+  CHANGE_PWD = "CHANGE_PWD",
+  CHANGE_EMAIL = "CHANGE_EMAIL",
+}
+
 export enum AllowedFromNotice {
   REGISTER = "/auth/register",
   VERIFY_ACCOUNT = "/auth/verify-account",

@@ -8,10 +8,9 @@ export interface ReqApp extends Request {
     verified: boolean;
   };
 }
-
 export enum MsgHMAC {
-  NOT_FOUND = "NOT_FOUND",
-  EXPIRED = "EXPIRED",
-  NOT_EMITTED = "NOT_EMITTED",
+  NOT_FOUND = "VERIFY_TOKEN_NOT_FOUND",
+  EXPIRED = "VERIFY_TOKEN_EXPIRED",
+  NOT_EMITTED = "VERIFY_TOKEN_NOT_EMITTED",
   OK = "OK",
 }

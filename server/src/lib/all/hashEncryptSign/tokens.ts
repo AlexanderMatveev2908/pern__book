@@ -30,7 +30,7 @@ export const genTokenHMAC = async ({
   do {
     try {
       await Token.create({
-        type: event,
+        event,
         hashed,
         expiry,
         userId: user.id,
@@ -89,7 +89,7 @@ export const checkHMAC = async ({
   const existingToken = (await Token.findOne({
     where: {
       hashed,
-      type: event,
+      event,
       userId: user.id,
     },
   })) as TokenType;

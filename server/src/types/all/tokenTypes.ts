@@ -11,7 +11,7 @@ export enum TokenEventType {
 
 export interface TokenType extends Model {
   id: number;
-  type: TokenEventType;
+  event: TokenEventType;
   hashed: string | null;
   expiry: number | null;
   userId: number;

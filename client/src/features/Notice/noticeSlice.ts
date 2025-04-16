@@ -11,7 +11,7 @@ export type NoticeCB = (() => any) & {
 interface NoticeState {
   notice: string;
   type: EventApp;
-  cb: NoticeCB;
+  cb?: NoticeCB;
 }
 
 const savedNotice = getStorage("notice");

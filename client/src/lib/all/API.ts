@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AllowedFromNotice, ErrAppMsgCode } from "@/types/types";
+import { REG_ID, REG_TOK } from "@/config/regex";
+import {
+  AllowedFromNotice,
+  ErrAppMsgCode,
+  TokenEventType,
+} from "@/types/types";
 
 export const isAccessExpired = (msg: string) =>
   [
@@ -28,3 +33,16 @@ export const addFlagCB = <T>(cb: T) => {
 
   return cb;
 };
+
+export const checkQueryAuth = ({
+  userID,
+  token,
+  event,
+}: {
+  userID: string;
+  token: string;
+  event: TokenEventType;
+}) =>
+  REG_ID.test(userID) &&
+  REG_TOK.test(token) &&
+  Object.values(TokenEventType).includes(event);
