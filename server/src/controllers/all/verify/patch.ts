@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { MsgHMAC, ReqApp } from "../../../types/types.js";
+import { MsgCheckToken, ReqApp } from "../../../types/types.js";
 import {
   checkCbcHmac,
   checkHMAC,
@@ -30,7 +30,7 @@ export const verifyAccount = async (
     token,
     event,
   });
-  if (result !== MsgHMAC.OK)
+  if (result !== MsgCheckToken.OK)
     return err401(res, { msg: formatMsgApp(result as string) });
 
   await user.verify();

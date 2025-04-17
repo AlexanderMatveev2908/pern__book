@@ -6,7 +6,7 @@ export * from "./all/hashEncryptSign/pwd.js";
 export * from "./all/hashEncryptSign/accessToken.js";
 export * from "./all/utils.js";
 export * from "./all/mail/auth.js";
-export * from "./all/hashEncryptSign/tokens.js";
+export * from "./all/hashEncryptSign/HMAC.js";
 export * from "./all/formatters.js";
 export * from "./all/hashEncryptSign/refreshToken.js";
 export * from "./all/hashEncryptSign/cbcHmac.js";

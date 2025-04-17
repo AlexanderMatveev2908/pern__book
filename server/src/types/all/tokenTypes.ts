@@ -7,8 +7,9 @@ export enum TokenEventType {
   CHANGE_EMAIL = "CHANGE_EMAIL",
 }
 
-export enum MsgHMAC {
+export enum MsgCheckToken {
   NOT_FOUND = "VERIFY_TOKEN_NOT_FOUND",
+  INVALID = "VERIFY_TOKEN_INVALID",
   NOT_EMITTED = "VERIFY_TOKEN_NOT_EMITTED",
   EXPIRED = "VERIFY_TOKEN_EXPIRED",
   OK = "OK",

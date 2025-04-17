@@ -1,6 +1,6 @@
 import crypto from "crypto";
 import { mySign } from "../../../config/env.js";
-import { MsgHMAC, TokAlg, TokenEventType } from "../../../types/types.js";
+import { MsgCheckToken, TokAlg, TokenEventType } from "../../../types/types.js";
 import { Token, UserInstance } from "../../../models/models.js";
 
 const hashHMAC = (payload: string) =>
@@ -90,16 +90,16 @@ export const checkHMAC = async ({
     },
   });
 
-  if (!existingToken) return MsgHMAC.NOT_FOUND;
+  if (!existingToken) return MsgCheckToken.INVALID;
   if (!existingToken.hashed) {
     await existingToken.destroy();
-    return MsgHMAC.NOT_EMITTED;
+    return MsgCheckToken.NOT_EMITTED;
   }
   if ((existingToken?.expiry ?? 0) < Date.now()) {
     await existingToken.destroy();
-    return MsgHMAC.EXPIRED;
+    return MsgCheckToken.EXPIRED;
   }
 
   await existingToken.destroy();
-  return MsgHMAC.OK;
+  return MsgCheckToken.OK;
 };

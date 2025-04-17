@@ -1,14 +1,43 @@
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
+var __awaiter =
+  (this && this.__awaiter) ||
+  function (thisArg, _arguments, P, generator) {
+    function adopt(value) {
+      return value instanceof P
+        ? value
+        : new P(function (resolve) {
+            resolve(value);
+          });
+    }
     return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
+      function fulfilled(value) {
+        try {
+          step(generator.next(value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function rejected(value) {
+        try {
+          step(generator["throw"](value));
+        } catch (e) {
+          reject(e);
+        }
+      }
+      function step(result) {
+        result.done
+          ? resolve(result.value)
+          : adopt(result.value).then(fulfilled, rejected);
+      }
+      step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
-};
-import { createCipheriv, createDecipheriv, createHmac, randomBytes, } from "crypto";
-import { MsgHMAC, TokAlg, } from "../../../types/types.js";
+  };
+import {
+  createCipheriv,
+  createDecipheriv,
+  createHmac,
+  randomBytes,
+} from "crypto";
+import { MsgCheckToken, TokAlg } from "../../../types/types.js";
 import { Token } from "../../../models/models.js";
 import { KeyCbcHmac } from "../../../models/all/KeyCbcHmac.js";
 import { KeyTypeCbcHmac } from "../../../types/all/keys.js";
@@ -21,78 +50,90 @@ const makeHEX = (data) => data.toString("hex");
 const makeBuff = (data) => Buffer.from(data, "hex");
 //  ADVANCED ENCRYPTION STANDARD KEY WILL BE USED TO ENCRYPT AND DECRYPT
 // HASH BASED MESSAGE AUTH CODE WILL BE USED TO VERIFY IT HAS NOT BE BEEN TEMPERATED
-const genPairCbcHmac = () => __awaiter(void 0, void 0, void 0, function* () {
+const genPairCbcHmac = () =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const aesKey = randomBytes(AES_KEY_LENGTH);
     const hmacKey = randomBytes(HMAC_KEY_LENGTH);
     yield KeyCbcHmac.create({
-        key: makeHEX(hmacKey),
-        type: KeyTypeCbcHmac.HMAC,
+      key: makeHEX(hmacKey),
+      type: KeyTypeCbcHmac.HMAC,
     });
     yield KeyCbcHmac.create({
-        key: makeHEX(aesKey),
-        type: KeyTypeCbcHmac.CBC,
+      key: makeHEX(aesKey),
+      type: KeyTypeCbcHmac.CBC,
     });
-});
-const getKeyCBC = () => __awaiter(void 0, void 0, void 0, function* () {
+  });
+const getKeyCBC = () =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const keyHEX = yield KeyCbcHmac.findOne({
-        where: { type: KeyTypeCbcHmac.CBC },
+      where: { type: KeyTypeCbcHmac.CBC },
     });
     return makeBuff(keyHEX.key);
-});
-const getKeyHMAC = () => __awaiter(void 0, void 0, void 0, function* () {
+  });
+const getKeyHMAC = () =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const keyHEX = yield KeyCbcHmac.findOne({
-        where: { type: KeyTypeCbcHmac.HMAC },
+      where: { type: KeyTypeCbcHmac.HMAC },
     });
     return makeBuff(keyHEX.key);
-});
-const getPairKeys = () => __awaiter(void 0, void 0, void 0, function* () {
+  });
+const getPairKeys = () =>
+  __awaiter(void 0, void 0, void 0, function* () {
     const keyCBC = yield getKeyCBC();
     const keyHMAC = yield getKeyHMAC();
     return { keyCBC, keyHMAC };
-});
+  });
 // A BASIC HMAC LIKE IS TOKENS FILE WITH A PARAM AS INPUT AND ONE KEY AS SIGN
-export const genHmac = (data, keyHmac) => createHmac("sha256", keyHmac).update(data).digest().toString("hex");
+export const genHmac = (data, keyHmac) =>
+  createHmac("sha256", keyHmac).update(data).digest().toString("hex");
 // CYPHER BLOCK CHAINING SPLIT CYPHER TEXT IN BLOCK, THEN EACH BLOCK OF TEXT IS XOR WITH PREV ONE, SO IS A CHAINING OP
 //  WE WILL NOT HAVE A PREV AT BEGINNING, AND HERE IV DOES HIS JOB WITH A RANDOM VALUE THAT MAKE A FLOW OF CHANGING ALWAYS RESULT THANKS TO HIS DOMINO EFFECT ON NEXT XOR BITWISE
-export const genTokenCBC = (_a) => __awaiter(void 0, [_a], void 0, function* ({ user, event, }) {
+export const genTokenCBC = (_a) =>
+  __awaiter(void 0, [_a], void 0, function* ({ user, event }) {
     const count = yield KeyCbcHmac.count({
-        where: {
-            type: {
-                [Op.in]: [KeyTypeCbcHmac.CBC, KeyTypeCbcHmac.HMAC],
-            },
+      where: {
+        type: {
+          [Op.in]: [KeyTypeCbcHmac.CBC, KeyTypeCbcHmac.HMAC],
         },
+      },
     });
-    if (!count)
-        yield genPairCbcHmac();
+    if (!count) yield genPairCbcHmac();
     const { keyCBC, keyHMAC } = yield getPairKeys();
     const iv = randomBytes(IV_LENGTH);
     const cypher = createCipheriv(TokAlg.CBC_HMAC, keyCBC, iv);
-    const payload = Buffer.from(JSON.stringify({
+    const payload = Buffer.from(
+      JSON.stringify({
         id: user.id,
         isVerified: user.isVerified,
         role: user.role,
-    }));
+      })
+    );
     // FIRST PAYLOAD IS ENCRYPTED WITH CBC TO HAVE AN UNPREDICTABLE RESULT THEN ER CREATE ALSO A VERSION ENCRYPTED WITH HMAC TO VERIFY IS AUTHENTICITY BUT BESIDE ORIGINAL VERSION CAUSE SHA IS IRREVERSIBLE AND WE COULD NOT GET NEVER AGAIN BACK THE DATA
     const encrypted = Buffer.concat([cypher.update(payload), cypher.final()]);
     const hmacHEX = genHmac(Buffer.concat([iv, encrypted]), keyHMAC);
     yield Token.create({
-        userID: user.id,
-        hashed: hmacHEX,
-        expiry: genExpiryCBC(),
-        event,
+      userID: user.id,
+      hashed: hmacHEX,
+      expiry: genExpiryCBC(),
+      event,
     });
     return {
-        verifyToken: makeHEX(makeBuff(JSON.stringify({
+      verifyToken: makeHEX(
+        makeBuff(
+          JSON.stringify({
             iv: makeHEX(iv),
             encrypted: makeHEX(encrypted),
-        }))),
+          })
+        )
+      ),
     };
-});
+  });
 // return {
 //   token: Buffer.concat([iv, encrypted]).toString("hex"),
 // };
 // THIS VERSION FOR DB AUTOMATICALLY CHECK EQ OF TOKENS SEARCHING ORIGINAL IN DB AND TIME DEPEND ONLY ON CONNECTION, BUT DOES NOT HAVE ANY IN COMMON WITH THROWING ERROR NOT EQ, THEN I THINK IS FINE ADD EVENT TO HAVE A KIND OF CONTEXT, EVEN DOES NOT CHANGE ANYTHING CAUSE KEYS WILL BE UNIQUE SO CAN NOT
-export const checkCbcHmac = (_a) => __awaiter(void 0, [_a], void 0, function* ({ token, event, user, }) {
+export const checkCbcHmac = (_a) =>
+  __awaiter(void 0, [_a], void 0, function* ({ token, event, user }) {
     // const buff = Buffer.from(token, "hex");
     // const iv = buff.subarray(0, IV_LENGTH);
     // const encrypted = buff.subarray(IV_LENGTH, buff.length);
@@ -102,28 +143,28 @@ export const checkCbcHmac = (_a) => __awaiter(void 0, [_a], void 0, function* ({
     const { keyCBC, keyHMAC } = yield getPairKeys();
     const expectedHmacHEX = genHmac(Buffer.concat([iv, encrypted]), keyHMAC);
     const existentHmacHEX = yield Token.findOne({
-        where: { hashed: expectedHmacHEX, event },
+      where: { hashed: expectedHmacHEX, event },
     });
     if (!existentHmacHEX) {
-        if (user)
-            yield Token.destroy({
-                where: { userID: user.id, event },
-            });
-        return MsgHMAC.NOT_FOUND;
+      if (user)
+        yield Token.destroy({
+          where: { userID: user.id, event },
+        });
+      return MsgCheckToken.NOT_FOUND;
     }
     if (existentHmacHEX.expiry < Date.now()) {
-        yield Token.destroy({
-            where: { id: existentHmacHEX.id },
-        });
-        return MsgHMAC.EXPIRED;
+      yield Token.destroy({
+        where: { id: existentHmacHEX.id },
+      });
+      return MsgCheckToken.EXPIRED;
     }
     const decipher = createDecipheriv(TokAlg.CBC_HMAC, keyCBC, iv);
     const decrypted = Buffer.concat([
-        decipher.update(encrypted),
-        decipher.final(),
+      decipher.update(encrypted),
+      decipher.final(),
     ]);
     return JSON.parse(decrypted.toString());
-});
+  });
 // export const flow_0 = async () => {
 //   const me = await User.findOne({
 //     where: { id: "a465030a-7f51-4eda-b519-5c5151214f1f" },

@@ -5,7 +5,7 @@ import {
   randomBytes,
 } from "crypto";
 import {
-  MsgHMAC,
+  MsgCheckToken,
   TokAlg,
   TokenEventType,
   UserRole,
@@ -77,7 +77,7 @@ export const genTokenCBC = async ({
 }: {
   user: UserInstance;
   event: TokenEventType;
-}): Promise<{ verifyToken: string }> => {
+}): Promise<{ verifyToken: string } | void> => {
   const count = await KeyCbcHmac.count({
     where: {
       type: {
@@ -88,9 +88,6 @@ export const genTokenCBC = async ({
   if (!count) await genPairCbcHmac();
 
   const { keyCBC, keyHMAC } = await getPairKeys();
-  const iv = randomBytes(IV_LENGTH);
-
-  const cypher = createCipheriv(TokAlg.CBC_HMAC, keyCBC, iv);
   const payload = Buffer.from(
     JSON.stringify({
       id: user.id,
@@ -99,27 +96,46 @@ export const genTokenCBC = async ({
     } as AppPayloadCBC)
   );
 
-  // FIRST PAYLOAD IS ENCRYPTED WITH CBC TO HAVE AN UNPREDICTABLE RESULT THEN ER CREATE ALSO A VERSION ENCRYPTED WITH HMAC TO VERIFY IS AUTHENTICITY BUT BESIDE ORIGINAL VERSION CAUSE SHA IS IRREVERSIBLE AND WE COULD NOT GET NEVER AGAIN BACK THE DATA
-  const encrypted = Buffer.concat([cypher.update(payload), cypher.final()]);
+  const MAX_ATTEMPTS = 10;
+  let attempts = 0;
 
-  const hmacHEX = genHmac(Buffer.concat([iv, encrypted]), keyHMAC);
-  await Token.create({
-    userID: user.id,
-    hashed: hmacHEX,
-    expiry: genExpiryCBC(),
-    event,
-  });
+  do {
+    try {
+      const iv = randomBytes(IV_LENGTH);
+      const cypher = createCipheriv(TokAlg.CBC_HMAC, keyCBC, iv);
 
-  return {
-    verifyToken: makeHEX(
-      Buffer.from(
-        JSON.stringify({
-          iv: makeHEX(iv),
-          encrypted: makeHEX(encrypted),
-        })
-      )
-    ),
-  };
+      // FIRST PAYLOAD IS ENCRYPTED WITH CBC TO HAVE AN UNPREDICTABLE RESULT THEN ER CREATE ALSO A VERSION ENCRYPTED WITH HMAC TO VERIFY IS AUTHENTICITY BUT BESIDE ORIGINAL VERSION CAUSE SHA IS IRREVERSIBLE AND WE COULD NOT GET NEVER AGAIN BACK THE DATA
+      const encrypted = Buffer.concat([cypher.update(payload), cypher.final()]);
+
+      const hmacHEX = genHmac(Buffer.concat([iv, encrypted]), keyHMAC);
+      await Token.create({
+        userID: user.id,
+        hashed: hmacHEX,
+        expiry: genExpiryCBC(),
+        event,
+      });
+
+      return {
+        verifyToken: makeHEX(
+          Buffer.from(
+            JSON.stringify({
+              iv: makeHEX(iv),
+              encrypted: makeHEX(encrypted),
+            })
+          )
+        ),
+      };
+    } catch (err: any) {
+      if (err.name === "SequelizeUniqueConstraintError") {
+        attempts++;
+
+        if (attempts === MAX_ATTEMPTS)
+          throw new Error("Unable to create token");
+      } else {
+        throw err;
+      }
+    }
+  } while (attempts < MAX_ATTEMPTS);
 };
 // return {
 //   token: Buffer.concat([iv, encrypted]).toString("hex"),
@@ -156,17 +172,17 @@ export const checkCbcHmac = async ({
         where: { userID: user.id, event },
       });
 
-    return MsgHMAC.NOT_FOUND;
+    return MsgCheckToken.INVALID;
   }
   if (existentHmacHEX.expiry < Date.now()) {
     await existentHmacHEX.destroy();
 
-    return MsgHMAC.EXPIRED;
+    return MsgCheckToken.EXPIRED;
   }
 
   await existentHmacHEX.destroy();
 
-  return MsgHMAC.OK;
+  return MsgCheckToken.OK;
 
   // const decipher = createDecipheriv(TokAlg.CBC_HMAC, keyCBC, iv);
   // const decrypted = Buffer.concat([
