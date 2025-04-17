@@ -15,7 +15,9 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const { data, isLoading, isError, error } = useGetUserProfileQuery();
+  const { data, isLoading } = useGetUserProfileQuery();
+
+  const acr = (data?.firstName?.at(0) ?? "") + (data?.lastName?.at(0) ?? "");
 
   return (
     <div className="w-full border-b-[3px] border-blue-600 sticky top-0 h-[80px] z__header bg-[#000]">
@@ -25,8 +27,11 @@ const Header: FC = () => {
         </Link>
 
         <div className="w-full flex justify-end gap-4 txt__col items-center">
-          <DropDown {...{ isLogged }} />
-          {/* <MiniSpinner /> */}
+          {isLoading ? (
+            <MiniSpinner />
+          ) : (
+            <DropDown {...{ isLogged, isLoading, acr }} />
+          )}
 
           <button
             onClick={() => dispatch(toggleSide())}

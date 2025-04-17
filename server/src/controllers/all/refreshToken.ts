@@ -8,7 +8,5 @@ export const refreshToken = async (
 ): Promise<any> => {
   const { refreshToken } = req.cookies;
 
-  console.log(refreshToken);
-
   return res200(res);
 };

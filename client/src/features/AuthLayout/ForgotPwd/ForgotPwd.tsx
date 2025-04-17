@@ -5,9 +5,7 @@ import { useMakeFormEmail } from "../../../hooks/all/forms/useMakeFormEmail";
 const ForgotPwd: FC = () => {
   const { register, errors, handleSubmit } = useMakeFormEmail();
 
-  const handleSave = handleSubmit((formData) => {
-    console.log(formData);
-  });
+  const handleSave = handleSubmit(() => {});
 
   return <EmailForm {...{ errors, register, handleSave }} />;
 };

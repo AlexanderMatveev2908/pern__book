@@ -69,7 +69,6 @@ export default CreatePwd;
     let i = LEN_PWD - 1;
     do {
       const index = arrBytes[i] % LEN_PWD;
-      console.log(index);
       pwd[i] = arr[index];
 
       i--;

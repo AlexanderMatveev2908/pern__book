@@ -1,17 +1,14 @@
+import { calcTimeRun } from "../lib/lib.js";
 import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
 import { KeyRSA, Token, User } from "../models/models.js";
 
 export const clearDB = async () => {
-  const start = performance.now();
-
-  await Token.destroy({ where: {} });
-  await User.destroy({ where: {} });
-  await KeyRSA.destroy({ where: {} });
-  await KeyCbcHmac.destroy({ where: {} });
-
-  const end = performance.now();
-
-  console.log(`=> DONE ${end - start} ms`);
+  calcTimeRun(async () => {
+    await Token.destroy({ where: {} });
+    await User.destroy({ where: {} });
+    await KeyRSA.destroy({ where: {} });
+    await KeyCbcHmac.destroy({ where: {} });
+  });
 };
 
 export const getDataDB = async () => {
@@ -25,5 +22,4 @@ export const getDataDB = async () => {
   //     },
   //   }
   // );
-  console.log(users);
 };

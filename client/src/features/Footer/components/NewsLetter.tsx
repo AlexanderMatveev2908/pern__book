@@ -23,9 +23,7 @@ const NewsLetter: FC = () => {
     mode: "onChange",
   });
 
-  const handleSave = handleSubmit((formData) => {
-    console.log(formData);
-  });
+  const handleSave = handleSubmit(() => {});
 
   return (
     <div className="w-full grid gap-8 sm:gap-4">

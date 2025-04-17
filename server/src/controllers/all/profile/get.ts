@@ -7,8 +7,6 @@ export const getUserProfile = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  console.log(req.userID);
-
   const user = await User.findByPk(req.userID, {
     attributes: {
       exclude: ["password"],

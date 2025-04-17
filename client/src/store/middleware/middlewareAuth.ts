@@ -8,17 +8,17 @@ export const middlewareAuth = (store: any) => (next: any) => (action: any) => {
   if (isRejectedWithValue(action)) {
     if (
       action.payload.status !== 401 ||
-      (!isAccessExpired(action.payload.data?.msg) &&
-        isRefreshing(action.payload.config.url))
+      !isAccessExpired(action.payload.data?.msg) ||
+      isRefreshing(action.payload.config.url)
     )
       return next(action);
 
-    // console.group("MIDDLEWARE APP");
-    // console.log(data);
-    // console.log(config);
-    // console.groupEnd();
+    const { data, config } = action.payload;
 
-    console.log(store);
+    console.group("MIDDLEWARE APP");
+    console.log(data);
+    console.log(config);
+    console.groupEnd();
 
     // store
     //   .dispatch(

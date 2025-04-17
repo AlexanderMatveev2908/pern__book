@@ -34,9 +34,7 @@ const Login: FC = () => {
     resolver: zodResolver(schema),
   });
 
-  const handleSave = handleSubmit((formData) => {
-    console.log(formData);
-  });
+  const handleSave = handleSubmit(() => {});
 
   const { mainPwd } = useShowPwd();
 

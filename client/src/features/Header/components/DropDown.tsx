@@ -16,9 +16,10 @@ const windowWrapper = (cb: () => void) => {
 
 type PropsType = {
   isLogged: boolean;
+  acr: string;
 };
 
-const DropDown: FC<PropsType> = ({ isLogged }) => {
+const DropDown: FC<PropsType> = ({ isLogged, acr }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
@@ -79,7 +80,9 @@ const DropDown: FC<PropsType> = ({ isLogged }) => {
         }}
       >
         <div className="border-blue-600 rounded-xl flex justify-center items-center border-[3px] p-[7.5px] group-hover:text-blue-600 cursor-pointer el__flow">
-          <span className="txt__4">AM</span>
+          <span className="txt__3 group-hover:scale-[1.15] el__flow">
+            {acr}
+          </span>
         </div>
         {/* <FaRegUser className="icon__md icon__logic" /> */}
       </div>
