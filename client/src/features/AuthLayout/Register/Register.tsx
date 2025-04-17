@@ -86,7 +86,6 @@ const Register: FC = () => {
 
     if (!isObjOk(res)) return;
 
-    saveStorage({ data: res?.accessToken, key: StorageKeys.ACCESS });
     reset();
     const notice = {
       notice: makeNoticeTxt("to verify your account"),

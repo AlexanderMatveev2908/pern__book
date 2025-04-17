@@ -8,8 +8,8 @@ import { getSIde, toggleSide } from "./headerSlice";
 import DropDown from "./components/DropDown";
 import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
 import { getAuthState } from "../AuthLayout/authSlice";
-import { useWrapQueryAPI } from "@/hooks/hooks";
-import { getData, getStorage, saveStorage } from "@/lib/lib";
+// import { useWrapQueryAPI } from "@/hooks/hooks";
+import { getData, getStorage, isObjOk, saveStorage } from "@/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { MiniSpinner } from "@/components/components";
 
@@ -24,13 +24,20 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const res = useGetUserProfileQuery({});
+  const res = useGetUserProfileQuery(
+    {},
+    {
+      refetchOnMountOrArgChange: false,
+      refetchOnReconnect: false,
+      refetchOnFocus: false,
+    }
+  );
 
-  useWrapQueryAPI({ ...res });
+  // useWrapQueryAPI({ ...res });
   const { user }: UserProfile = getData(res) ?? {};
 
   useEffect(() => {
-    if (user && !init) {
+    if (isObjOk(user) && !init) {
       setInit(capitalize(user?.firstName) + capitalize(user?.lastName));
       saveStorage({ data: init, key: StorageKeys.INIT });
     }

@@ -8,15 +8,19 @@ export const middlewareAuth = (store: any) => (next: any) => (action: any) => {
   if (isRejectedWithValue(action)) {
     if (
       action.payload.status !== 401 ||
-      !isAccessExpired(action.payload.data?.msg) ||
+      !isAccessExpired(action.payload?.response?.data?.msg) ||
       isRefreshing(action.payload.config.url)
     )
       return next(action);
 
-    const { data, config } = action.payload;
+    const {
+      response: { data },
+      config,
+    } = action.payload;
 
     cg("middleware api", data, config);
 
+    return next(action);
     // store
     //   .dispatch(
     //     authAPI.endpoints.refreshToken.initiate({

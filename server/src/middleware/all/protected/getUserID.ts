@@ -1,7 +1,8 @@
 import { NextFunction, Response } from "express";
-import { ReqApp } from "../../../types/types.js";
+import { MsgErrSession, ReqApp } from "../../../types/types.js";
 import {
   AppJwtPayload,
+  err401,
   handleErrAccessToken,
   verifyJWT,
 } from "../../../lib/lib.js";
@@ -15,14 +16,20 @@ export const getUserID = async (
   const accessToken = (authHeader as string)?.split(" ")[1];
   const { refreshToken } = req.cookies;
 
-  if (!accessToken && !refreshToken) return next();
+  if (!accessToken) {
+    if (!refreshToken) return next();
+    else return err401(res, { msg: MsgErrSession.ACCESS_TOKEN_NOT_PROVIDED });
+  }
 
   try {
     const decoded: AppJwtPayload = verifyJWT(accessToken);
     req.userID = decoded.id;
 
+    // return err401(res, { msg: MsgErrSession.ACCESS_TOKEN_EXPIRED });
+
     return next();
   } catch (err: any) {
+    console.log(err);
     return handleErrAccessToken(res, err);
   }
 };

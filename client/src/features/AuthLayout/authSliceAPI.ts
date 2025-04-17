@@ -1,4 +1,7 @@
+import { appInstance } from "@/config/axios";
+import { cg, saveStorage } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
+import { StorageKeys, TagsAPI } from "@/types/types";
 
 export type RegisterParamsAPI = {
   firstName: string;
@@ -23,6 +26,20 @@ export const authAPI = apiSlice.injectEndpoints({
         // RENAME "BODY" OF RTK QUERY TO "DATA" FOR AXIOS BASE_QUERY
         data: newUser,
       }),
+      async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
+        const {
+          data: { data },
+        } = await queryFulfilled;
+        cg("query started", data);
+
+        saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
+        appInstance.defaults.headers[
+          "Authorization"
+        ] = `Bearer ${data?.accessToken}`;
+
+        dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
+      },
+      // invalidatesTags: [TagsAPI.USER],
     }),
   }),
 });
