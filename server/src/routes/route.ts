@@ -4,6 +4,7 @@ import { corsMid } from "../middleware/middleware.js";
 import authRouter from "./all/auth.js";
 import profileRouter from "./all/profile.js";
 import verifyRouter from "./all/verify.js";
+import routerRefresh from "./all/refresh.js";
 
 const routerApp = express.Router();
 
@@ -14,7 +15,8 @@ routerApp.use(cookieParser());
 routerApp.use(corsMid());
 
 routerApp.use("/auth", authRouter);
+routerApp.get("/", routerRefresh);
 routerApp.use("/verify", verifyRouter);
-routerApp.use("/profile", profileRouter);
+routerApp.use("/user", profileRouter);
 
 export default routerApp;

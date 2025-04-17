@@ -41,8 +41,6 @@ export class User extends Model<
   makePayload(this: User) {
     return {
       id: this.id,
-      isVerified: this.isVerified,
-      role: this.role,
     };
   }
 

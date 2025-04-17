@@ -44,4 +44,4 @@ const toastSlice = createSlice({
 export const { openToast, closeToast, reopenToast } = toastSlice.actions;
 export const getToast = (state: RootStateType) => state.toast;
 
-export default toastSlice.reducer;
+export default toastSlice;

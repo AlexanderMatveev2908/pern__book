@@ -29,7 +29,7 @@ export const registerUser = async (
 
   try {
     const accessToken = genAccessJWT(newUser);
-    const { verifyToken } = await genTokenCBC({
+    const tokenData = await genTokenCBC({
       user: newUser,
       event: TokenEventType.VERIFY_ACCOUNT,
     });
@@ -38,7 +38,7 @@ export const registerUser = async (
 
     await sendEmailAuth({
       user: newUser,
-      token: verifyToken,
+      token: tokenData!.verifyToken,
       event: TokenEventType.VERIFY_ACCOUNT,
     });
 

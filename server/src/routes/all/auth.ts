@@ -14,6 +14,7 @@ authRouter.post(
   validateRegister,
   wrapApp(registerUser)
 );
+
 authRouter.post("/login", wrapApp(loginUser));
 
 export default authRouter;

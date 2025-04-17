@@ -2,16 +2,16 @@
 import { REG_ID } from "@/config/regex";
 import {
   AllowedFromNotice,
-  ErrAppMsgCode,
+  MsgErrSession,
   TokenEventType,
 } from "@/types/types";
 
 export const isAccessExpired = (msg: string) =>
   [
-    ErrAppMsgCode.ACCESS_EXPIRED,
-    ErrAppMsgCode.ACCESS_INVALID,
-    ErrAppMsgCode.ACCESS_NOT_PROVIDED,
-  ].includes(msg as ErrAppMsgCode);
+    MsgErrSession.ACCESS_EXPIRED,
+    MsgErrSession.ACCESS_INVALID,
+    MsgErrSession.ACCESS_NOT_PROVIDED,
+  ].includes(msg as MsgErrSession);
 export const isRefreshing = (endpoint: string) => endpoint === "/auth/refresh";
 
 export const makeNoticeTxt = (txt: string) =>

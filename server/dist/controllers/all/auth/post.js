@@ -12,27 +12,35 @@ import { TokenEventType } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
 export const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = User.build(req.body);
+    let userID = null;
     if (yield newUser.existUser())
         return err409(res, { msg: "User already exists" });
     newUser.capitalize();
     yield newUser.hashPwdUser();
     yield newUser.save();
-    const accessToken = genAccessJWT(newUser);
-    const { verifyToken } = yield genTokenCBC({
-        user: newUser,
-        event: TokenEventType.VERIFY_ACCOUNT,
-    });
-    const refreshToken = yield genTokenJWE(newUser);
-    yield sendEmailAuth({
-        user: newUser,
-        token: verifyToken,
-        event: TokenEventType.VERIFY_ACCOUNT,
-    });
-    setCookie(res, refreshToken);
-    return res201(res, { msg: "Account created", accessToken });
+    userID = newUser.id;
+    try {
+        const accessToken = genAccessJWT(newUser);
+        const tokenData = yield genTokenCBC({
+            user: newUser,
+            event: TokenEventType.VERIFY_ACCOUNT,
+        });
+        const refreshToken = yield genTokenJWE(newUser);
+        yield sendEmailAuth({
+            user: newUser,
+            token: tokenData.verifyToken,
+            event: TokenEventType.VERIFY_ACCOUNT,
+        });
+        setCookie(res, refreshToken);
+        return res201(res, { msg: "Account created", accessToken });
+    }
+    catch (err) {
+        if (userID)
+            yield User.destroy({ where: { id: userID } });
+        throw err;
+    }
 });
 export const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const user = req.body;
-    console.log(user);
     return res.status(200).json({ ok: true });
 });

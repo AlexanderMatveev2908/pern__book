@@ -7,3 +7,4 @@ export * from "./all/protected/verifyAccessToken.js";
 export * from "./all/general/limitRoute.js";
 export * from "./all/sharedValidators/ids.js";
 export * from "./all/sharedValidators/verify.js";
+export * from "./all/protected/getUserID.js";

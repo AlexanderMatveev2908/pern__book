@@ -15,7 +15,7 @@ export enum MsgCheckToken {
   OK = "OK",
 }
 
-export enum ErrAppMsgCode {
+export enum MsgErrSession {
   ACCESS_EXPIRED = "ACCESS TOKEN EXPIRED",
   ACCESS_INVALID = "ACCESS_TOKEN_INVALID",
   ACCESS_NOT_PROVIDED = "ACCESS TOKEN NOT PROVIDED",

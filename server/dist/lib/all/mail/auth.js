@@ -37,7 +37,7 @@ const getTxt = (event) => {
 };
 export const sendEmailAuth = (_a) => __awaiter(void 0, [_a], void 0, function* ({ user, token, event, }) {
     if ([user, token, event].some((el) => !el))
-        return;
+        throw new Error("=> Missing data mail transporter");
     const verifyURL = `${frontURL}/verify-cb?token=${token}&userID=${user.id}&event=${event}`;
     const { txt, labelBtn, subject } = getTxt(event);
     yield mailer.sendMail({

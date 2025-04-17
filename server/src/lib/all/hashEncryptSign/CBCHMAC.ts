@@ -1,15 +1,5 @@
-import {
-  createCipheriv,
-  createDecipheriv,
-  createHmac,
-  randomBytes,
-} from "crypto";
-import {
-  MsgCheckToken,
-  TokAlg,
-  TokenEventType,
-  UserRole,
-} from "../../../types/types.js";
+import { createCipheriv, createHmac, randomBytes } from "crypto";
+import { MsgCheckToken, TokAlg, TokenEventType } from "../../../types/types.js";
 import { Token, UserInstance } from "../../../models/models.js";
 import { KeyCbcHmac } from "../../../models/all/KeyCbcHmac.js";
 import { KeyTypeCbcHmac } from "../../../types/all/keys.js";
@@ -22,8 +12,6 @@ const IV_LENGTH = 16;
 
 export interface AppPayloadCBC {
   id: string;
-  isVerified: boolean;
-  role: string;
 }
 
 const makeHEX = (data: Buffer) => data.toString("hex");

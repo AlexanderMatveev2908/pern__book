@@ -24,4 +24,4 @@ const sidebarSlice = createSlice({
 
 export const { setIsSideOpen, toggleSide } = sidebarSlice.actions;
 export const getSIde = (state: RootStateType) => state.sidebar;
-export default sidebarSlice.reducer;
+export default sidebarSlice;

@@ -1,5 +1,6 @@
 import { Response } from "express";
 import { isObjErrOk } from "./validateDataStructure.js";
+import { MsgErrSession } from "../../types/types.js";
 
 export const errApp = (res: Response, status: number, data?: any) =>
   res.status(status).json({ ...data, ok: false });
@@ -36,3 +37,11 @@ export const err500 = (res: Response, data?: any) =>
       ? data
       : { msg: "Server was tired and take a coffee break ☕" }
   );
+
+export const handleErrAccessToken = (res: Response, err: any) => {
+  if (err.name === "TokenExpiredError")
+    return err401(res, { msg: MsgErrSession.ACCESS_EXPIRED });
+  else if (err.name === "JsonWebTokenError")
+    return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
+  else return err500(res);
+};

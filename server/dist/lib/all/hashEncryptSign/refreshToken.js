@@ -11,7 +11,7 @@ import { generateKeyPairSync } from "crypto";
 import { KeyRSA, Token } from "../../../models/models.js";
 import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
 import { JWEInvalid, JWTExpired } from "jose/errors";
-import { ErrAppMsgCode, KeyAlgRSA, TokAlg, TokenEventType, } from "../../../types/types.js";
+import { MsgErrSession, KeyAlgRSA, TokAlg, TokenEventType, } from "../../../types/types.js";
 import { isDev } from "../../../config/env.js";
 import { Op } from "sequelize";
 import { KeyTypeRSA } from "../../../types/all/keys.js";
@@ -69,12 +69,8 @@ export const genTokenJWE = (user) => __awaiter(void 0, void 0, void 0, function*
     });
     if (!count)
         yield genPairRSA();
-    const payload = {
-        id: user.id,
-        isVerified: user.isVerified,
-        role: user.role,
-    };
     const publicKey = yield getPublicRSA();
+    const payload = user.makePayload();
     const encrypted = yield new CompactEncrypt(Buffer.from(JSON.stringify(payload)))
         .setProtectedHeader({ alg: KeyAlgRSA.RSA, enc: TokAlg.GCM })
         .encrypt(publicKey);
@@ -95,9 +91,9 @@ export const checkJWE = (token) => __awaiter(void 0, void 0, void 0, function* (
     catch (err) {
         // is ok even with if in my opinion when the question is about returning something cause code automatically does not go on next lines
         if (err instanceof JWEInvalid)
-            return ErrAppMsgCode.REFRESH_INVALID;
+            return MsgErrSession.REFRESH_INVALID;
         if (err instanceof JWTExpired)
-            return ErrAppMsgCode.REFRESH_EXPIRED;
+            return MsgErrSession.REFRESH_EXPIRED;
         throw err;
     }
 });

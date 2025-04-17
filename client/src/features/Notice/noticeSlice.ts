@@ -33,4 +33,4 @@ const noticeSlice = createSlice({
 
 export const { setNotice } = noticeSlice.actions;
 export const getNoticeState = (state: RootStateType) => state.notice;
-export default noticeSlice.reducer;
+export default noticeSlice;

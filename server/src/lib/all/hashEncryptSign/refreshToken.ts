@@ -3,7 +3,7 @@ import { KeyRSA, Token, UserInstance } from "../../../models/models.js";
 import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
 import { JWEInvalid, JWTExpired } from "jose/errors";
 import {
-  ErrAppMsgCode,
+  MsgErrSession,
   KeyAlgRSA,
   TokAlg,
   TokenEventType,
@@ -19,8 +19,6 @@ import { genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
 
 export interface PayloadJWE {
   id: string;
-  isVerified: boolean;
-  role: string;
 }
 
 export const genPairRSA = async () => {
@@ -112,8 +110,8 @@ export const checkJWE = async (token: string): Promise<PayloadJWE | string> => {
     return JSON.parse(plaintext.toString());
   } catch (err: any) {
     // is ok even with if in my opinion when the question is about returning something cause code automatically does not go on next lines
-    if (err instanceof JWEInvalid) return ErrAppMsgCode.REFRESH_INVALID;
-    if (err instanceof JWTExpired) return ErrAppMsgCode.REFRESH_EXPIRED;
+    if (err instanceof JWEInvalid) return MsgErrSession.REFRESH_INVALID;
+    if (err instanceof JWTExpired) return MsgErrSession.REFRESH_EXPIRED;
 
     throw err;
   }

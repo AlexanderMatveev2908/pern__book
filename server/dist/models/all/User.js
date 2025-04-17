@@ -25,6 +25,11 @@ export class User extends Model {
         this.firstName = capChar(this.firstName);
         this.lastName = capChar(this.lastName);
     }
+    makePayload() {
+        return {
+            id: this.id,
+        };
+    }
     hashPwdUser() {
         return __awaiter(this, void 0, void 0, function* () {
             this.password = yield calcTimeRun(() => hashPwd(this.password));

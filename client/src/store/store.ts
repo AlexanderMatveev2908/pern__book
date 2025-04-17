@@ -1,19 +1,19 @@
 import { configureStore } from "@reduxjs/toolkit";
-import sideReducer from "../features/Header/headerSlice";
-import authReducer from "../features/AuthLayout/authSlice";
-import toastReducer from "../features/Toast/toastSlice";
 import apiSlice from "./apiSlice";
 import { middlewareAuth } from "./middleware/middlewareAuth";
-import noticeReducer from "../features/Notice/noticeSlice";
+import sidebarSlice from "@/features/Header/headerSlice";
+import authSlice from "@/features/AuthLayout/authSlice";
+import toastSlice from "@/features/Toast/toastSlice";
+import noticeSlice from "@/features/Notice/noticeSlice";
 
 export const store = configureStore({
   reducer: {
     //  i give a custom name under which will be kept caching data, loading state and error handling
     appAPI: apiSlice.reducer,
-    sidebar: sideReducer,
-    auth: authReducer,
-    toast: toastReducer,
-    notice: noticeReducer,
+    sidebar: sidebarSlice.reducer,
+    auth: authSlice.reducer,
+    toast: toastSlice.reducer,
+    notice: noticeSlice.reducer,
     // [apiSlice.reducerPath]: apiSlice.reducer,
   },
   //  by default redux pass middleware to serialize data of obj, loggers , async thunk and we keep them concatenating with our custom one
