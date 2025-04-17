@@ -184,6 +184,17 @@ button {
   @apply appearance-none;
 }
 
+.btn__logic {
+  transition: 0.3s;
+}
+.btn__logic:hover {
+  transform: scale(1.1);
+}
+.btn__logic:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
 /* GENERAL */
 
 .scrollbar__hidden::-webkit-scrollbar {

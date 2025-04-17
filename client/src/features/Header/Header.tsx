@@ -6,10 +6,16 @@ import { DispatchType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "./headerSlice";
 import DropDown from "./components/DropDown";
+import { useGetUserProfileQuery } from "../root/rootSliceAPI";
+import MiniSpinner from "@/components/common/spinners/MiniSpinner/MiniSpinner";
+import { getAuthState } from "../AuthLayout/authSlice";
 
 const Header: FC = () => {
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
+  const { isLogged } = useSelector(getAuthState);
+
+  const { data, isLoading, isError, error } = useGetUserProfileQuery();
 
   return (
     <div className="w-full border-b-[3px] border-blue-600 sticky top-0 h-[80px] z__header bg-[#000]">
@@ -18,8 +24,9 @@ const Header: FC = () => {
           PERN__BOOK
         </Link>
 
-        <div className="w-full flex justify-end gap-6 txt__col items-center">
-          <DropDown />
+        <div className="w-full flex justify-end gap-4 txt__col items-center">
+          <DropDown {...{ isLogged }} />
+          {/* <MiniSpinner /> */}
 
           <button
             onClick={() => dispatch(toggleSide())}

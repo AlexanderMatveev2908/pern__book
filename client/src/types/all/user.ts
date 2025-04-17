@@ -1,4 +1,4 @@
-export enum ROLE_USER {
+export enum UserRole {
   OWNER = "owner",
   MANAGER = "manager",
   EMPLOYEE = "employee",
@@ -6,13 +6,13 @@ export enum ROLE_USER {
 }
 
 export interface UserType {
-  id: number;
+  id: string;
   firstName: string;
   lastName: string;
   email: string;
   isNewsLetter: boolean;
   isVerified: boolean;
-  role: ROLE_USER;
+  role: UserRole;
 }
 
 export interface AuthState {

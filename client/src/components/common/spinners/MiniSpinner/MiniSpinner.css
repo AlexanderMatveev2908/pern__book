@@ -1,0 +1,15 @@
+@import "tailwindcss";
+
+.el__mini_spinner {
+  animation: mini_spin 0.8s linear infinite;
+}
+
+@keyframes mini_spin {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

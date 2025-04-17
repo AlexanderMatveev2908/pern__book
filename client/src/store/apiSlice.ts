@@ -2,6 +2,7 @@
 import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import { appInstance } from "@/config/axios";
 import { AxiosResponse } from "axios";
+import { TagsAPI } from "@/types/types";
 
 export type TagTypes = "books" | "user";
 
@@ -41,7 +42,7 @@ const apiSlice = createApi({
   // define a base url with options like in axios with his interceptors
   baseQuery: axiosBaseQuery,
   // tags that we use for invalidation of cache api data like in tanstack use query
-  tagTypes: [],
+  tagTypes: [TagsAPI.USER],
   // i can leave key of slice by default to api of naming as i want
   reducerPath: "appAPI",
   endpoints: () => ({}),

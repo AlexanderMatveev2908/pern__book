@@ -9,5 +9,13 @@ export const getUserProfile = async (
 ): Promise<any> => {
   console.log(req.userID);
 
-  return res200(res);
+  const user = await User.findByPk(req.userID, {
+    attributes: {
+      exclude: ["password"],
+    },
+    raw: true,
+  });
+  // const user = userInstance?.get({ plain: true });
+
+  return res200(res, { user });
 };

@@ -10,11 +10,8 @@ import NoticePage from "./pages/Notice/NoticePage";
 import HomePage from "./pages/Home/HomePage";
 import VerifyPage from "./pages/Verify/VerifyPage";
 import TestPage from "./pages/Test/TestPage";
-import { useApp } from "@/hooks/hooks";
 
 const App: FC = () => {
-  useApp();
-
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

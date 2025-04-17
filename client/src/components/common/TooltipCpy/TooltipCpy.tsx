@@ -30,8 +30,8 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
   const handleCLick = async () => {
     try {
       await navigator.clipboard.writeText(txt);
-    } catch (err) {
-      console.log(err);
+    } catch {
+      //
     }
   };
 

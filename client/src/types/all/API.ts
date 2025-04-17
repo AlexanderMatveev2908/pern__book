@@ -26,3 +26,7 @@ export enum AllowedFromNotice {
   FORGOT_PWD = "/auth/forgot-pwd",
   VERIFY_ACCOUNT = "/auth/verify-cb",
 }
+
+export enum TagsAPI {
+  USER = "USER",
+}

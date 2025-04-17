@@ -11,7 +11,7 @@ export const appInstance = axios.create({
 appInstance.interceptors.request.use(
   (req) => {
     const token = sessionStorage.getItem("accessToken");
-    if (token) req.headers["Authorization"] = token;
+    if (token) req.headers["Authorization"] = `Bearer ${token}`;
     return req;
   },
   (err) => Promise.reject(err)

@@ -14,7 +14,11 @@ const windowWrapper = (cb: () => void) => {
   return cb();
 };
 
-const DropDown: FC = () => {
+type PropsType = {
+  isLogged: boolean;
+};
+
+const DropDown: FC<PropsType> = ({ isLogged }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
@@ -48,15 +52,18 @@ const DropDown: FC = () => {
     closeDrop();
   }, [isLeaving]);
 
+  const arrDrop = fieldsHeaderDropNonLogged;
+  // const arrDrop = isLogged ? [] : fieldsHeaderDropNonLogged;
+
   return (
-    <div className="w-fit justify-self-end relative z__drop_header">
+    <div className="min-w-full justify-self-end flex justify-end relative z__drop_header">
       <div
         ref={thumbRef}
         onClick={() => {
           setHasClicked(true);
           setIsOpen((prev) => !prev);
         }}
-        className="w-fit p-1"
+        className="group btn__logic w-[45px] h-[45px] flex justify-center items-center"
         onMouseEnter={() => {
           windowWrapper(() => {
             setHasClicked(false);
@@ -71,7 +78,10 @@ const DropDown: FC = () => {
           });
         }}
       >
-        <FaRegUser className="icon__md icon__logic" />
+        <div className="border-blue-600 rounded-xl flex justify-center items-center border-[3px] p-[7.5px] group-hover:text-blue-600 cursor-pointer el__flow">
+          <span className="txt__4">AM</span>
+        </div>
+        {/* <FaRegUser className="icon__md icon__logic" /> */}
       </div>
 
       <div
@@ -88,13 +98,13 @@ const DropDown: FC = () => {
         onMouseLeave={() => {
           windowWrapper(() => setIsOpen(false));
         }}
-        className={`absolute top-full -left-[500%] bg-[#000] el__border_sm p-3 grid gap-3 min-w-[250px] transition-all duration-500   ${
+        className={`absolute top-[125%] bg-[#000] el__border_sm p-3 grid gap-3 min-w-[250px] transition-all duration-500  ${" left-[40%]"} ${
           isLeaving || isOpen
             ? ""
             : "translate-y-1/3 opacity-0 pointer-events-none"
         }`}
       >
-        {fieldsHeaderDropNonLogged.map((el) => (
+        {arrDrop.map((el) => (
           <Link
             key={el.id}
             to={el.path}
