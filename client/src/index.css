@@ -4,6 +4,16 @@
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
 
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("./config/assets/Sour_Gummy/SourGummy-Italic-VariableFont_wdth,wght.ttf")
+      format("truetype"),
+    url("./config/assets/Sour_Gummy/SourGummy-VariableFont_wdth,wght.ttf")
+      format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
 * {
   font-family: "Sour Gummy";
 }
