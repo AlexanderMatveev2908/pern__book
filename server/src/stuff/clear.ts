@@ -1,11 +1,13 @@
-import { Key, Token, User } from "../models/models.js";
+import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
+import { KeyRSA, Token, User } from "../models/models.js";
 
 export const clearDB = async () => {
   const start = performance.now();
 
   await Token.destroy({ where: {} });
   await User.destroy({ where: {} });
-  await Key.destroy({ where: {} });
+  await KeyRSA.destroy({ where: {} });
+  await KeyCbcHmac.destroy({ where: {} });
 
   const end = performance.now();
 

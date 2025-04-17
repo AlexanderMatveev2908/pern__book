@@ -5,5 +5,5 @@ export enum KeyTypeRSA {
 
 export enum KeyTypeCbcHmac {
   HMAC = "HMAC",
-  AES_CBC = "AES_CBC",
+  CBC = "CBC",
 }
