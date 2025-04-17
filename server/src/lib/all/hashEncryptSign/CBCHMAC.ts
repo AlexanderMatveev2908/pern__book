@@ -16,7 +16,7 @@ const IV_LENGTH = 16;
 
 export interface PayloadCBC {
   id: string;
-  verified: boolean;
+  isVerified: boolean;
   role: UserRole;
 }
 
@@ -51,7 +51,7 @@ export const encryptCbcHmac = ({
   const payload = Buffer.from(
     JSON.stringify({
       id: user.id,
-      verified: user.isVerified,
+      isVerified: user.isVerified,
       role: user.role,
     })
   );
@@ -110,7 +110,7 @@ const flow = () => {
 
   const payload = {
     id: "134",
-    verified: true,
+    isVerified: true,
     role: UserRole.OWNER,
   };
 

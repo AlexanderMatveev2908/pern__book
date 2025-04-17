@@ -1,18 +1,19 @@
 import { generateKeyPairSync } from "crypto";
-import { Key, UserInstance } from "../../../models/models.js";
-import { KeyType } from "../../../types/all/keys.js";
+import { KeyRSA, UserInstance } from "../../../models/models.js";
 import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
 import { JWEInvalid, JWTExpired } from "jose/errors";
-import { ErrAppMsgCode, KeyAlg } from "../../../types/types.js";
+import { ErrAppMsgCode, KeyAlgRSA, TokAlg } from "../../../types/types.js";
 import { Response } from "express";
 import { isDev } from "../../../config/env.js";
+import { Op } from "sequelize";
+import { KeyTypeRSA } from "../../../types/all/keys.js";
 
 // IMPORTANT ⚠️
 // IF U PREFER USE COMMON-JS JOSE IS THOUGH FOR MODULES AND U'LL HAVE WARNINGS OR COULD EVEN CRASH IF BECOME UNSUPPORTED(I USED COMMON JS IN LAST PROJECT) SO U WOULD NEED TO MAKE DYNAMIC ASYNC IMPORTS INSTEAD OF SIMPLE IMPORT
 
 export interface PayloadJWE {
   id: string;
-  verified: boolean;
+  isVerified: boolean;
   role: string;
 }
 
@@ -29,15 +30,13 @@ export const genPairRSA = async () => {
     },
   });
 
-  const publicKey = await Key.create({
+  const publicKey = await KeyRSA.create({
     key: pair.publicKey,
-    alg: KeyAlg.RSA,
-    type: KeyType.PUB,
+    type: KeyTypeRSA.RSA_PUBLIC,
   });
-  const privateKey = await Key.create({
+  const privateKey = await KeyRSA.create({
     key: pair.privateKey,
-    alg: KeyAlg.RSA,
-    type: KeyType.PRIV,
+    type: KeyTypeRSA.RSA_PRIVATE,
   });
 
   return { publicKey, privateKey };
@@ -57,29 +56,39 @@ export const genPairRSA = async () => {
 // ONLY THE PRIVATE KEY IS ABLE TO DECRYPT THE SYMMETRIC KEY , THEN WE CAN DECRYPT THE PAYLOAD
 
 export const getPublicRSA = async () => {
-  const publicKey = await Key.findOne({ where: { type: KeyType.PUB } });
-  return await importSPKI(publicKey!.key, KeyAlg.RSA);
+  const publicKey = await KeyRSA.findOne({
+    where: { type: KeyTypeRSA.RSA_PUBLIC },
+  });
+  return await importSPKI(publicKey!.key, KeyAlgRSA.RSA);
 };
 
 export const getPrivateRSA = async () => {
-  const privateKey = await Key.findOne({ where: { type: KeyType.PRIV } });
-  return await importPKCS8(privateKey!.key, KeyAlg.RSA);
+  const privateKey = await KeyRSA.findOne({
+    where: { type: KeyTypeRSA.RSA_PRIVATE },
+  });
+  return await importPKCS8(privateKey!.key, KeyAlgRSA.RSA);
 };
 
 export const genTokenJWE = async (user: UserInstance) => {
-  const count = await Key.count({ where: {} });
+  const count = await KeyRSA.count({
+    where: {
+      type: {
+        [Op.or]: [KeyTypeRSA.RSA_PRIVATE, KeyTypeRSA.RSA_PUBLIC],
+      },
+    },
+  });
   if (!count) await genPairRSA();
 
   const payload: PayloadJWE = {
     id: user.id,
-    verified: user.isVerified,
+    isVerified: user.isVerified,
     role: user.role,
   };
 
   const publicKey = await getPublicRSA();
 
   return await new CompactEncrypt(Buffer.from(JSON.stringify(payload)))
-    .setProtectedHeader({ alg: KeyAlg.RSA, enc: KeyAlg.GCM })
+    .setProtectedHeader({ alg: KeyAlgRSA.RSA, enc: TokAlg.GCM })
     .encrypt(publicKey);
 };
 

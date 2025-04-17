@@ -12,10 +12,10 @@ import { User } from "../../../models/models.js";
 
 export const verifyAccessToken =
   ({
-    verified = false,
+    isVerified = false,
     role = UserRole.CUSTOMER,
   }: {
-    verified?: boolean;
+    isVerified?: boolean;
     role?: UserRole;
   }) =>
   async (req: Request, res: Response, next: NextFunction): Promise<any> => {
@@ -31,7 +31,7 @@ export const verifyAccessToken =
       const user = await User.findByPk(decoded.id);
       if (!user) return err400(res, { msg: "User not found" });
 
-      if (verified && !decoded.verified)
+      if (isVerified && !decoded.isVerified)
         return err403(res, { msg: "User not verified" });
 
       const arrRoles = Object.values(UserRole);
@@ -44,7 +44,7 @@ export const verifyAccessToken =
       req.user = {
         id: decoded.id,
         role: decoded.role as UserRole,
-        verified: decoded.verified,
+        isVerified: decoded.isVerified,
       };
       return next();
     } catch (err: any) {

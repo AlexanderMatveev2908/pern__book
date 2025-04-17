@@ -5,6 +5,6 @@ export interface ReqApp extends Request {
   user?: {
     id: number;
     role: UserRole;
-    verified: boolean;
+    isVerified: boolean;
   };
 }

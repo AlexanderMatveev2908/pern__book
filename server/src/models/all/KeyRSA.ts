@@ -7,23 +7,21 @@ import {
   Sequelize,
 } from "sequelize";
 import { v4 } from "uuid";
-import { KeyType } from "../../types/all/keys.js";
-import { KeyAlg, KeyAlgType } from "../../types/types.js";
+import { KeyTypeRSA } from "../../types/all/keys.js";
 
-export class Key extends Model<
-  InferAttributes<Key>,
-  InferCreationAttributes<Key>
+export class KeyRSA extends Model<
+  InferAttributes<KeyRSA>,
+  InferCreationAttributes<KeyRSA>
 > {
   declare id: CreationOptional<string>;
   declare key: string;
-  declare type: KeyType;
-  declare alg: KeyAlgType;
+  declare type: KeyTypeRSA;
 }
 
-export type KeyInstance = InstanceType<typeof Key>;
+export type KeyRSAInstance = InstanceType<typeof KeyRSA>;
 
-export const defineKey = (seq: Sequelize) =>
-  Key.init(
+export const definePairRSA = (seq: Sequelize) =>
+  KeyRSA.init(
     {
       id: {
         type: DataTypes.STRING(36),
@@ -31,12 +29,8 @@ export const defineKey = (seq: Sequelize) =>
         primaryKey: true,
         allowNull: false,
       },
-      alg: {
-        type: DataTypes.ENUM(...Object.values(KeyAlg)),
-        allowNull: false,
-      },
       type: {
-        type: DataTypes.ENUM(...Object.values(KeyType)),
+        type: DataTypes.ENUM(...Object.values(KeyTypeRSA)),
         allowNull: false,
       },
       key: {
@@ -48,7 +42,7 @@ export const defineKey = (seq: Sequelize) =>
     {
       sequelize: seq,
       timestamps: true,
-      tableName: "keys",
-      modelName: "Key",
+      tableName: "keysRSA",
+      modelName: "KeyRSA",
     }
   );

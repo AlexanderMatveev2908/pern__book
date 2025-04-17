@@ -5,7 +5,7 @@ import { UserInstance } from "../../../models/models.js";
 
 export interface AppJwtPayload extends JWTPayload {
   id: string;
-  verified: boolean;
+  isVerified: boolean;
   role: string;
 }
 
@@ -13,7 +13,7 @@ export const genAccessJWT = (user: UserInstance) =>
   jwt.sign(
     {
       id: user.id,
-      verified: user.isVerified,
+      isVerified: user.isVerified,
       role: user.role,
     },
     process.env.MY_SIGN!,
