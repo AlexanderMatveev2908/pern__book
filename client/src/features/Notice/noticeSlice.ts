@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getStorage } from "@/lib/lib";
 import { RootStateType } from "@/store/store";
-import { EventApp } from "@/types/types";
+import { EventApp, StorageKeys } from "@/types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NoticeState {
@@ -10,7 +10,7 @@ interface NoticeState {
   cb?: (() => any) | null;
 }
 
-const savedNotice = getStorage("notice");
+const savedNotice = getStorage(StorageKeys.NOTICE);
 const initState: NoticeState = savedNotice
   ? {
       ...JSON.parse(savedNotice),

@@ -40,7 +40,8 @@ export const sendEmailAuth = async ({
   token: string;
   event: TokenEventType;
 }) => {
-  if ([user, token, event].some((el) => !el)) return;
+  if ([user, token, event].some((el) => !el))
+    throw new Error("=> Missing data mail transporter");
 
   const verifyURL = `${frontURL}/verify-cb?token=${token}&userID=${user.id}&event=${event}`;
   const { txt, labelBtn, subject } = getTxt(event);

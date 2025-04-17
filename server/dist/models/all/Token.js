@@ -15,7 +15,7 @@ const defineToken = (seq) => Token.init({
         allowNull: false,
     },
     hashed: {
-        type: DataTypes.STRING,
+        type: DataTypes.TEXT,
         allowNull: false,
         unique: true,
     },

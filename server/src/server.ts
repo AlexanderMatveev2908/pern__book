@@ -3,7 +3,7 @@ import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
 import { errMiddleware } from "./middleware/middleware.js";
 import { isDev } from "./config/env.js";
-import { flow_0, flow_1, getDirClient } from "./lib/lib.js";
+import { getDirClient } from "./lib/lib.js";
 import { clearDB } from "./stuff/clear.js";
 import routerApp from "./routes/route.js";
 
@@ -27,8 +27,6 @@ app.use(errMiddleware);
 
 // getDataDB();
 // clearDB();
-// flow_0();
-flow_1();
 
 const start = async () => {
   try {

@@ -4,13 +4,12 @@ import {
   err409,
   res201,
   sendEmailAuth,
-  genTokenHMAC,
   genTokenJWE,
   setCookie,
+  genTokenCBC,
 } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
-import { isDev } from "../../../config/env.js";
 
 export const registerUser = async (
   req: Request,
@@ -18,36 +17,43 @@ export const registerUser = async (
 ): Promise<any> => {
   const newUser = User.build(req.body);
 
+  let userID: string | null = null;
+
   if (await newUser.existUser())
     return err409(res, { msg: "User already exists" });
 
   newUser.capitalize();
   await newUser.hashPwdUser();
   await newUser.save();
+  userID = newUser.id;
 
-  const accessToken = genAccessJWT(newUser);
+  try {
+    const accessToken = genAccessJWT(newUser);
+    const { verifyToken } = await genTokenCBC({
+      user: newUser,
+      event: TokenEventType.VERIFY_ACCOUNT,
+    });
 
-  const { verifyToken } = await genTokenHMAC({
-    user: newUser,
-    event: TokenEventType.VERIFY_ACCOUNT,
-  });
-  const refreshToken = await genTokenJWE(newUser);
+    const refreshToken = await genTokenJWE(newUser);
 
-  await sendEmailAuth({
-    user: newUser,
-    token: verifyToken,
-    event: TokenEventType.VERIFY_ACCOUNT,
-  });
+    await sendEmailAuth({
+      user: newUser,
+      token: verifyToken,
+      event: TokenEventType.VERIFY_ACCOUNT,
+    });
 
-  setCookie(res, refreshToken);
+    setCookie(res, refreshToken);
 
-  return res201(res, { msg: "Account created", accessToken });
+    return res201(res, { msg: "Account created", accessToken });
+  } catch (err: any) {
+    if (userID) await User.destroy({ where: { id: userID } });
+
+    throw err;
+  }
 };
 
 export const loginUser = async (req: Request, res: Response): Promise<any> => {
   const user = req.body;
-
-  console.log(user);
 
   return res.status(200).json({ ok: true });
 };

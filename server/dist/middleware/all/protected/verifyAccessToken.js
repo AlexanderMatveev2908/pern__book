@@ -10,7 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { err400, err401, err403, err500, verifyJWT, } from "../../../lib/lib.js";
 import { ErrAppMsgCode, UserRole } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
-export const verifyAccessToken = ({ verified = false, role = UserRole.CUSTOMER, }) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
+export const verifyAccessToken = ({ isVerified = false, role = UserRole.CUSTOMER, }) => (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const authHeader = (_a = req.headers) === null || _a === void 0 ? void 0 : _a.authorization;
     const accessToken = authHeader === null || authHeader === void 0 ? void 0 : authHeader.split(" ")[1];
@@ -21,7 +21,7 @@ export const verifyAccessToken = ({ verified = false, role = UserRole.CUSTOMER, 
         const user = yield User.findByPk(decoded.id);
         if (!user)
             return err400(res, { msg: "User not found" });
-        if (verified && !decoded.verified)
+        if (isVerified && !decoded.isVerified)
             return err403(res, { msg: "User not verified" });
         const arrRoles = Object.values(UserRole);
         const indexRoles = arrRoles.indexOf(role);
@@ -31,7 +31,7 @@ export const verifyAccessToken = ({ verified = false, role = UserRole.CUSTOMER, 
         req.user = {
             id: decoded.id,
             role: decoded.role,
-            verified: decoded.verified,
+            isVerified: decoded.isVerified,
         };
         return next();
     }

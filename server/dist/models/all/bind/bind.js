@@ -1,10 +1,12 @@
 import { defineToken } from "../Token.js";
 import { defineUser } from "../User.js";
-import { definePairRSA } from "../Key.js";
+import { definePairRSA } from "../KeyRSA.js";
+import { defineKeyCbcHmac } from "../KeyCbcHmac.js";
 export const bindModels = (seq) => {
-  const User = defineUser(seq);
-  const Token = defineToken(seq);
-  definePairRSA(seq);
-  Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
-  User.hasMany(Token, { foreignKey: "userID", onDelete: "CASCADE" });
+    const User = defineUser(seq);
+    const Token = defineToken(seq);
+    definePairRSA(seq);
+    defineKeyCbcHmac(seq);
+    Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
+    User.hasMany(Token, { foreignKey: "userID", onDelete: "CASCADE" });
 };

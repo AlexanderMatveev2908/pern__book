@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { REG_ID, REG_TOK } from "@/config/regex";
+import { REG_ID } from "@/config/regex";
 import {
   AllowedFromNotice,
   ErrAppMsgCode,
@@ -44,5 +44,5 @@ export const checkQueryAuth = ({
   event: TokenEventType;
 }) =>
   REG_ID.test(userID) &&
-  REG_TOK.test(token) &&
+  !!token.length &&
   Object.values(TokenEventType).includes(event);

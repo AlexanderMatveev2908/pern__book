@@ -4,6 +4,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapAPI } from "@/hooks/hooks";
 import { TokenEventType } from "@/types/types";
+import { isObjOk } from "@/lib/lib";
 
 const VerifyCb: FC = () => {
   const [searchParams] = useSearchParams();
@@ -20,10 +21,12 @@ const VerifyCb: FC = () => {
 
   const handleVerifyAccount = useCallback(async () => {
     const params = { token, userID, event: event as TokenEventType };
-    await wrapAPI({
+    const res = await wrapAPI({
       cbAPI: () => verifyAccount(params),
       pushNotice: [true],
     });
+    if (!isObjOk(res)) return;
+
     navigate("/", { replace: true });
   }, [userID, token, event, verifyAccount, wrapAPI, navigate]);
 

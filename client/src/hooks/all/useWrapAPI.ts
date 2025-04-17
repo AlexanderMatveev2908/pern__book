@@ -45,17 +45,17 @@ export const useWrapAPI = () => {
         console.log(err);
         console.groupEnd();
 
+        const message =
+          data?.msg ||
+          "The AI that manage the database has revolted and is taking control of all servers ⚙️";
+
         dispatch(
           openToast({
             type: EventApp.ERR,
-            msg:
-              data?.msg ||
-              "The AI that manage the database has revolted and is taking control of all servers ⚙️",
+            msg: message,
             statusCode: status,
           })
         );
-
-        console.log(pushNotice);
 
         if (push && pushNotice) {
           throw new Error("Can not send user to different places at same time");
@@ -64,17 +64,15 @@ export const useWrapAPI = () => {
         } else if (pushNotice?.[0]) {
           dispatch(
             setNotice({
-              notice: data?.msg,
+              notice: message,
               type: EventApp.ERR,
               cb: pushNotice?.[1] ?? null,
             })
           );
-
           saveStorage({
             data: { notice: data?.msg, type: EventApp.ERR },
             key: StorageKeys.NOTICE,
           });
-
           navigate("/notice", {
             replace: true,
             state: { from: AllowedFromNotice.VERIFY_ACCOUNT },

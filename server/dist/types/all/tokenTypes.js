@@ -23,3 +23,11 @@ export var ErrAppMsgCode;
     ErrAppMsgCode["REFRESH_INVALID"] = "REFRESH TOKEN INVALID";
     ErrAppMsgCode["REFRESH_NOT_PROVIDED"] = "REFRESH TOKEN NOT PROVIDED";
 })(ErrAppMsgCode || (ErrAppMsgCode = {}));
+export const KeyAlgRSA = {
+    RSA: "RSA-OAEP-256",
+};
+export const TokAlg = {
+    SHA: "sha256",
+    CBC_HMAC: "aes-256-cbc",
+    GCM: "A256GCM",
+};

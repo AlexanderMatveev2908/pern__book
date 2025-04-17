@@ -1,12 +1,18 @@
 import { generateKeyPairSync } from "crypto";
-import { KeyRSA, UserInstance } from "../../../models/models.js";
+import { KeyRSA, Token, UserInstance } from "../../../models/models.js";
 import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
 import { JWEInvalid, JWTExpired } from "jose/errors";
-import { ErrAppMsgCode, KeyAlgRSA, TokAlg } from "../../../types/types.js";
+import {
+  ErrAppMsgCode,
+  KeyAlgRSA,
+  TokAlg,
+  TokenEventType,
+} from "../../../types/types.js";
 import { Response } from "express";
 import { isDev } from "../../../config/env.js";
 import { Op } from "sequelize";
 import { KeyTypeRSA } from "../../../types/all/keys.js";
+import { genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
 
 // IMPORTANT ⚠️
 // IF U PREFER USE COMMON-JS JOSE IS THOUGH FOR MODULES AND U'LL HAVE WARNINGS OR COULD EVEN CRASH IF BECOME UNSUPPORTED(I USED COMMON JS IN LAST PROJECT) SO U WOULD NEED TO MAKE DYNAMIC ASYNC IMPORTS INSTEAD OF SIMPLE IMPORT
@@ -87,9 +93,20 @@ export const genTokenJWE = async (user: UserInstance) => {
 
   const publicKey = await getPublicRSA();
 
-  return await new CompactEncrypt(Buffer.from(JSON.stringify(payload)))
+  const encrypted = await new CompactEncrypt(
+    Buffer.from(JSON.stringify(payload))
+  )
     .setProtectedHeader({ alg: KeyAlgRSA.RSA, enc: TokAlg.GCM })
     .encrypt(publicKey);
+
+  const newToken = await Token.create({
+    hashed: encrypted,
+    expiry: genExpiryJWE(),
+    event: TokenEventType.REFRESH,
+    userID: user.id,
+  });
+
+  return newToken.hashed;
 };
 
 export const checkJWE = async (token: string): Promise<PayloadJWE | string> => {
@@ -112,5 +129,5 @@ export const setCookie = (res: Response, refreshToken: string) =>
     httpOnly: true,
     secure: !isDev,
     sameSite: "strict",
-    expires: new Date(Date.now() + 1000 * 60 * 5),
+    expires: genExpiryCookie(),
   });

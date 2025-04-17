@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { MsgHMAC } from "../../../types/types.js";
-import { checkHMAC, err401, err404, err409, formatMsgApp, res200, } from "../../../lib/lib.js";
+import { checkCbcHmac, err401, err404, err409, formatMsgApp, res200, } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
 export const verifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token, userID, event } = req.body;
@@ -21,7 +21,7 @@ export const verifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, fun
         return err404(res, { msg: "user not found" });
     if (user.isVerified)
         return err409(res, { msg: "user already verified" });
-    const result = yield checkHMAC({
+    const result = yield checkCbcHmac({
         user,
         token,
         event,

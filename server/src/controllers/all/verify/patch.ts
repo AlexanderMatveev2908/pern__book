@@ -1,6 +1,7 @@
 import { Response } from "express";
 import { MsgHMAC, ReqApp } from "../../../types/types.js";
 import {
+  checkCbcHmac,
   checkHMAC,
   err401,
   err404,
@@ -24,12 +25,13 @@ export const verifyAccount = async (
   if (!user) return err404(res, { msg: "user not found" });
   if (user.isVerified) return err409(res, { msg: "user already verified" });
 
-  const result = await checkHMAC({
+  const result = await checkCbcHmac({
     user,
     token,
     event,
   });
-  if (result !== MsgHMAC.OK) return err401(res, { msg: formatMsgApp(result) });
+  if (result !== MsgHMAC.OK)
+    return err401(res, { msg: formatMsgApp(result as string) });
 
   await user.verify();
 
