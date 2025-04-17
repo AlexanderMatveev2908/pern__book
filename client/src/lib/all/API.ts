@@ -46,3 +46,5 @@ export const checkQueryAuth = ({
   REG_ID.test(userID) &&
   !!token.length &&
   Object.values(TokenEventType).includes(event);
+
+export const getData = (obj: any) => obj?.data?.data;

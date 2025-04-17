@@ -6,19 +6,26 @@ import { DispatchType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "./headerSlice";
 import DropDown from "./components/DropDown";
-import { useGetUserProfileQuery } from "../root/rootSliceAPI";
+import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
 import MiniSpinner from "@/components/common/spinners/MiniSpinner/MiniSpinner";
 import { getAuthState } from "../AuthLayout/authSlice";
+import { useWrapperAPI, useWrapQueryAPI } from "@/hooks/hooks";
+import { getData } from "@/lib/lib";
 
 const Header: FC = () => {
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const { data, isLoading } = useGetUserProfileQuery();
+  useWrapperAPI();
+  const res = useGetUserProfileQuery({});
 
-  const acr = (data?.firstName?.at(0) ?? "") + (data?.lastName?.at(0) ?? "");
+  useWrapQueryAPI({ ...res });
+  const { user }: UserProfile = getData(res) ?? {};
+  console.log(user);
+  const acr = (user?.firstName?.at(0) ?? "") + (user?.lastName?.at(0) ?? "");
 
+  const isLoading = res.isLoading;
   return (
     <div className="w-full border-b-[3px] border-blue-600 sticky top-0 h-[80px] z__header bg-[#000]">
       <div className="w-full h-full items-center grid grid-cols-2 pl-3 pr-4 sm:pr-8">

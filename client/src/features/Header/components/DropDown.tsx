@@ -79,12 +79,15 @@ const DropDown: FC<PropsType> = ({ isLogged, acr }) => {
           });
         }}
       >
-        <div className="border-blue-600 rounded-xl flex justify-center items-center border-[3px] p-[7.5px] group-hover:text-blue-600 cursor-pointer el__flow">
-          <span className="txt__3 group-hover:scale-[1.15] el__flow">
-            {acr}
-          </span>
-        </div>
-        {/* <FaRegUser className="icon__md icon__logic" /> */}
+        {isLogged && acr ? (
+          <div className="border-blue-600 rounded-xl flex justify-center items-center border-[3px] p-[7.5px] group-hover:text-blue-600 cursor-pointer el__flow">
+            <span className="txt__3 group-hover:scale-[1.15] el__flow">
+              {acr}
+            </span>
+          </div>
+        ) : (
+          <FaRegUser className="icon__md icon__logic" />
+        )}
       </div>
 
       <div

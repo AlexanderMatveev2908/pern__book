@@ -25,7 +25,7 @@ import FormField from "../../../components/forms/components/inputs/FormField";
 import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
 import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useCb, useWrapAPI } from "@/hooks/hooks.ts";
+import { useCb, useWrapperAPI } from "@/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
@@ -39,7 +39,7 @@ const Register: FC = () => {
   const navigate = useNavigate();
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
-  const { wrapAPI } = useWrapAPI();
+  const { wrapMutationAPI } = useWrapperAPI();
 
   const dispatch = useDispatch();
   const {
@@ -78,7 +78,7 @@ const Register: FC = () => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
 
-    const res = await wrapAPI({
+    const res = await wrapMutationAPI({
       cbAPI: () => registerUser(newUser as NonNullable<RegisterParamsAPI>),
     });
 
