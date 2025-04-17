@@ -30,6 +30,7 @@ export const useErrAPI = () => {
 
       const message =
         data?.msg ||
+        data?.message ||
         "The AI that manage the database has revolted and is taking control of all servers ⚙️";
 
       dispatch(

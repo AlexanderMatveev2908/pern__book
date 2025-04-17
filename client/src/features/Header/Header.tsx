@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
@@ -9,21 +9,32 @@ import DropDown from "./components/DropDown";
 import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
 import MiniSpinner from "@/components/common/spinners/MiniSpinner/MiniSpinner";
 import { getAuthState } from "../AuthLayout/authSlice";
-import { useWrapperAPI, useWrapQueryAPI } from "@/hooks/hooks";
-import { getData } from "@/lib/lib";
+import { useWrapQueryAPI } from "@/hooks/hooks";
+import { getData, getStorage, saveStorage } from "@/lib/lib";
+import { StorageKeys } from "@/types/types";
+
+const capitalize = (str?: string) => str?.at(0) ?? "";
 
 const Header: FC = () => {
+  const [init, setInit] = useState<string | null>(
+    getStorage(StorageKeys.INIT) ?? null
+  );
+
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  useWrapperAPI();
   const res = useGetUserProfileQuery({});
 
   useWrapQueryAPI({ ...res });
   const { user }: UserProfile = getData(res) ?? {};
-  console.log(user);
-  const acr = (user?.firstName?.at(0) ?? "") + (user?.lastName?.at(0) ?? "");
+
+  useEffect(() => {
+    if (user && !init) {
+      setInit(capitalize(user?.firstName) + capitalize(user?.lastName));
+      saveStorage({ data: init, key: StorageKeys.INIT });
+    }
+  }, [user, init]);
 
   const isLoading = res.isLoading;
   return (
@@ -37,7 +48,7 @@ const Header: FC = () => {
           {isLoading ? (
             <MiniSpinner />
           ) : (
-            <DropDown {...{ isLogged, isLoading, acr }} />
+            <DropDown {...{ isLogged, isLoading, init }} />
           )}
 
           <button

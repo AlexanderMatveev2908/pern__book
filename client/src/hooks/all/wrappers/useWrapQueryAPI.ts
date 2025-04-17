@@ -46,11 +46,9 @@ export const useWrapQueryAPI = ({
             openToast({
               type: EventApp.OK,
               msg: data?.msg || "operation successful",
-              statusCode: 200,
+              statusCode: data?.status,
             })
           );
-
-        return data;
       } else if (isError) {
         return handleErrAPI({ err: error, push, pushNotice });
       }
