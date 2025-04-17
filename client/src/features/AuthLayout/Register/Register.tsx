@@ -6,8 +6,6 @@ import {
 } from "../../../config/fields/fields.ts";
 import ButtonsSwapper from "../../../components/forms/components/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
-import BreadCrumbForm from "../../../components/forms/components/BreadCrumbForm";
-import Button from "../../../components/common/buttons/Button/Button";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
@@ -21,9 +19,6 @@ import {
 } from "../../../lib/lib.ts";
 import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
-import FormField from "../../../components/forms/components/inputs/FormField";
-import PwdField from "../../../components/forms/components/inputs/PwdField/PwdField";
-import WrapperFocus from "../../../components/forms/components/WrapperFocus/WrapperFocus.tsx";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
 import { useCb, useWrapperAPI } from "@/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
@@ -31,6 +26,13 @@ import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types.ts";
 import { setNotice } from "@/features/Notice/noticeSlice.ts";
+import {
+  BreadCrumbForm,
+  Button,
+  FormField,
+  PwdField,
+  WrapperFocus,
+} from "@/components/components.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {

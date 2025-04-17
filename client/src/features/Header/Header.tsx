@@ -7,11 +7,11 @@ import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "./headerSlice";
 import DropDown from "./components/DropDown";
 import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
-import MiniSpinner from "@/components/common/spinners/MiniSpinner/MiniSpinner";
 import { getAuthState } from "../AuthLayout/authSlice";
 import { useWrapQueryAPI } from "@/hooks/hooks";
 import { getData, getStorage, saveStorage } from "@/lib/lib";
 import { StorageKeys } from "@/types/types";
+import { MiniSpinner } from "@/components/components";
 
 const capitalize = (str?: string) => str?.at(0) ?? "";
 
@@ -45,7 +45,7 @@ const Header: FC = () => {
         </Link>
 
         <div className="w-full flex justify-end gap-4 txt__col items-center">
-          {isLoading ? (
+          {!init && isLoading ? (
             <MiniSpinner />
           ) : (
             <DropDown {...{ isLogged, isLoading, init }} />

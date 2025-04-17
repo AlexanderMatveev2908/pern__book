@@ -4,6 +4,7 @@ import { useDispatch } from "react-redux";
 import { openToast } from "@/features/Toast/toastSlice";
 import { EventApp } from "@/types/types";
 import { useErrAPI } from "./useErrAPI";
+import { cg } from "@/lib/lib";
 
 export const useWrapQueryAPI = ({
   isSuccess,
@@ -37,9 +38,7 @@ export const useWrapQueryAPI = ({
       pushNotice?: [boolean, (() => any)?];
     }) => {
       if (isSuccess) {
-        console.group("QUERY API");
-        console.log(data);
-        console.groupEnd();
+        cg("data api", data);
 
         if (toast)
           dispatch(

@@ -1,4 +1,4 @@
-import Test from "@/components/common/Test";
+import { Test } from "@/components/components";
 import { useScroll } from "@/hooks/hooks";
 import { FC } from "react";
 

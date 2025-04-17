@@ -19,10 +19,6 @@ const axiosBaseQuery: BaseQueryFn<{
   data?: any;
   params?: any;
 }> = async ({ url, method, data, params }) => {
-  // console.group("API SLICE");
-  // console.log(data);
-  // console.groupEnd();
-
   try {
     const res: AxiosResponse = await appInstance({
       url,

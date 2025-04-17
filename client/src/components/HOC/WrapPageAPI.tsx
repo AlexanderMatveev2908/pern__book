@@ -1,8 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode } from "react";
-import SpinnerPage from "../common/spinners/SpinnerPage/SpinnerPage";
 import { Navigate } from "react-router-dom";
-import ErrIcon from "../common/ErrIcon";
+import { ErrIcon, SpinnerPage } from "../components";
 
 type PropsType = {
   canStay?: boolean;

@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
-import DropHandler from "../../../components/common/DropHandler/DropHandler";
 import {
   fieldAccountNonLogged,
   sideFieldsNonLogged,
 } from "../../../config/fields/fields.ts";
 import SideLink from "./SideLink";
+import { DropHandler } from "@/components/components.ts";
 
 type PropsType = {
   handleSideClick: () => void;

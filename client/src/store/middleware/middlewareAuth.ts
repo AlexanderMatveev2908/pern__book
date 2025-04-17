@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { makeSomething } from "@/features/AuthLayout/authSlice";
 // import { authAPI } from "@/features/AuthLayout/authSliceAPI";
-import { isAccessExpired, isRefreshing } from "@/lib/lib";
+import { cg, isAccessExpired, isRefreshing } from "@/lib/lib";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
 
 export const middlewareAuth = (store: any) => (next: any) => (action: any) => {
@@ -15,10 +15,7 @@ export const middlewareAuth = (store: any) => (next: any) => (action: any) => {
 
     const { data, config } = action.payload;
 
-    console.group("MIDDLEWARE APP");
-    console.log(data);
-    console.log(config);
-    console.groupEnd();
+    cg("middleware api", data, config);
 
     // store
     //   .dispatch(

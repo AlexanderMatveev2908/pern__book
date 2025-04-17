@@ -1,7 +1,7 @@
 import { FC } from "react";
 import Register from "../../../features/AuthLayout/Register/Register";
 import { useScroll } from "../../../hooks/all/useScroll";
-import WrapperAuthPage from "../../../components/common/WrapperAuthPage";
+import { WrapperAuthPage } from "@/components/components";
 
 const RegisterPage: FC = () => {
   useScroll();

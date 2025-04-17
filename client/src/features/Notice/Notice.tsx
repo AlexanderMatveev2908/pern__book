@@ -3,7 +3,7 @@ import { LuCircleCheckBig } from "react-icons/lu";
 import { useSelector } from "react-redux";
 import { getNoticeState } from "./noticeSlice";
 import { EventApp } from "@/types/types";
-import ErrIcon from "@/components/common/ErrIcon";
+import { ErrIcon } from "@/components/components";
 
 const Notice: FC = () => {
   const runRef = useRef<boolean>(false);

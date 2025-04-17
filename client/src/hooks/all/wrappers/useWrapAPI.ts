@@ -4,6 +4,7 @@ import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useErrAPI } from "./useErrAPI";
+import { cg } from "@/lib/lib";
 
 export const useWrapperAPI = () => {
   const dispatch = useDispatch();
@@ -29,9 +30,7 @@ export const useWrapperAPI = () => {
           })
         );
 
-        console.group("DATA API");
-        console.log(data);
-        console.groupEnd();
+        cg("data api", data);
 
         return data;
       } catch (err: any) {

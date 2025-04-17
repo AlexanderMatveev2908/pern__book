@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
-import Button from "../../common/buttons/Button/Button";
-import FormField from "../components/inputs/FormField";
 import { FieldErrors, UseFormRegister } from "react-hook-form";
 import { emailField } from "../../../config/fields/fields";
+import { Button, FormField } from "@/components/components";
 
 type PropsType = {
   register: UseFormRegister<any>;
