@@ -38,6 +38,14 @@ export class User extends Model<
     this.lastName = capChar(this.lastName);
   }
 
+  makePayload(this: User) {
+    return {
+      id: this.id,
+      isVerified: this.isVerified,
+      role: this.role,
+    };
+  }
+
   async hashPwdUser(this: User) {
     this.password = await calcTimeRun(() => hashPwd(this.password));
   }

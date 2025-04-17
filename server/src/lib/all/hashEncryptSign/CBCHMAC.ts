@@ -88,13 +88,7 @@ export const genTokenCBC = async ({
   if (!count) await genPairCbcHmac();
 
   const { keyCBC, keyHMAC } = await getPairKeys();
-  const payload = Buffer.from(
-    JSON.stringify({
-      id: user.id,
-      isVerified: user.isVerified,
-      role: user.role,
-    } as AppPayloadCBC)
-  );
+  const payload = Buffer.from(JSON.stringify(user.makePayload()));
 
   const MAX_ATTEMPTS = 10;
   let attempts = 0;

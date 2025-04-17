@@ -85,13 +85,8 @@ export const genTokenJWE = async (user: UserInstance) => {
   });
   if (!count) await genPairRSA();
 
-  const payload: PayloadJWE = {
-    id: user.id,
-    isVerified: user.isVerified,
-    role: user.role,
-  };
-
   const publicKey = await getPublicRSA();
+  const payload: PayloadJWE = user.makePayload();
 
   const encrypted = await new CompactEncrypt(
     Buffer.from(JSON.stringify(payload))
