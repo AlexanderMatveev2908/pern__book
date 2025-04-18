@@ -39,6 +39,10 @@ const Login: FC = () => {
   } = useForm<LoginFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
+    defaultValues: {
+      email: "matveevalexander470@gmail.com",
+      password: "pE^.W.'PW2hb%eI^",
+    },
   });
   const vals = watch();
   const [loginUser, { isLoading }] = useLoginUserMutation();

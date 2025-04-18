@@ -4,7 +4,6 @@ import {
   formatMsgCode,
   getStorage,
   goTo,
-  isAccessExpired,
   isRefreshing,
   removeStorage,
   saveStorage,
@@ -48,12 +47,7 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
     const { response: { data, status, config } = {} } = payload ?? {};
     __cg("refresh error", data, status);
 
-    if (
-      status !== 401 ||
-      !isAccessExpired(data?.msg) ||
-      isRefreshing(config?.url)
-    )
-      return next(action);
+    if (status !== 401 || !isRefreshing(config?.url)) return next(action);
 
     const message = getMsg(data, isLogged);
     const newNotice = { notice: message, type: EventApp.ERR };
