@@ -10,6 +10,7 @@ import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
 import { getData, isObjOk } from "@/lib/lib";
 import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
+import SideLogout from "./components/SideLogout";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
@@ -66,6 +67,8 @@ const Sidebar: FC = () => {
             ))}
 
             <SidebarDrop {...{ handleSideClick, user }} />
+
+            <SideLogout {...{ handleSideClick }} />
           </div>
         </div>
       </div>

@@ -27,7 +27,7 @@ export const prepareHeader = (req: ReqApp) => {
   const authHeader = req.headers?.authorization;
   const accessToken = (authHeader as string)?.split(" ")[1];
 
-  return accessToken;
+  return accessToken ? accessToken : null;
 };
 
 export const decodeExpJWT = (expired: string) => jwt.decode(expired);

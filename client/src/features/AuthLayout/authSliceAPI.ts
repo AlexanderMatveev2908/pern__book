@@ -69,14 +69,12 @@ export const authAPI = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         dispatch(authSlice.actions.logout());
-
         try {
           await queryFulfilled;
         } catch (err: any) {
           dispatch(authSlice.actions.login());
           throw err;
         }
-
         removeStorage();
         dispatch(apiSlice.util.resetApiState());
       },

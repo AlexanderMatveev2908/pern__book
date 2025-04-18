@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
-import { saveStorage } from "@/lib/lib";
+import { __cg, saveStorage } from "@/lib/lib";
 import { MsgErrSession, StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
 
@@ -29,6 +29,8 @@ export const axiosBaseQuery = async ({
       MsgErrSession.ACCESS_NOT_PROVIDED,
     ].includes(response?.data?.msg);
 
+    __cg("catch access expired", response);
+
     if (response.status !== 401 || isRefreshing || !isAccessExpired)
       return {
         error: err,
@@ -49,9 +51,15 @@ export const axiosBaseQuery = async ({
       });
 
       return {
-        data: { ...retry?.data, status: retry?.status, refreshed: true },
+        data: {
+          ...retry?.data,
+          status: retry?.status,
+          refreshed: url !== "/auth/logout",
+        },
       };
     } catch (err: any) {
+      appInstance.defaults.headers.common["Authorization"] = null;
+
       return {
         error: err,
       };

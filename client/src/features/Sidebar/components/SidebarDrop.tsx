@@ -25,7 +25,7 @@ const SidebarDrop: FC<PropsType> = ({ handleSideClick, user }) => {
   const arg = authState.isLogged ? sideFieldsLogged : sideFieldsNonLogged;
   const label = authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged;
   return (
-    <div className="w-full grid gap-5">
+    <div className={`w-full grid ${isDropOpen ? "" : ""}`}>
       <DropHandler {...{ isDropOpen, setIsDropOpen, el: label }} />
       <div
         className={`w-full grid el__flow ${
@@ -35,8 +35,8 @@ const SidebarDrop: FC<PropsType> = ({ handleSideClick, user }) => {
         } `}
       >
         <div
-          className={`grid gap-5 el__flow ${
-            isDropOpen ? "" : "-translate-y-[50px]"
+          className={`grid gap-5 el__flow  ${
+            isDropOpen ? "translate-y-[12.5px]" : "-translate-y-[50px]"
           }`}
         >
           {arg.map((el) =>

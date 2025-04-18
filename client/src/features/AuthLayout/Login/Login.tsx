@@ -41,7 +41,7 @@ const Login: FC = () => {
     resolver: zodResolver(schema),
     defaultValues: {
       email: "matveevalexander470@gmail.com",
-      password: "pE^.W.'PW2hb%eI^",
+      password: "@2}mX_}^]3#lA^w5",
     },
   });
   const vals = watch();

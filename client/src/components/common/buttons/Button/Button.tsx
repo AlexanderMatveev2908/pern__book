@@ -51,7 +51,9 @@ const Button: FC<PropsType> = ({
   }, [ids]);
 
   return isAging ? (
-    <SpinnerBtn />
+    <div className="w-full flex justify-center">
+      <SpinnerBtn />
+    </div>
   ) : (
     <button
       type={type}

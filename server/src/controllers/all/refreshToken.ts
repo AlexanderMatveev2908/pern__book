@@ -22,8 +22,11 @@ export const refreshToken = async (
   const accessExp = prepareHeader(req);
 
   if (!refreshToken) {
+    clearCookie(res);
+
     if (!accessExp)
       return err401(res, { msg: MsgErrSession.REFRESH_NOT_PROVIDED });
+
     const payload = decodeExpJWT(accessExp);
     await Token.destroy({
       where: { userID: (payload as AppJwtPayload)?.id ?? "" },

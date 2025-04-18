@@ -69,8 +69,10 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
 
     goTo("/notice", { replace: true, state: { from: AllowedFromNotice.EXP } });
 
-    if (isLogged) store.dispatch(authSlice.actions.logout());
+    store.dispatch(authSlice.actions.logout());
     store.dispatch(apiSlice.util.resetApiState());
+
+    return null;
   }
 
   return next(action);

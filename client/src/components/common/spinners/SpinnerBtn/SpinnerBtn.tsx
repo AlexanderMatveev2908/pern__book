@@ -6,7 +6,7 @@ const SpinnerBtn: FC = () => {
   const [ids] = useState(Array.from({ length: 4 }, () => v4()));
 
   return (
-    <div className="w-full flex justify-center gap-[15px] items-center">
+    <div className="flex  gap-[15px] items-center">
       {ids.map((id, i) => (
         <div
           id={id}
