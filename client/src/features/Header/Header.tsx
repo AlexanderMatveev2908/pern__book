@@ -48,7 +48,7 @@ const Header: FC = () => {
         </Link>
 
         <div className="w-full flex justify-end gap-4 txt__col items-center">
-          {!init && isLoading ? (
+          {isLoading ? (
             <MiniSpinner />
           ) : (
             <DropDown

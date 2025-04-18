@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
-import { removeStorage, saveStorage } from "@/lib/lib";
+import { saveStorage } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { StorageKeys, TagsAPI } from "@/types/types";
 import authSlice from "./authSlice";
@@ -67,17 +67,18 @@ export const authAPI = apiSlice.injectEndpoints({
         url: "/auth/logout",
         method: "POST",
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        dispatch(authSlice.actions.logout());
-        try {
-          await queryFulfilled;
-        } catch (err: any) {
-          dispatch(authSlice.actions.login());
-          throw err;
-        }
-        removeStorage();
-        dispatch(apiSlice.util.resetApiState());
-      },
+      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      // dispatch(authSlice.actions.logout());
+      // try {
+      //   await queryFulfilled;
+      // } catch (err: any) {
+      //   dispatch(authSlice.actions.login());
+      //   throw err;
+      // }
+      // removeStorage();
+      // appInstance.defaults.headers.common["Authorization"] = null;
+      // dispatch(apiSlice.util.resetApiState());
+      // },
     }),
   }),
 });

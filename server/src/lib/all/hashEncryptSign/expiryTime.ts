@@ -6,5 +6,5 @@ const calcFromNow = (...args: number[]) =>
 export const genExpiryJWE = () => calcFromNow(0.25);
 export const genExpiryCookie = () => new Date(genExpiryJWE());
 
-export const expiryAccess = "7s";
+export const expiryAccess = "5s";
 export const genExpiryCBC = () => calcFromNow(5);

@@ -30,6 +30,10 @@ export enum AllowedFromNotice {
   GEN = "GEN",
 }
 
+export enum AvoidTriggerPath {
+  LOGOUT = "/auth/logout",
+}
+
 export enum TagsAPI {
   USER = "USER",
 }

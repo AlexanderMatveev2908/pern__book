@@ -36,7 +36,7 @@ const SidebarDrop: FC<PropsType> = ({ handleSideClick, user }) => {
       >
         <div
           className={`grid gap-5 el__flow  ${
-            isDropOpen ? "translate-y-[12.5px]" : "-translate-y-[50px]"
+            isDropOpen ? "pt-5" : "-translate-y-[50px]"
           }`}
         >
           {arg.map((el) =>
