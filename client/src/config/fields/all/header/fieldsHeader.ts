@@ -2,6 +2,7 @@ import { v4 } from "uuid";
 import {
   AuthPagesPathType,
   fieldsActionsAuth,
+  verifyAccountField,
 } from "../general/fieldsActionsAuth";
 import { FaUserSecret } from "react-icons/fa";
 import { FaUserGear } from "react-icons/fa6";
@@ -19,10 +20,6 @@ export const fieldsHeaderDropNonLogged: DropFieldType[] = fieldsActionsAuth.map(
     ...el,
     id: v4(),
   })
-);
-
-const verifyAccountField = fieldsActionsAuth.find(
-  (el) => el.path === AuthPagesPathType.VERIFY_EMAIL
 );
 
 export const fieldsHeaderDropLogged = [

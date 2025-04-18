@@ -14,7 +14,6 @@
 // import { isRejectedWithValue } from "@reduxjs/toolkit";
 // import apiSlice from "../apiSlice";
 // import {
-//   AllowedFromNotice,
 //   EventApp,
 //   MsgErrSession,
 //   StorageKeys,

@@ -31,3 +31,7 @@ export const fieldsActionsAuth = [
     icon: FaKey,
   },
 ];
+
+export const verifyAccountField = fieldsActionsAuth.find(
+  (el) => el.path === AuthPagesPathType.VERIFY_EMAIL
+);

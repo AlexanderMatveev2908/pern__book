@@ -4,12 +4,12 @@ import { DispatchType } from "../../store/store";
 import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
 import SideLink from "./components/SideLink";
-import NonLoggedDrop from "./components/NonLoggedDrop";
 import { sideFieldsAllUsers } from "../../config/fields/fields";
 import { getAuthState } from "../AuthLayout/authSlice";
 import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
 import { getData, isObjOk } from "@/lib/lib";
 import UserEmail from "./components/UserEmail";
+import SidebarDrop from "./components/SidebarDrop";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
@@ -65,7 +65,7 @@ const Sidebar: FC = () => {
               <SideLink key={el.id} {...{ el, handleSideClick }} />
             ))}
 
-            <NonLoggedDrop {...{ handleSideClick }} />
+            <SidebarDrop {...{ handleSideClick, user }} />
           </div>
         </div>
       </div>

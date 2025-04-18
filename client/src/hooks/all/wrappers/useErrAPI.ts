@@ -12,6 +12,27 @@ export const useErrAPI = () => {
 
   const dispatch = useDispatch();
 
+  const handle429 = useCallback(
+    (msg: string) => {
+      dispatch(
+        setNotice({
+          notice: msg,
+          type: EventApp.ERR,
+        })
+      );
+      saveStorage({
+        data: { notice: msg, type: EventApp.ERR },
+        key: StorageKeys.NOTICE,
+      });
+
+      navigate("/notice", {
+        replace: true,
+        state: { from: AllowedFromNotice.GEN },
+      });
+    },
+    [navigate, dispatch]
+  );
+
   const handleErrAPI = useCallback(
     ({
       err,
@@ -40,6 +61,11 @@ export const useErrAPI = () => {
           })
         );
 
+      if (status === 429) {
+        handle429(message);
+        return null;
+      }
+
       if (push && pushNotice) {
         throw new Error("Can not send user to different places at same time");
       } else if (push) {
@@ -65,7 +91,7 @@ export const useErrAPI = () => {
 
       return null;
     },
-    [dispatch, navigate]
+    [dispatch, navigate, handle429]
   );
 
   return { handleErrAPI };
