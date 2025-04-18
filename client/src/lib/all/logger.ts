@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-export const cg = (str: string, ...arg: any) => {
+export const __cg = (str: string, ...arg: any) => {
   console.group(str.toUpperCase());
 
   for (const a of arg) {

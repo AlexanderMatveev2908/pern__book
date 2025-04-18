@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
-import { cg, saveStorage } from "@/lib/lib";
+import { saveStorage } from "@/lib/lib";
 import { MsgErrSession, StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
 
@@ -18,8 +18,6 @@ export const axiosBaseQuery = async ({
       params,
     });
 
-    cg("res axios", res);
-
     return { data: { ...res?.data, status: res?.status } };
   } catch (err: any) {
     const { response } = err ?? {};
@@ -36,8 +34,6 @@ export const axiosBaseQuery = async ({
         error: err,
       };
 
-    cg("error 401", err);
-
     try {
       const { data } = await appInstance.post("/refresh");
       saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
@@ -51,8 +47,6 @@ export const axiosBaseQuery = async ({
         data,
         params,
       });
-
-      cg("retry", retry);
 
       return {
         data: { ...retry?.data, status: retry?.status, refreshed: true },

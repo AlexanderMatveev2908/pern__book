@@ -7860,7 +7860,7 @@ Error generating stack: ` +
                   (f[Bt] = e), Rt(f), (s = f);
                 }
                 e.stateNode = s;
-              } else Cg(o, e.type, e.stateNode);
+              } else __cg(o, e.type, e.stateNode);
             else e.stateNode = Tg(o, s, e.memoizedProps);
           else
             f !== s
@@ -7869,7 +7869,7 @@ Error generating stack: ` +
                     ((a = a.stateNode), a.parentNode.removeChild(a))
                   : f.count--,
                 s === null
-                  ? Cg(o, e.type, e.stateNode)
+                  ? __cg(o, e.type, e.stateNode)
                   : Tg(o, s, e.memoizedProps))
               : s === null &&
                 e.stateNode !== null &&
@@ -9432,7 +9432,7 @@ Error generating stack: ` +
   function Ud() {
     return Da === 0 && (Da = Wm()), Da;
   }
-  function cg(e) {
+  function __cg(e) {
     return e == null || typeof e == "symbol" || typeof e == "boolean"
       ? null
       : typeof e == "function"
@@ -9453,11 +9453,11 @@ Error generating stack: ` +
   }
   function P2(e, n, a, s, o) {
     if (n === "submit" && a && a.stateNode === o) {
-      var f = cg((o[Ft] || null).action),
+      var f = __cg((o[Ft] || null).action),
         g = s.submitter;
       g &&
         ((n = (n = g[Ft] || null)
-          ? cg(n.formAction)
+          ? __cg(n.formAction)
           : g.getAttribute("formAction")),
         n !== null && ((f = n), (g = null)));
       var _ = new vu("action", "action", null, s, o);
@@ -11401,7 +11401,7 @@ Error generating stack: ` +
     }
     return s;
   }
-  function Cg(e, n, a) {
+  function __cg(e, n, a) {
     (e = e.ownerDocument || e),
       e.head.insertBefore(
         a,

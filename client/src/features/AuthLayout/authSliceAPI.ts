@@ -1,5 +1,5 @@
 import { appInstance } from "@/config/axios";
-import { cg, saveStorage } from "@/lib/lib";
+import { saveStorage } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { StorageKeys, TagsAPI } from "@/types/types";
 
@@ -28,8 +28,6 @@ export const authAPI = apiSlice.injectEndpoints({
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
         const { data } = await queryFulfilled;
-
-        cg("query started", data);
 
         saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
         appInstance.defaults.headers.common[

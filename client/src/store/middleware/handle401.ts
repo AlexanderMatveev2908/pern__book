@@ -1,25 +1,16 @@
-import { cg } from "@/lib/lib";
-import apiSlice from "../apiSlice";
-import { TagsAPI } from "@/types/types";
+import { __cg } from "@/lib/lib";
 import authSlice from "@/features/AuthLayout/authSlice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const handle401 = (store: any) => (next: any) => (action: any) => {
   const { payload } = action;
 
+  const isLogged = store.getState().auth.isLogged;
   if (payload?.refreshed) {
-    if (!store.getState().auth.isLogged)
-      store.dispatch(authSlice.actions.login());
+    __cg("res middleware", action);
 
-    cg("invalidate tags");
-    store.dispatch(
-      apiSlice.util.invalidateTags(
-        Object.values(TagsAPI).map((val) => ({ type: val }))
-      )
-    );
+    if (!isLogged) store.dispatch(authSlice.actions.login());
   }
-
-  cg("res middleware", action);
 
   return next(action);
 };
