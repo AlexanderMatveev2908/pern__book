@@ -1,24 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { REG_ID } from "@/config/regex";
-import {
-  AllowedFromNotice,
-  MsgErrSession,
-  TokenEventType,
-} from "@/types/types";
+import { MsgErrSession, TokenEventType } from "@/types/types";
 
 export const isAccessExpired = (msg: string) =>
   [
     MsgErrSession.ACCESS_EXPIRED,
     MsgErrSession.ACCESS_INVALID,
-    MsgErrSession.REFRESH_NOT_PROVIDED,
+    MsgErrSession.ACCESS_NOT_PROVIDED,
   ].includes(msg as MsgErrSession);
 export const isRefreshing = (endpoint: string) => endpoint === "/auth/refresh";
-
-export const makeNoticeTxt = (txt: string) =>
-  `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;
-
-export const canStayNotice = (from: string | null) =>
-  Object.values(AllowedFromNotice).includes(from as AllowedFromNotice);
 
 export const makeDelay = (cb: () => any) =>
   new Promise((res) =>
@@ -47,4 +37,4 @@ export const checkQueryAuth = ({
   !!token.length &&
   Object.values(TokenEventType).includes(event);
 
-export const getData = (obj: any, key: string) => obj?.data?.[key] ?? null;
+export const getData = (obj: any, key: string) => obj?.[key] ?? null;

@@ -7,6 +7,7 @@ import {
   genTokenJWE,
   setCookie,
   genTokenCBC,
+  err500,
 } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
 import { User } from "../../../models/models.js";

@@ -12,3 +12,7 @@ export const saveStorage = ({ data, key }: { data: any; key: StorageKeys }) => {
 };
 
 export const getStorage = (key: StorageKeys) => sessionStorage.getItem(key);
+
+export const removeStorage = () => {
+  sessionStorage.clear();
+};

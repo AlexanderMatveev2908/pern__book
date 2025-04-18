@@ -24,20 +24,21 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const res = useGetUserProfileQuery({});
+  const { data, isSuccess, isLoading, isError, error } = useGetUserProfileQuery(
+    {}
+  );
 
   // useWrapQueryAPI({ ...res });
-  const user: UserProfile = getData(res, "user");
+  const user: UserProfile = getData(data, "user");
 
   useEffect(() => {
-    if (isObjOk(user) && !init) {
+    if (isSuccess && isObjOk(user) && !init) {
       const newInit = capitalize(user?.firstName) + capitalize(user?.lastName);
       setInit(newInit);
       saveStorage({ data: newInit, key: StorageKeys.INIT });
     }
-  }, [user, init]);
+  }, [init, user, isSuccess, isLoading, isError, error]);
 
-  const isLoading = res.isLoading;
   return (
     <div className="w-full border-b-[3px] border-blue-600 sticky top-0 h-[80px] z__header bg-[#000]">
       <div className="w-full h-full items-center grid grid-cols-2 pl-3 pr-4 sm:pr-8">

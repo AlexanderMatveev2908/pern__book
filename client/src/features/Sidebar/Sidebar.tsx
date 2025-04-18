@@ -20,8 +20,8 @@ const Sidebar: FC = () => {
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
 
-  const res = useGetUserProfileQuery({}) ?? {};
-  const user: UserProfile = getData(res, "user");
+  const { data } = useGetUserProfileQuery({}) ?? {};
+  const user: UserProfile = getData(data, "user");
 
   useEffect(() => {
     if (isObjOk(user)) setEmail(user.email);

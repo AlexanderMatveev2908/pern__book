@@ -12,7 +12,7 @@ import { Response } from "express";
 import { isDev } from "../../../config/env.js";
 import { Op } from "sequelize";
 import { KeyTypeRSA } from "../../../types/all/keys.js";
-import { genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
+import { expiryAccess, genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
 
 // IMPORTANT ⚠️
 // IF U PREFER USE COMMON-JS JOSE IS THOUGH FOR MODULES AND U'LL HAVE WARNINGS OR COULD EVEN CRASH IF BECOME UNSUPPORTED(I USED COMMON JS IN LAST PROJECT) SO U WOULD NEED TO MAKE DYNAMIC ASYNC IMPORTS INSTEAD OF SIMPLE IMPORT
@@ -112,7 +112,6 @@ export const checkJWE = async (
   try {
     const { plaintext } = await compactDecrypt(token, privateKey);
     const decoded: PayloadJWE = JSON.parse(new TextDecoder().decode(plaintext));
-
     const saved = await Token.findOne({
       where: {
         userID: decoded.id,
@@ -122,7 +121,7 @@ export const checkJWE = async (
     if (!saved) {
       return MsgErrSession.REFRESH_NOT_EMITTED;
     }
-    if (Date.now() < saved.expiry) {
+    if (saved.expiry < Date.now()) {
       await saved.destroy();
       return MsgErrSession.REFRESH_EXPIRED;
     }
@@ -130,7 +129,6 @@ export const checkJWE = async (
     return decoded;
   } catch (err: any) {
     // is ok even with if in my opinion when the question is about returning something cause code automatically does not go on next lines
-    console.log(err);
     if (err instanceof JWEInvalid) return MsgErrSession.REFRESH_INVALID;
     throw err;
   }

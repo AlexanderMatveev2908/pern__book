@@ -15,6 +15,7 @@ export const getUserProfile = async (
     },
     raw: true,
   });
+
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
 

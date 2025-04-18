@@ -1,3 +1,4 @@
+import { cg } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { TagsAPI, UserRole } from "@/types/types";
 
@@ -18,6 +19,11 @@ export const rootAPI = apiSlice.injectEndpoints({
         url: `/user/profile`,
         method: "GET",
       }),
+      async onQueryStarted(args, { queryFulfilled }) {
+        const { data } = await queryFulfilled;
+
+        cg("query started", data);
+      },
       providesTags: [TagsAPI.USER],
     }),
     refreshToken: builder.mutation({
