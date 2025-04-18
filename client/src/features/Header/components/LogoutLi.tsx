@@ -3,13 +3,22 @@ import { LogOut } from "lucide-react";
 import { MiniSpinner } from "@/components/components";
 import { useLogoutUserMutation } from "@/features/AuthLayout/authSliceAPI";
 import { useWrapperAPI } from "@/hooks/hooks";
+import { useNavigate } from "react-router-dom";
 
-const LogoutLi: FC = () => {
+type PropsType = {
+  handleMainClick: () => void;
+};
+
+const LogoutLi: FC<PropsType> = ({ handleMainClick }) => {
+  const navigate = useNavigate();
   const [logoutUser, { isLoading }] = useLogoutUserMutation({});
 
   const { wrapMutationAPI } = useWrapperAPI();
   const handleCLick = async () => {
     const res = await wrapMutationAPI({ cbAPI: () => logoutUser({}) });
+    handleMainClick();
+
+    if (res) navigate("/", { replace: true });
   };
 
   return (

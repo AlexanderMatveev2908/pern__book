@@ -62,14 +62,15 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   // const arrDrop = fieldsHeaderDropNonLogged;
   const arrDrop = isLogged ? fieldsHeaderDropLogged : fieldsHeaderDropNonLogged;
 
+  const handleMainClick = () => {
+    setHasClicked(true);
+    setIsOpen((prev) => !prev);
+  };
   return (
     <div className="min-w-full justify-self-end flex justify-end relative z__drop_header">
       <div
         ref={thumbRef}
-        onClick={() => {
-          setHasClicked(true);
-          setIsOpen((prev) => !prev);
-        }}
+        onClick={handleMainClick}
         className="group btn__logic w-[45px] h-[45px] flex justify-center items-center"
         onMouseEnter={() => {
           windowWrapper(() => {
@@ -130,7 +131,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
           )
         )}
 
-        {isLogged && <LogoutLi />}
+        {isLogged && <LogoutLi {...{ handleMainClick }} />}
       </div>
     </div>
   );
