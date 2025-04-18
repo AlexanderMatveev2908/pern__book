@@ -6,6 +6,7 @@ import {
   err403,
   err500,
   handleErrAccessToken,
+  prepareHeader,
   verifyJWT,
 } from "../../../lib/lib.js";
 import { MsgErrSession, ReqApp, UserRole } from "../../../types/types.js";
@@ -20,10 +21,9 @@ export const verifyAccessToken =
     role?: UserRole;
   }): any =>
   async (req: ReqApp, res: Response, next: NextFunction): Promise<any> => {
-    const authHeader = req.headers?.authorization;
+    const accessToken = prepareHeader(req);
 
-    const accessToken = (authHeader as string)?.split(" ")[1];
-    if (!authHeader)
+    if (!accessToken)
       return err401(res, { msg: MsgErrSession.ACCESS_NOT_PROVIDED });
 
     try {

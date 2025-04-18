@@ -10,6 +10,9 @@ import {
   err500,
   res200,
   clearCookie,
+  err404,
+  verifyPwd,
+  err401,
 } from "../../../lib/lib.js";
 import { ReqApp, TokenEventType } from "../../../types/types.js";
 import { Token, User } from "../../../models/models.js";
@@ -56,18 +59,30 @@ export const registerUser = async (
 };
 
 export const loginUser = async (req: Request, res: Response): Promise<any> => {
-  const user = req.body;
+  const { email, password } = req.body;
 
-  return res.status(200).json({ ok: true });
+  const user = await User.findOne({ where: { email } });
+  if (!user) return err404(res, { msg: "user not found" });
+
+  const match = await verifyPwd(password, user.password);
+  if (!match) return err401(res, { msg: "invalid credentials" });
+
+  const accessToken = genAccessJWT(user);
+  const refreshToken = await genTokenJWE(user);
+
+  setCookie(res, refreshToken);
+
+  return res.status(200).json({ accessToken });
 };
 
 export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
 
+  clearCookie(res);
+
   const user = await User.findByPk(userID ?? "");
   if (!user) return res200(res, { msg: "logout successful" });
 
   await Token.destroy({ where: { userID } });
-  clearCookie(res);
   return res200(res, { msg: "logout successful" });
 };

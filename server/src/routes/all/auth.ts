@@ -19,8 +19,7 @@ authRouter.post(
   validateRegister,
   wrapApp(registerUser)
 );
-
-authRouter.post("/login", wrapApp(loginUser));
+authRouter.post("/login", limitRoute({ max: 10 }), wrapApp(loginUser));
 authRouter.post("/logout", getUserID, wrapApp(logoutUser));
 
 export default authRouter;

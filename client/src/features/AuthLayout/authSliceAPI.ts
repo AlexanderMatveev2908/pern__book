@@ -12,15 +12,32 @@ export type RegisterParamsAPI = {
   password: string;
 };
 
+export type ParamsLoginAPI = {
+  email: string;
+  password: string;
+};
+
+const handleAsyncQuery = async (queryFulfilled: any, dispatch: any) => {
+  const { data } = await queryFulfilled;
+
+  saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
+  appInstance.defaults.headers.common[
+    "Authorization"
+  ] = `Bearer ${data?.accessToken}`;
+
+  dispatch(authSlice.actions.login());
+  dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
+};
+
 export const authAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    refreshToken: builder.mutation({
-      query: (someContent) => ({
-        url: "/auth/login",
-        method: "POST",
-        data: someContent,
-      }),
-    }),
+    // refreshToken: builder.mutation({
+    //   query: () => ({
+    //     url: "/refresh",
+    //     method: "POST",
+    //   }),
+    // }),
+
     registerUser: builder.mutation({
       query: (newUser: RegisterParamsAPI) => ({
         url: "/auth/register",
@@ -29,17 +46,22 @@ export const authAPI = apiSlice.injectEndpoints({
         data: newUser,
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
-        const { data } = await queryFulfilled;
-
-        saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
-        appInstance.defaults.headers.common[
-          "Authorization"
-        ] = `Bearer ${data?.accessToken}`;
-
-        dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
+        await handleAsyncQuery(queryFulfilled, dispatch);
       },
       // invalidatesTags: [TagsAPI.USER],
     }),
+
+    loginUser: builder.mutation({
+      query: (user: ParamsLoginAPI) => ({
+        url: "/auth/login",
+        method: "POST",
+        data: user,
+      }),
+      async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
+        await handleAsyncQuery(queryFulfilled, dispatch);
+      },
+    }),
+
     logoutUser: builder.mutation({
       query: () => ({
         url: "/auth/logout",
@@ -62,4 +84,8 @@ export const authAPI = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useRegisterUserMutation, useLogoutUserMutation } = authAPI;
+export const {
+  useRegisterUserMutation,
+  useLogoutUserMutation,
+  useLoginUserMutation,
+} = authAPI;

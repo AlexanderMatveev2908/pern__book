@@ -6,6 +6,9 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { emailField, passwordField } from "../../../config/fields/fields";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd";
 import { Button, FormField, PwdField } from "@/components/components";
+import { ParamsLoginAPI, useLoginUserMutation } from "../authSliceAPI";
+import { useWrapperAPI } from "@/hooks/hooks";
+import { useNavigate } from "react-router-dom";
 
 const schema = z
   .object({
@@ -23,16 +26,31 @@ const schema = z
 export type LoginFormType = z.infer<typeof schema>;
 
 const Login: FC = () => {
+  const navigate = useNavigate();
+
+  const { wrapMutationAPI } = useWrapperAPI();
+
   const {
     register,
     formState: { errors },
     handleSubmit,
+    reset,
   } = useForm<LoginFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
   });
+  const [loginUser, { isLoading }] = useLoginUserMutation();
 
-  const handleSave = handleSubmit(() => {});
+  const handleSave = handleSubmit(async (formData) => {
+    const res = await wrapMutationAPI({
+      cbAPI: () => loginUser(formData as ParamsLoginAPI),
+    });
+
+    if (!res) return;
+
+    reset();
+    navigate("/", { replace: true });
+  });
 
   const { mainPwd } = useShowPwd();
 
@@ -46,7 +64,7 @@ const Login: FC = () => {
 
           <div className="max-w-[250px] w-full justify-self-center mt-10">
             <Button
-              {...{ label: "Login", isDisabled: false, isPending: false }}
+              {...{ label: "Login", isDisabled: false, isAging: isLoading }}
             />
           </div>
         </div>
