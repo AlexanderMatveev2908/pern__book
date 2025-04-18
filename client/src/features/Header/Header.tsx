@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -24,22 +25,17 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const res = useGetUserProfileQuery(
-    {},
-    {
-      refetchOnMountOrArgChange: false,
-      refetchOnReconnect: false,
-      refetchOnFocus: false,
-    }
-  );
+  const res = useGetUserProfileQuery({});
 
   // useWrapQueryAPI({ ...res });
-  const { user }: UserProfile = getData(res) ?? {};
+  const user: UserProfile = getData(res, "user");
 
   useEffect(() => {
+    console.log(user);
     if (isObjOk(user) && !init) {
-      setInit(capitalize(user?.firstName) + capitalize(user?.lastName));
-      saveStorage({ data: init, key: StorageKeys.INIT });
+      const newInit = capitalize(user?.firstName) + capitalize(user?.lastName);
+      setInit(newInit);
+      saveStorage({ data: newInit, key: StorageKeys.INIT });
     }
   }, [user, init]);
 
@@ -74,3 +70,17 @@ const Header: FC = () => {
   );
 };
 export default Header;
+
+// const res = useGetUserProfileQuery(
+//   {}
+// {
+// refetchOnMountOrArgChange: false,
+// refetchOnReconnect: false,
+// refetchOnFocus: false,
+// skip:false,
+// pollingInterval:5000,
+// selectFromResult: ({ data, isLoading, error, ...rest }) => {
+//   return { data, isLoading, error, ...rest };
+// },
+// }
+// );

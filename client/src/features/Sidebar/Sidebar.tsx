@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchType } from "../../store/store";
 import { getSIde, setIsSideOpen } from "../Header/headerSlice";
@@ -7,14 +7,26 @@ import SideLink from "./components/SideLink";
 import NonLoggedDrop from "./components/NonLoggedDrop";
 import { sideFieldsAllUsers } from "../../config/fields/fields";
 import { getAuthState } from "../AuthLayout/authSlice";
+import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
+import { getData, isObjOk } from "@/lib/lib";
+import UserEmail from "./components/UserEmail";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
+  const [email, setEmail] = useState<null | string>(null);
+
   const authState = useSelector(getAuthState);
   const isLogged = authState.isLogged;
-
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
+
+  const res = useGetUserProfileQuery({}) ?? {};
+  const user: UserProfile = getData(res, "user");
+
+  useEffect(() => {
+    if (isObjOk(user)) setEmail(user.email);
+    console.log(user);
+  }, [user]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
@@ -45,7 +57,9 @@ const Sidebar: FC = () => {
         } `}
       >
         <div className="max-w-full relative grid gap-4">
-          {/* <UserEmail {...{ email: "JohnDoe@gmail.com" }} /> */}
+          {typeof email === "string" && isLogged && (
+            <UserEmail {...{ email }} />
+          )}
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
             {sideFieldsAllUsers.map((el) => (

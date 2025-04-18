@@ -21,12 +21,13 @@ export const useWrapperAPI = () => {
       pushNotice?: [boolean, (() => any)?];
     }) => {
       try {
-        const { status, data } = await cbAPI().unwrap();
+        const data = await cbAPI().unwrap();
+
         dispatch(
           openToast({
             type: EventApp.OK,
             msg: data?.msg || "operation successful",
-            statusCode: status,
+            statusCode: data?.status,
           })
         );
 

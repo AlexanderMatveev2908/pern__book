@@ -2,15 +2,13 @@ import apiSlice from "@/store/apiSlice";
 import { TagsAPI, UserRole } from "@/types/types";
 
 export interface UserProfile {
-  user: {
-    id: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    role: UserRole;
-    isVerified: boolean;
-    isNewsLetter: boolean;
-  };
+  id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+  role: UserRole;
+  isVerified: boolean;
+  isNewsLetter: boolean;
 }
 
 const rootAPI = apiSlice.injectEndpoints({

@@ -3,6 +3,7 @@ import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import { appInstance } from "@/config/axios";
 import { AxiosResponse } from "axios";
 import { TagsAPI } from "@/types/types";
+import { cg } from "@/lib/lib";
 
 export type TagTypes = "books" | "user";
 
@@ -26,7 +27,10 @@ const axiosBaseQuery: BaseQueryFn<{
       data,
       params,
     });
-    return { data: res };
+
+    cg("axios", res);
+
+    return { data: { ...res?.data, status: res?.status } };
   } catch (err: any) {
     return {
       error: err,
@@ -41,6 +45,9 @@ const apiSlice = createApi({
   tagTypes: [TagsAPI.USER],
   // i can leave key of slice by default to api of naming as i want
   reducerPath: "appAPI",
+  refetchOnMountOrArgChange: false,
+  refetchOnReconnect: false,
+  refetchOnFocus: false,
   endpoints: () => ({}),
 });
 

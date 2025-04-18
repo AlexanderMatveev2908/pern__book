@@ -27,9 +27,8 @@ export const authAPI = apiSlice.injectEndpoints({
         data: newUser,
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
-        const {
-          data: { data },
-        } = await queryFulfilled;
+        const { data } = await queryFulfilled;
+
         cg("query started", data);
 
         saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });

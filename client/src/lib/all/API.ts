@@ -8,9 +8,9 @@ import {
 
 export const isAccessExpired = (msg: string) =>
   [
-    MsgErrSession.ACCESS_EXPIRED,
-    MsgErrSession.ACCESS_INVALID,
-    MsgErrSession.ACCESS_NOT_PROVIDED,
+    MsgErrSession.ACCESS_TOKEN_EXPIRED,
+    MsgErrSession.ACCESS_TOKEN_INVALID,
+    MsgErrSession.REFRESH_TOKEN_NOT_PROVIDED,
   ].includes(msg as MsgErrSession);
 export const isRefreshing = (endpoint: string) => endpoint === "/auth/refresh";
 
@@ -47,4 +47,4 @@ export const checkQueryAuth = ({
   !!token.length &&
   Object.values(TokenEventType).includes(event);
 
-export const getData = (obj: any) => obj?.data?.data;
+export const getData = (obj: any, key: string) => obj?.data?.[key] ?? null;
