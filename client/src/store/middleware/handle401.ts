@@ -39,12 +39,14 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
   const { payload } = action;
 
   const isLogged = store.getState().auth.isLogged;
+  const { response: { data, status, config } = {} } = payload ?? {};
+
   if (payload?.refreshed) {
     __cg("refresh success", payload);
-    if (!isLogged) store.dispatch(authSlice.actions.login());
+    if (!isLogged && config?.url !== "/auth/logout")
+      store.dispatch(authSlice.actions.login());
   }
   if (isRejectedWithValue(action)) {
-    const { response: { data, status, config } = {} } = payload ?? {};
     __cg("refresh error", data, status);
 
     if (status !== 401 || !isRefreshing(config?.url)) return next(action);
