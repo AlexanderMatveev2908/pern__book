@@ -2,8 +2,16 @@
 import { FieldErrors } from "react-hook-form";
 
 export const isFormValid = (objErrs: FieldErrors, objVals: any) =>
-  !Object.keys(objErrs ?? {}).length ||
-  Object.values(objVals ?? {}).every((val) => !!val);
+  !Object.keys(objErrs ?? {}).length &&
+  Object.values(objVals ?? {}).every((val) =>
+    typeof val === "string"
+      ? !!val?.trim()?.length
+      : typeof val === "boolean"
+      ? val
+      : Array.isArray(val)
+      ? val?.length
+      : val
+  );
 
 export const getErrCurrSwap = (obj: FieldErrors, fields: string[]) => {
   let isValid = true;

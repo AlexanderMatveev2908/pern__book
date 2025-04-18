@@ -21,6 +21,10 @@ const schema = z
   .refine((data) => data.email.trim(), {
     message: "Email is required",
     path: ["email"],
+  })
+  .refine((data) => (data?.password ?? "").trim(), {
+    message: "Password is required",
+    path: ["email"],
   });
 
 export type LoginFormType = z.infer<typeof schema>;
@@ -59,6 +63,7 @@ const Login: FC = () => {
   const { mainPwd } = useShowPwd();
 
   const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
+  console.log(errors);
 
   return (
     <div className="parent__form">
