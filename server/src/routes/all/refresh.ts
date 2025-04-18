@@ -4,6 +4,6 @@ import { refreshToken } from "../../controllers/controllers.js";
 
 const routerRefresh = express.Router();
 
-routerRefresh.get("/", wrapApp(refreshToken));
+routerRefresh.post("/", wrapApp(refreshToken));
 
 export default routerRefresh;

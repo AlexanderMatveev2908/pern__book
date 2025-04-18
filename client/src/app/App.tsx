@@ -1,5 +1,5 @@
-import { FC } from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { FC, useEffect } from "react";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import RegisterPage from "./pages/AuthLayout/RegisterPage";
@@ -10,8 +10,15 @@ import NoticePage from "./pages/Notice/NoticePage";
 import HomePage from "./pages/Home/HomePage";
 import VerifyPage from "./pages/Verify/VerifyPage";
 import TestPage from "./pages/Test/TestPage";
+import { setNavigator } from "@/lib/lib";
 
 const App: FC = () => {
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setNavigator(navigate);
+  }, [navigate]);
+
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>

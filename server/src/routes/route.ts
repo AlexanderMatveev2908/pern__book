@@ -15,7 +15,7 @@ routerApp.use(cookieParser());
 routerApp.use(corsMid());
 
 routerApp.use("/auth", authRouter);
-routerApp.get("/", routerRefresh);
+routerApp.use("/refresh", routerRefresh);
 routerApp.use("/verify", verifyRouter);
 routerApp.use("/user", profileRouter);
 

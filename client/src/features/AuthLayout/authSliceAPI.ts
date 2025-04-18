@@ -32,7 +32,7 @@ export const authAPI = apiSlice.injectEndpoints({
         cg("query started", data);
 
         saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
-        appInstance.defaults.headers[
+        appInstance.defaults.headers.common[
           "Authorization"
         ] = `Bearer ${data?.accessToken}`;
 

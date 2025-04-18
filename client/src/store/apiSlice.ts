@@ -3,7 +3,6 @@ import { BaseQueryFn, createApi } from "@reduxjs/toolkit/query/react";
 import { appInstance } from "@/config/axios";
 import { AxiosResponse } from "axios";
 import { TagsAPI } from "@/types/types";
-import { cg } from "@/lib/lib";
 
 export type TagTypes = "books" | "user";
 
@@ -28,7 +27,7 @@ const axiosBaseQuery: BaseQueryFn<{
       params,
     });
 
-    cg("axios", res);
+    // cg("axios", res);
 
     return { data: { ...res?.data, status: res?.status } };
   } catch (err: any) {

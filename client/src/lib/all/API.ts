@@ -8,9 +8,9 @@ import {
 
 export const isAccessExpired = (msg: string) =>
   [
-    MsgErrSession.ACCESS_TOKEN_EXPIRED,
-    MsgErrSession.ACCESS_TOKEN_INVALID,
-    MsgErrSession.REFRESH_TOKEN_NOT_PROVIDED,
+    MsgErrSession.ACCESS_EXPIRED,
+    MsgErrSession.ACCESS_INVALID,
+    MsgErrSession.REFRESH_NOT_PROVIDED,
   ].includes(msg as MsgErrSession);
 export const isRefreshing = (endpoint: string) => endpoint === "/auth/refresh";
 

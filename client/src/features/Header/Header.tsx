@@ -30,7 +30,6 @@ const Header: FC = () => {
   const user: UserProfile = getData(res, "user");
 
   useEffect(() => {
-    console.log(user);
     if (isObjOk(user) && !init) {
       const newInit = capitalize(user?.firstName) + capitalize(user?.lastName);
       setInit(newInit);

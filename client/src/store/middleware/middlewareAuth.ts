@@ -1,8 +1,41 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import { makeSomething } from "@/features/AuthLayout/authSlice";
 // import { authAPI } from "@/features/AuthLayout/authSliceAPI";
-import { cg, isAccessExpired, isRefreshing } from "@/lib/lib";
+import { rootAPI } from "@/features/root/rootSliceAPI";
+import {
+  cg,
+  getStorage,
+  goTo,
+  isAccessExpired,
+  isRefreshing,
+  saveStorage,
+} from "@/lib/lib";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
+import apiSlice from "../apiSlice";
+import {
+  AllowedFromNotice,
+  EventApp,
+  MsgErrSession,
+  StorageKeys,
+} from "@/types/types";
+import { appInstance } from "@/config/axios";
+import toastSlice from "@/features/Toast/toastSlice";
+import noticeSlice from "@/features/Notice/noticeSlice";
+import authSlice from "@/features/AuthLayout/authSlice";
+
+const getMsg = (store: any, data: any) =>
+  [MsgErrSession.REFRESH_NOT_PROVIDED, MsgErrSession.REFRESH_INVALID].includes(
+    data?.msg
+  )
+    ? "user not authorized"
+    : data?.msg === MsgErrSession.REFRESH_INVALID
+    ? "invalid refresh token"
+    : data?.msg === MsgErrSession.REFRESH_EXPIRED ||
+      store.getState().auth.isLogged ||
+      getStorage(StorageKeys.ACCESS)
+    ? "session expired"
+    : data?.message ||
+      "The AI that manage the database has revolted and is taking control of all servers ⚙️";
 
 export const middlewareAuth = (store: any) => (next: any) => (action: any) => {
   if (isRejectedWithValue(action)) {
@@ -15,38 +48,62 @@ export const middlewareAuth = (store: any) => (next: any) => (action: any) => {
 
     const {
       response: { data },
-      config,
+      // config,
     } = action.payload;
 
-    cg("middleware api", data, config);
+    cg("middleware api", data);
 
-    return next(action);
-    // store
-    //   .dispatch(
-    //     authAPI.endpoints.refreshToken.initiate({
-    //       someContent: "some content",
-    //     })
-    //   )
-    //   .unwrap()
-    //   .then((res: any) => {
-    //     // console.log(res);
-    //     // store.dispatch(makeSomething("refresh"));
-    //     // const originalArgs = action.meta.arg.originalArgs;
-    //     // const endpointName = action.meta.arg.endpointName;
-    //     // console.log(originalArgs);
-    //     // console.log(endpointName);
-    //     // store.dispatch(
-    //     //   authAPI.endpoints[
-    //     //     endpointName as keyof typeof authAPI.endpoints
-    //     //   ].initiate({ ...originalArgs, new: true })
-    //     // );
-    //     // console.log(store.getState());
-    //   })
-    //   .catch((err: any) => {
-    //     // console.log(err);
-    //     // store.dispatch(makeSomething("it went wrong"));
-    //     // console.log(store.getState());
-    //   });
+    store
+      .dispatch(rootAPI.endpoints.refreshToken.initiate({}))
+      .unwrap()
+      .then((data: any) => {
+        saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
+        appInstance.defaults.headers.common[
+          "Authorization"
+        ] = `Bearer ${data?.accessToken}`;
+
+        const originalArgs = action.meta.arg.originalArgs;
+        const endpointName = action.meta.arg.endpointName;
+
+        cg("success refresh", data);
+        store.dispatch(
+          (
+            apiSlice.endpoints[
+              endpointName as keyof typeof apiSlice.endpoints
+            ] as any
+          ).initiate(originalArgs)
+        );
+
+        return null;
+      })
+      .catch((err: any) => {
+        const { status, response: { data } = {} } = err ?? {};
+
+        cg("refresh failed", status, data);
+
+        const message = getMsg(store, data);
+        const newNotice = {
+          notice: message,
+          type: EventApp.ERR,
+        };
+        saveStorage({ data: newNotice, key: StorageKeys.NOTICE });
+        store.dispatch(
+          noticeSlice.actions.setNotice({
+            ...newNotice,
+          })
+        );
+        goTo("/notice", { state: { from: AllowedFromNotice.EXP } });
+
+        store.dispatch(authSlice.actions.logout());
+        apiSlice.util.resetApiState();
+        store.dispatch(
+          toastSlice.actions.openToast({
+            msg: message,
+            type: EventApp.ERR,
+            statusCode: status,
+          })
+        );
+      });
 
     return null;
   }

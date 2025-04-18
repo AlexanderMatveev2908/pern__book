@@ -25,7 +25,6 @@ const Sidebar: FC = () => {
 
   useEffect(() => {
     if (isObjOk(user)) setEmail(user.email);
-    console.log(user);
   }, [user]);
 
   useEffect(() => {

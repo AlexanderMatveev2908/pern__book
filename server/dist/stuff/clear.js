@@ -7,16 +7,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+import { calcTimeRun } from "../lib/lib.js";
 import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
 import { KeyRSA, Token, User } from "../models/models.js";
 export const clearDB = () => __awaiter(void 0, void 0, void 0, function* () {
-    const start = performance.now();
-    yield Token.destroy({ where: {} });
-    yield User.destroy({ where: {} });
-    yield KeyRSA.destroy({ where: {} });
-    yield KeyCbcHmac.destroy({ where: {} });
-    const end = performance.now();
-    console.log(`=> DONE ${end - start} ms`);
+    calcTimeRun(() => __awaiter(void 0, void 0, void 0, function* () {
+        yield Token.destroy({ where: {} });
+        yield User.destroy({ where: {} });
+        yield KeyRSA.destroy({ where: {} });
+        yield KeyCbcHmac.destroy({ where: {} });
+    }));
 });
 export const getDataDB = () => __awaiter(void 0, void 0, void 0, function* () {
     const users = yield User.findAll();
@@ -28,5 +28,4 @@ export const getDataDB = () => __awaiter(void 0, void 0, void 0, function* () {
     //     },
     //   }
     // );
-    console.log(users);
 });

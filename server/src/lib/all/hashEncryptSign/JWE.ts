@@ -73,6 +73,8 @@ export const getPrivateRSA = async () => {
   return await importPKCS8(privateKey!.key, KeyAlgRSA.RSA);
 };
 
+// IMPORTANT => Uint8Array(UNSIGNED INTEGER 8-BIT ARRAY ) is REQUIRED with JWE
+
 export const genTokenJWE = async (user: UserInstance) => {
   const count = await KeyRSA.count({
     where: {
@@ -87,7 +89,7 @@ export const genTokenJWE = async (user: UserInstance) => {
   const payload: PayloadJWE = user.makePayload();
 
   const encrypted = await new CompactEncrypt(
-    Buffer.from(JSON.stringify(payload))
+    new TextEncoder().encode(JSON.stringify(payload))
   )
     .setProtectedHeader({ alg: KeyAlgRSA.RSA, enc: TokAlg.GCM })
     .encrypt(publicKey);
@@ -102,17 +104,34 @@ export const genTokenJWE = async (user: UserInstance) => {
   return newToken.hashed;
 };
 
-export const checkJWE = async (token: string): Promise<PayloadJWE | string> => {
+export const checkJWE = async (
+  token: string
+): Promise<PayloadJWE | string | void> => {
   const privateKey = await getPrivateRSA();
 
   try {
     const { plaintext } = await compactDecrypt(token, privateKey);
-    return JSON.parse(plaintext.toString());
+    const decoded: PayloadJWE = JSON.parse(new TextDecoder().decode(plaintext));
+
+    const saved = await Token.findOne({
+      where: {
+        userID: decoded.id,
+        event: TokenEventType.REFRESH,
+      },
+    });
+    if (!saved) {
+      return MsgErrSession.REFRESH_NOT_EMITTED;
+    }
+    if (Date.now() < saved.expiry) {
+      await saved.destroy();
+      return MsgErrSession.REFRESH_EXPIRED;
+    }
+
+    return decoded;
   } catch (err: any) {
     // is ok even with if in my opinion when the question is about returning something cause code automatically does not go on next lines
+    console.log(err);
     if (err instanceof JWEInvalid) return MsgErrSession.REFRESH_INVALID;
-    if (err instanceof JWTExpired) return MsgErrSession.REFRESH_EXPIRED;
-
     throw err;
   }
 };

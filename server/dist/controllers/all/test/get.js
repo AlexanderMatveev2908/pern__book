@@ -9,7 +9,5 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 import { res200 } from "../../../lib/lib.js";
 export const getStuff = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    console.log(req.headers.authorization);
-    console.log(req.cookies.refreshToken);
     return res200(res);
 });

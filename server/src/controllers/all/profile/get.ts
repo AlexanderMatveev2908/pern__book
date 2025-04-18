@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { res200, res204 } from "../../../lib/lib.js";
-import { ReqApp } from "../../../types/types.js";
+import { err401, res200, res204 } from "../../../lib/lib.js";
+import { MsgErrSession, ReqApp } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
 
 export const getUserProfile = async (
@@ -16,6 +16,7 @@ export const getUserProfile = async (
     raw: true,
   });
   // const user = userInstance?.get({ plain: true });
+  // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
 
   return res200(res, { user });
 };

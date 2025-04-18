@@ -18,14 +18,12 @@ export const getUserID = async (
 
   if (!accessToken) {
     if (!refreshToken) return next();
-    else return err401(res, { msg: MsgErrSession.ACCESS_TOKEN_NOT_PROVIDED });
+    else return err401(res, { msg: MsgErrSession.ACCESS_NOT_PROVIDED });
   }
 
   try {
     const decoded: AppJwtPayload = verifyJWT(accessToken);
     req.userID = decoded.id;
-
-    // return err401(res, { msg: MsgErrSession.ACCESS_TOKEN_EXPIRED });
 
     return next();
   } catch (err: any) {

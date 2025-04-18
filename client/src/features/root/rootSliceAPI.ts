@@ -11,7 +11,7 @@ export interface UserProfile {
   isNewsLetter: boolean;
 }
 
-const rootAPI = apiSlice.injectEndpoints({
+export const rootAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getUserProfile: builder.query({
       query: () => ({
@@ -20,15 +20,13 @@ const rootAPI = apiSlice.injectEndpoints({
       }),
       providesTags: [TagsAPI.USER],
     }),
+    refreshToken: builder.mutation({
+      query: () => ({
+        url: "/refresh",
+        method: "POST",
+      }),
+    }),
   }),
-  // updateUserProfile: builder.mutation({
-  //   query: (data) => ({
-  //     url: "/user/profile",
-  //     method: "PUT",
-  //     data,
-  //   }),
-  //   invalidatesTags: ["User"],
-  // }),
 });
 
 export const { useGetUserProfileQuery } = rootAPI;

@@ -10,6 +10,5 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { res200 } from "../../lib/lib.js";
 export const refreshToken = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { refreshToken } = req.cookies;
-    console.log(refreshToken);
     return res200(res);
 });

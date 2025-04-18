@@ -13,5 +13,5 @@ routerApp.use(corsMid());
 routerApp.use("/auth", authRouter);
 routerApp.get("/", routerRefresh);
 routerApp.use("/verify", verifyRouter);
-routerApp.use("/profile", profileRouter);
+routerApp.use("/user", profileRouter);
 export default routerApp;

@@ -4,12 +4,14 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
+  Op,
   Sequelize,
 } from "sequelize";
-import { UserRole } from "../../types/types.js";
+import { TokenEventType, UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
 import { calcTimeRun, capChar, hashPwd } from "../../lib/lib.js";
+import { Token } from "./Token.js";
 
 const ObjectID = pkg.default;
 
@@ -51,6 +53,14 @@ export class User extends Model<
   async verify(this: User) {
     this.isVerified = true;
     await this.save();
+  }
+
+  async delOldJWT(this: User) {
+    await Token.destroy({
+      where: {
+        [Op.and]: [{ userID: this.id }, { event: TokenEventType.ACCESS }],
+      },
+    });
   }
 }
 
