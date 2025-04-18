@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { z } from "zod";
-import { schemaLogin } from "../../../lib/lib";
+import { isFormValid, schemaLogin } from "../../../lib/lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { emailField, passwordField } from "../../../config/fields/fields";
@@ -35,24 +35,26 @@ const Login: FC = () => {
     formState: { errors },
     handleSubmit,
     reset,
+    watch,
   } = useForm<LoginFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
   });
+  const vals = watch();
   const [loginUser, { isLoading }] = useLoginUserMutation();
 
   const handleSave = handleSubmit(async (formData) => {
     const res = await wrapMutationAPI({
       cbAPI: () => loginUser(formData as ParamsLoginAPI),
     });
-
     if (!res) return;
-
     reset();
     navigate("/", { replace: true });
   });
 
   const { mainPwd } = useShowPwd();
+
+  const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
 
   return (
     <div className="parent__form">
@@ -64,7 +66,7 @@ const Login: FC = () => {
 
           <div className="max-w-[250px] w-full justify-self-center mt-10">
             <Button
-              {...{ label: "Login", isDisabled: false, isAging: isLoading }}
+              {...{ label: "Login", isDisabled: !isFormOk, isAging: isLoading }}
             />
           </div>
         </div>

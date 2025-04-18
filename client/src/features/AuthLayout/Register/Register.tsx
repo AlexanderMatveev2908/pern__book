@@ -11,7 +11,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
   getErrCurrSwap,
-  getErrLen,
+  isFormValid,
   isObjOk,
   makeNoticeTxt,
   saveStorage,
@@ -100,7 +100,7 @@ const Register: FC = () => {
   });
 
   const vals = watch();
-  const isDisabled = useMemo(() => getErrLen(errors, vals), [errors, vals]);
+  const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
 
   useEffect(() => {
     const listenErr = () => {
@@ -199,7 +199,7 @@ const Register: FC = () => {
               <Button
                 {...{
                   isAging: isLoading,
-                  isDisabled: isDisabled || isNextDisabled,
+                  isDisabled: !isFormOk || isNextDisabled,
                   label: "Register",
                 }}
               />

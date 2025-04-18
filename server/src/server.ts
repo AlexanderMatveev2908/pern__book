@@ -26,7 +26,7 @@ if (!isDev) {
 app.use(errMiddleware);
 
 // getDataDB();
-// clearDB();
+clearDB();
 
 const start = async () => {
   try {

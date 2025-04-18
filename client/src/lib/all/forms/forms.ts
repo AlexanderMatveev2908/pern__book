@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FieldErrors } from "react-hook-form";
 
-export const getErrLen = (objErrs: FieldErrors, objVals: any) =>
-  !!Object.keys(objErrs ?? {}).length ||
-  Object.values(objVals ?? {}).some((val) => !val);
+export const isFormValid = (objErrs: FieldErrors, objVals: any) =>
+  !Object.keys(objErrs ?? {}).length ||
+  Object.values(objVals ?? {}).every((val) => !!val);
 
 export const getErrCurrSwap = (obj: FieldErrors, fields: string[]) => {
   let isValid = true;
