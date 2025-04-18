@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -25,19 +26,19 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const res = useGetUserProfileQuery({});
+  const res: any = useGetUserProfileQuery({});
   useWrapQueryAPI({ ...res });
 
-  const { data, isSuccess, isLoading, isError, error } = res;
+  const { data, isLoading } = res;
   const user: UserProfile = getData(data, "user");
 
   useEffect(() => {
-    if (isSuccess && isObjOk(user) && !init) {
+    if (isObjOk(user) && !init) {
       const newInit = capitalize(user?.firstName) + capitalize(user?.lastName);
       setInit(newInit);
       saveStorage({ data: newInit, key: StorageKeys.INIT });
     }
-  }, [init, user, isSuccess, isLoading, isError, error]);
+  }, [init, user]);
 
   return (
     <div className="w-full border-b-[3px] border-blue-600 sticky top-0 h-[80px] z__header bg-[#000]">
@@ -50,7 +51,9 @@ const Header: FC = () => {
           {!init && isLoading ? (
             <MiniSpinner />
           ) : (
-            <DropDown {...{ isLogged, isLoading, init }} />
+            <DropDown
+              {...{ isLogged, isLoading, init, isVerified: user?.isVerified }}
+            />
           )}
 
           <button

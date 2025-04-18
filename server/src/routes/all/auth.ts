@@ -1,6 +1,11 @@
 import express from "express";
-import { loginUser, registerUser } from "../../controllers/controllers.js";
 import {
+  loginUser,
+  logoutUser,
+  registerUser,
+} from "../../controllers/controllers.js";
+import {
+  getUserID,
   limitRoute,
   validateRegister,
   wrapApp,
@@ -16,5 +21,6 @@ authRouter.post(
 );
 
 authRouter.post("/login", wrapApp(loginUser));
+authRouter.post("/logout", getUserID, wrapApp(logoutUser));
 
 export default authRouter;

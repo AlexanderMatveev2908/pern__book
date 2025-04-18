@@ -8,9 +8,11 @@ import {
   setCookie,
   genTokenCBC,
   err500,
+  res200,
+  clearCookie,
 } from "../../../lib/lib.js";
-import { TokenEventType } from "../../../types/types.js";
-import { User } from "../../../models/models.js";
+import { ReqApp, TokenEventType } from "../../../types/types.js";
+import { Token, User } from "../../../models/models.js";
 
 export const registerUser = async (
   req: Request,
@@ -57,4 +59,15 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
   const user = req.body;
 
   return res.status(200).json({ ok: true });
+};
+
+export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {
+  const { userID } = req;
+
+  const user = await User.findByPk(userID ?? "");
+  if (!user) return res200(res, { msg: "logout successful" });
+
+  await Token.destroy({ where: { userID } });
+  clearCookie(res);
+  return res200(res, { msg: "logout successful" });
 };

@@ -14,7 +14,7 @@ type PropsType = {
 
 const WrapPageAPI: FC<PropsType> = ({
   canStay = true,
-  isLoading = true,
+  isLoading = false,
   isError = false,
   push = false,
   error = null,

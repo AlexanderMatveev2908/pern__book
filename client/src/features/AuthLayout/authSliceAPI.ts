@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
-import { saveStorage } from "@/lib/lib";
+import { removeStorage, saveStorage } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { StorageKeys, TagsAPI } from "@/types/types";
+import authSlice from "./authSlice";
 
 export type RegisterParamsAPI = {
   firstName: string;
@@ -38,7 +40,26 @@ export const authAPI = apiSlice.injectEndpoints({
       },
       // invalidatesTags: [TagsAPI.USER],
     }),
+    logoutUser: builder.mutation({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        dispatch(authSlice.actions.logout());
+
+        try {
+          await queryFulfilled;
+        } catch (err: any) {
+          dispatch(authSlice.actions.login());
+          throw err;
+        }
+
+        removeStorage();
+        dispatch(apiSlice.util.resetApiState());
+      },
+    }),
   }),
 });
 
-export const { useRegisterUserMutation } = authAPI;
+export const { useRegisterUserMutation, useLogoutUserMutation } = authAPI;

@@ -7,7 +7,7 @@ const VerifyEmailPage: FC = () => {
   useScroll();
 
   return (
-    <WrapperAuthPage {...{ title: "VERIFY ACCOUNT" }}>
+    <WrapperAuthPage {...{ title: "VERIFY ACCOUNT", canStay: true }}>
       <VerifyAccount />
     </WrapperAuthPage>
   );

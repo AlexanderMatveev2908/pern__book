@@ -112,7 +112,6 @@ export const checkJWE = async (
   const privateKey = await getPrivateRSA();
 
   if (typeof privateKey !== "object") return MsgErrSession.REFRESH_NOT_EMITTED;
-  if (!token) return MsgErrSession.REFRESH_NOT_PROVIDED;
 
   try {
     const { plaintext } = await compactDecrypt(token, privateKey);
@@ -152,4 +151,5 @@ export const clearCookie = (res: Response) =>
     httpOnly: true,
     secure: !isDev,
     sameSite: "strict",
+    expires: new Date(0),
   });

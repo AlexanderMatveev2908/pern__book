@@ -11,6 +11,9 @@ import HomePage from "./pages/Home/HomePage";
 import VerifyPage from "./pages/Verify/VerifyPage";
 import TestPage from "./pages/Test/TestPage";
 import { setNavigator } from "@/lib/lib";
+import UserLayout from "./layouts/UserLayout";
+import ProfileSettings from "./pages/UserLayout/ProfileSettings";
+import ManageAccount from "./pages/UserLayout/ManageAccount";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -29,6 +32,11 @@ const App: FC = () => {
           <Route path="login" element={<LoginPage />} />
           <Route path="verify-account" element={<VerifyEmailPage />} />
           <Route path="forgot-pwd" element={<ForgotPwdPage />} />
+        </Route>
+
+        <Route path="user" element={<UserLayout />}>
+          <Route path="profile-settings" element={<ProfileSettings />} />
+          <Route path="manage-account" element={<ManageAccount />} />
         </Route>
 
         <Route path="notice" element={<NoticePage />} />

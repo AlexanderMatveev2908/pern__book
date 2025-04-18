@@ -1,8 +1,13 @@
 import { FC, useEffect, useRef, useState } from "react";
-import { fieldsHeaderDropNonLogged } from "../../../config/fields/fields";
+import {
+  AuthPagesPathType,
+  fieldsHeaderDropLogged,
+  fieldsHeaderDropNonLogged,
+} from "../../../config/fields/fields";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { tailwindBreak } from "../../../config/breakpoints";
+import LogoutLi from "./LogoutLi";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,
@@ -17,9 +22,10 @@ const windowWrapper = (cb: () => void) => {
 type PropsType = {
   isLogged: boolean;
   init: string | null;
+  isVerified: boolean;
 };
 
-const DropDown: FC<PropsType> = ({ isLogged, init }) => {
+const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLeaving, setIsLeaving] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
@@ -53,8 +59,8 @@ const DropDown: FC<PropsType> = ({ isLogged, init }) => {
     closeDrop();
   }, [isLeaving]);
 
-  const arrDrop = fieldsHeaderDropNonLogged;
-  // const arrDrop = isLogged ? [] : fieldsHeaderDropNonLogged;
+  // const arrDrop = fieldsHeaderDropNonLogged;
+  const arrDrop = isLogged ? fieldsHeaderDropLogged : fieldsHeaderDropNonLogged;
 
   return (
     <div className="min-w-full justify-self-end flex justify-end relative z__drop_header">
@@ -104,23 +110,27 @@ const DropDown: FC<PropsType> = ({ isLogged, init }) => {
         onMouseLeave={() => {
           windowWrapper(() => setIsOpen(false));
         }}
-        className={`absolute top-[125%] bg-[#000] el__border_sm p-3 grid gap-3 min-w-[250px] transition-all duration-500  ${" left-[40%]"} ${
+        className={`absolute top-[125%] bg-[#000] el__border_sm p-3 pb-4 grid gap-3 min-w-[250px] transition-all duration-500  ${" left-[40%]"} ${
           isLeaving || isOpen
             ? ""
             : "translate-y-1/3 opacity-0 pointer-events-none"
         }`}
       >
-        {arrDrop.map((el) => (
-          <Link
-            key={el.id}
-            to={el.path}
-            onClick={() => setIsOpen(false)}
-            className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
-          >
-            <el.icon className="icon__sm" />
-            <span className="txt__2">{el.label}</span>
-          </Link>
-        ))}
+        {arrDrop.map((el) =>
+          el.path === AuthPagesPathType.VERIFY_EMAIL && isVerified ? null : (
+            <Link
+              key={el.id}
+              to={el.path}
+              onClick={() => setIsOpen(false)}
+              className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
+            >
+              <el.icon className="icon__sm" />
+              <span className="txt__2">{el.label}</span>
+            </Link>
+          )
+        )}
+
+        {isLogged && <LogoutLi />}
       </div>
     </div>
   );

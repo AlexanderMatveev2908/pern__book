@@ -4,6 +4,8 @@ import {
   formatMsgCode,
   getStorage,
   goTo,
+  isAccessExpired,
+  isRefreshing,
   removeStorage,
   saveStorage,
 } from "@/lib/lib";
@@ -21,9 +23,9 @@ import apiSlice from "../apiSlice";
 
 const getMsg = (data: any, isLogged: boolean) =>
   [
+    MsgErrSession.REFRESH_NOT_EMITTED,
     MsgErrSession.REFRESH_NOT_PROVIDED,
     MsgErrSession.REFRESH_INVALID,
-    MsgErrSession.REFRESH_NOT_EMITTED,
   ].includes(data?.msg)
     ? formatMsgCode(data?.msg)
     : data?.msg === MsgErrSession.REFRESH_EXPIRED ||
@@ -43,8 +45,15 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
     if (!isLogged) store.dispatch(authSlice.actions.login());
   }
   if (isRejectedWithValue(action)) {
-    const { response: { data, status } = {} } = payload ?? {};
+    const { response: { data, status, config } = {} } = payload ?? {};
     __cg("refresh error", data, status);
+
+    if (
+      status !== 401 ||
+      !isAccessExpired(data?.msg) ||
+      isRefreshing(config?.url)
+    )
+      return next(action);
 
     const message = getMsg(data, isLogged);
     const newNotice = { notice: message, type: EventApp.ERR };
@@ -64,7 +73,7 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
     removeStorage();
     saveStorage({ data: newNotice, key: StorageKeys.NOTICE });
 
-    goTo("/notice", { state: { from: AllowedFromNotice.EXP } });
+    goTo("/notice", { replace: true, state: { from: AllowedFromNotice.EXP } });
 
     if (isLogged) store.dispatch(authSlice.actions.logout());
     store.dispatch(apiSlice.util.resetApiState());
