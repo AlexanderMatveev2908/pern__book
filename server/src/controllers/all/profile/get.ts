@@ -11,7 +11,7 @@ export const getUserProfile = async (
 
   const user = await User.findByPk(req.userID, {
     attributes: {
-      exclude: ["password"],
+      exclude: ["password", "createdAt", "updatedAt", "tempEmail"],
     },
     raw: true,
   });

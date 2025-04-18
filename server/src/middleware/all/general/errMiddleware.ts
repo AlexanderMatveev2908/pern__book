@@ -12,5 +12,5 @@ export const errMiddleware = (
     stack: err.stack,
   });
 
-  return err500(res);
+  return err500(res, { msg: err?.msg ?? err?.message });
 };

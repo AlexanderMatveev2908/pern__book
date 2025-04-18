@@ -29,7 +29,6 @@ export const getUserID = async (
 
     return next();
   } catch (err: any) {
-    console.log(err);
     return handleErrAccessToken(res, err);
   }
 };
