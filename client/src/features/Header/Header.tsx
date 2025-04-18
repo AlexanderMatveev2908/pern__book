@@ -12,6 +12,7 @@ import { getAuthState } from "../AuthLayout/authSlice";
 import { getData, getStorage, isObjOk, saveStorage } from "@/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { MiniSpinner } from "@/components/components";
+import { useWrapQueryAPI } from "@/hooks/hooks";
 
 const capitalize = (str?: string) => str?.at(0) ?? "";
 
@@ -24,11 +25,10 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const { data, isSuccess, isLoading, isError, error } = useGetUserProfileQuery(
-    {}
-  );
+  const res = useGetUserProfileQuery({});
+  useWrapQueryAPI({ ...res });
 
-  // useWrapQueryAPI({ ...res });
+  const { data, isSuccess, isLoading, isError, error } = res;
   const user: UserProfile = getData(data, "user");
 
   useEffect(() => {

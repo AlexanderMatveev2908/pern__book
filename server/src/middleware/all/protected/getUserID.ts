@@ -4,6 +4,7 @@ import {
   AppJwtPayload,
   err401,
   handleErrAccessToken,
+  prepareHeader,
   verifyJWT,
 } from "../../../lib/lib.js";
 
@@ -12,8 +13,7 @@ export const getUserID = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const authHeader = req.headers?.authorization;
-  const accessToken = (authHeader as string)?.split(" ")[1];
+  const accessToken = prepareHeader(req);
   const { refreshToken } = req.cookies;
 
   if (!accessToken) {
@@ -27,7 +27,6 @@ export const getUserID = async (
 
     return next();
   } catch (err: any) {
-    console.log(err);
     return handleErrAccessToken(res, err);
   }
 };

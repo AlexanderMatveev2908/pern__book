@@ -1,5 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
+import { isDev } from "../../config/env.js";
 
 export const calcTimeRun = async (cb: () => Promise<any>) => {
   const start = performance.now();
@@ -8,7 +9,7 @@ export const calcTimeRun = async (cb: () => Promise<any>) => {
 
   const end = performance.now();
 
-  console.log(`=> DONE ${end - start} md`);
+  if (isDev) console.log(`=> DONE ${end - start} md`);
 
   return res;
 };

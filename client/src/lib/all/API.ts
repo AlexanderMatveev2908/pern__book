@@ -8,7 +8,11 @@ export const isAccessExpired = (msg: string) =>
     MsgErrSession.ACCESS_INVALID,
     MsgErrSession.ACCESS_NOT_PROVIDED,
   ].includes(msg as MsgErrSession);
-export const isRefreshing = (endpoint: string) => endpoint === "/auth/refresh";
+
+export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
+
+export const canToast = (msg: string, endpoint: string) =>
+  !isAccessExpired(msg) && !isRefreshing(endpoint);
 
 export const makeDelay = (cb: () => any) =>
   new Promise((res) =>

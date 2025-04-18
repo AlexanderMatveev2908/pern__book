@@ -1,26 +1,45 @@
 import { Response } from "express";
-import { ReqApp } from "../../types/types.js";
+import { MsgErrSession, ReqApp } from "../../types/types.js";
 import {
+  AppJwtPayload,
   checkJWE,
+  clearCookie,
+  decodeExpJWT,
   err401,
   err404,
   genAccessJWT,
+  prepareHeader,
   res200,
 } from "../../lib/lib.js";
-import { User } from "../../models/models.js";
+import { Token, User } from "../../models/models.js";
 
 export const refreshToken = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
   const { refreshToken } = req.cookies;
+  const accessExp = prepareHeader(req);
 
   const result = await checkJWE(refreshToken);
-  if (typeof result !== "object" || !result?.id)
+  if (typeof result !== "object" || !result?.id) {
+    clearCookie(res);
+
+    if (result === MsgErrSession.REFRESH_NOT_PROVIDED) {
+      const payload = decodeExpJWT(accessExp);
+      await Token.destroy({
+        where: { userID: (payload as AppJwtPayload)?.id },
+      });
+      return err401(res, { msg: MsgErrSession.REFRESH_EXPIRED });
+    }
+
     return err401(res, { msg: result });
+  }
 
   const user = await User.findByPk(result.id);
-  if (!user) return err404(res, { msg: "user not found" });
+  if (!user) {
+    clearCookie(res);
+    return err404(res, { msg: "user not found" });
+  }
 
   await user.delOldJWT();
   const accessToken = genAccessJWT(user);

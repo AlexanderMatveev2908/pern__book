@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { err401, res200, res204 } from "../../../lib/lib.js";
-import { MsgErrSession, ReqApp } from "../../../types/types.js";
+import { err401, err500, res200, res204 } from "../../../lib/lib.js";
+import { ReqApp } from "../../../types/types.js";
 import { User } from "../../../models/models.js";
 
 export const getUserProfile = async (

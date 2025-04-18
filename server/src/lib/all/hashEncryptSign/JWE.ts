@@ -70,6 +70,8 @@ export const getPrivateRSA = async () => {
   const privateKey = await KeyRSA.findOne({
     where: { type: KeyTypeRSA.RSA_PRIVATE },
   });
+
+  if (!privateKey) return MsgErrSession.REFRESH_NOT_EMITTED;
   return await importPKCS8(privateKey!.key, KeyAlgRSA.RSA);
 };
 
@@ -109,6 +111,9 @@ export const checkJWE = async (
 ): Promise<PayloadJWE | string | void> => {
   const privateKey = await getPrivateRSA();
 
+  if (typeof privateKey !== "object") return MsgErrSession.REFRESH_NOT_EMITTED;
+  if (!token) return MsgErrSession.REFRESH_NOT_PROVIDED;
+
   try {
     const { plaintext } = await compactDecrypt(token, privateKey);
     const decoded: PayloadJWE = JSON.parse(new TextDecoder().decode(plaintext));
@@ -140,4 +145,11 @@ export const setCookie = (res: Response, refreshToken: string) =>
     secure: !isDev,
     sameSite: "strict",
     expires: genExpiryCookie(),
+  });
+
+export const clearCookie = (res: Response) =>
+  res.clearCookie("refreshToken", {
+    httpOnly: true,
+    secure: !isDev,
+    sameSite: "strict",
   });
