@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { z } from "zod";
 import { isFormValid, schemaLogin } from "../../../lib/lib";
 import { useForm } from "react-hook-form";
@@ -10,7 +10,7 @@ import { ParamsLoginAPI, useLoginUserMutation } from "../authSliceAPI";
 import { useWrapMutationAPI } from "@/hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getAuthState, setPushedOut } from "../authSlice";
+import { clearNavigating, getAuthState } from "../authSlice";
 import apiSlice from "@/store/apiSlice";
 
 const schema = z
@@ -34,7 +34,6 @@ export type LoginFormType = z.infer<typeof schema>;
 
 const Login: FC = () => {
   const navigate = useNavigate();
-  const hasRunCB = useRef<boolean>(false);
 
   const { wrapMutationAPI } = useWrapMutationAPI();
 
@@ -71,9 +70,8 @@ const Login: FC = () => {
   const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
 
   useEffect(() => {
-    if (authState.pushedOut && !hasRunCB.current) {
-      hasRunCB.current = true;
-      dispatch(setPushedOut(false));
+    if (authState.pushedOut) {
+      dispatch(clearNavigating());
       apiSlice.util.resetApiState();
     }
   }, [authState.pushedOut, dispatch]);

@@ -7,15 +7,13 @@ import {
   goTo,
   removeStorage,
 } from "@/lib/lib";
-import { EventApp, MsgErrSession, StorageKeys } from "@/types/types";
+import { EventApp, MsgErrRefresh, StorageKeys } from "@/types/types";
 import authSlice from "@/features/AuthLayout/authSlice";
 
 export const handleLogoutWithAccessExp = (store: any) => {
   removeStorage();
 
   __cg("logout expired");
-
-  store.dispatch(authSlice.actions.setPushedOut(true));
 
   store.dispatch(
     toastSlice.actions.openToast({
@@ -25,8 +23,7 @@ export const handleLogoutWithAccessExp = (store: any) => {
     })
   );
 
-  store.dispatch(authSlice.actions.setLoggingOut(true));
-  store.dispatch(authSlice.actions.logout());
+  store.dispatch(authSlice.actions.setLoggingOut());
 
   goTo("/", { replace: true });
 
@@ -35,12 +32,12 @@ export const handleLogoutWithAccessExp = (store: any) => {
 
 const getMsg401 = (data: any, isLogged: boolean) =>
   [
-    MsgErrSession.REFRESH_NOT_EMITTED,
-    MsgErrSession.REFRESH_NOT_PROVIDED,
-    MsgErrSession.REFRESH_INVALID,
+    ...Object.values(MsgErrRefresh).filter(
+      (msg) => msg !== MsgErrRefresh.REFRESH_EXPIRED
+    ),
   ].includes(data?.msg)
     ? formatMsgCode(data?.msg)
-    : data?.msg === MsgErrSession.REFRESH_EXPIRED ||
+    : data?.msg === MsgErrRefresh.REFRESH_EXPIRED ||
       isLogged ||
       getStorage(StorageKeys.ACCESS)
     ? "session expired"
@@ -70,8 +67,7 @@ export const handle401 = ({
     })
   );
 
-  store.dispatch(authSlice.actions.setPushedOut(true));
-  store.dispatch(authSlice.actions.logout());
+  store.dispatch(authSlice.actions.setPushedOut());
 
   goTo("/auth/login", { replace: true });
 

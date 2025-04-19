@@ -1,5 +1,5 @@
 import { Test } from "@/components/components";
-import { getAuthState, setLoggingOut } from "@/features/AuthLayout/authSlice";
+import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { useScroll } from "@/hooks/hooks";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,9 @@ const HomePage: FC = () => {
   useScroll();
 
   useEffect(() => {
-    if (authState.loggingOut) dispatch(setLoggingOut(false));
+    if (authState.loggingOut) {
+      dispatch(clearNavigating());
+    }
   }, [dispatch, authState.loggingOut]);
 
   return (

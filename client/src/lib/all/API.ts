@@ -1,13 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { REG_ID } from "@/config/regex";
-import { AvoidTriggerPath, MsgErrSession, TokenEventType } from "@/types/types";
+import { AuthState, AvoidTriggerPath, MsgErrAccess } from "@/types/types";
 
 export const isAccessExpired = (msg: string) =>
-  [
-    MsgErrSession.ACCESS_EXPIRED,
-    MsgErrSession.ACCESS_INVALID,
-    MsgErrSession.ACCESS_NOT_PROVIDED,
-  ].includes(msg as MsgErrSession);
+  [...Object.values(MsgErrAccess)].includes(msg as MsgErrAccess);
 
 export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
 
@@ -38,22 +33,12 @@ export const addFlagCB = <T>(cb: T) => {
   return cb;
 };
 
-export const checkQueryAuth = ({
-  userID,
-  token,
-  event,
-}: {
-  userID: string;
-  token: string;
-  event: TokenEventType;
-}) =>
-  REG_ID.test(userID) &&
-  !!token.length &&
-  Object.values(TokenEventType).includes(event);
-
 export const getData = (obj: any, key: string) => obj?.[key] ?? null;
 
 export const getMsgErr = (data: any) =>
   data?.msg ||
   data?.message ||
   "The AI that manage the database has revolted and is taking control of all servers ⚙️";
+
+export const canPushUser = (authState: AuthState) =>
+  !authState.isLogged && !authState.loggingOut && !authState.pushedOut;

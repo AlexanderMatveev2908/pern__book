@@ -9,9 +9,9 @@ const apiSlice = createApi({
   tagTypes: [TagsAPI.USER],
   // i can leave key of slice by default to api of naming as i want
   reducerPath: "appAPI",
-  refetchOnMountOrArgChange: false,
-  refetchOnReconnect: false,
-  refetchOnFocus: false,
+  // refetchOnMountOrArgChange: false,
+  // refetchOnReconnect: false,
+  // refetchOnFocus: false,
   endpoints: () => ({}),
 });
 

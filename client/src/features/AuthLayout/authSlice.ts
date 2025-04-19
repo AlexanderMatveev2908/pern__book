@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/all/user";
 import { RootStateType } from "../../store/store";
 
@@ -18,15 +18,22 @@ const authSlice = createSlice({
     logout: (state) => {
       state.isLogged = false;
     },
-    setLoggingOut: (state, action: PayloadAction<boolean>) => {
-      state.loggingOut = action.payload;
+    setLoggingOut: (state) => {
+      state.loggingOut = true;
+      state.isLogged = false;
     },
-    setPushedOut: (state, action: PayloadAction<boolean>) => {
-      state.pushedOut = action.payload;
+    setPushedOut: (state) => {
+      state.pushedOut = true;
+      state.isLogged = false;
+    },
+    clearNavigating: (state) => {
+      state.pushedOut = false;
+      state.loggingOut = false;
     },
   },
 });
 
-export const { login, logout, setLoggingOut, setPushedOut } = authSlice.actions;
+export const { login, logout, setLoggingOut, setPushedOut, clearNavigating } =
+  authSlice.actions;
 export const getAuthState = (state: RootStateType) => state.auth;
 export default authSlice;
