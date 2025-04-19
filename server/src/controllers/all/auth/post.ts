@@ -7,15 +7,12 @@ import {
   genTokenJWE,
   setCookie,
   genTokenCBC,
-  err500,
   res200,
   clearCookie,
   err404,
   verifyPwd,
   err401,
   prepareHeader,
-  decodeExpJWT,
-  PayloadJWT,
   clearOldTokens,
 } from "../../../lib/lib.js";
 import { ReqApp, TokenEventType } from "../../../types/types.js";
@@ -35,6 +32,7 @@ export const registerUser = async (
   newUser.capitalize();
   await newUser.hashPwdUser();
   await newUser.save();
+
   userID = newUser.id;
 
   try {
@@ -68,7 +66,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
   const user = await User.findOne({ where: { email } });
   if (!user) return err404(res, { msg: "user not found" });
 
-  const match = await verifyPwd(password, user.password);
+  const match = await verifyPwd(user.password, password);
   if (!match) return err401(res, { msg: "invalid credentials" });
 
   const accessToken = genAccessJWT(user);

@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo } from "react";
+import { FC, useEffect, useMemo, useRef } from "react";
 import { z } from "zod";
 import { isFormValid, schemaLogin } from "../../../lib/lib";
 import { useForm } from "react-hook-form";
@@ -34,6 +34,7 @@ export type LoginFormType = z.infer<typeof schema>;
 
 const Login: FC = () => {
   const navigate = useNavigate();
+  const hasRunCB = useRef<boolean>(false);
 
   const { wrapMutationAPI } = useWrapMutationAPI();
 
@@ -70,7 +71,8 @@ const Login: FC = () => {
   const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
 
   useEffect(() => {
-    if (authState.pushedOut) {
+    if (authState.pushedOut && !hasRunCB.current) {
+      hasRunCB.current = true;
       dispatch(setPushedOut(false));
       apiSlice.util.resetApiState();
     }

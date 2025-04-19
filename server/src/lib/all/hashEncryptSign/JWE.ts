@@ -1,7 +1,7 @@
 import { generateKeyPairSync } from "crypto";
 import { KeyRSA, Token, UserInstance } from "../../../models/models.js";
 import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
-import { JWEInvalid, JWTExpired } from "jose/errors";
+import { JWEInvalid } from "jose/errors";
 import {
   MsgErrSession,
   KeyAlgRSA,
@@ -12,7 +12,7 @@ import { Response } from "express";
 import { isDev } from "../../../config/env.js";
 import { Op } from "sequelize";
 import { KeyTypeRSA } from "../../../types/all/keys.js";
-import { expiryAccess, genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
+import { genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
 
 // IMPORTANT ⚠️
 // IF U PREFER USE COMMON-JS JOSE IS THOUGH FOR MODULES AND U'LL HAVE WARNINGS OR COULD EVEN CRASH IF BECOME UNSUPPORTED(I USED COMMON JS IN LAST PROJECT) SO U WOULD NEED TO MAKE DYNAMIC ASYNC IMPORTS INSTEAD OF SIMPLE IMPORT
@@ -72,6 +72,7 @@ export const getPrivateRSA = async () => {
   });
 
   if (!privateKey) return MsgErrSession.REFRESH_NOT_EMITTED;
+
   return await importPKCS8(privateKey!.key, KeyAlgRSA.RSA);
 };
 
@@ -122,9 +123,8 @@ export const checkJWE = async (
         event: TokenEventType.REFRESH,
       },
     });
-    if (!saved) {
-      return MsgErrSession.REFRESH_NOT_EMITTED;
-    }
+    if (!saved) return MsgErrSession.REFRESH_NOT_EMITTED;
+
     if (saved.expiry < Date.now()) {
       await saved.destroy();
       return MsgErrSession.REFRESH_EXPIRED;

@@ -37,13 +37,13 @@ const getKeyCBC = async () => {
   const keyHEX = await KeyCbcHmac.findOne({
     where: { type: KeyTypeCbcHmac.CBC },
   });
-  return makeBuff(keyHEX!.key);
+  return makeBuff(keyHEX?.key ?? "");
 };
 const getKeyHMAC = async () => {
   const keyHEX = await KeyCbcHmac.findOne({
     where: { type: KeyTypeCbcHmac.HMAC },
   });
-  return makeBuff(keyHEX!.key);
+  return makeBuff(keyHEX?.key ?? "");
 };
 const getPairKeys = async () => {
   const keyCBC = await getKeyCBC();
@@ -142,6 +142,8 @@ export const checkCbcHmac = async ({
   const encrypted = makeBuff(obj.encrypted);
 
   const { keyHMAC } = await getPairKeys();
+
+  if (!keyHMAC.length) return MsgCheckToken.NOT_EMITTED;
 
   const expectedHmacHEX = genHmac(Buffer.concat([iv, encrypted]), keyHMAC);
   const existentHmacHEX = await Token.findOne({

@@ -76,7 +76,7 @@ export const axiosBaseQuery = async ({
         },
       };
     } catch (err: any) {
-      __cg("refresh error", err);
+      __cg("refresh failed", err);
 
       appInstance.defaults.headers.common["Authorization"] = null;
 

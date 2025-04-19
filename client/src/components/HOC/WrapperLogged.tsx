@@ -10,7 +10,9 @@ type PropsType = {
 const WrapperLogged: FC<PropsType> = ({ children }) => {
   const authState = useSelector(getAuthState);
 
-  return !authState.isLogged && !authState.loggingOut ? (
+  return !authState.isLogged &&
+    !authState.loggingOut &&
+    !authState.pushedOut ? (
     <Navigate to="/auth/login" replace={true} />
   ) : (
     children

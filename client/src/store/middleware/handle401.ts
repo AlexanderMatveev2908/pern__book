@@ -13,7 +13,7 @@ import authSlice from "@/features/AuthLayout/authSlice";
 export const handleLogoutWithAccessExp = (store: any) => {
   removeStorage();
 
-  __cg("LOGOUT EXPIRED");
+  __cg("logout expired");
 
   store.dispatch(authSlice.actions.setPushedOut(true));
 
@@ -57,7 +57,8 @@ export const handle401 = ({
   const { data, status } = response;
   const isLogged = store.getState().auth.isLogged;
 
-  store.dispatch(authSlice.actions.setPushedOut(true));
+  const isAlreadyPushed = store.getState().auth.pushedOut;
+  if (isAlreadyPushed) return null;
 
   removeStorage();
 
@@ -69,6 +70,7 @@ export const handle401 = ({
     })
   );
 
+  store.dispatch(authSlice.actions.setPushedOut(true));
   store.dispatch(authSlice.actions.logout());
 
   goTo("/auth/login", { replace: true });

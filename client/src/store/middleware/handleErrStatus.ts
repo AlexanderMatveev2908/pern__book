@@ -21,9 +21,9 @@ export const handleErrStatus = (store: any) => (next: any) => (action: any) => {
 
     // i do not need `else if` cause in every i return
     if (status === 401 && data?.loggingOut) handleLogoutWithAccessExp(store);
-    if (status === 401 && isRefreshing(config?.url))
+    else if (status === 401 && isRefreshing(config?.url))
       handle401({ store, response });
-    if ([403, 429].includes(status)) handlePushErr({ store, response });
+    else if ([403, 429].includes(status)) handlePushErr({ store, response });
 
     return next(action);
   }

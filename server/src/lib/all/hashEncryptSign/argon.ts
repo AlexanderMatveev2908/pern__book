@@ -8,5 +8,5 @@ export const hashPwd = async (pwd: string) =>
     type: argon2.argon2id,
   });
 
-export const verifyPwd = async (pwd: string, hash: string) =>
+export const verifyPwd = async (hash: string, pwd: string) =>
   await argon2.verify(hash, pwd);
