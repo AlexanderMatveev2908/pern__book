@@ -2,7 +2,7 @@ import { UserInstance } from "../../models/models.js";
 import { TokenEventType } from "../../types/types.js";
 import { genTokenCBC, sendEmailAuth } from "../lib.js";
 
-export const GenTokSendEmail = async ({
+export const genTokSendEmail = async ({
   user,
   event,
 }: {

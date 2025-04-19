@@ -38,6 +38,7 @@ export enum AvoidTriggerPath {
 
 export enum SendMailEnd {
   VERIFY_ACCOUNT = "verify-account",
+  FORGOT_PWD = "forgot-pwd",
 }
 
 export enum TagsAPI {

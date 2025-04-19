@@ -1,13 +1,54 @@
 import { FC } from "react";
 import { useMakeFormEmail } from "../../../hooks/all/forms/useMakeFormEmail";
 import { EmailForm } from "@/components/components";
+import { useDispatch } from "react-redux";
+import { useSendEmailMutation } from "../sendEmailSliceAPI";
+import { useWrapMutationAPI } from "@/hooks/hooks";
+import {
+  AllowedFromNotice,
+  EventApp,
+  SendMailEnd,
+  StorageKeys,
+} from "@/types/types";
+import { makeNoticeTxt, saveStorage } from "@/lib/lib";
+import { setNotice } from "@/features/Notice/noticeSlice";
+import { useNavigate } from "react-router-dom";
 
 const ForgotPwd: FC = () => {
+  const navigate = useNavigate();
+
   const form = useMakeFormEmail();
-  const { handleSubmit } = form;
+  const { handleSubmit, reset } = form;
 
-  const handleSave = handleSubmit(() => {});
+  const dispatch = useDispatch();
+  const [sendEmail, { isLoading }] = useSendEmailMutation();
 
-  return <EmailForm {...{ ...form, handleSave }} />;
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
+  const handleSave = handleSubmit(async (formData) => {
+    const res = await wrapMutationAPI({
+      cbAPI: () =>
+        sendEmail({
+          email: formData.email,
+          endpoint: SendMailEnd.FORGOT_PWD,
+        }),
+    });
+
+    if (!res) return;
+
+    reset();
+    const notice = {
+      notice: makeNoticeTxt("to recover your account"),
+      type: EventApp.OK,
+    };
+    saveStorage({ data: notice, key: StorageKeys.NOTICE });
+    dispatch(setNotice({ ...notice }));
+    navigate("/notice", {
+      replace: true,
+      state: { from: AllowedFromNotice.FORGOT_PWD },
+    });
+  });
+
+  return <EmailForm {...{ ...form, handleSave, isLoading }} />;
 };
 export default ForgotPwd;

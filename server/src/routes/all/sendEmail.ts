@@ -4,7 +4,10 @@ import {
   validateSendEmail,
   wrapApp,
 } from "../../middleware/middleware.js";
-import { sendEmailVerifyAccount } from "../../controllers/controllers.js";
+import {
+  sendEmailForgotPwd,
+  sendEmailVerifyAccount,
+} from "../../controllers/controllers.js";
 
 const sendMailRouter = express.Router();
 
@@ -13,6 +16,12 @@ sendMailRouter.post(
   limitRoute({ max: 5 }),
   validateSendEmail,
   wrapApp(sendEmailVerifyAccount)
+);
+sendMailRouter.post(
+  "/forgot-pwd",
+  limitRoute({ max: 5 }),
+  validateSendEmail,
+  wrapApp(sendEmailForgotPwd)
 );
 
 export default sendMailRouter;
