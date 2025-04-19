@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import {
-  AppJwtPayload,
+  PayloadJWT,
   err400,
   err401,
   err403,
@@ -27,7 +27,7 @@ export const verifyAccessToken =
       return err401(res, { msg: MsgErrSession.ACCESS_NOT_PROVIDED });
 
     try {
-      const decoded: AppJwtPayload = verifyJWT(accessToken);
+      const decoded: PayloadJWT = verifyJWT(accessToken);
 
       const user = await User.findByPk(decoded.id);
       if (!user) return err400(res, { msg: "User not found" });

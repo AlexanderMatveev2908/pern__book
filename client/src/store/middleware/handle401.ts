@@ -5,18 +5,11 @@ import {
   goTo,
   isRefreshing,
   removeStorage,
-  saveStorage,
 } from "@/lib/lib";
 import authSlice from "@/features/AuthLayout/authSlice";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
-import {
-  AllowedFromNotice,
-  EventApp,
-  MsgErrSession,
-  StorageKeys,
-} from "@/types/types";
+import { EventApp, MsgErrSession, StorageKeys } from "@/types/types";
 import toastSlice from "@/features/Toast/toastSlice";
-import noticeSlice from "@/features/Notice/noticeSlice";
 import apiSlice from "../apiSlice";
 
 const handleLogoutWithAccessExp = (store: any) => {
@@ -30,10 +23,11 @@ const handleLogoutWithAccessExp = (store: any) => {
     })
   );
 
-  goTo("/", { replace: true });
-
+  store.dispatch(authSlice.actions.setLoggingOut(true));
   store.dispatch(authSlice.actions.logout());
   store.dispatch(apiSlice.util.resetApiState());
+
+  goTo("/", { replace: true });
 };
 
 const getMsg = (data: any, isLogged: boolean) =>
@@ -67,8 +61,38 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
     }
     if (status !== 401 || !isRefreshing(config?.url)) return next(action);
 
+    removeStorage();
+
+    store.dispatch(
+      toastSlice.actions.openToast({
+        msg: getMsg(data, isLogged),
+        type: EventApp.ERR,
+        statusCode: status,
+      })
+    );
+
+    store.dispatch(authSlice.actions.logout());
+    store.dispatch(apiSlice.util.resetApiState());
+
+    goTo("/auth/login", { replace: true });
+
+    return null;
+  }
+
+  return next(action);
+};
+
+/*
+  if (isRejectedWithValue(action)) {
+    if (status === 401 && data?.loggingOut) {
+      handleLogoutWithAccessExp(store);
+      return null;
+    }
+    if (status !== 401 || !isRefreshing(config?.url)) return next(action);
+
+    // store.dispatch(authSlice.actions.setLoggingOut(true));
     const message = getMsg(data, isLogged);
-    const newNotice = { notice: message, type: EventApp.ERR };
+    // const newNotice = { notice: message, type: EventApp.ERR };
     store.dispatch(
       toastSlice.actions.openToast({
         msg: message,
@@ -76,22 +100,21 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
         statusCode: status,
       })
     );
-    store.dispatch(
-      noticeSlice.actions.setNotice({
-        ...newNotice,
-      })
-    );
+    // store.dispatch(
+    //   noticeSlice.actions.setNotice({
+    //     ...newNotice,
+    //   })
+    // );
 
     removeStorage();
-    saveStorage({ data: newNotice, key: StorageKeys.NOTICE });
-
-    goTo("/notice", { replace: true, state: { from: AllowedFromNotice.EXP } });
+    // saveStorage({ data: newNotice, key: StorageKeys.NOTICE });
 
     store.dispatch(authSlice.actions.logout());
     store.dispatch(apiSlice.util.resetApiState());
 
+    // goTo("/auth/login", { replace: true });
+    // goTo("/notice", { replace: true, state: { from: AllowedFromNotice.EXP } });
+
     return null;
   }
-
-  return next(action);
-};
+    */

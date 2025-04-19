@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import Title from "./Title";
+import Title from "../common/Title";
 import SwitcherFormAuth from "../forms/components/SwitcherFormAuth";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice";

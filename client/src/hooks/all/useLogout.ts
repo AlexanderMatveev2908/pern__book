@@ -3,7 +3,7 @@ import { useWrapMutationAPI } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { logout } from "@/features/AuthLayout/authSlice";
+import { logout, setLoggingOut } from "@/features/AuthLayout/authSlice";
 import { removeStorage } from "@/lib/lib";
 import { appInstance } from "@/config/axios";
 import apiSlice from "@/store/apiSlice";
@@ -27,6 +27,7 @@ export const useLogout = () => {
       removeStorage();
       appInstance.defaults.headers.common["Authorization"] = null;
 
+      dispatch(setLoggingOut(true));
       dispatch(logout());
       dispatch(apiSlice.util.resetApiState());
     },

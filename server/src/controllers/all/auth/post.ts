@@ -13,6 +13,9 @@ import {
   err404,
   verifyPwd,
   err401,
+  prepareHeader,
+  decodeExpJWT,
+  PayloadJWT,
 } from "../../../lib/lib.js";
 import { ReqApp, TokenEventType } from "../../../types/types.js";
 import { Token, User } from "../../../models/models.js";
@@ -77,8 +80,18 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 
 export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
+  const accessExp = prepareHeader(req);
 
   clearCookie(res);
+
+  if (!userID) {
+    const payload = decodeExpJWT(accessExp ?? "");
+
+    if ((payload as PayloadJWT)?.id)
+      await Token.destroy({ where: { userID: (payload as PayloadJWT).id } });
+
+    return res200(res, { msg: "logout successful" });
+  }
 
   const user = await User.findByPk(userID ?? "");
   if (!user) return res200(res, { msg: "logout successful" });

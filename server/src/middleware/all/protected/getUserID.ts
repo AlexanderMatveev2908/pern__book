@@ -1,7 +1,7 @@
 import { NextFunction, Response } from "express";
 import { MsgErrSession, ReqApp } from "../../../types/types.js";
 import {
-  AppJwtPayload,
+  PayloadJWT,
   err401,
   handleErrAccessToken,
   prepareHeader,
@@ -26,7 +26,7 @@ export const getUserID = async (
   }
 
   try {
-    const decoded: AppJwtPayload = verifyJWT(accessToken);
+    const decoded: PayloadJWT = verifyJWT(accessToken);
     req.userID = decoded.id;
 
     return next();

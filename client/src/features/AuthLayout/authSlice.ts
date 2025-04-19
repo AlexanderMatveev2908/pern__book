@@ -4,25 +4,25 @@ import { RootStateType } from "../../store/store";
 
 const initState: AuthState = {
   isLogged: !!sessionStorage.getItem("accessToken"),
-  test: "nothing",
+  loggingOut: false,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState: initState,
   reducers: {
-    login(state) {
+    login: (state) => {
       state.isLogged = true;
     },
-    logout(state) {
+    logout: (state) => {
       state.isLogged = false;
     },
-    makeSomething(state, action: PayloadAction<string>) {
-      state.test = action.payload;
+    setLoggingOut: (state, action: PayloadAction<boolean>) => {
+      state.loggingOut = action.payload;
     },
   },
 });
 
-export const { login, logout, makeSomething } = authSlice.actions;
+export const { login, logout, setLoggingOut } = authSlice.actions;
 export const getAuthState = (state: RootStateType) => state.auth;
 export default authSlice;

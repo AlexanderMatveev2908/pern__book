@@ -5,7 +5,7 @@ import { UserInstance } from "../../../models/models.js";
 import { expiryAccess } from "./expiryTime.js";
 import { ReqApp } from "../../../types/types.js";
 
-export interface AppJwtPayload extends JWTPayload {
+export interface PayloadJWT extends JWTPayload {
   id: string;
 }
 
@@ -21,7 +21,7 @@ export const genAccessJWT = (user: UserInstance) =>
   );
 
 export const verifyJWT = (token: string) =>
-  jwt.verify(token, mySign!) as AppJwtPayload;
+  jwt.verify(token, mySign!) as PayloadJWT;
 
 export const prepareHeader = (req: ReqApp) => {
   const authHeader = req.headers?.authorization;

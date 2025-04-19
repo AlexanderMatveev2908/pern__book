@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { MsgErrSession, ReqApp } from "../../types/types.js";
 import {
-  AppJwtPayload,
+  PayloadJWT,
   checkJWE,
   clearCookie,
   decodeExpJWT,
@@ -29,7 +29,7 @@ export const refreshToken = async (
 
     const payload = decodeExpJWT(accessExp);
     await Token.destroy({
-      where: { userID: (payload as AppJwtPayload)?.id ?? "" },
+      where: { userID: (payload as PayloadJWT)?.id ?? "" },
     });
     return err401(res, { msg: MsgErrSession.REFRESH_EXPIRED });
   }

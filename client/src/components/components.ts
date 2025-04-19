@@ -7,7 +7,7 @@ export { default as TooltipCpy } from "./common/TooltipCpy/TooltipCpy.tsx";
 export { default as ErrIcon } from "./common/ErrIcon.tsx";
 export { default as Test } from "./common/Test.tsx";
 export { default as Title } from "./common/Title.tsx";
-export { default as WrapperAuthPage } from "./common/WrapperAuthPage.tsx";
+export { default as WrapperAuthPage } from "./HOC/WrapperAuthPage.tsx";
 export { default as PwdField } from "./forms/components/inputs/PwdField/PwdField.tsx";
 export { default as ErrorFormField } from "./forms/components/inputs/ErrorFormField.tsx";
 export { default as ButtonsSwapper } from "./forms/components/SwitcherFormAuth.tsx";
@@ -19,3 +19,4 @@ export { default as BreadCrumbForm } from "./forms/components/BreadCrumbForm.tsx
 export { default as CreatePwd } from "./forms/components/CreatePwd.tsx";
 export { default as EmailForm } from "./forms/EmailForm/EmailForm.tsx";
 export { default as WrapPageAPI } from "./HOC/WrapPageAPI.tsx";
+export { default as WrapperLogged } from "./HOC/WrapperLogged.tsx";
