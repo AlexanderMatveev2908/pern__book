@@ -16,6 +16,10 @@ export const getUserID = async (
   const accessToken = prepareHeader(req);
   const { refreshToken } = req.cookies;
 
+  const isLoggingOut = req.originalUrl.includes("logout");
+
+  if (isLoggingOut) return next();
+
   if (!accessToken) {
     if (!refreshToken) return next();
     else return err401(res, { msg: MsgErrSession.ACCESS_NOT_PROVIDED });

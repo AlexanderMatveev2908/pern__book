@@ -18,14 +18,15 @@ export const useLogout = () => {
   const handleCLick = useCallback(
     async (cbUI: () => void) => {
       const res = await wrapMutationAPI({ cbAPI: () => logoutUser({}) });
-      cbUI();
 
+      if (!res) return;
+
+      cbUI();
       dispatch(logout());
       removeStorage();
       appInstance.defaults.headers.common["Authorization"] = null;
       dispatch(apiSlice.util.resetApiState());
-
-      if (res) navigate("/", { replace: true });
+      navigate("/", { replace: true });
     },
     [logoutUser, navigate, wrapMutationAPI, dispatch]
   );
