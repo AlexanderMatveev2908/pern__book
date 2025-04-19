@@ -8,9 +8,15 @@ type PropsType = {
   register: UseFormRegister<any>;
   errors: FieldErrors;
   handleSave: () => void;
+  isFormOk: boolean;
 };
 
-const EmailForm: FC<PropsType> = ({ register, errors, handleSave }) => {
+const EmailForm: FC<PropsType> = ({
+  register,
+  errors,
+  handleSave,
+  isFormOk,
+}) => {
   return (
     <div className="parent__form">
       <form onSubmit={handleSave} className="form__content">
@@ -19,7 +25,7 @@ const EmailForm: FC<PropsType> = ({ register, errors, handleSave }) => {
 
           <div className="max-w-[250px] w-full justify-self-center mt-10">
             <Button
-              {...{ label: "Login", isDisabled: false, isPending: false }}
+              {...{ label: "Login", isDisabled: !isFormOk, isPending: false }}
             />
           </div>
         </div>

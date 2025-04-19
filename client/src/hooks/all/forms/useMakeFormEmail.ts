@@ -1,7 +1,8 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { schemaEmail } from "../../../lib/lib";
+import { isFormValid, schemaEmail } from "../../../lib/lib";
+import { useEffect, useState } from "react";
 
 const schema = z
   .object({
@@ -13,18 +14,28 @@ const schema = z
   });
 
 export const useMakeFormEmail = () => {
+  const [isFormOk, setIsFormOk] = useState(false);
   const {
     register,
     formState: { errors },
     handleSubmit,
+    watch,
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(schema),
   });
 
+  const vals = watch();
+
+  useEffect(() => {
+    setIsFormOk(isFormValid(errors, vals));
+  }, [errors, vals, setIsFormOk]);
+
   return {
     register,
     errors,
     handleSubmit,
+    watch,
+    isFormOk,
   };
 };

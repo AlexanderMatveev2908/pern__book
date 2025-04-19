@@ -23,6 +23,8 @@ const Button: FC<PropsType> = ({
   Icon,
   isDisabled,
 }) => {
+  const [canLoad, setCanLoad] = useState(false);
+  const timer = useRef<NodeJS.Timeout | null>(null);
   const btnRef = useRef<HTMLButtonElement | null>(null);
   // const bubbleRefs = useRef<HTMLDivElement | null>(null);
   const [ids] = useState(Array.from({ length: 30 }, () => v4()));
@@ -50,7 +52,23 @@ const Button: FC<PropsType> = ({
     return () => document.removeEventListener("mousedown", animate);
   }, [ids]);
 
-  return isAging ? (
+  useEffect(() => {
+    if (isAging) {
+      timer.current = setTimeout(() => {
+        setCanLoad(true);
+      }, 250);
+    }
+
+    return () => {
+      if (timer.current) timer.current = null;
+    };
+  }, [isAging]);
+
+  useEffect(() => {
+    if (!isAging) setCanLoad(false);
+  }, [isAging]);
+
+  return canLoad ? (
     <div className="w-full flex justify-center">
       <SpinnerBtn />
     </div>
