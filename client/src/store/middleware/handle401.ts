@@ -20,6 +20,8 @@ import noticeSlice from "@/features/Notice/noticeSlice";
 import apiSlice from "../apiSlice";
 
 const handleLogoutWithAccessExp = (store: any) => {
+  removeStorage();
+
   store.dispatch(
     toastSlice.actions.openToast({
       msg: "logout successful",
@@ -27,9 +29,8 @@ const handleLogoutWithAccessExp = (store: any) => {
       statusCode: 200,
     })
   );
-  goTo("/", { replace: true });
 
-  removeStorage();
+  goTo("/", { replace: true });
 
   store.dispatch(authSlice.actions.logout());
   store.dispatch(apiSlice.util.resetApiState());

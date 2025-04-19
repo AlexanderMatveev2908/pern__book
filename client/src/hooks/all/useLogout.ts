@@ -22,11 +22,13 @@ export const useLogout = () => {
       if (!res) return;
 
       cbUI();
-      dispatch(logout());
+      navigate("/", { replace: true });
+
       removeStorage();
       appInstance.defaults.headers.common["Authorization"] = null;
+
+      dispatch(logout());
       dispatch(apiSlice.util.resetApiState());
-      navigate("/", { replace: true });
     },
     [logoutUser, navigate, wrapMutationAPI, dispatch]
   );

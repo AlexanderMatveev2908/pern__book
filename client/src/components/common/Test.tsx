@@ -1,4 +1,5 @@
 import { FC } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const Container = styled.main<{ color?: string }>`
@@ -11,12 +12,9 @@ const Container = styled.main<{ color?: string }>`
 const Test: FC = () => {
   return (
     <Container {...{ color: "red" }}>
-      <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Dignissimos
-        totam cupiditate obcaecati atque officiis aperiam vel voluptates aut
-        sint dolores architecto inventore eveniet repellendus, magnam veritatis
-        quidem alias necessitatibus. Officiis.
-      </p>
+      <Link to="/protected" className="txt__4">
+        PROTECTED
+      </Link>
     </Container>
   );
 };
