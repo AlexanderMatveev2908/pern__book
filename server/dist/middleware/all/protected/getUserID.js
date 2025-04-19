@@ -12,9 +12,8 @@ import { err401, handleErrAccessToken, prepareHeader, verifyJWT, } from "../../.
 export const getUserID = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const accessToken = prepareHeader(req);
     const { refreshToken } = req.cookies;
-    const isLoggingOut = req.originalUrl.includes("logout");
-    if (isLoggingOut)
-        return next();
+    // const isLoggingOut = req.originalUrl.includes("logout");
+    // if (isLoggingOut) return next();
     if (!accessToken) {
         if (!refreshToken)
             return next();

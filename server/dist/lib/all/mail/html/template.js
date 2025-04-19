@@ -1,4 +1,16 @@
-export const getHtmlMail = ({ firstName, txt, url, labelBtn, }) => `     <table style="margin-top: 50px">
+export const getHtmlMail = ({ firstName, txt, url, labelBtn, }) => `   <table style="margin-top: 50px">
+      <tr>
+        <td
+          style="
+            font-weight: 900;
+            font-family: Comic Sans MS;
+            font-size: 35px;
+            padding-bottom: 25px;
+          "
+        >
+          PERN__BOOK📔
+        </td>
+      </tr>
       <tr>
         <td
           style="
@@ -8,7 +20,7 @@ export const getHtmlMail = ({ firstName, txt, url, labelBtn, }) => `     <table 
             padding-bottom: 25px;
           "
         >
-          Hi ${firstName}, Welcome to PERN__BOOK ✌🏼
+          Hi ${firstName}
         </td>
       </tr>
       <tr>

@@ -34,16 +34,18 @@ const genPairCbcHmac = () => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 const getKeyCBC = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const keyHEX = yield KeyCbcHmac.findOne({
         where: { type: KeyTypeCbcHmac.CBC },
     });
-    return makeBuff(keyHEX.key);
+    return makeBuff((_a = keyHEX === null || keyHEX === void 0 ? void 0 : keyHEX.key) !== null && _a !== void 0 ? _a : "");
 });
 const getKeyHMAC = () => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
     const keyHEX = yield KeyCbcHmac.findOne({
         where: { type: KeyTypeCbcHmac.HMAC },
     });
-    return makeBuff(keyHEX.key);
+    return makeBuff((_a = keyHEX === null || keyHEX === void 0 ? void 0 : keyHEX.key) !== null && _a !== void 0 ? _a : "");
 });
 const getPairKeys = () => __awaiter(void 0, void 0, void 0, function* () {
     const keyCBC = yield getKeyCBC();
@@ -112,6 +114,8 @@ export const checkCbcHmac = (_a) => __awaiter(void 0, [_a], void 0, function* ({
     const iv = makeBuff(obj.iv);
     const encrypted = makeBuff(obj.encrypted);
     const { keyHMAC } = yield getPairKeys();
+    if (!keyHMAC.length)
+        return MsgCheckToken.NOT_EMITTED;
     const expectedHmacHEX = genHmac(Buffer.concat([iv, encrypted]), keyHMAC);
     const existentHmacHEX = yield Token.findOne({
         where: { hashed: expectedHmacHEX, event },

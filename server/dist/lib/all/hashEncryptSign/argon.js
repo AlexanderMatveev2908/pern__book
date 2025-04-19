@@ -16,4 +16,4 @@ export const hashPwd = (pwd) => __awaiter(void 0, void 0, void 0, function* () {
         type: argon2.argon2id,
     });
 });
-export const verifyPwd = (pwd, hash) => __awaiter(void 0, void 0, void 0, function* () { return yield argon2.verify(hash, pwd); });
+export const verifyPwd = (hash, pwd) => __awaiter(void 0, void 0, void 0, function* () { return yield argon2.verify(hash, pwd); });

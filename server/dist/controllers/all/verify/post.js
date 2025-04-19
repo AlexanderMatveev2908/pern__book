@@ -7,8 +7,18 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { res200 } from "../../../lib/lib.js";
-export const getStuff = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
-    // return err500(res, { msg: "some 500 err" });
-    return res200(res, { msg: "you get protected data" });
+import { TokenEventType } from "../../../types/types.js";
+import { User } from "../../../models/models.js";
+import { err404, err409, GenTokSendEmail, res200 } from "../../../lib/lib.js";
+export const sendEmailVerifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { email } = req.body;
+    const user = yield User.findOne({
+        where: { email },
+    });
+    if (!user)
+        return err404(res, { msg: "user not found" });
+    if (user.isVerified)
+        return err409(res, { msg: "user already verified" });
+    yield GenTokSendEmail({ user, event: TokenEventType.VERIFY_ACCOUNT });
+    return res200(res, { msg: "email send successfully" });
 });

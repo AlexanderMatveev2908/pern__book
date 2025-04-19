@@ -28,7 +28,7 @@ export const useLogout = () => {
       removeStorage();
       appInstance.defaults.headers.common["Authorization"] = null;
 
-      dispatch(setLoggingOut(true));
+      dispatch(setLoggingOut());
       dispatch(logout());
       dispatch(apiSlice.util.resetApiState());
     },

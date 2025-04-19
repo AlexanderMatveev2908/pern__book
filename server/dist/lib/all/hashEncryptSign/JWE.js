@@ -98,9 +98,8 @@ export const checkJWE = (token) => __awaiter(void 0, void 0, void 0, function* (
                 event: TokenEventType.REFRESH,
             },
         });
-        if (!saved) {
+        if (!saved)
             return MsgErrSession.REFRESH_NOT_EMITTED;
-        }
         if (saved.expiry < Date.now()) {
             yield saved.destroy();
             return MsgErrSession.REFRESH_EXPIRED;

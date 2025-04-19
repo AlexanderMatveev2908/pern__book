@@ -8,7 +8,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { MsgCheckToken } from "../../../types/types.js";
-import { checkCbcHmac, err401, err404, err409, formatMsgApp, res200, } from "../../../lib/lib.js";
+import { checkCbcHmac, err401, err404, err409, formatMsgApp, genAccessJWT, genTokenJWE, res200, setCookie, } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
 export const verifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { token, userID, event } = req.body;
@@ -29,5 +29,9 @@ export const verifyAccount = (req, res) => __awaiter(void 0, void 0, void 0, fun
     if (result !== MsgCheckToken.OK)
         return err401(res, { msg: formatMsgApp(result) });
     yield user.verify();
-    return res200(res, { msg: "account verified" });
+    yield user.clearTokens();
+    const accessToken = genAccessJWT(user);
+    const refreshToken = yield genTokenJWE(user);
+    setCookie(res, refreshToken);
+    return res200(res, { msg: "account verified", accessToken });
 });

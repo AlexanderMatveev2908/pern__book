@@ -45,7 +45,7 @@ export const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, functio
     const user = yield User.findOne({ where: { email } });
     if (!user)
         return err404(res, { msg: "user not found" });
-    const match = yield verifyPwd(password, user.password);
+    const match = yield verifyPwd(user.password, password);
     if (!match)
         return err401(res, { msg: "invalid credentials" });
     const accessToken = genAccessJWT(user);
