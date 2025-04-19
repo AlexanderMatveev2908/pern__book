@@ -1,6 +1,6 @@
 import { setNotice } from "@/features/Notice/noticeSlice";
 import { openToast } from "@/features/Toast/toastSlice";
-import { canToast, getMsgErr, saveStorage } from "@/lib/lib";
+import { ignoreErr, getMsgErr, saveStorage } from "@/lib/lib";
 import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -25,16 +25,17 @@ export const useErrAPI = () => {
       const { response } = err ?? {};
       const { data, status } = response ?? {};
 
+      if (ignoreErr(response)) return null;
+
       const message = getMsgErr(data);
 
-      if (canToast(response))
-        dispatch(
-          openToast({
-            type: EventApp.ERR,
-            msg: message,
-            statusCode: status,
-          })
-        );
+      dispatch(
+        openToast({
+          type: EventApp.ERR,
+          msg: message,
+          statusCode: status,
+        })
+      );
 
       if (push && pushNotice) {
         throw new Error("Can not send user to different places at same time");

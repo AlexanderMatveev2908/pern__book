@@ -20,11 +20,10 @@ export const handleErrStatus = (store: any) => (next: any) => (action: any) => {
     const { status, data, config } = response ?? {};
 
     // i do not need `else if` cause in every i return
-    if (status === 401 && data?.loggingOut)
-      return handleLogoutWithAccessExp(store);
+    if (status === 401 && data?.loggingOut) handleLogoutWithAccessExp(store);
     if (status === 401 && isRefreshing(config?.url))
-      return handle401({ store, response });
-    if ([403, 429].includes(status)) return handlePushErr({ store, response });
+      handle401({ store, response });
+    if ([403, 429].includes(status)) handlePushErr({ store, response });
 
     return next(action);
   }

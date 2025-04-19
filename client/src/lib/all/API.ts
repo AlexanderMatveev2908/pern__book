@@ -14,17 +14,14 @@ export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
 export const isLoggingOut = (endpoint: string) =>
   endpoint === AvoidTriggerPath.LOGOUT;
 
-export const canToast = (response: any) => {
+export const ignoreErr = (response: any) => {
   const { data, status, config } = response;
 
-  if (
+  return (
     isAccessExpired(data?.msg) ||
     isRefreshing(config?.url) ||
     [403, 429].includes(status)
-  )
-    return null;
-
-  return true;
+  );
 };
 
 export const makeDelay = (cb: () => any) =>
