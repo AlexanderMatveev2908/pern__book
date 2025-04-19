@@ -1,6 +1,6 @@
 import { setNotice } from "@/features/Notice/noticeSlice";
 import { openToast } from "@/features/Toast/toastSlice";
-import { __cg, canToast, saveStorage } from "@/lib/lib";
+import { __cg, canToast, getMsgErr, saveStorage } from "@/lib/lib";
 import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -12,27 +12,6 @@ export const useErrAPI = () => {
 
   const dispatch = useDispatch();
 
-  const handle429 = useCallback(
-    (msg: string) => {
-      dispatch(
-        setNotice({
-          notice: msg,
-          type: EventApp.ERR,
-        })
-      );
-      saveStorage({
-        data: { notice: msg, type: EventApp.ERR },
-        key: StorageKeys.NOTICE,
-      });
-
-      navigate("/notice", {
-        replace: true,
-        state: { from: AllowedFromNotice.GEN },
-      });
-    },
-    [navigate, dispatch]
-  );
-
   const handleErrAPI = useCallback(
     ({
       err,
@@ -43,16 +22,14 @@ export const useErrAPI = () => {
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
     }) => {
-      const { response: { data, status, config } = {} } = err ?? {};
+      const { response } = err ?? {};
+      const { data, status } = response ?? {};
 
       __cg("err api", err);
 
-      const message =
-        data?.msg ||
-        data?.message ||
-        "The AI that manage the database has revolted and is taking control of all servers ⚙️";
+      const message = getMsgErr(data);
 
-      if (canToast(data?.msg, config?.url))
+      if (canToast(response))
         dispatch(
           openToast({
             type: EventApp.ERR,
@@ -60,11 +37,6 @@ export const useErrAPI = () => {
             statusCode: status,
           })
         );
-
-      if (status === 429) {
-        handle429(message);
-        return null;
-      }
 
       if (push && pushNotice) {
         throw new Error("Can not send user to different places at same time");
@@ -85,13 +57,13 @@ export const useErrAPI = () => {
 
         navigate("/notice", {
           replace: true,
-          state: { from: AllowedFromNotice.VERIFY_ACCOUNT },
+          state: { from: AllowedFromNotice.GEN },
         });
       }
 
       return null;
     },
-    [dispatch, navigate, handle429]
+    [dispatch, navigate]
   );
 
   return { handleErrAPI };

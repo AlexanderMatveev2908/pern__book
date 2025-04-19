@@ -14,8 +14,18 @@ export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
 export const isLoggingOut = (endpoint: string) =>
   endpoint === AvoidTriggerPath.LOGOUT;
 
-export const canToast = (msg: string, endpoint: string) =>
-  !isAccessExpired(msg) && !isRefreshing(endpoint);
+export const canToast = (response: any) => {
+  const { data, status, config } = response;
+
+  if (
+    isAccessExpired(data?.msg) ||
+    isRefreshing(config?.url) ||
+    [403, 429].includes(status)
+  )
+    return null;
+
+  return true;
+};
 
 export const makeDelay = (cb: () => any) =>
   new Promise((res) =>
@@ -45,3 +55,8 @@ export const checkQueryAuth = ({
   Object.values(TokenEventType).includes(event);
 
 export const getData = (obj: any, key: string) => obj?.[key] ?? null;
+
+export const getMsgErr = (data: any) =>
+  data?.msg ||
+  data?.message ||
+  "The AI that manage the database has revolted and is taking control of all servers ⚙️";
