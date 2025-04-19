@@ -63,7 +63,6 @@ const Login: FC = () => {
   const { mainPwd } = useShowPwd();
 
   const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
-  console.log(errors);
 
   return (
     <div className="parent__form">

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/Toast/toastSlice";
 import { EventApp } from "@/types/types";
@@ -15,6 +15,7 @@ export const useWrapQueryAPI = ({
   push,
   pushNotice,
 }: any) => {
+  const hasRun = useRef(false);
   const dispatch = useDispatch();
 
   const { handleErrAPI } = useErrAPI();
@@ -37,6 +38,13 @@ export const useWrapQueryAPI = ({
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
     }) => {
+      if (hasRun.current) {
+        hasRun.current = false;
+        return null;
+      }
+
+      hasRun.current = true;
+
       if (isSuccess) {
         __cg("query api", data);
 
