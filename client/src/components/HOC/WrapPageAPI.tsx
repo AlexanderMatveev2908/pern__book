@@ -2,6 +2,7 @@
 import { FC, ReactNode } from "react";
 import { Navigate } from "react-router-dom";
 import { ErrIcon, SpinnerPage } from "../components";
+import { getMsgErr } from "@/lib/lib";
 
 type PropsType = {
   canStay?: boolean;
@@ -20,6 +21,8 @@ const WrapPageAPI: FC<PropsType> = ({
   error = null,
   children = null,
 }) => {
+  const { response: { data, status } = {} } = error ?? {};
+
   return !canStay ? (
     <Navigate to="/" replace={true} />
   ) : isLoading ? (
@@ -30,10 +33,11 @@ const WrapPageAPI: FC<PropsType> = ({
     push ? (
       <Navigate to="/" replace={true} />
     ) : (
-      <div className="grid justify-items-center items-start gap-[25px]">
-        <div className="h-fit">
-          <span className="txt__4 txt__col leading-[35px] tracking-wider">
-            {error}
+      <div className="grid justify-items-center items-start gap-[25px] txt__col">
+        <div className="h-fit flex items-center gap-5">
+          <span className="txt__6">{status}</span>
+          <span className="txt__4 leading-[35px] tracking-wider">
+            {getMsgErr(data)}
           </span>
         </div>
         <ErrIcon {...{ classCSS: "icon__notice_md" }} />
