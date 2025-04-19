@@ -1,5 +1,6 @@
+import { handleAsyncQuery } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
-import { TagsAPI, TokenEventType } from "@/types/types";
+import { TokenEventType } from "@/types/types";
 
 export interface ParamsVerifyAccount {
   token: string;
@@ -15,7 +16,9 @@ const verifyCbAPI = apiSlice.injectEndpoints({
         method: "PATCH",
         data: params,
       }),
-      invalidatesTags: [TagsAPI.USER],
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
+        handleAsyncQuery({ queryFulfilled, dispatch });
+      },
     }),
   }),
 });

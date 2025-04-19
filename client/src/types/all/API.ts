@@ -25,11 +25,11 @@ export enum TokenEventType {
 }
 
 export enum AllowedFromNotice {
-  REGISTER = "/auth/register",
-  FORGOT_PWD = "/auth/forgot-pwd",
-  VERIFY_ACCOUNT = "/auth/verify-cb",
-  EXP = "EXP",
-  GEN = "GEN",
+  REGISTER = ",g1&L'(8Oiw%Dfhz",
+  FORGOT_PWD = ",GG?$4]GYw_fIdmX",
+  VERIFY_ACCOUNT = "%1~#+8oM7I3fOe3f",
+  EXP = "X+=8'clYoWq0y*,q",
+  GEN = "E9]A]X0O)&{x]2zQ",
 }
 
 export enum AvoidTriggerPath {

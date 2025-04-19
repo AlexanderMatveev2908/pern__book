@@ -1,9 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { appInstance } from "@/config/axios";
-import { saveStorage } from "@/lib/lib";
+import { handleAsyncQuery } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
-import { StorageKeys, TagsAPI } from "@/types/types";
-import authSlice from "./authSlice";
 
 export type RegisterParamsAPI = {
   firstName: string;
@@ -17,27 +13,8 @@ export type ParamsLoginAPI = {
   password: string;
 };
 
-const handleAsyncQuery = async (queryFulfilled: any, dispatch: any) => {
-  const { data } = await queryFulfilled;
-
-  saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
-  appInstance.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${data?.accessToken}`;
-
-  dispatch(authSlice.actions.login());
-  dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
-};
-
 export const authAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    // refreshToken: builder.mutation({
-    //   query: () => ({
-    //     url: "/refresh",
-    //     method: "POST",
-    //   }),
-    // }),
-
     registerUser: builder.mutation({
       query: (newUser: RegisterParamsAPI) => ({
         url: "/auth/register",
@@ -46,9 +23,8 @@ export const authAPI = apiSlice.injectEndpoints({
         data: newUser,
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
-        await handleAsyncQuery(queryFulfilled, dispatch);
+        await handleAsyncQuery({ queryFulfilled, dispatch });
       },
-      // invalidatesTags: [TagsAPI.USER],
     }),
 
     loginUser: builder.mutation({
@@ -58,7 +34,7 @@ export const authAPI = apiSlice.injectEndpoints({
         data: user,
       }),
       async onQueryStarted(_, { queryFulfilled, dispatch }): Promise<void> {
-        await handleAsyncQuery(queryFulfilled, dispatch);
+        await handleAsyncQuery({ queryFulfilled, dispatch });
       },
     }),
 
@@ -67,18 +43,6 @@ export const authAPI = apiSlice.injectEndpoints({
         url: "/auth/logout",
         method: "POST",
       }),
-      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
-      // dispatch(authSlice.actions.logout());
-      // try {
-      //   await queryFulfilled;
-      // } catch (err: any) {
-      //   dispatch(authSlice.actions.login());
-      //   throw err;
-      // }
-      // removeStorage();
-      // appInstance.defaults.headers.common["Authorization"] = null;
-      // dispatch(apiSlice.util.resetApiState());
-      // },
     }),
   }),
 });

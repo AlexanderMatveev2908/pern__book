@@ -55,10 +55,10 @@ export class User extends Model<
     await this.save();
   }
 
-  async delOldJWE(this: User) {
+  async clearTokens(this: User) {
     await Token.destroy({
       where: {
-        [Op.and]: [{ userID: this.id }, { event: TokenEventType.REFRESH }],
+        userID: this.id,
       },
     });
   }

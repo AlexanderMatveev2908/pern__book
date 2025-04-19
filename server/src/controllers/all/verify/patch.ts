@@ -2,12 +2,14 @@ import { Response } from "express";
 import { MsgCheckToken, ReqApp } from "../../../types/types.js";
 import {
   checkCbcHmac,
-  checkHMAC,
   err401,
   err404,
   err409,
   formatMsgApp,
+  genAccessJWT,
+  genTokenJWE,
   res200,
+  setCookie,
 } from "../../../lib/lib.js";
 import { User } from "../../../models/models.js";
 
@@ -34,6 +36,12 @@ export const verifyAccount = async (
     return err401(res, { msg: formatMsgApp(result as string) });
 
   await user.verify();
+  await user.clearTokens();
 
-  return res200(res, { msg: "account verified" });
+  const accessToken = genAccessJWT(user);
+  const refreshToken = await genTokenJWE(user);
+
+  setCookie(res, refreshToken);
+
+  return res200(res, { msg: "account verified", accessToken });
 };
