@@ -10,3 +10,4 @@ export * from "./all/hashEncryptSign/HMAC.js";
 export * from "./all/formatters.js";
 export * from "./all/hashEncryptSign/JWE.js";
 export * from "./all/hashEncryptSign/cbcHmac.js";
+export * from "./all/clearData.js";

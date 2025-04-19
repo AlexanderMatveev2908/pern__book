@@ -16,6 +16,7 @@ import {
   prepareHeader,
   decodeExpJWT,
   PayloadJWT,
+  clearOldTokens,
 } from "../../../lib/lib.js";
 import { ReqApp, TokenEventType } from "../../../types/types.js";
 import { Token, User } from "../../../models/models.js";
@@ -84,18 +85,14 @@ export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {
 
   clearCookie(res);
 
-  if (!userID) {
-    const payload = decodeExpJWT(accessExp ?? "");
+  const user = await User.findByPk(userID ?? "");
 
-    if ((payload as PayloadJWT)?.id)
-      await Token.destroy({ where: { userID: (payload as PayloadJWT).id } });
+  if (!userID || !user) {
+    if (accessExp) await clearOldTokens(accessExp);
 
     return res200(res, { msg: "logout successful" });
   }
 
-  const user = await User.findByPk(userID ?? "");
-  if (!user) return res200(res, { msg: "logout successful" });
-
-  await Token.destroy({ where: { userID } });
+  await Token.destroy({ where: { userID: user.id } });
   return res200(res, { msg: "logout successful" });
 };
