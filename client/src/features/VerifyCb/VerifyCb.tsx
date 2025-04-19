@@ -36,6 +36,7 @@ const VerifyCb: FC = () => {
       handleVerifyAccount();
     }
   }, [handleVerifyAccount]);
+
   return <WrapPageAPI {...{ isLoading: true }} />;
 };
 export default VerifyCb;

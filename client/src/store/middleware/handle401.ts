@@ -1,12 +1,21 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import toastSlice from "@/features/Toast/toastSlice";
-import { formatMsgCode, getStorage, goTo, removeStorage } from "@/lib/lib";
+import {
+  __cg,
+  formatMsgCode,
+  getStorage,
+  goTo,
+  removeStorage,
+} from "@/lib/lib";
 import { EventApp, MsgErrSession, StorageKeys } from "@/types/types";
-import apiSlice from "../apiSlice";
 import authSlice from "@/features/AuthLayout/authSlice";
 
 export const handleLogoutWithAccessExp = (store: any) => {
   removeStorage();
+
+  __cg("LOGOUT EXPIRED");
+
+  store.dispatch(authSlice.actions.setPushedOut(true));
 
   store.dispatch(
     toastSlice.actions.openToast({
@@ -18,7 +27,6 @@ export const handleLogoutWithAccessExp = (store: any) => {
 
   store.dispatch(authSlice.actions.setLoggingOut(true));
   store.dispatch(authSlice.actions.logout());
-  store.dispatch(apiSlice.util.resetApiState());
 
   goTo("/", { replace: true });
 
@@ -41,14 +49,15 @@ const getMsg401 = (data: any, isLogged: boolean) =>
 
 export const handle401 = ({
   store,
-  isLogged,
   response,
 }: {
   store: any;
   response: any;
-  isLogged: boolean;
 }) => {
   const { data, status } = response;
+  const isLogged = store.getState().auth.isLogged;
+
+  store.dispatch(authSlice.actions.setPushedOut(true));
 
   removeStorage();
 
@@ -61,7 +70,6 @@ export const handle401 = ({
   );
 
   store.dispatch(authSlice.actions.logout());
-  store.dispatch(apiSlice.util.resetApiState());
 
   goTo("/auth/login", { replace: true });
 

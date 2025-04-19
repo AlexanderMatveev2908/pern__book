@@ -18,4 +18,5 @@ export interface UserType {
 export interface AuthState {
   isLogged: boolean;
   loggingOut: boolean;
+  pushedOut: boolean;
 }

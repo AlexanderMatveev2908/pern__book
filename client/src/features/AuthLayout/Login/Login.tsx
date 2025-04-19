@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { z } from "zod";
 import { isFormValid, schemaLogin } from "../../../lib/lib";
 import { useForm } from "react-hook-form";
@@ -9,6 +9,9 @@ import { Button, FormField, PwdField } from "@/components/components";
 import { ParamsLoginAPI, useLoginUserMutation } from "../authSliceAPI";
 import { useWrapMutationAPI } from "@/hooks/hooks";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { getAuthState, setPushedOut } from "../authSlice";
+import apiSlice from "@/store/apiSlice";
 
 const schema = z
   .object({
@@ -34,6 +37,8 @@ const Login: FC = () => {
 
   const { wrapMutationAPI } = useWrapMutationAPI();
 
+  const authState = useSelector(getAuthState);
+  const dispatch = useDispatch();
   const {
     register,
     formState: { errors },
@@ -64,6 +69,12 @@ const Login: FC = () => {
 
   const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
 
+  useEffect(() => {
+    if (authState.pushedOut) {
+      dispatch(setPushedOut(false));
+      apiSlice.util.resetApiState();
+    }
+  }, [authState.pushedOut, dispatch]);
   return (
     <div className="parent__form">
       <form onSubmit={handleSave} className="form__content">

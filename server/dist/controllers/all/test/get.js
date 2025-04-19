@@ -7,7 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { res200 } from "../../../lib/lib.js";
-export const getStuff = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    return res200(res);
+import { err500 } from "../../../lib/lib.js";
+export const getStuff = (_, res) => __awaiter(void 0, void 0, void 0, function* () {
+    // return err500(res, { msg: "some 500 err" });
+    return err500(res, { msg: "some 500 err" });
+    // return res200(res, { msg: "you get protected data" });
 });

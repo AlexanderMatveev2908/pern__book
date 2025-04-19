@@ -7,11 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { DataTypes, Model, } from "sequelize";
-import { UserRole } from "../../types/types.js";
+import { DataTypes, Model, Op, } from "sequelize";
+import { TokenEventType, UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
 import { calcTimeRun, capChar, hashPwd } from "../../lib/lib.js";
+import { Token } from "./Token.js";
 const ObjectID = pkg.default;
 export class User extends Model {
     existUser() {
@@ -39,6 +40,15 @@ export class User extends Model {
         return __awaiter(this, void 0, void 0, function* () {
             this.isVerified = true;
             yield this.save();
+        });
+    }
+    delOldJWE() {
+        return __awaiter(this, void 0, void 0, function* () {
+            yield Token.destroy({
+                where: {
+                    [Op.and]: [{ userID: this.id }, { event: TokenEventType.REFRESH }],
+                },
+            });
         });
     }
 }

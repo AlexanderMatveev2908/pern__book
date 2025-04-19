@@ -7,18 +7,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { res200, res204 } from "../../../lib/lib.js";
-import { User } from "../../../models/models.js";
-export const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.userID)
-        return res204(res);
-    const user = yield User.findByPk(req.userID, {
-        attributes: {
-            exclude: ["password", "createdAt", "updatedAt", "tempEmail"],
-        },
-        raw: true,
+import { Token } from "../../models/models.js";
+import { decodeExpJWT } from "../lib.js";
+export const clearOldTokens = (accessExp) => __awaiter(void 0, void 0, void 0, function* () {
+    var _a;
+    const payload = decodeExpJWT(accessExp !== null && accessExp !== void 0 ? accessExp : "");
+    yield Token.destroy({
+        where: { userID: (_a = payload === null || payload === void 0 ? void 0 : payload.id) !== null && _a !== void 0 ? _a : "" },
     });
-    // const user = userInstance?.get({ plain: true });
-    // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
-    return res200(res, { user });
 });

@@ -19,11 +19,10 @@ export const handleErrStatus = (store: any) => (next: any) => (action: any) => {
   if (isRejectedWithValue(action)) {
     if (status === 401 && data?.loggingOut)
       return handleLogoutWithAccessExp(store);
-
-    if (status === 401 && isRefreshing(config?.url))
-      return handle401({ store, response, isLogged });
-
-    if ([403, 429].includes(status)) return handlePushErr({ store, response });
+    else if (status === 401 && isRefreshing(config?.url))
+      return handle401({ store, response });
+    else if ([403, 429].includes(status))
+      return handlePushErr({ store, response });
 
     return next(action);
   }

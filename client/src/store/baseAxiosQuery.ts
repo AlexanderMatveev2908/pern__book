@@ -33,10 +33,12 @@ export const axiosBaseQuery = async ({
     const isRefresh = isRefreshing(config?.url);
     const loggingOut = isLoggingOut(config?.url);
     const isTokenExp = isAccessExpired(data?.msg);
+    const skipRefresh =
+      status !== 401 || isRefresh || !isTokenExp || loggingOut;
 
     if (loggingOut) appInstance.defaults.headers.common["Authorization"] = null;
 
-    if (status !== 401 || isRefresh || !isTokenExp || loggingOut)
+    if (skipRefresh)
       return {
         error: {
           ...err,
@@ -79,7 +81,7 @@ export const axiosBaseQuery = async ({
       appInstance.defaults.headers.common["Authorization"] = null;
 
       return {
-        error: { ...err },
+        error: err,
       };
     }
   }

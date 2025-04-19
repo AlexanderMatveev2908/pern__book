@@ -7,9 +7,9 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { genAccessJWT, err409, res201, sendEmailAuth, genTokenJWE, setCookie, genTokenCBC, } from "../../../lib/lib.js";
+import { genAccessJWT, err409, res201, sendEmailAuth, genTokenJWE, setCookie, genTokenCBC, res200, clearCookie, err404, verifyPwd, err401, prepareHeader, clearOldTokens, } from "../../../lib/lib.js";
 import { TokenEventType } from "../../../types/types.js";
-import { User } from "../../../models/models.js";
+import { Token, User } from "../../../models/models.js";
 export const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const newUser = User.build(req.body);
     let userID = null;
@@ -41,6 +41,28 @@ export const registerUser = (req, res) => __awaiter(void 0, void 0, void 0, func
     }
 });
 export const loginUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const user = req.body;
-    return res.status(200).json({ ok: true });
+    const { email, password } = req.body;
+    const user = yield User.findOne({ where: { email } });
+    if (!user)
+        return err404(res, { msg: "user not found" });
+    const match = yield verifyPwd(password, user.password);
+    if (!match)
+        return err401(res, { msg: "invalid credentials" });
+    const accessToken = genAccessJWT(user);
+    const refreshToken = yield genTokenJWE(user);
+    setCookie(res, refreshToken);
+    return res.status(200).json({ msg: "login successful", accessToken });
+});
+export const logoutUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { userID } = req;
+    const accessExp = prepareHeader(req);
+    clearCookie(res);
+    const user = yield User.findByPk(userID !== null && userID !== void 0 ? userID : "");
+    if (!userID || !user) {
+        if (accessExp)
+            yield clearOldTokens(accessExp);
+        return res200(res, { msg: "logout successful" });
+    }
+    yield Token.destroy({ where: { userID: user.id } });
+    return res200(res, { msg: "logout successful" });
 });

@@ -7,18 +7,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { res200, res204 } from "../../../lib/lib.js";
-import { User } from "../../../models/models.js";
-export const getUserProfile = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    if (!req.userID)
-        return res204(res);
-    const user = yield User.findByPk(req.userID, {
-        attributes: {
-            exclude: ["password", "createdAt", "updatedAt", "tempEmail"],
-        },
-        raw: true,
+import argon2 from "argon2";
+export const hashPwd = (pwd) => __awaiter(void 0, void 0, void 0, function* () {
+    return yield argon2.hash(pwd, {
+        parallelism: 4,
+        memoryCost: 1024 * 256,
+        timeCost: 10,
+        type: argon2.argon2id,
     });
-    // const user = userInstance?.get({ plain: true });
-    // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
-    return res200(res, { user });
 });
+export const verifyPwd = (pwd, hash) => __awaiter(void 0, void 0, void 0, function* () { return yield argon2.verify(hash, pwd); });
