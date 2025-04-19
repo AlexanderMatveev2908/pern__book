@@ -36,6 +36,10 @@ export enum AvoidTriggerPath {
   LOGOUT = "/auth/logout",
 }
 
+export enum SendMailEnd {
+  VERIFY_ACCOUNT = "verify-account",
+}
+
 export enum TagsAPI {
   USER = "USER",
 }

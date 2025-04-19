@@ -56,7 +56,7 @@ const Button: FC<PropsType> = ({
     if (isAging) {
       timer.current = setTimeout(() => {
         setCanLoad(true);
-      }, 250);
+      }, 200);
     }
 
     return () => {
@@ -68,7 +68,7 @@ const Button: FC<PropsType> = ({
     if (!isAging) setCanLoad(false);
   }, [isAging]);
 
-  return canLoad ? (
+  return canLoad && isAging ? (
     <div className="w-full flex justify-center">
       <SpinnerBtn />
     </div>

@@ -3,10 +3,11 @@ import { useMakeFormEmail } from "../../../hooks/all/forms/useMakeFormEmail";
 import { EmailForm } from "@/components/components";
 
 const ForgotPwd: FC = () => {
-  const { register, errors, handleSubmit, isFormOk } = useMakeFormEmail();
+  const form = useMakeFormEmail();
+  const { handleSubmit } = form;
 
   const handleSave = handleSubmit(() => {});
 
-  return <EmailForm {...{ errors, register, handleSave, isFormOk }} />;
+  return <EmailForm {...{ ...form, handleSave }} />;
 };
 export default ForgotPwd;

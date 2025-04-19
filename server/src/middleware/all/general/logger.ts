@@ -16,7 +16,7 @@ export const __cg = (str: string, ...arg: any[]) => {
 export const __cr = (req: ReqApp, _: Response, next: NextFunction) => {
   __cg("start ---------------------------------------------------------------");
 
-  __cg("url", req.originalUrl);
+  __cg("url", req.url);
 
   __cg("method", req.method);
 

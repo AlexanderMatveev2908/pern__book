@@ -1,22 +1,33 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC } from "react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FC, useEffect, useState } from "react";
+import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
 import { emailField } from "../../../config/fields/fields";
 import { Button, FormField } from "@/components/components";
+import { isFormValid } from "@/lib/lib";
 
 type PropsType = {
   register: UseFormRegister<any>;
   errors: FieldErrors;
   handleSave: () => void;
-  isFormOk: boolean;
+  watch: UseFormWatch<any>;
+  isLoading: boolean;
 };
 
 const EmailForm: FC<PropsType> = ({
   register,
   errors,
   handleSave,
-  isFormOk,
+  watch,
+  isLoading,
 }) => {
+  const [isFormOk, setIsFormOk] = useState(false);
+
+  const vals = watch();
+
+  useEffect(() => {
+    setIsFormOk(isFormValid(errors, vals));
+  }, [errors, vals, setIsFormOk]);
+
   return (
     <div className="parent__form">
       <form onSubmit={handleSave} className="form__content">
@@ -25,7 +36,7 @@ const EmailForm: FC<PropsType> = ({
 
           <div className="max-w-[250px] w-full justify-self-center mt-10">
             <Button
-              {...{ label: "Login", isDisabled: !isFormOk, isPending: false }}
+              {...{ label: "Login", isDisabled: !isFormOk, isAging: isLoading }}
             />
           </div>
         </div>
