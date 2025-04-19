@@ -35,6 +35,8 @@ export const useWrapMutationAPI = () => {
 
         return data;
       } catch (err: any) {
+        __cg("err mutation", err);
+
         return handleErrAPI({ err, push, pushNotice });
       }
     },

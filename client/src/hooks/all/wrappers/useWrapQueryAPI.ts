@@ -61,6 +61,8 @@ export const useWrapQueryAPI = ({
             })
           );
       } else if (isError) {
+        __cg("err query", error);
+
         return handleErrAPI({ err: error, push, pushNotice });
       }
     },

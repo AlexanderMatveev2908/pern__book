@@ -16,9 +16,9 @@ export const getUserID = async (
   const accessToken = prepareHeader(req);
   const { refreshToken } = req.cookies;
 
-  const isLoggingOut = req.originalUrl.includes("logout");
+  // const isLoggingOut = req.originalUrl.includes("logout");
 
-  if (isLoggingOut) return next();
+  // if (isLoggingOut) return next();
 
   if (!accessToken) {
     if (!refreshToken) return next();

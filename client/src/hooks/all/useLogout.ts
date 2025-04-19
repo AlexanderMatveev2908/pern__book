@@ -19,9 +19,10 @@ export const useLogout = () => {
     async (cbUI: () => void) => {
       const res = await wrapMutationAPI({ cbAPI: () => logoutUser({}) });
 
+      cbUI();
+
       if (!res) return;
 
-      cbUI();
       navigate("/", { replace: true });
 
       removeStorage();

@@ -1,6 +1,6 @@
 import { setNotice } from "@/features/Notice/noticeSlice";
 import { openToast } from "@/features/Toast/toastSlice";
-import { __cg, canToast, getMsgErr, saveStorage } from "@/lib/lib";
+import { canToast, getMsgErr, saveStorage } from "@/lib/lib";
 import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -24,8 +24,6 @@ export const useErrAPI = () => {
     }) => {
       const { response } = err ?? {};
       const { data, status } = response ?? {};
-
-      __cg("err api", err);
 
       const message = getMsgErr(data);
 
