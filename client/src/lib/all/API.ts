@@ -11,7 +11,7 @@ export const isAccessExpired = (msg: string) =>
 
 export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
 
-export const avoidTriggerState = (endpoint: string) =>
+export const isLoggingOut = (endpoint: string) =>
   endpoint === AvoidTriggerPath.LOGOUT;
 
 export const canToast = (msg: string, endpoint: string) =>

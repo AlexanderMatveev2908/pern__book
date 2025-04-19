@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
-  __cg,
   formatMsgCode,
   getStorage,
   goTo,
@@ -19,6 +18,23 @@ import {
 import toastSlice from "@/features/Toast/toastSlice";
 import noticeSlice from "@/features/Notice/noticeSlice";
 import apiSlice from "../apiSlice";
+
+const handleLogoutWithAccessExp = (store: any) => {
+  removeStorage();
+
+  store.dispatch(authSlice.actions.logout());
+  store.dispatch(apiSlice.util.resetApiState());
+
+  store.dispatch(
+    toastSlice.actions.openToast({
+      msg: "logout successful",
+      type: EventApp.OK,
+      statusCode: 200,
+    })
+  );
+
+  goTo("/", { replace: true });
+};
 
 const getMsg = (data: any, isLogged: boolean) =>
   [
@@ -42,12 +58,13 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
   const { response: { data, status, config } = {} } = payload ?? {};
 
   if (payload?.refreshed) {
-    __cg("refresh success", payload);
     if (!isLogged) store.dispatch(authSlice.actions.login());
   }
   if (isRejectedWithValue(action)) {
-    __cg("refresh error", data, status);
-
+    if (status === 401 && data?.loggingOut) {
+      handleLogoutWithAccessExp(store);
+      return null;
+    }
     if (status !== 401 || !isRefreshing(config?.url)) return next(action);
 
     const message = getMsg(data, isLogged);

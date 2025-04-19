@@ -1,8 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
 import {
-  avoidTriggerState,
+  __cg,
   isAccessExpired,
+  isLoggingOut,
   isRefreshing,
   saveStorage,
 } from "@/lib/lib";
@@ -25,14 +26,28 @@ export const axiosBaseQuery = async ({
 
     return { data: { ...res?.data, status: res?.status } };
   } catch (err: any) {
-    const { response } = err ?? {};
+    __cg("err 401", err);
 
-    const isRefresh = isRefreshing(response?.config?.url);
-    const isTokenExp = isAccessExpired(response?.data?.msg);
+    const { response: { data, config, status } = {} } = err ?? {};
 
-    if (response.status !== 401 || isRefresh || !isTokenExp)
+    const isRefresh = isRefreshing(config?.url);
+    const loggingOut = isLoggingOut(config?.url);
+    const isTokenExp = isAccessExpired(data?.msg);
+
+    if (loggingOut) appInstance.defaults.headers.common["Authorization"] = null;
+
+    if (status !== 401 || isRefresh || !isTokenExp || loggingOut)
       return {
-        error: err,
+        error: {
+          ...err,
+          response: {
+            ...err?.response,
+            data: {
+              ...err?.response?.data,
+              loggingOut,
+            },
+          },
+        },
       };
 
     try {
@@ -49,18 +64,22 @@ export const axiosBaseQuery = async ({
         params,
       });
 
+      __cg("refresh success", retry);
+
       return {
         data: {
           ...retry?.data,
           status: retry?.status,
-          refreshed: !avoidTriggerState(url),
+          refreshed: true,
         },
       };
     } catch (err: any) {
+      __cg("refresh error", err);
+
       appInstance.defaults.headers.common["Authorization"] = null;
 
       return {
-        error: err,
+        error: { ...err },
       };
     }
   }
