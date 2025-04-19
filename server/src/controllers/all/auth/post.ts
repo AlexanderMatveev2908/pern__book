@@ -72,7 +72,7 @@ export const loginUser = async (req: Request, res: Response): Promise<any> => {
 
   setCookie(res, refreshToken);
 
-  return res.status(200).json({ accessToken });
+  return res.status(200).json({ msg: "login successful", accessToken });
 };
 
 export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {

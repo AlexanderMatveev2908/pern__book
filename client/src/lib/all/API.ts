@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { REG_ID } from "@/config/regex";
-import { MsgErrSession, TokenEventType } from "@/types/types";
+import { AvoidTriggerPath, MsgErrSession, TokenEventType } from "@/types/types";
 
 export const isAccessExpired = (msg: string) =>
   [
@@ -10,6 +10,9 @@ export const isAccessExpired = (msg: string) =>
   ].includes(msg as MsgErrSession);
 
 export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
+
+export const avoidTriggerState = (endpoint: string) =>
+  endpoint === AvoidTriggerPath.LOGOUT;
 
 export const canToast = (msg: string, endpoint: string) =>
   !isAccessExpired(msg) && !isRefreshing(endpoint);

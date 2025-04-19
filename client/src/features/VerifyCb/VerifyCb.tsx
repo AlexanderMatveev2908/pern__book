@@ -2,7 +2,7 @@ import { FC, useCallback, useEffect, useRef } from "react";
 import { useVerifyAccountMutation } from "./verifyCbSliceAPI";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { useWrapperAPI } from "@/hooks/hooks";
+import { useWrapMutationAPI } from "@/hooks/hooks";
 import { TokenEventType } from "@/types/types";
 import { isObjOk } from "@/lib/lib";
 
@@ -15,7 +15,7 @@ const VerifyCb: FC = () => {
   const token = searchParams.get("token") ?? "";
   const event = searchParams.get("event") ?? "";
 
-  const { wrapMutationAPI } = useWrapperAPI();
+  const { wrapMutationAPI } = useWrapMutationAPI();
 
   const [verifyAccount] = useVerifyAccountMutation();
 

@@ -1,7 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
-import { saveStorage } from "@/lib/lib";
-import { AvoidTriggerPath, MsgErrSession, StorageKeys } from "@/types/types";
+import {
+  avoidTriggerState,
+  isAccessExpired,
+  isRefreshing,
+  saveStorage,
+} from "@/lib/lib";
+import { StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
 
 export const axiosBaseQuery = async ({
@@ -22,14 +27,10 @@ export const axiosBaseQuery = async ({
   } catch (err: any) {
     const { response } = err ?? {};
 
-    const isRefreshing = response?.config?.url === "/refresh";
-    const isAccessExpired = [
-      MsgErrSession.ACCESS_EXPIRED,
-      MsgErrSession.ACCESS_INVALID,
-      MsgErrSession.ACCESS_NOT_PROVIDED,
-    ].includes(response?.data?.msg);
+    const isRefresh = isRefreshing(response?.config?.url);
+    const isTokenExp = isAccessExpired(response?.data?.msg);
 
-    if (response.status !== 401 || isRefreshing || !isAccessExpired)
+    if (response.status !== 401 || isRefresh || !isTokenExp)
       return {
         error: err,
       };
@@ -52,7 +53,7 @@ export const axiosBaseQuery = async ({
         data: {
           ...retry?.data,
           status: retry?.status,
-          refreshed: url !== AvoidTriggerPath.LOGOUT,
+          refreshed: !avoidTriggerState(url),
         },
       };
     } catch (err: any) {

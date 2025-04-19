@@ -1,5 +1,5 @@
 import { useLogoutUserMutation } from "@/features/AuthLayout/authSliceAPI";
-import { useWrapperAPI } from "../hooks";
+import { useWrapMutationAPI } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
@@ -14,7 +14,7 @@ export const useLogout = () => {
 
   const dispatch = useDispatch();
 
-  const { wrapMutationAPI } = useWrapperAPI();
+  const { wrapMutationAPI } = useWrapMutationAPI();
   const handleCLick = useCallback(
     async (cbUI: () => void) => {
       const res = await wrapMutationAPI({ cbAPI: () => logoutUser({}) });

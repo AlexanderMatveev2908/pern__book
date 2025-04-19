@@ -7,7 +7,7 @@ import { emailField, passwordField } from "../../../config/fields/fields";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd";
 import { Button, FormField, PwdField } from "@/components/components";
 import { ParamsLoginAPI, useLoginUserMutation } from "../authSliceAPI";
-import { useWrapperAPI } from "@/hooks/hooks";
+import { useWrapMutationAPI } from "@/hooks/hooks";
 import { useNavigate } from "react-router-dom";
 
 const schema = z
@@ -32,7 +32,7 @@ export type LoginFormType = z.infer<typeof schema>;
 const Login: FC = () => {
   const navigate = useNavigate();
 
-  const { wrapMutationAPI } = useWrapperAPI();
+  const { wrapMutationAPI } = useWrapMutationAPI();
 
   const {
     register,

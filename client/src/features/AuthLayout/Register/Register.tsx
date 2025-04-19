@@ -20,7 +20,7 @@ import {
 import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useCb, useWrapperAPI } from "@/hooks/hooks.ts";
+import { useCb, useWrapMutationAPI } from "@/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
@@ -41,7 +41,7 @@ const Register: FC = () => {
   const navigate = useNavigate();
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
-  const { wrapMutationAPI } = useWrapperAPI();
+  const { wrapMutationAPI } = useWrapMutationAPI();
 
   const dispatch = useDispatch();
   const {

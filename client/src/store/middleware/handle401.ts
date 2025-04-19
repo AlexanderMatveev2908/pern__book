@@ -12,7 +12,6 @@ import authSlice from "@/features/AuthLayout/authSlice";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
 import {
   AllowedFromNotice,
-  AvoidTriggerPath,
   EventApp,
   MsgErrSession,
   StorageKeys,
@@ -44,8 +43,7 @@ export const handle401 = (store: any) => (next: any) => (action: any) => {
 
   if (payload?.refreshed) {
     __cg("refresh success", payload);
-    if (!isLogged && config?.url !== AvoidTriggerPath.LOGOUT)
-      store.dispatch(authSlice.actions.login());
+    if (!isLogged) store.dispatch(authSlice.actions.login());
   }
   if (isRejectedWithValue(action)) {
     __cg("refresh error", data, status);

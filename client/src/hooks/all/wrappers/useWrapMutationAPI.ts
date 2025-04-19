@@ -6,7 +6,7 @@ import { useDispatch } from "react-redux";
 import { useErrAPI } from "./useErrAPI";
 import { __cg } from "@/lib/lib";
 
-export const useWrapperAPI = () => {
+export const useWrapMutationAPI = () => {
   const dispatch = useDispatch();
 
   const { handleErrAPI } = useErrAPI();
@@ -23,6 +23,8 @@ export const useWrapperAPI = () => {
       try {
         const data = await cbAPI().unwrap();
 
+        __cg("mutation api", data);
+
         dispatch(
           openToast({
             type: EventApp.OK,
@@ -30,8 +32,6 @@ export const useWrapperAPI = () => {
             statusCode: data?.status,
           })
         );
-
-        __cg("mutation api", data);
 
         return data;
       } catch (err: any) {
