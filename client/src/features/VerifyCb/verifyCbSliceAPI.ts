@@ -1,5 +1,5 @@
 import apiSlice from "@/store/apiSlice";
-import { TokenEventType } from "@/types/types";
+import { TagsAPI, TokenEventType } from "@/types/types";
 
 export interface ParamsVerifyAccount {
   token: string;
@@ -15,13 +15,8 @@ const verifyCbAPI = apiSlice.injectEndpoints({
         method: "PATCH",
         data: params,
       }),
+      invalidatesTags: [TagsAPI.USER],
     }),
-    // getSomething: builder.query({
-    //   query: () => ({
-    //     url: "/auth/verify-account",
-    //     method: "GET",
-    //   }),
-    // }),
   }),
 });
 

@@ -5,6 +5,7 @@ import authRouter from "./all/auth.js";
 import profileRouter from "./all/profile.js";
 import verifyRouter from "./all/verify.js";
 import routerRefresh from "./all/refresh.js";
+import testRouter from "./all/test.js";
 
 const routerApp = express.Router();
 
@@ -18,5 +19,5 @@ routerApp.use("/auth", authRouter);
 routerApp.use("/refresh", routerRefresh);
 routerApp.use("/verify", verifyRouter);
 routerApp.use("/user", profileRouter);
-
+routerApp.use("/protected", testRouter);
 export default routerApp;

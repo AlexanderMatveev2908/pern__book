@@ -26,7 +26,7 @@ export const axiosBaseQuery = async ({
 
     return { data: { ...res?.data, status: res?.status } };
   } catch (err: any) {
-    __cg("err 401", err);
+    __cg("err axios", err);
 
     const { response: { data, config, status } = {} } = err ?? {};
 

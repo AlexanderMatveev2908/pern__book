@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/Toast/toastSlice";
 import { EventApp } from "@/types/types";
@@ -14,8 +14,19 @@ export const useWrapQueryAPI = ({
   error,
   push,
   pushNotice,
-}: any) => {
-  const hasRun = useRef(false);
+  //  @ts-expect-error A meteorite could hit my room and during the explosion push on main code with incorrect types
+  // eslint-disable-next-line
+  ...args
+}: {
+  isSuccess: boolean;
+  data: any;
+  isError: boolean;
+  error: any;
+  push?: boolean;
+  pushNotice?: [boolean, (() => any)?];
+  toast?: boolean;
+  args?: any;
+}) => {
   const dispatch = useDispatch();
 
   const { handleErrAPI } = useErrAPI();
@@ -31,20 +42,13 @@ export const useWrapQueryAPI = ({
       pushNotice,
     }: {
       isSuccess: boolean;
+      data: any;
       isError: boolean;
       error: any;
-      toast?: boolean;
-      data?: any;
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
+      toast?: boolean;
     }) => {
-      if (hasRun.current) {
-        hasRun.current = false;
-        return null;
-      }
-
-      hasRun.current = true;
-
       if (isSuccess) {
         __cg("query api", data);
 

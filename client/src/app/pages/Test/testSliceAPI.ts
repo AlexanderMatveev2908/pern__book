@@ -4,7 +4,7 @@ const testAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSome: builder.query({
       query: () => ({
-        url: "/test",
+        url: "/protected",
         method: "GET",
       }),
     }),
