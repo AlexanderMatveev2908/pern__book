@@ -199,15 +199,23 @@ button {
   @apply appearance-none;
 }
 
-.btn__logic {
+.btn__logic_sm,
+.btn__logic_md {
   transition: 0.3s;
 }
-.btn__logic:hover {
+.btn__logic_md:hover {
+  transform: scale(1.13);
+}
+.btn__logic_sm:hover {
   transform: scale(1.2);
 }
-.btn__logic:active {
+.btn__logic_sm:active {
   transition: 0.1s;
   transform: scale(0.8);
+}
+.btn__logic_md:active {
+  transition: 0.1s;
+  transform: scale(0.9);
 }
 
 /* GENERAL */

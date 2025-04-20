@@ -132,7 +132,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
 
           setIsOpen(!isOpen);
         }}
-        className="group btn__logic w-[45px] h-[45px] flex justify-center items-center"
+        className="group btn__logic_sm w-[45px] h-[45px] flex justify-center items-center"
         onMouseEnter={() => {
           windowWrapper(() => {
             setHasClicked(false);
