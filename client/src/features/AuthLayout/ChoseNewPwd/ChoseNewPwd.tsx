@@ -1,36 +1,42 @@
-import { NewPwdForm } from "@/components/components";
-import { schemaPwd } from "@/lib/lib";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { NewPwdForm, WrapPageAPI } from "@/components/components";
+import {
+  useHandleForm401,
+  useMakeFormChosePwd,
+  useWrapMutationAPI,
+} from "@/hooks/hooks";
 import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-
-const schema = z
-  .object({
-    ...schemaPwd(),
-    confirmPassword: z.string().min(1, "You must confirm your password"),
-  })
-  .refine((data) => data.password === data.confirmPassword, {
-    message: "Passwords don't match",
-    path: ["confirmPassword"],
-  });
-
-type NewPwdFormType = z.infer<typeof schema>;
+import { useChoseNewPwdMutation } from "../authSliceAPI";
+import { useNavigate } from "react-router-dom";
 
 const ChoseNewPwd: FC = () => {
-  const form = useForm<NewPwdFormType>({
-    resolver: zodResolver(schema),
-    mode: "onChange",
-    defaultValues: {
-      password: null,
-      confirmPassword: "",
-    },
-  });
+  const navigate = useNavigate();
+
+  const { form, canStay, params } = useMakeFormChosePwd();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+  const { handleForm401 } = useHandleForm401();
+
+  const [choseNewPwd, { isLoading }] = useChoseNewPwdMutation();
 
   const handleSave = form.handleSubmit(async (formData) => {
-    console.log(formData);
+    const res = await wrapMutationAPI({
+      cbAPI: () =>
+        choseNewPwd({
+          password: formData.password as string,
+          userID: params?.userID as string,
+          token: params?.token as string,
+        }),
+      customCB: handleForm401,
+    });
+
+    if (!res) return;
+
+    navigate("/", { replace: true });
   });
 
-  return <NewPwdForm {...{ ...form, isLoading: false, handleSave }} />;
+  return (
+    <WrapPageAPI {...{ canStay }}>
+      <NewPwdForm {...{ ...form, isLoading, handleSave }} />
+    </WrapPageAPI>
+  );
 };
 export default ChoseNewPwd;

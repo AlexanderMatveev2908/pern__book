@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import noticeSlice from "@/features/Notice/noticeSlice";
-import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types";
+import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import { getMsgErr, goTo, saveStorage } from "@/lib/lib";
 import toastSlice from "@/features/Toast/toastSlice";
 
@@ -39,7 +39,7 @@ export const handlePushErr = ({
 
   goTo("/notice", {
     replace: true,
-    state: { from: AllowedFromNotice.GEN },
+    state: { from: AllowedFromApp.GEN },
   });
 
   return null;

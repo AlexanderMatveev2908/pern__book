@@ -42,9 +42,7 @@ const App: FC = () => {
         </Route>
 
         <Route path="notice" element={<NoticePage />} />
-
         <Route path="verify-cb" element={<VerifyPage />} />
-
         <Route path="protected" element={<TestPage />} />
       </Route>
 

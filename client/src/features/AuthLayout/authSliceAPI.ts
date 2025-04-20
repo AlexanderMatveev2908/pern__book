@@ -13,6 +13,12 @@ export type ParamsLoginAPI = {
   password: string;
 };
 
+export type ParamsChoseNewPwd = {
+  userID: string;
+  token: string;
+  password: string;
+};
+
 export const authAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     registerUser: builder.mutation({
@@ -44,6 +50,18 @@ export const authAPI = apiSlice.injectEndpoints({
         method: "POST",
       }),
     }),
+
+    choseNewPwd: builder.mutation({
+      query: (data: ParamsChoseNewPwd) => ({
+        url: "/auth/recover-account",
+        method: "PATCH",
+        data,
+      }),
+
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
+        await handleAsyncQuery({ queryFulfilled, dispatch });
+      },
+    }),
   }),
 });
 
@@ -51,4 +69,5 @@ export const {
   useRegisterUserMutation,
   useLogoutUserMutation,
   useLoginUserMutation,
+  useChoseNewPwdMutation,
 } = authAPI;

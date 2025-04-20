@@ -23,7 +23,7 @@ import { useCb, useWrapMutationAPI } from "@/hooks/hooks.ts";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
-import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types.ts";
+import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types.ts";
 import { setNotice } from "@/features/Notice/noticeSlice.ts";
 import {
   BreadCrumbForm,
@@ -93,7 +93,7 @@ const Register: FC = () => {
     dispatch(setNotice({ ...notice, cb: registerCb }));
     navigate("/notice", {
       replace: true,
-      state: { from: AllowedFromNotice.REGISTER },
+      state: { from: AllowedFromApp.GEN },
     });
   });
 

@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSendEmailMutation } from "../sendEmailSliceAPI";
 import { useWrapMutationAPI } from "@/hooks/hooks";
 import {
-  AllowedFromNotice,
+  AllowedFromApp,
   EventApp,
   SendMailEnd,
   StorageKeys,
@@ -43,7 +43,7 @@ const VerifyAccount: FC = () => {
     dispatch(setNotice({ ...notice }));
     navigate("/notice", {
       replace: true,
-      state: { from: AllowedFromNotice.VERIFY_ACCOUNT },
+      state: { from: AllowedFromApp.GEN },
     });
   });
 

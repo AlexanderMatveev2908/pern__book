@@ -7,7 +7,7 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapMutationAPI } from "@/hooks/hooks";
 import { checkQueryAuth, isObjOk } from "@/lib/lib";
-import { TokenEventType } from "@/types/types";
+import { AllowedFromApp, TokenEventType } from "@/types/types";
 
 const VerifyCb: FC = () => {
   const [searchParams] = useSearchParams();
@@ -42,8 +42,14 @@ const VerifyCb: FC = () => {
     });
     if (!isObjOk(res)) return;
 
-    console.log(res);
-  }, [params, verifyEmailForgotPwd, wrapMutationAPI]);
+    navigate(
+      `/auth/chose-new-pwd?token=${params?.token}&userID=${params?.userID}&event=${params?.event}`,
+      {
+        replace: true,
+        state: { from: AllowedFromApp.GEN },
+      }
+    );
+  }, [params, verifyEmailForgotPwd, wrapMutationAPI, navigate]);
 
   useEffect(() => {
     if (!hasRun.current) {

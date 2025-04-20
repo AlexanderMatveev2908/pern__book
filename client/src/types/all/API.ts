@@ -24,11 +24,14 @@ export enum TokenEventType {
   CHANGE_EMAIL = "CHANGE_EMAIL",
 }
 
-export enum AllowedFromNotice {
-  REGISTER = ",g1&L'(8Oiw%Dfhz",
-  FORGOT_PWD = ",GG?$4]GYw_fIdmX",
-  VERIFY_ACCOUNT = "%1~#+8oM7I3fOe3f",
-  EXP = "X+=8'clYoWq0y*,q",
+export enum MsgCheckToken {
+  NOT_FOUND = "VERIFY_TOKEN_NOT_FOUND",
+  NOT_EMITTED = "VERIFY_TOKEN_NOT_EMITTED",
+  INVALID = "VERIFY_TOKEN_INVALID",
+  EXPIRED = "VERIFY_TOKEN_EXPIRED",
+}
+
+export enum AllowedFromApp {
   GEN = "E9]A]X0O)&{x]2zQ",
 }
 

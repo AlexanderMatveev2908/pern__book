@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 import { useSendEmailMutation } from "../sendEmailSliceAPI";
 import { useWrapMutationAPI } from "@/hooks/hooks";
 import {
-  AllowedFromNotice,
+  AllowedFromApp,
   EventApp,
   SendMailEnd,
   StorageKeys,
@@ -45,7 +45,7 @@ const ForgotPwd: FC = () => {
     dispatch(setNotice({ ...notice }));
     navigate("/notice", {
       replace: true,
-      state: { from: AllowedFromNotice.FORGOT_PWD },
+      state: { from: AllowedFromApp.GEN },
     });
   });
 

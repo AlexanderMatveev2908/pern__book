@@ -10,3 +10,5 @@ export * from "./all/verify/verify.js";
 export * from "./all/protected/getUserID.js";
 export * from "./all/general/logger.js";
 export * from "./all/sendMail/validateSendEmail.js";
+export * from "./all/sharedValidators/validateChoseNewPwd.js";
+export * from "./all/sharedValidators/verifyToken.js";

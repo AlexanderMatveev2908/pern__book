@@ -1,10 +1,29 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { setNotice } from "@/features/Notice/noticeSlice";
 import { openToast } from "@/features/Toast/toastSlice";
 import { ignoreErr, getMsgErr, saveStorage } from "@/lib/lib";
-import { AllowedFromNotice, EventApp, StorageKeys } from "@/types/types";
+import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+const canRun = (...args: any[]) => {
+  let isOk = true;
+  let count = 0;
+
+  for (const arg of args) {
+    if (typeof arg === "boolean" && arg) count++;
+    if (Array.isArray(arg) && arg.length) count++;
+    if (typeof arg === "function") count++;
+
+    if (count > 1) {
+      isOk = false;
+      break;
+    }
+  }
+
+  return isOk;
+};
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const useErrAPI = () => {
@@ -17,10 +36,12 @@ export const useErrAPI = () => {
       err,
       push,
       pushNotice,
+      customCB,
     }: {
       err: any;
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
+      customCB?: (err: any) => any;
     }) => {
       const { response } = err ?? {};
       const { data, status } = response ?? {};
@@ -37,8 +58,10 @@ export const useErrAPI = () => {
         })
       );
 
-      if (push && pushNotice) {
+      if (!canRun(push, pushNotice, customCB)) {
         throw new Error("Can not send user to different places at same time");
+      } else if (typeof customCB === "function") {
+        customCB(err);
       } else if (push) {
         navigate("/", { replace: true });
       } else if (pushNotice?.[0]) {
@@ -56,7 +79,7 @@ export const useErrAPI = () => {
 
         navigate("/notice", {
           replace: true,
-          state: { from: AllowedFromNotice.GEN },
+          state: { from: AllowedFromApp.GEN },
         });
       }
 
