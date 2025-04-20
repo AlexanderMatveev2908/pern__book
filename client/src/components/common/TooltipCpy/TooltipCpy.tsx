@@ -38,6 +38,7 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
   return (
     <button
       onClick={handleCLick}
+      disabled={!txt}
       type="button"
       ref={btnRef}
       className="relative w-full flex justify-start"

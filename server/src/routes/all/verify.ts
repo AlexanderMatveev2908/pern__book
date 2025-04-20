@@ -5,7 +5,10 @@ import {
   validateVerify,
   wrapApp,
 } from "../../middleware/middleware.js";
-import { verifyAccount } from "../../controllers/controllers.js";
+import {
+  verifyAccount,
+  verifyEmailForgotPwd,
+} from "../../controllers/controllers.js";
 
 const verifyRouter = express.Router();
 
@@ -14,6 +17,12 @@ verifyRouter.patch(
   limitRoute({ max: 5 }),
   validateVerify,
   wrapApp(verifyAccount)
+);
+verifyRouter.post(
+  "/forgot-pwd",
+  limitRoute({ max: 5 }),
+  validateVerify,
+  wrapApp(verifyEmailForgotPwd)
 );
 
 export default verifyRouter;

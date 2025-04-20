@@ -2,7 +2,7 @@ import { handleAsyncQuery } from "@/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { TokenEventType } from "@/types/types";
 
-export interface ParamsVerifyAccount {
+export interface ParamsVerifyCB {
   token: string;
   userID: string;
   event: TokenEventType;
@@ -11,7 +11,7 @@ export interface ParamsVerifyAccount {
 const verifyCbAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     verifyAccount: builder.mutation({
-      query: (params: ParamsVerifyAccount) => ({
+      query: (params: ParamsVerifyCB) => ({
         url: "/verify/verify-account",
         method: "PATCH",
         data: params,
@@ -20,7 +20,16 @@ const verifyCbAPI = apiSlice.injectEndpoints({
         handleAsyncQuery({ queryFulfilled, dispatch });
       },
     }),
+
+    verifyEmailForgotPwd: builder.mutation({
+      query: (data: ParamsVerifyCB) => ({
+        url: "/verify/forgot-pwd",
+        method: "POST",
+        data,
+      }),
+    }),
   }),
 });
 
-export const { useVerifyAccountMutation } = verifyCbAPI;
+export const { useVerifyAccountMutation, useVerifyEmailForgotPwdMutation } =
+  verifyCbAPI;

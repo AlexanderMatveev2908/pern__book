@@ -9,9 +9,15 @@ type PropsType = {
   title: string;
   children: ReactNode;
   canStay?: boolean;
+  switchForm?: boolean;
 };
 
-const WrapperAuthPage: FC<PropsType> = ({ children, title, canStay }) => {
+const WrapperAuthPage: FC<PropsType> = ({
+  children,
+  title,
+  canStay,
+  switchForm = true,
+}) => {
   const authState = useSelector(getAuthState);
 
   return authState.isLogged && !canStay ? (
@@ -20,7 +26,7 @@ const WrapperAuthPage: FC<PropsType> = ({ children, title, canStay }) => {
     <div className="parent__page">
       <Title {...{ title }} />
       {children}
-      <SwitcherFormAuth />
+      {switchForm && <SwitcherFormAuth />}
     </div>
   );
 };

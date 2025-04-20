@@ -17,7 +17,6 @@ import {
   saveStorage,
   schemaRegister,
 } from "../../../lib/lib.ts";
-import CreatePwd from "../../../components/forms/components/CreatePwd";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
 import { useCb, useWrapMutationAPI } from "@/hooks/hooks.ts";
@@ -30,8 +29,7 @@ import {
   BreadCrumbForm,
   Button,
   FormField,
-  PwdField,
-  WrapperFocus,
+  PairPwd,
 } from "@/components/components.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
@@ -167,26 +165,16 @@ const Register: FC = () => {
                 currForm ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
             >
-              {fieldsAuth__1.map((el, i) =>
-                !i ? (
-                  <WrapperFocus
-                    key={el.id}
-                    {...{ mainPwd, pwd, register, errors, el }}
-                  />
-                ) : (
-                  <PwdField
-                    key={el.id}
-                    {...{
-                      el,
-                      register,
-                      errors,
-                      ...confirmPwd,
-                    }}
-                  />
-                )
-              )}
-
-              <CreatePwd />
+              <PairPwd
+                {...{
+                  register,
+                  errors,
+                  mainPwd,
+                  confirmPwd,
+                  pwd,
+                  fields: fieldsAuth__1,
+                }}
+              />
 
               <Terms {...{ setValue, watch, errors }} />
             </div>

@@ -7,7 +7,7 @@ const ForgotPwdPage: FC = () => {
   useScroll();
 
   return (
-    <WrapperAuthPage {...{ title: "RECOVER PASSWORD" }}>
+    <WrapperAuthPage {...{ title: "RECOVER ACCOUNT" }}>
       <ForgotPwd />
     </WrapperAuthPage>
   );

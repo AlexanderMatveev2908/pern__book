@@ -17,6 +17,7 @@ import {
 } from "../../../lib/lib.js";
 import { ReqApp, TokenEventType } from "../../../types/types.js";
 import { Token, User } from "../../../models/models.js";
+import { Op } from "sequelize";
 
 export const registerUser = async (
   req: Request,
@@ -91,6 +92,17 @@ export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {
     return res200(res, { msg: "logout successful" });
   }
 
-  await Token.destroy({ where: { userID: user.id } });
+  await Token.destroy({
+    where: {
+      userID: user.id,
+      event: {
+        [Op.in]: [
+          ...Object.values(TokenEventType).filter(
+            (tok) => tok !== TokenEventType.VERIFY_ACCOUNT
+          ),
+        ],
+      },
+    },
+  });
   return res200(res, { msg: "logout successful" });
 };

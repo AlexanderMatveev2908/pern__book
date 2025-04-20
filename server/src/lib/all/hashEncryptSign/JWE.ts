@@ -82,7 +82,7 @@ export const genTokenJWE = async (user: UserInstance) => {
   const count = await KeyRSA.count({
     where: {
       type: {
-        [Op.or]: [KeyTypeRSA.RSA_PRIVATE, KeyTypeRSA.RSA_PUBLIC],
+        [Op.in]: [KeyTypeRSA.RSA_PRIVATE, KeyTypeRSA.RSA_PUBLIC],
       },
     },
   });

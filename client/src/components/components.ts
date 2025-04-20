@@ -13,10 +13,10 @@ export { default as ErrorFormField } from "./forms/components/inputs/ErrorFormFi
 export { default as ButtonsSwapper } from "./forms/components/SwitcherFormAuth.tsx";
 export { default as FormField } from "./forms/components/inputs/FormField.tsx";
 export { default as WrapperInput } from "./forms/components/inputs/WrapperInput.tsx";
-export { default as CheckRegPwd } from "./forms/components/WrapperFocus/CheckRegPwd.tsx";
-export { default as WrapperFocus } from "./forms/components/WrapperFocus/WrapperFocus.tsx";
+export { default as CheckRegPwd } from "./forms/components/PairPwd/components/CheckRegPwd.tsx";
 export { default as BreadCrumbForm } from "./forms/components/BreadCrumbForm.tsx";
-export { default as CreatePwd } from "./forms/components/CreatePwd.tsx";
 export { default as EmailForm } from "./forms/EmailForm/EmailForm.tsx";
 export { default as WrapPageAPI } from "./HOC/WrapPageAPI.tsx";
 export { default as WrapperLogged } from "./HOC/WrapperLogged.tsx";
+export { default as NewPwdForm } from "./forms/NewPwdForm/NewPwdForm.tsx";
+export { default as PairPwd } from "./forms/components/PairPwd/PairPwd.tsx";

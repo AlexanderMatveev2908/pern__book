@@ -41,6 +41,22 @@ export const confirmPasswordField = {
   type: "password",
 };
 
+export const newPwdField = {
+  ...passwordField,
+  label: "New Password",
+  place: "Your New Password...",
+};
+export const confirmNewPwd = {
+  ...confirmPasswordField,
+  label: "Confirm New Password",
+  place: "Confirm Your New Password...",
+};
+
+export const fieldsNewPwd = [newPwdField, confirmNewPwd].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+
 export const fieldsAuth__1: FormFieldBasic[] = [
   passwordField,
   confirmPasswordField,

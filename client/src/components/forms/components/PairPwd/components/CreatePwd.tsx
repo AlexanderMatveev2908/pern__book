@@ -1,9 +1,9 @@
 import { FC, useState } from "react";
 import { LuBadgeHelp } from "react-icons/lu";
-import { mixArr } from "../../../lib/lib.ts";
-import { charsPwd } from "../../../config/fields/fields.ts";
-import { REG_PWD } from "../../../config/regex";
 import { TooltipCpy } from "@/components/components.ts";
+import { REG_PWD } from "@/config/regex";
+import { mixArr } from "@/lib/lib";
+import { charsPwd } from "@/config/fields/fields";
 
 const CreatePwd: FC = () => {
   const [pwd, setPwd] = useState("");

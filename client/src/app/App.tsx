@@ -14,6 +14,7 @@ import { setNavigator } from "@/lib/lib";
 import UserLayout from "./layouts/UserLayout";
 import ProfileSettings from "./pages/UserLayout/ProfileSettings";
 import ManageAccount from "./pages/UserLayout/ManageAccount";
+import ChoseNewPwdPage from "./pages/AuthLayout/ChoseNewPwdPage";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -32,6 +33,7 @@ const App: FC = () => {
           <Route path="login" element={<LoginPage />} />
           <Route path="verify-account" element={<VerifyEmailPage />} />
           <Route path="forgot-pwd" element={<ForgotPwdPage />} />
+          <Route path="chose-new-pwd" element={<ChoseNewPwdPage />} />
         </Route>
 
         <Route path="user" element={<UserLayout />}>

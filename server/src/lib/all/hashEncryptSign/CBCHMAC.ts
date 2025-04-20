@@ -128,11 +128,13 @@ export const checkCbcHmac = async ({
   token,
   event,
   user,
+  del = true,
 }: {
   token: string;
   event: TokenEventType;
   user?: UserInstance;
-}): Promise<AppPayloadCBC | string> => {
+  del?: boolean;
+}): Promise<string> => {
   // const buff = Buffer.from(token, "hex");
   // const iv = buff.subarray(0, IV_LENGTH);
   // const encrypted = buff.subarray(IV_LENGTH, buff.length);
@@ -164,7 +166,7 @@ export const checkCbcHmac = async ({
     return MsgCheckToken.EXPIRED;
   }
 
-  await existentHmacHEX.destroy();
+  if (del) await existentHmacHEX.destroy();
 
   return MsgCheckToken.OK;
 
