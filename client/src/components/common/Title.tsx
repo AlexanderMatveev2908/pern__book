@@ -8,7 +8,7 @@ type PropsType = {
 const Title: FC<PropsType> = ({ title, customStyle }) => {
   return (
     <div className="w-full flex justify-center txt__col">
-      <h1 className={`${customStyle ?? "txt__5"}`}>{title}</h1>
+      <h1 className={`${customStyle ?? "txt__5"}`}>{title.toUpperCase()}</h1>
     </div>
   );
 };

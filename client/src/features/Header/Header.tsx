@@ -7,7 +7,10 @@ import { DispatchType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "./headerSlice";
 import DropDown from "./components/DropDown";
-import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
+import {
+  useGetUserProfileQuery,
+  UserProfile,
+} from "../UserLayout/userSliceAPI";
 import { getAuthState } from "../AuthLayout/authSlice";
 // import { useWrapQueryAPI } from "@/hooks/hooks";
 import { getData, getStorage, isObjOk, saveStorage } from "@/lib/lib";

@@ -1,15 +1,12 @@
 import { GoHome } from "react-icons/go";
-import { FaBook, FaUserSecret } from "react-icons/fa";
+import { FaBook } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../../types/types";
-import {
-  fieldsActionsAuth,
-  verifyAccountField,
-} from "../../all/general/fieldsActionsAuth";
+import { fieldsActionsAuth } from "../../all/general/fieldsActionsAuth";
 import { ShieldCheck } from "lucide-react";
-import { FaUserGear } from "react-icons/fa6";
+import { userLoggedFieldsDrop } from "../general/userFields";
 
 export type SideFieldType = {
   id: string;
@@ -49,19 +46,7 @@ export const fieldAccountLogged: LabelDropType = {
   label: "My Account",
   icon: ShieldCheck,
 };
-export const sideFieldsLogged = [
-  {
-    label: "Profile settings",
-    path: "/user/profile-settings",
-    icon: FaUserGear,
-  },
-  verifyAccountField,
-  {
-    label: "Manage Account",
-    path: "/user/manage-account",
-    icon: FaUserSecret,
-  },
-].map((el) => ({
+export const sideFieldsLogged = [...userLoggedFieldsDrop].map((el) => ({
   ...el,
   id: v4(),
 })) as SideFieldType[];

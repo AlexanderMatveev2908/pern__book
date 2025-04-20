@@ -2,11 +2,9 @@ import { v4 } from "uuid";
 import {
   AuthPagesPathType,
   fieldsActionsAuth,
-  verifyAccountField,
 } from "../general/fieldsActionsAuth";
-import { FaUserSecret } from "react-icons/fa";
-import { FaUserGear } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
+import { userLoggedFieldsDrop } from "../general/userFields";
 
 export interface DropFieldType {
   id?: string;
@@ -22,19 +20,7 @@ export const fieldsHeaderDropNonLogged: DropFieldType[] = fieldsActionsAuth.map(
   })
 );
 
-export const fieldsHeaderDropLogged = [
-  {
-    label: "Profile settings",
-    path: "/user/profile-settings",
-    icon: FaUserGear,
-  },
-  verifyAccountField,
-  {
-    label: "Manage Account",
-    path: "/user/manage-account",
-    icon: FaUserSecret,
-  },
-].map((el) => ({
+export const fieldsHeaderDropLogged = [...userLoggedFieldsDrop].map((el) => ({
   ...el,
   id: v4(),
 })) as DropFieldType[];

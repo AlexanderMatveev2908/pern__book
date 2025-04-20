@@ -6,7 +6,10 @@ import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 import SideLink from "./components/SideLink";
 import { sideFieldsAllUsers } from "../../config/fields/fields";
 import { getAuthState } from "../AuthLayout/authSlice";
-import { useGetUserProfileQuery, UserProfile } from "../root/rootSliceAPI";
+import {
+  useGetUserProfileQuery,
+  UserProfile,
+} from "../UserLayout/userSliceAPI";
 import { getData, isObjOk } from "@/lib/lib";
 import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
