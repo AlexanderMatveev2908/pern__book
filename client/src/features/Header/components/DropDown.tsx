@@ -19,6 +19,9 @@ const windowWrapper = (cb: () => void) => {
   return cb();
 };
 
+const validateCLick = (clickVal: boolean) =>
+  window.innerWidth < tailwindBreak.md ? false : clickVal;
+
 type PropsType = {
   isLogged: boolean;
   init: string | null;
@@ -99,7 +102,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
             });
           }}
           className={`absolute top-[125%] bg-[#000] el__border_sm p-3 pb-4 grid gap-3 min-w-[250px] transition-all duration-500  ${" right-[-100%]"} ${
-            !hasClicked && (isLeaving || isOpen)
+            !validateCLick(hasClicked) && (isLeaving || isOpen)
               ? ""
               : "translate-y-1/3 opacity-0 pointer-events-none"
           }`}
@@ -125,7 +128,8 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
       <div
         ref={thumbRef}
         onClick={() => {
-          setHasClicked(!hasClicked);
+          if (window.innerWidth > tailwindBreak.md) setHasClicked(!hasClicked);
+
           setIsOpen(!isOpen);
         }}
         className="group btn__logic w-[45px] h-[45px] flex justify-center items-center"
@@ -144,13 +148,13 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
         }}
       >
         {isLogged && init ? (
-          <div className="border-blue-600 rounded-xl flex justify-center items-center border-[3px] p-[7.5px] group-hover:text-blue-600 cursor-pointer el__flow">
+          <div className="border-blue-600 rounded-xl flex justify-center items-center border-[3px] py-[7.5px] px-[10px] group-hover:text-blue-600 cursor-pointer el__flow">
             <span className="txt__3 group-hover:scale-[1.15] el__flow">
               {init}
             </span>
           </div>
         ) : (
-          <FaRegUser className="icon__md icon__logic" />
+          <FaRegUser className="min-w-[35px] min-h-[35px] icon__logic" />
         )}
       </div>
     </div>

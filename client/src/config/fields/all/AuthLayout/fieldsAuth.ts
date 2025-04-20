@@ -5,6 +5,7 @@ import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";
 import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
 import { SideFieldType } from "../Sidebar/sidebarFields";
+import { namesFields } from "../general/userFields";
 
 export const emailField = {
   field: "email",
@@ -12,22 +13,12 @@ export const emailField = {
   type: "email",
 };
 
-export const fieldsAuth__0: FormFieldBasic[] = [
-  {
-    field: "firstName",
-    label: "First Name",
-    place: "Your First Name...",
-  },
-  {
-    field: "lastName",
-    label: "Last Name",
-    place: "Your Last Name...",
-  },
-  emailField,
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));
+export const fieldsAuth__0: FormFieldBasic[] = [...namesFields, emailField].map(
+  (el) => ({
+    ...el,
+    id: v4(),
+  })
+);
 
 export const passwordField = {
   field: "password",

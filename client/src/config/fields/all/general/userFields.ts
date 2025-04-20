@@ -15,3 +15,16 @@ export const userLoggedFieldsDrop = [
     icon: FaUserSecret,
   },
 ];
+
+export const namesFields = [
+  {
+    field: "firstName",
+    label: "First Name",
+    place: "Your First Name...",
+  },
+  {
+    field: "lastName",
+    label: "Last Name",
+    place: "Your Last Name...",
+  },
+];

@@ -21,18 +21,22 @@ export const schemaLogin = {
   ...schemaPwd(),
 };
 
+export const schemaNames = () => ({
+  firstName: z
+    .string()
+    .min(1, "First Name is required")
+    .max(30, "First Name must be less than 30 characters")
+    .regex(REG_NAME, "Invalid First Name format"),
+  lastName: z
+    .string()
+    .min(1, "Last Name is required")
+    .max(30, "First Name must be less than 30 characters")
+    .regex(REG_NAME, "Invalid Last Name format"),
+});
+
 export const schemaRegister = z
   .object({
-    firstName: z
-      .string()
-      .min(1, "First Name is required")
-      .max(30, "First Name must be less than 30 characters")
-      .regex(REG_NAME, "Invalid First Name format"),
-    lastName: z
-      .string()
-      .min(1, "Last Name is required")
-      .max(30, "First Name must be less than 30 characters")
-      .regex(REG_NAME, "Invalid Last Name format"),
+    ...schemaNames(),
     ...schemaEmail(),
     ...schemaPwd(),
     confirmPassword: z.string().min(1, "You must confirm your password"),

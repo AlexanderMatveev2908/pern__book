@@ -186,6 +186,7 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 .input__icon {
   @apply py-2;
 }
+.el__focus:focus,
 .input__base:focus,
 .input__icon:focus {
   @apply ring-2 ring-blue-600;
