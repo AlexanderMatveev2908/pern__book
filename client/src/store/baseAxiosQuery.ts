@@ -10,6 +10,9 @@ import {
 import { StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
 
+export const clearAuthAxios = () =>
+  delete appInstance.defaults.headers.common["Authorization"];
+
 export const axiosBaseQuery = async ({
   url,
   method,
@@ -36,7 +39,7 @@ export const axiosBaseQuery = async ({
     const skipRefresh =
       status !== 401 || isRefresh || !isTokenExp || loggingOut;
 
-    if (loggingOut) appInstance.defaults.headers.common["Authorization"] = null;
+    if (loggingOut) clearAuthAxios();
 
     if (skipRefresh)
       return {
@@ -78,7 +81,7 @@ export const axiosBaseQuery = async ({
     } catch (err: any) {
       __cg("refresh failed", err);
 
-      appInstance.defaults.headers.common["Authorization"] = null;
+      clearAuthAxios();
 
       return {
         error: err,

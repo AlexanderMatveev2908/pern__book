@@ -5,8 +5,8 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { logout, setLoggingOut } from "@/features/AuthLayout/authSlice";
 import { removeStorage } from "@/lib/lib";
-import { appInstance } from "@/config/axios";
 import apiSlice from "@/store/apiSlice";
+import { clearAuthAxios } from "@/store/baseAxiosQuery";
 
 export const useLogout = () => {
   const navigate = useNavigate();
@@ -26,7 +26,7 @@ export const useLogout = () => {
       navigate("/", { replace: true });
 
       removeStorage();
-      appInstance.defaults.headers.common["Authorization"] = null;
+      clearAuthAxios();
 
       dispatch(setLoggingOut());
       dispatch(logout());

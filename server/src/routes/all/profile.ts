@@ -1,6 +1,7 @@
 import express from "express";
-import { getUserID, wrapApp } from "../../middleware/middleware.js";
-import { getUserProfile } from "../../controllers/controllers.js";
+import { getUserProfile } from "../../controllers/profile/get.js";
+import { getUserID } from "../../middleware/protected/getUserID.js";
+import { wrapApp } from "../../middleware/general/wrapApp.js";
 
 const profileRouter = express.Router();
 

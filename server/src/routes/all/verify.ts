@@ -1,14 +1,9 @@
 import express from "express";
-import {
-  limitRoute,
-  validateSendEmail,
-  validateVerify,
-  wrapApp,
-} from "../../middleware/middleware.js";
-import {
-  verifyAccount,
-  verifyEmailForgotPwd,
-} from "../../controllers/controllers.js";
+import { verifyAccount } from "../../controllers/verify/patch.js";
+import { verifyEmailForgotPwd } from "../../controllers/verify/post.js";
+import { limitRoute } from "../../middleware/general/limitRoute.js";
+import { validateVerify } from "../../middleware/verify/verify.js";
+import { wrapApp } from "../../middleware/general/wrapApp.js";
 
 const verifyRouter = express.Router();
 

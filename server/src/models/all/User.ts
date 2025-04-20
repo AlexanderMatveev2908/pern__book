@@ -4,14 +4,14 @@ import {
   InferAttributes,
   InferCreationAttributes,
   Model,
-  Op,
   Sequelize,
 } from "sequelize";
-import { TokenEventType, UserRole } from "../../types/types.js";
+import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
-import { calcTimeRun, capChar, hashPwd } from "../../lib/lib.js";
 import { Token } from "./Token.js";
+import { calcTimeRun, capChar } from "../../lib/utils.js";
+import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 
 const ObjectID = pkg.default;
 

@@ -1,7 +1,10 @@
+import dotenv from "dotenv";
+dotenv.config();
 import { Sequelize } from "sequelize";
 import fs from "fs";
-import { getCaDir } from "../lib/lib.js";
 import { bindModels } from "../models/models.js";
+import { getCaDir } from "../lib/utils.js";
+import { decryptCert, encryptCert } from "../lib/hashEncryptSign/cbcHmac.js";
 
 const seq = new Sequelize(process.env.URI_AIVEN!, {
   dialect: "postgres",
@@ -10,7 +13,8 @@ const seq = new Sequelize(process.env.URI_AIVEN!, {
     ssl: {
       require: true,
       rejectUnauthorized: true,
-      ca: fs.readFileSync(getCaDir()) + "",
+      ca: decryptCert(),
+      // ca: fs.readFileSync(getCaDir()).toString(),
     },
   },
 });

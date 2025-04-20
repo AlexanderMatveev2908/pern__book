@@ -27,7 +27,7 @@ const schema = z
   })
   .refine((data) => (data?.password ?? "").trim(), {
     message: "Password is required",
-    path: ["email"],
+    path: ["password"],
   });
 
 export type LoginFormType = z.infer<typeof schema>;
@@ -49,8 +49,10 @@ const Login: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "matveevalexander470@gmail.com",
-      password: "@2}mX_}^]3#lA^w5",
+      // email: "matveevalexander470@gmail.com",
+      // password: "@2}mX_}^]3#lA^w5",
+      email: "",
+      password: "",
     },
   });
   const vals = watch();
@@ -72,7 +74,7 @@ const Login: FC = () => {
   useEffect(() => {
     if (authState.pushedOut) {
       dispatch(clearNavigating());
-      apiSlice.util.resetApiState();
+      dispatch(apiSlice.util.resetApiState());
     }
   }, [authState.pushedOut, dispatch]);
   return (

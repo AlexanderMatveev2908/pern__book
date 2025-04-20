@@ -1,4 +1,4 @@
-import { calcTimeRun } from "../lib/lib.js";
+import { calcTimeRun } from "../lib/utils.js";
 import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
 import { KeyRSA, Token, User } from "../models/models.js";
 

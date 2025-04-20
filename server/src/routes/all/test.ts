@@ -1,7 +1,8 @@
 import express from "express";
-import { verifyAccessToken, wrapApp } from "../../middleware/middleware.js";
-import { getStuff } from "../../controllers/controllers.js";
 import { UserRole } from "../../types/types.js";
+import { getStuff } from "../../controllers/test/get.js";
+import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
+import { wrapApp } from "../../middleware/general/wrapApp.js";
 
 const testRouter = express.Router();
 

@@ -1,13 +1,11 @@
 import express from "express";
 import {
-  limitRoute,
-  validateSendEmail,
-  wrapApp,
-} from "../../middleware/middleware.js";
-import {
   sendEmailForgotPwd,
   sendEmailVerifyAccount,
-} from "../../controllers/controllers.js";
+} from "../../controllers/sendMail/post.js";
+import { limitRoute } from "../../middleware/general/limitRoute.js";
+import { validateSendEmail } from "../../middleware/sendMail/validateSendEmail.js";
+import { wrapApp } from "../../middleware/general/wrapApp.js";
 
 const sendMailRouter = express.Router();
 

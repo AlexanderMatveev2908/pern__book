@@ -1,10 +1,9 @@
 import { FC, useCallback, useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
-import "./Toast.css";
 import { closeToast, getToast, reopenToast } from "./toastSlice";
 import { useDispatch, useSelector } from "react-redux";
-import "./Toast.css";
 import { EventApp } from "@/types/types";
+import "./Toast.css";
 
 /* IMPORTANT => {
 THE FLOW TO MAKE IN A WAY THE ALL WORK IN RIGHT DIRECTION FOR SMOOTH UI AND SYNC IS 

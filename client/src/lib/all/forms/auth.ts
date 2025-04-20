@@ -12,7 +12,7 @@ export const schemaPwd = () => ({
   password: z
     .string()
     .min(1, "Password is required")
-    .max(30, "Password too long")
+    .max(50, "Password too long")
     .regex(REG_PWD, "Invalid password format")
     .nullable(),
 });

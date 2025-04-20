@@ -1,6 +1,6 @@
 import express from "express";
-import { wrapApp } from "../../middleware/middleware.js";
-import { refreshToken } from "../../controllers/controllers.js";
+import { refreshToken } from "../../controllers/refreshToken.js";
+import { wrapApp } from "../../middleware/general/wrapApp.js";
 
 const routerRefresh = express.Router();
 

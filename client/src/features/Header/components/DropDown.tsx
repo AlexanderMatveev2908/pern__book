@@ -27,8 +27,10 @@ type PropsType = {
 
 const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   const [isOpen, setIsOpen] = useState(false);
+  // a couple of flag are needed i u want to make functionality of mouse enter and leave
   const [isLeaving, setIsLeaving] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
+
   const thumbRef = useRef<HTMLDivElement | null>(null);
   const dropRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
@@ -36,6 +38,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   useEffect(() => {
     const closeDrop = (e: MouseEvent) => {
       if (!thumbRef.current || !dropRef.current) return;
+      // if u dod not include also drop, drop will be closed on mousedown and function associated with el inside drop will not run
       if (
         !thumbRef.current.contains(e.target as Node) &&
         !dropRef.current.contains(e.target as Node)
@@ -47,6 +50,11 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
     return () => document.removeEventListener("mousedown", closeDrop);
   }, []);
 
+  const clearTimer = () => {
+    clearTimeout(timerRef.current as NodeJS.Timeout);
+    timerRef.current = null;
+  };
+
   useEffect(() => {
     const closeDrop = () => {
       if (isLeaving) {
@@ -57,6 +65,10 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
     };
 
     closeDrop();
+
+    return () => {
+      clearTimer();
+    };
   }, [isLeaving]);
 
   // const arrDrop = fieldsHeaderDropNonLogged;
@@ -64,7 +76,8 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
 
   const handleMainClick = () => {
     setHasClicked(true);
-    setIsOpen((prev) => !prev);
+    setIsOpen(false);
+    setIsLeaving(false);
   };
   return (
     <div className="min-w-full justify-self-end flex justify-end z__drop_header">
@@ -73,18 +86,20 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
           ref={dropRef}
           onMouseEnter={() => {
             windowWrapper(() => {
-              clearTimeout(timerRef.current as NodeJS.Timeout);
-              timerRef.current = null;
+              clearTimer();
 
               setIsLeaving(false);
               setIsOpen(true);
             });
           }}
           onMouseLeave={() => {
-            windowWrapper(() => setIsOpen(false));
+            windowWrapper(() => {
+              setIsLeaving(false);
+              setIsOpen(false);
+            });
           }}
           className={`absolute top-[125%] bg-[#000] el__border_sm p-3 pb-4 grid gap-3 min-w-[250px] transition-all duration-500  ${" right-[-100%]"} ${
-            isLeaving || isOpen
+            !hasClicked && (isLeaving || isOpen)
               ? ""
               : "translate-y-1/3 opacity-0 pointer-events-none"
           }`}
@@ -109,7 +124,10 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
 
       <div
         ref={thumbRef}
-        onClick={handleMainClick}
+        onClick={() => {
+          setHasClicked(!hasClicked);
+          setIsOpen(!isOpen);
+        }}
         className="group btn__logic w-[45px] h-[45px] flex justify-center items-center"
         onMouseEnter={() => {
           windowWrapper(() => {

@@ -25,6 +25,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   --orange__app: #ea580c;
 }
 
+.toast__in {
+  animation: open__toast 0.6s ease-out forwards;
+}
+
 /* INDEX*/
 
 .z__sidebar_bg {

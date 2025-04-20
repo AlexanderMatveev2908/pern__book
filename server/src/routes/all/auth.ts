@@ -1,17 +1,16 @@
 import express from "express";
+
 import {
-  choseNewPwdForgotOld,
   loginUser,
   logoutUser,
   registerUser,
-} from "../../controllers/controllers.js";
-import {
-  getUserID,
-  limitRoute,
-  validateChoseNewPwd,
-  validateRegister,
-  wrapApp,
-} from "../../middleware/middleware.js";
+} from "../../controllers/auth/post.js";
+import { choseNewPwdForgotOld } from "../../controllers/auth/patch.js";
+import { validateRegister } from "../../middleware/auth/validateRegister.js";
+import { limitRoute } from "../../middleware/general/limitRoute.js";
+import { wrapApp } from "../../middleware/general/wrapApp.js";
+import { getUserID } from "../../middleware/protected/getUserID.js";
+import { validateChoseNewPwd } from "../../middleware/sharedValidators/validateChoseNewPwd.js";
 
 const authRouter = express.Router();
 
