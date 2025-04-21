@@ -3,8 +3,7 @@ import {
   __cg,
   getData,
   isObjOk,
-  schemaAddress,
-  schemaNames,
+  schemaProfile,
   validateSwapper,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -18,58 +17,13 @@ import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile"
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 import { useProfileCtx } from "@/app/pages/UserLayout/ProfileSettingsPage/ProfileCtx/ProfileCtx";
 import { swapAddressByArea } from "@/config/fields/all/general/userFields";
+import { keysHeaderProfile } from "@/config/fields/fields";
 
-const schema = z
-  .object({
-    ...schemaNames(),
-
-    Thumb: z.union([z.string(), z.instanceof(FileList)]).optional(),
-
-    ...schemaAddress(true),
-  })
-  .refine(
-    (data) => {
-      if (!data.Thumb?.length && data.Thumb instanceof FileList) return true;
-      if (typeof data.Thumb === "string") return true;
-
-      const updatedFile: File = (data.Thumb as FileList)[0];
-      return updatedFile && updatedFile.type.startsWith("image");
-    },
-    {
-      message: "Thumbnail must be a file of type image",
-      path: ["Thumb"],
-    }
-  )
-  .refine((data) => data.country.trim().length >= 2 || !data.country, {
-    message: "If provided Country must have at least 2 chars",
-    path: ["country"],
-  })
-  .refine((data) => data.state.trim().length >= 2 || !data.state, {
-    message: "If provided State must have at least 2 chars",
-    path: ["state"],
-  })
-  .refine((data) => data.city.trim().length >= 2 || !data.city, {
-    message: "If provided City must have at least 2 chars",
-    path: ["city"],
-  })
-  .refine((data) => data.street.trim().length >= 4 || !data.street, {
-    message: "If provided street must have at least 4 chars",
-    path: ["street"],
-  })
-  .refine((data) => data.zipCode.trim().length >= 4 || !data.zipCode, {
-    message: "If provided Zip Code must be at least 4 chars",
-    path: ["zipCode"],
-  })
-  .refine((data) => data.phone.trim().length >= 9 || !data.phone, {
-    message: "If provided phone must be at least 9 chars",
-    path: ["phone"],
-  });
-
-export type UserProfileForm = z.infer<typeof schema>;
+export type UserProfileForm = z.infer<typeof schemaProfile>;
 
 const UserProfile: FC = () => {
   const formCtx = useForm<UserProfileForm>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaProfile),
     mode: "onChange",
   });
   const {
@@ -104,9 +58,39 @@ const UserProfile: FC = () => {
     updateForm();
   }, [user, getValues, setValue]);
 
-  const handleSave = formCtx.handleSubmit(async (data) => {
-    console.log(data);
-  });
+  const { setCurrForm } = useProfileCtx();
+
+  const handleSave = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const vals = getValues();
+
+    let isFormOk = true;
+
+    for (const key of keysHeaderProfile) {
+      if (errors?.[key as keyof UserProfileForm]?.message) {
+        isFormOk = false;
+        break;
+      }
+    }
+    if (!isFormOk) {
+      window.scroll({ top: 0, behavior: "smooth" });
+    }
+
+    const { i, j, isValid } = validateSwapper({
+      objErr: errors,
+      valsForm: vals,
+      fieldsByArea: swapAddressByArea,
+    });
+
+    if (!i || !j || !isValid) {
+      setCurrForm(i);
+
+      const swapEl = document.getElementById("userProfileSwap");
+      const h = swapEl?.offsetHeight;
+
+      window.scroll({ top: h, behavior: "smooth" });
+    }
+  };
 
   const { currForm, isNextDisabled, setNextDisabled } = useProfileCtx();
 
@@ -120,6 +104,8 @@ const UserProfile: FC = () => {
 
       __cg("swapper", isValid, i, j);
 
+      console.log(isValid, "fresh");
+
       if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
       else if ((isValid || currForm < i) && isNextDisabled)
         setNextDisabled(false);
@@ -129,6 +115,8 @@ const UserProfile: FC = () => {
       sub.unsubscribe();
     };
   }, [watch, currForm, errors, isNextDisabled, setNextDisabled]);
+
+  console.log(errors);
 
   return (
     <WrapPageAPI {...{ isLoading, isError, error }}>

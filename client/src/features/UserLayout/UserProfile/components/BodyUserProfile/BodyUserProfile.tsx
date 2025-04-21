@@ -20,6 +20,7 @@ const BodyUserProfile: FC = () => {
           errors,
           clearErrors,
           setValue,
+          swapID: "userProfileSwap",
           ...useProfileCtx(),
         }}
       />

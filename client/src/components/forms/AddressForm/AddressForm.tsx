@@ -20,8 +20,10 @@ type PropsType = FormBaseProps & {
   currForm: number;
   setCurrForm: (val: number) => void;
   isNextDisabled: boolean;
+  setNextDisabled: (val: boolean) => void;
   clearErrors: UseFormClearErrors<any>;
   setValue: UseFormSetValue<any>;
+  swapID: string;
 };
 
 const AddressForm: FC<PropsType> = ({
@@ -32,6 +34,8 @@ const AddressForm: FC<PropsType> = ({
   currForm,
   setCurrForm,
   isNextDisabled,
+  setNextDisabled,
+  swapID,
 }) => {
   const handleClear = () => {
     let i = swapAddressFieldsMerg.length - 1;
@@ -54,7 +58,7 @@ const AddressForm: FC<PropsType> = ({
         <BreadCrumbForm {...{ currForm, totLen: 2 }} />
       </div>
 
-      <div className="form__content justify-self-center">
+      <div id={swapID} className="form__content justify-self-center">
         <div className="w-full overflow-hidden p-6">
           <div
             className={`w-[200%] flex transition-all duration-500 ${
@@ -87,7 +91,13 @@ const AddressForm: FC<PropsType> = ({
             </div>
           </div>
           <ButtonsSwapper
-            {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
+            {...{
+              currForm,
+              setCurrForm,
+              totLen: 2,
+              isNextDisabled,
+              setNextDisabled,
+            }}
           >
             <div className="w-[200px] justify-self-center">
               <ButtonIcon

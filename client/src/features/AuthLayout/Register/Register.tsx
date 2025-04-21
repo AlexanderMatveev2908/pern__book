@@ -182,7 +182,13 @@ const Register: FC = () => {
           </div>
 
           <ButtonsSwapper
-            {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
+            {...{
+              currForm,
+              setCurrForm,
+              totLen: 2,
+              isNextDisabled,
+              setIsNextDisabled,
+            }}
           >
             <div className="max-w-[250px] justify-self-center">
               <Button

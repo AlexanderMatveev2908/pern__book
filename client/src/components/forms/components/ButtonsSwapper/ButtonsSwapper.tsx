@@ -7,6 +7,7 @@ type PropsType = {
   setCurrForm: (val: number) => void;
   totLen: number;
   isNextDisabled: boolean;
+  setNextDisabled?: (val: boolean) => void;
   children?: ReactNode;
 };
 
@@ -16,11 +17,15 @@ const ButtonsSwapper: FC<PropsType> = ({
   totLen,
   children,
   isNextDisabled,
+  setNextDisabled,
 }) => {
   return (
     <div className="w-full grid grid-cols-[50px_1fr_50px] items-center">
       <button
-        onClick={() => currForm && setCurrForm(currForm - 1)}
+        onClick={() => {
+          if (currForm) setCurrForm(currForm - 1);
+          if (currForm) setNextDisabled?.(false);
+        }}
         disabled={!currForm}
         className={`justify-self-start ${currForm ? "group" : ""} ${
           style.btn__swapper
