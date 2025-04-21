@@ -28,7 +28,6 @@ export const registerUser = async (
 
   newUser.capitalize();
   await newUser.hashPwdUser();
-  await newUser.save();
 
   userID = newUser.id;
 

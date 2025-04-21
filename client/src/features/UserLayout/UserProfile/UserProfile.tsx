@@ -19,30 +19,37 @@ const UserProfile: FC = () => {
   const {
     register,
     formState: { errors },
+    handleSubmit,
   } = useForm<UserFormType>({
     resolver: zodResolver(schema),
   });
 
+  const handleSave = handleSubmit(async (data) => {
+    console.log(data);
+  });
+
   return (
-    <div className="w-full grid sm:grid-cols-[200px_1fr] md:grid-cols-[250px_1fr] gap-10">
-      <label className="border-[4px] border-blue-600 rounded-full overflow-hidden w-[200px] h-[200px] md:w-[250px] md:h-[250px] justify-self-center sm:justify-self-start p-3 flex justify-center items-center el__flow hover:text-gray-500 cursor-pointer group">
-        {/* <img src="" alt="" /> */}
-        <input type="file" className="h-0 w-0 opacity-0" />
-        <User className="w-[200px] h-[200px] group-hover:scale-90 el__flow" />
-      </label>
+    <form onSubmit={handleSave} className="w-full grid">
+      <div className="w-full grid sm:grid-cols-[200px_1fr] md:flex md:justify-center  gap-10">
+        <label className="border-[4px] border-blue-600 rounded-full overflow-hidden w-[200px] h-[200px] md:min-w-[250px] md:min-h-[250px] justify-self-center sm:justify-self-end p-3 flex justify-center items-center el__flow hover:text-gray-500 cursor-pointer group ">
+          {/* <img src="" alt="" /> */}
+          <input type="file" className="h-0 w-0 opacity-0" />
+          <User className="w-[200px] h-[200px] group-hover:scale-90 el__flow" />
+        </label>
 
-      <div className="w-full sm:self-center grid items-start gap-5 sm:gap-8 h-fit lg:grid-cols-2">
-        {fieldsProfileHeader.map((el) => (
-          <FormFieldBtn key={el.id} {...{ register, errors, el }} />
-        ))}
+        <div className="w-full sm:self-center justify-self-center grid items-start gap-5 sm:gap-8 h-fit sm:max-w-[500px]">
+          {fieldsProfileHeader.map((el) => (
+            <FormFieldBtn key={el.id} {...{ register, errors, el }} />
+          ))}
 
-        {/* {FieldHeaderFooter.map((el) => (
+          {/* {FieldHeaderFooter.map((el) => (
           <div className="w-[300px] justify-self-center lg:justify-self-start">
             <ButtonIcon key={el.id} {...{ el }} />
           </div>
         ))} */}
+        </div>
       </div>
-    </div>
+    </form>
   );
 };
 export default UserProfile;

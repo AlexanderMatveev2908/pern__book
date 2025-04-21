@@ -36,7 +36,6 @@ export const choseNewPwdForgotOld = async (
 
   user.password = newPwd;
   await user.hashPwdUser();
-  await user.save();
 
   const refreshToken = await genTokenJWE(user);
   const accessToken = await genAccessJWT(user);

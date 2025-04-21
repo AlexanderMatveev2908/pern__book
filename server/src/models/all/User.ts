@@ -20,14 +20,23 @@ export class User extends Model<
   InferCreationAttributes<User>
 > {
   declare id: CreationOptional<string>;
+
   declare firstName: string;
   declare lastName: string;
+
   declare email: string;
   declare tempEmail: CreationOptional<string | null>;
   declare password: string;
+
   declare role: CreationOptional<UserRole>;
   declare isVerified: CreationOptional<boolean>;
   declare isNewsletter: CreationOptional<boolean>;
+
+  declare country: CreationOptional<string>;
+  declare state: CreationOptional<string>;
+  declare street: CreationOptional<string>;
+  declare zipCode: CreationOptional<string>;
+  declare phone: CreationOptional<string>;
 
   async existUser(this: User) {
     return await User.findOne({
@@ -48,6 +57,7 @@ export class User extends Model<
 
   async hashPwdUser(this: User) {
     this.password = await calcTimeRun(() => hashPwd(this.password));
+    await this.save();
   }
 
   async verify(this: User) {
@@ -111,6 +121,26 @@ const defineUser = (seq: Sequelize) =>
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: false,
+      },
+      country: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      state: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      street: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      zipCode: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      phone: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
     },
     {

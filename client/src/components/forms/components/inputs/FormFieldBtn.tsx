@@ -29,6 +29,7 @@ const FormFieldBtn: FC<PropsType> = ({ register, errors, el }) => {
       </label>
 
       <button
+        type="button"
         onClick={() => setIsInput(!isInput)}
         className="appearance-none outline-0 rounded-xl btn__logic_sm cursor-pointer group"
       >
