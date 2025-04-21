@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import FormFieldBtn from "@/components/forms/components/inputs/FormFieldBtn";
+import FormFieldBtn from "@/components/forms/components/inputs/FormFieldBtn/FormFieldBtn";
 import { fieldsProfileHeader } from "@/config/fields/fields";
 import { getData, isObjOk, schemaEmail, schemaNames } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -27,8 +27,10 @@ const UserProfile: FC = () => {
     watch,
     getValues,
     setValue,
+    clearErrors,
   } = useForm<UserFormType>({
     resolver: zodResolver(schema),
+    mode: "onChange",
   });
 
   const { data, isLoading, error, isError } = useGetUserProfileQuery({}) ?? {};
@@ -70,7 +72,15 @@ const UserProfile: FC = () => {
             {fieldsProfileHeader.map((el) => (
               <FormFieldBtn
                 key={el.id}
-                {...{ register, errors, setFocus, el }}
+                {...{
+                  register,
+                  errors,
+                  setFocus,
+                  setValue,
+                  user,
+                  el,
+                  clearErrors,
+                }}
               />
             ))}
 
