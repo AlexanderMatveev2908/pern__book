@@ -58,14 +58,14 @@ const FormFieldBtn: FC<PropsType> = ({
               : "translate-y-[50px] opacity-0"
           }`}
         >
-          <div className="bg-[#000] py-1 px-3 border-2 border-red-600 rounded-xl z-60 relative">
+          <div className="bg-[#000] py-1 px-3 border-2 border-red-600 rounded-xl z-60 relative h-fit">
             <span className="txt__1 text-red-600">
               {(errors?.[el.field]?.message as string) || prevErr}
             </span>
-          </div>
 
-          <div className="absolute w-[30px] h-[30px] right-[25px] top-[121%] -translate-y-1/2 overflow-hidden z-60">
-            <div className="w-[30px] h-[30px] border-2 border-red-600 bg-[#000] rotate-45 absolute top-[-15px] left-0"></div>
+            <div className="absolute w-[30px] h-[30px] right-[25px] top-[128%] -translate-y-1/2 overflow-hidden z-60">
+              <div className="w-[30px] h-[30px] border-2 border-red-600 bg-[#000] rotate-45 absolute top-[-15px] left-0"></div>
+            </div>
           </div>
         </div>
       </label>
