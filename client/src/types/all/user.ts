@@ -1,3 +1,5 @@
+import { ImageCloudType } from "./images";
+
 export enum UserRole {
   OWNER = "owner",
   MANAGER = "manager",
@@ -13,6 +15,8 @@ export interface UserType {
   isNewsLetter: boolean;
   isVerified: boolean;
   role: UserRole;
+
+  thumbID: ImageCloudType | null;
 
   country: string;
   state: string;
