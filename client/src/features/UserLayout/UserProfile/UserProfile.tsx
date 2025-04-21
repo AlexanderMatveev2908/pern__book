@@ -1,9 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import FormFieldBtn from "@/components/forms/components/inputs/FormFieldBtn/FormFieldBtn";
-import { fieldsProfileHeader } from "@/config/fields/fields";
 import { getData, isObjOk, schemaEmail, schemaNames } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { User } from "lucide-react";
 import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";

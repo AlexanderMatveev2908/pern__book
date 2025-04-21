@@ -13,6 +13,7 @@ dist-ssr
 .env
 .gitignore
 .theory
+dist
 
 # Editor directories and files
 .vscode/*

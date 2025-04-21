@@ -4,7 +4,7 @@ import { UserType } from "@/types/types";
 import { User } from "lucide-react";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
-import my_thumb from "../../../../config/assetsDev/thumb/thumb.avif";
+// import my_thumb from "../../../../config/assetsDev/thumb/thumb.avif";
 
 type PropsType = {
   user: UserType;
