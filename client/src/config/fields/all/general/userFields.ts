@@ -30,7 +30,16 @@ export const namesFields = [
   },
 ];
 
-export const addressFields_0 = ["country", "state", "city"].map((el) => ({
+export type SwapFieldType = {
+  field: string;
+  label: string;
+};
+
+export const addressFields_0: SwapFieldType[] = [
+  "country",
+  "state",
+  "city",
+].map((el) => ({
   field: el,
   label: capt(el),
 }));
@@ -46,3 +55,5 @@ export const addressFields_1 = [
         label: capt(el),
       }
 );
+
+export const swapAddressByArea = [addressFields_0, addressFields_1];

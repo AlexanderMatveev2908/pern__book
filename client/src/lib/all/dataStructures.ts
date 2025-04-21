@@ -1,7 +1,6 @@
-import { REG_ID } from "@/config/regex";
+import { REG_ID, REG_TOK } from "@/config/regex";
 import { ParamsVerifyCB } from "@/features/common/VerifyCb/verifyCbSliceAPI";
 import { TokenEventType } from "@/types/types";
-import { REG_TOK } from "./../../../../server/src/config/regex";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const isObjOk = (obj: any, valsCb?: (val: any) => boolean) =>
