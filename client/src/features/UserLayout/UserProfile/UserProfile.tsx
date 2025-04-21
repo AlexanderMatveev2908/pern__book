@@ -12,7 +12,7 @@ import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useGetUserProfileQuery } from "../userSliceAPI";
-import { WrapPageAPI } from "@/components/components";
+import { Button, WrapPageAPI } from "@/components/components";
 import { UserType } from "@/types/types";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
@@ -23,18 +23,47 @@ const schema = z
   .object({
     ...schemaNames(),
 
-    Thumb: z.union([z.string(), z.instanceof(FileList)]),
+    Thumb: z.union([z.string(), z.instanceof(FileList)]).optional(),
 
-    ...schemaAddress(),
+    ...schemaAddress(true),
   })
   .refine(
-    (data) =>
-      !data?.Thumb?.[0] || (data?.Thumb?.[0] as File)?.type.startsWith("image"),
+    (data) => {
+      if (!data.Thumb?.length && data.Thumb instanceof FileList) return true;
+      if (typeof data.Thumb === "string") return true;
+
+      const updatedFile: File = (data.Thumb as FileList)[0];
+      return updatedFile && updatedFile.type.startsWith("image");
+    },
     {
-      message: "Thumbnail must be an image",
+      message: "Thumbnail must be a file of type image",
       path: ["Thumb"],
     }
-  );
+  )
+  .refine((data) => data.country.trim().length >= 2 || !data.country, {
+    message: "If provided Country must have at least 2 chars",
+    path: ["country"],
+  })
+  .refine((data) => data.state.trim().length >= 2 || !data.state, {
+    message: "If provided State must have at least 2 chars",
+    path: ["state"],
+  })
+  .refine((data) => data.city.trim().length >= 2 || !data.city, {
+    message: "If provided City must have at least 2 chars",
+    path: ["city"],
+  })
+  .refine((data) => data.street.trim().length >= 4 || !data.street, {
+    message: "If provided street must have at least 4 chars",
+    path: ["street"],
+  })
+  .refine((data) => data.zipCode.trim().length >= 4 || !data.zipCode, {
+    message: "If provided Zip Code must be at least 4 chars",
+    path: ["zipCode"],
+  })
+  .refine((data) => data.phone.trim().length >= 9 || !data.phone, {
+    message: "If provided phone must be at least 9 chars",
+    path: ["phone"],
+  });
 
 export type UserProfileForm = z.infer<typeof schema>;
 
@@ -59,8 +88,12 @@ const UserProfile: FC = () => {
       if (isObjOk(user)) {
         for (const key in fields) {
           if (key === "Thumb" && user.Thumb?.url !== null)
-            setValue(key as keyof UserProfileForm, user.Thumb!.url);
-          else if (Object.keys(user ?? {}).some((keyUser) => keyUser === key))
+            setValue(key as keyof UserProfileForm, user.Thumb?.url);
+          else if (
+            Object.keys(user ?? {}).some(
+              (keyUser) => keyUser !== "Thumb" && keyUser === key
+            )
+          )
             setValue(
               key as keyof UserProfileForm,
               (user[key as keyof UserProfileForm] ?? "") as any
@@ -102,7 +135,14 @@ const UserProfile: FC = () => {
       <FormProvider {...formCtx}>
         <form onSubmit={handleSave} className="w-full grid">
           <HeaderUserProfile {...{ user }} />
-          <BodyUserProfile {...{ user }} />
+
+          <BodyUserProfile />
+
+          <div className="w-[250px] justify-self-center mt-14">
+            <Button
+              {...{ type: "submit", label: "Save Changes", isDisabled: false }}
+            />
+          </div>
         </form>
       </FormProvider>
     </WrapPageAPI>

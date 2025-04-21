@@ -61,7 +61,7 @@ const ThumbForm: FC<PropsType> = ({ user, register, watch, errors }) => {
             {(errors?.Thumb?.message as string) || prevErr}
           </span>
 
-          <div className="absolute w-[30px] h-[30px] right-[25px] top-[128%] -translate-y-1/2 overflow-hidden z-60">
+          <div className="absolute w-[30px] h-[30px] right-[25px] top-[120%] -translate-y-1/2 overflow-hidden z-60">
             <div className="w-[30px] h-[30px] border-2 border-red-600 bg-[#000] rotate-45 absolute top-[-15px] left-0"></div>
           </div>
         </div>

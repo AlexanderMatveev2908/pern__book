@@ -5,16 +5,26 @@ import { decodeExpJWT, PayloadJWT } from "./hashEncryptSign/JWT.js";
 
 export const clearOldTokens = async (accessExp: string) => {
   const payload = decodeExpJWT(accessExp ?? "");
+
   await Token.destroy({
     where: {
       userID: (payload as PayloadJWT)?.id ?? "",
-      event: {
-        [Op.in]: [
-          ...Object.values(TokenEventType).filter(
-            (tok) => tok !== TokenEventType.VERIFY_ACCOUNT
-          ),
-        ],
-      },
+      [Op.or]: [
+        {
+          event: {
+            [Op.in]: [
+              ...Object.values(TokenEventType).filter(
+                (tok) => tok !== TokenEventType.VERIFY_ACCOUNT
+              ),
+            ],
+          },
+        },
+        {
+          expiry: {
+            [Op.lte]: Date.now(),
+          },
+        },
+      ],
     },
   });
 };

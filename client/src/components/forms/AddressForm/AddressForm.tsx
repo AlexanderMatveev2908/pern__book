@@ -12,7 +12,7 @@ import {
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
 } from "@/config/fields/fields";
-import { BtnAct, FormBaseProps, UserType } from "@/types/types";
+import { BtnAct, FormBaseProps } from "@/types/types";
 import { FC } from "react";
 import { UseFormClearErrors, UseFormSetValue } from "react-hook-form";
 
@@ -22,7 +22,6 @@ type PropsType = FormBaseProps & {
   isNextDisabled: boolean;
   clearErrors: UseFormClearErrors<any>;
   setValue: UseFormSetValue<any>;
-  user?: UserType;
 };
 
 const AddressForm: FC<PropsType> = ({
@@ -33,16 +32,12 @@ const AddressForm: FC<PropsType> = ({
   currForm,
   setCurrForm,
   isNextDisabled,
-  user,
 }) => {
   const handleClear = () => {
     let i = swapAddressFieldsMerg.length - 1;
 
     do {
-      setValue(
-        swapAddressFieldsMerg[i],
-        user?.[swapAddressFieldsMerg[i] as keyof UserType] ?? ""
-      );
+      setValue(swapAddressFieldsMerg[i], "");
       clearErrors(swapAddressFieldsMerg[i]);
 
       i--;

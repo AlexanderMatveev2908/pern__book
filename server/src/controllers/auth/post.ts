@@ -90,13 +90,22 @@ export const logoutUser = async (req: ReqApp, res: Response): Promise<any> => {
   await Token.destroy({
     where: {
       userID: user.id,
-      event: {
-        [Op.in]: [
-          ...Object.values(TokenEventType).filter(
-            (tok) => tok !== TokenEventType.VERIFY_ACCOUNT
-          ),
-        ],
-      },
+      [Op.or]: [
+        {
+          event: {
+            [Op.in]: [
+              ...Object.values(TokenEventType).filter(
+                (tok) => tok !== TokenEventType.VERIFY_ACCOUNT
+              ),
+            ],
+          },
+        },
+        {
+          expiry: {
+            [Op.lte]: Date.now(),
+          },
+        },
+      ],
     },
   });
   return res200(res, { msg: "logout successful" });
