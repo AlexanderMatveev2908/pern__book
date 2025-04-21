@@ -1,8 +1,8 @@
 import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { heroImages } from "../../config/assetsDev/assetsDev";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import style from "./Hero.module.css";
-import { tailwindBreak } from "../../config/breakpoints";
+import { heroImages } from "@/config/assetsDev/assetsDev";
+import { tailwindBreak } from "@/config/breakpoints";
 
 const getSize = () =>
   window.innerWidth >= tailwindBreak.lg

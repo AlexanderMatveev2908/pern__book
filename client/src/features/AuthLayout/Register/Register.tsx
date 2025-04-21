@@ -24,7 +24,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types.ts";
-import { setNotice } from "@/features/Notice/noticeSlice.ts";
+import { setNotice } from "@/features/common/Notice/noticeSlice.ts";
 import {
   BreadCrumbForm,
   Button,

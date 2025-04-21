@@ -1,12 +1,12 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DispatchType } from "../../store/store";
+import { DispatchType } from "../../../store/store";
 import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
 import SideLink from "./components/SideLink";
-import { sideFieldsAllUsers } from "../../config/fields/fields";
-import { getAuthState } from "../AuthLayout/authSlice";
-import { useGetUserProfileQuery } from "../UserLayout/userSliceAPI";
+import { sideFieldsAllUsers } from "../../../config/fields/fields";
+import { getAuthState } from "../../AuthLayout/authSlice";
+import { useGetUserProfileQuery } from "../../UserLayout/userSliceAPI";
 import { getData, isObjOk } from "@/lib/lib";
 import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";

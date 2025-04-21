@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { openToast } from "@/features/Toast/toastSlice";
 import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useErrAPI } from "./useErrAPI";
 import { __cg } from "@/lib/lib";
+import { openToast } from "@/features/common/Toast/toastSlice";
 
 export const useWrapMutationAPI = () => {
   const dispatch = useDispatch();

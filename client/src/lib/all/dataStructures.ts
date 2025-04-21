@@ -1,5 +1,5 @@
 import { REG_ID } from "@/config/regex";
-import { ParamsVerifyCB } from "@/features/VerifyCb/verifyCbSliceAPI";
+import { ParamsVerifyCB } from "@/features/common/VerifyCb/verifyCbSliceAPI";
 import { TokenEventType } from "@/types/types";
 import { REG_TOK } from "./../../../../server/src/config/regex";
 

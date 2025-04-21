@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import toastSlice from "@/features/Toast/toastSlice";
 import {
   __cg,
   formatMsgCode,
@@ -9,6 +8,7 @@ import {
 } from "@/lib/lib";
 import { EventApp, MsgErrRefresh, StorageKeys } from "@/types/types";
 import authSlice from "@/features/AuthLayout/authSlice";
+import toastSlice from "@/features/common/Toast/toastSlice";
 
 export const handleLogoutWithAccessExp = (store: any) => {
   removeStorage();

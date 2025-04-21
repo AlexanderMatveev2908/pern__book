@@ -5,7 +5,7 @@ import {
   fieldAccountNonLogged,
   sideFieldsLogged,
   sideFieldsNonLogged,
-} from "../../../config/fields/fields.ts";
+} from "../../../../config/fields/fields.ts";
 import SideLink from "./SideLink.tsx";
 import { DropHandler } from "@/components/components.ts";
 import { useSelector } from "react-redux";

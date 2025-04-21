@@ -1,4 +1,4 @@
-import VerifyCb from "@/features/VerifyCb/VerifyCb";
+import VerifyCb from "@/features/common/VerifyCb/VerifyCb";
 import { useScroll } from "@/hooks/hooks";
 import { FC } from "react";
 

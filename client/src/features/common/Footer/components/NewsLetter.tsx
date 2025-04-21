@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { z } from "zod";
-import { schemaEmail } from "../../../lib/lib";
+import { schemaEmail } from "../../../../lib/lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { EmailFormType } from "../../../types/types.ts";
-import { emailField } from "../../../config/fields/fields";
+import { EmailFormType } from "../../../../types/types.ts";
+import { emailField } from "../../../../config/fields/fields";
 import { Button, Title, WrapperInput } from "@/components/components.ts";
 
 const schema = z.object({

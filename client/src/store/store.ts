@@ -1,10 +1,10 @@
 import { configureStore } from "@reduxjs/toolkit";
 import apiSlice from "./apiSlice";
-import sidebarSlice from "@/features/Header/headerSlice";
 import authSlice from "@/features/AuthLayout/authSlice";
-import toastSlice from "@/features/Toast/toastSlice";
-import noticeSlice from "@/features/Notice/noticeSlice";
+import noticeSlice from "@/features/common/Notice/noticeSlice";
 import { handleErrStatus } from "./middleware/handleErrStatus";
+import sidebarSlice from "@/features/common/Header/headerSlice";
+import toastSlice from "@/features/common/Toast/toastSlice";
 
 export const store = configureStore({
   reducer: {

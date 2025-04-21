@@ -1,11 +1,11 @@
 import { FC } from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import Header from "../../features/Header/Header";
-import Sidebar from "../../features/Sidebar/Sidebar";
-import Hero from "../../features/Hero/Hero";
 import { REG_PATH_HOME } from "../../config/regex";
-import Toast from "../../features/Toast/Toast";
-import Footer from "../../features/Footer/Footer";
+import Header from "@/features/common/Header/Header";
+import Toast from "@/features/common/Toast/Toast";
+import { Sidebar } from "lucide-react";
+import Footer from "@/features/common/Footer/Footer";
+import Hero from "@/features/common/Hero/Hero";
 
 const MainLayout: FC = () => {
   const path = useLocation().pathname;

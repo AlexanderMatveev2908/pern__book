@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useCallback, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { openToast } from "@/features/Toast/toastSlice";
 import { EventApp } from "@/types/types";
 import { useErrAPI } from "./useErrAPI";
 import { __cg } from "@/lib/lib";
+import { openToast } from "@/features/common/Toast/toastSlice";
 
 export const useWrapQueryAPI = ({
   isSuccess,

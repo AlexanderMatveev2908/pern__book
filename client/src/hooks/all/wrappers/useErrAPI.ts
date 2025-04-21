@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setNotice } from "@/features/Notice/noticeSlice";
-import { openToast } from "@/features/Toast/toastSlice";
+import { setNotice } from "@/features/common/Notice/noticeSlice";
+import { openToast } from "@/features/common/Toast/toastSlice";
 import { ignoreErr, getMsgErr, saveStorage } from "@/lib/lib";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";

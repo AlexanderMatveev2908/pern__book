@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import noticeSlice from "@/features/Notice/noticeSlice";
+import noticeSlice from "@/features/common/Notice/noticeSlice";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import { getMsgErr, goTo, saveStorage } from "@/lib/lib";
-import toastSlice from "@/features/Toast/toastSlice";
+import toastSlice from "@/features/common/Toast/toastSlice";
 
 export const handlePushErr = ({
   store,

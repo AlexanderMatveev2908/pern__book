@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setNotice } from "@/features/Notice/noticeSlice";
+import { setNotice } from "@/features/common/Notice/noticeSlice";
 import { formatMsgCode, saveStorage } from "@/lib/lib";
 import {
   AllowedFromApp,

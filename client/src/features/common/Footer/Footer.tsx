@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Link } from "react-router-dom";
 import NewsLetter from "./components/NewsLetter";
-import { FooterLinkType, linksRender } from "../../config/fields/fields.ts";
+import { FooterLinkType, linksRender } from "../../../config/fields/fields.ts";
 import { Title } from "@/components/components.ts";
 
 type PropsType = {

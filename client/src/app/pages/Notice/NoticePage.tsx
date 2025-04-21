@@ -1,4 +1,4 @@
-import Notice from "@/features/Notice/Notice";
+import Notice from "@/features/common/Notice/Notice";
 import { useScroll } from "@/hooks/hooks";
 import { canStayNotice } from "@/lib/lib";
 import { FC } from "react";

@@ -11,7 +11,7 @@ import {
   StorageKeys,
 } from "@/types/types";
 import { makeNoticeTxt, saveStorage } from "@/lib/lib";
-import { setNotice } from "@/features/Notice/noticeSlice";
+import { setNotice } from "@/features/common/Notice/noticeSlice";
 import { useNavigate } from "react-router-dom";
 
 const ForgotPwd: FC = () => {

@@ -3,10 +3,10 @@ import {
   AuthPagesPathType,
   fieldsHeaderDropLogged,
   fieldsHeaderDropNonLogged,
-} from "../../../config/fields/fields";
+} from "../../../../config/fields/fields";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
-import { tailwindBreak } from "../../../config/breakpoints";
+import { tailwindBreak } from "../../../../config/breakpoints";
 import LogoutLi from "./LogoutLi";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
