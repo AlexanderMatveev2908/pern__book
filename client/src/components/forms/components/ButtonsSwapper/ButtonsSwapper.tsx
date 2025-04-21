@@ -6,8 +6,8 @@ type PropsType = {
   currForm: number;
   setCurrForm: (val: number) => void;
   totLen: number;
-  children?: ReactNode;
   isNextDisabled: boolean;
+  children?: ReactNode;
 };
 
 const ButtonsSwapper: FC<PropsType> = ({
@@ -29,6 +29,7 @@ const ButtonsSwapper: FC<PropsType> = ({
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>
 
+      {/* IPHOTETIC MAIN BTN TI DO IMPORTANT THINGS, I USED IT FOR REGISTER OFR EXAMPLE  */}
       {currForm === totLen - 1 && children ? (
         <div
           className={`w-full justify-center sm:col-span-1 ${

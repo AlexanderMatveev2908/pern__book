@@ -1,12 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt, makeDelay } from "@/lib/lib";
-import { FormFieldBasic, UserType } from "@/types/types";
+import { FormBaseProps, FormFieldBasic, UserType } from "@/types/types";
 import { Pencil, PenOff } from "lucide-react";
 import { FC, useState } from "react";
 import {
-  FieldErrors,
   UseFormClearErrors,
-  UseFormRegister,
   UseFormSetFocus,
   UseFormSetValue,
 } from "react-hook-form";
@@ -15,13 +13,11 @@ import { useSavePrevErr } from "@/hooks/hooks";
 
 type PropsType = {
   user?: UserType;
-  register: UseFormRegister<any>;
-  errors: FieldErrors;
   setFocus: UseFormSetFocus<any>;
   setValue: UseFormSetValue<any>;
   clearErrors: UseFormClearErrors<any>;
   el: FormFieldBasic;
-};
+} & FormBaseProps;
 
 const FormFieldBtn: FC<PropsType> = ({
   register,

@@ -3,7 +3,7 @@ import { fieldsProfileHeader } from "@/config/fields/fields";
 import { UserType } from "@/types/types";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
-import { UserProfileForm } from "../UserProfile";
+import { UserProfileForm } from "../../UserProfile";
 import ThumbForm from "./ThumbForm";
 // import my_thumb from "../../../../config/assetsDev/thumb/thumb.avif";
 

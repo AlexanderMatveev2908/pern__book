@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
-import { FormFieldBasic } from "../../../../../types/types.ts";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import { FormBaseProps, FormFieldBasic } from "../../../../../types/types.ts";
 import "./PwdField.css";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import "./PwdField.css";
@@ -9,12 +7,10 @@ import ErrorFormField from "../ErrorFormField";
 
 type PropsType = {
   el: FormFieldBasic;
-  register: UseFormRegister<any>;
-  errors: FieldErrors;
   isPwd: boolean;
   handleClick: () => void;
   setFocus?: (val: boolean) => void;
-};
+} & FormBaseProps;
 
 const PwdField: FC<PropsType> = ({
   el,

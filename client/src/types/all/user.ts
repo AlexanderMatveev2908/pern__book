@@ -18,11 +18,12 @@ export interface UserType {
 
   Thumb: ImageCloudType | null;
 
-  country: string;
-  state: string;
-  street: string;
-  zipCode: string;
-  phone: string;
+  country: string | null;
+  state: string | null;
+  city: string | null;
+  street: string | null;
+  zipCode: string | null;
+  phone: string | null;
 }
 
 export interface AuthState {

@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSavePrevErr } from "@/hooks/hooks";
 import { isObjOk } from "@/lib/lib";
-import { UserType } from "@/types/types";
+import { FormBaseProps, UserType } from "@/types/types";
 import { User } from "lucide-react";
 import { FC } from "react";
-import { FieldErrors, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { UseFormWatch } from "react-hook-form";
 
 type PropsType = {
   user: UserType;
-  register: UseFormRegister<any>;
-  errors: FieldErrors;
   watch: UseFormWatch<any>;
-};
+} & FormBaseProps;
 
 const ThumbForm: FC<PropsType> = ({ user, register, watch, errors }) => {
   const { prevErr } = useSavePrevErr(errors, "Thumb");

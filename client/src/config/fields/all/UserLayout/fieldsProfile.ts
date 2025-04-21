@@ -1,5 +1,9 @@
 import { v4 } from "uuid";
-import { namesFields } from "../general/userFields";
+import {
+  addressFields_0,
+  addressFields_1,
+  namesFields,
+} from "../general/userFields";
 import { FormFieldBasic } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
@@ -11,6 +15,33 @@ export const fieldsProfileHeader: FormFieldBasic[] = [...namesFields].map(
     id: v4(),
   })
 );
+
+export const fieldsProfileAddress_0: FormFieldBasic[] = [
+  ...addressFields_0,
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+
+export const fieldsProfileAddress_1: FormFieldBasic[] = [
+  ...addressFields_1,
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+
+export const fieldsProfileBody = [
+  {
+    field: "street",
+  },
+  {
+    field: "zipCode",
+    label: "Zip Code",
+  },
+  {
+    field: "phone",
+  },
+];
 
 export type FieldHeaderFooter = {
   id?: string;

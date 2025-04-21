@@ -7,7 +7,9 @@ import { z } from "zod";
 import { useGetUserProfileQuery } from "../userSliceAPI";
 import { WrapPageAPI } from "@/components/components";
 import { UserType } from "@/types/types";
-import HeaderUserProfile from "./HeaderUserProfile/HeaderUserProfile";
+import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
+import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
+import { useSwapAddress } from "@/contexts/SwapAddress/useSwapAddress";
 
 const schema = z
   .object({
@@ -61,6 +63,7 @@ const UserProfile: FC = () => {
       <FormProvider {...formCtx}>
         <form onSubmit={handleSave} className="w-full grid">
           <HeaderUserProfile {...{ user }} />
+          <BodyUserProfile />
         </form>
       </FormProvider>
     </WrapPageAPI>

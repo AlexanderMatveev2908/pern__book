@@ -13,7 +13,7 @@ import TestPage from "./pages/Test/TestPage";
 import { setNavigator } from "@/lib/lib";
 import UserLayout from "./layouts/UserLayout";
 import ChoseNewPwdPage from "./pages/AuthLayout/ChoseNewPwdPage";
-import ProfileSettingsPage from "./pages/UserLayout/ProfileSettingsPage";
+import ProfileSettingsPage from "./pages/UserLayout/ProfileSettingsPage/ProfileSettingsPage";
 import ManageAccountPage from "./pages/UserLayout/ManageAccountPage";
 
 const App: FC = () => {

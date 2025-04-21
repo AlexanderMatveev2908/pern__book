@@ -1,17 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt } from "@/lib/lib";
-import { FormFieldBasic } from "@/types/types";
+import { FormBaseProps, FormFieldBasic } from "@/types/types";
 import { Pencil } from "lucide-react";
 import { FC } from "react";
-import { UseFormRegister } from "react-hook-form";
 
 type PropsType = {
-  register: UseFormRegister<any>;
   el: FormFieldBasic;
   handleClick: () => any;
-};
+} & Omit<FormBaseProps, "errors">;
 
-const FakeInput: FC<PropsType> = ({ el, register, handleClick }) => {
+const FakeInput: FC<PropsType> = ({ el, handleClick, register }) => {
   return (
     <div className="w-full h-fit flex items-center gap-5">
       <label className="w-full h-fit flex items-center">

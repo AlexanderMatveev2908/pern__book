@@ -3,16 +3,16 @@ import { Button, PairPwd } from "@/components/components";
 import { fieldsNewPwd } from "@/config/fields/fields";
 import { useShowPwd } from "@/hooks/hooks";
 import { isFormValid } from "@/lib/lib";
+import { FormBaseProps } from "@/types/types";
 import { FC, useEffect, useState } from "react";
-import { FormState, UseFormRegister, UseFormWatch } from "react-hook-form";
+import { FormState, UseFormWatch } from "react-hook-form";
 
 type PropsType = {
   handleSave: () => void;
-  register: UseFormRegister<any>;
   formState: FormState<any>;
   isLoading: boolean;
   watch: UseFormWatch<any>;
-};
+} & Omit<FormBaseProps, "errors">;
 
 const NewPwdForm: FC<PropsType> = ({
   register,

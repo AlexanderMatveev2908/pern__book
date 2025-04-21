@@ -8,7 +8,7 @@ export type LabelDropType = {
 export type FormFieldBasic = {
   id?: string;
   field: string;
-  label: string;
+  label?: string;
   place?: string;
   type?: string;
 };

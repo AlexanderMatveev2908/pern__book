@@ -1,6 +1,7 @@
 import { FaUserGear } from "react-icons/fa6";
 import { verifyAccountField } from "./fieldsActionsAuth";
 import { FaUserSecret } from "react-icons/fa";
+import { capt } from "@/lib/lib";
 
 export const userLoggedFieldsDrop = [
   {
@@ -28,3 +29,20 @@ export const namesFields = [
     place: "Your Last Name...",
   },
 ];
+
+export const addressFields_0 = ["country", "state", "city"].map((el) => ({
+  field: el,
+  label: capt(el),
+}));
+export const addressFields_1 = [
+  "street",
+  { field: "zipCode", label: "Zip Code" },
+  "phone",
+].map((el) =>
+  typeof el === "object"
+    ? el
+    : {
+        field: el,
+        label: capt(el),
+      }
+);

@@ -1,20 +1,16 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from "react";
-import { FieldErrors, UseFormRegister } from "react-hook-form";
-import { FormFieldBasic } from "../../../../../types/types.ts";
+import { FormBaseProps, FormFieldBasic } from "../../../../../types/types.ts";
 import CheckRegPwd from "./CheckRegPwd.tsx";
 import { PwdField } from "@/components/components.ts";
 
 type PropsType = {
-  register: UseFormRegister<any>;
-  errors: FieldErrors;
   pwd: string | null;
   mainPwd: {
     isPwd: boolean;
     handleClick: () => void;
   };
   el: FormFieldBasic;
-};
+} & FormBaseProps;
 
 const WrapperFocus: FC<PropsType> = ({
   register,
