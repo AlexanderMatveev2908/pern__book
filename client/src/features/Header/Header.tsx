@@ -7,14 +7,11 @@ import { DispatchType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "./headerSlice";
 import DropDown from "./components/DropDown";
-import {
-  useGetUserProfileQuery,
-  UserProfile,
-} from "../UserLayout/userSliceAPI";
+import { useGetUserProfileQuery } from "../UserLayout/userSliceAPI";
 import { getAuthState } from "../AuthLayout/authSlice";
 // import { useWrapQueryAPI } from "@/hooks/hooks";
 import { getData, getStorage, isObjOk, saveStorage } from "@/lib/lib";
-import { StorageKeys } from "@/types/types";
+import { StorageKeys, UserType } from "@/types/types";
 import { MiniSpinner } from "@/components/components";
 import { useWrapQueryAPI } from "@/hooks/hooks";
 
@@ -33,7 +30,7 @@ const Header: FC = () => {
   useWrapQueryAPI({ ...res });
 
   const { data, isLoading } = res;
-  const user: UserProfile = getData(data, "user");
+  const user: UserType = getData(data, "user");
 
   useEffect(() => {
     if (isObjOk(user) && !init) {

@@ -13,6 +13,12 @@ export interface UserType {
   isNewsLetter: boolean;
   isVerified: boolean;
   role: UserRole;
+
+  country: string;
+  state: string;
+  street: string;
+  zipCode: string;
+  phone: string;
 }
 
 export interface AuthState {

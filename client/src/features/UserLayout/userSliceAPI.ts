@@ -1,19 +1,9 @@
 import apiSlice from "@/store/apiSlice";
-import { TagsAPI, UserRole } from "@/types/types";
-
-export interface UserProfile {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  role: UserRole;
-  isVerified: boolean;
-  isNewsLetter: boolean;
-}
+import { TagsAPI, UserType } from "@/types/types";
 
 export const userSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUserProfile: builder.query({
+    getUserProfile: builder.query<UserType, void>({
       query: () => ({
         url: `/user/profile`,
         method: "GET",

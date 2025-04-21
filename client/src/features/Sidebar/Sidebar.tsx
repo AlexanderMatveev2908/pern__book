@@ -6,14 +6,12 @@ import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 import SideLink from "./components/SideLink";
 import { sideFieldsAllUsers } from "../../config/fields/fields";
 import { getAuthState } from "../AuthLayout/authSlice";
-import {
-  useGetUserProfileQuery,
-  UserProfile,
-} from "../UserLayout/userSliceAPI";
+import { useGetUserProfileQuery } from "../UserLayout/userSliceAPI";
 import { getData, isObjOk } from "@/lib/lib";
 import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
+import { UserType } from "@/types/types";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
@@ -25,7 +23,7 @@ const Sidebar: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
 
   const { data } = useGetUserProfileQuery({}) ?? {};
-  const user: UserProfile = getData(data, "user");
+  const user: UserType = getData(data, "user");
 
   useEffect(() => {
     if (isObjOk(user)) setEmail(user.email);
