@@ -14,4 +14,7 @@ export const REG_CITY = /^[A-Za-zÀ-ÿ\s`']*$/;
 export const REG_STREET = /^[A-Za-zÀ-ÿ0-9\s`']*$/;
 export const REG_ZIP = /^\d{5}(-\d{4})?$/;
 export const REG_PHONE =
-  /^\+?\d{1,4}[\s-]?\(?\d{2,3}\)?[\s-]?\d{3,4}[\s-]?\d{3,4}$/;
+  /^\+\d{1,3}[-\s]?\(?\d{1,4}\)?[-\s]?\d{3,4}[-\s]?\d{3,4}$/;
+
+const iphoteticMaxLen = "+123-(1234)-1234-1234";
+const iphoteticMinLen = "+11123123";
