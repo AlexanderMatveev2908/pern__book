@@ -56,8 +56,6 @@ const UserProfile: FC = () => {
     console.log(data);
   });
 
-  console.log(formCtx.formState.errors?.Thumb);
-
   return (
     <WrapPageAPI {...{ isLoading, isError, error }}>
       <FormProvider {...formCtx}>

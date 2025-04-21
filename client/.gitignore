@@ -26,3 +26,4 @@ dist
 *.sln
 *.sw?
 video
+/src/config/assetsDev/video/
