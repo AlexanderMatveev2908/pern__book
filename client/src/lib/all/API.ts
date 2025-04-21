@@ -19,12 +19,12 @@ export const ignoreErr = (response: any) => {
   );
 };
 
-export const makeDelay = (cb: () => any) =>
+export const makeDelay = (cb: () => any, delay: number = 250) =>
   new Promise((res) =>
     setTimeout(async () => {
       const result = await cb();
       res(result);
-    }, 250)
+    }, delay)
   );
 
 export const addFlagCB = <T>(cb: T) => {
