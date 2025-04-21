@@ -1,6 +1,7 @@
 import { REG_ID } from "@/config/regex";
 import { ParamsVerifyCB } from "@/features/VerifyCb/verifyCbSliceAPI";
 import { TokenEventType } from "@/types/types";
+import { REG_TOK } from "./../../../../server/src/config/regex";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const isObjOk = (obj: any, valsCb?: (val: any) => boolean) =>
@@ -16,7 +17,7 @@ export const checkQueryAuth = (
 
   const match =
     REG_ID.test(userID) &&
-    !!token.length &&
+    REG_TOK.test(token) &&
     Object.values(TokenEventType).includes(event as TokenEventType);
 
   return match ? { userID, token, event: event as TokenEventType } : null;

@@ -2,7 +2,7 @@
 import { capt, makeDelay } from "@/lib/lib";
 import { FormFieldBasic, UserType } from "@/types/types";
 import { Pencil, PenOff } from "lucide-react";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import {
   FieldErrors,
   UseFormClearErrors,
@@ -11,6 +11,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import "./FormFieldBtn.css";
+import { useSavePrevErr } from "@/hooks/hooks";
 
 type PropsType = {
   user?: UserType;
@@ -32,12 +33,8 @@ const FormFieldBtn: FC<PropsType> = ({
   el,
 }) => {
   const [isInput, setIsInput] = useState(false);
-  const [prevErr, setPrevErr] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (errors?.[el.field]?.message && !prevErr)
-      setPrevErr(errors?.[el.field]?.message as string);
-  }, [errors, el.field, prevErr]);
+  const { prevErr } = useSavePrevErr(errors, el.field);
 
   return (
     <div className="w-full h-fit flex items-center gap-5">

@@ -14,6 +14,7 @@ import { keyCert, myCert, myIv } from "../../config/env.js";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { v4 } from "uuid";
 
 const AES_KEY_LENGTH = 32;
 const HMAC_KEY_LENGTH = 32;
@@ -188,6 +189,31 @@ export const checkCbcHmac = async ({
   // return JSON.parse(decrypted.toString());
 };
 
+export const calcLenToken = () => {
+  const aesKey = randomBytes(AES_KEY_LENGTH);
+  const iv = randomBytes(IV_LENGTH);
+
+  const payload = Buffer.from(
+    JSON.stringify({
+      id: v4(),
+    })
+  );
+
+  const cypher = createCipheriv(TokAlg.CBC_HMAC, aesKey, iv);
+  const encrypted = Buffer.concat([cypher.update(payload), cypher.final()]);
+
+  const tokenToSend = makeHEX(
+    Buffer.from(
+      JSON.stringify({
+        iv: makeHEX(iv),
+        encrypted: makeHEX(encrypted),
+      })
+    )
+  );
+
+  console.log(tokenToSend.length);
+};
+
 export const encryptCert = () => {
   // const aesKey = randomBytes(AES_KEY_LENGTH);
   // const iv = randomBytes(IV_LENGTH);
@@ -210,6 +236,7 @@ export const decryptCert = () => {
   const cert = makeBuff(myCert!);
   const decipher = createDecipheriv(TokAlg.CBC_HMAC, keyCBC, iv);
   const decrypted = Buffer.concat([decipher.update(cert), decipher.final()]);
+
   return decrypted.toString("utf-8");
 };
 
