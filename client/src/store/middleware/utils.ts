@@ -17,6 +17,7 @@ export const handlePushErr = ({
   const newNotice = {
     notice: msg,
     type: EventApp.ERR,
+    status: status || 500,
   };
 
   store.dispatch(

@@ -34,12 +34,15 @@ const ForgotPwd: FC = () => {
         }),
     });
 
+    console.log(res);
+
     if (!res) return;
 
     reset();
     const notice = {
       notice: makeNoticeTxt("to recover your account"),
       type: EventApp.OK,
+      status: res?.status || 200,
     };
     saveStorage({ data: notice, key: StorageKeys.NOTICE });
     dispatch(setNotice({ ...notice }));

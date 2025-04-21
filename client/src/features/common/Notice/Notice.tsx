@@ -20,8 +20,17 @@ const Notice: FC = () => {
   }, [noticeState]);
 
   return (
-    <div className="w-full grid justify-items-center gap-y-[75px]">
-      <span className="txt__5 txt__col">{noticeState.notice}</span>
+    <div className="w-full grid justify-items-center">
+      <span
+        className={`text-6xl font-extrabold ${
+          noticeState.type === EventApp.OK ? "text-green-600" : "text-red-600"
+        }`}
+      >
+        {noticeState.status}
+      </span>
+      <span className="txt__5 txt__col mt-[25px] mb-[50px]">
+        {noticeState.notice}
+      </span>
 
       {noticeState.type === EventApp.OK ? (
         <div className="w-fit">

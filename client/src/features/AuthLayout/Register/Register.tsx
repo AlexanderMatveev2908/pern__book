@@ -88,6 +88,7 @@ const Register: FC = () => {
     const notice = {
       notice: makeNoticeTxt("to verify your account"),
       type: EventApp.OK,
+      status: res?.status || 200,
     };
     saveStorage({ data: notice, key: StorageKeys.NOTICE });
     dispatch(setNotice({ ...notice, cb: registerCb }));

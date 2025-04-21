@@ -69,6 +69,7 @@ export const useErrAPI = () => {
           setNotice({
             notice: message,
             type: EventApp.ERR,
+            status: status || 500,
             cb: pushNotice?.[1] ?? null,
           })
         );

@@ -5,6 +5,7 @@ import { EventApp, StorageKeys } from "@/types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface NoticeState {
+  status: number;
   notice: string;
   type: EventApp;
   cb?: (() => any) | null;

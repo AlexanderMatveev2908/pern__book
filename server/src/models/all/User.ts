@@ -34,6 +34,7 @@ export class User extends Model<
 
   declare country: CreationOptional<string>;
   declare state: CreationOptional<string>;
+  declare city: CreationOptional<string>;
   declare street: CreationOptional<string>;
   declare zipCode: CreationOptional<string>;
   declare phone: CreationOptional<string>;
@@ -127,6 +128,10 @@ const defineUser = (seq: Sequelize) =>
         allowNull: true,
       },
       state: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      city: {
         type: DataTypes.STRING,
         allowNull: true,
       },

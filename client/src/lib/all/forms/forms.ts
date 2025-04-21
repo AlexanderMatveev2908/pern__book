@@ -70,7 +70,7 @@ export const validateSwapper = ({
   } while (i < fieldsByArea.length);
 
   return {
-    i,
+    i: isValid ? 0 : i,
     j,
     isValid,
   };
