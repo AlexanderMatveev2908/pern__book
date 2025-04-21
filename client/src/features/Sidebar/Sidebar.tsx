@@ -22,7 +22,7 @@ const Sidebar: FC = () => {
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
 
-  const { data } = useGetUserProfileQuery({}) ?? {};
+  const { data } = useGetUserProfileQuery() ?? {};
   const user: UserType = getData(data, "user");
 
   useEffect(() => {

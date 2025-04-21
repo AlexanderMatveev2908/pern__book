@@ -26,7 +26,7 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const res: any = useGetUserProfileQuery({});
+  const res: any = useGetUserProfileQuery();
   useWrapQueryAPI({ ...res });
 
   const { data, isLoading } = res;

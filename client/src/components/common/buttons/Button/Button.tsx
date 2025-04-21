@@ -52,20 +52,31 @@ const Button: FC<PropsType> = ({
     return () => document.removeEventListener("mousedown", animate);
   }, [ids]);
 
+  const clearTimer = () => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
+  };
+
   useEffect(() => {
     if (isAging) {
       timer.current = setTimeout(() => {
         setCanLoad(true);
+        clearTimer();
       }, 200);
     }
 
     return () => {
-      if (timer.current) timer.current = null;
+      clearTimer();
     };
   }, [isAging]);
 
   useEffect(() => {
-    if (!isAging) setCanLoad(false);
+    if (!isAging) {
+      setCanLoad(false);
+      clearTimer();
+    }
   }, [isAging]);
 
   return canLoad && isAging ? (
