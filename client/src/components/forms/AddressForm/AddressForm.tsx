@@ -1,29 +1,56 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import {
   BreadCrumbForm,
   ButtonsSwapper,
   FormField,
   Title,
 } from "@/components/components";
+import { swapAddressFieldsMerg } from "@/config/fields/all/general/userFields";
 import {
+  clearBtnField,
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
 } from "@/config/fields/fields";
-import { FormBaseProps } from "@/types/types";
+import { BtnAct, FormBaseProps, UserType } from "@/types/types";
 import { FC } from "react";
+import { UseFormClearErrors, UseFormSetValue } from "react-hook-form";
 
 type PropsType = FormBaseProps & {
   currForm: number;
   setCurrForm: (val: number) => void;
   isNextDisabled: boolean;
+  clearErrors: UseFormClearErrors<any>;
+  setValue: UseFormSetValue<any>;
+  user?: UserType;
 };
 
 const AddressForm: FC<PropsType> = ({
   register,
+  clearErrors,
+  setValue,
   errors,
   currForm,
   setCurrForm,
   isNextDisabled,
+  user,
 }) => {
+  const handleClear = () => {
+    let i = swapAddressFieldsMerg.length - 1;
+
+    do {
+      setValue(
+        swapAddressFieldsMerg[i],
+        user?.[swapAddressFieldsMerg[i] as keyof UserType] ?? ""
+      );
+      clearErrors(swapAddressFieldsMerg[i]);
+
+      i--;
+    } while (i >= 0);
+
+    setCurrForm(0);
+  };
+
   return (
     <div className="w-full grid gap-10">
       <Title {...{ title: "my address", customStyle: "txt__4" }} />
@@ -66,7 +93,17 @@ const AddressForm: FC<PropsType> = ({
           </div>
           <ButtonsSwapper
             {...{ currForm, setCurrForm, totLen: 2, isNextDisabled }}
-          ></ButtonsSwapper>
+          >
+            <div className="w-[200px] justify-self-center">
+              <ButtonIcon
+                {...{
+                  el: clearBtnField,
+                  act: BtnAct.DEL,
+                  handleCLick: handleClear,
+                }}
+              />
+            </div>
+          </ButtonsSwapper>
         </div>
       </div>
     </div>

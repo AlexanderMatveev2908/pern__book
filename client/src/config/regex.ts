@@ -16,5 +16,5 @@ export const REG_ZIP = /^\d{5}(-\d{4})?$/;
 export const REG_PHONE =
   /^\+\d{1,3}[-\s]?\(?\d{1,4}\)?[-\s]?\d{3,4}[-\s]?\d{3,4}$/;
 
-const iphoteticMaxLen = "+123-(1234)-1234-1234";
-const iphoteticMinLen = "+11123123";
+export const iphoteticMaxLen = "+123-(1234)-1234-1234";
+export const iphoteticMinLen = "+11123123";

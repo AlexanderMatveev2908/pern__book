@@ -32,7 +32,7 @@ export const schemaAddress = () => ({
   zipCode: z
     .string()
     .min(4, "Zip Code is required")
-    .max(9, "Max length Zip Code exceeded")
+    .max(10, "Max length Zip Code exceeded")
     .regex(REG_ZIP, "Invalid Zip Code format"),
   phone: z
     .string()

@@ -4,3 +4,4 @@ export * from "./all/Sidebar/sidebarFields";
 export * from "./all/footerFields";
 export * from "./all/header/fieldsHeader";
 export * from "./all/UserLayout/fieldsProfile";
+export * from "./all/general/general";

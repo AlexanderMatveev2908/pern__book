@@ -60,9 +60,11 @@ const UserProfile: FC = () => {
         for (const key in fields) {
           if (key === "Thumb" && user.Thumb?.url !== null)
             setValue(key as keyof UserProfileForm, user.Thumb!.url);
-          else if (user[key as keyof UserType] !== undefined) {
-            setValue(key as keyof UserProfileForm, (user as any)[key] ?? "");
-          }
+          else if (Object.keys(user ?? {}).some((keyUser) => keyUser === key))
+            setValue(
+              key as keyof UserProfileForm,
+              (user[key as keyof UserProfileForm] ?? "") as any
+            );
         }
       }
     };
@@ -100,7 +102,7 @@ const UserProfile: FC = () => {
       <FormProvider {...formCtx}>
         <form onSubmit={handleSave} className="w-full grid">
           <HeaderUserProfile {...{ user }} />
-          <BodyUserProfile />
+          <BodyUserProfile {...{ user }} />
         </form>
       </FormProvider>
     </WrapPageAPI>

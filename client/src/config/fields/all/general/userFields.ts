@@ -57,3 +57,6 @@ export const addressFields_1 = [
 );
 
 export const swapAddressByArea = [addressFields_0, addressFields_1];
+export const swapAddressFieldsMerg = swapAddressByArea.flatMap((arr) =>
+  arr.map((el) => el.field)
+);

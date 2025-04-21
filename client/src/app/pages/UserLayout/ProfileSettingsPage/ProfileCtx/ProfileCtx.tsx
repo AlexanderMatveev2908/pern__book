@@ -8,5 +8,5 @@ export const useProfileCtx = (): SwapCtxValsType => {
 
   if (!ctx) throw new Error("ctx must be consumed within a provider 🥴");
 
-  return ctx as SwapCtxValsType;
+  return ctx;
 };
