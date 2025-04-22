@@ -3,7 +3,6 @@ import { FieldErrors } from "react-hook-form";
 import { validateSwapper } from "../validators";
 import { swapAddressByArea } from "@/config/fields/general/userFields";
 import { keysHeaderProfile } from "@/config/fields/UserLayout/fieldsProfile";
-import { __cg } from "@/lib/lib";
 
 type Params = {
   errors: FieldErrors;
@@ -35,7 +34,7 @@ export const preSubmitCheckProfile = ({
     fieldsByArea: swapAddressByArea,
   });
 
-  __cg("swapper", isValid, i, j);
+  // __cg("swapper", isValid, i, j);
 
   if (i || j || !isValid) {
     isFormOk = false;

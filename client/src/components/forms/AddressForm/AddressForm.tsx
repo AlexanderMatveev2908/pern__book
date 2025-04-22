@@ -30,7 +30,6 @@ const AddressForm: FC<PropsType> = ({
   errors,
   currForm,
   setCurrForm,
-  // isNextDisabled,
   swapID,
 }) => {
   const handleClear = () => {

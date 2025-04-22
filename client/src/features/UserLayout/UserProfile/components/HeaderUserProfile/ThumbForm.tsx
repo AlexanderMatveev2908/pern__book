@@ -21,8 +21,6 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
   //     console.log(el)
   //   );
 
-  console.log(watch("thumb"));
-
   return (
     <div className="w-fit grid relative">
       <label

@@ -33,6 +33,8 @@ export const getUserProfile = async (
     thumb: user?.Thumb,
   };
 
+  delete clientData?.Thumb;
+
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
 

@@ -1,12 +1,21 @@
 import { v4 } from "uuid";
-import {
-  addressFields_0,
-  addressFields_1,
-  namesFields,
-} from "../general/userFields";
+import { addressFields_0, addressFields_1 } from "../general/userFields";
 import { FormFieldBasic } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+
+const namesFields = [
+  {
+    field: "firstName",
+    label: "First Name",
+    place: "Your First Name...",
+  },
+  {
+    field: "lastName",
+    label: "Last Name",
+    place: "Your Last Name...",
+  },
+];
 
 export const fieldsProfileHeader: FormFieldBasic[] = !namesFields?.length
   ? []

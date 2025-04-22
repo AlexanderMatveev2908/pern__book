@@ -24,9 +24,19 @@ export const checkQueryAuth = (
 
 export const parseNull = (str: string) => (str.trim().length ? str : null);
 
-export const makeObj = (original: any, keys: string[]) =>
+export const makeObj = (
+  original: any,
+  keys: string[],
+  custom?: (key: string) => any
+) =>
   keys.reduce(
-    (acc, curr) => ((acc as any)[curr] = (original as any)[curr]),
+    (acc, curr) => ({
+      ...acc,
+      [curr]:
+        typeof custom === "function"
+          ? custom(curr)
+          : (original as any)?.[curr] || null,
+    }),
     {}
   );
 

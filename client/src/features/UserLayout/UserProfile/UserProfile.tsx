@@ -1,7 +1,9 @@
 import {
   getData,
+  isSameData,
   makeDelay,
   makeFormDataProfile,
+  makeObj,
   preSubmitCheckProfile,
   schemaProfile,
 } from "@/lib/lib";
@@ -14,16 +16,23 @@ import {
   useUpdateProfileMutation,
 } from "../userSliceAPI";
 import { Button, WrapPageAPI } from "@/components/components";
-import { UserType } from "@/types/types";
+import { EventApp, UserType } from "@/types/types";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 import { usePopulateForm, useWrapMutationAPI } from "@/hooks/hooks";
-import { swapAddressByArea } from "@/config/fields/general/userFields";
+import {
+  allProfileKeys,
+  swapAddressByArea,
+} from "@/config/fields/general/userFields";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap";
+import { useDispatch } from "react-redux";
+import { openToast } from "@/features/common/Toast/toastSlice";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
 const UserProfile: FC = () => {
+  const dispatch = useDispatch();
+
   const formCtx = useForm<UserProfileForm>({
     resolver: zodResolver(schemaProfile),
     mode: "onChange",
@@ -60,6 +69,28 @@ const UserProfile: FC = () => {
 
     const vals = getValues();
     const formData = makeFormDataProfile(vals);
+
+    const original = makeObj(user, allProfileKeys, (key) =>
+      key === "thumb" ? user?.thumb?.url : user?.[key as keyof UserType] || null
+    );
+    const updated = makeObj(vals, allProfileKeys, (key) =>
+      key === "thumb" && vals[key] instanceof FileList
+        ? vals?.thumb?.[0]
+        : vals[key as keyof UserProfileForm] || null
+    );
+
+    const makeAPI = !isSameData(original, updated);
+
+    if (!makeAPI) {
+      dispatch(
+        openToast({
+          type: EventApp.OK,
+          msg: "Fake update user profile 🎉",
+          statusCode: 200,
+        })
+      );
+      return;
+    }
 
     const res = await wrapMutationAPI({
       cbAPI: () => updateProfile(formData),

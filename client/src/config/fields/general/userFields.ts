@@ -56,3 +56,8 @@ export const swapAddressByArea = [addressFields_0, addressFields_1];
 export const swapAddressFieldsMerg = swapAddressByArea.flatMap((arr) =>
   arr.map((el) => el.field)
 );
+export const allProfileKeys = [
+  ...swapAddressFieldsMerg,
+  ...namesFields.map((el) => el.field),
+  "thumb",
+];

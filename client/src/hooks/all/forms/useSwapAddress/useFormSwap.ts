@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { __cg, validateSwapper } from "@/lib/lib";
+import { validateSwapper } from "@/lib/lib";
 import { useCallback, useEffect, useReducer } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
 import { swapAddressInitState } from "./initState";
@@ -49,7 +49,7 @@ export const useFormSwap = ({
 
   useEffect(() => {
     const listen = () => {
-      const { isValid, i, j } = validateSwapper({
+      const { isValid, i } = validateSwapper({
         objErr: errors,
         fieldsByArea: fields,
         valsForm: vals,
@@ -57,7 +57,7 @@ export const useFormSwap = ({
 
       const len = Object.keys(errors).length;
 
-      __cg("swapper", isValid, i, j);
+      // __cg("swapper", isValid, i, j);
 
       if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
       else if ((isValid || currForm < i) && isNextDisabled)
