@@ -3,7 +3,7 @@ import { LuBadgeHelp } from "react-icons/lu";
 import { TooltipCpy } from "@/components/components.ts";
 import { REG_PWD } from "@/config/regex";
 import { mixArr } from "@/lib/lib";
-import { charsPwd } from "@/config/fields/fields";
+import { charsPwd } from "@/config/fields/AuthLayout/fieldsAuth";
 
 const CreatePwd: FC = () => {
   const [pwd, setPwd] = useState("");

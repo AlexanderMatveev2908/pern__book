@@ -3,7 +3,7 @@ dotenv.config();
 import { Sequelize } from "sequelize";
 import fs from "fs";
 import { bindModels } from "../models/models.js";
-import { getCaDir } from "../lib/utils.js";
+import { getCaDir } from "../lib/utils/utils.js";
 import { decryptCert, encryptCert } from "../lib/hashEncryptSign/cbcHmac.js";
 
 const seq = new Sequelize(process.env.URI_AIVEN!, {

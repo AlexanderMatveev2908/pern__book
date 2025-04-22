@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, PairPwd } from "@/components/components";
-import { fieldsNewPwd } from "@/config/fields/fields";
+import { fieldsNewPwd } from "@/config/fields/AuthLayout/fieldsAuth";
 import { useShowPwd } from "@/hooks/hooks";
 import { isFormValid } from "@/lib/lib";
 import { FormBaseProps } from "@/types/types";

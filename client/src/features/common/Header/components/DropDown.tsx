@@ -1,13 +1,13 @@
 import { FC, useEffect, useRef, useState } from "react";
 import {
-  AuthPagesPathType,
   fieldsHeaderDropLogged,
   fieldsHeaderDropNonLogged,
-} from "../../../../config/fields/fields";
+} from "../../../../config/fields/header/fieldsHeader.ts";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { tailwindBreak } from "../../../../config/breakpoints";
 import LogoutLi from "./LogoutLi";
+import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,

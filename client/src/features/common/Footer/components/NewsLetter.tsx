@@ -4,8 +4,8 @@ import { schemaEmail } from "../../../../lib/lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EmailFormType } from "../../../../types/types.ts";
-import { emailField } from "../../../../config/fields/fields";
 import { Button, Title, WrapperInput } from "@/components/components.ts";
+import { emailField } from "@/config/fields/AuthLayout/fieldsAuth.ts";
 
 const schema = z.object({
   ...schemaEmail(),

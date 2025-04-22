@@ -6,12 +6,12 @@ import {
   FormField,
   Title,
 } from "@/components/components";
-import { swapAddressFieldsMerg } from "@/config/fields/all/general/userFields";
+import { clearBtnField } from "@/config/fields/general/btns";
+import { swapAddressFieldsMerg } from "@/config/fields/general/userFields";
 import {
-  clearBtnField,
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
-} from "@/config/fields/fields";
+} from "@/config/fields/UserLayout/fieldsProfile";
 import { BtnAct, FormBaseProps } from "@/types/types";
 import { FC } from "react";
 import { UseFormClearErrors, UseFormSetValue } from "react-hook-form";

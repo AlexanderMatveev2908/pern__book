@@ -1,6 +1,6 @@
 import path from "path";
 import { fileURLToPath } from "url";
-import { isDev } from "../config/env.js";
+import { isDev } from "../../config/env.js";
 
 export const calcTimeRun = async (cb: () => Promise<any>) => {
   const start = performance.now();

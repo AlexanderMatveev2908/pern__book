@@ -9,7 +9,7 @@ export const userLoggedFieldsDrop = [
     path: "/user/profile-settings",
     icon: FaUserGear,
   },
-  verifyAccountField,
+  verifyAccountField ?? {},
   {
     label: "Manage Account",
     path: "/user/manage-account",

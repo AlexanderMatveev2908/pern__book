@@ -4,7 +4,7 @@ import { User } from "../../models/models.js";
 import { err400, err401, err404 } from "../../lib/responseClient/err.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
-import { formatMsgApp } from "../../lib/formatters.js";
+import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { genTokenJWE, setCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { genAccessJWT } from "../../lib/hashEncryptSign/JWT.js";
 import { res200 } from "../../lib/responseClient/res.js";

@@ -5,7 +5,7 @@ import { connectDB, syncDB } from "./config/db.js";
 import { isDev, keyCert } from "./config/env.js";
 import { clearDB } from "./stuff/clear.js";
 import routerApp from "./routes/route.js";
-import { getDirClient } from "./lib/utils.js";
+import { getDirClient } from "./lib/utils/utils.js";
 import { errMiddleware } from "./middleware/general/errMiddleware.js";
 import path from "path";
 import cookieParser from "cookie-parser";

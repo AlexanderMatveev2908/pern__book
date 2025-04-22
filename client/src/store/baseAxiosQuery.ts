@@ -14,16 +14,18 @@ export const clearAuthAxios = () =>
   delete appInstance.defaults.headers.common["Authorization"];
 
 export const axiosBaseQuery = async ({
+  // rtk pass us main info to work with api
   url,
   method,
-  data,
+  // this is data that we use when make API calls in pages/components
+  data: dataParams,
   params,
 }: any): Promise<any> => {
   try {
     const res: AxiosResponse = await appInstance({
       url,
       method,
-      data,
+      data: dataParams,
       params,
     });
 
@@ -31,11 +33,11 @@ export const axiosBaseQuery = async ({
   } catch (err: any) {
     __cg("err axios", err);
 
-    const { response: { data, config, status } = {} } = err ?? {};
+    const { response: { data: errData, config, status } = {} } = err ?? {};
 
     const isRefresh = isRefreshing(config?.url);
     const loggingOut = isLoggingOut(config?.url);
-    const isTokenExp = isAccessExpired(data?.msg);
+    const isTokenExp = isAccessExpired(errData?.msg);
     const skipRefresh =
       status !== 401 || isRefresh || !isTokenExp || loggingOut;
 
@@ -56,16 +58,18 @@ export const axiosBaseQuery = async ({
       };
 
     try {
-      const { data } = await appInstance.post("/refresh");
-      saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
+      // data that include credentials to make api req for protected routes (access token with payload inside that u check in backend )
+      const { data: refreshData } = await appInstance.post("/refresh");
+      saveStorage({ data: refreshData.accessToken, key: StorageKeys.ACCESS });
       appInstance.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${data.accessStorage}`;
+      ] = `Bearer ${refreshData.accessStorage}`;
 
       const retry = await appInstance({
         url,
         method,
-        data,
+        // send same data that failed above
+        data: dataParams,
         params,
       });
 

@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { appInstance } from "@/config/axios";
-import { saveStorage } from "./storage";
 import authSlice from "@/features/AuthLayout/authSlice";
 import apiSlice from "@/store/apiSlice";
 import { StorageKeys, TagsAPI } from "@/types/types";
+import { saveStorage } from "../storage";
 
 export const handleAsyncQuery = async ({
   queryFulfilled,

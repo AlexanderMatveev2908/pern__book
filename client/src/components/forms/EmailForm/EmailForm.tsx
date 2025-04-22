@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from "react";
-import { emailField } from "../../../config/fields/fields";
 import { Button, FormField } from "@/components/components";
 import { isFormValid } from "@/lib/lib";
 import { FormBaseProps } from "@/types/types";
 import { UseFormWatch } from "react-hook-form";
+import { emailField } from "@/config/fields/AuthLayout/fieldsAuth";
 
 type PropsType = {
   handleSave: () => void;

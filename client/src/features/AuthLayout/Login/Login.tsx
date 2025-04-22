@@ -3,7 +3,10 @@ import { z } from "zod";
 import { isFormValid, schemaLogin } from "../../../lib/lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { emailField, passwordField } from "../../../config/fields/fields";
+import {
+  emailField,
+  passwordField,
+} from "../../../config/fields/AuthLayout/fieldsAuth.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd";
 import { Button, FormField, PwdField } from "@/components/components";
 import { ParamsLoginAPI, useLoginUserMutation } from "../authSliceAPI";

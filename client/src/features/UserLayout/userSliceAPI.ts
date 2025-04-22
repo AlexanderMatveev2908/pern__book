@@ -10,7 +10,20 @@ export const userSliceAPI = apiSlice.injectEndpoints({
       }),
       providesTags: [TagsAPI.USER],
     }),
+
+    updateProfile: builder.mutation({
+      query: (data: FormData) => ({
+        url: "/user/profile",
+        method: "PATCH",
+        data,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(userSliceAPI.util.invalidateTags([TagsAPI.USER]));
+      },
+    }),
   }),
 });
 
-export const { useGetUserProfileQuery } = userSliceAPI;
+export const { useGetUserProfileQuery, useUpdateProfileMutation } =
+  userSliceAPI;

@@ -10,7 +10,7 @@ import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
 import { Token } from "./Token.js";
-import { calcTimeRun, capChar } from "../../lib/utils.js";
+import { calcTimeRun, capChar } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 
 const ObjectID = pkg.default;

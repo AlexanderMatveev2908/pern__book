@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SwapFieldType } from "@/config/fields/all/general/userFields";
+import { SwapFieldType } from "@/config/fields/general/userFields";
 import { FieldErrors } from "react-hook-form";
 
 export const isFormValid = (objErrs: FieldErrors, objVals: any) =>

@@ -1,10 +1,10 @@
 import FormFieldBtn from "@/components/forms/components/inputs/FormFieldBtn/FormFieldBtn";
-import { fieldsProfileHeader } from "@/config/fields/fields";
 import { UserType } from "@/types/types";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import { UserProfileForm } from "../../UserProfile";
 import ThumbForm from "./ThumbForm";
+import { fieldsProfileHeader } from "@/config/fields/UserLayout/fieldsProfile";
 // import my_thumb from "../../../../config/assetsDev/thumb/thumb.avif";
 
 type PropsType = {

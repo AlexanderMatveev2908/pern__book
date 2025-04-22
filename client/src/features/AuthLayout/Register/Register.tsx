@@ -3,7 +3,7 @@ import {
   fieldsAuth__0,
   fieldsAuth__1,
   groupFieldsByArea,
-} from "../../../config/fields/fields.ts";
+} from "../../../config/fields/AuthLayout/fieldsAuth.ts";
 import ButtonsSwapper from "../../../components/forms/components/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
 import { z } from "zod";

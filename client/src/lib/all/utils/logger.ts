@@ -13,10 +13,16 @@ export const __cg = (str: string, ...arg: any[]) => {
 
   console.group(str.toUpperCase());
 
-  console.log(cleared);
-
   for (const a of arg) {
     console.log(a);
   }
+
+  console.log("=> from:", cleared);
   console.groupEnd();
+};
+
+export const logFormData = (formData: FormData) => {
+  for (const pair of formData.entries()) {
+    __cg(pair[0], pair[1]);
+  }
 };

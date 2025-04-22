@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { REG_NAME, REG_PWD } from "../../../config/regex";
+import { REG_NAME, REG_PWD } from "../../../../config/regex";
 
 export const schemaEmail = () => ({
   email: z
