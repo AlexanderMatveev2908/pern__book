@@ -1,25 +1,38 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { swapAddressByArea } from "@/config/fields/general/userFields";
-import { validateSwapper } from "@/lib/lib";
+import { __cg, validateSwapper } from "@/lib/lib";
 import { useCallback, useEffect, useReducer } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
 import { swapAddressInitState } from "./initState";
 import { ActionsSwap } from "./actions";
 import { reducerSwap } from "./reducer";
+import { SwapFieldType } from "@/types/types";
 
 type Params = {
   watch: UseFormWatch<any>;
   errors: FieldErrors;
+  fields: SwapFieldType[][];
+  customSwapCB?: () => void;
 };
 
-export const useSwapAddress = ({ watch, errors }: Params) => {
+export const useFormSwap = ({
+  watch,
+  errors,
+  fields,
+  customSwapCB,
+}: Params) => {
   const [state, dispatch] = useReducer(reducerSwap, swapAddressInitState);
 
   const { currForm, isNextDisabled, isFormOk } = state;
 
   const setCurrForm = useCallback(
-    (val: number) => dispatch({ type: ActionsSwap.SET_SWAP, payload: val }),
-    []
+    (val: number) => {
+      if (typeof customSwapCB === "function") customSwapCB();
+
+      dispatch({ type: ActionsSwap.SET_SWAP, payload: val });
+      if (val < state.currForm)
+        dispatch({ type: ActionsSwap.SET_NEXT_DISABLED, payload: false });
+    },
+    [customSwapCB, state.currForm]
   );
   const setNextDisabled = useCallback(
     (val: boolean) =>
@@ -34,15 +47,15 @@ export const useSwapAddress = ({ watch, errors }: Params) => {
 
   useEffect(() => {
     const sub = watch((valsForm) => {
-      const { isValid, i } = validateSwapper({
+      const { isValid, i, j } = validateSwapper({
         objErr: errors,
-        fieldsByArea: swapAddressByArea,
+        fieldsByArea: fields,
         valsForm,
       });
+
       const len = Object.keys(errors).length;
 
-      // __cg("errors", len);
-      // __cg("swapper", isValid, i, j);
+      __cg("swapper", isValid, i, j);
 
       if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
       else if ((isValid || currForm < i) && isNextDisabled)
@@ -63,6 +76,7 @@ export const useSwapAddress = ({ watch, errors }: Params) => {
     setNextDisabled,
     isFormOk,
     setIsFormOk,
+    fields,
   ]);
 
   return {

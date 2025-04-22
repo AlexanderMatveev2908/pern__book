@@ -7,11 +7,20 @@ export const reducerSwap = (
 ) => {
   switch (action.type) {
     case ActionsSwap.SET_SWAP:
-      return { ...state, currForm: action.payload };
+      return {
+        ...state,
+        currForm: action.payload,
+      };
     case ActionsSwap.SET_NEXT_DISABLED:
-      return { ...state, isNextDisabled: action.payload };
+      return {
+        ...state,
+        isNextDisabled: action.payload,
+      };
     case ActionsSwap.SET_IS_FORM_OK:
-      return { ...state, isFormOk: action.payload };
+      return {
+        ...state,
+        isFormOk: action.payload,
+      };
     default:
       throw new Error(`Invalid action 😠: ${action} `);
   }

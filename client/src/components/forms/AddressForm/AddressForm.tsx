@@ -31,7 +31,6 @@ const AddressForm: FC<PropsType> = ({
   currForm,
   setCurrForm,
   isNextDisabled,
-  setNextDisabled,
   swapID,
 }) => {
   const handleClear = () => {
@@ -93,7 +92,6 @@ const AddressForm: FC<PropsType> = ({
               setCurrForm,
               totLen: 2,
               isNextDisabled,
-              setNextDisabled,
             }}
           >
             <div className="w-[200px] justify-self-center">

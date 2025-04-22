@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SwapFieldType } from "@/config/fields/general/userFields";
+import { SwapFieldType } from "@/types/types";
 import { FieldErrors } from "react-hook-form";
 
 export const isFormValid = (objErrs: FieldErrors, objVals: any) =>
@@ -38,6 +38,8 @@ export const validateSwapper = ({
 }: {
   objErr: FieldErrors;
   fieldsByArea: SwapFieldType[][];
+  // formData obj type || null
+  // i do not know to make dynamic types yet so i use any
   valsForm: any;
 }) => {
   let i = 0;
@@ -58,7 +60,12 @@ export const validateSwapper = ({
         valsForm !== null &&
         Object.keys(valsForm).some((key) => currEL?.field === key)
       ) {
-        if (!valsForm[currEL.field]?.trim()?.length) {
+        const val = valsForm[currEL.field];
+        if (
+          // just null can result false checked with a simple ! not, OBJECT ARE ALL TRUE EVEN EMPTY
+          ((typeof val === "boolean" || typeof val === "object") && !val) ||
+          (typeof val === "string" && !val?.trim()?.length)
+        ) {
           isValid = false;
           break;
         }

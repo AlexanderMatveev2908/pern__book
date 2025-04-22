@@ -17,7 +17,8 @@ import { UserType } from "@/types/types";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 import { usePopulateForm, useWrapMutationAPI } from "@/hooks/hooks";
-import { useSwapAddress } from "@/hooks/all/forms/useSwapAddress/useSwapAddress";
+import { swapAddressByArea } from "@/config/fields/general/userFields";
+import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -51,9 +52,10 @@ const UserProfile: FC = () => {
   //   ...valsSwap,
   // });
 
-  const { isFormOk, setCurrForm, ...restSwap } = useSwapAddress({
+  const { isFormOk, setCurrForm, ...restSwap } = useFormSwap({
     watch,
     errors,
+    fields: swapAddressByArea,
   });
 
   const handleSave = async (e: React.FormEvent) => {

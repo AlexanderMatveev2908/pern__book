@@ -8,12 +8,12 @@ import { FormFieldBasic } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 
-export const fieldsProfileHeader: FormFieldBasic[] = [...namesFields].map(
-  (el) => ({
-    ...el,
-    id: v4(),
-  })
-);
+export const fieldsProfileHeader: FormFieldBasic[] = !namesFields?.length
+  ? []
+  : [...namesFields].map((el) => ({
+      ...el,
+      id: v4(),
+    }));
 
 export const keysHeaderProfile = fieldsProfileHeader
   .map((el) => el.field)

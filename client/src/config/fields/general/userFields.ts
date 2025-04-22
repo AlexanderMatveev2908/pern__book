@@ -2,6 +2,7 @@ import { FaUserGear } from "react-icons/fa6";
 import { verifyAccountField } from "./fieldsActionsAuth";
 import { FaUserSecret } from "react-icons/fa";
 import { capt } from "@/lib/lib";
+import { SwapFieldType } from "@/types/types";
 
 export const userLoggedFieldsDrop = [
   {
@@ -29,11 +30,6 @@ export const namesFields = [
     place: "Your Last Name...",
   },
 ];
-
-export type SwapFieldType = {
-  field: string;
-  label: string;
-};
 
 export const addressFields_0: SwapFieldType[] = [
   "country",

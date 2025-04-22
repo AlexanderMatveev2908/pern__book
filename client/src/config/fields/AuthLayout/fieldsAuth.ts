@@ -60,6 +60,10 @@ export const groupFieldsByArea = [
   fieldsAuth__0.map((el) => el.field),
   [...fieldsAuth__1.map((el) => el.field), "terms"],
 ];
+export const swapFieldsByAreaAuth = [
+  fieldsAuth__0.map((el) => ({ field: el.field })),
+  [...fieldsAuth__1.map((el) => ({ field: el.field })), { field: "terms" }],
+];
 
 export const charsPwd = "abcdefghilmopqzwyx"
   .split("")

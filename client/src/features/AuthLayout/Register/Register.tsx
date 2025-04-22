@@ -1,8 +1,8 @@
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC } from "react";
 import {
   fieldsAuth__0,
   fieldsAuth__1,
-  groupFieldsByArea,
+  swapFieldsByAreaAuth,
 } from "../../../config/fields/AuthLayout/fieldsAuth.ts";
 import ButtonsSwapper from "../../../components/forms/components/ButtonsSwapper/ButtonsSwapper";
 import Terms from "./components/Terms";
@@ -10,8 +10,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import {
-  getErrCurrSwap,
-  isFormValid,
   isObjOk,
   makeNoticeTxt,
   saveStorage,
@@ -31,11 +29,10 @@ import {
   FormField,
   PairPwd,
 } from "@/components/components.ts";
+import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
-  const [currForm, setCurrFormBeforeCB] = useState(0);
-  const [isNextDisabled, setIsNextDisabled] = useState(true);
   const navigate = useNavigate();
 
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
@@ -98,43 +95,14 @@ const Register: FC = () => {
     });
   });
 
-  const vals = watch();
-  const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
-
-  useEffect(() => {
-    const listenErr = () => {
-      const currSwapKeys = groupFieldsByArea[currForm];
-      let isValid = getErrCurrSwap(errors, currSwapKeys);
-
-      if (isValid)
-        for (const key in vals) {
-          if (
-            currSwapKeys.includes(key) &&
-            (typeof vals[key as keyof RegisterFormType] === "string"
-              ? !(vals[key as keyof RegisterFormType] as string)?.trim()
-              : !vals[key as keyof RegisterFormType])
-          ) {
-            isValid = false;
-            break;
-          }
-        }
-
-      if (!isValid && !isNextDisabled) setIsNextDisabled(true);
-      else if (isValid && isNextDisabled) setIsNextDisabled(false);
-    };
-
-    listenErr();
-  }, [currForm, errors, isNextDisabled, vals]);
-
-  const setCurrForm = useCallback(
-    (val: number) => {
-      closeAllPwd();
-      setCurrFormBeforeCB(val);
-    },
-    [closeAllPwd]
-  );
-
   const pwd = watch("password");
+
+  const { isFormOk, currForm, setCurrForm, isNextDisabled } = useFormSwap({
+    fields: swapFieldsByAreaAuth,
+    watch,
+    errors,
+    customSwapCB: closeAllPwd,
+  });
 
   return (
     <div className="parent__form">
@@ -187,7 +155,6 @@ const Register: FC = () => {
               setCurrForm,
               totLen: 2,
               isNextDisabled,
-              setIsNextDisabled,
             }}
           >
             <div className="max-w-[250px] justify-self-center">
