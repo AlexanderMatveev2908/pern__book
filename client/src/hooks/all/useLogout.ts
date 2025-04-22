@@ -3,9 +3,8 @@ import { useWrapMutationAPI } from "../hooks";
 import { useNavigate } from "react-router-dom";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
-import { logout, setLoggingOut } from "@/features/AuthLayout/authSlice";
+import { setLoggingOut } from "@/features/AuthLayout/authSlice";
 import { removeStorage } from "@/lib/lib";
-import apiSlice from "@/store/apiSlice";
 import { clearAuthAxios } from "@/store/baseAxiosQuery";
 
 export const useLogout = () => {
@@ -23,14 +22,12 @@ export const useLogout = () => {
 
       if (!res) return;
 
-      navigate("/", { replace: true });
-
       removeStorage();
       clearAuthAxios();
 
       dispatch(setLoggingOut());
-      dispatch(logout());
-      dispatch(apiSlice.util.resetApiState());
+
+      navigate("/", { replace: true });
     },
     [logoutUser, navigate, wrapMutationAPI, dispatch]
   );

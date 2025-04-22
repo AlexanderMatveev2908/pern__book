@@ -5,10 +5,11 @@ import verifyRouter from "./all/verify.js";
 import routerRefresh from "./all/refresh.js";
 import testRouter from "./all/test.js";
 import sendMailRouter from "./all/sendEmail.js";
+import { __cr } from "../middleware/general/logger.js";
 
 const routerApp = express.Router();
 
-// routerApp.use(__cr);
+routerApp.use(__cr);
 
 routerApp.use("/auth", authRouter);
 routerApp.use("/refresh", routerRefresh);

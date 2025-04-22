@@ -12,7 +12,7 @@ import { Response } from "express";
 import { isDev } from "../../config/env.js";
 import { Op } from "sequelize";
 import { KeyTypeRSA } from "../../types/all/keys.js";
-import { genExpiryCookie, genExpiryJWE } from "./expiryTime.js";
+import { genExpiryJWE } from "./expiryTime.js";
 
 // IMPORTANT ⚠️
 // IF U PREFER USE COMMON-JS JOSE IS THOUGH FOR MODULES AND U'LL HAVE WARNINGS OR COULD EVEN CRASH IF BECOME UNSUPPORTED(I USED COMMON JS IN LAST PROJECT) SO U WOULD NEED TO MAKE DYNAMIC ASYNC IMPORTS INSTEAD OF SIMPLE IMPORT
@@ -143,7 +143,8 @@ export const setCookie = (res: Response, refreshToken: string) =>
     httpOnly: true,
     secure: !isDev,
     sameSite: "strict",
-    expires: genExpiryCookie(),
+    maxAge: genExpiryJWE(),
+    path: "/",
   });
 
 export const clearCookie = (res: Response) =>
@@ -151,5 +152,6 @@ export const clearCookie = (res: Response) =>
     httpOnly: true,
     secure: !isDev,
     sameSite: "strict",
-    expires: new Date(0),
+    maxAge: 0,
+    path: "/",
   });
