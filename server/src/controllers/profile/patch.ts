@@ -20,7 +20,6 @@ export const updateProfile = async (
   const { userID } = req;
   const { firstName, lastName, Thumb: thumbURL, ...address } = req.body;
 
-  console.log(thumbURL);
   const user = (await User.findByPk(userID, {
     include: [
       {

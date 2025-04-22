@@ -33,10 +33,12 @@ const Header: FC = () => {
   const user: UserType = getData(data, "user");
 
   useEffect(() => {
-    if (isObjOk(user) && !init) {
+    if (isObjOk(user)) {
       const newInit = capitalize(user?.firstName) + capitalize(user?.lastName);
-      setInit(newInit);
-      saveStorage({ data: newInit, key: StorageKeys.INIT });
+      if (!init || newInit !== init) {
+        setInit(newInit);
+        saveStorage({ data: newInit, key: StorageKeys.INIT });
+      }
     }
   }, [init, user]);
 
