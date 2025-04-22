@@ -1,9 +1,9 @@
-import { FieldHeaderFooter } from "@/config/fields/fields";
+import { BtnFieldIconType } from "@/config/fields/general/btns";
 import { BtnAct } from "@/types/types";
 import { FC } from "react";
 
 type PropsType = {
-  el: FieldHeaderFooter;
+  el: BtnFieldIconType;
   act: BtnAct;
   handleCLick: () => void;
 };

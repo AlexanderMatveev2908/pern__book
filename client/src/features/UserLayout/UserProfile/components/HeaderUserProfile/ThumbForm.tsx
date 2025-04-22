@@ -71,6 +71,10 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
       {!!thumb?.length && (
         <TooltipBtn
           {...{
+            el: {
+              icon: Trash2,
+              label: "Remove Thumb",
+            },
             handleClick: () => setValue("Thumb", "", { shouldValidate: true }),
           }}
         />

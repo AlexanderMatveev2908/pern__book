@@ -4,7 +4,6 @@ import { DispatchType } from "../../../store/store";
 import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 // import UserEmail from "./components/UserEmail";
 import SideLink from "./components/SideLink";
-import { sideFieldsAllUsers } from "../../../config/fields/fields";
 import { getAuthState } from "../../AuthLayout/authSlice";
 import { useGetUserProfileQuery } from "../../UserLayout/userSliceAPI";
 import { getData, isObjOk } from "@/lib/lib";
@@ -12,6 +11,7 @@ import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
 import { UserType } from "@/types/types";
+import { sideFieldsAllUsers } from "@/config/fields/Sidebar/sidebarFields";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);

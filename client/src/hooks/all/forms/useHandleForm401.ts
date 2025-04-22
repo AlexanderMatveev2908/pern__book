@@ -33,6 +33,7 @@ export const useHandleForm401 = () => {
       const newNotice = {
         notice: data?.msg,
         type: EventApp.ERR,
+        status: 401,
       };
       dispatch(
         setNotice({

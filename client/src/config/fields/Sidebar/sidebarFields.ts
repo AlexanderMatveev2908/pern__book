@@ -4,9 +4,9 @@ import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../types/types";
-import { fieldsActionsAuth } from "../../all/general/fieldsActionsAuth";
 import { ShieldCheck } from "lucide-react";
 import { userLoggedFieldsDrop } from "../general/userFields";
+import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
 
 export type SideFieldType = {
   id: string;

@@ -1,5 +1,5 @@
+import { SideFieldType } from "@/config/fields/Sidebar/sidebarFields";
 import { FC } from "react";
-import { SideFieldType } from "../../../../config/fields/fields.ts";
 import { NavLink } from "react-router-dom";
 
 type PropsType = {

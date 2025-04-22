@@ -1,16 +1,16 @@
 import { FC, useState } from "react";
-import {
-  AuthPagesPathType,
-  fieldAccountLogged,
-  fieldAccountNonLogged,
-  sideFieldsLogged,
-  sideFieldsNonLogged,
-} from "../../../../config/fields/fields.ts";
 import SideLink from "./SideLink.tsx";
 import { DropHandler } from "@/components/components.ts";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice.ts";
 import { UserType } from "@/types/types.ts";
+import {
+  fieldAccountLogged,
+  fieldAccountNonLogged,
+  sideFieldsLogged,
+  sideFieldsNonLogged,
+} from "@/config/fields/Sidebar/sidebarFields.ts";
+import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
 
 type PropsType = {
   handleSideClick: () => void;

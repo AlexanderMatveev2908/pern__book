@@ -7,7 +7,6 @@ import {
 import { FormFieldBasic } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { IconType } from "react-icons/lib";
 
 export const fieldsProfileHeader: FormFieldBasic[] = [...namesFields].map(
   (el) => ({
@@ -47,13 +46,7 @@ export const fieldsProfileBody = [
   },
 ];
 
-export type FieldHeaderFooter = {
-  id?: string;
-  label: string;
-  icon: IconType;
-};
-
-export const FieldHeaderFooter = [
+export const BtnFieldIconType = [
   {
     label: "Change Password",
     icon: FaUserSecret,
