@@ -41,15 +41,13 @@ export const updateProfile = async (
     user.lastName = lastName;
     await user.save();
 
-    const hasUploaded = isObjOk(thumbUploadNow);
-    const hasRemoved = parseNull(thumbURL) === null;
+    const isCloudUpload = isObjOk(thumbUploadNow);
+    const isURL = parseNull(thumbURL);
 
-    if (!hasUploaded) {
-      if (hasRemoved && user.Thumb?.publicID) await clearThumb(user);
+    if (!isCloudUpload) {
+      if (!isURL && user.Thumb?.publicID) await clearThumb(user);
     } else {
-      if (user.Thumb?.publicID) {
-        await clearThumb(user);
-      }
+      if (user.Thumb?.publicID) await clearThumb(user);
       await Thumb.create({ ...thumbUploadNow, userID });
     }
   } catch (err) {

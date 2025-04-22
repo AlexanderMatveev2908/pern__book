@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import TooltipBtn from "@/components/common/buttons/TooltipBtn";
 import { useSavePrevErr } from "@/hooks/hooks";
+import { isObjOk } from "@/lib/lib";
 import { FormBaseProps } from "@/types/types";
 import { Trash2, User } from "lucide-react";
 import { FC } from "react";
@@ -33,12 +35,12 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
           className="h-0 w-0 opacity-0"
           {...register("Thumb")}
         />
-        {thumb ? (
+        {isObjOk(thumb?.[0]) || thumb?.length ? (
           <img
             src={
               thumb instanceof FileList
                 ? URL.createObjectURL(thumb?.[0] as File)
-                : thumb
+                : (thumb as string)
             }
             alt=""
             className="w-[100%] h-[100%] object-cover rounded-full"
@@ -66,13 +68,13 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
         </div>
       </div>
 
-      <button
-        onClick={() => setValue("Thumb", "", { shouldValidate: true })}
-        type="button"
-        className="appearance-none outline-0 absolute bottom-0 right-0 cursor-pointer btn__logic_lg"
-      >
-        <Trash2 className="icon__md text-red-600" />
-      </button>
+      {!!thumb?.length && (
+        <TooltipBtn
+          {...{
+            handleClick: () => setValue("Thumb", "", { shouldValidate: true }),
+          }}
+        />
+      )}
     </div>
   );
 };
