@@ -4,7 +4,6 @@ const calcFromNow = (...args: number[]) =>
 
 // MAKE THEM SYNC TO NOT HAVE ERR BETWEEN SERVER AND CLIENT
 export const genExpiryJWE = () => calcFromNow(30);
-// export const genExpiryCookie = () => new Date(genExpiryJWE());
 
-export const expiryAccess = "5s";
+export const expiryAccess = "1m";
 export const genExpiryCBC = () => calcFromNow(15);

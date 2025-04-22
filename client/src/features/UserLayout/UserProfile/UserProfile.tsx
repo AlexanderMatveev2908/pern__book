@@ -7,7 +7,7 @@ import {
   validateSwapper,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useGetUserProfileQuery } from "../userSliceAPI";
@@ -22,6 +22,8 @@ import { keysHeaderProfile } from "@/config/fields/fields";
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
 const UserProfile: FC = () => {
+  const [isFormOk, setIsFormOk] = useState(true);
+
   const formCtx = useForm<UserProfileForm>({
     resolver: zodResolver(schemaProfile),
     mode: "onChange",
@@ -58,6 +60,33 @@ const UserProfile: FC = () => {
     updateForm();
   }, [user, getValues, setValue]);
 
+  const { currForm, isNextDisabled, setNextDisabled } = useProfileCtx();
+
+  useEffect(() => {
+    const sub = watch((valsForm) => {
+      const { isValid, i } = validateSwapper({
+        objErr: errors,
+        fieldsByArea: swapAddressByArea,
+        valsForm,
+      });
+      const len = Object.keys(errors).length;
+
+      // __cg("errors", len);
+      // __cg("swapper", isValid, i, j);
+
+      if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
+      else if ((isValid || currForm < i) && isNextDisabled)
+        setNextDisabled(false);
+
+      if (len && isFormOk) setIsFormOk(false);
+      else if (!len && !isFormOk) setIsFormOk(true);
+    });
+
+    return () => {
+      sub.unsubscribe();
+    };
+  }, [watch, currForm, errors, isNextDisabled, setNextDisabled, isFormOk]);
+
   const { setCurrForm } = useProfileCtx();
 
   const handleSave = async (e: React.FormEvent) => {
@@ -74,49 +103,31 @@ const UserProfile: FC = () => {
     }
     if (!isFormOk) {
       window.scroll({ top: 0, behavior: "smooth" });
+      return;
     }
 
+    // i is indispensable, j is made for learning purpose, is fundamental to pass an id as prop or set it based on path to scroll to the swapper called in page as component
     const { i, j, isValid } = validateSwapper({
       objErr: errors,
-      valsForm: vals,
+      valsForm: null,
       fieldsByArea: swapAddressByArea,
     });
 
-    if (!i || !j || !isValid) {
+    // __cg("swapper", isValid, i, j);
+
+    if (i || j || !isValid) {
       setCurrForm(i);
 
       const swapEl = document.getElementById("userProfileSwap");
       const h = swapEl?.offsetHeight;
 
       window.scroll({ top: h, behavior: "smooth" });
+
+      return;
     }
+
+    __cg("vals", vals);
   };
-
-  const { currForm, isNextDisabled, setNextDisabled } = useProfileCtx();
-
-  useEffect(() => {
-    const sub = watch((valsForm) => {
-      const { isValid, i, j } = validateSwapper({
-        objErr: errors,
-        fieldsByArea: swapAddressByArea,
-        valsForm,
-      });
-
-      __cg("swapper", isValid, i, j);
-
-      console.log(isValid, "fresh");
-
-      if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
-      else if ((isValid || currForm < i) && isNextDisabled)
-        setNextDisabled(false);
-    });
-
-    return () => {
-      sub.unsubscribe();
-    };
-  }, [watch, currForm, errors, isNextDisabled, setNextDisabled]);
-
-  console.log(errors);
 
   return (
     <WrapPageAPI {...{ isLoading, isError, error }}>
@@ -128,7 +139,12 @@ const UserProfile: FC = () => {
 
           <div className="w-[250px] justify-self-center mt-14">
             <Button
-              {...{ type: "submit", label: "Save Changes", isDisabled: false }}
+              {...{
+                type: "submit",
+                label: "Save Changes",
+                // isDisabled: false,
+                isDisabled: !isFormOk,
+              }}
             />
           </div>
         </form>

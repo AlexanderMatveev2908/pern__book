@@ -53,7 +53,11 @@ export const validateSwapper = ({
         isValid = false;
         break;
       }
-      if (Object.keys(valsForm).some((key) => currEL?.field === key)) {
+
+      if (
+        valsForm !== null &&
+        Object.keys(valsForm).some((key) => currEL?.field === key)
+      ) {
         if (!valsForm[currEL.field]?.trim()?.length) {
           isValid = false;
           break;
