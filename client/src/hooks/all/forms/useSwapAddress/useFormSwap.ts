@@ -45,12 +45,14 @@ export const useFormSwap = ({
     []
   );
 
+  const vals = watch();
+
   useEffect(() => {
-    const sub = watch((valsForm) => {
+    const listen = () => {
       const { isValid, i, j } = validateSwapper({
         objErr: errors,
         fieldsByArea: fields,
-        valsForm,
+        valsForm: vals,
       });
 
       const len = Object.keys(errors).length;
@@ -63,13 +65,10 @@ export const useFormSwap = ({
 
       if (len && isFormOk) setIsFormOk(false);
       else if (!len && !isFormOk) setIsFormOk(true);
-    });
-
-    return () => {
-      sub.unsubscribe();
     };
+    listen();
   }, [
-    watch,
+    vals,
     currForm,
     errors,
     isNextDisabled,
