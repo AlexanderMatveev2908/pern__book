@@ -1,9 +1,13 @@
-import { useProfileCtx } from "@/app/pages/UserLayout/ProfileSettingsPage/ProfileCtx/ProfileCtx";
 import AddressForm from "@/components/forms/AddressForm/AddressForm";
+import { SwapFormPropsType } from "@/types/types";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 
-const BodyUserProfile: FC = () => {
+type PropsType = {
+  swapVals: SwapFormPropsType;
+};
+
+const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
   const formCtx = useFormContext();
   const {
     register,
@@ -21,7 +25,7 @@ const BodyUserProfile: FC = () => {
           clearErrors,
           setValue,
           swapID: "userProfileSwap",
-          ...useProfileCtx(),
+          ...swapVals,
         }}
       />
     </div>

@@ -16,9 +16,8 @@ import { Button, WrapPageAPI } from "@/components/components";
 import { UserType } from "@/types/types";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
-import { useProfileCtx } from "@/app/pages/UserLayout/ProfileSettingsPage/ProfileCtx/ProfileCtx";
 import { usePopulateForm, useWrapMutationAPI } from "@/hooks/hooks";
-import { useValidateSwapAddress } from "@/contexts/SwapAddress/useValidateSwapAddress";
+import { useSwapAddress } from "@/hooks/all/forms/useSwapAddress/useSwapAddress";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -40,16 +39,21 @@ const UserProfile: FC = () => {
     useUpdateProfileMutation();
 
   const { wrapMutationAPI } = useWrapMutationAPI();
-  const { setCurrForm, ...valsSwap } = useProfileCtx();
+  // const { setCurrForm, ...valsSwap } = useProfileCtx();
   usePopulateForm({
     user,
     getValues,
     setValue,
   });
-  const { isFormOk } = useValidateSwapAddress({
+  // const { isFormOk } = useValidateSwapAddress({
+  //   watch,
+  //   errors,
+  //   ...valsSwap,
+  // });
+
+  const { isFormOk, setCurrForm, ...restSwap } = useSwapAddress({
     watch,
     errors,
-    ...valsSwap,
   });
 
   const handleSave = async (e: React.FormEvent) => {
@@ -73,7 +77,7 @@ const UserProfile: FC = () => {
         <form onSubmit={handleSave} className="w-full grid">
           <HeaderUserProfile {...{ user }} />
 
-          <BodyUserProfile />
+          <BodyUserProfile {...{ swapVals: { ...restSwap, setCurrForm } }} />
 
           <div className="w-[250px] justify-self-center mt-14">
             <Button

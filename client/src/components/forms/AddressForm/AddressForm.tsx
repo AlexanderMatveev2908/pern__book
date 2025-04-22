@@ -12,19 +12,16 @@ import {
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
 } from "@/config/fields/UserLayout/fieldsProfile";
-import { BtnAct, FormBaseProps } from "@/types/types";
+import { BtnAct, FormBaseProps, SwapFormPropsType } from "@/types/types";
 import { FC } from "react";
 import { UseFormClearErrors, UseFormSetValue } from "react-hook-form";
 
-type PropsType = FormBaseProps & {
-  currForm: number;
-  setCurrForm: (val: number) => void;
-  isNextDisabled: boolean;
-  setNextDisabled: (val: boolean) => void;
-  clearErrors: UseFormClearErrors<any>;
-  setValue: UseFormSetValue<any>;
-  swapID: string;
-};
+type PropsType = FormBaseProps &
+  SwapFormPropsType & {
+    clearErrors: UseFormClearErrors<any>;
+    setValue: UseFormSetValue<any>;
+    swapID: string;
+  };
 
 const AddressForm: FC<PropsType> = ({
   register,

@@ -8,7 +8,7 @@ export type SwapCtxValsType = {
   setNextDisabled: (val: boolean) => void;
 } & SwapAddressStateType;
 
-export const useSwapAddress = () => {
+export const useSwapAddressCtxVals = () => {
   const [state, dispatch] = useReducer(swapReducer, swapAddressInitState);
 
   const setCurrForm = useCallback(

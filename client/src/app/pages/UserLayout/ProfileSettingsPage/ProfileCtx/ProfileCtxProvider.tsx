@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import { ProfileCtx } from "./ProfileCtx";
-import { useSwapAddress } from "@/contexts/SwapAddress/useSwapAddress";
+import { useSwapAddressCtxVals } from "@/contexts/SwapAddress/useSwapAddressCtxVals";
 
 type PropsType = {
   children: ReactNode | ReactNode[];
@@ -8,7 +8,7 @@ type PropsType = {
 
 const ProfileCtxProvider: FC<PropsType> = ({ children }) => {
   return (
-    <ProfileCtx.Provider value={{ ...useSwapAddress() }}>
+    <ProfileCtx.Provider value={{ ...useSwapAddressCtxVals() }}>
       {children}
     </ProfileCtx.Provider>
   );
