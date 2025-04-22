@@ -28,8 +28,13 @@ export const getUserProfile = async (
     nest: true,
   });
 
+  const clientData = {
+    ...user,
+    thumb: user?.Thumb,
+  };
+
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
 
-  return res200(res, { user });
+  return res200(res, { user: clientData });
 };

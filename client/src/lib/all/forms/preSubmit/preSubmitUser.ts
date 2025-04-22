@@ -3,13 +3,17 @@ import { FieldErrors } from "react-hook-form";
 import { validateSwapper } from "../validators";
 import { swapAddressByArea } from "@/config/fields/general/userFields";
 import { keysHeaderProfile } from "@/config/fields/UserLayout/fieldsProfile";
+import { __cg } from "@/lib/lib";
 
 type Params = {
   errors: FieldErrors;
   setCurrForm: (val: number) => void;
 };
 
-export const preSubmitCheckProfile = ({ errors, setCurrForm }: Params) => {
+export const preSubmitCheckProfile = ({
+  errors,
+  setCurrForm,
+}: Params): boolean => {
   let isFormOk = true;
 
   for (const key of keysHeaderProfile) {
@@ -18,6 +22,7 @@ export const preSubmitCheckProfile = ({ errors, setCurrForm }: Params) => {
       break;
     }
   }
+
   if (!isFormOk) {
     window.scroll({ top: 0, behavior: "smooth" });
     return isFormOk;
@@ -30,9 +35,10 @@ export const preSubmitCheckProfile = ({ errors, setCurrForm }: Params) => {
     fieldsByArea: swapAddressByArea,
   });
 
-  // __cg("swapper", isValid, i, j);
+  __cg("swapper", isValid, i, j);
 
   if (i || j || !isValid) {
+    isFormOk = false;
     setCurrForm(i);
 
     const swapEl = document.getElementById("userProfileSwap");

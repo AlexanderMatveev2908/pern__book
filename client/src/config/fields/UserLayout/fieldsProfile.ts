@@ -17,7 +17,7 @@ export const fieldsProfileHeader: FormFieldBasic[] = !namesFields?.length
 
 export const keysHeaderProfile = fieldsProfileHeader
   .map((el) => el.field)
-  .concat("Thumb");
+  .concat("thumb");
 
 export const fieldsProfileAddress_0: FormFieldBasic[] = [
   ...addressFields_0,

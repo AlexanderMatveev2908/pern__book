@@ -13,15 +13,15 @@ type PropsType = {
 } & FormBaseProps;
 
 const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
-  const { prevErr } = useSavePrevErr(errors, "Thumb");
+  const { prevErr } = useSavePrevErr(errors, "thumb");
 
-  const thumb = watch("Thumb") as FileList;
+  const thumb = watch("thumb") as FileList;
 
-  //   [...(watch("Thumb")?.length ? watch("Thumb") : [])].map((el) =>
+  //   [...(watch("thumb")?.length ? watch("thumb") : [])].map((el) =>
   //     console.log(el)
   //   );
 
-  console.log(watch("Thumb"));
+  console.log(watch("thumb"));
 
   return (
     <div className="w-fit grid relative">
@@ -33,7 +33,7 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
         <input
           type="file"
           className="h-0 w-0 opacity-0"
-          {...register("Thumb")}
+          {...register("thumb")}
         />
         {isObjOk(thumb?.[0]) || thumb?.length ? (
           <img
@@ -52,14 +52,14 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
 
       <div
         className={`absolute -top-[20%] right-0 w-fit transition-all duration-500 pointer-events-none ${
-          errors?.Thumb?.message
+          errors?.thumb?.message
             ? "translate-y-0 opacity-100"
             : "translate-y-[50px] opacity-0"
         }`}
       >
         <div className="bg-[#000] py-1 px-3 border-2 border-red-600 rounded-xl z-60 relative h-fit">
           <span className="txt__1 text-red-600">
-            {(errors?.Thumb?.message as string) || prevErr}
+            {(errors?.thumb?.message as string) || prevErr}
           </span>
 
           <div className="absolute w-[30px] h-[30px] right-[25px] top-[90%] overflow-hidden z-60">
@@ -73,9 +73,9 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
           {...{
             el: {
               icon: Trash2,
-              label: "Remove Thumb",
+              label: "Remove thumb",
             },
-            handleClick: () => setValue("Thumb", "", { shouldValidate: true }),
+            handleClick: () => setValue("thumb", "", { shouldValidate: true }),
           }}
         />
       )}

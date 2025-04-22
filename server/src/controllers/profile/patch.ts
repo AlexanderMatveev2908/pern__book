@@ -18,7 +18,7 @@ export const updateProfile = async (
   res: Response
 ): Promise<any> => {
   const { userID } = req;
-  const { firstName, lastName, Thumb: thumbURL, ...address } = req.body;
+  const { firstName, lastName, thumb: thumbURL, ...address } = req.body;
 
   const user = (await User.findByPk(userID, {
     include: [

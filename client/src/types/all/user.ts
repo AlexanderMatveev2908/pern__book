@@ -16,7 +16,7 @@ export interface UserType {
   isVerified: boolean;
   role: UserRole;
 
-  Thumb: ImageCloudType | null;
+  thumb: ImageCloudType | null;
 
   country: string | null;
   state: string | null;

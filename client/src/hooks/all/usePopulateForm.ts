@@ -17,11 +17,11 @@ export const usePopulateForm = ({ getValues, user, setValue }: Params) => {
       const fields = getValues();
       if (isObjOk(user)) {
         for (const key in fields) {
-          if (key === "Thumb" && user.Thumb?.url !== null)
-            setValue(key as keyof UserProfileForm, user.Thumb?.url);
+          if (key === "thumb" && user.thumb?.url !== null)
+            setValue(key as keyof UserProfileForm, user.thumb?.url);
           else if (
             Object.keys(user ?? {}).some(
-              (keyUser) => keyUser !== "Thumb" && keyUser === key
+              (keyUser) => keyUser !== "thumb" && keyUser === key
             )
           )
             setValue(

@@ -17,13 +17,13 @@ export const makeFormDataProfile = (
   const formData = new FormData();
 
   for (const key in formDataHook) {
-    if (key === "Thumb") {
-      if (typeof formDataHook.Thumb === "string") {
-        formData.append("Thumb", parseNull(formDataHook.Thumb));
+    if (key === "thumb") {
+      if (typeof formDataHook.thumb === "string") {
+        formData.append("thumb", parseNull(formDataHook.thumb));
       } else {
-        const file = formDataHook?.Thumb?.[0] as File | undefined;
+        const file = formDataHook?.thumb?.[0] as File | undefined;
 
-        formData.append("Thumb", file instanceof File ? file : "_");
+        formData.append("thumb", file instanceof File ? file : "_");
       }
     } else {
       const val = formDataHook[key as keyof UserProfileForm];

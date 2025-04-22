@@ -1,5 +1,6 @@
 import {
   getData,
+  makeDelay,
   makeFormDataProfile,
   preSubmitCheckProfile,
   schemaProfile,
@@ -40,18 +41,11 @@ const UserProfile: FC = () => {
     useUpdateProfileMutation();
 
   const { wrapMutationAPI } = useWrapMutationAPI();
-  // const { setCurrForm, ...valsSwap } = useProfileCtx();
   usePopulateForm({
     user,
     getValues,
     setValue,
   });
-  // const { isFormOk } = useValidateSwapAddress({
-  //   watch,
-  //   errors,
-  //   ...valsSwap,
-  // });
-
   const { isFormOk, setCurrForm, ...restSwap } = useFormSwap({
     watch,
     errors,
@@ -71,6 +65,8 @@ const UserProfile: FC = () => {
       cbAPI: () => updateProfile(formData),
     });
     if (!res) return;
+
+    makeDelay(() => window.scroll({ top: 0, behavior: "smooth" }), 100);
   };
 
   return (
@@ -86,7 +82,6 @@ const UserProfile: FC = () => {
               {...{
                 type: "submit",
                 label: "Save Changes",
-                // isDisabled: false,
                 isDisabled: !isFormOk,
                 isAging: isLoadingUpdate,
               }}

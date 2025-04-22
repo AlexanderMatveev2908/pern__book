@@ -52,21 +52,21 @@ export const schemaProfile = z
   .object({
     ...schemaNames(),
 
-    Thumb: z.union([z.string(), z.instanceof(FileList)]).optional(),
+    thumb: z.union([z.string(), z.instanceof(FileList)]).optional(),
 
     ...schemaAddress(true),
   })
   .refine(
     (data) => {
-      if (!data.Thumb?.length && data.Thumb instanceof FileList) return true;
-      if (typeof data.Thumb === "string") return true;
+      if (!data.thumb?.length && data.thumb instanceof FileList) return true;
+      if (typeof data.thumb === "string") return true;
 
-      const updatedFile: File = (data.Thumb as FileList)[0];
+      const updatedFile: File = (data.thumb as FileList)[0];
       return updatedFile && updatedFile.type.startsWith("image");
     },
     {
-      message: "Thumbnail must be a file of type image",
-      path: ["Thumb"],
+      message: "thumbnail must be a file of type image",
+      path: ["thumb"],
     }
   )
   .refine((data) => data.country.trim().length >= 2 || !data.country, {
