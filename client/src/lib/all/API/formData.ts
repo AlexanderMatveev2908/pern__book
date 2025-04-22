@@ -1,5 +1,15 @@
 import { UserProfileForm } from "@/features/UserLayout/UserProfile/UserProfile";
-import { captAll } from "../utils/formatters";
+import { capt, captAll } from "../utils/formatters";
+
+const appendKey = (key: string, val: string) =>
+  key === "street"
+    ? capt(val.trim() as string)
+    : ["zipCode", "phone", "street"].includes(key)
+    ? val.trim()
+    : // firstName last, country ecc...
+      captAll(val).trim();
+
+const parseNull = (str: string) => (str.trim().length ? str : "_");
 
 export const makeFormDataProfile = (
   formDataHook: UserProfileForm
@@ -8,18 +18,19 @@ export const makeFormDataProfile = (
 
   for (const key in formDataHook) {
     if (key === "Thumb") {
-      const file = formDataHook?.Thumb?.[0] as File | undefined;
-      if (file instanceof File) formData.append("Thumb", file);
+      if (typeof formDataHook.Thumb === "string") {
+        formData.append("Thumb", parseNull(formDataHook.Thumb));
+      } else {
+        const file = formDataHook?.Thumb?.[0] as File | undefined;
+
+        formData.append("Thumb", file instanceof File ? file : "_");
+      }
     } else {
       const val = formDataHook[key as keyof UserProfileForm];
-
-      if (typeof val === "string" && !!(val as string)?.trim()?.length)
-        formData.append(
-          key,
-          ["country", "state", "city"].includes(val)
-            ? captAll(val).trim()
-            : (val.trim() as string)
-        );
+      formData.append(
+        key,
+        appendKey(key, parseNull((val as string) ?? "") as string)
+      );
     }
   }
 

@@ -21,3 +21,5 @@ export const checkQueryAuth = (
 
   return match ? { userID, token, event: event as TokenEventType } : null;
 };
+
+export const parseNull = (str: string) => (str.trim().length ? str : null);
