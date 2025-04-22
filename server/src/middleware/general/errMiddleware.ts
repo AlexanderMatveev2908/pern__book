@@ -10,9 +10,10 @@ export const errMiddleware = (
 ): any => {
   if (isDev)
     console.log({
+      msg: err.msg,
       error: err.message,
       stack: err.stack,
     });
 
-  return err500(res, { msg: err?.msg ?? err?.message });
+  return err500(res, { msg: err?.msg });
 };

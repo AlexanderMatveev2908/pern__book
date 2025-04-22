@@ -6,8 +6,11 @@ export const updateProfile = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  console.log(req.files);
-  console.log(req.body);
+  const { firstName, lastName, ...address } = req.body;
 
-  return res200(res, {});
+  console.log(firstName, lastName);
+  console.log(req.file);
+  console.log(address);
+
+  return res200(res, { msg: "stuff" });
 };

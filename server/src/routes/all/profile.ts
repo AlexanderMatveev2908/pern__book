@@ -9,13 +9,14 @@ import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.
 
 const profileRouter = express.Router();
 
-profileRouter.get("/profile", getUserID, wrapApp(getUserProfile));
-profileRouter.patch(
-  "/profile",
-  verifyAccessToken,
-  uploadSingle,
-  validateProfile,
-  wrapApp(updateProfile)
-);
+profileRouter
+  .route("/profile")
+  .get(getUserID, wrapApp(getUserProfile))
+  .patch(
+    verifyAccessToken({}),
+    uploadSingle,
+    validateProfile,
+    wrapApp(updateProfile)
+  );
 
 export default profileRouter;
