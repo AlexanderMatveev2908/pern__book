@@ -33,19 +33,6 @@ export const fieldsProfileAddress_1: FormFieldBasic[] = [
   id: v4(),
 }));
 
-export const fieldsProfileBody = [
-  {
-    field: "street",
-  },
-  {
-    field: "zipCode",
-    label: "Zip Code",
-  },
-  {
-    field: "phone",
-  },
-];
-
 export const BtnFieldIconType = [
   {
     label: "Change Password",

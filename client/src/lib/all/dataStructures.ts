@@ -23,3 +23,31 @@ export const checkQueryAuth = (
 };
 
 export const parseNull = (str: string) => (str.trim().length ? str : null);
+
+export const makeObj = (original: any, keys: string[]) =>
+  keys.reduce(
+    (acc, curr) => ((acc as any)[curr] = (original as any)[curr]),
+    {}
+  );
+
+export const isSameData = (obj1: any, obj2: any): any => {
+  if (obj1 === obj2) return true;
+
+  if ([obj1, obj2].some((el) => typeof el !== "object" || el === null))
+    return false;
+
+  if (Array.isArray(obj1) !== Array.isArray(obj2)) return false;
+  if (Array.isArray(obj1)) {
+    if (obj1.length !== obj2.length) return false;
+    // here check each item for item, like item1_a to item2_a, then item1_b to item2_b and so on, maybe would be better with letters as param and numbers after underscore but the concept is the same
+    return obj1.every((el, i) => isSameData(el, obj2[i]));
+  }
+
+  const keys1 = Object.keys(obj1);
+  const keys2 = Object.keys(obj2);
+  if (keys1.length !== keys2.length) return false;
+
+  // same as for array but no index, instead just key for key for each object until the smallest type of val( i mean primitive for small )
+  if (!keys1.every((key) => keys2.includes(key))) return false;
+  return keys1.every((key) => isSameData(obj1[key], obj2[key]));
+};
