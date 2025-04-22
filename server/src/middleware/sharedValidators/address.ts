@@ -7,11 +7,12 @@ import {
   REG_STREET,
   REG_ZIP,
 } from "../../config/regex.js";
+import { validateNull } from "../../lib/validateDataStructure.js";
 
 export const validateAddress = (opt: boolean = false) => [
   check("country")
     .custom((val) => {
-      if (opt && !val) return true;
+      if (opt && validateNull(val)) return true;
 
       if (!REG_COUNTRY.test(val)) throw new Error("Invalid country");
 
@@ -21,7 +22,7 @@ export const validateAddress = (opt: boolean = false) => [
     .withMessage("Length country exceeded"),
   check("state")
     .custom((val) => {
-      if (opt && !val) return true;
+      if (opt && validateNull(val)) return true;
 
       if (!REG_STATE.test(val)) throw new Error("Invalid state");
 
@@ -31,7 +32,7 @@ export const validateAddress = (opt: boolean = false) => [
     .withMessage("Length state exceeded"),
   check("city")
     .custom((val) => {
-      if (opt && !val) return true;
+      if (opt && validateNull(val)) return true;
 
       if (!REG_CITY.test(val)) throw new Error("Invalid city");
 
@@ -42,7 +43,7 @@ export const validateAddress = (opt: boolean = false) => [
 
   check("street")
     .custom((val) => {
-      if (opt && !val) return true;
+      if (opt && validateNull(val)) return true;
 
       if (!REG_STREET.test(val)) throw new Error("Invalid street");
 
@@ -52,7 +53,7 @@ export const validateAddress = (opt: boolean = false) => [
     .withMessage("Length street exceeded"),
   check("zipCode")
     .custom((val) => {
-      if (opt && !val) return true;
+      if (opt && validateNull(val)) return true;
 
       if (!REG_ZIP.test(val)) throw new Error("Invalid zip code");
 
@@ -62,7 +63,7 @@ export const validateAddress = (opt: boolean = false) => [
     .withMessage("Length zip code exceeded"),
   check("phone")
     .custom((val) => {
-      if (opt && !val) return true;
+      if (opt && validateNull(val)) return true;
 
       if (!REG_PHONE.test(val)) throw new Error("Invalid phone number");
 

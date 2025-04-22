@@ -1,7 +1,14 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
 
-export class Thumb extends Model {}
+export class Thumb extends Model {
+  declare id: string;
+  declare publicID: string;
+  declare url: string;
+  declare userID: string;
+}
+
+export type ThumbInstance = InstanceType<typeof Thumb>;
 
 export const defineThumb = (seq: Sequelize) =>
   Thumb.init(

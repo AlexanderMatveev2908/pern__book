@@ -9,7 +9,7 @@ import { __cr } from "../middleware/general/logger.js";
 
 const routerApp = express.Router();
 
-routerApp.use(__cr);
+// routerApp.use(__cr);
 
 routerApp.use("/auth", authRouter);
 routerApp.use("/refresh", routerRefresh);

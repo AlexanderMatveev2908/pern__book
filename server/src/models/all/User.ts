@@ -12,6 +12,7 @@ import { v4 } from "uuid";
 import { Token } from "./Token.js";
 import { calcTimeRun, capChar } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
+import { ThumbInstance } from "./Thumb.js";
 
 const ObjectID = pkg.default;
 
@@ -38,6 +39,8 @@ export class User extends Model<
   declare street: CreationOptional<string>;
   declare zipCode: CreationOptional<string>;
   declare phone: CreationOptional<string>;
+
+  declare Thumb?: ThumbInstance;
 
   async existUser(this: User) {
     return await User.findOne({
