@@ -24,7 +24,7 @@ const HeaderUserProfile: FC<PropsType> = ({ user }) => {
 
   return (
     <div className="w-full grid sm:grid-cols-[200px_1fr] md:flex md:justify-center  gap-10">
-      <ThumbForm {...{ register, errors, user, watch }} />
+      <ThumbForm {...{ register, errors, watch, setValue }} />
 
       <div className="w-full sm:self-center justify-self-center grid items-start gap-5 sm:gap-8 h-fit sm:max-w-[500px]">
         {fieldsProfileHeader.map((el) => (

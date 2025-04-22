@@ -20,9 +20,6 @@ export const updateProfile = async (
   const { userID } = req;
   const { firstName, lastName, Thumb: thumbURL, ...address } = req.body;
 
-  console.log(firstName);
-  console.log(lastName);
-  console.log(address);
   console.log(thumbURL);
   const user = (await User.findByPk(userID, {
     include: [
@@ -44,15 +41,16 @@ export const updateProfile = async (
     user.lastName = lastName;
     await user.save();
 
-    if (isObjOk(thumbUploadNow)) {
-      if (isObjOk(user.Thumb)) {
+    const hasUploaded = isObjOk(thumbUploadNow);
+    const hasRemoved = parseNull(thumbURL) === null;
+
+    if (!hasUploaded) {
+      if (hasRemoved && user.Thumb?.publicID) await clearThumb(user);
+    } else {
+      if (user.Thumb?.publicID) {
         await clearThumb(user);
       }
       await Thumb.create({ ...thumbUploadNow, userID });
-    } else if (typeof parseNull(thumbURL) === null) {
-      if (isObjOk(user.Thumb)) {
-        await clearThumb(user);
-      }
     }
   } catch (err) {
     console.log(err);

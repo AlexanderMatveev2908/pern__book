@@ -1,24 +1,25 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSavePrevErr } from "@/hooks/hooks";
-import { isObjOk } from "@/lib/lib";
-import { FormBaseProps, UserType } from "@/types/types";
-import { User } from "lucide-react";
+import { FormBaseProps } from "@/types/types";
+import { Trash2, User } from "lucide-react";
 import { FC } from "react";
-import { UseFormWatch } from "react-hook-form";
+import { UseFormSetValue, UseFormWatch } from "react-hook-form";
 
 type PropsType = {
-  user: UserType;
   watch: UseFormWatch<any>;
+  setValue: UseFormSetValue<any>;
 } & FormBaseProps;
 
-const ThumbForm: FC<PropsType> = ({ user, register, watch, errors }) => {
+const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
   const { prevErr } = useSavePrevErr(errors, "Thumb");
 
-  const thumb = (watch("Thumb") as FileList)?.[0];
+  const thumb = watch("Thumb") as FileList;
 
   //   [...(watch("Thumb")?.length ? watch("Thumb") : [])].map((el) =>
   //     console.log(el)
   //   );
+
+  console.log(watch("Thumb"));
 
   return (
     <div className="w-fit grid relative">
@@ -32,15 +33,13 @@ const ThumbForm: FC<PropsType> = ({ user, register, watch, errors }) => {
           className="h-0 w-0 opacity-0"
           {...register("Thumb")}
         />
-        {thumb instanceof File ? (
+        {thumb ? (
           <img
-            src={URL.createObjectURL(thumb as File)}
-            alt=""
-            className="w-[100%] h-[100%] object-cover rounded-full"
-          />
-        ) : isObjOk(user.Thumb, (val) => !!val) ? (
-          <img
-            src={user.Thumb!.url}
+            src={
+              thumb instanceof FileList
+                ? URL.createObjectURL(thumb?.[0] as File)
+                : thumb
+            }
             alt=""
             className="w-[100%] h-[100%] object-cover rounded-full"
           />
@@ -61,11 +60,19 @@ const ThumbForm: FC<PropsType> = ({ user, register, watch, errors }) => {
             {(errors?.Thumb?.message as string) || prevErr}
           </span>
 
-          <div className="absolute w-[30px] h-[30px] right-[25px] top-[120%] -translate-y-1/2 overflow-hidden z-60">
+          <div className="absolute w-[30px] h-[30px] right-[25px] top-[90%] overflow-hidden z-60">
             <div className="w-[30px] h-[30px] border-2 border-red-600 bg-[#000] rotate-45 absolute top-[-15px] left-0"></div>
           </div>
         </div>
       </div>
+
+      <button
+        onClick={() => setValue("Thumb", "", { shouldValidate: true })}
+        type="button"
+        className="appearance-none outline-0 absolute bottom-0 right-0 cursor-pointer btn__logic_lg"
+      >
+        <Trash2 className="icon__md text-red-600" />
+      </button>
     </div>
   );
 };

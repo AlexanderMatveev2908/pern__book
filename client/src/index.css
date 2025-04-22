@@ -202,8 +202,12 @@ button {
 }
 
 .btn__logic_sm,
-.btn__logic_md {
+.btn__logic_md,
+.btn__logic_lg {
   transition: 0.3s;
+}
+.btn__logic_lg:hover {
+  transform: scale(1.2);
 }
 .btn__logic_md:hover {
   transform: scale(1.13);
@@ -211,7 +215,8 @@ button {
 .btn__logic_sm:hover {
   transform: scale(1.2);
 }
-.btn__logic_sm:active {
+.btn__logic_sm:active,
+.btn__logic_lg:active {
   transition: 0.1s;
   transform: scale(0.8);
 }
