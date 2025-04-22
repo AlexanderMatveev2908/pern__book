@@ -1,10 +1,10 @@
 import { Response } from "express";
 import { MsgCheckToken, ReqApp } from "../../types/types.js";
 import { User } from "../../models/models.js";
-import { err401, err404 } from "../../lib/err.js";
+import { err401, err404 } from "../../lib/responseClient/err.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/formatters.js";
-import { res200 } from "../../lib/res.js";
+import { res200 } from "../../lib/responseClient/res.js";
 
 export const verifyEmailForgotPwd = async (
   req: ReqApp,

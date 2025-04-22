@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
-import { res200 } from "../../lib/res.js";
+import { res200 } from "../../lib/responseClient/res.js";
 
 export const updateProfile = async (
   req: ReqApp,

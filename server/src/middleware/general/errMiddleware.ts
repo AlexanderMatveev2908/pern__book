@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
-import { err500 } from "../../lib/err.js";
 import { isDev } from "../../config/env.js";
+import { err500 } from "../../lib/responseClient/err.js";
 
 export const errMiddleware = (
   err: any,

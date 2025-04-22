@@ -1,6 +1,6 @@
 import { Response } from "express";
-import { isObjErrOk } from "./validateDataStructure.js";
-import { MsgErrSession } from "../types/types.js";
+import { isObjErrOk } from ".././validateDataStructure.js";
+import { MsgErrSession } from "../../types/types.js";
 
 export const errApp = (res: Response, status: number, data?: any) =>
   res.status(status).json({ ...data, ok: false });

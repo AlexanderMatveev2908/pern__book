@@ -2,7 +2,7 @@ import { Request, Response } from "express";
 import { ReqApp, TokenEventType } from "../../types/types.js";
 import { Token, User } from "../../models/models.js";
 import { Op } from "sequelize";
-import { err401, err404, err409 } from "../../lib/err.js";
+import { err401, err404, err409 } from "../../lib/responseClient/err.js";
 import { genAccessJWT, prepareHeader } from "../../lib/hashEncryptSign/JWT.js";
 import { genTokenCBC } from "../../lib/hashEncryptSign/cbcHmac.js";
 import {
@@ -11,7 +11,7 @@ import {
   setCookie,
 } from "../../lib/hashEncryptSign/JWE.js";
 import { sendEmailAuth } from "../../lib/mail/auth.js";
-import { res200, res201 } from "../../lib/res.js";
+import { res200, res201 } from "../../lib/responseClient/res.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { clearOldTokens } from "../../lib/clearData.js";
 

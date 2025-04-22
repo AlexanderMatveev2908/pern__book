@@ -5,7 +5,7 @@ import {
   prepareHeader,
   verifyJWT,
 } from "../../lib/hashEncryptSign/JWT.js";
-import { err401, handleErrAccessToken } from "../../lib/err.js";
+import { err401, handleErrAccessToken } from "../../lib/responseClient/err.js";
 
 export const getUserID = async (
   req: ReqApp,

@@ -6,7 +6,12 @@ import {
   prepareHeader,
   verifyJWT,
 } from "../../lib/hashEncryptSign/JWT.js";
-import { err400, err401, err403, handleErrAccessToken } from "../../lib/err.js";
+import {
+  err400,
+  err401,
+  err403,
+  handleErrAccessToken,
+} from "../../lib/responseClient/err.js";
 
 export const verifyAccessToken =
   ({

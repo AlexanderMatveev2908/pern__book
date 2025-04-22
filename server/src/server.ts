@@ -11,6 +11,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import { decryptCert } from "./lib/hashEncryptSign/cbcHmac.js";
+import { connectCloud } from "./config/cloud.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -40,6 +41,7 @@ app.use(errMiddleware);
 
 const start = async () => {
   try {
+    await connectCloud();
     await connectDB();
     await syncDB();
 

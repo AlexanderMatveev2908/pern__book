@@ -8,8 +8,8 @@ import {
 } from "../lib/hashEncryptSign/JWE.js";
 import { clearOldTokens } from "../lib/clearData.js";
 import { genAccessJWT, prepareHeader } from "../lib/hashEncryptSign/JWT.js";
-import { err401, err404 } from "../lib/err.js";
-import { res200 } from "../lib/res.js";
+import { err401, err404 } from "../lib/responseClient/err.js";
+import { res200 } from "../lib/responseClient/res.js";
 
 const fail = async (res: Response, accessExp?: string | null) => {
   clearCookie(res);

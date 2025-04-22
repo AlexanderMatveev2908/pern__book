@@ -1,13 +1,13 @@
 import { Response } from "express";
 import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { User } from "../../models/models.js";
-import { err400, err401, err404 } from "../../lib/err.js";
+import { err400, err401, err404 } from "../../lib/responseClient/err.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/formatters.js";
 import { genTokenJWE, setCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { genAccessJWT } from "../../lib/hashEncryptSign/JWT.js";
-import { res200 } from "../../lib/res.js";
+import { res200 } from "../../lib/responseClient/res.js";
 
 export const choseNewPwdForgotOld = async (
   req: ReqApp,

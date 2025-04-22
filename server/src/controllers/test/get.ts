@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
-import { res200 } from "../../lib/res.js";
+import { res200 } from "../../lib/responseClient/res.js";
 
 export const getStuff = async (_: ReqApp, res: Response): Promise<any> => {
   // return err500(res, { msg: "some 500 err" });

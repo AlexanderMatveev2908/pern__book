@@ -2,8 +2,8 @@ import { Response } from "express";
 import { ReqApp, TokenEventType } from "../../types/types.js";
 import { User } from "../../models/models.js";
 import { genTokSendEmail } from "../../lib/combo.js";
-import { err404, err409 } from "../../lib/err.js";
-import { res200 } from "../../lib/res.js";
+import { err404, err409 } from "../../lib/responseClient/err.js";
+import { res200 } from "../../lib/responseClient/res.js";
 
 export const sendEmailVerifyAccount = async (
   req: ReqApp,
