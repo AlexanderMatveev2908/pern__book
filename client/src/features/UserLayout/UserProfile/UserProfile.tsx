@@ -1,4 +1,5 @@
 import {
+  __cg,
   getData,
   isSameData,
   makeDelay,
@@ -8,7 +9,7 @@ import {
   schemaProfile,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -49,6 +50,25 @@ const UserProfile: FC = () => {
   const [updateProfile, { isLoading: isLoadingUpdate }] =
     useUpdateProfileMutation();
 
+  const vals = watch();
+
+  const handleCheckEqData = useCallback(() => {
+    const original = makeObj(user, allProfileKeys, (key) =>
+      key === "thumb" ? user?.thumb?.url : user?.[key as keyof UserType] || null
+    );
+    const updated = makeObj(vals, allProfileKeys, (key) =>
+      key === "thumb" && vals[key] instanceof FileList
+        ? vals?.thumb?.[0]
+        : vals[key as keyof UserProfileForm] || null
+    );
+
+    const canMakeAPI = !isSameData(original, updated);
+
+    __cg("make api", canMakeAPI);
+
+    return canMakeAPI;
+  }, [vals, user]);
+
   const { wrapMutationAPI } = useWrapMutationAPI();
   usePopulateForm({
     user,
@@ -59,6 +79,7 @@ const UserProfile: FC = () => {
     watch,
     errors,
     fields: swapAddressByArea,
+    customValidateCB: handleCheckEqData,
   });
 
   const handleSave = async (e: React.FormEvent) => {

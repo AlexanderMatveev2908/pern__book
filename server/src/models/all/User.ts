@@ -10,9 +10,10 @@ import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
 import { Token } from "./Token.js";
-import { calcTimeRun, capChar } from "../../lib/utils/utils.js";
+import { calcTimeRun } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { ThumbInstance } from "./Thumb.js";
+import { captAll } from "../../lib/utils/formatters.js";
 
 const ObjectID = pkg.default;
 
@@ -49,8 +50,8 @@ export class User extends Model<
   }
 
   capitalize(this: User) {
-    this.firstName = capChar(this.firstName);
-    this.lastName = capChar(this.lastName);
+    this.firstName = captAll(this.firstName);
+    this.lastName = captAll(this.lastName);
   }
 
   makePayload(this: User) {

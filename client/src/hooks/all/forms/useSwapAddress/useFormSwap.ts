@@ -12,6 +12,7 @@ type Params = {
   errors: FieldErrors;
   fields: SwapFieldType[][];
   customSwapCB?: () => void;
+  customValidateCB?: () => boolean;
 };
 
 export const useFormSwap = ({
@@ -19,6 +20,7 @@ export const useFormSwap = ({
   errors,
   fields,
   customSwapCB,
+  customValidateCB,
 }: Params) => {
   const [state, dispatch] = useReducer(reducerSwap, swapAddressInitState);
 
@@ -56,6 +58,8 @@ export const useFormSwap = ({
       });
 
       const len = Object.keys(errors).length;
+      const makeMakeAPI =
+        typeof customValidateCB === "function" ? customValidateCB() : true;
 
       // __cg("swapper", isValid, i, j);
 
@@ -63,8 +67,8 @@ export const useFormSwap = ({
       else if ((isValid || currForm < i) && isNextDisabled)
         setNextDisabled(false);
 
-      if (len && isFormOk) setIsFormOk(false);
-      else if (!len && !isFormOk) setIsFormOk(true);
+      if ((len || !makeMakeAPI) && isFormOk) setIsFormOk(false);
+      else if (!len && makeMakeAPI && !isFormOk) setIsFormOk(true);
     };
     listen();
   }, [
@@ -76,6 +80,7 @@ export const useFormSwap = ({
     isFormOk,
     setIsFormOk,
     fields,
+    customValidateCB,
   ]);
 
   return {

@@ -1,13 +1,7 @@
 import { UserProfileForm } from "@/features/UserLayout/UserProfile/UserProfile";
-import { capt, captAll } from "../utils/formatters";
+import { captAll } from "../utils/formatters";
 
-const appendKey = (key: string, val: string) =>
-  key === "street"
-    ? capt(val.trim() as string)
-    : ["zipCode", "phone", "street"].includes(key)
-    ? val.trim()
-    : // firstName last, country ecc...
-      captAll(val).trim();
+const appendKey = (val: string) => captAll(val).trim();
 
 const parseNull = (str: string) => (str.trim().length ? str : "_");
 
@@ -29,7 +23,7 @@ export const makeFormDataProfile = (
       const val = formDataHook[key as keyof UserProfileForm];
       formData.append(
         key,
-        appendKey(key, parseNull((val as string) ?? "") as string)
+        appendKey(parseNull((val as string) ?? "") as string)
       );
     }
   }
