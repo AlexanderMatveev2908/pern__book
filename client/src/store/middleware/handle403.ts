@@ -13,14 +13,8 @@ export const formattedMessagesVerify = Object.values(MsgCheckToken).map((msg) =>
   formatMsgCode(msg)
 );
 
-export const handleErr403 = ({
-  store,
-  response,
-}: {
-  store: any;
-  response: any;
-}) => {
-  const { data, status } = response;
+export const handleErr403 = ({ store, err }: { store: any; err: any }) => {
+  const { data, status } = err;
 
   const msg = getMsgErr(data);
   const newNotice = {

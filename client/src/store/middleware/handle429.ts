@@ -6,8 +6,8 @@ import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import apiSlice from "../apiSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
 
-export const handle429 = (store: any, response: any) => {
-  const { data, status } = response;
+export const handle429 = (store: any, err: any) => {
+  const { data, status } = err;
 
   const msg = getMsgErr(data);
   const newNotice = {

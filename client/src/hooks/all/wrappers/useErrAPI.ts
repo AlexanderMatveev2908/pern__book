@@ -28,12 +28,11 @@ export const useErrAPI = () => {
       customCB?: (err: any) => any;
       hideErr?: boolean;
     }) => {
-      const { response } = err ?? {};
-      const { data, status } = response ?? {};
+      const { data, status } = err ?? {};
 
-      if (typeof customCB === "function") customCB(response);
+      if (typeof customCB === "function") customCB(err);
 
-      if (ignoreErr(response) || hideErr) return null;
+      if (ignoreErr(err) || hideErr) return null;
 
       const message = getMsgErr(data);
 

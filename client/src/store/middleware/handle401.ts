@@ -44,14 +44,8 @@ const getMsg401 = (data: any, isLogged: boolean) =>
     : data?.message ||
       "The AI that manage the database has revolted and is taking control of all servers ⚙️";
 
-export const handle401 = ({
-  store,
-  response,
-}: {
-  store: any;
-  response: any;
-}) => {
-  const { data, status } = response;
+export const handle401 = ({ store, err }: { store: any; err: any }) => {
+  const { data, status } = err;
   const isLogged = store.getState().auth.isLogged;
 
   const isAlreadyPushed = store.getState().auth.pushedOut;

@@ -15,8 +15,8 @@ export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
 export const isLoggingOut = (endpoint: string) =>
   endpoint === AvoidRefreshEnd.LOGOUT;
 
-export const ignoreErr = (response: any) => {
-  const { data, status, config } = response;
+export const ignoreErr = (err: any) => {
+  const { data, status, config } = err;
 
   return (
     isAccessExpired(data?.msg) ||

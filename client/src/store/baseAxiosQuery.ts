@@ -31,8 +31,6 @@ export const axiosBaseQuery = async ({
 
     return { data: { ...res?.data, status: res?.status } };
   } catch (err: any) {
-    __cg("err axios", err);
-
     const { response: { data: errData, config, status } = {} } = err ?? {};
 
     const isRefresh = isRefreshing(config?.url);
@@ -47,13 +45,10 @@ export const axiosBaseQuery = async ({
     if (skipRefresh)
       return {
         error: {
-          ...err,
-          response: {
-            ...err?.response,
-            data: {
-              ...err?.response?.data,
-              loggingOut,
-            },
+          ...err?.response,
+          data: {
+            ...err?.response?.data,
+            loggingOut,
           },
         },
       };
@@ -89,7 +84,9 @@ export const axiosBaseQuery = async ({
       clearAuthAxios();
 
       return {
-        error: err,
+        error: {
+          ...err?.response,
+        },
       };
     }
   }

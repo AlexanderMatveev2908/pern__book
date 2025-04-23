@@ -21,7 +21,7 @@ const WrapPageAPI: FC<PropsType> = ({
   error = null,
   children = null,
 }) => {
-  const { response: { data, status } = {} } = error ?? {};
+  const { data, status } = error ?? {};
 
   return !canStay ? (
     <Navigate to="/" replace={true} />
