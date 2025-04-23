@@ -5,7 +5,6 @@ import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import authSlice from "@/features/AuthLayout/authSlice";
 import apiSlice from "../apiSlice";
-import { clearAuthAxios } from "../baseAxiosQuery";
 
 export const handlePushErr = ({
   store,
@@ -22,14 +21,9 @@ export const handlePushErr = ({
     type: EventApp.ERR,
     status: status || 500,
   };
-  saveStorage({
-    data: newNotice,
-    key: StorageKeys.NOTICE,
-  });
 
   if (data?.pushOut) {
     removeStorage();
-    clearAuthAxios();
 
     store.dispatch(authSlice.actions.setPushedOut());
     store.dispatch(
@@ -48,6 +42,11 @@ export const handlePushErr = ({
       })
     );
   }
+
+  saveStorage({
+    data: newNotice,
+    key: StorageKeys.NOTICE,
+  });
 
   store.dispatch(
     toastSlice.actions.openToast({

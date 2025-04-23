@@ -9,11 +9,9 @@ import {
 import { EventApp, MsgErrRefresh, StorageKeys } from "@/types/types";
 import authSlice from "@/features/AuthLayout/authSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
-import { clearAuthAxios } from "../baseAxiosQuery";
 
 export const handleLogoutWithAccessExp = (store: any) => {
   removeStorage();
-  clearAuthAxios();
 
   __cg("logout expired");
 

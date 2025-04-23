@@ -40,8 +40,9 @@ export const axiosBaseQuery = async ({
     const isTokenExp = isAccessExpired(errData?.msg);
     const skipRefresh =
       status !== 401 || isRefresh || !isTokenExp || loggingOut;
+    const removeSession = errData?.pushOut;
 
-    if (loggingOut) clearAuthAxios();
+    if (loggingOut || removeSession) clearAuthAxios();
 
     if (skipRefresh)
       return {
