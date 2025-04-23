@@ -2,6 +2,7 @@
 import { Button, PairPwd } from "@/components/components";
 import { fieldsNewPwd } from "@/config/fields/AuthLayout/fieldsAuth";
 import { useShowPwd } from "@/hooks/hooks";
+import { preventBrowser } from "@/lib/all/forms/preSubmit/submit";
 import { isFormValid } from "@/lib/lib";
 import { FormBaseProps } from "@/types/types";
 import { FC, useEffect, useState } from "react";
@@ -40,11 +41,12 @@ const NewPwdForm: FC<PropsType> = ({
   return (
     <div className="parent__form">
       <form
-        onSubmit={(e) => {
-          e.preventDefault();
-          closeAllPwd();
-          handleSave();
-        }}
+        onSubmit={(e) =>
+          preventBrowser(e, async () => {
+            closeAllPwd();
+            await handleSave();
+          })
+        }
         className="form__content"
       >
         <div className="w-full grid gap-5 p-6">

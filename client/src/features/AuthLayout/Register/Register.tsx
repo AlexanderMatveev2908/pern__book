@@ -22,6 +22,7 @@ import {
   PairPwd,
 } from "@/components/components.ts";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap.ts";
+import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -95,11 +96,12 @@ const Register: FC = () => {
 
       <div className="form__content">
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            closeAllPwd();
-            handleSave();
-          }}
+          onSubmit={(e) =>
+            preventBrowser(e, async () => {
+              closeAllPwd();
+              await handleSave();
+            })
+          }
           className="w-full overflow-hidden p-6"
         >
           <div

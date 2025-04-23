@@ -68,9 +68,9 @@ const SecurityPwd: FC = () => {
       <div className="parent__form">
         <form
           onSubmit={(e) =>
-            preventBrowser(e, () => {
+            preventBrowser(e, async () => {
               closeAllPwd();
-              handleSave();
+              await handleSave();
             })
           }
           className="form__content"
