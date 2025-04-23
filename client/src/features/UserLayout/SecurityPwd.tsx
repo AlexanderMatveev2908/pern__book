@@ -12,6 +12,7 @@ import { useGetRightManageAccountMutation } from "./userSliceAPI";
 import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged";
 import { useDispatch } from "react-redux";
 import { setCanManageAccount } from "../AuthLayout/authSlice";
+import { preventBrowser } from "@/lib/all/forms/preSubmit/submit";
 
 const schema = z.object({
   ...schemaPwd(),
@@ -25,7 +26,7 @@ const SecurityPwd: FC = () => {
   const nav = useNavigate();
 
   const { wrapMutationAPI } = useWrapMutationAPI();
-  const { mainPwd } = useShowPwd();
+  const { mainPwd, closeAllPwd } = useShowPwd();
 
   const dispatch = useDispatch();
   const {
@@ -65,7 +66,15 @@ const SecurityPwd: FC = () => {
   return (
     <WrapPageAPI {...{ canStay: from === AllowedFromApp.GEN }}>
       <div className="parent__form">
-        <form onSubmit={handleSave} className="form__content">
+        <form
+          onSubmit={(e) =>
+            preventBrowser(e, () => {
+              closeAllPwd();
+              handleSave();
+            })
+          }
+          className="form__content"
+        >
           <div className="w-full grid gap-5 p-6">
             <PwdField
               {...{ register, errors, el: passwordField, ...mainPwd }}

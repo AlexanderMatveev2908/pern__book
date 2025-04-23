@@ -94,7 +94,14 @@ const Register: FC = () => {
       <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
       <div className="form__content">
-        <form onSubmit={handleSave} className="w-full overflow-hidden p-6">
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            closeAllPwd();
+            handleSave();
+          }}
+          className="w-full overflow-hidden p-6"
+        >
           <div
             className={`w-[200%] flex transition-all duration-500 ${
               !currForm

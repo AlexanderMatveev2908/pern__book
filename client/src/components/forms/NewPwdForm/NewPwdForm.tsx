@@ -25,7 +25,7 @@ const NewPwdForm: FC<PropsType> = ({
 
   const { errors } = formState;
 
-  const { mainPwd, confirmPwd } = useShowPwd();
+  const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
 
   useEffect(() => {
     const sub = watch((vals) => {
@@ -39,7 +39,14 @@ const NewPwdForm: FC<PropsType> = ({
 
   return (
     <div className="parent__form">
-      <form onSubmit={handleSave} className="form__content">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          closeAllPwd();
+          handleSave();
+        }}
+        className="form__content"
+      >
         <div className="w-full grid gap-5 p-6">
           <PairPwd
             {...{

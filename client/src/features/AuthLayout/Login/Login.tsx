@@ -15,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearNavigating, getAuthState } from "../authSlice";
 import apiSlice from "@/store/apiSlice";
+import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
 
 const schema = z
   .object({
@@ -70,7 +71,7 @@ const Login: FC = () => {
     navigate("/", { replace: true });
   });
 
-  const { mainPwd } = useShowPwd();
+  const { mainPwd, closeAllPwd } = useShowPwd();
 
   const isFormOk = useMemo(() => isFormValid(errors, vals), [errors, vals]);
 
@@ -82,7 +83,20 @@ const Login: FC = () => {
   }, [authState.pushedOut, dispatch]);
   return (
     <div className="parent__form">
-      <form onSubmit={handleSave} className="form__content">
+      <form
+        onSubmit={(e) =>
+          preventBrowser(e, () => {
+            closeAllPwd();
+            handleSave();
+          })
+        }
+        // onSubmit={(e) => {
+        //   e.preventDefault();
+        //   closeAllPwd();
+        //   handleSave();
+        // }}
+        className="form__content"
+      >
         <div className="w-full grid gap-5 p-6">
           <FormField {...{ register, errors, el: emailField }} />
 
