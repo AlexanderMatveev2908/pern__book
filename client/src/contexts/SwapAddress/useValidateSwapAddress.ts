@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { swapAddressByArea } from "@/config/fields/general/linkFields";
+import { swapAddressByArea } from "@/config/fields/UserLayout/fieldsProfile";
 import { validateSwapper } from "@/lib/lib";
 import { useEffect, useState } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
