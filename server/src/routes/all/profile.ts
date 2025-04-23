@@ -8,6 +8,7 @@ import { updateProfile } from "../../controllers/profile/patch.js";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
 import { allowManageAccount } from "../../controllers/profile/post.js";
 import { validatePwd } from "../../middleware/user/security.js";
+import { securityLimiter } from "../../middleware/protected/securityLimiter.js";
 
 const profileRouter = express.Router();
 
@@ -22,6 +23,7 @@ profileRouter
   );
 profileRouter.post(
   "/security",
+  securityLimiter,
   verifyAccessToken({}),
   validatePwd,
   wrapApp(allowManageAccount)

@@ -1,8 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import noticeSlice from "@/features/common/Notice/noticeSlice";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
-import { getMsgErr, goTo, saveStorage } from "@/lib/lib";
+import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
 import toastSlice from "@/features/common/Toast/toastSlice";
+import authSlice from "@/features/AuthLayout/authSlice";
+import apiSlice from "../apiSlice";
 
 export const handlePushErr = ({
   store,
@@ -19,17 +21,30 @@ export const handlePushErr = ({
     type: EventApp.ERR,
     status: status || 500,
   };
-
-  store.dispatch(
-    noticeSlice.actions.setNotice({
-      ...newNotice,
-    })
-  );
   saveStorage({
     data: newNotice,
     key: StorageKeys.NOTICE,
   });
 
+  if (data?.pushOut) {
+    removeStorage();
+    store.dispatch(authSlice.actions.setPushedOut());
+    store.dispatch(
+      noticeSlice.actions.setNotice({
+        ...newNotice,
+        cb: () => {
+          store.dispatch(apiSlice.util.resetApiState());
+          store.dispatch(authSlice.actions.clearNavigating());
+        },
+      })
+    );
+  } else {
+    store.dispatch(
+      noticeSlice.actions.setNotice({
+        ...newNotice,
+      })
+    );
+  }
   store.dispatch(
     toastSlice.actions.openToast({
       type: EventApp.ERR,
