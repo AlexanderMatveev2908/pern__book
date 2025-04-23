@@ -8,7 +8,7 @@ import {
 import { FC, useCallback } from "react";
 import { useChoseNewPwdMutation } from "../authSliceAPI";
 import { useNavigate } from "react-router-dom";
-import { __cg, delKeyStorage, isUnHandledErr } from "@/lib/lib";
+import { delKeyStorage, isUnHandledErr } from "@/lib/lib";
 import { StorageKeys } from "@/types/types";
 
 const ChoseNewPwd: FC = () => {
@@ -25,10 +25,7 @@ const ChoseNewPwd: FC = () => {
           status: res?.status,
           msg: res?.data?.msg,
         });
-      if (res?.status === 429) {
-        delKeyStorage(StorageKeys.FORGOT_PWD);
-        __cg("run custom cb 429");
-      }
+      if (res?.status === 429) delKeyStorage(StorageKeys.FORGOT_PWD);
     },
     [makeNoticeCombo]
   );
