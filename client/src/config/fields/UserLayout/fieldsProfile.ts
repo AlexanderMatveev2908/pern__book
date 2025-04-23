@@ -1,8 +1,8 @@
 import { v4 } from "uuid";
-import { addressFields_0, addressFields_1 } from "../general/userFields";
-import { FormFieldBasic } from "@/types/types";
+import { FormFieldBasic, SwapFieldType } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
+import { capt } from "@/lib/lib";
 
 const namesFields = [
   {
@@ -15,6 +15,37 @@ const namesFields = [
     label: "Last Name",
     place: "Your Last Name...",
   },
+];
+
+export const addressFields_0: SwapFieldType[] = [
+  "country",
+  "state",
+  "city",
+].map((el) => ({
+  field: el,
+  label: capt(el),
+}));
+export const addressFields_1 = [
+  "street",
+  { field: "zipCode", label: "Zip Code" },
+  "phone",
+].map((el) =>
+  typeof el === "object"
+    ? el
+    : {
+        field: el,
+        label: capt(el),
+      }
+);
+
+export const swapAddressByArea = [addressFields_0, addressFields_1];
+export const swapAddressFieldsMerg = swapAddressByArea.flatMap((arr) =>
+  arr.map((el) => el.field)
+);
+export const allProfileKeys = [
+  ...swapAddressFieldsMerg,
+  ...namesFields.map((el) => el.field),
+  "thumb",
 ];
 
 export const fieldsProfileHeader: FormFieldBasic[] = !namesFields?.length

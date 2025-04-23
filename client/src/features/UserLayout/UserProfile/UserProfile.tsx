@@ -21,13 +21,13 @@ import { EventApp, UserType } from "@/types/types";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 import { usePopulateForm, useWrapMutationAPI } from "@/hooks/hooks";
-import {
-  allProfileKeys,
-  swapAddressByArea,
-} from "@/config/fields/general/userFields";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
+import {
+  allProfileKeys,
+  swapAddressByArea,
+} from "@/config/fields/UserLayout/fieldsProfile";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 

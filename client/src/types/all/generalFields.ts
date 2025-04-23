@@ -27,3 +27,9 @@ export type SwapFieldType = {
   field: string;
   label?: string;
 };
+
+export type BtnFieldIconType = {
+  id?: string;
+  label: string;
+  icon: IconType;
+};

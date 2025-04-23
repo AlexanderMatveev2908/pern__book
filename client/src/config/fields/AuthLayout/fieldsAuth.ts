@@ -5,7 +5,19 @@ import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";
 import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
 import { SideFieldType } from "../Sidebar/sidebarFields";
-import { namesFields } from "../general/userFields";
+
+const namesFields = [
+  {
+    field: "firstName",
+    label: "First Name",
+    place: "Your First Name...",
+  },
+  {
+    field: "lastName",
+    label: "Last Name",
+    place: "Your Last Name...",
+  },
+];
 
 export const emailField = {
   field: "email",

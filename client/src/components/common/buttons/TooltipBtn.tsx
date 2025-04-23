@@ -1,4 +1,4 @@
-import { BtnFieldIconType } from "@/config/fields/general/btns";
+import { BtnFieldIconType } from "@/types/types";
 import { FC, useState } from "react";
 
 type PropsType = {

@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../types/types";
 import { ShieldCheck } from "lucide-react";
-import { userLoggedFieldsDrop } from "../general/userFields";
+import { userLoggedFieldsDrop } from "../general/linkFields";
 import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
 
 export type SideFieldType = {

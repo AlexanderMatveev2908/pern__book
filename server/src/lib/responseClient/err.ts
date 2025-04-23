@@ -35,7 +35,7 @@ export const err500 = (res: Response, data?: any) =>
     500,
     isObjErrOk(data)
       ? data
-      : { msg: "Server was tired and take a coffee break ☕" }
+      : { msg: "A Snorlax has fallen asleep blocking the road, try later 💤" }
   );
 
 export const handleErrAccessToken = (res: Response, err: any) => {
