@@ -1,5 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
+import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged";
+import { DropFieldType } from "@/config/fields/header/fieldsHeader";
 import { AllowedFromApp } from "@/types/types";
 
 let navigator: ((path: string, opt?: any) => any) | null = null;
@@ -11,3 +13,16 @@ export const goTo = (path: string, opt?: any) =>
 
 export const canStayNotice = (from: string | null) =>
   Object.values(AllowedFromApp).includes(from as AllowedFromApp);
+
+export const getPropsNav = (el: DropFieldType) => {
+  const to =
+    el.path === LinksLoggedDrop.MANAGE_ACCOUNT
+      ? LinksLoggedDrop.SECURITY
+      : el.path;
+  const state =
+    el.path === LinksLoggedDrop.MANAGE_ACCOUNT
+      ? { from: AllowedFromApp.GEN }
+      : null;
+
+  return { to, state };
+};
