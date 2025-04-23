@@ -10,7 +10,7 @@ import {
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd";
 import { Button, FormField, PwdField } from "@/components/components";
 import { ParamsLoginAPI, useLoginUserMutation } from "../authSliceAPI";
-import { useWrapMutationAPI } from "@/hooks/hooks";
+import { useFocus, useWrapMutationAPI } from "@/hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { clearNavigating, getAuthState } from "../authSlice";
@@ -49,6 +49,7 @@ const Login: FC = () => {
     handleSubmit,
     reset,
     watch,
+    setFocus,
   } = useForm<LoginFormType>({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -58,6 +59,10 @@ const Login: FC = () => {
       email: "",
       password: "",
     },
+  });
+  useFocus({
+    key: "email",
+    setFocus,
   });
   const vals = watch();
   const [loginUser, { isLoading }] = useLoginUserMutation();

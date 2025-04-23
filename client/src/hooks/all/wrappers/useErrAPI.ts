@@ -5,7 +5,7 @@ import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useNotice } from "../useNotice";
+import { useNotice } from "../UI/useNotice";
 
 const canRun = (...args: any[]) => {
   let isOk = true;

@@ -5,6 +5,7 @@ import { useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useSearchParams } from "react-router-dom";
 import { z } from "zod";
+import { useFocus } from "../UI/useFocus";
 
 const schema = z
   .object({
@@ -32,6 +33,10 @@ export const useMakeFormChosePwd = () => {
       password: null,
       confirmPassword: "",
     },
+  });
+  useFocus({
+    setFocus: form.setFocus,
+    key: "password",
   });
 
   return { form, canStay, params };

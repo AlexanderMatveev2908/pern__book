@@ -2,6 +2,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { schemaEmail } from "../../../lib/lib";
+import { useFocus } from "../UI/useFocus";
 
 const schema = z
   .object({
@@ -19,9 +20,14 @@ export const useMakeFormEmail = () => {
     handleSubmit,
     watch,
     reset,
+    setFocus,
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(schema),
+  });
+  useFocus({
+    key: "email",
+    setFocus,
   });
 
   return {

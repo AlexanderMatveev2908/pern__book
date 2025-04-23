@@ -12,7 +12,12 @@ import { useForm } from "react-hook-form";
 import { isObjOk, makeNoticeTxt, schemaRegister } from "../../../lib/lib.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useCb, useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
+import {
+  useCb,
+  useFocus,
+  useNotice,
+  useWrapMutationAPI,
+} from "@/hooks/hooks.ts";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import {
@@ -38,6 +43,7 @@ const Register: FC = () => {
     setValue,
     handleSubmit,
     reset,
+    setFocus,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
@@ -56,7 +62,10 @@ const Register: FC = () => {
       terms: null,
     },
   });
-
+  useFocus({
+    key: "firstName",
+    setFocus,
+  });
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const { registerCb } = useCb({

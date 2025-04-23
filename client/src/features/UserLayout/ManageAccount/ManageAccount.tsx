@@ -14,6 +14,7 @@ import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
 import ChangeEmail from "./components/ChangeEmail";
 
 const ManageAccount: FC = () => {
+  // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap
   const [currForm, setCurrForm] = useState(0);
 
   const authState = useSelector(getAuthState);
@@ -29,7 +30,7 @@ const ManageAccount: FC = () => {
           <div
             className={`w-[300%] flex transition-all duration-500 ${
               !currForm
-                ? "max-h-[300px] min-h-[300px]"
+                ? "max-h-[225px] min-h-[250px]"
                 : "max-h-[350px] min-h-[350px]"
             }`}
             style={{
@@ -59,7 +60,7 @@ const ManageAccount: FC = () => {
               totLen: 3,
               isNextDisabled: false,
             }}
-          ></ButtonsSwapper>
+          />
         </div>
       </div>
     </WrapPageAPI>

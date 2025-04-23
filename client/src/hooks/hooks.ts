@@ -1,5 +1,5 @@
 export * from "./all/forms/useSavePrevErr";
-export * from "./all/useScroll";
+export * from "./all/UI/useScroll.js";
 export * from "./all/forms/useShowPwd";
 export * from "./all/wrappers/useWrapMutationAPI.js";
 export * from "./all/useCb";
@@ -8,5 +8,6 @@ export * from "./all/useLogout.js";
 export * from "./all/forms/useMakeFormChosePwd";
 export * from "./all/forms/useHandleForm401";
 export * from "./all/usePopulateForm";
-export * from "./all/useNotice";
+export * from "./all/UI/useNotice.js";
 export * from "./all/useNinjaToken";
+export * from "./all/UI/useFocus";

@@ -12,3 +12,10 @@ export const titlesFormsManage = [...Object.values(ActionsManageAccount)].map(
     id: v4(),
   })
 );
+
+export const newEmailField = {
+  field: "email",
+  label: "New Email",
+  type: "email",
+  place: "Your new email...",
+};

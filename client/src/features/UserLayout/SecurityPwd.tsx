@@ -1,6 +1,6 @@
 import { Button, PwdField, WrapPageAPI } from "@/components/components";
 import { passwordField } from "@/config/fields/AuthLayout/fieldsAuth";
-import { useShowPwd, useWrapMutationAPI } from "@/hooks/hooks";
+import { useFocus, useShowPwd, useWrapMutationAPI } from "@/hooks/hooks";
 import { saveStorage, schemaPwd } from "@/lib/lib";
 import { AllowedFromApp, StorageKeys } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -34,9 +34,14 @@ const SecurityPwd: FC = () => {
     formState: { errors },
     handleSubmit,
     watch,
+    setFocus,
   } = useForm<PwdSecurityForm>({
     resolver: zodResolver(schema),
     mode: "onChange",
+  });
+  useFocus({
+    key: "password",
+    setFocus,
   });
 
   const [getRightManageAccount, { isLoading }] =

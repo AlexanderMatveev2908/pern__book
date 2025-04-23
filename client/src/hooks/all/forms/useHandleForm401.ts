@@ -2,7 +2,7 @@
 import { formatMsgCode } from "@/lib/lib";
 import { MsgCheckToken } from "@/types/types";
 import { useCallback } from "react";
-import { useNotice } from "../useNotice";
+import { useNotice } from "../UI/useNotice";
 
 export const useHandleForm401 = () => {
   const { makeNoticeCombo } = useNotice();
