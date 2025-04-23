@@ -20,6 +20,7 @@ export const useNinjaToken = () => {
     const res = await wrapMutationAPI({
       cbAPI: () => clearManageToken({}),
       showToast: false,
+      hideErr: true,
     });
 
     __cg("expect 204", res);

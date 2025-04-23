@@ -59,3 +59,11 @@ export const getMsgErr = (data: any) =>
 
 export const canPushUser = (authState: AuthState) =>
   !authState.isLogged && !authState.loggingOut && !authState.pushedOut;
+
+export const catchErr = async (cb: () => Promise<void>) => {
+  try {
+    await cb();
+  } catch {
+    //
+  }
+};

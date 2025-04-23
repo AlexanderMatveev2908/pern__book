@@ -3,4 +3,5 @@ export enum StorageKeys {
   NOTICE = "notice",
   INIT = "init",
   SECURITY = "manageAccountToken",
+  FORGOT_PWD = "forgotPwdToken",
 }

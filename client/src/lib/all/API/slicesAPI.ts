@@ -4,6 +4,7 @@ import authSlice from "@/features/AuthLayout/authSlice";
 import apiSlice from "@/store/apiSlice";
 import { StorageKeys, TagsAPI } from "@/types/types";
 import { saveStorage } from "../storage";
+import { catchErr } from "./API";
 
 export const handleAsyncQuery = async ({
   queryFulfilled,
@@ -12,7 +13,7 @@ export const handleAsyncQuery = async ({
   queryFulfilled: any;
   dispatch: any;
 }) => {
-  try {
+  await catchErr(async () => {
     const { data } = await queryFulfilled;
 
     saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
@@ -22,7 +23,5 @@ export const handleAsyncQuery = async ({
 
     dispatch(authSlice.actions.login());
     dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
-  } catch {
-    //
-  }
+  });
 };

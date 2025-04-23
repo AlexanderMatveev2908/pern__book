@@ -10,6 +10,7 @@ import { isObjOk, parseNull } from "../../lib/validateDataStructure.js";
 import { genTokenCBC } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { sendEmailAuth } from "../../lib/mail/auth.js";
 import { __cg } from "../../lib/utils/log.js";
+import { genTokSendEmail } from "../../lib/taughtStuff/combo.js";
 
 const clearThumb = async (user: UserInstance) => {
   await delCloud(user!.Thumb!.publicID);
@@ -73,17 +74,8 @@ export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
   await user!.save();
 
   try {
-    await Token.destroy({
-      where: { userID, event: TokenEventType.CHANGE_EMAIL },
-    });
-    const { verifyToken } =
-      (await genTokenCBC({
-        user,
-        event: TokenEventType.CHANGE_EMAIL,
-      })) ?? {};
-    await sendEmailAuth({
+    await genTokSendEmail({
       user,
-      token: verifyToken!,
       event: TokenEventType.CHANGE_EMAIL,
       newEmail: user!.tempEmail as string,
     });

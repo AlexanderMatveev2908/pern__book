@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import {
   fieldsAuth__0,
   fieldsAuth__1,
@@ -12,12 +12,7 @@ import { useForm } from "react-hook-form";
 import { isObjOk, makeNoticeTxt, schemaRegister } from "../../../lib/lib.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import {
-  useCb,
-  useFocus,
-  useNotice,
-  useWrapMutationAPI,
-} from "@/hooks/hooks.ts";
+import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import {
@@ -68,10 +63,7 @@ const Register: FC = () => {
   });
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
-  const { registerCb } = useCb({
-    cb: () => dispatch(login()),
-    alias: "register",
-  });
+  const registerCB = useCallback(() => dispatch(login()), [dispatch]);
   const handleSave = handleSubmit(async (formData) => {
     // eslint-disable-next-line
     const { confirmPassword: _, terms: __, ...newUser } = formData;
@@ -86,7 +78,7 @@ const Register: FC = () => {
     makeNoticeCombo({
       status: res?.status || 200,
       msg: makeNoticeTxt("to verify your account"),
-      cb: registerCb,
+      cb: registerCB,
     });
   });
 

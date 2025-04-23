@@ -43,6 +43,7 @@ export const useWrapQueryAPI = ({
       push,
       pushNotice,
       customErrCB,
+      hideErr,
     }: {
       isSuccess: boolean;
       data: any;
@@ -52,6 +53,7 @@ export const useWrapQueryAPI = ({
       pushNotice?: [boolean, (() => any)?];
       toast?: boolean;
       customErrCB?: (err: any) => any;
+      hideErr?: boolean;
     }) => {
       if (isSuccess) {
         __cg("query api", data);
@@ -72,6 +74,7 @@ export const useWrapQueryAPI = ({
           push,
           pushNotice,
           customCB: customErrCB,
+          hideErr,
         });
       }
     },

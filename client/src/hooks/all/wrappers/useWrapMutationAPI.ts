@@ -17,12 +17,14 @@ export const useWrapMutationAPI = () => {
       pushNotice,
       showToast = true,
       customErrCB,
+      hideErr,
     }: {
       cbAPI: () => any;
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
       showToast?: boolean;
       customErrCB?: (err: any) => any;
+      hideErr?: boolean;
     }) => {
       try {
         const data = await cbAPI().unwrap();
@@ -42,7 +44,13 @@ export const useWrapMutationAPI = () => {
       } catch (err: any) {
         __cg("err mutation", err);
 
-        return handleErrAPI({ err, push, pushNotice, customCB: customErrCB });
+        return handleErrAPI({
+          err,
+          push,
+          pushNotice,
+          customCB: customErrCB,
+          hideErr,
+        });
       }
     },
     [handleErrAPI, dispatch]

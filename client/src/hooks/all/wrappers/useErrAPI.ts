@@ -4,7 +4,7 @@ import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useNotice } from "../UI/useNotice";
+import { useNotice } from "../useNotice";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const useErrAPI = () => {
@@ -20,18 +20,20 @@ export const useErrAPI = () => {
       push,
       pushNotice,
       customCB,
+      hideErr,
     }: {
       err: any;
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
       customCB?: (err: any) => any;
+      hideErr?: boolean;
     }) => {
       const { response } = err ?? {};
       const { data, status } = response ?? {};
 
       if (typeof customCB === "function") customCB(response);
 
-      if (ignoreErr(response)) return null;
+      if (ignoreErr(response) || hideErr) return null;
 
       const message = getMsgErr(data);
 

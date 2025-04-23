@@ -1,6 +1,7 @@
 import apiSlice from "@/store/apiSlice";
 import { TagsAPI, UserType } from "@/types/types";
 import { PwdSecurityForm } from "./SecurityPwd";
+import { catchErr } from "@/lib/lib";
 
 export const userSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -19,8 +20,10 @@ export const userSliceAPI = apiSlice.injectEndpoints({
         data,
       }),
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(userSliceAPI.util.invalidateTags([TagsAPI.USER]));
+        await catchErr(async () => {
+          await queryFulfilled;
+          dispatch(userSliceAPI.util.invalidateTags([TagsAPI.USER]));
+        });
       },
     }),
 
@@ -38,10 +41,6 @@ export const userSliceAPI = apiSlice.injectEndpoints({
         method: "PATCH",
         data,
       }),
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        await queryFulfilled;
-        dispatch(userSliceAPI.util.invalidateTags([TagsAPI.USER]));
-      },
     }),
   }),
 });

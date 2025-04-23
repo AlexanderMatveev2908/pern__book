@@ -6,8 +6,8 @@ import {
 import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapMutationAPI } from "@/hooks/hooks";
-import { checkQueryAuth, isObjOk } from "@/lib/lib";
-import { AllowedFromApp, TokenEventType } from "@/types/types";
+import { checkQueryAuth, isObjOk, saveStorage } from "@/lib/lib";
+import { AllowedFromApp, StorageKeys, TokenEventType } from "@/types/types";
 
 const VerifyCb: FC = () => {
   const [searchParams] = useSearchParams();
@@ -42,8 +42,10 @@ const VerifyCb: FC = () => {
     });
     if (!isObjOk(res)) return;
 
+    saveStorage({ data: params?.token, key: StorageKeys.FORGOT_PWD });
+
     navigate(
-      `/auth/chose-new-pwd?token=${params?.token}&userID=${params?.userID}&event=${params?.event}`,
+      `/auth/chose-new-pwd?userID=${params?.userID}&event=${params?.event}`,
       {
         replace: true,
         state: { from: AllowedFromApp.GEN },

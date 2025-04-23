@@ -1,8 +1,15 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, FormField } from "@/components/components";
 import { newEmailField } from "@/config/fields/UserLayout/fieldsManageAccount";
-import { getStorage, schemaEmail } from "@/lib/lib";
+import {
+  __cg,
+  delKeyStorage,
+  getStorage,
+  isUnHandledErr,
+  schemaEmail,
+} from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -53,6 +60,22 @@ const ChangeEmail: FC = () => {
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
 
+  const customErrCB = useCallback(
+    (res: any) => {
+      if (isUnHandledErr(res))
+        makeNoticeCombo({
+          status: res?.status,
+          msg: res?.data?.msg,
+        });
+
+      if (res?.status === 429) {
+        __cg("run custom cb 429");
+        delKeyStorage(StorageKeys.SECURITY);
+      }
+    },
+    [makeNoticeCombo]
+  );
+
   const handleSave = handleSubmit(async (formData) => {
     const res = await wrapMutationAPI({
       cbAPI: () =>
@@ -60,6 +83,7 @@ const ChangeEmail: FC = () => {
           ...formData,
           token: getStorage(StorageKeys.SECURITY) ?? "",
         }),
+      customErrCB,
     });
     if (!res) return;
 
