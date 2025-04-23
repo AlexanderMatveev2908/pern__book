@@ -9,3 +9,4 @@ export * from "./all/forms/useMakeFormChosePwd";
 export * from "./all/forms/useHandleForm401";
 export * from "./all/usePopulateForm";
 export * from "./all/useNotice";
+export * from "./all/useNinjaToken";

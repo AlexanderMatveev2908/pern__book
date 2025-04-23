@@ -15,6 +15,7 @@ import ChoseNewPwdPage from "./pages/AuthLayout/ChoseNewPwdPage";
 import ProfileSettingsPage from "./pages/UserLayout/ProfileSettingsPage/ProfileSettingsPage";
 import ManageAccountPage from "./pages/UserLayout/ManageAccountPage";
 import SecurityPage from "./pages/UserLayout/SecurityPage";
+import { useNinjaToken } from "@/hooks/hooks";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -22,6 +23,8 @@ const App: FC = () => {
   useEffect(() => {
     setNavigator(navigate);
   }, [navigate]);
+
+  useNinjaToken();
 
   return (
     <Routes>

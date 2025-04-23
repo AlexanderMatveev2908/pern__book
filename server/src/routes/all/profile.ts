@@ -9,6 +9,7 @@ import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.
 import { allowManageAccount } from "../../controllers/profile/post.js";
 import { validatePwd } from "../../middleware/user/security.js";
 import { securityLimiter } from "../../middleware/protected/securityLimiter.js";
+import { clearManageToken } from "../../controllers/profile/delete.js";
 
 const profileRouter = express.Router();
 
@@ -21,12 +22,14 @@ profileRouter
     validateProfile,
     wrapApp(updateProfile)
   );
-profileRouter.post(
-  "/security",
-  securityLimiter,
-  verifyAccessToken({}),
-  validatePwd,
-  wrapApp(allowManageAccount)
-);
+profileRouter
+  .route("/security")
+  .post(
+    securityLimiter,
+    verifyAccessToken({}),
+    validatePwd,
+    wrapApp(allowManageAccount)
+  )
+  .delete(verifyAccessToken({}), wrapApp(clearManageToken));
 
 export default profileRouter;
