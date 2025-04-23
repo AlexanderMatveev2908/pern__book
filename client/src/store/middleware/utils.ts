@@ -5,6 +5,7 @@ import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import authSlice from "@/features/AuthLayout/authSlice";
 import apiSlice from "../apiSlice";
+import { clearAuthAxios } from "../baseAxiosQuery";
 
 export const handlePushErr = ({
   store,
@@ -28,6 +29,8 @@ export const handlePushErr = ({
 
   if (data?.pushOut) {
     removeStorage();
+    clearAuthAxios();
+
     store.dispatch(authSlice.actions.setPushedOut());
     store.dispatch(
       noticeSlice.actions.setNotice({
@@ -45,6 +48,7 @@ export const handlePushErr = ({
       })
     );
   }
+
   store.dispatch(
     toastSlice.actions.openToast({
       type: EventApp.ERR,

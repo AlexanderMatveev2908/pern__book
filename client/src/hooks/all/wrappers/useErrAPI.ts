@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setNotice } from "@/features/common/Notice/noticeSlice";
 import { openToast } from "@/features/common/Toast/toastSlice";
-import { ignoreErr, getMsgErr, saveStorage } from "@/lib/lib";
-import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
+import { ignoreErr, getMsgErr } from "@/lib/lib";
+import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { useNotice } from "../useNotice";
 
 const canRun = (...args: any[]) => {
   let isOk = true;
@@ -27,9 +27,11 @@ const canRun = (...args: any[]) => {
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const useErrAPI = () => {
-  const navigate = useNavigate();
+  const nav = useNavigate();
 
   const dispatch = useDispatch();
+
+  const { makeNoticeCombo } = useNotice();
 
   const handleErrAPI = useCallback(
     ({
@@ -61,32 +63,20 @@ export const useErrAPI = () => {
       if (!canRun(push, pushNotice, customCB)) {
         throw new Error("Can not send user to different places at same time");
       } else if (typeof customCB === "function") {
-        customCB(err);
+        return customCB(err);
       } else if (push) {
-        navigate("/", { replace: true });
+        nav("/", { replace: true });
       } else if (pushNotice?.[0]) {
-        dispatch(
-          setNotice({
-            notice: message,
-            type: EventApp.ERR,
-            status: status || 500,
-            cb: pushNotice?.[1] ?? null,
-          })
-        );
-        saveStorage({
-          data: { notice: data?.msg, type: EventApp.ERR },
-          key: StorageKeys.NOTICE,
-        });
-
-        navigate("/notice", {
-          replace: true,
-          state: { from: AllowedFromApp.GEN },
+        makeNoticeCombo({
+          status: status || 500,
+          msg: message,
+          cb: pushNotice?.[1] ?? null,
         });
       }
 
       return null;
     },
-    [dispatch, navigate]
+    [makeNoticeCombo, dispatch, nav]
   );
 
   return { handleErrAPI };

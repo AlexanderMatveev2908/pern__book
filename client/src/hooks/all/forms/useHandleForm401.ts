@@ -1,20 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setNotice } from "@/features/common/Notice/noticeSlice";
-import { formatMsgCode, saveStorage } from "@/lib/lib";
-import {
-  AllowedFromApp,
-  EventApp,
-  MsgCheckToken,
-  StorageKeys,
-} from "@/types/types";
+import { formatMsgCode } from "@/lib/lib";
+import { MsgCheckToken } from "@/types/types";
 import { useCallback } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNotice } from "../useNotice";
 
 export const useHandleForm401 = () => {
-  const nav = useNavigate();
-
-  const dispatch = useDispatch();
+  const { makeNoticeCombo } = useNotice();
 
   const handleForm401 = useCallback(
     (err: any) => {
@@ -30,26 +21,14 @@ export const useHandleForm401 = () => {
       )
         return null;
 
-      const newNotice = {
-        notice: data?.msg,
-        type: EventApp.ERR,
+      makeNoticeCombo({
+        msg: data?.msg,
         status: 401,
-      };
-      dispatch(
-        setNotice({
-          ...newNotice,
-        })
-      );
-      saveStorage({ data: newNotice, key: StorageKeys.NOTICE });
-
-      nav("/notice", {
-        replace: true,
-        state: { from: AllowedFromApp.GEN },
       });
 
       return null;
     },
-    [dispatch, nav]
+    [makeNoticeCombo]
   );
 
   return {

@@ -9,7 +9,6 @@ import ForgotPwdPage from "./pages/AuthLayout/ForgotPwdPage";
 import NoticePage from "./pages/Notice/NoticePage";
 import HomePage from "./pages/Home/HomePage";
 import VerifyPage from "./pages/Verify/VerifyPage";
-import TestPage from "./pages/Test/TestPage";
 import { setNavigator } from "@/lib/lib";
 import UserLayout from "./layouts/UserLayout";
 import ChoseNewPwdPage from "./pages/AuthLayout/ChoseNewPwdPage";
@@ -45,7 +44,6 @@ const App: FC = () => {
 
         <Route path="notice" element={<NoticePage />} />
         <Route path="verify-cb" element={<VerifyPage />} />
-        <Route path="protected" element={<TestPage />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace={true} />} />

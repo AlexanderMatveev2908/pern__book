@@ -9,20 +9,12 @@ import Terms from "./components/Terms";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  isObjOk,
-  makeNoticeTxt,
-  saveStorage,
-  schemaRegister,
-} from "../../../lib/lib.ts";
+import { isObjOk, makeNoticeTxt, schemaRegister } from "../../../lib/lib.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useCb, useWrapMutationAPI } from "@/hooks/hooks.ts";
-import { useNavigate } from "react-router-dom";
+import { useCb, useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
-import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types.ts";
-import { setNotice } from "@/features/common/Notice/noticeSlice.ts";
 import {
   BreadCrumbForm,
   Button,
@@ -33,10 +25,9 @@ import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
-  const navigate = useNavigate();
-
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
   const { wrapMutationAPI } = useWrapMutationAPI();
+  const { makeNoticeCombo } = useNotice();
 
   const dispatch = useDispatch();
   const {
@@ -82,16 +73,10 @@ const Register: FC = () => {
     if (!isObjOk(res)) return;
 
     reset();
-    const notice = {
-      notice: makeNoticeTxt("to verify your account"),
-      type: EventApp.OK,
+    makeNoticeCombo({
       status: res?.status || 200,
-    };
-    saveStorage({ data: notice, key: StorageKeys.NOTICE });
-    dispatch(setNotice({ ...notice, cb: registerCb }));
-    navigate("/notice", {
-      replace: true,
-      state: { from: AllowedFromApp.GEN },
+      msg: makeNoticeTxt("to verify your account"),
+      cb: registerCb,
     });
   });
 
