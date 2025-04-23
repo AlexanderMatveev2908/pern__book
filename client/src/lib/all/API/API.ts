@@ -1,5 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AuthState, AvoidRefreshEnd, MsgErrAccess } from "@/types/types";
+import {
+  AuthState,
+  AvoidRefreshEnd,
+  MsgCheckToken,
+  MsgErrAccess,
+} from "@/types/types";
+import { formatMsgCode } from "../utils/formatters";
 
 export const isAccessExpired = (msg: string) =>
   [...Object.values(MsgErrAccess)].includes(msg as MsgErrAccess);
@@ -17,6 +23,17 @@ export const ignoreErr = (response: any) => {
     isRefreshing(config?.url) ||
     [403, 429].includes(status)
   );
+};
+
+export const isUnHandledErr = (res: any) => {
+  const { data, status } = res;
+
+  const isUnhandled =
+    [...Object.values(MsgCheckToken).map((msg) => formatMsgCode(msg))].includes(
+      data?.msg
+    ) && status === 401;
+
+  return isUnhandled;
 };
 
 export const makeDelay = (cb: () => any, delay: number = 250) =>

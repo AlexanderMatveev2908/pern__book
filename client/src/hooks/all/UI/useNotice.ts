@@ -30,6 +30,7 @@ export const useNotice = () => {
       dispatch(
         setNotice({ ...notice, cb: typeof cb === "function" ? cb : null })
       );
+
       nav("/notice", {
         replace: true,
         state: { from: AllowedFromApp.GEN },

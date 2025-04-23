@@ -12,13 +12,17 @@ export const handleAsyncQuery = async ({
   queryFulfilled: any;
   dispatch: any;
 }) => {
-  const { data } = await queryFulfilled;
+  try {
+    const { data } = await queryFulfilled;
 
-  saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
-  appInstance.defaults.headers.common[
-    "Authorization"
-  ] = `Bearer ${data?.accessToken}`;
+    saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
+    appInstance.defaults.headers.common[
+      "Authorization"
+    ] = `Bearer ${data?.accessToken}`;
 
-  dispatch(authSlice.actions.login());
-  dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
+    dispatch(authSlice.actions.login());
+    dispatch(apiSlice.util.invalidateTags([TagsAPI.USER]));
+  } catch {
+    //
+  }
 };

@@ -24,6 +24,12 @@ export enum TokenEventType {
   // SECURITY = "f48100f806d741e8b7daf3a206a6ba24",
 }
 
+export enum EndpointClearTokenOnErr {
+  FORGOT_PWD = "/auth/recover-account",
+  CHANGE_EMAIL = "/user/update-email",
+  RESET_PWD = "/user/reset-pwd",
+}
+
 export enum MsgCheckToken {
   NOT_FOUND = "VERIFY_TOKEN_NOT_FOUND",
   NOT_EMITTED = "VERIFY_TOKEN_NOT_EMITTED",

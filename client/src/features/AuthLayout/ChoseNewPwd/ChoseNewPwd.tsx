@@ -1,19 +1,32 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NewPwdForm, WrapPageAPI } from "@/components/components";
 import {
-  useHandleForm401,
   useMakeFormChosePwd,
+  useNotice,
   useWrapMutationAPI,
 } from "@/hooks/hooks";
-import { FC } from "react";
+import { FC, useCallback } from "react";
 import { useChoseNewPwdMutation } from "../authSliceAPI";
 import { useNavigate } from "react-router-dom";
+import { isUnHandledErr } from "@/lib/lib";
 
 const ChoseNewPwd: FC = () => {
   const navigate = useNavigate();
 
   const { form, canStay, params } = useMakeFormChosePwd();
   const { wrapMutationAPI } = useWrapMutationAPI();
-  const { handleForm401 } = useHandleForm401();
+  const { makeNoticeCombo } = useNotice();
+
+  const customErrCB = useCallback(
+    (res: any) => {
+      if (isUnHandledErr(res))
+        makeNoticeCombo({
+          status: res?.status,
+          msg: res?.data?.msg,
+        });
+    },
+    [makeNoticeCombo]
+  );
 
   const [choseNewPwd, { isLoading }] = useChoseNewPwdMutation();
 
@@ -25,7 +38,7 @@ const ChoseNewPwd: FC = () => {
           userID: params?.userID as string,
           token: params?.token as string,
         }),
-      customErrCB: handleForm401,
+      customErrCB,
     });
 
     if (!res) return;

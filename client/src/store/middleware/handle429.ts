@@ -1,18 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import noticeSlice from "@/features/common/Notice/noticeSlice";
-import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
-import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
-import toastSlice from "@/features/common/Toast/toastSlice";
 import authSlice from "@/features/AuthLayout/authSlice";
+import noticeSlice from "@/features/common/Notice/noticeSlice";
+import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
+import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import apiSlice from "../apiSlice";
+import toastSlice from "@/features/common/Toast/toastSlice";
 
-export const handlePushErr = ({
-  store,
-  response,
-}: {
-  store: any;
-  response: any;
-}) => {
+export const handle429 = (store: any, response: any) => {
   const { data, status } = response;
 
   const msg = getMsgErr(data);
@@ -24,7 +18,6 @@ export const handlePushErr = ({
 
   if (data?.pushOut) {
     removeStorage();
-
     store.dispatch(authSlice.actions.setPushedOut());
     store.dispatch(
       noticeSlice.actions.setNotice({
@@ -42,7 +35,6 @@ export const handlePushErr = ({
       })
     );
   }
-
   saveStorage({
     data: newNotice,
     key: StorageKeys.NOTICE,
@@ -60,6 +52,4 @@ export const handlePushErr = ({
     replace: true,
     state: { from: AllowedFromApp.GEN },
   });
-
-  return null;
 };

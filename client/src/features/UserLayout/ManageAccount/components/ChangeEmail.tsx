@@ -10,12 +10,7 @@ import {
   useUpdateEmailMutation,
 } from "../../userSliceAPI";
 import { StorageKeys, UserType } from "@/types/types";
-import {
-  useFocus,
-  useHandleForm401,
-  useNotice,
-  useWrapMutationAPI,
-} from "@/hooks/hooks";
+import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks";
 
 const ChangeEmail: FC = () => {
   const { data } = useGetUserProfileQuery();
@@ -55,7 +50,6 @@ const ChangeEmail: FC = () => {
   );
 
   const [updateEmail, { isLoading }] = useUpdateEmailMutation();
-  const { handleForm401 } = useHandleForm401();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
 
@@ -66,7 +60,6 @@ const ChangeEmail: FC = () => {
           ...formData,
           token: getStorage(StorageKeys.SECURITY) ?? "",
         }),
-      customErrCB: handleForm401,
     });
     if (!res) return;
 

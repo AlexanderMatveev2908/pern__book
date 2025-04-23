@@ -24,7 +24,7 @@ authRouter.post("/login", limitRoute({ max: 10 }), wrapApp(loginUser));
 authRouter.post("/logout", getUserID, wrapApp(logoutUser));
 authRouter.patch(
   "/recover-account",
-  limitRoute({ max: 15 }),
+  limitRoute({ max: 10 }),
   validateChoseNewPwd,
   wrapApp(choseNewPwdForgotOld)
 );
