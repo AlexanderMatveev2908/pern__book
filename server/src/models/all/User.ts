@@ -70,6 +70,12 @@ export class User extends Model<
     await this.save();
   }
 
+  async verifyNewEmail(this: User) {
+    this.email = this.tempEmail as string;
+    this.tempEmail = null;
+    await this.save();
+  }
+
   async clearTokens(this: User) {
     await Token.destroy({
       where: {

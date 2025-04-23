@@ -5,7 +5,7 @@ import { Thumb, ThumbInstance } from "../../models/all/Thumb.js";
 import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
 import { Token, User, UserInstance } from "../../models/models.js";
 import { delCloud } from "../../lib/cloud/delete.js";
-import { err400, err500 } from "../../lib/responseClient/err.js";
+import { err400, err409, err500 } from "../../lib/responseClient/err.js";
 import { isObjOk, parseNull } from "../../lib/validateDataStructure.js";
 import { genTokenCBC } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { sendEmailAuth } from "../../lib/mail/auth.js";
@@ -67,6 +67,13 @@ export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
   const { email } = req.body;
 
+  const someUser = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  if (someUser)
+    return err409(res, { msg: "already exist a user with this email" });
   const user = (await User.findByPk(userID)) as UserInstance;
   if (user!.email === email) return err400(res, { msg: "email is the same" });
 

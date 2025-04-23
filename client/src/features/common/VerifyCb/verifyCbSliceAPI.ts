@@ -28,8 +28,22 @@ const verifyCbAPI = apiSlice.injectEndpoints({
         data,
       }),
     }),
+
+    verifyNewEmail: builder.mutation({
+      query: (data: ParamsVerifyCB) => ({
+        url: "/verify/new-email",
+        method: "PATCH",
+        data,
+      }),
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
+        handleAsyncQuery({ queryFulfilled, dispatch });
+      },
+    }),
   }),
 });
 
-export const { useVerifyAccountMutation, useVerifyEmailForgotPwdMutation } =
-  verifyCbAPI;
+export const {
+  useVerifyAccountMutation,
+  useVerifyEmailForgotPwdMutation,
+  useVerifyNewEmailMutation,
+} = verifyCbAPI;

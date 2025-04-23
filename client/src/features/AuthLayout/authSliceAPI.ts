@@ -57,7 +57,6 @@ export const authAPI = apiSlice.injectEndpoints({
         method: "PATCH",
         data,
       }),
-
       async onQueryStarted(_, { queryFulfilled, dispatch }) {
         await handleAsyncQuery({ queryFulfilled, dispatch });
       },

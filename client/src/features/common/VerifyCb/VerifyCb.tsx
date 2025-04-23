@@ -2,6 +2,7 @@ import { FC, useCallback, useEffect, useMemo, useRef } from "react";
 import {
   useVerifyAccountMutation,
   useVerifyEmailForgotPwdMutation,
+  useVerifyNewEmailMutation,
 } from "./verifyCbSliceAPI";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
@@ -20,7 +21,9 @@ const VerifyCb: FC = () => {
 
   const [verifyAccount] = useVerifyAccountMutation();
   const [verifyEmailForgotPwd] = useVerifyEmailForgotPwdMutation();
+  const [verifyNewEmail] = useVerifyNewEmailMutation();
 
+  // ACCOUNT_FRESH
   const handleVerifyAccount = useCallback(async () => {
     if (params === null) return;
 
@@ -33,6 +36,7 @@ const VerifyCb: FC = () => {
     navigate("/", { replace: true });
   }, [params, verifyAccount, wrapMutationAPI, navigate]);
 
+  // FORGOT_PWD
   const handleVerifyEmailForgotPwd = useCallback(async () => {
     if (params === null) return;
 
@@ -53,6 +57,20 @@ const VerifyCb: FC = () => {
     );
   }, [params, verifyEmailForgotPwd, wrapMutationAPI, navigate]);
 
+  // NEW_EMAIL
+  const handleVerifyNewEmail = useCallback(async () => {
+    if (params === null) return;
+
+    const res = await wrapMutationAPI({
+      cbAPI: () => verifyNewEmail(params),
+      pushNotice: [true],
+    });
+
+    if (!isObjOk(res)) return;
+
+    navigate("/", { replace: true });
+  }, [navigate, params, verifyNewEmail, wrapMutationAPI]);
+
   useEffect(() => {
     if (!hasRun.current) {
       hasRun.current = true;
@@ -61,8 +79,15 @@ const VerifyCb: FC = () => {
         handleVerifyAccount();
       else if (params?.event === TokenEventType.FORGOT_PWD)
         handleVerifyEmailForgotPwd();
+      else if (params?.event === TokenEventType.CHANGE_EMAIL)
+        handleVerifyNewEmail();
     }
-  }, [params, handleVerifyAccount, handleVerifyEmailForgotPwd]);
+  }, [
+    params,
+    handleVerifyAccount,
+    handleVerifyEmailForgotPwd,
+    handleVerifyNewEmail,
+  ]);
 
   return <WrapPageAPI {...{ isLoading: true, canStay: !!params }} />;
 };
