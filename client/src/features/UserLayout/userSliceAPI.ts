@@ -1,5 +1,6 @@
 import apiSlice from "@/store/apiSlice";
 import { TagsAPI, UserType } from "@/types/types";
+import { PwdSecurityForm } from "./SecurityPwd";
 
 export const userSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -22,8 +23,19 @@ export const userSliceAPI = apiSlice.injectEndpoints({
         dispatch(userSliceAPI.util.invalidateTags([TagsAPI.USER]));
       },
     }),
+
+    getRightManageAccount: builder.mutation({
+      query: (data: PwdSecurityForm) => ({
+        url: "/user/security",
+        method: "POST",
+        data,
+      }),
+    }),
   }),
 });
 
-export const { useGetUserProfileQuery, useUpdateProfileMutation } =
-  userSliceAPI;
+export const {
+  useGetUserProfileQuery,
+  useUpdateProfileMutation,
+  useGetRightManageAccountMutation,
+} = userSliceAPI;

@@ -14,7 +14,7 @@ export const useWrapQueryAPI = ({
   error,
   push,
   pushNotice,
-  customCB,
+  customErrCB,
   //  @ts-expect-error A meteorite could hit my room and during the explosion push on main code with incorrect types
   // eslint-disable-next-line
   ...args
@@ -27,7 +27,7 @@ export const useWrapQueryAPI = ({
   pushNotice?: [boolean, (() => any)?];
   toast?: boolean;
   args?: any;
-  customCB?: (err: any) => any;
+  customErrCB?: (err: any) => any;
 }) => {
   const dispatch = useDispatch();
 
@@ -42,7 +42,7 @@ export const useWrapQueryAPI = ({
       error,
       push,
       pushNotice,
-      customCB,
+      customErrCB,
     }: {
       isSuccess: boolean;
       data: any;
@@ -51,7 +51,7 @@ export const useWrapQueryAPI = ({
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
       toast?: boolean;
-      customCB?: (err: any) => any;
+      customErrCB?: (err: any) => any;
     }) => {
       if (isSuccess) {
         __cg("query api", data);
@@ -67,7 +67,12 @@ export const useWrapQueryAPI = ({
       } else if (isError) {
         __cg("err query", error);
 
-        return handleErrAPI({ err: error, push, pushNotice, customCB });
+        return handleErrAPI({
+          err: error,
+          push,
+          pushNotice,
+          customCB: customErrCB,
+        });
       }
     },
     [handleErrAPI, dispatch]
@@ -91,7 +96,7 @@ export const useWrapQueryAPI = ({
     error,
     push,
     pushNotice,
-    customCB,
+    customErrCB,
     handleQueryAPI,
   ]);
 };

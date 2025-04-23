@@ -15,31 +15,34 @@ export const useWrapMutationAPI = () => {
       cbAPI,
       push,
       pushNotice,
-      customCB,
+      showToast = true,
+      customErrCB,
     }: {
       cbAPI: () => any;
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
-      customCB?: (err: any) => any;
+      showToast?: boolean;
+      customErrCB?: (err: any) => any;
     }) => {
       try {
         const data = await cbAPI().unwrap();
 
         __cg("mutation api", data);
 
-        dispatch(
-          openToast({
-            type: EventApp.OK,
-            msg: data?.msg || "operation successful",
-            statusCode: data?.status,
-          })
-        );
+        if (showToast)
+          dispatch(
+            openToast({
+              type: EventApp.OK,
+              msg: data?.msg || "operation successful",
+              statusCode: data?.status,
+            })
+          );
 
         return data;
       } catch (err: any) {
         __cg("err mutation", err);
 
-        return handleErrAPI({ err, push, pushNotice, customCB });
+        return handleErrAPI({ err, push, pushNotice, customCB: customErrCB });
       }
     },
     [handleErrAPI, dispatch]

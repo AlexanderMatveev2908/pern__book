@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/all/user";
 import { RootStateType } from "../../store/store";
 import { getStorage } from "@/lib/lib";
@@ -33,10 +33,19 @@ const authSlice = createSlice({
       state.pushedOut = false;
       state.loggingOut = false;
     },
+    setCanManageAccount: (state, action: PayloadAction<boolean>) => {
+      state.canManageAccount = action.payload;
+    },
   },
 });
 
-export const { login, logout, setLoggingOut, setPushedOut, clearNavigating } =
-  authSlice.actions;
+export const {
+  login,
+  logout,
+  setLoggingOut,
+  setPushedOut,
+  clearNavigating,
+  setCanManageAccount,
+} = authSlice.actions;
 export const getAuthState = (state: RootStateType) => state.auth;
 export default authSlice;

@@ -37,11 +37,13 @@ export const verifyAccessToken =
         return err403(res, { msg: "User not verified" });
 
       const arrRoles = Object.values(UserRole);
-      const indexRoles = arrRoles.indexOf(role);
+      const indexRole = arrRoles.indexOf(role);
       const indexUser = arrRoles.indexOf(user.role as UserRole);
 
-      if (indexUser < indexRoles)
-        return err403(res, { msg: "User does does not have permission" });
+      if (indexUser < indexRole)
+        return err403(res, {
+          msg: "User does does not have permission to access this content",
+        });
 
       req.userID = user.id;
       return next();

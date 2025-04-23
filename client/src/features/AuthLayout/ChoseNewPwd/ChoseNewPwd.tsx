@@ -25,7 +25,7 @@ const ChoseNewPwd: FC = () => {
           userID: params?.userID as string,
           token: params?.token as string,
         }),
-      customCB: handleForm401,
+      customErrCB: handleForm401,
     });
 
     if (!res) return;

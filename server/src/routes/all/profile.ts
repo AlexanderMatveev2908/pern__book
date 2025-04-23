@@ -6,6 +6,8 @@ import { uploadSingle } from "../../middleware/multer/single.js";
 import { validateProfile } from "../../middleware/user/updateProfile.js";
 import { updateProfile } from "../../controllers/profile/patch.js";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
+import { allowManageAccount } from "../../controllers/profile/post.js";
+import { validatePwd } from "../../middleware/user/security.js";
 
 const profileRouter = express.Router();
 
@@ -18,5 +20,11 @@ profileRouter
     validateProfile,
     wrapApp(updateProfile)
   );
+profileRouter.post(
+  "/security",
+  verifyAccessToken({}),
+  validatePwd,
+  wrapApp(allowManageAccount)
+);
 
 export default profileRouter;

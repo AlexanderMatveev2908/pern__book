@@ -1,16 +1,89 @@
-import { WrapPageAPI } from "@/components/components";
-import { AllowedFromApp } from "@/types/types";
-import { FC } from "react";
-import { useLocation } from "react-router-dom";
+import { Button, PwdField, WrapPageAPI } from "@/components/components";
+import { passwordField } from "@/config/fields/AuthLayout/fieldsAuth";
+import { useShowPwd, useWrapMutationAPI } from "@/hooks/hooks";
+import { saveStorage, schemaPwd } from "@/lib/lib";
+import { AllowedFromApp, StorageKeys } from "@/types/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { FC, useMemo } from "react";
+import { useForm } from "react-hook-form";
+import { useLocation, useNavigate } from "react-router-dom";
+import { z } from "zod";
+import { useGetRightManageAccountMutation } from "./userSliceAPI";
+import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged";
+import { useDispatch } from "react-redux";
+import { setCanManageAccount } from "../AuthLayout/authSlice";
+
+const schema = z.object({
+  ...schemaPwd(),
+});
+
+export type PwdSecurityForm = z.infer<typeof schema>;
 
 const SecurityPwd: FC = () => {
   const { state } = useLocation();
   const { from } = state ?? {};
+  const nav = useNavigate();
 
-  console.log(useLocation());
+  const { wrapMutationAPI } = useWrapMutationAPI();
+  const { mainPwd } = useShowPwd();
+
+  const dispatch = useDispatch();
+  const {
+    register,
+    formState: { errors },
+    handleSubmit,
+    watch,
+  } = useForm<PwdSecurityForm>({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+  });
+
+  const [getRightManageAccount, { isLoading }] =
+    useGetRightManageAccountMutation();
+
+  const handleSave = handleSubmit(async (formData) => {
+    const res = await wrapMutationAPI({
+      cbAPI: () => getRightManageAccount(formData),
+      // showToast: false,
+    });
+    if (!res) return;
+
+    saveStorage({ key: StorageKeys.SECURITY, data: res.manageAccountToken });
+    dispatch(setCanManageAccount(true));
+
+    nav(LinksLoggedDrop.MANAGE_ACCOUNT, {
+      state: { from: AllowedFromApp.GEN },
+    });
+  });
+
+  const pwd = watch("password");
+  const formOk = useMemo(
+    () => pwd?.trim().length && !errors?.password?.message,
+    [pwd, errors?.password?.message]
+  );
 
   return (
-    <WrapPageAPI {...{ canStay: from === AllowedFromApp.GEN }}></WrapPageAPI>
+    <WrapPageAPI {...{ canStay: from === AllowedFromApp.GEN }}>
+      <div className="parent__form">
+        <form onSubmit={handleSave} className="form__content">
+          <div className="w-full grid gap-5 p-6">
+            <PwdField
+              {...{ register, errors, el: passwordField, ...mainPwd }}
+            />
+
+            <div className="max-w-[250px] w-full justify-self-center mt-10">
+              <Button
+                {...{
+                  label: "Login",
+                  isDisabled: !formOk,
+                  isAging: isLoading,
+                }}
+              />
+            </div>
+          </div>
+        </form>
+      </div>
+    </WrapPageAPI>
   );
 };
 export default SecurityPwd;

@@ -61,3 +61,12 @@ export const isSameData = (obj1: any, obj2: any): any => {
   if (!keys1.every((key) => keys2.includes(key))) return false;
   return keys1.every((key) => isSameData(obj1[key], obj2[key]));
 };
+
+export const genHEX = () => {
+  const bytes = new Uint8Array(16);
+  window.crypto.getRandomValues(bytes);
+
+  return Array.from(bytes)
+    .map((el) => el.toString(16).padStart(2, "0"))
+    .join("");
+};

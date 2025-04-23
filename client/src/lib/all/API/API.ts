@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AuthState, AvoidTriggerPath, MsgErrAccess } from "@/types/types";
+import { AuthState, AvoidRefreshEnd, MsgErrAccess } from "@/types/types";
 
 export const isAccessExpired = (msg: string) =>
   [...Object.values(MsgErrAccess)].includes(msg as MsgErrAccess);
@@ -7,7 +7,7 @@ export const isAccessExpired = (msg: string) =>
 export const isRefreshing = (endpoint: string) => endpoint === "/refresh";
 
 export const isLoggingOut = (endpoint: string) =>
-  endpoint === AvoidTriggerPath.LOGOUT;
+  endpoint === AvoidRefreshEnd.LOGOUT;
 
 export const ignoreErr = (response: any) => {
   const { data, status, config } = response;

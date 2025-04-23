@@ -2,5 +2,5 @@ export enum StorageKeys {
   ACCESS = "accessToken",
   NOTICE = "notice",
   INIT = "init",
-  SECURITY = "securityToken",
+  SECURITY = "manageAccountToken",
 }

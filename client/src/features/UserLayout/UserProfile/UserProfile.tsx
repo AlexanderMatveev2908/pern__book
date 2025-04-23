@@ -1,5 +1,4 @@
 import {
-  __cg,
   getData,
   isSameData,
   makeDelay,
@@ -63,8 +62,6 @@ const UserProfile: FC = () => {
     );
 
     const canMakeAPI = !isSameData(original, updated);
-
-    __cg("make api", canMakeAPI);
 
     return canMakeAPI;
   }, [vals, user]);
