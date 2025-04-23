@@ -4,7 +4,7 @@ import {
   fieldsActionsAuth,
 } from "../general/fieldsActionsAuth";
 import { IconType } from "react-icons/lib";
-import { userLoggedFieldsDrop } from "../general/linkFields";
+import { userLoggedFieldsDrop } from "../general/linkFieldsLogged";
 
 export interface DropFieldType {
   id?: string;

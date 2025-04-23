@@ -1,9 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/all/user";
 import { RootStateType } from "../../store/store";
+import { getStorage } from "@/lib/lib";
+import { StorageKeys } from "@/types/types";
 
 const initState: AuthState = {
-  isLogged: !!sessionStorage.getItem("accessToken"),
+  isLogged: !!getStorage(StorageKeys.ACCESS),
+  canManageAccount: !!getStorage(StorageKeys.SECURITY),
   loggingOut: false,
   pushedOut: false,
 };

@@ -9,7 +9,7 @@ import { tailwindBreak } from "../../../../config/breakpoints";
 import LogoutLi from "./LogoutLi";
 import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
 import { AllowedFromApp } from "@/types/types.ts";
-import { LinksLoggedDrop } from "@/config/fields/general/linkFields.ts";
+import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged.ts";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,
@@ -87,7 +87,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   };
 
   const specialClick = () =>
-    nav("/user/security", { state: { from: AllowedFromApp.GEN } });
+    nav(LinksLoggedDrop.SECURITY, { state: { from: AllowedFromApp.GEN } });
   return (
     <div className="min-w-full justify-self-end flex justify-end z__drop_header">
       <div className="relative w-[50px] h-[50px]">

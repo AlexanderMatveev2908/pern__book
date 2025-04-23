@@ -3,7 +3,7 @@ import SideLink from "./SideLink.tsx";
 import { DropHandler } from "@/components/components.ts";
 import { useDispatch, useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice.ts";
-import { AllowedFromApp, UserType } from "@/types/types.ts";
+import { UserType } from "@/types/types.ts";
 import {
   fieldAccountLogged,
   fieldAccountNonLogged,
@@ -11,8 +11,6 @@ import {
   sideFieldsNonLogged,
 } from "@/config/fields/Sidebar/sidebarFields.ts";
 import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
-import { LinksLoggedDrop } from "@/config/fields/general/linkFields.ts";
-import { useNavigate } from "react-router-dom";
 import { setIsSideOpen } from "../../Header/headerSlice.ts";
 
 type PropsType = {
@@ -21,7 +19,6 @@ type PropsType = {
 
 const SidebarDrop: FC<PropsType> = ({ user }) => {
   const [isDropOpen, setIsDropOpen] = useState<boolean>(false);
-  const nav = useNavigate();
 
   const authState = useSelector(getAuthState);
 
@@ -30,9 +27,6 @@ const SidebarDrop: FC<PropsType> = ({ user }) => {
 
   const arg = authState.isLogged ? sideFieldsLogged : sideFieldsNonLogged;
   const label = authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged;
-
-  const specialCLick = () =>
-    nav("/user/security", { state: { from: AllowedFromApp.GEN } });
 
   return (
     <div className={`w-full grid ${isDropOpen ? "" : ""}`}>
@@ -51,21 +45,7 @@ const SidebarDrop: FC<PropsType> = ({ user }) => {
         >
           {arg.map((el) =>
             el.path === AuthPagesPathType.VERIFY_EMAIL &&
-            user?.isVerified ? null : el.path ===
-              LinksLoggedDrop.MANAGE_ACCOUNT ? (
-              <div
-                onClick={() => {
-                  specialCLick();
-                  handleSideClick();
-                }}
-                className="w-fit flex justify-start gap-5 group el__after_below items-center nav_link"
-              >
-                <el.icon className="icon__with_txt icon__md" />
-                <span className="txt__2 el__flow group-hover:text-blue-600">
-                  {el.label}
-                </span>
-              </div>
-            ) : (
+            user?.isVerified ? null : (
               <SideLink key={el.id} {...{ el, handleSideClick }} />
             )
           )}

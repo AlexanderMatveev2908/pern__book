@@ -5,6 +5,7 @@ import { FaUserSecret } from "react-icons/fa";
 export enum LinksLoggedDrop {
   PROFILE = "/user/profile-settings",
   MANAGE_ACCOUNT = "/user/manage-account",
+  SECURITY = "/user/security",
 }
 
 export const userLoggedFieldsDrop = [

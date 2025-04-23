@@ -4,8 +4,10 @@ import { FC } from "react";
 import { useLocation } from "react-router-dom";
 
 const SecurityPwd: FC = () => {
-  const loc = useLocation();
-  const { state: { from } = {} } = loc;
+  const { state } = useLocation();
+  const { from } = state ?? {};
+
+  console.log(useLocation());
 
   return (
     <WrapPageAPI {...{ canStay: from === AllowedFromApp.GEN }}></WrapPageAPI>
