@@ -42,8 +42,6 @@ const Sidebar: FC = () => {
     };
   }, [dispatch]);
 
-  const handleSideClick = () => dispatch(setIsSideOpen(false));
-
   return (
     <>
       <div
@@ -64,12 +62,12 @@ const Sidebar: FC = () => {
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
             {sideFieldsAllUsers.map((el) => (
-              <SideLink key={el.id} {...{ el, handleSideClick }} />
+              <SideLink key={el.id} {...{ el }} />
             ))}
 
-            <SidebarDrop {...{ handleSideClick, user }} />
+            <SidebarDrop {...{ user }} />
 
-            <SideLogout {...{ handleSideClick }} />
+            <SideLogout />
           </div>
         </div>
       </div>

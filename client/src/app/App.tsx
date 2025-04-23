@@ -15,6 +15,7 @@ import UserLayout from "./layouts/UserLayout";
 import ChoseNewPwdPage from "./pages/AuthLayout/ChoseNewPwdPage";
 import ProfileSettingsPage from "./pages/UserLayout/ProfileSettingsPage/ProfileSettingsPage";
 import ManageAccountPage from "./pages/UserLayout/ManageAccountPage";
+import SecurityPage from "./pages/UserLayout/SecurityPage";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -39,6 +40,7 @@ const App: FC = () => {
         <Route path="user" element={<UserLayout />}>
           <Route path="profile-settings" element={<ProfileSettingsPage />} />
           <Route path="manage-account" element={<ManageAccountPage />} />
+          <Route path="security" element={<SecurityPage />} />
         </Route>
 
         <Route path="notice" element={<NoticePage />} />

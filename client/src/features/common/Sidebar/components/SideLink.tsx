@@ -1,13 +1,17 @@
 import { SideFieldType } from "@/config/fields/Sidebar/sidebarFields";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { setIsSideOpen } from "../../Header/headerSlice";
 
 type PropsType = {
   el: SideFieldType;
-  handleSideClick: () => void;
 };
 
-const SideLink: FC<PropsType> = ({ el, handleSideClick }) => {
+const SideLink: FC<PropsType> = ({ el }) => {
+  const dispatch = useDispatch();
+  const handleSideClick = () => dispatch(setIsSideOpen(false));
+
   return (
     <NavLink
       onClick={handleSideClick}

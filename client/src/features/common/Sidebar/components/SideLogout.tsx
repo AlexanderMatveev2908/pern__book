@@ -2,12 +2,13 @@ import { SpinnerBtn } from "@/components/components";
 import { useLogout } from "@/hooks/hooks";
 import { LogOut } from "lucide-react";
 import { FC } from "react";
+import { useDispatch } from "react-redux";
+import { setIsSideOpen } from "../../Header/headerSlice";
 
-type PropsType = {
-  handleSideClick: () => void;
-};
+const SideLogout: FC = () => {
+  const dispatch = useDispatch();
+  const handleSideClick = () => dispatch(setIsSideOpen(false));
 
-const SideLogout: FC<PropsType> = ({ handleSideClick }) => {
   const { handleCLick, isLoading } = useLogout();
 
   return isLoading ? (

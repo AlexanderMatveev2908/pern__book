@@ -2,6 +2,11 @@ import { FaUserGear } from "react-icons/fa6";
 import { verifyAccountField } from "./fieldsActionsAuth";
 import { FaUserSecret } from "react-icons/fa";
 
+export enum LinksLoggedDrop {
+  PROFILE = "/user/profile-settings",
+  MANAGE_ACCOUNT = "/user/manage-account",
+}
+
 export const userLoggedFieldsDrop = [
   {
     label: "Profile",

@@ -3,11 +3,13 @@ import {
   fieldsHeaderDropLogged,
   fieldsHeaderDropNonLogged,
 } from "../../../../config/fields/header/fieldsHeader.ts";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { tailwindBreak } from "../../../../config/breakpoints";
 import LogoutLi from "./LogoutLi";
 import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
+import { AllowedFromApp } from "@/types/types.ts";
+import { LinksLoggedDrop } from "@/config/fields/general/linkFields.ts";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,
@@ -33,6 +35,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   // a couple of flag are needed i u want to make functionality of mouse enter and leave
   const [isLeaving, setIsLeaving] = useState(false);
   const [hasClicked, setHasClicked] = useState(false);
+  const nav = useNavigate();
 
   const thumbRef = useRef<HTMLDivElement | null>(null);
   const dropRef = useRef<HTMLDivElement | null>(null);
@@ -82,6 +85,9 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
     setIsOpen(false);
     setIsLeaving(false);
   };
+
+  const specialClick = () =>
+    nav("/user/security", { state: { from: AllowedFromApp.GEN } });
   return (
     <div className="min-w-full justify-self-end flex justify-end z__drop_header">
       <div className="relative w-[50px] h-[50px]">
@@ -108,7 +114,20 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
           }`}
         >
           {arrDrop.map((el) =>
-            el.path === AuthPagesPathType.VERIFY_EMAIL && isVerified ? null : (
+            el.path === AuthPagesPathType.VERIFY_EMAIL &&
+            isVerified ? null : el.path === LinksLoggedDrop.MANAGE_ACCOUNT ? (
+              <div
+                key={el.id}
+                onClick={() => {
+                  specialClick();
+                  setIsOpen(false);
+                }}
+                className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
+              >
+                <el.icon className="icon__sm" />
+                <span className="txt__2">{el.label}</span>
+              </div>
+            ) : (
               <Link
                 key={el.id}
                 to={el.path}
