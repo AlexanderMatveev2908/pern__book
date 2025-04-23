@@ -4,12 +4,14 @@ import { getUserID } from "../../middleware/protected/getUserID.js";
 import { wrapApp } from "../../middleware/general/wrapApp.js";
 import { uploadSingle } from "../../middleware/multer/single.js";
 import { validateProfile } from "../../middleware/user/updateProfile.js";
-import { updateProfile } from "../../controllers/profile/patch.js";
+import { updateEmail, updateProfile } from "../../controllers/profile/patch.js";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
 import { allowManageAccount } from "../../controllers/profile/post.js";
 import { validatePwd } from "../../middleware/user/security.js";
 import { securityLimiter } from "../../middleware/protected/securityLimiter.js";
 import { clearManageToken } from "../../controllers/profile/delete.js";
+import { limitRoute } from "../../middleware/general/limitRoute.js";
+import { checkSecurityToken } from "../../middleware/user/checkSecurityToken.js";
 
 const profileRouter = express.Router();
 
@@ -32,4 +34,11 @@ profileRouter
   )
   .delete(verifyAccessToken({}), wrapApp(clearManageToken));
 
+profileRouter.patch(
+  "/update-email",
+  limitRoute({ max: 10 }),
+  verifyAccessToken({}),
+  checkSecurityToken,
+  wrapApp(updateEmail)
+);
 export default profileRouter;

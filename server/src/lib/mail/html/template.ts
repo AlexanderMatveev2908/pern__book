@@ -8,7 +8,7 @@ export const getHtmlMail = ({
   txt: string;
   url: string;
   labelBtn: string;
-}) => `   <table style="margin-top: 50px">
+}) => `   <table style="margin-top: 50px; padding-bottom: 100px">
       <tr>
         <td
           style="

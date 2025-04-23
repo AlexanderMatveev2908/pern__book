@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { formatMsgCode } from "@/lib/lib";
+import { __cg, formatMsgCode } from "@/lib/lib";
 import { MsgCheckToken } from "@/types/types";
 import { useCallback } from "react";
 import { useNotice } from "../UI/useNotice";
@@ -11,6 +11,7 @@ export const useHandleForm401 = () => {
     (err: any) => {
       const { response: { data, status } = {} } = err ?? {};
 
+      __cg("danger 401", data);
       if (
         status !== 401 ||
         ![

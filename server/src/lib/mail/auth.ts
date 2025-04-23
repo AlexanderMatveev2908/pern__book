@@ -20,6 +20,12 @@ const getTxt = (event: TokenEventType) => {
       labelBtn = "Recover Account";
       subject = "RECOVER ACCOUNT";
       break;
+    case TokenEventType.CHANGE_EMAIL:
+      txt = "change your email";
+      labelBtn = "verify email";
+      subject = "CHANGE EMAIL";
+      break;
+
     default:
       throw new Error(`=> Invalid event: ${event}`);
   }
@@ -35,10 +41,12 @@ export const sendEmailAuth = async ({
   user,
   token,
   event,
+  newEmail,
 }: {
   user: UserInstance;
   token: string;
   event: TokenEventType;
+  newEmail?: string;
 }) => {
   if ([user, token, event].some((el) => !el))
     throw new Error("=> Missing data mail transporter");
@@ -48,7 +56,7 @@ export const sendEmailAuth = async ({
 
   await mailer.sendMail({
     from: myMail,
-    to: user.email,
+    to: newEmail ?? user.email,
     subject,
     html: getHtmlMail({
       firstName: user.firstName,

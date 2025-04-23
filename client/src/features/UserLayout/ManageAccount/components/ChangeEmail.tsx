@@ -1,13 +1,21 @@
 import { Button, FormField } from "@/components/components";
 import { newEmailField } from "@/config/fields/UserLayout/fieldsManageAccount";
-import { schemaEmail } from "@/lib/lib";
+import { getStorage, schemaEmail } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { useGetUserProfileQuery } from "../../userSliceAPI";
-import { UserType } from "@/types/types";
-import { useFocus } from "@/hooks/hooks";
+import {
+  useGetUserProfileQuery,
+  useUpdateEmailMutation,
+} from "../../userSliceAPI";
+import { StorageKeys, UserType } from "@/types/types";
+import {
+  useFocus,
+  useHandleForm401,
+  useNotice,
+  useWrapMutationAPI,
+} from "@/hooks/hooks";
 
 const ChangeEmail: FC = () => {
   const { data } = useGetUserProfileQuery();
@@ -46,8 +54,26 @@ const ChangeEmail: FC = () => {
     [errors?.email?.message, email]
   );
 
+  const [updateEmail, { isLoading }] = useUpdateEmailMutation();
+  const { handleForm401 } = useHandleForm401();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+  const { makeNoticeCombo } = useNotice();
+
   const handleSave = handleSubmit(async (formData) => {
-    console.log(formData);
+    const res = await wrapMutationAPI({
+      cbAPI: () =>
+        updateEmail({
+          ...formData,
+          token: getStorage(StorageKeys.SECURITY) ?? "",
+        }),
+      customErrCB: handleForm401,
+    });
+    if (!res) return;
+
+    makeNoticeCombo({
+      status: res.status,
+      msg: "We've sent you an email to the new address u give us. If you don't see it, check your spam folder, it might be partying there 🎉",
+    });
   });
 
   return (
@@ -70,7 +96,7 @@ const ChangeEmail: FC = () => {
           {...{
             label: "Update Email",
             type: "submit",
-            isAging: false,
+            isAging: isLoading,
             isDisabled: !isFormOk,
           }}
         />

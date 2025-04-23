@@ -31,6 +31,18 @@ export const userSliceAPI = apiSlice.injectEndpoints({
         data,
       }),
     }),
+
+    updateEmail: builder.mutation({
+      query: (data: { email: string; token: string }) => ({
+        url: "/user/update-email",
+        method: "PATCH",
+        data,
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await queryFulfilled;
+        dispatch(userSliceAPI.util.invalidateTags([TagsAPI.USER]));
+      },
+    }),
   }),
 });
 
@@ -38,4 +50,5 @@ export const {
   useGetUserProfileQuery,
   useUpdateProfileMutation,
   useGetRightManageAccountMutation,
+  useUpdateEmailMutation,
 } = userSliceAPI;

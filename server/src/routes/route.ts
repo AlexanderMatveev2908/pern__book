@@ -3,7 +3,6 @@ import authRouter from "./all/auth.js";
 import profileRouter from "./all/profile.js";
 import verifyRouter from "./all/verify.js";
 import routerRefresh from "./all/refresh.js";
-import testRouter from "./all/test.js";
 import sendMailRouter from "./all/sendEmail.js";
 import { __cr } from "../middleware/general/logger.js";
 
@@ -16,6 +15,5 @@ routerApp.use("/refresh", routerRefresh);
 routerApp.use("/verify", verifyRouter);
 routerApp.use("/send-email", sendMailRouter);
 routerApp.use("/user", profileRouter);
-routerApp.use("/protected", testRouter);
 
 export default routerApp;
