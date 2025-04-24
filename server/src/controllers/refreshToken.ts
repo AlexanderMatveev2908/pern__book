@@ -6,14 +6,14 @@ import {
   clearCookie,
   PayloadJWE,
 } from "../lib/hashEncryptSign/JWE.js";
-import { clearOldTokens } from "../lib/clearData.js";
+import { clearTokensByExpired } from "../lib/clearData.js";
 import { genAccessJWT, prepareHeader } from "../lib/hashEncryptSign/JWT.js";
 import { err401, err404 } from "../lib/responseClient/err.js";
 import { res200 } from "../lib/responseClient/res.js";
 
 const fail = async (res: Response, accessExp?: string | null) => {
   clearCookie(res);
-  if (accessExp) await clearOldTokens(accessExp);
+  if (accessExp) await clearTokensByExpired(accessExp);
 };
 
 export const refreshToken = async (

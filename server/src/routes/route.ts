@@ -1,6 +1,6 @@
 import express from "express";
 import authRouter from "./all/auth.js";
-import profileRouter from "./all/profile.js";
+import profileRouter from "./all/user.js";
 import verifyRouter from "./all/verify.js";
 import routerRefresh from "./all/refresh.js";
 import sendMailRouter from "./all/sendEmail.js";

@@ -76,14 +76,6 @@ export class User extends Model<
     this.isVerified = true;
     await this.save();
   }
-
-  async clearTokens(this: User) {
-    await Token.destroy({
-      where: {
-        userID: this.id,
-      },
-    });
-  }
 }
 
 export type UserInstance = InstanceType<typeof User>;

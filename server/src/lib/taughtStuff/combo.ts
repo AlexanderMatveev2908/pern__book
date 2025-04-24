@@ -4,6 +4,8 @@ import { TokenEventType } from "../../types/types.js";
 import { genTokenCBC } from ".././hashEncryptSign/cbcHmac.js";
 import { sendEmailAuth } from ".././mail/auth.js";
 import { delCloud } from "../cloud/delete.js";
+import { genTokenJWE } from "../hashEncryptSign/JWE.js";
+import { genAccessJWT } from "../hashEncryptSign/JWT.js";
 import { __cg } from "../utils/log.js";
 
 export const genTokSendEmail = async ({
@@ -22,17 +24,28 @@ export const genTokSendEmail = async ({
     },
   });
 
-  const tokenData = await genTokenCBC({
-    user,
-    event,
-  });
+  const { verifyToken } =
+    (await genTokenCBC({
+      user,
+      event,
+    })) ?? {};
 
   await sendEmailAuth({
     user,
-    token: tokenData!.verifyToken,
+    token: verifyToken as string,
     event,
     newEmail,
   });
+};
+
+export const pairTokenSession = async (user: UserInstance) => {
+  const accessToken = genAccessJWT(user);
+  const refreshToken = await genTokenJWE(user);
+
+  return {
+    accessToken,
+    refreshToken,
+  };
 };
 
 export const clearThumb = async (user: UserInstance): Promise<void> => {

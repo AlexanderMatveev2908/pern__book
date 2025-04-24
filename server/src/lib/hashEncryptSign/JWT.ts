@@ -30,4 +30,5 @@ export const prepareHeader = (req: ReqApp) => {
   return accessToken ? accessToken : null;
 };
 
-export const decodeExpJWT = (expired: string) => jwt.decode(expired);
+export const decodeExpJWT = (expired: string) =>
+  jwt.decode(expired) as PayloadJWT;

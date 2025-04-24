@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { MsgCheckToken, ReqApp } from "../../types/types.js";
+import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { User } from "../../models/models.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import {
@@ -10,8 +10,9 @@ import {
 } from "../../lib/responseClient/err.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
-import { genAccessJWT } from "../../lib/hashEncryptSign/JWT.js";
-import { genTokenJWE, setCookie } from "../../lib/hashEncryptSign/JWE.js";
+import { setCookie } from "../../lib/hashEncryptSign/JWE.js";
+import { pairTokenSession } from "../../lib/taughtStuff/combo.js";
+import { clearTokensById } from "../../lib/clearData.js";
 
 export const verifyAccount = async (
   req: ReqApp,
@@ -38,16 +39,16 @@ export const verifyAccount = async (
   await user.verify();
 
   try {
-    await user.clearTokens();
+    await clearTokensById(user.id, [TokenEventType.CHANGE_EMAIL]);
 
-    const accessToken = genAccessJWT(user);
-    const refreshToken = await genTokenJWE(user);
+    const { accessToken, refreshToken } = await pairTokenSession(user);
 
     setCookie(res, refreshToken);
 
     return res200(res, { msg: "account verified", accessToken });
   } catch (err: any) {
     user.isVerified = false;
+    await user.save();
 
     return err500(res, { msg: "error verifying user email" });
   }
