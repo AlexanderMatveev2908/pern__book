@@ -1,5 +1,5 @@
-import { getStorage, schemaPwd } from "@/lib/lib";
-import { AllowedFromApp, StorageKeys } from "@/types/types";
+import { checkQueryAuth, schemaPwd } from "@/lib/lib";
+import { AllowedFromApp } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useMemo } from "react";
 import { useForm } from "react-hook-form";
@@ -23,14 +23,7 @@ export const useMakeFormChosePwd = () => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
 
-  const params = useMemo(
-    () => ({
-      userID: searchParams.get("userID"),
-      token: getStorage(StorageKeys.FORGOT_PWD),
-      event: searchParams.get("event"),
-    }),
-    [searchParams]
-  );
+  const params = useMemo(() => checkQueryAuth(searchParams), [searchParams]);
   const canStay = location.state?.from === AllowedFromApp.GEN && !!params;
 
   const form = useForm<NewPwdFormType>({

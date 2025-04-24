@@ -75,7 +75,7 @@ const ChangeEmail: FC = () => {
   return (
     <form
       onSubmit={handleSave}
-      className="w-full grid grid-cols-1 justify-items-center gap-10"
+      className="w-full grid grid-cols-1 justify-items-center gap-8"
     >
       <div className="w-full grid justify-items-center gap-5">
         <FormField

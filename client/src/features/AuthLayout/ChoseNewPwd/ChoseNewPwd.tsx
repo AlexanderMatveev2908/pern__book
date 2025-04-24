@@ -7,8 +7,7 @@ import {
 import { FC, useCallback } from "react";
 import { useChoseNewPwdMutation } from "../authSliceAPI";
 import { useNavigate } from "react-router-dom";
-import { delKeyStorage, isUnHandledErr } from "@/lib/lib";
-import { StorageKeys } from "@/types/types";
+import { __cg, isUnHandledErr } from "@/lib/lib";
 import { AxiosResponse } from "axios";
 
 const ChoseNewPwd: FC = () => {
@@ -20,12 +19,16 @@ const ChoseNewPwd: FC = () => {
 
   const customErrCB = useCallback(
     (err: AxiosResponse) => {
-      if (isUnHandledErr(err))
+      if (isUnHandledErr(err)) {
+        __cg("run danger 401");
         makeNoticeCombo({
           status: err?.status,
           msg: err?.data?.msg,
         });
-      if (err?.status === 429) delKeyStorage(StorageKeys.FORGOT_PWD);
+      }
+      if (err?.status === 429) {
+        __cg("run danger 429");
+      }
     },
     [makeNoticeCombo]
   );
@@ -44,8 +47,6 @@ const ChoseNewPwd: FC = () => {
     });
 
     if (!res) return;
-
-    delKeyStorage(StorageKeys.FORGOT_PWD);
 
     navigate("/", { replace: true });
   });

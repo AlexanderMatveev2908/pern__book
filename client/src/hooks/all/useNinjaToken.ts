@@ -25,7 +25,7 @@ export const useNinjaToken = () => {
 
     __cg("expect 204", res);
 
-    if (res) delKeyStorage(StorageKeys.SECURITY);
+    delKeyStorage(StorageKeys.SECURITY);
   }, [clearManageToken, wrapMutationAPI]);
 
   useEffect(() => {

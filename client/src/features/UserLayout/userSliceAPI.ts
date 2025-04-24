@@ -42,6 +42,14 @@ export const userSliceAPI = apiSlice.injectEndpoints({
         data,
       }),
     }),
+
+    updatePwd: builder.mutation({
+      query: (data: { token: string; password: string }) => ({
+        url: "/user/reset-pwd",
+        method: "PATCH",
+        data,
+      }),
+    }),
   }),
 });
 
@@ -50,4 +58,5 @@ export const {
   useUpdateProfileMutation,
   useGetRightManageAccountMutation,
   useUpdateEmailMutation,
+  useUpdatePwdMutation,
 } = userSliceAPI;

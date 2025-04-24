@@ -10,7 +10,9 @@ export const useHandleDangerAccount = () => {
   const handleDanger = useCallback(
     (err: AxiosResponse) => {
       if (isUnHandledErr(err)) {
-        __cg("run custom cb unhandled 401", err);
+        __cg("run custom cb 401", err);
+
+        delKeyStorage(StorageKeys.SECURITY);
         makeNoticeCombo({
           status: err?.status,
           msg: err?.data?.msg,

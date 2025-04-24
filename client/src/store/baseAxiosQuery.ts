@@ -85,7 +85,7 @@ export const axiosBaseQuery = async ({
         } as Pick<AxiosResponse, "data">,
       };
     } catch (err: any) {
-      __cg("refresh failed", err);
+      __cg("refresh failed", err?.response);
 
       clearAuthAxios();
 

@@ -1,4 +1,5 @@
 import { v4 } from "uuid";
+import { confirmNewPwd, newPwdField } from "../AuthLayout/fieldsAuth";
 
 export enum ActionsManageAccount {
   CHANGE_EMAIL = "change email",
@@ -19,3 +20,8 @@ export const newEmailField = {
   type: "email",
   place: "Your new email...",
 };
+
+export const fieldsNewPwdReset = [newPwdField, confirmNewPwd].map((el) => ({
+  ...el,
+  id: v4(),
+}));

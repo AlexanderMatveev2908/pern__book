@@ -5,13 +5,14 @@ import {
 } from "@/config/fields/UserLayout/fieldsManageAccount";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
 import { AllowedFromApp } from "@/types/types";
-import { FC, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import ResetPwd from "./components/ResetPwd";
 import DeleteAccount from "./components/DeleteAccount";
 import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
 import ChangeEmail from "./components/ChangeEmail";
+import { useShowPwd } from "@/hooks/hooks";
 
 const ManageAccount: FC = () => {
   // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap
@@ -23,6 +24,16 @@ const ManageAccount: FC = () => {
   const { from } = state ?? {};
   const canStay = from === AllowedFromApp.GEN && authState.canManageAccount;
 
+  const { closeAllPwd, ...propsPair } = useShowPwd();
+
+  const setCurrFormMemo = useCallback(
+    (val: number) => {
+      closeAllPwd();
+      setCurrForm(val);
+    },
+    [closeAllPwd]
+  );
+
   return (
     <WrapPageAPI {...{ canStay }}>
       <div className="form__content">
@@ -30,8 +41,8 @@ const ManageAccount: FC = () => {
           <div
             className={`w-[300%] flex transition-all duration-500 ${
               !currForm
-                ? "max-h-[225px] min-h-[250px]"
-                : "max-h-[350px] min-h-[350px]"
+                ? "max-h-[225px] min-h-[225px]"
+                : "max-h-[375px] min-h-[375px]"
             }`}
             style={{
               transform: `translateX(-${(currForm * 100) / 3}%)`,
@@ -45,7 +56,7 @@ const ManageAccount: FC = () => {
                 {el.title === ActionsManageAccount.CHANGE_EMAIL ? (
                   <ChangeEmail />
                 ) : el.title === ActionsManageAccount.RESET_PASSWORD ? (
-                  <ResetPwd />
+                  <ResetPwd {...{ propsPwd: { ...propsPair, closeAllPwd } }} />
                 ) : (
                   <DeleteAccount />
                 )}
@@ -56,7 +67,7 @@ const ManageAccount: FC = () => {
           <ButtonsSwapper
             {...{
               currForm,
-              setCurrForm,
+              setCurrForm: setCurrFormMemo,
               totLen: 3,
               isNextDisabled: false,
             }}
