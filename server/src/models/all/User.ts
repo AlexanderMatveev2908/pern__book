@@ -5,6 +5,7 @@ import {
   InferCreationAttributes,
   Model,
   Sequelize,
+  Transaction,
 } from "sequelize";
 import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
@@ -60,9 +61,9 @@ export class User extends Model<
     };
   }
 
-  async hashPwdUser(this: User) {
+  async hashPwdUser(this: User, t: Transaction) {
     this.password = await calcTimeRun(() => hashPwd(this.password));
-    await this.save();
+    await this.save({ transaction: t });
   }
 
   async verify(this: User) {

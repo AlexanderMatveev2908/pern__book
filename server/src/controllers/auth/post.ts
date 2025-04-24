@@ -16,6 +16,7 @@ import {
   genTokSendEmail,
   pairTokenSession,
 } from "../../lib/taughtStuff/combo.js";
+import { seq } from "../../config/db.js";
 
 export const registerUser = async (
   req: Request,
@@ -23,17 +24,14 @@ export const registerUser = async (
 ): Promise<any> => {
   const newUser = User.build(req.body);
 
-  let userID: string | null = null;
-
-  if (await newUser.existUser())
-    return err409(res, { msg: "User already exists" });
-
-  newUser.capitalize();
-  await newUser.hashPwdUser();
-
-  userID = newUser.id;
-
+  const t = await seq.transaction();
   try {
+    if (await newUser.existUser())
+      return err409(res, { msg: "User already exists" });
+
+    newUser.capitalize();
+    await newUser.hashPwdUser(t);
+
     const { accessToken, refreshToken } = await pairTokenSession(newUser);
 
     await genTokSendEmail({
@@ -43,10 +41,11 @@ export const registerUser = async (
 
     setCookie(res, refreshToken);
 
+    await t.commit();
+
     return res201(res, { msg: "Account created", accessToken });
   } catch (err: any) {
-    if (userID) await User.destroy({ where: { id: userID } });
-
+    await t.rollback();
     return err500(res, { msg: "error creating account" });
   }
 };
