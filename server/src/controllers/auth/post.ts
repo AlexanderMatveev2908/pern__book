@@ -34,14 +34,13 @@ export const registerUser = async (
 
     const { accessToken, refreshToken } = await pairTokenSession(newUser);
 
+    await t.commit();
+
     await genTokSendEmail({
       user: newUser,
       event: TokenEventType.VERIFY_ACCOUNT,
     });
-
     setCookie(res, refreshToken);
-
-    await t.commit();
 
     return res201(res, { msg: "Account created", accessToken });
   } catch (err: any) {

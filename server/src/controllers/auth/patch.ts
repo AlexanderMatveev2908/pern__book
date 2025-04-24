@@ -48,10 +48,9 @@ export const choseNewPwdForgotOld = async (
 
     const { accessToken, refreshToken } = await pairTokenSession(user);
 
-    setCookie(res, refreshToken);
-
     await t.commit();
 
+    setCookie(res, refreshToken);
     return res200(res, { msg: "new password saved", accessToken });
   } catch (err) {
     await t.rollback();

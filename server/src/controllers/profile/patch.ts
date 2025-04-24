@@ -103,13 +103,13 @@ export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
     user!.tempEmail = email;
     await user!.save({ transaction: t });
 
+    await t.commit();
+
     await genTokSendEmail({
       user,
       event: TokenEventType.CHANGE_EMAIL,
       newEmail: user!.tempEmail as string,
     });
-
-    await t.commit();
 
     return res200(res, { msg: "email almost updated" });
   } catch (err) {
