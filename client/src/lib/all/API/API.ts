@@ -55,7 +55,7 @@ export const getData = (obj: any, key: string) => obj?.[key] ?? null;
 export const getMsgErr = (data: any) =>
   data?.msg ||
   data?.message ||
-  "The AI that manage the database has revolted and is taking control of all servers ⚙️";
+  "A Snorlax has fallen asleep blocking the road, try later 💤🛏️";
 
 export const canPushUser = (authState: AuthState) =>
   !authState.isLogged && !authState.loggingOut && !authState.pushedOut;
