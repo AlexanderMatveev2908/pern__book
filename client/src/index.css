@@ -18,6 +18,10 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   font-family: "Sour Gummy";
 }
 
+body {
+  overflow-x: hidden;
+}
+
 :root {
   --blue__app: #2563eb;
   --red__app: #dc2626;
@@ -38,10 +42,16 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
   z-index: 1000;
 }
 .z__header {
+  z-index: 1500;
+}
+.z__popup_bg {
   z-index: 2000;
 }
-.z__toast {
+.z__popup {
   z-index: 2500;
+}
+.z__toast {
+  z-index: 3000;
 }
 
 /* TXT */
@@ -203,8 +213,12 @@ button {
 
 .btn__logic_sm,
 .btn__logic_md,
-.btn__logic_lg {
+.btn__logic_lg,
+.btn__logic_xl {
   transition: 0.3s;
+}
+.btn__logic_xl:hover {
+  transform: scale(1.3);
 }
 .btn__logic_lg:hover {
   transform: scale(1.2);
@@ -216,7 +230,8 @@ button {
   transform: scale(1.2);
 }
 .btn__logic_sm:active,
-.btn__logic_lg:active {
+.btn__logic_lg:active,
+.btn__logic_xl:active {
   transition: 0.1s;
   transform: scale(0.8);
 }

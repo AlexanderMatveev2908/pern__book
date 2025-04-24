@@ -6,6 +6,7 @@ import Toast from "@/features/common/Toast/Toast";
 import Footer from "@/features/common/Footer/Footer";
 import Hero from "@/features/common/Hero/Hero";
 import Sidebar from "@/features/common/Sidebar/Sidebar";
+import Popup from "@/features/common/Popup/Popup";
 
 const MainLayout: FC = () => {
   const path = useLocation().pathname;
@@ -13,6 +14,7 @@ const MainLayout: FC = () => {
   return (
     <div className="w-full min-h-screen bg-neutral-950 flex flex-col relative">
       <Header />
+      <Popup />
       <Toast />
       <Sidebar />
       {REG_PATH_HOME.test(path) && <Hero />}

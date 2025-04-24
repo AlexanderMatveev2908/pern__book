@@ -10,7 +10,7 @@ type PropsType = {
 const WrapperManageAccount: FC<PropsType> = ({ isIn, title, children }) => {
   return (
     <div
-      className={`w-full grid justify-items-center gap-5 h-fit transition-all duration-300 ${
+      className={`w-full grid grid-cols-1 justify-items-center gap-5 h-fit transition-all duration-300 ${
         isIn ? "opacity-100" : "opacity-0"
       }`}
     >
