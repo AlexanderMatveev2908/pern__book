@@ -2,7 +2,7 @@
 import { capt, makeDelay } from "@/lib/lib";
 import { FormBaseProps, FormFieldBasic, UserType } from "@/types/types";
 import { Pencil, PenOff } from "lucide-react";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import {
   UseFormClearErrors,
   UseFormSetFocus,
@@ -17,6 +17,8 @@ type PropsType = {
   setValue: UseFormSetValue<any>;
   clearErrors: UseFormClearErrors<any>;
   el: FormFieldBasic;
+  eventCloseInput?: boolean;
+  setEventClose?: (val: boolean) => void;
 } & FormBaseProps;
 
 const FormFieldBtn: FC<PropsType> = ({
@@ -26,11 +28,20 @@ const FormFieldBtn: FC<PropsType> = ({
   setFocus,
   setValue,
   clearErrors,
+  eventCloseInput,
+  setEventClose,
   el,
 }) => {
   const [isInput, setIsInput] = useState(false);
 
   const { prevErr } = useSavePrevErr(errors, el.field);
+
+  useEffect(() => {
+    if (eventCloseInput) {
+      setIsInput(false);
+      setEventClose?.(false);
+    }
+  }, [eventCloseInput, setEventClose]);
 
   return (
     <div className="w-full h-fit flex items-center gap-5">
@@ -45,7 +56,7 @@ const FormFieldBtn: FC<PropsType> = ({
           {...register(el.field)}
         />
         <div
-          className={`absolute -top-full right-0 l w-fit transition-all duration-500 pointer-events-none ${
+          className={`absolute -top-full right-0 l w-fit transition-all duration-500 pointer-eventCloseInputs-none ${
             errors[el.field]?.message
               ? "translate-y-0 opacity-100"
               : "translate-y-[50px] opacity-0"

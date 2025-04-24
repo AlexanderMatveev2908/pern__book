@@ -9,9 +9,15 @@ import { fieldsProfileHeader } from "@/config/fields/UserLayout/fieldsProfile";
 
 type PropsType = {
   user: UserType;
+  eventCloseInput: boolean;
+  setEventClose: (val: boolean) => void;
 };
 
-const HeaderUserProfile: FC<PropsType> = ({ user }) => {
+const HeaderUserProfile: FC<PropsType> = ({
+  user,
+  eventCloseInput,
+  setEventClose,
+}) => {
   const formCtx = useFormContext<UserProfileForm>();
   const {
     register,
@@ -38,6 +44,8 @@ const HeaderUserProfile: FC<PropsType> = ({ user }) => {
               user,
               el,
               clearErrors,
+              eventCloseInput,
+              setEventClose,
             }}
           />
         ))}

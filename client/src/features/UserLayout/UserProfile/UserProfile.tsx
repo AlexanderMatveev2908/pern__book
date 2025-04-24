@@ -8,7 +8,7 @@ import {
   schemaProfile,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useEffect } from "react";
+import { FC, useCallback, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -32,6 +32,8 @@ import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap";
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
 const UserProfile: FC = () => {
+  const [eventClose, setEventClose] = useState(false);
+
   const dispatch = useDispatch();
 
   const formCtx = useForm<UserProfileForm>({
@@ -69,10 +71,6 @@ const UserProfile: FC = () => {
     return canMakeAPI;
   }, [vals, user]);
 
-  useEffect(() => {
-    console.log(handleCheckEqData());
-  }, [handleCheckEqData]);
-
   const { wrapMutationAPI } = useWrapMutationAPI();
   usePopulateForm({
     user,
@@ -93,6 +91,8 @@ const UserProfile: FC = () => {
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    setEventClose(true);
 
     const isFormOk = preSubmitCheckProfile({ errors, setCurrForm });
     if (!isFormOk) return;
@@ -135,7 +135,9 @@ const UserProfile: FC = () => {
     <WrapPageAPI {...{ isLoading, isError, error }}>
       <FormProvider {...formCtx}>
         <form onSubmit={handleSave} className="w-full grid">
-          <HeaderUserProfile {...{ user }} />
+          <HeaderUserProfile
+            {...{ user, eventCloseInput: eventClose, setEventClose }}
+          />
 
           <BodyUserProfile
             {...{ swapVals: { ...restSwap, currForm, setCurrForm } }}
