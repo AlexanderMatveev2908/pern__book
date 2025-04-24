@@ -6,18 +6,18 @@ import {
   goTo,
   removeStorage,
 } from "@/lib/lib";
-import { EventApp, MsgErrRefresh, StorageKeys } from "@/types/types";
+import { EventApp, MsgErrRefresh, ResApp, StorageKeys } from "@/types/types";
 import authSlice from "@/features/AuthLayout/authSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import { AxiosResponse } from "axios";
 import { MiddlewareAPI } from "@reduxjs/toolkit";
 
-const getMsg401 = (data: any, isLogged: boolean) =>
+const getMsg401 = (data: ResApp["data"], isLogged: boolean) =>
   [
     ...Object.values(MsgErrRefresh).filter(
       (msg) => msg !== MsgErrRefresh.REFRESH_EXPIRED
     ),
-  ].includes(data?.msg)
+  ].includes(data?.msg as any)
     ? formatMsgCode(data?.msg)
     : data?.msg === MsgErrRefresh.REFRESH_EXPIRED ||
       isLogged ||
@@ -26,7 +26,7 @@ const getMsg401 = (data: any, isLogged: boolean) =>
     : data?.message ||
       "The AI that manage the database has revolted and is taking control of all servers ⚙️";
 
-export const handleLogoutWithAccessExp = (store: any) => {
+export const handleLogoutWithAccessExp = (store: MiddlewareAPI) => {
   removeStorage();
 
   __cg("logout expired");

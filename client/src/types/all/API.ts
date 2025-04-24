@@ -1,3 +1,5 @@
+import { AxiosResponse } from "axios";
+
 export enum EventApp {
   OK = "SUCCESS",
   ERR = "ERROR",
@@ -11,4 +13,12 @@ export enum SendMailEnd {
 
 export enum TagsAPI {
   USER = "USER",
+}
+
+export interface ResApp extends AxiosResponse {
+  data: {
+    msg: string;
+    message?: string;
+    ok: boolean;
+  };
 }
