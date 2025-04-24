@@ -17,6 +17,6 @@ export const calcTimeRun = async (cb: () => Promise<any>) => {
 export const getDir = () =>
   path.join(path.dirname(fileURLToPath(import.meta.url)), "../../");
 
-export const getDirClient = () => path.join(getDir(), "../client/dist");
+export const getDirClient = () => path.join(getDir(), "../../client/dist");
 
 export const getCaDir = () => path.join(getDir(), "certs/ca.pem");
