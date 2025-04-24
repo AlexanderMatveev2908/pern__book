@@ -35,7 +35,6 @@ if (!isDev) {
 }
 
 app.use(errMiddleware);
-// ----
 // getDataDB();
 // clearDB();
 
