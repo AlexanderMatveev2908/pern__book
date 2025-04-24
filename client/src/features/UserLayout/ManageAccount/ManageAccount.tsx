@@ -42,7 +42,9 @@ const ManageAccount: FC = () => {
             className={`w-[300%] flex transition-all duration-500 ${
               !currForm
                 ? "max-h-[225px] min-h-[225px]"
-                : "max-h-[375px] min-h-[375px]"
+                : currForm === 1
+                ? "max-h-[375px] min-h-[375px]"
+                : "max-h-[275px] min-h-[275px]"
             }`}
             style={{
               transform: `translateX(-${(currForm * 100) / 3}%)`,
