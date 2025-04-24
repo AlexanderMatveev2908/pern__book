@@ -1,19 +1,49 @@
 import { NewPwdForm, WrapPageAPI } from "@/components/components";
-import {
-  useMakeFormChosePwd,
-  useNotice,
-  useWrapMutationAPI,
-} from "@/hooks/hooks";
-import { FC, useCallback } from "react";
+import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks";
+import { FC, useCallback, useMemo } from "react";
 import { useChoseNewPwdMutation } from "../authSliceAPI";
-import { useNavigate } from "react-router-dom";
-import { __cg, isUnHandledErr } from "@/lib/lib";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
+import { __cg, checkQueryAuth, isUnHandledErr, schemaPwd } from "@/lib/lib";
 import { AxiosResponse } from "axios";
+import { AllowedFromApp } from "@/types/types";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+
+const schema = z
+  .object({
+    ...schemaPwd(),
+    confirmPassword: z.string().min(1, "You must confirm your password"),
+  })
+  .refine((data) => data.password === data.confirmPassword, {
+    message: "Passwords don't match",
+    path: ["confirmPassword"],
+  });
+
+type NewPwdFormType = z.infer<typeof schema>;
 
 const ChoseNewPwd: FC = () => {
+  const [searchParams] = useSearchParams();
+  const location = useLocation();
+
+  const params = useMemo(() => checkQueryAuth(searchParams), [searchParams]);
+  const canStay = location.state?.from === AllowedFromApp.GEN && !!params;
+
+  const form = useForm<NewPwdFormType>({
+    resolver: zodResolver(schema),
+    mode: "onChange",
+    defaultValues: {
+      password: null,
+      confirmPassword: "",
+    },
+  });
+  useFocus({
+    setFocus: form.setFocus,
+    key: "password",
+  });
+
   const navigate = useNavigate();
 
-  const { form, canStay, params } = useMakeFormChosePwd();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
 

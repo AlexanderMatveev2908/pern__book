@@ -54,9 +54,14 @@ const ManageAccount: FC = () => {
                 {...{ isIn: currForm === i, title: el.title }}
               >
                 {el.title === ActionsManageAccount.CHANGE_EMAIL ? (
-                  <ChangeEmail />
+                  <ChangeEmail {...{ cond: currForm === i }} />
                 ) : el.title === ActionsManageAccount.RESET_PASSWORD ? (
-                  <ResetPwd {...{ propsPwd: { ...propsPair, closeAllPwd } }} />
+                  <ResetPwd
+                    {...{
+                      propsPwd: { ...propsPair, closeAllPwd },
+                      cond: currForm === i,
+                    }}
+                  />
                 ) : (
                   <DeleteAccount />
                 )}

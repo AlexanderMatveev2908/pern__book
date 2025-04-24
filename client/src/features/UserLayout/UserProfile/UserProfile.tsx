@@ -27,6 +27,7 @@ import {
   allProfileKeys,
   swapAddressByArea,
 } from "@/config/fields/UserLayout/fieldsProfile";
+import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -41,6 +42,7 @@ const UserProfile: FC = () => {
     getValues,
     setValue,
     watch,
+    setFocus,
     formState: { errors },
   } = formCtx;
 
@@ -72,11 +74,16 @@ const UserProfile: FC = () => {
     getValues,
     setValue,
   });
-  const { isFormOk, setCurrForm, ...restSwap } = useFormSwap({
+  const { isFormOk, setCurrForm, currForm, ...restSwap } = useFormSwap({
     watch,
     errors,
     fields: swapAddressByArea,
     customValidateCB: handleCheckEqData,
+  });
+
+  useFocusBySwap({
+    cb: () => makeDelay(() => setFocus("street"), 500),
+    cond: !!currForm,
   });
 
   const handleSave = async (e: React.FormEvent) => {
@@ -124,7 +131,9 @@ const UserProfile: FC = () => {
         <form onSubmit={handleSave} className="w-full grid">
           <HeaderUserProfile {...{ user }} />
 
-          <BodyUserProfile {...{ swapVals: { ...restSwap, setCurrForm } }} />
+          <BodyUserProfile
+            {...{ swapVals: { ...restSwap, currForm, setCurrForm } }}
+          />
 
           <div className="w-[250px] justify-self-center mt-14">
             <Button

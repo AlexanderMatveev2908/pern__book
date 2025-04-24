@@ -8,10 +8,11 @@ export const isObjOk = (obj: any, valsCb?: (val: any) => boolean) =>
   Object.values(obj ?? {}).every(valsCb ?? ((val) => val || val !== undefined));
 
 export const checkQueryAuth = (
-  searchParams: URLSearchParams
+  searchParams: URLSearchParams,
+  storageTok?: string
 ): ParamsVerifyCB | null => {
   const userID = searchParams.get("userID") ?? "";
-  const token = searchParams.get("token") ?? "";
+  const token = storageTok ?? searchParams.get("token") ?? "";
   const event = searchParams.get("event") ?? "";
 
   const match =

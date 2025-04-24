@@ -4,7 +4,6 @@ export * from "./all/forms/useShowPwd";
 export * from "./all/wrappers/useWrapMutationAPI.js";
 export * from "./all/wrappers/useWrapQueryAPI.js";
 export * from "./all/useLogout.js";
-export * from "./all/forms/useMakeFormChosePwd";
 export * from "./all/usePopulateForm";
 export * from "./all/useNotice.js";
 export * from "./all/useNinjaToken";

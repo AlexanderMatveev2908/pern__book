@@ -9,10 +9,15 @@ import Terms from "./components/Terms";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { isObjOk, makeNoticeTxt, schemaRegister } from "../../../lib/lib.ts";
+import {
+  isObjOk,
+  makeDelay,
+  makeNoticeTxt,
+  schemaRegister,
+} from "../../../lib/lib.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
+import { useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import {
@@ -23,6 +28,7 @@ import {
 } from "@/components/components.ts";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap.ts";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
+import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -52,15 +58,12 @@ const Register: FC = () => {
       firstName: "",
       lastName: "",
       email: "",
-      password: "",
+      password: null,
       confirmPassword: "",
       terms: null,
     },
   });
-  useFocus({
-    key: "firstName",
-    setFocus,
-  });
+
   const [registerUser, { isLoading }] = useRegisterUserMutation();
 
   const registerCB = useCallback(() => dispatch(login()), [dispatch]);
@@ -89,6 +92,11 @@ const Register: FC = () => {
     watch,
     errors,
     customSwapCB: closeAllPwd,
+  });
+  useFocusBySwap({ cb: () => setFocus("firstName"), cond: !currForm });
+  useFocusBySwap({
+    cb: () => makeDelay(() => setFocus("password"), 500),
+    cond: !!currForm,
   });
 
   return (

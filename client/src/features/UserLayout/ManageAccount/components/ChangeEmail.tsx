@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, FormField } from "@/components/components";
 import { newEmailField } from "@/config/fields/UserLayout/fieldsManageAccount";
 import { getStorage, schemaEmail } from "@/lib/lib";
@@ -11,10 +10,15 @@ import {
   useUpdateEmailMutation,
 } from "../../userSliceAPI";
 import { StorageKeys, UserType } from "@/types/types";
-import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks";
+import { useNotice, useWrapMutationAPI } from "@/hooks/hooks";
 import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
+import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap";
 
-const ChangeEmail: FC = () => {
+type PropsType = {
+  cond: boolean;
+};
+
+const ChangeEmail: FC<PropsType> = ({ cond }) => {
   const { data } = useGetUserProfileQuery();
   const { user } = (data ?? {}) as { user: UserType };
 
@@ -42,7 +46,11 @@ const ChangeEmail: FC = () => {
     resolver: zodResolver(schema),
     mode: "onChange",
   });
-  useFocus({ setFocus, key: "email" });
+  // useFocus({ setFocus, key: "email" });
+  useFocusBySwap({
+    cb: () => setFocus("email"),
+    cond,
+  });
 
   const email = watch("email");
   const isFormOk = useMemo(
