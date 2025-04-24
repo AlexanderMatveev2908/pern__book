@@ -5,6 +5,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useNotice } from "../useNotice";
+import { AxiosResponse } from "axios";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const useErrAPI = () => {
@@ -22,10 +23,10 @@ export const useErrAPI = () => {
       customCB,
       hideErr,
     }: {
-      err: any;
+      err: AxiosResponse;
       push?: boolean;
       pushNotice?: [boolean, (() => any)?];
-      customCB?: (err: any) => any;
+      customCB?: (err: AxiosResponse) => any;
       hideErr?: boolean;
     }) => {
       const { data, status } = err ?? {};

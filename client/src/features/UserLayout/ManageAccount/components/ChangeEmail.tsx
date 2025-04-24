@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Button, FormField } from "@/components/components";
 import { newEmailField } from "@/config/fields/UserLayout/fieldsManageAccount";
-import {
-  __cg,
-  delKeyStorage,
-  getStorage,
-  isUnHandledErr,
-  schemaEmail,
-} from "@/lib/lib";
+import { getStorage, schemaEmail } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -18,6 +12,7 @@ import {
 } from "../../userSliceAPI";
 import { StorageKeys, UserType } from "@/types/types";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks";
+import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
 
 const ChangeEmail: FC = () => {
   const { data } = useGetUserProfileQuery();
@@ -35,7 +30,6 @@ const ChangeEmail: FC = () => {
         }),
     [user?.email]
   );
-
   type FormNewEmailType = z.infer<typeof schema>;
 
   const {
@@ -59,22 +53,7 @@ const ChangeEmail: FC = () => {
   const [updateEmail, { isLoading }] = useUpdateEmailMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
-
-  const customErrCB = useCallback(
-    (res: any) => {
-      if (isUnHandledErr(res))
-        makeNoticeCombo({
-          status: res?.status,
-          msg: res?.data?.msg,
-        });
-
-      if (res?.status === 429) {
-        __cg("run custom cb 429");
-        delKeyStorage(StorageKeys.SECURITY);
-      }
-    },
-    [makeNoticeCombo]
-  );
+  const { handleDanger } = useHandleDangerAccount();
 
   const handleSave = handleSubmit(async (formData) => {
     const res = await wrapMutationAPI({
@@ -83,7 +62,7 @@ const ChangeEmail: FC = () => {
           ...formData,
           token: getStorage(StorageKeys.SECURITY) ?? "",
         }),
-      customErrCB,
+      customErrCB: handleDanger,
     });
     if (!res) return;
 

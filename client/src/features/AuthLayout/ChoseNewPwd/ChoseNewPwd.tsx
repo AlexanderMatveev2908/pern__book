@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NewPwdForm, WrapPageAPI } from "@/components/components";
 import {
   useMakeFormChosePwd,
@@ -10,6 +9,7 @@ import { useChoseNewPwdMutation } from "../authSliceAPI";
 import { useNavigate } from "react-router-dom";
 import { delKeyStorage, isUnHandledErr } from "@/lib/lib";
 import { StorageKeys } from "@/types/types";
+import { AxiosResponse } from "axios";
 
 const ChoseNewPwd: FC = () => {
   const navigate = useNavigate();
@@ -19,13 +19,13 @@ const ChoseNewPwd: FC = () => {
   const { makeNoticeCombo } = useNotice();
 
   const customErrCB = useCallback(
-    (res: any) => {
-      if (isUnHandledErr(res))
+    (err: AxiosResponse) => {
+      if (isUnHandledErr(err))
         makeNoticeCombo({
-          status: res?.status,
-          msg: res?.data?.msg,
+          status: err?.status,
+          msg: err?.data?.msg,
         });
-      if (res?.status === 429) delKeyStorage(StorageKeys.FORGOT_PWD);
+      if (err?.status === 429) delKeyStorage(StorageKeys.FORGOT_PWD);
     },
     [makeNoticeCombo]
   );

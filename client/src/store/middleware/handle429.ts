@@ -1,12 +1,13 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import authSlice from "@/features/AuthLayout/authSlice";
 import noticeSlice from "@/features/common/Notice/noticeSlice";
 import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import apiSlice from "../apiSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
+import { AxiosResponse } from "axios";
+import { MiddlewareAPI } from "@reduxjs/toolkit";
 
-export const handle429 = (store: any, err: any) => {
+export const handle429 = (store: MiddlewareAPI, err: AxiosResponse) => {
   const { data, status } = err;
 
   const msg = getMsgErr(data);

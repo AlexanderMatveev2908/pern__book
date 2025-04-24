@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import noticeSlice from "@/features/common/Notice/noticeSlice";
 import {
   AllowedFromApp,
@@ -8,12 +7,20 @@ import {
 } from "@/types/types";
 import { formatMsgCode, getMsgErr, goTo, saveStorage } from "@/lib/lib";
 import toastSlice from "@/features/common/Toast/toastSlice";
+import { AxiosResponse } from "axios";
+import { MiddlewareAPI } from "@reduxjs/toolkit";
 
 export const formattedMessagesVerify = Object.values(MsgCheckToken).map((msg) =>
   formatMsgCode(msg)
 );
 
-export const handleErr403 = ({ store, err }: { store: any; err: any }) => {
+export const handleErr403 = ({
+  store,
+  err,
+}: {
+  store: MiddlewareAPI;
+  err: AxiosResponse;
+}) => {
   const { data, status } = err;
 
   const msg = getMsgErr(data);

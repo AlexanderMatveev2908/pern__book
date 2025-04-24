@@ -5,6 +5,7 @@ import { useDispatch } from "react-redux";
 import { useErrAPI } from "./useErrAPI";
 import { __cg } from "@/lib/lib";
 import { openToast } from "@/features/common/Toast/toastSlice";
+import { AxiosResponse } from "axios";
 
 export const useWrapMutationAPI = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,7 @@ export const useWrapMutationAPI = () => {
         __cg("err mutation", err);
 
         return handleErrAPI({
-          err,
+          err: err as AxiosResponse,
           push,
           pushNotice,
           customCB: customErrCB,

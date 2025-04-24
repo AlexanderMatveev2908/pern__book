@@ -5,6 +5,7 @@ import { EventApp } from "@/types/types";
 import { useErrAPI } from "./useErrAPI";
 import { __cg } from "@/lib/lib";
 import { openToast } from "@/features/common/Toast/toastSlice";
+import { AxiosResponse } from "axios";
 
 export const useWrapQueryAPI = ({
   isSuccess,
@@ -70,7 +71,7 @@ export const useWrapQueryAPI = ({
         __cg("err query", error);
 
         return handleErrAPI({
-          err: error,
+          err: error as AxiosResponse,
           push,
           pushNotice,
           customCB: customErrCB,

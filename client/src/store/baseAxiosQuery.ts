@@ -29,7 +29,12 @@ export const axiosBaseQuery = async ({
       params,
     });
 
-    return { data: { ...res?.data, status: res?.status } };
+    return {
+      data: { ...res?.data, status: res?.status } as Pick<
+        AxiosResponse,
+        "data"
+      >,
+    };
   } catch (err: any) {
     const { response: { data: errData, config, status } = {} } = err ?? {};
 
@@ -50,18 +55,19 @@ export const axiosBaseQuery = async ({
             ...err?.response?.data,
             loggingOut,
           },
-        },
+        } as AxiosResponse,
       };
 
     try {
       // data that include credentials to make api req for protected routes (access token with payload inside that u check in backend )
-      const { data: refreshData } = await appInstance.post("/refresh");
+      const { data: refreshData }: Awaited<Pick<AxiosResponse, "data">> =
+        await appInstance.post("/refresh");
       saveStorage({ data: refreshData.accessToken, key: StorageKeys.ACCESS });
       appInstance.defaults.headers.common[
         "Authorization"
       ] = `Bearer ${refreshData.accessStorage}`;
 
-      const retry = await appInstance({
+      const retry: AxiosResponse = await appInstance({
         url,
         method,
         // send same data that failed above
@@ -76,7 +82,7 @@ export const axiosBaseQuery = async ({
           ...retry?.data,
           status: retry?.status,
           refreshed: true,
-        },
+        } as Pick<AxiosResponse, "data">,
       };
     } catch (err: any) {
       __cg("refresh failed", err);
@@ -86,7 +92,7 @@ export const axiosBaseQuery = async ({
       return {
         error: {
           ...err?.response,
-        },
+        } as AxiosResponse,
       };
     }
   }
