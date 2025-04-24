@@ -10,7 +10,6 @@ import {
 import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
 import { v4 } from "uuid";
-import { Token } from "./Token.js";
 import { calcTimeRun } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { ThumbInstance } from "./Thumb.js";

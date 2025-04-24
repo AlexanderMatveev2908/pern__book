@@ -21,6 +21,7 @@ import { __cg } from "../../lib/utils/log.js";
 import { genTokSendEmail } from "../../lib/taughtStuff/combo.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
+import { seq } from "../../config/db.js";
 
 const clearThumb = async (user: UserInstance) => {
   await delCloud(user!.Thumb!.publicID);
@@ -77,44 +78,42 @@ export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
   const { email, token } = req.body;
 
-  const existUser = await User.findOne({
-    where: {
-      email,
-    },
-  });
-  if (existUser)
-    return err409(res, { msg: "already exist a user with this email" });
-  const user = (await User.findByPk(userID)) as UserInstance;
-  if (user!.email === email) return err400(res, { msg: "email is the same" });
-
-  const result = await checkCbcHmac({
-    user,
-    token,
-    event: TokenEventType.SECURITY,
-    del: false,
-  });
-  if (result !== MsgCheckToken.OK)
-    return err401(res, { msg: formatMsgApp(result) });
-
-  user!.tempEmail = email;
-  await user!.save();
+  const t = await seq.transaction();
 
   try {
+    const existUser = await User.findOne({
+      where: {
+        email,
+      },
+    });
+    if (existUser)
+      return err409(res, { msg: "already exist a user with this email" });
+    const user = (await User.findByPk(userID)) as UserInstance;
+    if (user!.email === email) return err400(res, { msg: "email is the same" });
+
+    const result = await checkCbcHmac({
+      user,
+      token,
+      event: TokenEventType.SECURITY,
+      del: false,
+    });
+    if (result !== MsgCheckToken.OK)
+      return err401(res, { msg: formatMsgApp(result) });
+
+    user!.tempEmail = email;
+    await user!.save({ transaction: t });
+
     await genTokSendEmail({
       user,
       event: TokenEventType.CHANGE_EMAIL,
       newEmail: user!.tempEmail as string,
     });
 
+    await t.commit();
+
     return res200(res, { msg: "email almost updated" });
   } catch (err) {
-    __cg("err email", err);
-
-    user!.tempEmail = null;
-    await user!.save();
-    await Token.destroy({
-      where: { userID, event: TokenEventType.CHANGE_EMAIL },
-    });
+    await t.rollback();
 
     return err500(res, { msg: "error during update email" });
   }
@@ -124,32 +123,42 @@ export const updatePwd = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
   const { token, password: newPwd } = req.body;
 
-  const user = (await User.findByPk(userID)) as UserInstance;
+  const t = await seq.transaction();
 
-  const match = await checkCbcHmac({
-    user,
-    token,
-    event: TokenEventType.SECURITY,
-    del: false,
-  });
-  if (match !== MsgCheckToken.OK)
-    return err401(res, { msg: formatMsgApp(match) });
+  try {
+    const user = (await User.findByPk(userID)) as UserInstance;
 
-  if (user.email === newPwd)
-    return err400(res, { msg: "password should be different from email" });
-  const isSamePwd = await verifyPwd(user.password, newPwd);
-  if (isSamePwd)
-    return err400(res, { msg: "new pwd should be different from old one" });
+    const match = await checkCbcHmac({
+      user,
+      token,
+      event: TokenEventType.SECURITY,
+      del: false,
+    });
+    if (match !== MsgCheckToken.OK)
+      return err401(res, { msg: formatMsgApp(match) });
 
-  user.password = newPwd;
-  await user.hashPwdUser();
+    if (user.email === newPwd)
+      return err400(res, { msg: "password should be different from email" });
+    const isSamePwd = await verifyPwd(user.password, newPwd);
+    if (isSamePwd)
+      return err400(res, { msg: "new pwd should be different from old one" });
 
-  // await Token.destroy({
-  //   where: {
-  //     userID: user.id,
-  //     event: TokenEventType.SECURITY,
-  //   },
-  // });
+    user.password = newPwd;
+    await user.hashPwdUser(t);
 
-  return res200(res, { msg: "password saved" });
+    // await Token.destroy({
+    //   where: {
+    //     userID: user.id,
+    //     event: TokenEventType.SECURITY,
+    //   },
+    // });
+
+    await t.commit();
+
+    return res200(res, { msg: "password saved" });
+  } catch (err) {
+    await t.rollback();
+
+    return err500(res, { msg: "error updating password" });
+  }
 };

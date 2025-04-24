@@ -11,9 +11,6 @@ import { KeyTypeCbcHmac } from "../../types/all/keys.js";
 import { Op } from "sequelize";
 import { genExpiryCBC } from "./expiryTime.js";
 import { keyCert, myCert, myIv } from "../../config/env.js";
-import fs from "fs";
-import path from "path";
-import { fileURLToPath } from "url";
 import { v4 } from "uuid";
 
 const AES_KEY_LENGTH = 32;

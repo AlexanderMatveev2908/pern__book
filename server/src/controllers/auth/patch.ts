@@ -50,6 +50,8 @@ export const choseNewPwdForgotOld = async (
 
     setCookie(res, refreshToken);
 
+    await t.commit();
+
     return res200(res, { msg: "new password saved", accessToken });
   } catch (err) {
     await t.rollback();
