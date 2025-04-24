@@ -51,6 +51,7 @@ export const updateProfile = async (
     for (const keyAd in address) {
       (user as any)[keyAd as keyof UserInstance] = parseNull(address[keyAd]);
     }
+    // this time i already capitalize them on client side
     user.firstName = firstName;
     user.lastName = lastName;
     await user.save();
