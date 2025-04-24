@@ -5,6 +5,7 @@ import noticeSlice from "@/features/common/Notice/noticeSlice";
 import { middlewareErrors } from "./middleware/middlewareErrors";
 import sidebarSlice from "@/features/common/Header/headerSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
+import popupSlice from "@/features/common/Popup/popupSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     auth: authSlice.reducer,
     toast: toastSlice.reducer,
     notice: noticeSlice.reducer,
+    popup: popupSlice.reducer,
     // [apiSlice.reducerPath]: apiSlice.reducer,
   },
   //  by default redux pass middleware to serialize data of obj, loggers , async thunk and we keep them concatenating with our custom one

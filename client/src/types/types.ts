@@ -7,3 +7,4 @@ export * from "./all/forms";
 export * from "./all/buttons";
 export * from "./all/tokens";
 export * from "./all/navigation";
+export * from "./all/popup";
