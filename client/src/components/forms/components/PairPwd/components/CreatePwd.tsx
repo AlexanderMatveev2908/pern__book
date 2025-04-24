@@ -42,7 +42,7 @@ const CreatePwd: FC = () => {
   };
 
   return (
-    <div className="w-full grid sm:grid-cols-2">
+    <div className="w-full grid sm:grid-cols-2 gap-y-5">
       <button
         type="button"
         onClick={handleBtnCLick}

@@ -45,6 +45,7 @@ const SidebarDrop: FC<PropsType> = ({ user }) => {
         >
           {arg.map((el) =>
             el.path === AuthPagesPathType.VERIFY_EMAIL &&
+            authState.isLogged &&
             user?.isVerified ? null : (
               <SideLink key={el.id} {...{ el, handleSideClick }} />
             )
