@@ -66,8 +66,6 @@ export const updateProfile = async (
       await Thumb.create({ ...thumbUploadNow, userID });
     }
   } catch (err) {
-    console.log(err);
-
     if (thumbUploadNow?.publicID) await delCloud(thumbUploadNow.publicID);
     return err500(res, { msg: "error during update profile" });
   }
