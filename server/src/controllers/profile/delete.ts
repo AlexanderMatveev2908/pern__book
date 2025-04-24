@@ -7,6 +7,7 @@ import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { err401 } from "../../lib/responseClient/err.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { clearThumb } from "../../lib/taughtStuff/combo.js";
+import { clearCookie } from "../../lib/hashEncryptSign/JWE.js";
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -58,6 +59,8 @@ export const deleteAccount = async (
     },
   });
   await user.destroy();
+
+  clearCookie(res);
 
   return res200(res, { msg: "account deleted" });
 };

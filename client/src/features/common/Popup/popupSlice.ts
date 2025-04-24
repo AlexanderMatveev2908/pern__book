@@ -12,6 +12,7 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 const partialDef = (btn: BtnPopupType) => ({
   ...btn,
   cb: null,
+  isPending: false,
 });
 
 const defStateBtn = {

@@ -50,6 +50,14 @@ export const userSliceAPI = apiSlice.injectEndpoints({
         data,
       }),
     }),
+
+    deleteAccount: builder.mutation({
+      query: (data: { token: string }) => ({
+        url: "/user/delete-account",
+        method: "DELETE",
+        data,
+      }),
+    }),
   }),
 });
 
@@ -59,4 +67,5 @@ export const {
   useGetRightManageAccountMutation,
   useUpdateEmailMutation,
   useUpdatePwdMutation,
+  useDeleteAccountMutation,
 } = userSliceAPI;

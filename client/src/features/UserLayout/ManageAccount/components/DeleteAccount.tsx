@@ -4,10 +4,16 @@ import {
   loadPop,
   openPopup,
 } from "@/features/common/Popup/popupSlice";
-import { BtnAct, BtnPopupKeys } from "@/types/types";
+import { useNotice, useWrapMutationAPI } from "@/hooks/hooks";
+import { BtnAct, BtnPopupKeys, StorageKeys } from "@/types/types";
 import { Trash2 } from "lucide-react";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
+import { useDeleteAccountMutation } from "../../userSliceAPI";
+import { getStorage, removeStorage } from "@/lib/lib";
+import { setLoggingOut } from "@/features/AuthLayout/authSlice";
+import apiSlice from "@/store/apiSlice";
+import { clearAuthAxios } from "@/store/baseAxiosQuery";
 
 const el = {
   icon: Trash2,
@@ -16,36 +22,48 @@ const el = {
 
 const DeleteAccount: FC = () => {
   const dispatch = useDispatch();
+  const [deleteAccount] = useDeleteAccountMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+  const { makeNoticeCombo } = useNotice();
 
   const handleMainCLick = () => {
     dispatch(
       openPopup({
-        txt: "Some random text Some random text Some random textSome random text...",
+        txt: "Are you sure about deleting your account ?",
         leftBtn: {
           cb: async () => {
             dispatch(loadPop(BtnPopupKeys.LEFT));
-            await new Promise<void>((res) => {
-              setTimeout(() => {
-                dispatch(closePopup());
-                res();
-              }, 5000);
+
+            const res = await wrapMutationAPI({
+              cbAPI: () =>
+                deleteAccount({
+                  token: getStorage(StorageKeys.SECURITY) ?? "",
+                }),
+            });
+
+            dispatch(closePopup());
+
+            if (!res) return;
+
+            removeStorage();
+            clearAuthAxios();
+            dispatch(setLoggingOut());
+
+            makeNoticeCombo({
+              msg: "Your account has successfully deleted",
+              cb: () => dispatch(apiSlice.util.resetApiState()),
+              status: res.status,
             });
           },
-          label: "Left action",
-          act: BtnAct.DO,
+          label: "Delete account",
+          act: BtnAct.DEL,
         },
         rightBtn: {
           cb: async () => {
-            dispatch(loadPop(BtnPopupKeys.RIGHT));
-            await new Promise<void>((res) => {
-              setTimeout(() => {
-                dispatch(closePopup());
-                res();
-              }, 5000);
-            });
+            dispatch(closePopup());
           },
-          label: "Right action",
-          act: BtnAct.DEL,
+          label: "I change idea",
+          act: BtnAct.DO,
         },
       })
     );
