@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
+import { MsgCheckToken, ReqApp } from "../../types/types.js";
 import { User } from "../../models/models.js";
 import {
   err401,
@@ -10,8 +10,9 @@ import {
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { res200 } from "../../lib/responseClient/res.js";
-import { genAccessJWT } from "../../lib/hashEncryptSign/JWT.js";
-import { genTokenJWE, setCookie } from "../../lib/hashEncryptSign/JWE.js";
+import { setCookie } from "../../lib/hashEncryptSign/JWE.js";
+import { seq } from "../../config/db.js";
+import { pairTokenSession } from "../../lib/taughtStuff/combo.js";
 
 export const verifyEmailForgotPwd = async (
   req: ReqApp,
@@ -53,26 +54,20 @@ export const verifyNewEmail = async (
   if (result !== MsgCheckToken.OK)
     return err401(res, { msg: formatMsgApp(result) });
 
-  const oldEmails = {
-    tempEmail: user.tempEmail,
-    email: user.email,
-    isVerified: user.isVerified,
-  };
-
-  await user.verifyNewEmail();
+  const t = await seq.transaction();
 
   try {
-    const accessToken = genAccessJWT(user);
-    const refreshToken = await genTokenJWE(user);
+    await user.verifyNewEmail(t);
+
+    const { accessToken, refreshToken } = await pairTokenSession(user);
 
     setCookie(res, refreshToken);
 
+    await t.commit();
+
     return res200(res, { msg: "new email verified", accessToken });
   } catch (err: any) {
-    user.email = oldEmails.email;
-    user.tempEmail = oldEmails.tempEmail;
-    user.isVerified = oldEmails.isVerified;
-    await user.save();
+    await t.rollback();
 
     return err500(res, { msg: "error during verification email" });
   }

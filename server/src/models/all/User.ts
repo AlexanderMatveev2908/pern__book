@@ -70,11 +70,11 @@ export class User extends Model<
     await this.save();
   }
 
-  async verifyNewEmail(this: User) {
+  async verifyNewEmail(this: User, t: Transaction) {
     this.email = this.tempEmail as string;
     this.tempEmail = null;
     this.isVerified = true;
-    await this.save();
+    await this.save({ transaction: t });
   }
 }
 
