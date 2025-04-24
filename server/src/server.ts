@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
-import { isDev, keyCert } from "./config/env.js";
+import { frontURL, isDev, keyCert } from "./config/env.js";
 import { clearDB } from "./stuff/clear.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
@@ -12,12 +12,23 @@ import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import { decryptCert } from "./lib/hashEncryptSign/cbcHmac.js";
 import { connectCloud } from "./config/cloud.js";
+import { Server } from "socket.io";
+import http from "http";
+import { handleSocket } from "./controllers/socket/test.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
 
 // trust first proxy hop
 app.set("trust proxy", 1);
+
+const server = http.createServer(app);
+// const io = new Server(server, {
+//   transports: ["websocket"],
+//   cors: {
+//     origin: frontURL,
+//   },
+// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -38,6 +49,8 @@ app.use(errMiddleware);
 // getDataDB();
 // clearDB();
 
+// io.on("connection", handleSocket);
+
 const start = async () => {
   try {
     await connectCloud();
@@ -45,11 +58,13 @@ const start = async () => {
     await syncDB();
 
     await new Promise<void>((res, rej) => {
-      app.listen(PORT, (err) => {
-        if (err) rej(err);
+      // app.listen(PORT, (err) => {
+      //   if (err) rej(err);
 
-        res();
-      });
+      //   res();
+      // });
+      server.once("error", rej);
+      server.listen(PORT, res);
     }).then(() => console.log(`=> Server running on ${PORT}...`));
   } catch (err: any) {
     console.log({

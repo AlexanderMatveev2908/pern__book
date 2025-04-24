@@ -47,6 +47,8 @@ const App: FC = () => {
 
         <Route path="notice" element={<NoticePage />} />
         <Route path="verify-cb" element={<VerifyPage />} />
+
+        {/* <Route path="chat" element={<Chat />} /> */}
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace={true} />} />

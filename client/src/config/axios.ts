@@ -1,10 +1,8 @@
-import { isDev } from "./env";
+import { backURL } from "./env";
 import axios from "axios";
 
 export const appInstance = axios.create({
-  baseURL: isDev
-    ? import.meta.env.VITE_BACK_URL_DEV
-    : import.meta.env.VITE_BACK_URL,
+  baseURL: backURL,
   withCredentials: true,
 });
 

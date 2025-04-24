@@ -8,10 +8,12 @@ import { store } from "./store/store.ts";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
+    {/* <SocketCtxProvider> */}
     <Provider {...{ store }}>
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </Provider>
+    {/* </SocketCtxProvider> */}
   </StrictMode>
 );
