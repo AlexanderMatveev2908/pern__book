@@ -8,7 +8,7 @@ import {
   schemaProfile,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -57,9 +57,10 @@ const UserProfile: FC = () => {
     const original = makeObj(user, allProfileKeys, (key) =>
       key === "thumb" ? user?.thumb?.url : user?.[key as keyof UserType] || null
     );
+
     const updated = makeObj(vals, allProfileKeys, (key) =>
       key === "thumb" && vals[key] instanceof FileList
-        ? vals?.thumb?.[0]
+        ? vals?.thumb?.[0] || null
         : vals[key as keyof UserProfileForm] || null
     );
 
@@ -67,6 +68,10 @@ const UserProfile: FC = () => {
 
     return canMakeAPI;
   }, [vals, user]);
+
+  useEffect(() => {
+    console.log(handleCheckEqData());
+  }, [handleCheckEqData]);
 
   const { wrapMutationAPI } = useWrapMutationAPI();
   usePopulateForm({
@@ -122,6 +127,7 @@ const UserProfile: FC = () => {
     });
     if (!res) return;
 
+    setCurrForm(0);
     makeDelay(() => window.scroll({ top: 0, behavior: "smooth" }), 100);
   };
 

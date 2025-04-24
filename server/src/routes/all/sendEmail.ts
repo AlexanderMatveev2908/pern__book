@@ -11,13 +11,13 @@ const sendMailRouter = express.Router();
 
 sendMailRouter.post(
   "/verify-account",
-  limitRoute({ max: 3 }),
+  limitRoute({ max: 5 }),
   validateSendEmail,
   wrapApp(sendEmailVerifyAccount)
 );
 sendMailRouter.post(
   "/forgot-pwd",
-  limitRoute({ max: 3 }),
+  limitRoute({ max: 5 }),
   validateSendEmail,
   wrapApp(sendEmailForgotPwd)
 );
