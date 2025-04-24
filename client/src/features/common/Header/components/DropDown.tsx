@@ -111,7 +111,8 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
         >
           {arrDrop.map((el) =>
             el.path === AuthPagesPathType.VERIFY_EMAIL &&
-            ((isLogged && isVerified) || !isLogged) ? null : (
+            isLogged &&
+            isVerified ? null : (
               <Link
                 key={el.id}
                 {...getPropsNav(el)}

@@ -85,7 +85,7 @@ const SecurityPwd: FC = () => {
               {...{ register, errors, el: passwordField, ...mainPwd }}
             />
 
-            <div className="max-w-[275px] w-full justify-self-center mt-10">
+            <div className="max-w-[300px] w-full justify-self-center mt-10">
               <Button
                 {...{
                   label: "Confirm password",
