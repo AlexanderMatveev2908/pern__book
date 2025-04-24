@@ -1,16 +1,26 @@
 import { Response } from "express";
-import { ReqApp, TokenEventType } from "../../types/types.js";
+import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import { Thumb, ThumbInstance } from "../../models/all/Thumb.js";
 import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
 import { Token, User, UserInstance } from "../../models/models.js";
 import { delCloud } from "../../lib/cloud/delete.js";
-import { err400, err409, err500 } from "../../lib/responseClient/err.js";
+import {
+  err400,
+  err401,
+  err409,
+  err500,
+} from "../../lib/responseClient/err.js";
 import { isObjOk, parseNull } from "../../lib/validateDataStructure.js";
-import { genTokenCBC } from "../../lib/hashEncryptSign/cbcHmac.js";
+import {
+  checkCbcHmac,
+  genTokenCBC,
+} from "../../lib/hashEncryptSign/cbcHmac.js";
 import { sendEmailAuth } from "../../lib/mail/auth.js";
 import { __cg } from "../../lib/utils/log.js";
 import { genTokSendEmail } from "../../lib/taughtStuff/combo.js";
+import { formatMsgApp } from "../../lib/utils/formatters.js";
+import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 
 const clearThumb = async (user: UserInstance) => {
   await delCloud(user!.Thumb!.publicID);
@@ -65,17 +75,26 @@ export const updateProfile = async (
 
 export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
-  const { email } = req.body;
+  const { email, token } = req.body;
 
-  const someUser = await User.findOne({
+  const existUser = await User.findOne({
     where: {
       email,
     },
   });
-  if (someUser)
+  if (existUser)
     return err409(res, { msg: "already exist a user with this email" });
   const user = (await User.findByPk(userID)) as UserInstance;
   if (user!.email === email) return err400(res, { msg: "email is the same" });
+
+  const result = await checkCbcHmac({
+    user,
+    token,
+    event: TokenEventType.SECURITY,
+    del: false,
+  });
+  if (result !== MsgCheckToken.OK)
+    return err401(res, { msg: formatMsgApp(result) });
 
   user!.tempEmail = email;
   await user!.save();
@@ -99,4 +118,38 @@ export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
 
     return err500(res, { msg: "error during update email" });
   }
+};
+
+export const updatePwd = async (req: ReqApp, res: Response): Promise<any> => {
+  const { userID } = req;
+  const { token, password: newPwd } = req.body;
+
+  const user = (await User.findByPk(userID)) as UserInstance;
+
+  const match = await checkCbcHmac({
+    user,
+    token,
+    event: TokenEventType.SECURITY,
+    del: false,
+  });
+  if (match !== MsgCheckToken.OK)
+    return err401(res, { msg: formatMsgApp(match) });
+
+  if (user.email === newPwd)
+    return err400(res, { msg: "password should be different from email" });
+  const isSamePwd = await verifyPwd(user.password, newPwd);
+  if (isSamePwd)
+    return err400(res, { msg: "new pwd should be different from old one" });
+
+  user.password = newPwd;
+  await user.hashPwdUser();
+
+  // await Token.destroy({
+  //   where: {
+  //     userID: user.id,
+  //     event: TokenEventType.SECURITY,
+  //   },
+  // });
+
+  return res200(res, { msg: "password saved" });
 };

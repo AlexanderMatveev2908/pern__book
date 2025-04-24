@@ -56,6 +56,7 @@ export const verifyNewEmail = async (
   const oldEmails = {
     tempEmail: user.tempEmail,
     email: user.email,
+    isVerified: user.isVerified,
   };
 
   await user.verifyNewEmail();
@@ -70,6 +71,7 @@ export const verifyNewEmail = async (
   } catch (err: any) {
     user.email = oldEmails.email;
     user.tempEmail = oldEmails.tempEmail;
+    user.isVerified = oldEmails.isVerified;
     await user.save();
 
     return err500(res, { msg: "error during verification email" });

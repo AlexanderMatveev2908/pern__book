@@ -10,7 +10,7 @@ import { validateRegister } from "../../middleware/auth/validateRegister.js";
 import { limitRoute } from "../../middleware/general/limitRoute.js";
 import { wrapApp } from "../../middleware/general/wrapApp.js";
 import { getUserID } from "../../middleware/protected/getUserID.js";
-import { validateChoseNewPwd } from "../../middleware/sharedValidators/validateChoseNewPwd.js";
+import { validateChoseNewPwd } from "../../middleware/auth/validateChoseNewPwd.js";
 
 const authRouter = express.Router();
 

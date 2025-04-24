@@ -2,7 +2,12 @@ import { Response } from "express";
 import { MsgCheckToken, ReqApp } from "../../types/types.js";
 import { User } from "../../models/models.js";
 import { res200 } from "../../lib/responseClient/res.js";
-import { err401, err404, err409 } from "../../lib/responseClient/err.js";
+import {
+  err401,
+  err404,
+  err409,
+  err500,
+} from "../../lib/responseClient/err.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { genAccessJWT } from "../../lib/hashEncryptSign/JWT.js";
@@ -31,12 +36,19 @@ export const verifyAccount = async (
     return err401(res, { msg: formatMsgApp(result as string) });
 
   await user.verify();
-  await user.clearTokens();
 
-  const accessToken = genAccessJWT(user);
-  const refreshToken = await genTokenJWE(user);
+  try {
+    await user.clearTokens();
 
-  setCookie(res, refreshToken);
+    const accessToken = genAccessJWT(user);
+    const refreshToken = await genTokenJWE(user);
 
-  return res200(res, { msg: "account verified", accessToken });
+    setCookie(res, refreshToken);
+
+    return res200(res, { msg: "account verified", accessToken });
+  } catch (err: any) {
+    user.isVerified = false;
+
+    return err500(res, { msg: "error verifying user email" });
+  }
 };

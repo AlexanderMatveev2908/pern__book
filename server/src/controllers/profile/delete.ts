@@ -1,8 +1,12 @@
 import { Response } from "express";
-import { ReqApp, TokenEventType } from "../../types/types.js";
-import { Token } from "../../models/models.js";
+import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
+import { Token, User, UserInstance } from "../../models/models.js";
 import { Op } from "sequelize";
-import { res204 } from "../../lib/responseClient/res.js";
+import { res200, res204 } from "../../lib/responseClient/res.js";
+import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
+import { err401 } from "../../lib/responseClient/err.js";
+import { formatMsgApp } from "../../lib/utils/formatters.js";
+import { clearThumb } from "../../lib/taughtStuff/combo.js";
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -28,4 +32,32 @@ export const clearManageToken = async (
   });
 
   return res204(res);
+};
+
+export const deleteAccount = async (
+  req: ReqApp,
+  res: Response
+): Promise<any> => {
+  const { userID } = req;
+  const { token } = req.body;
+
+  const user = (await User.findByPk(userID)) as UserInstance;
+
+  const canProceed = await checkCbcHmac({
+    user,
+    event: TokenEventType.SECURITY,
+    token,
+  });
+  if (canProceed !== MsgCheckToken.OK)
+    return err401(res, { msg: formatMsgApp(canProceed) });
+
+  await clearThumb(user);
+  await Token.destroy({
+    where: {
+      userID: user.id,
+    },
+  });
+  await user.destroy();
+
+  return res200(res, { msg: "account deleted" });
 };
