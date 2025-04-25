@@ -10,7 +10,7 @@ import {
 } from "../../types/types.js";
 import { Response } from "express";
 import { isDev } from "../../config/env.js";
-import { Op } from "sequelize";
+import { Op, Transaction } from "sequelize";
 import { KeyTypeRSA } from "../../types/all/keys.js";
 import { genExpiryJWE } from "./expiryTime.js";
 
@@ -78,7 +78,7 @@ export const getPrivateRSA = async () => {
 
 // IMPORTANT => Uint8Array(UNSIGNED INTEGER 8-BIT ARRAY ) is REQUIRED with JWE
 
-export const genTokenJWE = async (user: UserInstance) => {
+export const genTokenJWE = async (user: UserInstance, t?: Transaction) => {
   const count = await KeyRSA.count({
     where: {
       type: {
@@ -87,6 +87,13 @@ export const genTokenJWE = async (user: UserInstance) => {
     },
   });
   if (!count) await genPairRSA();
+
+  await Token.destroy({
+    where: {
+      userID: user.id,
+      event: TokenEventType.REFRESH,
+    },
+  });
 
   const publicKey = await getPublicRSA();
   const payload: PayloadJWE = user.makePayload();
@@ -97,12 +104,15 @@ export const genTokenJWE = async (user: UserInstance) => {
     .setProtectedHeader({ alg: KeyAlgRSA.RSA, enc: TokAlg.GCM })
     .encrypt(publicKey);
 
-  const newToken = await Token.create({
-    hashed: encrypted,
-    expiry: genExpiryJWE(),
-    event: TokenEventType.REFRESH,
-    userID: user.id,
-  });
+  const newToken = await Token.create(
+    {
+      hashed: encrypted,
+      expiry: genExpiryJWE(),
+      event: TokenEventType.REFRESH,
+      userID: user.id,
+    },
+    t ? { transaction: t } : {}
+  );
 
   return newToken.hashed;
 };

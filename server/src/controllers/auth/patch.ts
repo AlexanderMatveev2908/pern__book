@@ -21,32 +21,32 @@ export const choseNewPwdForgotOld = async (
 ): Promise<any> => {
   const { userID, token, password: newPwd } = req.body;
 
+  const user = await User.findByPk(userID);
+  if (!user) return err404(res, "user not found");
+  if (user.email === newPwd)
+    return err400(res, { msg: "email must be different from password" });
+
+  const isOldPwd = await verifyPwd(user.password, newPwd);
+  if (isOldPwd)
+    return err400(res, {
+      msg: "new password must be different from old password",
+    });
+
+  const result = await checkCbcHmac({
+    user,
+    token,
+    event: TokenEventType.FORGOT_PWD,
+  });
+  if (result !== MsgCheckToken.OK)
+    return err401(res, { msg: formatMsgApp(result) });
+
   const t = await seq.transaction();
 
   try {
-    const user = await User.findByPk(userID);
-    if (!user) return err404(res, "user not found");
-    if (user.email === newPwd)
-      return err400(res, { msg: "email must be different from password" });
-
-    const isOldPwd = await verifyPwd(user.password, newPwd);
-    if (isOldPwd)
-      return err400(res, {
-        msg: "new password must be different from old password",
-      });
-
-    const result = await checkCbcHmac({
-      user,
-      token,
-      event: TokenEventType.FORGOT_PWD,
-    });
-    if (result !== MsgCheckToken.OK)
-      return err401(res, { msg: formatMsgApp(result) });
-
     user.password = newPwd;
     await user.hashPwdUser(t);
 
-    const { accessToken, refreshToken } = await pairTokenSession(user);
+    const { accessToken, refreshToken } = await pairTokenSession(user, t);
 
     await t.commit();
 

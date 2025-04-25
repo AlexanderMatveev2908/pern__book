@@ -1,3 +1,4 @@
+import { Transaction } from "sequelize";
 import { Thumb, ThumbInstance } from "../../models/all/Thumb.js";
 import { Token, UserInstance } from "../../models/models.js";
 import { TokenEventType } from "../../types/types.js";
@@ -38,9 +39,9 @@ export const genTokSendEmail = async ({
   });
 };
 
-export const pairTokenSession = async (user: UserInstance) => {
+export const pairTokenSession = async (user: UserInstance, t?: Transaction) => {
   const accessToken = genAccessJWT(user);
-  const refreshToken = await genTokenJWE(user);
+  const refreshToken = await genTokenJWE(user, t);
 
   return {
     accessToken,

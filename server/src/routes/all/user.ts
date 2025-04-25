@@ -1,5 +1,5 @@
 import express from "express";
-import { getUserProfile } from "../../controllers/profile/get.js";
+import { getUserProfile } from "../../controllers/user/get.js";
 import { getUserID } from "../../middleware/protected/getUserID.js";
 import { wrapApp } from "../../middleware/general/wrapApp.js";
 import { uploadSingle } from "../../middleware/multer/single.js";
@@ -8,15 +8,15 @@ import {
   updateEmail,
   updateProfile,
   updatePwd,
-} from "../../controllers/profile/patch.js";
+} from "../../controllers/user/patch.js";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
-import { allowManageAccount } from "../../controllers/profile/post.js";
+import { allowManageAccount } from "../../controllers/user/post.js";
 import { validatePwd } from "../../middleware/user/securityPwd.js";
 import { securityLimiter } from "../../middleware/protected/securityLimiter.js";
 import {
   clearManageToken,
   deleteAccount,
-} from "../../controllers/profile/delete.js";
+} from "../../controllers/user/delete.js";
 import { limitRoute } from "../../middleware/general/limitRoute.js";
 import { checkSecurityToken } from "../../middleware/user/checkSecurityToken.js";
 import { validateSendEmail } from "../../middleware/sendMail/validateSendEmail.js";

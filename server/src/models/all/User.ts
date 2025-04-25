@@ -65,9 +65,9 @@ export class User extends Model<
     await this.save({ transaction: t });
   }
 
-  async verify(this: User) {
+  async verify(this: User, t: Transaction) {
     this.isVerified = true;
-    await this.save();
+    await this.save({ transaction: t });
   }
 
   async verifyNewEmail(this: User, t: Transaction) {

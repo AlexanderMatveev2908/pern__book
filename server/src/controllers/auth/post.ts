@@ -17,6 +17,7 @@ import {
   pairTokenSession,
 } from "../../lib/taughtStuff/combo.js";
 import { seq } from "../../config/db.js";
+import { __cg } from "../../lib/utils/log.js";
 
 export const registerUser = async (
   req: Request,
@@ -24,15 +25,16 @@ export const registerUser = async (
 ): Promise<any> => {
   const newUser = User.build(req.body);
 
-  const t = await seq.transaction();
-  try {
-    if (await newUser.existUser())
-      return err409(res, { msg: "User already exists" });
+  if (await newUser.existUser())
+    return err409(res, { msg: "User already exists" });
 
+  const t = await seq.transaction();
+
+  try {
     newUser.capitalize();
     await newUser.hashPwdUser(t);
 
-    const { accessToken, refreshToken } = await pairTokenSession(newUser);
+    const { accessToken, refreshToken } = await pairTokenSession(newUser, t);
 
     await t.commit();
 
@@ -40,10 +42,13 @@ export const registerUser = async (
       user: newUser,
       event: TokenEventType.VERIFY_ACCOUNT,
     });
+
     setCookie(res, refreshToken);
 
     return res201(res, { msg: "Account created", accessToken });
   } catch (err: any) {
+    __cg("register err", err);
+
     await t.rollback();
     return err500(res, { msg: "error creating account" });
   }

@@ -3,7 +3,7 @@ import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import { Thumb, ThumbInstance } from "../../models/all/Thumb.js";
 import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
-import { Token, User, UserInstance } from "../../models/models.js";
+import { User, UserInstance } from "../../models/models.js";
 import { delCloud } from "../../lib/cloud/delete.js";
 import {
   err400,
@@ -12,18 +12,14 @@ import {
   err500,
 } from "../../lib/responseClient/err.js";
 import { isObjOk, parseNull } from "../../lib/validateDataStructure.js";
-import {
-  checkCbcHmac,
-  genTokenCBC,
-} from "../../lib/hashEncryptSign/cbcHmac.js";
-import { sendEmailAuth } from "../../lib/mail/auth.js";
+import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { __cg } from "../../lib/utils/log.js";
 import { genTokSendEmail } from "../../lib/taughtStuff/combo.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { seq } from "../../config/db.js";
 
-const clearThumb = async (user: UserInstance) => {
+const delOldThumb = async (user: UserInstance) => {
   await delCloud(user!.Thumb!.publicID);
   await user.Thumb!.destroy();
 };
@@ -47,6 +43,8 @@ export const updateProfile = async (
   let thumbUploadNow: Partial<ThumbInstance> | null = null;
   if (req.file) thumbUploadNow = await uploadThumb(req.file);
 
+  const t = await seq.transaction();
+
   try {
     for (const keyAd in address) {
       (user as any)[keyAd as keyof UserInstance] = parseNull(address[keyAd]);
@@ -54,51 +52,60 @@ export const updateProfile = async (
     // this time i already capitalize them on client side
     user.firstName = firstName;
     user.lastName = lastName;
-    await user.save();
+    await user.save({ transaction: t });
 
     const isCloudUpload = isObjOk(thumbUploadNow);
     const isURL = parseNull(thumbURL);
 
-    if (!isCloudUpload) {
-      if (!isURL && user.Thumb?.publicID) await clearThumb(user);
-    } else {
-      if (user.Thumb?.publicID) await clearThumb(user);
-      await Thumb.create({ ...thumbUploadNow, userID });
-    }
+    if (isCloudUpload)
+      await Thumb.create(
+        {
+          ...thumbUploadNow,
+          userID,
+        },
+        { transaction: t }
+      );
+
+    await t.commit();
+
+    if ((!isURL || isCloudUpload) && user.Thumb?.publicID)
+      await delOldThumb(user);
+
+    return res200(res, { msg: "user profile updated" });
   } catch (err) {
     if (thumbUploadNow?.publicID) await delCloud(thumbUploadNow.publicID);
+    await t.rollback();
+
     return err500(res, { msg: "error during update profile" });
   }
-
-  return res200(res, { msg: "user profile updated" });
 };
 
 export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
   const { email, token } = req.body;
 
+  const existUser = await User.findOne({
+    where: {
+      email,
+    },
+  });
+  if (existUser)
+    return err409(res, { msg: "already exist a user with this email" });
+  const user = (await User.findByPk(userID)) as UserInstance;
+  if (user!.email === email) return err400(res, { msg: "email is the same" });
+
+  const result = await checkCbcHmac({
+    user,
+    token,
+    event: TokenEventType.SECURITY,
+    del: false,
+  });
+  if (result !== MsgCheckToken.OK)
+    return err401(res, { msg: formatMsgApp(result) });
+
   const t = await seq.transaction();
 
   try {
-    const existUser = await User.findOne({
-      where: {
-        email,
-      },
-    });
-    if (existUser)
-      return err409(res, { msg: "already exist a user with this email" });
-    const user = (await User.findByPk(userID)) as UserInstance;
-    if (user!.email === email) return err400(res, { msg: "email is the same" });
-
-    const result = await checkCbcHmac({
-      user,
-      token,
-      event: TokenEventType.SECURITY,
-      del: false,
-    });
-    if (result !== MsgCheckToken.OK)
-      return err401(res, { msg: formatMsgApp(result) });
-
     user!.tempEmail = email;
     await user!.save({ transaction: t });
 
@@ -122,26 +129,26 @@ export const updatePwd = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
   const { token, password: newPwd } = req.body;
 
+  const user = (await User.findByPk(userID)) as UserInstance;
+
+  const match = await checkCbcHmac({
+    user,
+    token,
+    event: TokenEventType.SECURITY,
+    del: false,
+  });
+  if (match !== MsgCheckToken.OK)
+    return err401(res, { msg: formatMsgApp(match) });
+
+  if (user.email === newPwd)
+    return err400(res, { msg: "password should be different from email" });
+  const isSamePwd = await verifyPwd(user.password, newPwd);
+  if (isSamePwd)
+    return err400(res, { msg: "new pwd should be different from old one" });
+
   const t = await seq.transaction();
 
   try {
-    const user = (await User.findByPk(userID)) as UserInstance;
-
-    const match = await checkCbcHmac({
-      user,
-      token,
-      event: TokenEventType.SECURITY,
-      del: false,
-    });
-    if (match !== MsgCheckToken.OK)
-      return err401(res, { msg: formatMsgApp(match) });
-
-    if (user.email === newPwd)
-      return err400(res, { msg: "password should be different from email" });
-    const isSamePwd = await verifyPwd(user.password, newPwd);
-    if (isSamePwd)
-      return err400(res, { msg: "new pwd should be different from old one" });
-
     user.password = newPwd;
     await user.hashPwdUser(t);
 
