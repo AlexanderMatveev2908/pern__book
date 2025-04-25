@@ -1,7 +1,11 @@
+import { getAuthState } from "@/features/AuthLayout/authSlice";
 import { FC } from "react";
-import { Outlet } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Navigate, Outlet } from "react-router-dom";
 
 const AuthLayout: FC = () => {
-  return <Outlet />;
+  const authState = useSelector(getAuthState);
+
+  return authState.isLogged ? <Navigate to="/" replace={true} /> : <Outlet />;
 };
 export default AuthLayout;

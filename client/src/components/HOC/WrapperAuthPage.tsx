@@ -1,9 +1,6 @@
 import { FC, ReactNode } from "react";
 import Title from "../common/Title";
 import SwitcherFormAuth from "../forms/components/SwitcherFormAuth";
-import { useSelector } from "react-redux";
-import { getAuthState } from "@/features/AuthLayout/authSlice";
-import { Navigate } from "react-router-dom";
 
 type PropsType = {
   title: string;
@@ -16,11 +13,7 @@ const WrapperAuthPage: FC<PropsType> = ({
   title,
   switchForm = true,
 }) => {
-  const authState = useSelector(getAuthState);
-
-  return authState.isLogged ? (
-    <Navigate to="/" replace={true} />
-  ) : (
+  return (
     <div className="parent__page">
       <Title {...{ title }} />
       {children}

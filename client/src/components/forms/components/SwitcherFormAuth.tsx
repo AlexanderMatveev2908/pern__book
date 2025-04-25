@@ -12,7 +12,7 @@ const SwitcherFormAuth: FC = () => {
   const path = useLocation().pathname;
 
   const arg =
-    AuthPagesPathType.LOGIN === (path as AuthPagesPathType)
+    AuthPagesPathType.LOGIN === path
       ? fieldLoginSwitch
       : AuthPagesPathType.REGISTER === path
       ? fieldsRegisterSwitch
