@@ -39,12 +39,12 @@ const ManageAccount: FC = () => {
       <div className="form__content">
         <div className="w-full overflow-hidden p-6">
           <div
-            className={`w-[300%] flex transition-all duration-500 ${
+            className={`w-[300%] h-fit flex transition-all duration-500 ${
               !currForm
-                ? "max-h-[225px] min-h-[225px]"
+                ? "max-h-[200px] "
                 : currForm === 1
-                ? "max-h-[375px] min-h-[375px]"
-                : "max-h-[275px] min-h-[275px]"
+                ? "max-h-[425px] "
+                : "max-h-[250px] "
             }`}
             style={{
               transform: `translateX(-${(currForm * 100) / 3}%)`,
@@ -71,14 +71,16 @@ const ManageAccount: FC = () => {
             ))}
           </div>
 
-          <ButtonsSwapper
-            {...{
-              currForm,
-              setCurrForm: setCurrFormMemo,
-              totLen: 3,
-              isNextDisabled: false,
-            }}
-          />
+          <div className="mt-5 w-full">
+            <ButtonsSwapper
+              {...{
+                currForm,
+                setCurrForm: setCurrFormMemo,
+                totLen: 3,
+                isNextDisabled: false,
+              }}
+            />
+          </div>
         </div>
       </div>
     </WrapPageAPI>
