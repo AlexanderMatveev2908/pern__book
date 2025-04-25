@@ -70,7 +70,7 @@ const DeleteAccount: FC = () => {
   };
 
   return (
-    <div className="w-full grid grid-cols-1 justify-items-center gap-8">
+    <div className="w-full grid grid-cols-1 justify-items-center items-start h-fit gap-8">
       <div className="">
         <span className="txt__2">This action is</span>
         <span className="txt__3 mx-2 pb_1 border-b-[3px] text-red-600">
@@ -84,7 +84,7 @@ const DeleteAccount: FC = () => {
         </div>
       </div>
 
-      <div className="w-[250px] mt-10">
+      <div className="w-[250px] h-fit">
         <ButtonIcon
           {...{ act: BtnAct.DEL, el, handleCLick: handleMainCLick }}
         />

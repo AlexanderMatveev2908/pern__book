@@ -44,7 +44,7 @@ const ManageAccount: FC = () => {
                 ? "max-h-[200px] "
                 : currForm === 1
                 ? "max-h-[425px] "
-                : "max-h-[250px] "
+                : "max-h-[225px] "
             }`}
             style={{
               transform: `translateX(-${(currForm * 100) / 3}%)`,
