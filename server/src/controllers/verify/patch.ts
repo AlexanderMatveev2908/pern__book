@@ -21,11 +21,7 @@ export const verifyAccount = async (
 ): Promise<any> => {
   const { token, userID, event } = req.body;
 
-  const user = await User.findByPk(userID, {
-    include: {
-      all: true,
-    },
-  });
+  const user = await User.findByPk(userID);
   if (!user) return err404(res, { msg: "user not found" });
   if (user.isVerified) return err409(res, { msg: "user already verified" });
 

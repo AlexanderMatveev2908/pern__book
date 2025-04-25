@@ -14,6 +14,7 @@ import { getStorage, removeStorage } from "@/lib/lib";
 import { setLoggingOut } from "@/features/AuthLayout/authSlice";
 import apiSlice from "@/store/apiSlice";
 import { clearAuthAxios } from "@/store/baseAxiosQuery";
+import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
 
 const el = {
   icon: Trash2,
@@ -25,6 +26,7 @@ const DeleteAccount: FC = () => {
   const [deleteAccount] = useDeleteAccountMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
+  const { handleDanger } = useHandleDangerAccount();
 
   const handleMainCLick = () => {
     dispatch(
@@ -39,6 +41,7 @@ const DeleteAccount: FC = () => {
                 deleteAccount({
                   token: getStorage(StorageKeys.SECURITY) ?? "",
                 }),
+              customErrCB: handleDanger,
             });
 
             dispatch(closePopup());
