@@ -9,6 +9,7 @@ import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
 } from "../general/fieldsActionsAuth";
+import { addArrIDs } from "@/lib/all/utils/ids";
 
 export type SideFieldType = {
   id: string;
@@ -37,19 +38,12 @@ export const fieldAccountNonLogged: LabelDropType = {
   label: "Account",
   icon: RiAccountBoxLine,
 };
-export const sideFieldsNonLogged: SideFieldType[] = [...fieldsActionsAuth].map(
-  (el) => ({
-    ...el,
-    id: v4(),
-  })
-);
+export const sideFieldsNonLogged: SideFieldType[] =
+  addArrIDs(fieldsActionsAuth);
 
 export const fieldAccountLogged: LabelDropType = {
   label: "My Account",
   icon: ShieldCheck,
 };
 
-export const sideFieldsLogged = [...(userLoggedFieldsDrop ?? [])].map((el) => ({
-  ...el,
-  id: v4(),
-})) as SideFieldType[];
+export const sideFieldsLogged = addArrIDs(userLoggedFieldsDrop);

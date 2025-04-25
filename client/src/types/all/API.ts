@@ -8,6 +8,7 @@ export enum EventApp {
 
 export enum SendMailEnd {
   VERIFY_ACCOUNT = "verify-account",
+  VERIFY_ACCOUNT_LOGGED = "verify-account-logged",
   FORGOT_PWD = "forgot-pwd",
 }
 

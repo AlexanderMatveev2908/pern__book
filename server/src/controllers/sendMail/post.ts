@@ -37,3 +37,21 @@ export const sendEmailForgotPwd = async (
 
   return res200(res, { msg: "email send successfully" });
 };
+
+export const sendEmailVerifyAccountLogged = async (
+  req: ReqApp,
+  res: Response
+): Promise<any> => {
+  const { userID } = req;
+  const { email } = req.body;
+
+  const user = await User.findOne({
+    where: { email, id: userID },
+  });
+  if (!user) return err404(res, { msg: "user not found" });
+  if (user.isVerified) return err409(res, { msg: "user already verified" });
+
+  await genTokSendEmail({ user, event: TokenEventType.VERIFY_ACCOUNT });
+
+  return res200(res, { msg: "email send successfully" });
+};

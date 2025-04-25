@@ -35,7 +35,11 @@ const EmailForm: FC<PropsType> = ({
 
           <div className="max-w-[250px] w-full justify-self-center mt-10">
             <Button
-              {...{ label: "Login", isDisabled: !isFormOk, isAging: isLoading }}
+              {...{
+                label: "Send Email",
+                isDisabled: !isFormOk,
+                isAging: isLoading,
+              }}
             />
           </div>
         </div>

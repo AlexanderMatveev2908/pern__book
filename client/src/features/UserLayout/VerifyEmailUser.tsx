@@ -18,7 +18,7 @@ const VerifyEmailUser: FC = () => {
       cbAPI: () =>
         sendEmail({
           email: formData.email,
-          endpoint: SendMailEnd.VERIFY_ACCOUNT,
+          endpoint: SendMailEnd.VERIFY_ACCOUNT_LOGGED,
         }),
     });
 

@@ -1,10 +1,10 @@
-import { v4 } from "uuid";
 import {
   AuthPagesPathType,
   fieldsActionsAuth,
   userLoggedFieldsDrop,
 } from "../general/fieldsActionsAuth";
 import { IconType } from "react-icons/lib";
+import { addArrIDs } from "@/lib/all/utils/ids";
 
 export interface DropFieldType {
   id?: string;
@@ -13,14 +13,7 @@ export interface DropFieldType {
   icon: IconType;
 }
 
-export const fieldsHeaderDropNonLogged: DropFieldType[] = fieldsActionsAuth.map(
-  (el) => ({
-    ...el,
-    id: v4(),
-  })
-);
+export const fieldsHeaderDropNonLogged: DropFieldType[] =
+  addArrIDs(fieldsActionsAuth);
 
-export const fieldsHeaderDropLogged = [...userLoggedFieldsDrop].map((el) => ({
-  ...el,
-  id: v4(),
-})) as DropFieldType[];
+export const fieldsHeaderDropLogged = addArrIDs(userLoggedFieldsDrop);
