@@ -1,7 +1,7 @@
 const path = require("path");
 
 module.exports = {
-  config: path.resolve(__dirname, "config", "config.cjs"),
-  modelsPath: path.resolve(__dirname, "models"),
-  migrationsPath: path.resolve(__dirname, "migrations"),
+  config: path.resolve("src", "config", "cliConfig.js"),
+  modelsPath: path.resolve("src", "models"),
+  migrationsPath: path.resolve("src", "migrations"),
 };
