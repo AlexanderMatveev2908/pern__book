@@ -23,7 +23,7 @@ const VerifyCb: FC = () => {
   const [verifyEmailForgotPwd] = useVerifyEmailForgotPwdMutation();
   const [verifyNewEmail] = useVerifyNewEmailMutation();
 
-  // ACCOUNT_FRESH
+  // ACCOUNT_VERIFY
   const handleVerifyAccount = useCallback(async () => {
     if (params === null) return;
 
@@ -55,7 +55,7 @@ const VerifyCb: FC = () => {
     );
   }, [params, verifyEmailForgotPwd, wrapMutationAPI, navigate]);
 
-  // NEW_EMAIL
+  // NEW_EMAIL_VERIFY
   const handleVerifyNewEmail = useCallback(async () => {
     if (params === null) return;
 

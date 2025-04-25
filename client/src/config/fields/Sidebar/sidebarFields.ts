@@ -4,12 +4,14 @@ import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../types/types";
-import { ShieldCheck } from "lucide-react";
+import { MonitorCog, ShieldCheck } from "lucide-react";
 import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
 } from "../general/fieldsActionsAuth";
 import { addArrIDs } from "@/lib/all/utils/ids";
+import { MdAddBusiness, MdOutlineWork } from "react-icons/md";
+import { HiLibrary } from "react-icons/hi";
 
 export type SideFieldType = {
   id: string;
@@ -47,3 +49,26 @@ export const fieldAccountLogged: LabelDropType = {
 };
 
 export const sideFieldsLogged = addArrIDs(userLoggedFieldsDrop);
+
+export const fieldAdminDrop: LabelDropType = {
+  label: "Admin area",
+  icon: MonitorCog,
+};
+
+export const sideFieldsAdmin: SideFieldType[] = addArrIDs([
+  {
+    label: "Open a bookstore",
+    icon: MdAddBusiness,
+    path: "/owner/create",
+  },
+  {
+    label: "My Bookstores",
+    icon: HiLibrary,
+    path: "/owner/book-stores",
+  },
+]);
+
+export const fieldWorkerDrop: LabelDropType = {
+  label: "Worker area",
+  icon: MdOutlineWork,
+};

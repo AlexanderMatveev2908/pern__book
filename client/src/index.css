@@ -29,8 +29,25 @@ body {
   --orange__app: #ea580c;
 }
 
-.toast__in {
-  animation: open__toast 0.6s ease-out forwards;
+@keyframes notice_bounce {
+  0% {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1.4, 0.6);
+  }
+  50% {
+    transform: scale(0.6, 1.4);
+  }
+  70% {
+    transform: scale(1.2, 0.8);
+  }
+  85% {
+    transform: scale(0.9, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
 }
 
 /* INDEX*/
@@ -80,32 +97,6 @@ body {
 
 .txt__col {
   @apply text-gray-300;
-}
-
-@keyframes notice_bounce {
-  0% {
-    transform: scale(0);
-  }
-  30% {
-    transform: scale(1.4, 0.6);
-  }
-  50% {
-    transform: scale(0.6, 1.4);
-  }
-  70% {
-    transform: scale(1.2, 0.8);
-  }
-  85% {
-    transform: scale(0.9, 1.1);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
-
-/* POPUP */
-.popup {
-  animation: notice_bounce 0.6s linear forwards;
 }
 
 /* ICONS */

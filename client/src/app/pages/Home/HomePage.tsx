@@ -1,4 +1,3 @@
-import { Test } from "@/components/components";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { useScroll } from "@/hooks/hooks";
 import apiSlice from "@/store/apiSlice";
@@ -18,10 +17,6 @@ const HomePage: FC = () => {
     }
   }, [dispatch, authState.loggingOut]);
 
-  return (
-    <div>
-      <Test />
-    </div>
-  );
+  return <div className="parent__page"></div>;
 };
 export default HomePage;

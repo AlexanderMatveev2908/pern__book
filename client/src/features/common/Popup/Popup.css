@@ -40,7 +40,3 @@
 .popup_out {
   animation: pop_out 0.25s linear forwards;
 }
-.pop {
-  /* transform: scale(0) translateY(100px); */
-  /* opacity: 0; */
-}

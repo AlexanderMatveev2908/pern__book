@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { DispatchType } from "../../../store/store";
 import { getSIde, setIsSideOpen } from "../Header/headerSlice";
@@ -11,7 +11,17 @@ import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
 import { UserType } from "@/types/types";
-import { sideFieldsAllUsers } from "@/config/fields/Sidebar/sidebarFields";
+import {
+  fieldAccountLogged,
+  fieldAccountNonLogged,
+  fieldAdminDrop,
+  fieldWorkerDrop,
+  sideFieldsAdmin,
+  sideFieldsAllUsers,
+  sideFieldsLogged,
+  sideFieldsNonLogged,
+} from "@/config/fields/Sidebar/sidebarFields";
+import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
@@ -42,6 +52,20 @@ const Sidebar: FC = () => {
     };
   }, [dispatch]);
 
+  const propsAccount = useMemo(
+    () => ({
+      arr: authState.isLogged
+        ? sideFieldsLogged.filter((el) =>
+            authState.isLogged && user?.isVerified
+              ? el.path !== LinksLoggedDrop.VERIFY_EMAIL_LOGGED
+              : el
+          )
+        : sideFieldsNonLogged,
+      label: authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged,
+    }),
+    [authState.isLogged, user?.isVerified]
+  );
+
   return (
     <>
       <div
@@ -65,7 +89,11 @@ const Sidebar: FC = () => {
               <SideLink key={el.id} {...{ el }} />
             ))}
 
-            <SidebarDrop {...{ user }} />
+            <SidebarDrop {...propsAccount} />
+
+            <SidebarDrop {...{ label: fieldAdminDrop, arr: sideFieldsAdmin }} />
+
+            <SidebarDrop {...{ label: fieldWorkerDrop }} />
 
             <SideLogout />
           </div>

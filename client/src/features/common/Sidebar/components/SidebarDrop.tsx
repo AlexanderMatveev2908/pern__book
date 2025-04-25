@@ -1,42 +1,24 @@
 import { FC, useState } from "react";
 import SideLink from "./SideLink.tsx";
 import { DropHandler } from "@/components/components.ts";
-import { useDispatch, useSelector } from "react-redux";
-import { getAuthState } from "@/features/AuthLayout/authSlice.ts";
-import { UserType } from "@/types/types.ts";
-import {
-  fieldAccountLogged,
-  fieldAccountNonLogged,
-  sideFieldsLogged,
-  sideFieldsNonLogged,
-} from "@/config/fields/Sidebar/sidebarFields.ts";
-import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth.ts";
+import { useDispatch } from "react-redux";
+import { SideFieldType } from "@/config/fields/Sidebar/sidebarFields.ts";
 import { setIsSideOpen } from "../../Header/headerSlice.ts";
+import { LabelDropType } from "@/types/types.ts";
 
 type PropsType = {
-  user: UserType | null;
+  arr?: SideFieldType[];
+  label: LabelDropType;
 };
 
-const SidebarDrop: FC<PropsType> = ({ user }) => {
+const SidebarDrop: FC<PropsType> = ({ arr, label }) => {
   const [isDropOpen, setIsDropOpen] = useState<boolean>(false);
-
-  const authState = useSelector(getAuthState);
 
   const dispatch = useDispatch();
   const handleSideClick = () => dispatch(setIsSideOpen(false));
 
-  const arg = authState.isLogged
-    ? sideFieldsLogged.filter((el) =>
-        authState.isLogged && user?.isVerified
-          ? el.path !== LinksLoggedDrop.VERIFY_EMAIL_LOGGED
-          : el
-      )
-    : sideFieldsNonLogged;
-
-  const label = authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged;
-
   return (
-    <div className={`w-full grid ${isDropOpen ? "" : ""}`}>
+    <div className="w-full grid border-l-[3px] px-2 -ml-2 border-blue-600">
       <DropHandler {...{ isDropOpen, setIsDropOpen, el: label }} />
       <div
         className={`w-full grid el__flow ${
@@ -50,9 +32,10 @@ const SidebarDrop: FC<PropsType> = ({ user }) => {
             isDropOpen ? "pt-5" : "-translate-y-[50px]"
           }`}
         >
-          {arg.map((el) => (
-            <SideLink key={el.id} {...{ el, handleSideClick }} />
-          ))}
+          {!!arr?.length &&
+            arr.map((el) => (
+              <SideLink key={el.id} {...{ el, handleSideClick }} />
+            ))}
         </div>
       </div>
     </div>
