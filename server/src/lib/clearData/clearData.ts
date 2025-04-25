@@ -42,15 +42,19 @@ export const clearTokensByExpired = async (accessExp: string) => {
 };
 
 export const clearThumb = async (user: UserInstance): Promise<void> => {
-  const thumb: ThumbInstance | null = await Thumb.findOne({
+  const thumbs: ThumbInstance[] = await Thumb.findAll({
     where: {
       userID: user.id,
     },
   });
-  if (thumb) {
+  if (thumbs?.length) {
     try {
-      await delCloud(thumb.publicID);
-      await thumb.destroy();
+      await Promise.all(
+        thumbs.map(async (el) => {
+          await delCloud(el.publicID);
+          await el.destroy();
+        })
+      );
     } catch (err) {
       __cg("err cloud", err);
     }

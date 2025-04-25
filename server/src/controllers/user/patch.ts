@@ -18,10 +18,11 @@ import { genTokSendEmail } from "../../lib/combo/combo.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { seq } from "../../config/db.js";
+import { Transaction } from "sequelize";
 
-const delOldThumb = async (user: UserInstance) => {
+const delOldThumb = async (user: UserInstance, t: Transaction) => {
   await delCloud(user!.Thumb!.publicID);
-  await user.Thumb!.destroy();
+  await user.Thumb!.destroy({ transaction: t });
 };
 
 export const updateProfile = async (
@@ -66,10 +67,10 @@ export const updateProfile = async (
         { transaction: t }
       );
 
-    await t.commit();
-
     if ((!isURL || isCloudUpload) && user.Thumb?.publicID)
-      await delOldThumb(user);
+      await delOldThumb(user, t);
+
+    await t.commit();
 
     return res200(res, { msg: "user profile updated" });
   } catch (err) {

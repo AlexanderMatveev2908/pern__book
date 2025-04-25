@@ -20,6 +20,7 @@ import {
   sideFieldsAllUsers,
   sideFieldsLogged,
   sideFieldsNonLogged,
+  sideFieldsWorker,
 } from "@/config/fields/Sidebar/sidebarFields";
 import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth";
 
@@ -93,7 +94,9 @@ const Sidebar: FC = () => {
 
             <SidebarDrop {...{ label: fieldAdminDrop, arr: sideFieldsAdmin }} />
 
-            <SidebarDrop {...{ label: fieldWorkerDrop }} />
+            <SidebarDrop
+              {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}
+            />
 
             <SideLogout />
           </div>

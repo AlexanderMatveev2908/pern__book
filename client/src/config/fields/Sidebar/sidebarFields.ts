@@ -4,13 +4,18 @@ import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../types/types";
-import { MonitorCog, ShieldCheck } from "lucide-react";
+import {
+  BriefcaseBusiness,
+  MessageSquareMore,
+  MonitorCog,
+  ShieldCheck,
+} from "lucide-react";
 import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
 } from "../general/fieldsActionsAuth";
 import { addArrIDs } from "@/lib/all/utils/ids";
-import { MdAddBusiness, MdOutlineWork } from "react-icons/md";
+import { MdAddBusiness } from "react-icons/md";
 import { HiLibrary } from "react-icons/hi";
 
 export type SideFieldType = {
@@ -28,7 +33,7 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   },
   {
     label: "Books",
-    path: "to-do",
+    path: "/books",
     icon: FaBook,
   },
 ].map((el) => ({
@@ -70,5 +75,21 @@ export const sideFieldsAdmin: SideFieldType[] = addArrIDs([
 
 export const fieldWorkerDrop: LabelDropType = {
   label: "Worker area",
-  icon: MdOutlineWork,
+  icon: BriefcaseBusiness,
 };
+
+export const sideFieldsWorker: SideFieldType[] = [
+  {
+    label: "Bookstores",
+    icon: HiLibrary,
+    path: "/worker/book-stores",
+  },
+  {
+    label: "Invitations",
+    icon: MessageSquareMore,
+    path: "/worker/invitations",
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
