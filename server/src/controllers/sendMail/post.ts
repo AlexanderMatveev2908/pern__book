@@ -53,5 +53,5 @@ export const sendEmailVerifyAccountLogged = async (
 
   await genTokSendEmail({ user, event: TokenEventType.VERIFY_ACCOUNT });
 
-  return res200(res, { msg: "email send successfully" });
+  return res200(res, { msg: "email sent successfully" });
 };
