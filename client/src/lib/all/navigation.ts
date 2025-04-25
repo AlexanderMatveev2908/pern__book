@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged";
+import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth";
 import { DropFieldType } from "@/config/fields/header/fieldsHeader";
 import { AllowedFromApp } from "@/types/types";
 

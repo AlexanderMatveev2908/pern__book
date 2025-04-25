@@ -8,19 +8,17 @@ import { Navigate } from "react-router-dom";
 type PropsType = {
   title: string;
   children: ReactNode;
-  canStay?: boolean;
   switchForm?: boolean;
 };
 
 const WrapperAuthPage: FC<PropsType> = ({
   children,
   title,
-  canStay,
   switchForm = true,
 }) => {
   const authState = useSelector(getAuthState);
 
-  return authState.isLogged && !canStay ? (
+  return authState.isLogged ? (
     <Navigate to="/" replace={true} />
   ) : (
     <div className="parent__page">

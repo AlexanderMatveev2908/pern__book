@@ -10,7 +10,7 @@ import {
   sideFieldsLogged,
   sideFieldsNonLogged,
 } from "@/config/fields/Sidebar/sidebarFields.ts";
-import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
+import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth.ts";
 import { setIsSideOpen } from "../../Header/headerSlice.ts";
 
 type PropsType = {
@@ -25,7 +25,14 @@ const SidebarDrop: FC<PropsType> = ({ user }) => {
   const dispatch = useDispatch();
   const handleSideClick = () => dispatch(setIsSideOpen(false));
 
-  const arg = authState.isLogged ? sideFieldsLogged : sideFieldsNonLogged;
+  const arg = authState.isLogged
+    ? sideFieldsLogged.filter((el) =>
+        authState.isLogged && user?.isVerified
+          ? el.path !== LinksLoggedDrop.VERIFY_EMAIL_LOGGED
+          : el
+      )
+    : sideFieldsNonLogged;
+
   const label = authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged;
 
   return (
@@ -43,13 +50,9 @@ const SidebarDrop: FC<PropsType> = ({ user }) => {
             isDropOpen ? "pt-5" : "-translate-y-[50px]"
           }`}
         >
-          {arg.map((el) =>
-            el.path === AuthPagesPathType.VERIFY_EMAIL &&
-            authState.isLogged &&
-            user?.isVerified ? null : (
-              <SideLink key={el.id} {...{ el, handleSideClick }} />
-            )
-          )}
+          {arg.map((el) => (
+            <SideLink key={el.id} {...{ el, handleSideClick }} />
+          ))}
         </div>
       </div>
     </div>

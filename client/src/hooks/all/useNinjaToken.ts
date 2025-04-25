@@ -4,9 +4,9 @@ import { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
 import { useLocation } from "react-router-dom";
-import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged";
 import { AuthState, StorageKeys } from "@/types/types";
 import { __cg, delKeyStorage } from "@/lib/lib";
+import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth";
 
 export const useNinjaToken = () => {
   const { pathname } = useLocation();

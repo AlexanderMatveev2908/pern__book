@@ -16,6 +16,7 @@ import ProfileSettingsPage from "./pages/UserLayout/ProfileSettingsPage/ProfileS
 import ManageAccountPage from "./pages/UserLayout/ManageAccountPage";
 import SecurityPage from "./pages/UserLayout/SecurityPage";
 import { useNinjaToken } from "@/hooks/hooks";
+import VerifyEmailPageUser from "./pages/UserLayout/VerifyEmailPageUser";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const App: FC = () => {
         </Route>
 
         <Route path="user" element={<UserLayout />}>
+          <Route path="verify-account" element={<VerifyEmailPageUser />} />
           <Route path="profile-settings" element={<ProfileSettingsPage />} />
           <Route path="manage-account" element={<ManageAccountPage />} />
           <Route path="security" element={<SecurityPage />} />

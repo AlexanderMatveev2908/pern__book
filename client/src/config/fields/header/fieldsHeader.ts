@@ -2,9 +2,9 @@ import { v4 } from "uuid";
 import {
   AuthPagesPathType,
   fieldsActionsAuth,
+  userLoggedFieldsDrop,
 } from "../general/fieldsActionsAuth";
 import { IconType } from "react-icons/lib";
-import { userLoggedFieldsDrop } from "../general/linkFieldsLogged";
 
 export interface DropFieldType {
   id?: string;

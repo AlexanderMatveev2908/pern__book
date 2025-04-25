@@ -75,7 +75,7 @@ export const axiosBaseQuery = async ({
         params,
       });
 
-      __cg("refresh success", retry);
+      __cg("refresh success");
 
       return {
         data: {
@@ -85,7 +85,7 @@ export const axiosBaseQuery = async ({
         } as Pick<AxiosResponse, "data">,
       };
     } catch (err: any) {
-      __cg("refresh failed", err?.response);
+      __cg("refresh failed");
 
       clearAuthAxios();
 

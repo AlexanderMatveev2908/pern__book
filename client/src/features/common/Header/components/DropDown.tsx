@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
 import { tailwindBreak } from "../../../../config/breakpoints";
 import LogoutLi from "./LogoutLi";
-import { AuthPagesPathType } from "@/config/fields/general/fieldsActionsAuth.ts";
+import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth.ts";
 import { getPropsNav } from "@/lib/lib.ts";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
@@ -76,7 +76,13 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   }, [isLeaving]);
 
   // const arrDrop = fieldsHeaderDropNonLogged;
-  const arrDrop = isLogged ? fieldsHeaderDropLogged : fieldsHeaderDropNonLogged;
+  const arrDrop = isLogged
+    ? fieldsHeaderDropLogged.filter((el) =>
+        isLogged && isVerified
+          ? el.path !== LinksLoggedDrop.VERIFY_EMAIL_LOGGED
+          : el
+      )
+    : fieldsHeaderDropNonLogged;
 
   const handleMainClick = () => {
     setHasClicked(true);
@@ -109,23 +115,19 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
               : "translate-y-1/3 opacity-0 pointer-events-none"
           }`}
         >
-          {arrDrop.map((el) =>
-            el.path === AuthPagesPathType.VERIFY_EMAIL &&
-            isLogged &&
-            isVerified ? null : (
-              <Link
-                key={el.id}
-                {...getPropsNav(el)}
-                onClick={() => {
-                  setIsOpen(false);
-                }}
-                className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
-              >
-                <el.icon className="icon__sm" />
-                <span className="txt__2">{el.label}</span>
-              </Link>
-            )
-          )}
+          {arrDrop.map((el) => (
+            <Link
+              key={el.id}
+              {...getPropsNav(el)}
+              onClick={() => {
+                setIsOpen(false);
+              }}
+              className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
+            >
+              <el.icon className="icon__sm" />
+              <span className="txt__2">{el.label}</span>
+            </Link>
+          ))}
 
           {isLogged && <LogoutLi {...{ handleMainClick }} />}
         </div>

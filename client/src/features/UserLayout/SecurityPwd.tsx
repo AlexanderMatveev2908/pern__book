@@ -9,10 +9,10 @@ import { useForm } from "react-hook-form";
 import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
 import { useGetRightManageAccountMutation } from "./userSliceAPI";
-import { LinksLoggedDrop } from "@/config/fields/general/linkFieldsLogged";
 import { useDispatch } from "react-redux";
 import { setCanManageAccount } from "../AuthLayout/authSlice";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit";
+import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth";
 
 const schema = z.object({
   ...schemaPwd(),
