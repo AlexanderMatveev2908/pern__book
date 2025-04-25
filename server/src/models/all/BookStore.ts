@@ -22,13 +22,8 @@ export const defineBookStore = (seq: Sequelize) =>
         allowNull: true,
       },
       categories: {
-        type: DataTypes.ARRAY(DataTypes.ENUM(...Object.values(CatBookStore))),
+        type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
-        validate: {
-          maxCatLen(val: CatBookStore[]) {
-            if (val.length > 3) throw new Error("Max qty allowed is 3");
-          },
-        },
       },
 
       deliveryPrice: {

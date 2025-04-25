@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
+import MapsBtn from "@/components/common/buttons/MapsBtn/MapsBtn";
 import {
   BreadCrumbForm,
   ButtonsSwapper,
@@ -103,6 +104,12 @@ const AddressForm: FC<PropsType> = ({
               />
             </div>
           </ButtonsSwapper>
+        </div>
+      </div>
+
+      <div className="form__children justify-self-center flex w-full justify-start">
+        <div className="w-[250px]">
+          <MapsBtn {...{ setValue }} />
         </div>
       </div>
     </div>

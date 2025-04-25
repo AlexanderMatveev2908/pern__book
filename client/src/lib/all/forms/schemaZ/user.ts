@@ -85,7 +85,7 @@ export const schemaProfile = z
     message: "If provided street must have at least 4 chars",
     path: ["street"],
   })
-  .refine((data) => REG_ZIP.test(data.zipCode) || !data.zipCode, {
+  .refine((data) => data.zipCode.trim().length >= 5 || !data.zipCode, {
     message: "If provided Zip Code must match correct format",
     path: ["zipCode"],
   })
