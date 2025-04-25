@@ -11,11 +11,11 @@ import { prepareHeader } from "../../lib/hashEncryptSign/JWT.js";
 import { clearCookie, setCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { res200, res201 } from "../../lib/responseClient/res.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
-import { clearTokensByExpired, clearTokensById } from "../../lib/clearData.js";
 import {
-  genTokSendEmail,
-  pairTokenSession,
-} from "../../lib/taughtStuff/combo.js";
+  clearTokensByExpired,
+  clearTokensById,
+} from "../../lib/clearData/clearData.js";
+import { genTokSendEmail, pairTokenSession } from "../../lib/combo/combo.js";
 import { seq } from "../../config/db.js";
 import { __cg } from "../../lib/utils/log.js";
 
@@ -50,7 +50,7 @@ export const registerUser = async (
     __cg("register err", err);
 
     await t.rollback();
-    return err500(res, { msg: "error creating account" });
+    return err500(res);
   }
 };
 

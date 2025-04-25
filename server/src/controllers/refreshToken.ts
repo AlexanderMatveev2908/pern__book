@@ -6,7 +6,7 @@ import {
   clearCookie,
   PayloadJWE,
 } from "../lib/hashEncryptSign/JWE.js";
-import { clearTokensByExpired } from "../lib/clearData.js";
+import { clearTokensByExpired } from "../lib/clearData/clearData.js";
 import { genAccessJWT, prepareHeader } from "../lib/hashEncryptSign/JWT.js";
 import { err401, err404 } from "../lib/responseClient/err.js";
 import { res200 } from "../lib/responseClient/res.js";

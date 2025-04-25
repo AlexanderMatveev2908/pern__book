@@ -14,7 +14,7 @@ import {
 import { isObjOk, parseNull } from "../../lib/validateDataStructure.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { __cg } from "../../lib/utils/log.js";
-import { genTokSendEmail } from "../../lib/taughtStuff/combo.js";
+import { genTokSendEmail } from "../../lib/combo/combo.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { seq } from "../../config/db.js";
@@ -76,7 +76,7 @@ export const updateProfile = async (
     if (thumbUploadNow?.publicID) await delCloud(thumbUploadNow.publicID);
     await t.rollback();
 
-    return err500(res, { msg: "error during update profile" });
+    return err500(res);
   }
 };
 
@@ -121,7 +121,7 @@ export const updateEmail = async (req: ReqApp, res: Response): Promise<any> => {
   } catch (err) {
     await t.rollback();
 
-    return err500(res, { msg: "error during update email" });
+    return err500(res);
   }
 };
 
@@ -165,6 +165,6 @@ export const updatePwd = async (req: ReqApp, res: Response): Promise<any> => {
   } catch (err) {
     await t.rollback();
 
-    return err500(res, { msg: "error updating password" });
+    return err500(res);
   }
 };

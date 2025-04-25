@@ -11,8 +11,8 @@ import {
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { setCookie } from "../../lib/hashEncryptSign/JWE.js";
-import { pairTokenSession } from "../../lib/taughtStuff/combo.js";
-import { clearTokensById } from "../../lib/clearData.js";
+import { pairTokenSession } from "../../lib/combo/combo.js";
+import { clearTokensById } from "../../lib/clearData/clearData.js";
 import { seq } from "../../config/db.js";
 
 export const verifyAccount = async (
@@ -53,7 +53,7 @@ export const verifyAccount = async (
     return res200(res, { msg: "account verified", accessToken });
   } catch (err: any) {
     await t.rollback();
-    return err500(res, { msg: "error verifying user email" });
+    return err500(res);
   }
 };
 
@@ -91,6 +91,6 @@ export const verifyNewEmail = async (
   } catch (err: any) {
     await t.rollback();
 
-    return err500(res, { msg: "error during verification email" });
+    return err500(res);
   }
 };

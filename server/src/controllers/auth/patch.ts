@@ -12,7 +12,7 @@ import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { setCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { res200 } from "../../lib/responseClient/res.js";
-import { pairTokenSession } from "../../lib/taughtStuff/combo.js";
+import { pairTokenSession } from "../../lib/combo/combo.js";
 import { seq } from "../../config/db.js";
 
 export const choseNewPwdForgotOld = async (
@@ -55,6 +55,6 @@ export const choseNewPwdForgotOld = async (
   } catch (err) {
     await t.rollback();
 
-    return err500(res, { msg: "error updating password" });
+    return err500(res);
   }
 };

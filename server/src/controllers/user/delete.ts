@@ -4,10 +4,11 @@ import { Token, User, UserInstance } from "../../models/models.js";
 import { Op } from "sequelize";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
-import { err401 } from "../../lib/responseClient/err.js";
+import { err401, err500 } from "../../lib/responseClient/err.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
-import { clearThumb } from "../../lib/taughtStuff/combo.js";
 import { clearCookie } from "../../lib/hashEncryptSign/JWE.js";
+import { clearThumb } from "../../lib/clearData/clearData.js";
+import { seq } from "../../config/db.js";
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -52,15 +53,27 @@ export const deleteAccount = async (
   if (canProceed !== MsgCheckToken.OK)
     return err401(res, { msg: formatMsgApp(canProceed) });
 
-  await clearThumb(user);
-  await Token.destroy({
-    where: {
-      userID: user.id,
-    },
-  });
-  await user.destroy();
+  const t = await seq.transaction();
 
-  clearCookie(res);
+  try {
+    // too late for images to rollback, they would be already deleted
+    await clearThumb(user);
+    await Token.destroy({
+      where: {
+        userID: user.id,
+      },
+      transaction: t,
+    });
+    await user.destroy({ transaction: t });
 
-  return res200(res, { msg: "account deleted" });
+    await t.commit();
+
+    clearCookie(res);
+
+    return res200(res, { msg: "account deleted" });
+  } catch (err: any) {
+    await t.rollback();
+
+    return err500(res);
+  }
 };

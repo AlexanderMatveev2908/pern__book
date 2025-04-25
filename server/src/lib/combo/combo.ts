@@ -2,8 +2,8 @@ import { Transaction } from "sequelize";
 import { Thumb, ThumbInstance } from "../../models/all/Thumb.js";
 import { Token, UserInstance } from "../../models/models.js";
 import { TokenEventType } from "../../types/types.js";
-import { genTokenCBC } from ".././hashEncryptSign/cbcHmac.js";
-import { sendEmailAuth } from ".././mail/auth.js";
+import { genTokenCBC } from "../hashEncryptSign/cbcHmac.js";
+import { sendEmailAuth } from "../mail/auth.js";
 import { delCloud } from "../cloud/delete.js";
 import { genTokenJWE } from "../hashEncryptSign/JWE.js";
 import { genAccessJWT } from "../hashEncryptSign/JWT.js";
@@ -47,20 +47,4 @@ export const pairTokenSession = async (user: UserInstance, t?: Transaction) => {
     accessToken,
     refreshToken,
   };
-};
-
-export const clearThumb = async (user: UserInstance): Promise<void> => {
-  const thumb: ThumbInstance | null = await Thumb.findOne({
-    where: {
-      userID: user.id,
-    },
-  });
-  if (thumb) {
-    try {
-      await delCloud(thumb.publicID);
-      await thumb.destroy();
-    } catch (err) {
-      __cg("err cloud", err);
-    }
-  }
 };
