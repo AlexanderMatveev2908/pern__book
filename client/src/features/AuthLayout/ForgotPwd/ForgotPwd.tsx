@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useMakeFormEmail } from "../../../hooks/all/forms/useMakeFormEmail";
 import { EmailForm } from "@/components/components";
-import { useSendEmailMutation } from "../sendEmailSliceAPI";
+import { useSendEmailMutation } from "../../root/sendEmailSliceAPI";
 import { useNotice, useWrapMutationAPI } from "@/hooks/hooks";
 import { SendMailEnd } from "@/types/types";
 import { makeNoticeTxt } from "@/lib/lib";

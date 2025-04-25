@@ -1,35 +1,12 @@
 import { EmailForm } from "@/components/components";
-import { useMakeFormEmail } from "@/hooks/all/forms/useMakeFormEmail";
-import { useNotice, useWrapMutationAPI } from "@/hooks/hooks";
 import { FC } from "react";
-import { useSendEmailMutation } from "../AuthLayout/sendEmailSliceAPI";
 import { SendMailEnd } from "@/types/types";
-import { makeNoticeTxt } from "@/lib/lib";
+import { useEmailVerifyAccount } from "@/hooks/all/forms/useEmailVerifyAccount";
 
 const VerifyEmailUser: FC = () => {
-  const form = useMakeFormEmail();
-  const { wrapMutationAPI } = useWrapMutationAPI();
-  const { makeNoticeCombo } = useNotice();
-
-  const [sendEmail, { isLoading }] = useSendEmailMutation();
-
-  const handleSave = form.handleSubmit(async (formData) => {
-    const res = await wrapMutationAPI({
-      cbAPI: () =>
-        sendEmail({
-          email: formData.email,
-          endpoint: SendMailEnd.VERIFY_ACCOUNT_LOGGED,
-        }),
-    });
-
-    if (!res) return;
-
-    form.reset();
-    makeNoticeCombo({
-      status: res?.status || 200,
-      msg: makeNoticeTxt("to verify your account"),
-    });
-  });
+  const { isLoading, handleSave, form } = useEmailVerifyAccount(
+    SendMailEnd.VERIFY_ACCOUNT_LOGGED
+  );
 
   return <EmailForm {...{ ...form, handleSave, isLoading }} />;
 };
