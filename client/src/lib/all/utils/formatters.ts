@@ -8,8 +8,8 @@ export const capt = (txt: string) => txt.at(0)?.toUpperCase() + txt.slice(1);
 export const captAll = (txt: string) =>
   txt
     .trim()
-    .replace(/\s\s/g, "")
     .split(" ")
-    .map((el) => capt(el))
+    .map((el) => (el ? capt(el) : ""))
     .join(" ")
-    .trim();
+    .trim()
+    .replace(/[\s\s]{2,}/g, " ");
