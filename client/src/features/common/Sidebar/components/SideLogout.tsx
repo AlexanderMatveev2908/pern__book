@@ -9,7 +9,7 @@ const SideLogout: FC = () => {
   const dispatch = useDispatch();
   const handleSideClick = () => dispatch(setIsSideOpen(false));
 
-  const { handleCLick, isLoading } = useLogout();
+  const { handleClick, isLoading } = useLogout();
 
   return isLoading ? (
     <div className="flex justify-start mt-6">
@@ -17,7 +17,7 @@ const SideLogout: FC = () => {
     </div>
   ) : (
     <button
-      onClick={() => handleCLick(handleSideClick)}
+      onClick={() => handleClick(handleSideClick)}
       className="w-fit flex justify-start gap-5 group el__after_below items-center"
     >
       <LogOut className="icon__md icon__with_txt" />

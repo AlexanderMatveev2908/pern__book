@@ -89,7 +89,7 @@ const DeleteAccount: FC = () => {
 
       <div className="w-[250px] h-fit">
         <ButtonIcon
-          {...{ act: BtnAct.DEL, el, handleCLick: handleMainCLick }}
+          {...{ act: BtnAct.DEL, el, handleClick: handleMainCLick }}
         />
       </div>
     </div>

@@ -27,7 +27,7 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
     return () => document.removeEventListener("mousedown", animate);
   }, []);
 
-  const handleCLick = async () => {
+  const handleClick = async () => {
     try {
       await navigator.clipboard.writeText(txt);
     } catch {
@@ -37,7 +37,7 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
 
   return (
     <button
-      onClick={handleCLick}
+      onClick={handleClick}
       disabled={!txt}
       type="button"
       ref={btnRef}

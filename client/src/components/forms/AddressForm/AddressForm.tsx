@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import MapsBtn from "@/components/common/buttons/MapsBtn/MapsBtn";
+import QuickFillBtn from "@/components/common/buttons/QuickFillBtn";
 import {
   BreadCrumbForm,
   ButtonsSwapper,
@@ -27,6 +28,7 @@ type PropsType = FormBaseProps &
     clearErrors: UseFormClearErrors<any>;
     setValue: UseFormSetValue<any>;
     swapID: string;
+    btnProfile?: boolean;
   };
 
 const AddressForm: FC<PropsType> = ({
@@ -37,6 +39,7 @@ const AddressForm: FC<PropsType> = ({
   currForm,
   setCurrForm,
   swapID,
+  btnProfile,
 }) => {
   const handleClear = () => {
     let i = swapAddressFieldsMerg.length - 1;
@@ -52,7 +55,7 @@ const AddressForm: FC<PropsType> = ({
   };
 
   return (
-    <div className="w-full grid gap-10">
+    <div className="w-full grid gap-8">
       <Title {...{ title: "my address", customStyle: "txt__4" }} />
 
       <div className="w-full flex justify-center">
@@ -104,7 +107,7 @@ const AddressForm: FC<PropsType> = ({
                 {...{
                   el: clearBtnField,
                   act: BtnAct.DEL,
-                  handleCLick: handleClear,
+                  handleClick: handleClear,
                 }}
               />
             </div>
@@ -112,10 +115,15 @@ const AddressForm: FC<PropsType> = ({
         </div>
       </div>
 
-      <div className="form__children justify-self-center flex w-full justify-start">
-        <div className="w-[250px]">
+      <div className="form__size w-full justify-self-center grid grid-cols-1 sm:grid-cols-2 gap-5 justify-items-center">
+        <div className="w-[275px]">
           <MapsBtn {...{ setValue }} />
         </div>
+        {btnProfile && (
+          <div className="w-[275px]">
+            <QuickFillBtn />
+          </div>
+        )}
       </div>
     </div>
   );

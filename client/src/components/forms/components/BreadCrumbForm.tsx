@@ -11,7 +11,7 @@ const BreadCrumbForm: FC<PropsType> = ({ currForm, totLen }) => {
   const [ids] = useState(Array.from({ length: totLen }, () => v4()));
 
   return (
-    <div className="w-full grid max-w-[600px]">
+    <div className="w-full grid form__size">
       <div className="w-full relative flex justify-between">
         <div
           className="absolute border-[3px] border-blue-600 top-1/4

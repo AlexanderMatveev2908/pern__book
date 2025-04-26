@@ -14,7 +14,7 @@ export const useLogout = () => {
   const dispatch = useDispatch();
 
   const { wrapMutationAPI } = useWrapMutationAPI();
-  const handleCLick = useCallback(
+  const handleClick = useCallback(
     async (cbUI: () => void) => {
       const res = await wrapMutationAPI({ cbAPI: () => logoutUser({}) });
 
@@ -32,5 +32,5 @@ export const useLogout = () => {
     [logoutUser, navigate, wrapMutationAPI, dispatch]
   );
 
-  return { handleCLick, isLoading };
+  return { handleClick, isLoading };
 };

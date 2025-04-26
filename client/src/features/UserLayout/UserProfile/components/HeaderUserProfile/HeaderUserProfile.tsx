@@ -29,7 +29,7 @@ const HeaderUserProfile: FC<PropsType> = ({
   } = formCtx;
 
   return (
-    <div className="w-full grid sm:grid-cols-[200px_1fr] md:flex md:justify-center  gap-10">
+    <div className="w-full grid justify-items-center sm:grid-cols-[200px_1fr] md:flex md:justify-center  gap-10">
       <ThumbForm {...{ register, errors, watch, setValue }} />
 
       <div className="w-full sm:self-center justify-self-center grid items-start gap-5 sm:gap-8 h-fit sm:max-w-[500px]">

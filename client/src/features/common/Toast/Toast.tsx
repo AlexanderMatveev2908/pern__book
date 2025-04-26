@@ -83,7 +83,7 @@ const Toast: FC = () => {
 
   useEffect(() => {}, []);
 
-  const handleCLick = () => {
+  const handleClick = () => {
     clickRef.current = true;
     dispatch(closeToast());
   };
@@ -121,7 +121,7 @@ const Toast: FC = () => {
 
         {/* CLOSE BTN */}
         <button
-          onClick={handleCLick}
+          onClick={handleClick}
           className="appearance-none top-[4px] right-[4px] absolute btn__toast"
         >
           <IoClose className="icon__md text-red-600" />

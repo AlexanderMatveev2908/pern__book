@@ -24,6 +24,19 @@ export const defineBookStore = (seq: Sequelize) =>
       categories: {
         type: DataTypes.ARRAY(DataTypes.STRING),
         allowNull: false,
+        validate: {
+          maxLen(val: string[]) {
+            if (val.length > 3) throw new Error("Too many cat");
+          },
+          enumVals(val: string[]) {
+            let i = 0;
+            while (i < val.length) {
+              const curr = val[i];
+              if (!Object.values(CatBookStore).includes(curr as CatBookStore))
+                throw new Error("Invalid cat");
+            }
+          },
+        },
       },
 
       deliveryPrice: {
@@ -48,6 +61,15 @@ export const defineBookStore = (seq: Sequelize) =>
           model: "users",
           key: "id",
         },
+      },
+
+      email: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      website: {
+        type: DataTypes.STRING,
+        allowNull: true,
       },
 
       country: {

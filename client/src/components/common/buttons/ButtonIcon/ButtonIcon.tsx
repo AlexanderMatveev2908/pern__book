@@ -5,7 +5,7 @@ import { FC } from "react";
 type PropsType = {
   el: BtnFieldIconType;
   act: BtnAct;
-  handleCLick: () => void;
+  handleClick: () => void;
   isPending?: boolean;
 };
 
@@ -29,13 +29,13 @@ const getCol = (act: BtnAct) => {
   return border + " " + hoverTxt;
 };
 
-const ButtonIcon: FC<PropsType> = ({ el, act, handleCLick, isPending }) => {
+const ButtonIcon: FC<PropsType> = ({ el, act, handleClick, isPending }) => {
   return (
     <button
-      onClick={handleCLick}
+      onClick={handleClick}
       disabled={isPending}
       type="button"
-      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-4 justify-center group ${getCol(
+      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-5 justify-center group ${getCol(
         act
       )} `}
     >

@@ -42,7 +42,7 @@ const MapsBtn: FC<PropsType> = ({ setValue }) => {
     return await res.json();
   };
 
-  const handleCLick = async () => {
+  const handleClick = async () => {
     try {
       setIsPending(true);
       const data = await getMaps();
@@ -88,7 +88,7 @@ const MapsBtn: FC<PropsType> = ({ setValue }) => {
   return (
     <ButtonIcon
       {...{
-        handleCLick,
+        handleClick,
         act: BtnAct.INFO,
         el: mapsBtnField,
         isPending,

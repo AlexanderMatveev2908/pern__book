@@ -8,11 +8,11 @@ type PropsType = {
 };
 
 const LogoutLi: FC<PropsType> = ({ handleMainClick }) => {
-  const { handleCLick, isLoading } = useLogout();
+  const { handleClick, isLoading } = useLogout();
 
   return (
     <button
-      onClick={() => handleCLick(handleMainClick)}
+      onClick={() => handleClick(handleMainClick)}
       className="items-center justify-start w-full flex gap-5 el__after_below el__flow hover:text-blue-600"
     >
       {isLoading ? <MiniSpinner /> : <LogOut className="icon__sm" />}
