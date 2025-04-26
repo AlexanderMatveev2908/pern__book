@@ -1,5 +1,5 @@
 import { getStorage, schemaPwd } from "@/lib/lib";
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { z } from "zod";
 import {
   useGetUserProfileQuery,
@@ -13,12 +13,15 @@ import { fieldsNewPwdReset } from "@/config/fields/UserLayout/fieldsManageAccoun
 import { ReturnShowPwd, useWrapMutationAPI } from "@/hooks/hooks";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit";
 import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
+import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState";
 
 type PropsType = {
   propsPwd: ReturnShowPwd;
+  cond: boolean;
+  setSwapState: (val: SwapModeType | null) => void;
 };
 
-const ResetPwd: FC<PropsType> = ({ propsPwd }) => {
+const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
   const { data } = useGetUserProfileQuery();
   const { user } = (data ?? {}) as { user: UserType };
 
@@ -50,6 +53,7 @@ const ResetPwd: FC<PropsType> = ({ propsPwd }) => {
     watch,
     reset,
     clearErrors,
+    setFocus,
   } = useForm<FormNewEmailType>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -89,11 +93,17 @@ const ResetPwd: FC<PropsType> = ({ propsPwd }) => {
       Object.values([pwd, confirmPwd]).every((val) => val?.trim()?.length),
     [errors, pwd, confirmPwd]
   );
+
+  useEffect(() => {
+    if (cond) setFocus("password");
+  }, [cond, setFocus]);
+
   return (
     <form
       onSubmit={(e) =>
         preventBrowser(e, async () => {
           closeAllPwd();
+          setSwapState(null);
           await handleSave();
         })
       }

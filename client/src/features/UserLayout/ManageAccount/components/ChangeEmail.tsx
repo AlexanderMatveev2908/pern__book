@@ -2,7 +2,7 @@ import { Button, FormField } from "@/components/components";
 import { newEmailField } from "@/config/fields/UserLayout/fieldsManageAccount";
 import { getStorage, schemaEmail } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -10,10 +10,14 @@ import {
   useUpdateEmailMutation,
 } from "../../userSliceAPI";
 import { StorageKeys, UserType } from "@/types/types";
-import { useNotice, useWrapMutationAPI } from "@/hooks/hooks";
+import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks";
 import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
 
-const ChangeEmail: FC = () => {
+type PropsType = {
+  cond: boolean;
+};
+
+const ChangeEmail: FC<PropsType> = ({ cond }) => {
   const { data } = useGetUserProfileQuery();
   const { user } = (data ?? {}) as { user: UserType };
 
@@ -36,6 +40,7 @@ const ChangeEmail: FC = () => {
     formState: { errors },
     watch,
     handleSubmit,
+    setFocus,
   } = useForm<FormNewEmailType>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -68,6 +73,11 @@ const ChangeEmail: FC = () => {
       msg: "We've sent you an email to the new address u give us. If you don't see it, check your spam folder, it might be partying there 🎉",
     });
   });
+
+  useFocus({ setFocus, key: "email" });
+  useEffect(() => {
+    if (cond) setFocus("email");
+  }, [cond, setFocus]);
 
   return (
     <form

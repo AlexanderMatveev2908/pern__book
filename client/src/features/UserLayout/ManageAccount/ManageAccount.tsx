@@ -13,10 +13,13 @@ import DeleteAccount from "./components/DeleteAccount";
 import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
 import ChangeEmail from "./components/ChangeEmail";
 import { useShowPwd } from "@/hooks/hooks";
+import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState";
+import { makeDelay } from "@/lib/lib";
 
 const ManageAccount: FC = () => {
   // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap
   const [currForm, setCurrForm] = useState(0);
+  const [currSwapState, setSwapState] = useState<SwapModeType | null>(null);
 
   const authState = useSelector(getAuthState);
 
@@ -28,8 +31,13 @@ const ManageAccount: FC = () => {
 
   const setCurrFormMemo = useCallback(
     (val: number) => {
+      setSwapState(SwapModeType.PENDING);
       closeAllPwd();
       setCurrForm(val);
+
+      makeDelay(() => {
+        setSwapState(SwapModeType.SWAPPED);
+      }, 500);
     },
     [closeAllPwd]
   );
@@ -56,12 +64,21 @@ const ManageAccount: FC = () => {
                 {...{ isIn: currForm === i, title: el.title }}
               >
                 {el.title === ActionsManageAccount.CHANGE_EMAIL ? (
-                  <ChangeEmail />
+                  <ChangeEmail
+                    {...{
+                      cond:
+                        currForm === i &&
+                        currSwapState === SwapModeType.SWAPPED,
+                    }}
+                  />
                 ) : el.title === ActionsManageAccount.RESET_PASSWORD ? (
                   <ResetPwd
                     {...{
                       propsPwd: { ...propsPair, closeAllPwd },
-                      cond: currForm === i,
+                      cond:
+                        currForm === i &&
+                        currSwapState === SwapModeType.SWAPPED,
+                      setSwapState,
                     }}
                   />
                 ) : (

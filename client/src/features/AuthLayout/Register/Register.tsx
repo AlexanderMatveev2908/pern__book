@@ -1,4 +1,4 @@
-import { FC, useCallback } from "react";
+import { FC, useCallback, useEffect } from "react";
 import {
   fieldsAuth__0,
   fieldsAuth__1,
@@ -12,7 +12,7 @@ import { useForm } from "react-hook-form";
 import { isObjOk, makeNoticeTxt, schemaRegister } from "../../../lib/lib.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
-import { useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
+import { useFocus, useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
 import { useDispatch } from "react-redux";
 import { login } from "../authSlice.ts";
 import {
@@ -23,6 +23,7 @@ import {
 } from "@/components/components.ts";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm.ts";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
+import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -38,6 +39,7 @@ const Register: FC = () => {
     setValue,
     handleSubmit,
     reset,
+    setFocus,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
@@ -80,12 +82,25 @@ const Register: FC = () => {
 
   const pwd = watch("password");
 
-  const { isFormOk, currForm, setCurrForm, isNextDisabled } = useFormSwap({
-    fields: swapFieldsByAreaAuth,
-    watch,
-    errors,
-    customSwapCB: closeAllPwd,
-  });
+  const { isFormOk, currForm, setCurrForm, currSwapState, isNextDisabled } =
+    useFormSwap({
+      fields: swapFieldsByAreaAuth,
+      watch,
+      errors,
+      customSwapCB: closeAllPwd,
+    });
+
+  useEffect(() => {
+    const handleSwapUI = () => {
+      if (currSwapState !== SwapModeType.SWAPPED) return;
+
+      if (!currForm) setFocus("firstName");
+      else if (currForm) setFocus("password");
+    };
+
+    handleSwapUI();
+  }, [currForm, currSwapState, setFocus]);
+  useFocus({ setFocus, key: "firstName" });
 
   return (
     <div className="parent__form">

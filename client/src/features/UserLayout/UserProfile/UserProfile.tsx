@@ -90,7 +90,6 @@ const UserProfile: FC = () => {
   useEffect(() => {
     const handleSwapUI = () => {
       if (currSwapState !== SwapModeType.SWAPPED) return;
-      console.log(currSwapState);
 
       if (!currForm) setFocus("country");
       else if (currForm) setFocus("street");
@@ -99,7 +98,7 @@ const UserProfile: FC = () => {
     handleSwapUI();
   }, [currForm, currSwapState, setFocus]);
 
-  useFocus({ key: "country", setFocus });
+  useFocus({ key: "country", setFocus, delay: 750 });
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
