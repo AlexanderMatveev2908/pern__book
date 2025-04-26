@@ -1,11 +1,12 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { MiniSpinner } from "@/components/components";
 import { BtnAct, BtnFieldIconType } from "@/types/types";
 import { FC } from "react";
 
 type PropsType = {
   el: BtnFieldIconType;
-  act: BtnAct;
-  handleClick: () => void;
+  act?: BtnAct;
+  handleClick: (arg: any) => void;
   isPending?: boolean;
 };
 
@@ -36,7 +37,7 @@ const ButtonIcon: FC<PropsType> = ({ el, act, handleClick, isPending }) => {
       disabled={isPending}
       type="button"
       className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-5 justify-center group ${getCol(
-        act
+        act ?? BtnAct.INFO
       )} `}
     >
       {isPending ? <MiniSpinner /> : <el.icon className="icon__sm" />}

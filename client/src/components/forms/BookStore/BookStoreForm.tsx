@@ -7,6 +7,7 @@ import {
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import TxtField from "../components/inputs/TxtField";
+import VideoField from "../components/inputs/VideoField";
 
 type PropsType = {
   handleSave: () => void;
@@ -17,26 +18,39 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
   const {
     register,
     formState: { errors },
+    setValue,
+    watch,
   } = ctx;
 
   return (
     <form onSubmit={handleSave} className="__cont gap-6">
       <div className="w-full flex justify-end">
         <span className="txt__1 border-b-[3px] border-blue-600 pb-1">
-          Fields with * near name are optional
+          Fields with ~ near name are optional
         </span>
       </div>
 
-      <WrapperFormField {...{ title: "bookstore name" }}>
+      <WrapperFormField
+        {...{
+          title: "bookstore name",
+          sizeStyle: "max-w-[500px] lg:max-w-1/2",
+        }}
+      >
         <FormField
           {...{ register, errors, el: fieldNameStore, showLabel: false }}
         />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Description *" }}>
+      <WrapperFormField
+        {...{ title: "Description ~", sizeStyle: "max-w-[500px] lg:max-w-1/2" }}
+      >
         <TxtField
           {...{ register, errors, el: fieldDescStore, showLabel: false }}
         />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Video ~" }}>
+        <VideoField {...{ setValue, register, errors, watch }} />
       </WrapperFormField>
     </form>
   );

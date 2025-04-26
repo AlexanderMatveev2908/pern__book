@@ -4,9 +4,10 @@ import { Title } from "../components";
 type PropsType = {
   title: string;
   children: ReactNode;
+  sizeStyle?: string;
 };
 
-const WrapperFormField: FC<PropsType> = ({ title, children }) => {
+const WrapperFormField: FC<PropsType> = ({ title, children, sizeStyle }) => {
   return (
     <div className="w-full grid gap-3">
       <Title
@@ -16,7 +17,9 @@ const WrapperFormField: FC<PropsType> = ({ title, children }) => {
           styleParent: "justify-start",
         }}
       />
-      <div className="w-full flex max-w-[500px] lg:max-w-1/2">{children}</div>
+      <div className={`w-full flex ${sizeStyle ?? "max-w-full"}`}>
+        {children}
+      </div>
     </div>
   );
 };
