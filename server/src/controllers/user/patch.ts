@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { res200 } from "../../lib/responseClient/res.js";
-import { Thumb, ThumbInstance } from "../../models/all/Thumb.js";
+import { Thumb, ThumbInstance } from "../../models/all/img&video/Thumb.js";
 import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
 import { User, UserInstance } from "../../models/models.js";
 import { delCloud } from "../../lib/cloud/delete.js";

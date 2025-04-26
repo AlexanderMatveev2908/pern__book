@@ -1,7 +1,7 @@
 import { delCloud } from "../lib/cloud/delete.js";
 import { calcTimeRun } from "../lib/utils/utils.js";
 import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
-import { Thumb } from "../models/all/Thumb.js";
+import { Thumb } from "../models/all/img&video/Thumb.js";
 import { KeyRSA, Token, User } from "../models/models.js";
 
 export const clearDB = async () => {

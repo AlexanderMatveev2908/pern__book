@@ -2,7 +2,7 @@ import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
 import { User } from "../../models/models.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
-import { Thumb } from "../../models/all/Thumb.js";
+import { Thumb } from "../../models/all/img&video/Thumb.js";
 
 export const getUserProfile = async (
   req: ReqApp,

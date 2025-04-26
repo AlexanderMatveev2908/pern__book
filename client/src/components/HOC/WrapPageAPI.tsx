@@ -33,7 +33,7 @@ const WrapPageAPI: FC<PropsType> = ({
     push ? (
       <Navigate to="/" replace={true} />
     ) : (
-      <div className="grid justify-items-center items-start gap-[50px] txt__col">
+      <div className="grid justify-items-center items-start gap-[50px]">
         <div className="h-fit flex flex-col items-center">
           <span className="text-6xl font-extrabold text-red-600 mb-[12.5px]">
             {status}

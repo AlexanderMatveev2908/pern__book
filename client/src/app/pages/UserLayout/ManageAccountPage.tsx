@@ -7,7 +7,7 @@ const ManageAccountPage: FC = () => {
   useScroll();
 
   return (
-    <div className="parent__page txt__col">
+    <div className="parent__page">
       <Title {...{ title: "My account" }} />
       <ManageAccount />
     </div>

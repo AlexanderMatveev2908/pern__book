@@ -7,7 +7,7 @@ const ProfileSettingsPage = () => {
 
   return (
     // <ProfileCtxProvider>
-    <div className="parent__page txt__col">
+    <div className="parent__page ">
       <Title {...{ title: "my profile" }} />
       <UserProfile />
     </div>

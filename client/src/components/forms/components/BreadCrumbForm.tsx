@@ -29,7 +29,7 @@ const BreadCrumbForm: FC<PropsType> = ({ currForm, totLen }) => {
         {ids.map((id, i) => (
           <div key={id} className="w-full flex z-30 justify-end">
             <div
-              className={`border-[3px]  rounded-full h-[45px] w-[45px] flex justify-center items-center transition-all duration-500 txt__col ${
+              className={`border-[3px]  rounded-full h-[45px] w-[45px] flex justify-center items-center transition-all duration-500 ${
                 i === currForm ? "scale-[1.35]" : ""
               } ${
                 currForm >= i

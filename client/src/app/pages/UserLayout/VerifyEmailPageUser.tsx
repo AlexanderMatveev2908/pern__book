@@ -4,7 +4,7 @@ import { FC } from "react";
 
 const VerifyEmailPageUser: FC = () => {
   return (
-    <div className="parent__page txt__col">
+    <div className="parent__page">
       <Title {...{ title: "Verify account" }} />
       <VerifyEmailUser />
     </div>

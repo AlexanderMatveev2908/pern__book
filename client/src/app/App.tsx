@@ -17,6 +17,8 @@ import ManageAccountPage from "./pages/UserLayout/ManageAccountPage";
 import SecurityPage from "./pages/UserLayout/SecurityPage";
 import { useNinjaToken } from "@/hooks/hooks";
 import VerifyEmailPageUser from "./pages/UserLayout/VerifyEmailPageUser";
+import OwnerLayout from "./layouts/OwnerLayout";
+import CreateBooksStorePage from "./pages/OwnerLayout/CreateBooksStorePage";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -45,6 +47,10 @@ const App: FC = () => {
           <Route path="profile-settings" element={<ProfileSettingsPage />} />
           <Route path="manage-account" element={<ManageAccountPage />} />
           <Route path="security" element={<SecurityPage />} />
+        </Route>
+
+        <Route path="owner" element={<OwnerLayout />}>
+          <Route path="create" element={<CreateBooksStorePage />} />
         </Route>
 
         <Route path="notice" element={<NoticePage />} />

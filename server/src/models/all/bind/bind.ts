@@ -3,10 +3,11 @@ import { defineToken } from "../Token.js";
 import { defineUser } from "../User.js";
 import { definePairRSA } from "../KeyRSA.js";
 import { defineKeyCbcHmac } from "../KeyCbcHmac.js";
-import { defineThumb } from "../Thumb.js";
+import { defineThumb } from "../img&video/Thumb.js";
 import { defineBookStore } from "../BookStore.js";
-import { defineImgBookStore } from "../ImgBookStore.js";
+import { defineImgBookStore } from "../img&video/ImgBookStore.js";
 import { defineBookStoreUser } from "../BookStoreUser.js";
+import { defineVideoBookStore } from "../img&video/VideoBookStore.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);
@@ -14,6 +15,7 @@ export const bindModels = (seq: Sequelize) => {
   const Thumb = defineThumb(seq);
   const BookStore = defineBookStore(seq);
   const ImgBooStore = defineImgBookStore(seq);
+  const VideoBookStore = defineVideoBookStore(seq);
   const BookStoreUser = defineBookStoreUser(seq);
 
   definePairRSA(seq);
@@ -24,15 +26,18 @@ export const bindModels = (seq: Sequelize) => {
 
   Thumb.belongsTo(User, {
     foreignKey: "userID",
-    onDelete: "CASCADE",
   });
   User.hasOne(Thumb);
 
   ImgBooStore.belongsTo(BookStore, {
     foreignKey: "bookStoreID",
-    onDelete: "CASCADE",
   });
   BookStore.hasMany(ImgBooStore);
+
+  VideoBookStore.belongsTo(BookStore, {
+    foreignKey: "bookStoreID",
+  });
+  BookStore.hasOne(VideoBookStore);
 
   BookStore.belongsTo(User, { foreignKey: "ownerID" });
   User.hasMany(BookStore);

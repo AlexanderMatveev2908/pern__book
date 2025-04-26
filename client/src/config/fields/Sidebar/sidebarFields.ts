@@ -4,12 +4,7 @@ import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
 import { LabelDropType } from "../../../types/types";
-import {
-  BriefcaseBusiness,
-  MessageSquareMore,
-  MonitorCog,
-  ShieldCheck,
-} from "lucide-react";
+import { BriefcaseBusiness, MonitorCog, ShieldCheck } from "lucide-react";
 import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
@@ -84,11 +79,11 @@ export const sideFieldsWorker: SideFieldType[] = [
     icon: HiLibrary,
     path: "/worker/book-stores",
   },
-  {
-    label: "Invitations",
-    icon: MessageSquareMore,
-    path: "/worker/invitations",
-  },
+  // {
+  //   label: "Invitations",
+  //   icon: MessageSquareMore,
+  //   path: "/worker/invitations",
+  // },
 ].map((el) => ({
   ...el,
   id: v4(),

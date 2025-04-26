@@ -134,7 +134,7 @@ body {
 /* UTILS */
 
 .parent__page {
-  @apply w-full grid justify-items-center gap-6;
+  @apply w-full grid justify-items-center gap-6 text-gray-300;
 }
 
 .center_abs {

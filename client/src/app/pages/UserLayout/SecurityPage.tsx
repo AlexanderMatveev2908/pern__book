@@ -7,7 +7,7 @@ const SecurityPage: FC = () => {
   useScroll();
 
   return (
-    <div className="parent__page txt__col">
+    <div className="parent__page">
       <Title {...{ title: "Confirm your password" }} />
       <SecurityPwd />
     </div>

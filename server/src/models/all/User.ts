@@ -12,7 +12,7 @@ import pkg from "bson-objectid";
 import { v4 } from "uuid";
 import { calcTimeRun } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
-import { ThumbInstance } from "./Thumb.js";
+import { ThumbInstance } from "./img&video/Thumb.js";
 import { captAll } from "../../lib/utils/formatters.js";
 
 const ObjectID = pkg.default;
