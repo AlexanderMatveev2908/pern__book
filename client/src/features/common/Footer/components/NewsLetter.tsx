@@ -4,7 +4,7 @@ import { schemaEmail } from "../../../../lib/lib";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { EmailFormType } from "../../../../types/types.ts";
-import { Button, Title, WrapperInput } from "@/components/components.ts";
+import { Button, FormField, Title } from "@/components/components.ts";
 import { emailField } from "@/config/fields/AuthLayout/fieldsAuth.ts";
 
 const schema = z.object({
@@ -32,8 +32,14 @@ const NewsLetter: FC = () => {
         onSubmit={handleSave}
         className="w-full grid sm:grid-cols-2 gap-5 items-center"
       >
-        <WrapperInput
-          {...{ register, errors, el: emailField, customStyle: "input__icon" }}
+        <FormField
+          {...{
+            register,
+            errors,
+            showLabel: false,
+            el: emailField,
+            customStyle: "input__icon",
+          }}
         />
 
         <div className="max-w-[200px] justify-self-center sm:justify-self-start">

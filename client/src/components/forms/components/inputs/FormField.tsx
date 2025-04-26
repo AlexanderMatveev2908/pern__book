@@ -1,17 +1,19 @@
 import { FC } from "react";
 import { FormBaseProps, FormFieldBasic } from "../../../../types/types.ts";
-import WrapperInput from "./WrapperInput.tsx";
 import { capt } from "@/lib/lib.ts";
+import ErrorFormField from "./ErrorFormField.tsx";
 
 type PropsType = {
   el: FormFieldBasic;
   showLabel?: boolean;
+  customStyle?: string;
 } & FormBaseProps;
 
 const FormField: FC<PropsType> = ({
   el,
   register,
   errors,
+  customStyle,
   showLabel = true,
 }) => {
   return (
@@ -21,7 +23,15 @@ const FormField: FC<PropsType> = ({
           <span className="txt__2">{el?.label ?? capt(el.field)}</span>
         )}
 
-        <WrapperInput {...{ el, register, errors }} />
+        <div className="w-full relative">
+          <input
+            type={el.type ?? "text"}
+            placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
+            className={`${customStyle ?? "input__base"} txt__2`}
+            {...register(el.field)}
+          />
+          <ErrorFormField {...{ errors, el }} />
+        </div>
       </label>
     </div>
   );

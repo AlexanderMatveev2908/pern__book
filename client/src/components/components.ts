@@ -11,7 +11,6 @@ export { default as WrapperAuthPage } from "./HOC/WrapperAuthPage.tsx";
 export { default as PwdField } from "./forms/components/inputs/PwdField/PwdField.tsx";
 export { default as ErrorFormField } from "./forms/components/inputs/ErrorFormField.tsx";
 export { default as FormField } from "./forms/components/inputs/FormField.tsx";
-export { default as WrapperInput } from "./forms/components/inputs/WrapperInput.tsx";
 export { default as CheckRegPwd } from "./forms/components/PairPwd/components/CheckRegPwd.tsx";
 export { default as BreadCrumbForm } from "./forms/components/BreadCrumbForm.tsx";
 export { default as EmailForm } from "./forms/EmailForm/EmailForm.tsx";
