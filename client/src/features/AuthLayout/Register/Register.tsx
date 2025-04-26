@@ -9,12 +9,7 @@ import Terms from "./components/Terms";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import {
-  isObjOk,
-  makeDelay,
-  makeNoticeTxt,
-  schemaRegister,
-} from "../../../lib/lib.ts";
+import { isObjOk, makeNoticeTxt, schemaRegister } from "../../../lib/lib.ts";
 import { useShowPwd } from "../../../hooks/all/forms/useShowPwd.ts";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../authSliceAPI.ts";
 import { useNotice, useWrapMutationAPI } from "@/hooks/hooks.ts";
@@ -26,9 +21,8 @@ import {
   FormField,
   PairPwd,
 } from "@/components/components.ts";
-import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap.ts";
+import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm.ts";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
-import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -44,7 +38,6 @@ const Register: FC = () => {
     setValue,
     handleSubmit,
     reset,
-    setFocus,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
@@ -92,11 +85,6 @@ const Register: FC = () => {
     watch,
     errors,
     customSwapCB: closeAllPwd,
-  });
-  useFocusBySwap({ cb: () => setFocus("firstName"), cond: !currForm });
-  useFocusBySwap({
-    cb: () => makeDelay(() => setFocus("password"), 500),
-    cond: !!currForm,
   });
 
   return (

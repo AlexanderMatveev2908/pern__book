@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { validateSwapper } from "@/lib/lib";
+import { makeDelay, validateSwapper } from "@/lib/lib";
 import { useCallback, useEffect, useReducer } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
-import { swapAddressInitState } from "./initState";
+import { swapAddressInitState, SwapModeType } from "./initState";
 import { ActionsSwap } from "./actions";
 import { reducerSwap } from "./reducer";
 import { SwapFieldType } from "@/types/types";
@@ -24,15 +24,22 @@ export const useFormSwap = ({
 }: Params) => {
   const [state, dispatch] = useReducer(reducerSwap, swapAddressInitState);
 
-  const { currForm, isNextDisabled, isFormOk } = state;
+  const { currForm, isNextDisabled, isFormOk, currSwapState } = state;
 
   const setCurrForm = useCallback(
-    (val: number) => {
+    (val: number, swapState: SwapModeType | null = SwapModeType.SWAPPED) => {
       if (typeof customSwapCB === "function") customSwapCB();
 
       dispatch({ type: ActionsSwap.SET_SWAP, payload: val });
       if (val < state.currForm)
         dispatch({ type: ActionsSwap.SET_NEXT_DISABLED, payload: false });
+
+      makeDelay(() => {
+        dispatch({
+          type: ActionsSwap.SET_SWAP_STATE,
+          payload: swapState,
+        });
+      }, 500);
     },
     [customSwapCB, state.currForm]
   );
@@ -46,6 +53,10 @@ export const useFormSwap = ({
       dispatch({ type: ActionsSwap.SET_IS_FORM_OK, payload: val }),
     []
   );
+
+  useEffect(() => {
+    console.log(state);
+  }, [state]);
 
   const vals = watch();
 
@@ -88,5 +99,6 @@ export const useFormSwap = ({
     setCurrForm,
     setNextDisabled,
     setIsFormOk,
+    currSwapState,
   };
 };

@@ -8,7 +8,7 @@ import {
   schemaProfile,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useState } from "react";
+import { FC, useCallback, useEffect, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -19,15 +19,16 @@ import { Button, WrapPageAPI } from "@/components/components";
 import { EventApp, UserType } from "@/types/types";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
-import { usePopulateForm, useWrapMutationAPI } from "@/hooks/hooks";
-import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useFormSwap";
+import { useFocus, usePopulateForm, useWrapMutationAPI } from "@/hooks/hooks";
+import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import {
   allProfileKeys,
   swapAddressByArea,
 } from "@/config/fields/UserLayout/fieldsProfile";
-import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap";
+import { useCLearTab } from "@/hooks/all/UI/useClearTab";
+import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -48,6 +49,7 @@ const UserProfile: FC = () => {
     formState: { errors },
   } = formCtx;
 
+  useCLearTab();
   const { data, isLoading, error, isError } = useGetUserProfileQuery() ?? {};
   const user: UserType = getData(data, "user");
   const [updateProfile, { isLoading: isLoadingUpdate }] =
@@ -77,17 +79,27 @@ const UserProfile: FC = () => {
     getValues,
     setValue,
   });
-  const { isFormOk, setCurrForm, currForm, ...restSwap } = useFormSwap({
-    watch,
-    errors,
-    fields: swapAddressByArea,
-    customValidateCB: handleCheckEqData,
-  });
+  const { isFormOk, setCurrForm, currSwapState, currForm, ...restSwap } =
+    useFormSwap({
+      watch,
+      errors,
+      fields: swapAddressByArea,
+      customValidateCB: handleCheckEqData,
+    });
 
-  useFocusBySwap({
-    cb: () => makeDelay(() => setFocus("street"), 500),
-    cond: !!currForm,
-  });
+  useEffect(() => {
+    const handleSwapUI = () => {
+      if (currSwapState !== SwapModeType.SWAPPED) return;
+      console.log(currSwapState);
+
+      if (!currForm) setFocus("country");
+      else if (currForm) setFocus("street");
+    };
+
+    handleSwapUI();
+  }, [currForm, currSwapState, setFocus]);
+
+  useFocus({ key: "country", setFocus });
 
   const handleSave = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -127,7 +139,8 @@ const UserProfile: FC = () => {
     });
     if (!res) return;
 
-    setCurrForm(0);
+    setCurrForm(0, null);
+
     makeDelay(() => window.scroll({ top: 0, behavior: "smooth" }), 100);
   };
 

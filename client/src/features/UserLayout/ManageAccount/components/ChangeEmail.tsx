@@ -12,13 +12,8 @@ import {
 import { StorageKeys, UserType } from "@/types/types";
 import { useNotice, useWrapMutationAPI } from "@/hooks/hooks";
 import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
-import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap";
 
-type PropsType = {
-  cond: boolean;
-};
-
-const ChangeEmail: FC<PropsType> = ({ cond }) => {
+const ChangeEmail: FC = () => {
   const { data } = useGetUserProfileQuery();
   const { user } = (data ?? {}) as { user: UserType };
 
@@ -41,15 +36,9 @@ const ChangeEmail: FC<PropsType> = ({ cond }) => {
     formState: { errors },
     watch,
     handleSubmit,
-    setFocus,
   } = useForm<FormNewEmailType>({
     resolver: zodResolver(schema),
     mode: "onChange",
-  });
-  // useFocus({ setFocus, key: "email" });
-  useFocusBySwap({
-    cb: () => setFocus("email"),
-    cond,
   });
 
   const email = watch("email");

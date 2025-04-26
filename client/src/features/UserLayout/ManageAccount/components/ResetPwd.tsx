@@ -1,4 +1,4 @@
-import { getStorage, makeDelay, schemaPwd } from "@/lib/lib";
+import { getStorage, schemaPwd } from "@/lib/lib";
 import { FC, useMemo } from "react";
 import { z } from "zod";
 import {
@@ -13,14 +13,12 @@ import { fieldsNewPwdReset } from "@/config/fields/UserLayout/fieldsManageAccoun
 import { ReturnShowPwd, useWrapMutationAPI } from "@/hooks/hooks";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit";
 import { useHandleDangerAccount } from "@/hooks/all/useHandleDangerAccount";
-import { useFocusBySwap } from "@/hooks/all/UI/useFocusBySwap";
 
 type PropsType = {
   propsPwd: ReturnShowPwd;
-  cond: boolean;
 };
 
-const ResetPwd: FC<PropsType> = ({ propsPwd, cond }) => {
+const ResetPwd: FC<PropsType> = ({ propsPwd }) => {
   const { data } = useGetUserProfileQuery();
   const { user } = (data ?? {}) as { user: UserType };
 
@@ -52,7 +50,6 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond }) => {
     watch,
     reset,
     clearErrors,
-    setFocus,
   } = useForm<FormNewEmailType>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -64,10 +61,6 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond }) => {
   const pwd = watch("password");
   const confirmPwd = watch("confirmPassword");
 
-  useFocusBySwap({
-    cb: () => makeDelay(() => setFocus("password"), 500),
-    cond,
-  });
   const [updatePwd, { isLoading }] = useUpdatePwdMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { handleDanger } = useHandleDangerAccount();

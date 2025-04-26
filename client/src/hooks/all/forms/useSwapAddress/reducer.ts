@@ -1,5 +1,5 @@
 import { ActionsSwap, SwapAddressActions } from "./actions";
-import { SwapAddressStateType } from "./initState";
+import { SwapAddressStateType, SwapModeType } from "./initState";
 
 export const reducerSwap = (
   state: SwapAddressStateType,
@@ -10,6 +10,7 @@ export const reducerSwap = (
       return {
         ...state,
         currForm: action.payload,
+        currSwapState: SwapModeType.PENDING,
       };
     case ActionsSwap.SET_NEXT_DISABLED:
       return {
@@ -20,6 +21,11 @@ export const reducerSwap = (
       return {
         ...state,
         isFormOk: action.payload,
+      };
+    case ActionsSwap.SET_SWAP_STATE:
+      return {
+        ...state,
+        currSwapState: action.payload,
       };
     default:
       throw new Error(`Invalid action 😠: ${action} `);

@@ -121,7 +121,7 @@ const AddressForm: FC<PropsType> = ({
         </div>
         {btnProfile && (
           <div className="w-[275px]">
-            <QuickFillBtn />
+            <QuickFillBtn {...{ setValue }} />
           </div>
         )}
       </div>
