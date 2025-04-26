@@ -1,7 +1,12 @@
-import { FormField, Title } from "@/components/components";
-import { fieldNameStore } from "@/config/fields/OwnerLayout/post";
+import { FormField } from "@/components/components";
+import WrapperFormField from "@/components/HOC/WrapperFormField";
+import {
+  fieldDescStore,
+  fieldNameStore,
+} from "@/config/fields/OwnerLayout/post";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
+import TxtField from "../components/inputs/TxtField";
 
 type PropsType = {
   handleSave: () => void;
@@ -15,22 +20,24 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
   } = ctx;
 
   return (
-    <form onSubmit={handleSave} className="__cont">
-      <div className="w-full grid gap-5">
-        <Title
-          {...{
-            title: "Bookstore name",
-            styleTxt: "txt__3",
-            styleParent: "justify-start",
-          }}
-        />
-
-        <div className="w-full flex max-w-[600px]">
-          <FormField
-            {...{ register, errors, el: fieldNameStore, showLabel: false }}
-          />
-        </div>
+    <form onSubmit={handleSave} className="__cont gap-6">
+      <div className="w-full flex justify-end">
+        <span className="txt__1 border-b-[3px] border-blue-600 pb-1">
+          Fields with * near name are optional
+        </span>
       </div>
+
+      <WrapperFormField {...{ title: "bookstore name" }}>
+        <FormField
+          {...{ register, errors, el: fieldNameStore, showLabel: false }}
+        />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Description *" }}>
+        <TxtField
+          {...{ register, errors, el: fieldDescStore, showLabel: false }}
+        />
+      </WrapperFormField>
     </form>
   );
 };

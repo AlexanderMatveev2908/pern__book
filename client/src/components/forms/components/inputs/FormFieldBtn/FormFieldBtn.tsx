@@ -9,7 +9,7 @@ import {
   UseFormSetValue,
 } from "react-hook-form";
 import "./FormFieldBtn.css";
-import { useSavePrevErr } from "@/hooks/hooks";
+import ErrorFormField from "../ErrorFormField";
 
 type PropsType = {
   user?: UserType;
@@ -34,8 +34,6 @@ const FormFieldBtn: FC<PropsType> = ({
 }) => {
   const [isInput, setIsInput] = useState(false);
 
-  const { prevErr } = useSavePrevErr(errors, el.field);
-
   useEffect(() => {
     if (eventCloseInput) {
       setIsInput(false);
@@ -55,23 +53,8 @@ const FormFieldBtn: FC<PropsType> = ({
           }`}
           {...register(el.field)}
         />
-        <div
-          className={`absolute -top-full right-0 l w-fit transition-all duration-500 pointer-eventCloseInputs-none ${
-            errors[el.field]?.message
-              ? "translate-y-0 opacity-100"
-              : "translate-y-[50px] opacity-0"
-          }`}
-        >
-          <div className="bg-[#000] py-1 px-3 border-2 border-red-600 rounded-xl z-60 relative h-fit">
-            <span className="txt__1 text-red-600">
-              {(errors?.[el.field]?.message as string) || prevErr}
-            </span>
 
-            <div className="absolute w-[30px] h-[30px] right-[25px] top-[128%] -translate-y-1/2 overflow-hidden z-60">
-              <div className="w-[30px] h-[30px] border-2 border-red-600 bg-[#000] rotate-45 absolute top-[-15px] left-0"></div>
-            </div>
-          </div>
-        </div>
+        <ErrorFormField {...{ errors, el }} />
       </label>
 
       <button

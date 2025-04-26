@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import TooltipBtn from "@/components/common/buttons/TooltipBtn";
-import { useSavePrevErr } from "@/hooks/hooks";
+import { ErrorFormField } from "@/components/components";
 import { isObjOk } from "@/lib/lib";
 import { FormBaseProps } from "@/types/types";
 import { Trash2, User } from "lucide-react";
@@ -13,8 +13,6 @@ type PropsType = {
 } & FormBaseProps;
 
 const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
-  const { prevErr } = useSavePrevErr(errors, "thumb");
-
   const thumb = watch("thumb") as FileList;
 
   //   [...(watch("thumb")?.length ? watch("thumb") : [])].map((el) =>
@@ -48,23 +46,14 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
         )}
       </label>
 
-      <div
-        className={`absolute -top-[20%] right-0 w-fit transition-all duration-500 pointer-events-none ${
-          errors?.thumb?.message
-            ? "translate-y-0 opacity-100"
-            : "translate-y-[50px] opacity-0"
-        }`}
-      >
-        <div className="bg-[#000] py-1 px-3 border-2 border-red-600 rounded-xl z-60 relative h-fit">
-          <span className="txt__1 text-red-600">
-            {(errors?.thumb?.message as string) || prevErr}
-          </span>
-
-          <div className="absolute w-[30px] h-[30px] right-[25px] top-[90%] overflow-hidden z-60">
-            <div className="w-[30px] h-[30px] border-2 border-red-600 bg-[#000] rotate-45 absolute top-[-15px] left-0"></div>
-          </div>
-        </div>
-      </div>
+      <ErrorFormField
+        {...{
+          errors,
+          styleCont: "-top-[15%] right-0",
+          styleTool: "top-[120%]",
+          el: { field: "thumb" },
+        }}
+      />
 
       {!!thumb?.length && (
         <TooltipBtn

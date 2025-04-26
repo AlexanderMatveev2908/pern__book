@@ -2,7 +2,7 @@
 import { FC, useEffect, useRef } from "react";
 import style from "./Terms.module.css";
 import { FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
-import { useSavePrevErr } from "../../../../hooks/all/forms/useSavePrevErr";
+import { ErrorFormField } from "@/components/components";
 
 type PropsType = {
   setValue: UseFormSetValue<any>;
@@ -12,8 +12,6 @@ type PropsType = {
 
 const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
   const checkRef = useRef<HTMLDivElement | null>(null);
-
-  const { prevErr } = useSavePrevErr(errors, "terms");
 
   useEffect(() => {
     const animateChecky = (e: MouseEvent) => {
@@ -64,15 +62,13 @@ const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
 
       <span className="txt__2">I agree terms and conditions</span>
 
-      <div
-        className={`absolute -bottom-[150%] left-0 transition-all duration-300 text-red-600 border-2 border-red-600 rounded-xl py-1 px-5 bg-[#000] z-60 ${
-          errors?.terms?.message
-            ? "translate-y-0 opacity-100"
-            : "translate-y-[200%] opacity-0"
-        }`}
-      >
-        {(errors?.terms?.message as string) || prevErr}
-      </div>
+      <ErrorFormField
+        {...{
+          errors,
+          styleCont: "-right-[10%] -top-[135%]",
+          el: { field: "terms" },
+        }}
+      />
     </div>
   );
 };
