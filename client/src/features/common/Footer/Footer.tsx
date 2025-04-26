@@ -28,7 +28,7 @@ const Footer: FC = () => {
       <NewsLetter />
 
       <div className="w-full grid gap-5">
-        <Title {...{ title: "Last projects ✌🏼", customStyle: "txt__4" }} />
+        <Title {...{ title: "Last projects ✌🏼", styleTxt: "txt__4" }} />
 
         <div className="gap-5 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]">
           {linksRender.map((el) => (

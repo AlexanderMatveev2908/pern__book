@@ -56,7 +56,7 @@ const AddressForm: FC<PropsType> = ({
 
   return (
     <div className="w-full grid gap-8">
-      <Title {...{ title: "my address", customStyle: "txt__4" }} />
+      <Title {...{ title: "my address", styleTxt: "txt__4" }} />
 
       <div className="w-full flex justify-center">
         <BreadCrumbForm {...{ currForm, totLen: 2 }} />

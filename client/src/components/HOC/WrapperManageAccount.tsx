@@ -14,7 +14,7 @@ const WrapperManageAccount: FC<PropsType> = ({ isIn, title, children }) => {
         isIn ? "opacity-100" : "opacity-0"
       }`}
     >
-      <Title {...{ title, customStyle: "txt__4" }} />
+      <Title {...{ title, styleTxt: "txt__4" }} />
       {children}
     </div>
   );

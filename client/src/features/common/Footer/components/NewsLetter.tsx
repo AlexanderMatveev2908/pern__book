@@ -26,14 +26,14 @@ const NewsLetter: FC = () => {
   return (
     <div className="w-full grid gap-8 sm:gap-4">
       <div className="justify-self-start">
-        <Title {...{ title: "Newsletter", customStyle: "txt__4" }} />
+        <Title {...{ title: "Newsletter", styleTxt: "txt__4" }} />
       </div>
       <form
         onSubmit={handleSave}
         className="w-full grid sm:grid-cols-2 gap-5 items-center"
       >
         <WrapperInput
-          {...{ register, errors, el: emailField, customSTyle: "input__icon" }}
+          {...{ register, errors, el: emailField, customStyle: "input__icon" }}
         />
 
         <div className="max-w-[200px] justify-self-center sm:justify-self-start">

@@ -6,16 +6,16 @@ import { capt } from "@/lib/lib.ts";
 
 type PropsType = {
   el: FormFieldBasic;
-  customSTyle?: string;
+  customStyle?: string;
 } & FormBaseProps;
 
-const WrapperInput: FC<PropsType> = ({ register, errors, el, customSTyle }) => {
+const WrapperInput: FC<PropsType> = ({ register, errors, el, customStyle }) => {
   return (
     <div className="w-full relative">
       <input
         type={el.type ?? "text"}
         placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
-        className={`${customSTyle ?? "input__base"} txt__2`}
+        className={`${customStyle ?? "input__base"} txt__2`}
         {...register(el.field)}
       />
       <ErrorFormField {...{ errors, el }} />

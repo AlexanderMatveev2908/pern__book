@@ -1,6 +1,6 @@
 export const REG_PATH_HOME = /^\/[/]*$/;
 
-export const REG_NAME = /^[[\p{L}\s`']+$/u;
+export const REG_NAME = /^[\p{L}\s`']+$/u;
 export const REG_PWD =
   /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_])[A-Za-zÀ-ÿ\d\W_]{8,}$/;
 
@@ -15,3 +15,5 @@ export const REG_STREET = /^[\p{L}\p{N}\s`']+$/u;
 export const REG_ZIP = /^[A-Za-z0-9\s-]+$/;
 export const REG_PHONE =
   /^\+\d{1,3}[-\s]?\(?\d{1,4}\)?[-\s]?\d{3,4}[-\s]?\d{3,4}$/;
+
+export const REG_STORE_NAME = /^[\p{L}\s`'@#$&]+$/u;
