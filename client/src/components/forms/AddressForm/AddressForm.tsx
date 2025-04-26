@@ -7,15 +7,20 @@ import {
   FormField,
   Title,
 } from "@/components/components";
-import { clearBtnField } from "@/config/fields/general/btns";
 import {
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
   swapAddressFieldsMerg,
 } from "@/config/fields/UserLayout/fieldsProfile";
 import { BtnAct, FormBaseProps, SwapFormPropsType } from "@/types/types";
+import { Eraser } from "lucide-react";
 import { FC } from "react";
 import { UseFormClearErrors, UseFormSetValue } from "react-hook-form";
+
+const clearBtnField = {
+  label: "Clear",
+  icon: Eraser,
+};
 
 type PropsType = FormBaseProps &
   SwapFormPropsType & {

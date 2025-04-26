@@ -31,5 +31,6 @@ export type SwapFieldType = {
 export type BtnFieldIconType = {
   id?: string;
   label: string;
+  pendingLabel?: string;
   icon: IconType;
 };

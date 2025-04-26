@@ -11,7 +11,7 @@ type PropsType = {
 
 const getCol = (act: BtnAct) => {
   let border = "border-blue-600";
-  let hoverTxt = "hover:text-blue-600";
+  let hoverTxt = "enabled:hover:text-blue-600";
 
   switch (act) {
     case BtnAct.DO:
@@ -21,10 +21,6 @@ const getCol = (act: BtnAct) => {
     case BtnAct.DEL:
       border = "border-red-600";
       hoverTxt = "enabled:hover:text-red-600";
-      break;
-    case BtnAct.INFO:
-      border = "border-blue-600";
-      hoverTxt = "enabled:hover:text-blue-600";
       break;
     default:
       break;
@@ -45,7 +41,9 @@ const ButtonIcon: FC<PropsType> = ({ el, act, handleCLick, isPending }) => {
     >
       {isPending ? <MiniSpinner /> : <el.icon className="icon__sm" />}
 
-      <span className="txt__3">{el.label}</span>
+      <span className="txt__3">
+        {isPending ? el.pendingLabel ?? el.label : el.label}
+      </span>
     </button>
   );
 };
