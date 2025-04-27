@@ -59,6 +59,7 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
           country,
           county,
           city,
+          town,
           state,
           road: street,
           postcode: zipCode,
@@ -67,7 +68,7 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
 
       setValue("country", country ?? "", { shouldValidate: true });
       setValue("state", state ?? county ?? "", { shouldValidate: true });
-      setValue("city", city ?? "", { shouldValidate: true });
+      setValue("city", city ?? town ?? "", { shouldValidate: true });
       setValue("street", street ?? "", { shouldValidate: true });
       setValue("zipCode", zipCode ?? "", { shouldValidate: true });
     } catch (err: any) {

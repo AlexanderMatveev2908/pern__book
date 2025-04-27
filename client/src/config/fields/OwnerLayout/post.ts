@@ -1,5 +1,6 @@
 import { FormFieldBasic } from "@/types/types";
 import { v4 } from "uuid";
+import { addressFields_0, addressFields_1 } from "../UserLayout/fieldsProfile";
 
 export const fieldNameStore: FormFieldBasic = {
   field: "name",
@@ -32,3 +33,8 @@ export const fieldsContact: FormFieldBasic[] = [
   ...el,
   id: v4(),
 }));
+
+export const fieldsSwapAddressStore = [
+  addressFields_0,
+  addressFields_1.filter((el) => el.field !== "phone"),
+];

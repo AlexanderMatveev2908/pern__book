@@ -2,12 +2,7 @@
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import MapsBtn from "@/components/common/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/common/buttons/QuickFillBtn";
-import {
-  BreadCrumbForm,
-  ButtonsSwapper,
-  FormField,
-  Title,
-} from "@/components/components";
+import { ButtonsSwapper, FormField } from "@/components/components";
 import {
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
@@ -64,19 +59,13 @@ const AddressForm: FC<PropsType> = ({
   const fieldsProfileAddressFiltered_1 = useMemo(
     () =>
       fieldsProfileAddress_1.filter((el) =>
-        includePhone ? el.field !== "includePhone" : el
+        includePhone ? el : el.field !== "phone"
       ),
     [includePhone]
   );
 
   return (
     <div className="w-full grid gap-8">
-      <Title {...{ title: "my address", styleTxt: "txt__4" }} />
-
-      <div className="w-full flex justify-center">
-        <BreadCrumbForm {...{ currForm, totLen: 2 }} />
-      </div>
-
       <div id={swapID} className="form__content justify-self-center">
         <div className="w-full overflow-hidden p-6">
           <div

@@ -3,6 +3,7 @@ import WrapperFormField from "@/components/HOC/WrapperFormField";
 import {
   fieldDescStore,
   fieldNameStore,
+  fieldsSwapAddressStore,
 } from "@/config/fields/OwnerLayout/post";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
@@ -12,6 +13,8 @@ import ImagesField from "../components/inputs/ImagesField/ImagesField";
 import CheckBoxSwapper from "../components/CheckBoxSwapper/CheckBoxSwapper";
 import { CatBookStore } from "@/types/all/bookStore";
 import ContactForm from "./components/ContactForm";
+import AddressForm from "../AddressForm/AddressForm";
+import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm";
 
 type PropsType = {
   handleSave: () => void;
@@ -24,7 +27,15 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
     formState: { errors },
     setValue,
     watch,
+    clearErrors,
   } = ctx;
+
+  const { currForm, setCurrForm, isNextDisabled, setNextDisabled } =
+    useFormSwap({
+      watch,
+      errors,
+      fields: fieldsSwapAddressStore,
+    });
 
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
@@ -79,6 +90,23 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
           {...{
             register,
             errors,
+          }}
+        />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Address" }}>
+        <AddressForm
+          {...{
+            register,
+            errors,
+            currForm,
+            setCurrForm,
+            isNextDisabled,
+            setNextDisabled,
+            setValue,
+            clearErrors,
+            swapID: "swapFormStore",
+            btnProfile: true,
           }}
         />
       </WrapperFormField>

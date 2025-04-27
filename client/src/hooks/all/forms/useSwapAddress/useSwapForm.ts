@@ -54,10 +54,6 @@ export const useFormSwap = ({
     []
   );
 
-  useEffect(() => {
-    console.log(state);
-  }, [state]);
-
   const vals = watch();
 
   useEffect(() => {
