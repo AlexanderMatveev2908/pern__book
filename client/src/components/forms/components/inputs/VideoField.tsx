@@ -1,14 +1,20 @@
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
-import { BtnAct, FormBaseProps, FormSettersProps } from "@/types/types";
+import { BtnAct } from "@/types/types";
 import { FC, useMemo } from "react";
 import { FaTrashAlt, FaVideo } from "react-icons/fa";
 import { MdVideoCall } from "react-icons/md";
 import ErrorFormField from "./ErrorFormField";
 import { FiVideo } from "react-icons/fi";
+import { useFormContext } from "react-hook-form";
 
-type PropsType = {} & FormBaseProps & FormSettersProps;
+const VideoField: FC = () => {
+  const {
+    register,
+    setValue,
+    formState: { errors },
+    watch,
+  } = useFormContext();
 
-const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
   const videoData = watch("video") as FileList | string;
   const isUpload = videoData?.[0] instanceof File;
   const isURL = typeof videoData === "string" && videoData?.trim()?.length;

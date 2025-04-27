@@ -2,21 +2,12 @@ import { BreadCrumbForm, Title } from "@/components/components";
 import AddressForm from "@/components/forms/AddressForm/AddressForm";
 import { SwapFormPropsType } from "@/types/types";
 import { FC } from "react";
-import { useFormContext } from "react-hook-form";
 
 type PropsType = {
   swapVals: SwapFormPropsType;
 };
 
 const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
-  const formCtx = useFormContext();
-  const {
-    register,
-    formState: { errors },
-    clearErrors,
-    setValue,
-  } = formCtx;
-
   const { currForm } = swapVals;
 
   return (
@@ -28,10 +19,6 @@ const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
       </div>
       <AddressForm
         {...{
-          register,
-          errors,
-          clearErrors,
-          setValue,
           swapID: "userProfileSwap",
           ...swapVals,
         }}

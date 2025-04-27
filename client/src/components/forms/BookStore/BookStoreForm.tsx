@@ -27,9 +27,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
   const {
     register,
     formState: { errors },
-    setValue,
     watch,
-    clearErrors,
     setFocus,
   } = ctx;
 
@@ -73,20 +71,17 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Video ~" }}>
-        <VideoField {...{ setValue, register, errors, watch }} />
+        <VideoField />
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Images ~" }}>
-        <ImagesField {...{ setValue, register, errors, watch }} />
+        <ImagesField />
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Categories (max-3)" }}>
         <CheckBoxSwapper
           {...{
-            setValue,
-            errors,
             keyForm: "categories",
-            watch,
             maxData: 3,
             fieldsArg: Object.values(CatBookStore),
           }}
@@ -106,12 +101,9 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
         <AddressForm
           {...{
             ...restSwapAddress,
-            register,
-            errors,
-            setValue,
-            clearErrors,
             swapID: "swapFormStore",
             btnProfile: true,
+            includePhone: false,
           }}
         />
       </WrapperFormField>

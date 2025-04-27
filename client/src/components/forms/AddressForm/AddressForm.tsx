@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import MapsBtn from "@/components/common/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/common/buttons/QuickFillBtn";
@@ -8,41 +7,36 @@ import {
   fieldsProfileAddress_1,
   swapAddressFieldsMerg,
 } from "@/config/fields/UserLayout/fieldsProfile";
-import {
-  BtnAct,
-  FormBaseProps,
-  FormSettersProps,
-  SwapFormPropsType,
-} from "@/types/types";
+import { BtnAct, SwapFormPropsType } from "@/types/types";
 import { Eraser } from "lucide-react";
 import { FC, useMemo } from "react";
-import { UseFormClearErrors } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 
 const clearBtnField = {
   label: "Clear",
   icon: Eraser,
 };
 
-type PropsType = FormBaseProps &
-  SwapFormPropsType &
-  Omit<FormSettersProps, "watch"> & {
-    clearErrors: UseFormClearErrors<any>;
-    swapID: string;
-    btnProfile?: boolean;
-    includePhone?: boolean;
-  };
+type PropsType = SwapFormPropsType & {
+  swapID: string;
+  btnProfile?: boolean;
+  includePhone?: boolean;
+};
 
 const AddressForm: FC<PropsType> = ({
-  register,
-  clearErrors,
-  setValue,
-  errors,
   currForm,
   setCurrForm,
   swapID,
   btnProfile,
   includePhone = true,
 }) => {
+  const {
+    register,
+    formState: { errors },
+    clearErrors,
+    setValue,
+  } = useFormContext();
+
   const handleClear = () => {
     let i = swapAddressFieldsMerg.length - 1;
 

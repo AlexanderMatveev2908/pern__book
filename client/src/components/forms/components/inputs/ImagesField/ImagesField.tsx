@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { BtnAct, FormBaseProps, FormSettersProps } from "@/types/types";
+import { BtnAct } from "@/types/types";
 import { FC, useMemo, useRef } from "react";
 import ErrorFormField from "../ErrorFormField";
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
@@ -7,8 +6,7 @@ import { MdCloudUpload } from "react-icons/md";
 import { RiFolderUploadFill } from "react-icons/ri";
 import { FaImages, FaTrashAlt } from "react-icons/fa";
 import ShowImagesData from "./ShowImagesData";
-
-type PropsType = Omit<FormBaseProps, "register"> & FormSettersProps;
+import { useFormContext } from "react-hook-form";
 
 const updateByTransfer = (updated: File[]) => {
   const dataTransfer = new DataTransfer();
@@ -19,7 +17,13 @@ const updateByTransfer = (updated: File[]) => {
   return dataTransfer;
 };
 
-const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
+const ImagesField: FC = () => {
+  const {
+    setValue,
+    formState: { errors },
+    watch,
+  } = useFormContext();
+
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const images = watch("images");

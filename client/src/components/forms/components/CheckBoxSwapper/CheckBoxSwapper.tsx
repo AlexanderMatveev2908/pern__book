@@ -1,17 +1,16 @@
 import { tailwindBreak } from "@/config/breakpoints";
-import { FormBaseProps, FormSettersProps } from "@/types/types";
 import { FC, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
 import ErrorFormField from "../inputs/ErrorFormField";
 import BtnCheckBox from "../inputs/BtnCheckBox/BtnCheckBox";
+import { useFormContext } from "react-hook-form";
 
 type PropsType = {
   fieldsArg: string[];
   keyForm: string;
   maxData?: number;
-} & Omit<FormBaseProps, "register"> &
-  FormSettersProps;
+};
 
 const calcByW = () =>
   window.innerWidth > tailwindBreak.xl
@@ -25,14 +24,13 @@ const calcByW = () =>
 const calcTotSwap = (len: number, fieldsForSwap: number) =>
   Math.ceil(len / fieldsForSwap);
 
-const CheckBoxSwapper: FC<PropsType> = ({
-  errors,
-  setValue,
-  maxData,
-  watch,
-  keyForm,
-  fieldsArg,
-}) => {
+const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
+  const {
+    setValue,
+    formState: { errors },
+    watch,
+  } = useFormContext();
+
   const [fieldsForSwap, setFieldsForSwap] = useState(calcByW());
   const [idsChildren] = useState(
     Array.from({ length: fieldsArg.length }, () => v4())
