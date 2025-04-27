@@ -1,5 +1,5 @@
 import { capt } from "@/lib/lib";
-import { FC, useEffect, useState } from "react";
+import { FC, useState } from "react";
 import "./BtnCheckBox.css";
 
 type PropsType = {
@@ -12,10 +12,6 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, val }) => {
   const [isHover, setIsHover] = useState(false);
   const [isRemoved, setRemoved] = useState(false);
 
-  useEffect(() => {
-    console.log(isRemoved);
-  }, [isRemoved]);
-
   return (
     <button
       onClick={() => {
@@ -24,7 +20,8 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, val }) => {
       }}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => {
-        setRemoved(false);
+        if (isRemoved) setRemoved(false);
+
         setIsHover(false);
       }}
       type="button"

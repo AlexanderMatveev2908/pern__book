@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { BtnAct, FormBaseProps, FormSettersProps } from "@/types/types";
 import { FC, useMemo, useRef } from "react";
 import ErrorFormField from "../ErrorFormField";
@@ -8,6 +9,15 @@ import { FaImages, FaTrashAlt } from "react-icons/fa";
 import ShowImagesData from "./ShowImagesData";
 
 type PropsType = Omit<FormBaseProps, "register"> & FormSettersProps;
+
+const updateByTransfer = (updated: File[]) => {
+  const dataTransfer = new DataTransfer();
+  for (const item of updated) {
+    if (item instanceof File) dataTransfer.items.add(item);
+  }
+
+  return dataTransfer;
+};
 
 const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -23,12 +33,12 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
     images.every((el) => typeof el === "string" && el?.trim()?.length);
   const isVal = isUploadFiles || isURLs;
 
-  const handleUploadBtnClick = () => {
-    const myEvent = new MouseEvent("click");
+  // const handleUploadBtnClick = () => {
+  //   const myEvent = new MouseEvent("click");
 
-    inputRef.current?.dispatchEvent(myEvent);
-  };
-  // const handleUploadBtnClick = () => inputRef?.current?.click();
+  //   inputRef.current?.dispatchEvent(myEvent);
+  // };
+  const handleUploadBtnClick = () => inputRef?.current?.click();
   const handleClearClick = () => {
     if (!inputRef.current) return;
 
@@ -44,10 +54,7 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
     );
 
     if (updated.every((el: File | string) => el instanceof File)) {
-      const dataTransfer = new DataTransfer();
-      for (const item of updated) {
-        if (item instanceof File) dataTransfer.items.add(item);
-      }
+      const dataTransfer = updateByTransfer(updated);
       inputRef.current.files = dataTransfer.files;
     }
     //  else {
@@ -110,13 +117,16 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
             ref={inputRef}
             type="file"
             multiple
-            max={5}
             className="w-0 h-0 opacity-0"
             accept="image/*"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              if (!inputRef.current) return;
+
               const files = e.target.files ?? [];
 
               const data = Array.from(files);
+              const dataTransfer = updateByTransfer(data);
+              inputRef.current.files = dataTransfer.files;
 
               setValue("images", data, { shouldValidate: true });
             }}

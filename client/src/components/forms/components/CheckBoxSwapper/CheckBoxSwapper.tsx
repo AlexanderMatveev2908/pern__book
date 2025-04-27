@@ -1,11 +1,10 @@
 import { tailwindBreak } from "@/config/breakpoints";
-import { __cg } from "@/lib/lib";
 import { FormBaseProps, FormSettersProps } from "@/types/types";
 import { FC, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
 import ErrorFormField from "../inputs/ErrorFormField";
-import BtnCheckBox from "./BtnCheckBox";
+import BtnCheckBox from "../inputs/BtnCheckBox/BtnCheckBox";
 
 type PropsType = {
   fieldsArg: string[];
@@ -72,8 +71,6 @@ const CheckBoxSwapper: FC<PropsType> = ({
     return () => window.removeEventListener("resize", resize);
   }, []);
 
-  __cg("data", dataUser);
-
   const handleCatClick = (val: string) =>
     setValue(
       keyForm,
@@ -81,7 +78,7 @@ const CheckBoxSwapper: FC<PropsType> = ({
         ? dataUser?.filter((el: string) => el !== val)
         : Array.isArray(dataUser)
         ? dataUser?.length >= (maxData ?? 3)
-          ? [...dataUser.slice(0, dataUser.length - 1), val]
+          ? [...dataUser.slice(1, dataUser.length), val]
           : [...dataUser, val]
         : [val],
       { shouldValidate: true }

@@ -1,5 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
-import { CatBookStore } from "@/types/all/bookStore";
 import { z } from "zod";
 
 export const schemaBookStore = z
@@ -16,13 +16,7 @@ export const schemaBookStore = z
       .regex(REG_STORE_DESC, "Invalid description format"),
     // video: z.number().min(10, "min is 10"),
     video: z.union([z.string(), z.instanceof(FileList)]).optional(),
-    images: z
-      .union([z.array(z.string()), z.array(z.instanceof(File))])
-      .optional(),
-    categories: z
-      .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))
-      .min(1, "You should chose at least 1 category for your Bookstore ")
-      .max(3, "You should chose at most 3 categories"),
+    images: z.any(),
     // images: z.number().min(10, "min is 10"),
   })
   .refine(
@@ -37,35 +31,25 @@ export const schemaBookStore = z
     }
   )
   .superRefine((data, ctx) => {
-    if (!data?.images?.length) return true;
+    const userUpload =
+      !!data?.images?.length &&
+      data?.images?.every((img: any) => img instanceof File);
     if (
-      Array.isArray(data.images) &&
-      data.images.every((el) => typeof el === "string")
-    )
-      return true;
-
-    if (data?.images?.length > 5) {
-      ctx.addIssue({
-        code: "custom",
-        message: `Max length images exceeded ${data?.images?.length}/5`,
-        path: ["images"],
-      });
-    }
-  })
-  .refine(
-    (data) => {
-      if (!data?.images?.length) return true;
-
-      if (
-        data?.images?.length &&
-        !!data?.images?.every((img) => img instanceof File)
+      userUpload &&
+      !data?.images.every((img: any) =>
+        (img as File)?.type?.startsWith("image")
       )
-        return data?.images.every((img) =>
-          (img as File)?.type?.startsWith("image")
-        );
-    },
-    {
-      message: "Use the input above to upload video",
-      path: ["images"],
-    }
-  );
+    )
+      ctx.addIssue({
+        path: ["images"],
+        message: "Use input above for video",
+        code: "custom",
+      });
+
+    if (userUpload && data?.images?.length > 5)
+      ctx.addIssue({
+        path: ["images"],
+        message: `Exceeded max length ${data.images?.length} / 5`,
+        code: "custom",
+      });
+  });
