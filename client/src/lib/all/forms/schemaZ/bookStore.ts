@@ -2,7 +2,7 @@
 import { REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
 import { z } from "zod";
 import { schemaEmail } from "./auth";
-import { schemaPhone } from "./user";
+import { schemaAddress } from "./user";
 
 export const schemaBookStore = z
   .object({
@@ -21,8 +21,8 @@ export const schemaBookStore = z
     images: z.union([z.array(z.string()), z.array(z.instanceof(File))]),
     // images: z.number().min(10, "min is 10"),
     ...schemaEmail(),
-    ...schemaPhone(),
     website: z.string().url("Invalid url format"),
+    ...schemaAddress(),
   })
   .refine(
     (data) => {

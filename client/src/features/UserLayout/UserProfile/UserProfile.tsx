@@ -8,7 +8,7 @@ import {
   schemaProfile,
 } from "@/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, useCallback, useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import {
@@ -28,7 +28,7 @@ import {
   swapAddressByArea,
 } from "@/config/fields/UserLayout/fieldsProfile";
 import { useCLearTab } from "@/hooks/all/UI/useClearTab";
-import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState";
+import { useFocusAddress } from "@/hooks/all/UI/useFocusAddress";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -87,16 +87,11 @@ const UserProfile: FC = () => {
       customValidateCB: handleCheckEqData,
     });
 
-  useEffect(() => {
-    const handleSwapUI = () => {
-      if (currSwapState !== SwapModeType.SWAPPED) return;
-
-      if (!currForm) setFocus("country");
-      else if (currForm) setFocus("street");
-    };
-
-    handleSwapUI();
-  }, [currForm, currSwapState, setFocus]);
+  useFocusAddress({
+    setFocus,
+    currSwapState,
+    currForm,
+  });
 
   useFocus({ key: "country", setFocus, delay: 750 });
 

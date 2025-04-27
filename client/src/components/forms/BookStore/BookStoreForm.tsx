@@ -15,6 +15,8 @@ import { CatBookStore } from "@/types/all/bookStore";
 import ContactForm from "./components/ContactForm";
 import AddressForm from "../AddressForm/AddressForm";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm";
+import { useCLearTab } from "@/hooks/all/UI/useClearTab";
+import { useFocusAddress } from "@/hooks/all/UI/useFocusAddress";
 
 type PropsType = {
   handleSave: () => void;
@@ -28,14 +30,20 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
     setValue,
     watch,
     clearErrors,
+    setFocus,
   } = ctx;
 
-  const { currForm, setCurrForm, isNextDisabled, setNextDisabled } =
-    useFormSwap({
-      watch,
-      errors,
-      fields: fieldsSwapAddressStore,
-    });
+  const { currSwapState, ...restSwapAddress } = useFormSwap({
+    watch,
+    errors,
+    fields: fieldsSwapAddressStore,
+  });
+  useFocusAddress({
+    setFocus,
+    currSwapState,
+    currForm: restSwapAddress.currForm,
+  });
+  useCLearTab();
 
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
@@ -97,12 +105,9 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
       <WrapperFormField {...{ title: "Address" }}>
         <AddressForm
           {...{
+            ...restSwapAddress,
             register,
             errors,
-            currForm,
-            setCurrForm,
-            isNextDisabled,
-            setNextDisabled,
             setValue,
             clearErrors,
             swapID: "swapFormStore",
