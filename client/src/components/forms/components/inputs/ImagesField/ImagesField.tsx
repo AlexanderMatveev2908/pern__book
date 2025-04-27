@@ -1,18 +1,18 @@
 import { BtnAct, FormBaseProps, FormSettersProps } from "@/types/types";
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo, useRef } from "react";
 import ErrorFormField from "../ErrorFormField";
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import { MdCloudUpload } from "react-icons/md";
 import { RiFolderUploadFill } from "react-icons/ri";
 import { FaImages, FaTrashAlt } from "react-icons/fa";
-import { v4 } from "uuid";
-import RemoveImgLayer from "./RemoveImgLayer";
 import { __cg } from "@/lib/lib";
+import ShowImagesData from "./ShowImagesData";
 
 type PropsType = Omit<FormBaseProps, "register"> & FormSettersProps;
 
 const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
-  const [ids] = useState(Array.from({ length: 10 }, () => v4()));
+  const inputRef = useRef<HTMLInputElement | null>(null);
+
   const images = watch("images");
   const isUploadFiles =
     Array.isArray(images) &&
@@ -26,18 +26,32 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
 
   const handleUploadBtnClick = (e: React.MouseEvent) =>
     (e.currentTarget?.previousElementSibling as HTMLInputElement)?.click();
-  const handleClearClick = () =>
-    setValue("images", [], { shouldValidate: true });
-  const handleRemoveOne = (i: number) => {
-    const img = images[i] as File | string;
+  const handleClearClick = () => {
+    if (!inputRef.current) return;
 
-    const arrImgs = Array.from(images as FileList);
-    setValue(
-      "images",
-      arrImgs.filter((_, index) => index !== i),
-      { shouldValidate: true }
+    inputRef.current.value = "";
+
+    setValue("images", [], { shouldValidate: true });
+  };
+  const handleRemoveOne = (i: number) => {
+    if (!inputRef.current) return;
+
+    const updated = images.filter(
+      (_: File | string, index: number) => index !== i
     );
-    __cg("single img", img);
+
+    if (updated.every((el: File | string) => el instanceof File)) {
+      const dataTransfer = new DataTransfer();
+      for (const item of updated) {
+        if (item instanceof File) dataTransfer.items.add(item);
+      }
+      inputRef.current.files = dataTransfer.files;
+    }
+    //  else {
+    //   inputRef.current.value = "";
+    // }
+
+    setValue("images", updated, { shouldValidate: true });
   };
 
   const elBtnLabel = useMemo(
@@ -65,10 +79,8 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
     [isUploadFiles, isURLs]
   );
 
-  __cg("images", images);
-
   return (
-    <div className="w-full grid justify-items-start gap-5 items-start">
+    <div className="w-full grid justify-items-start items-start">
       <div className="w-full max-w-[600px] relative">
         <ErrorFormField
           {...{
@@ -79,41 +91,29 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
         />
       </div>
 
-      <div className="w-full flex border-[3px] border-blue-600 p-3 rounded-xl overflow-scroll scrollbar__hidden gap-6">
-        {ids.slice(0, images?.length ?? 0).map((id, i) => (
-          <div
-            key={id}
-            className="min-w-[150px] max-w-[150px] min-h-[150px] max-h-[150px] sm:min-w-[200px] sm:max-w-[200px] sm:min-h-[200px] sm:max-h-[200px] relative rounded-xl overflow-hidden"
-          >
-            <img
-              src={
-                isUploadFiles
-                  ? URL.createObjectURL(images?.[i] as File)
-                  : (images?.[i] as string)
-              }
-              alt="_"
-              className="w-full h-full object-cover"
-            />
-            <RemoveImgLayer {...{ handleClick: () => handleRemoveOne(i) }} />
-          </div>
-        ))}
-      </div>
+      <ShowImagesData {...{ isVal, images, isUploadFiles, handleRemoveOne }} />
 
       <div
         className={`w-full max-w-[600px] grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10 ${
-          isVal ? "justify-items-center" : "justify-items-start"
+          isVal ? "justify-items-center mt-5" : "justify-items-start mt-0"
         }`}
       >
         <label className="w-full max-w-[350px] flex justify-start">
           <input
+            ref={inputRef}
             type="file"
             multiple
+            max={5}
             className="w-0 h-0 opacity-0"
             accept="image/*"
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const files = e.target.files ?? [];
 
-              setValue("images", Array.from(files), { shouldValidate: true });
+              __cg("input", files);
+
+              const data = Array.from(files);
+
+              setValue("images", data, { shouldValidate: true });
             }}
           />
 
