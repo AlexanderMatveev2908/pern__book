@@ -11,6 +11,7 @@ const RemoveImgLayer: FC<PropsType> = ({ handleClick }) => {
 
   return (
     <button
+      type="button"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
       onClick={handleClick}
@@ -23,7 +24,7 @@ const RemoveImgLayer: FC<PropsType> = ({ handleClick }) => {
           hover ? "" : "scale-0"
         }`}
       >
-        <FaTrashAlt className="w-[40px] h-[40px]" />
+        <FaTrashAlt className="w-[35px] h-[35px]" />
         <span className="txt__3">Remove</span>
       </div>
     </button>

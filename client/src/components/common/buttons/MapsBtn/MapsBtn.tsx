@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from "react";
 import ButtonIcon from "../ButtonIcon/ButtonIcon";
-import { BtnAct, BtnFieldIconType, EventApp } from "@/types/types";
-import { UseFormSetValue } from "react-hook-form";
+import {
+  BtnAct,
+  BtnFieldIconType,
+  EventApp,
+  FormSettersProps,
+} from "@/types/types";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { TbWorldSearch } from "react-icons/tb";
-
-type PropsType = {
-  setValue: UseFormSetValue<any>;
-};
 
 const mapsBtnField: BtnFieldIconType = {
   label: "Get my position",
@@ -17,7 +17,7 @@ const mapsBtnField: BtnFieldIconType = {
   pendingLabel: "Searching...",
 };
 
-const MapsBtn: FC<PropsType> = ({ setValue }) => {
+const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
   const [isPending, setIsPending] = useState(false);
 
   const dispatch = useDispatch();

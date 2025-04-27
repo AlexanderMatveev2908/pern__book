@@ -2,15 +2,11 @@
 import TooltipBtn from "@/components/common/buttons/TooltipBtn";
 import { ErrorFormField } from "@/components/components";
 import { isObjOk } from "@/lib/lib";
-import { FormBaseProps } from "@/types/types";
+import { FormBaseProps, FormSettersProps } from "@/types/types";
 import { Trash2, User } from "lucide-react";
 import { FC } from "react";
-import { UseFormSetValue, UseFormWatch } from "react-hook-form";
 
-type PropsType = {
-  watch: UseFormWatch<any>;
-  setValue: UseFormSetValue<any>;
-} & FormBaseProps;
+type PropsType = {} & FormBaseProps & FormSettersProps;
 
 const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
   const thumb = watch("thumb") as FileList;

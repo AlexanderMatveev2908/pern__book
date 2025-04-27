@@ -1,15 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { UserProfileForm } from "@/features/UserLayout/UserProfile/UserProfile";
 import { isObjOk } from "@/lib/lib";
-import { UserType } from "@/types/types";
+import { FormSettersProps, UserType } from "@/types/types";
 import { useEffect } from "react";
-import { UseFormGetValues, UseFormSetValue } from "react-hook-form";
+import { UseFormGetValues } from "react-hook-form";
 
 type Params = {
   getValues: UseFormGetValues<any>;
-  setValue: UseFormSetValue<any>;
   user: UserType;
-};
+} & Omit<FormSettersProps, "watch">;
 
 export const usePopulateForm = ({ getValues, user, setValue }: Params) => {
   useEffect(() => {

@@ -1,14 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useRef } from "react";
 import style from "./Terms.module.css";
-import { FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { FieldErrors } from "react-hook-form";
 import { ErrorFormField } from "@/components/components";
+import { FormSettersProps } from "@/types/types";
 
 type PropsType = {
-  setValue: UseFormSetValue<any>;
-  watch: UseFormWatch<any>;
   errors: FieldErrors;
-};
+} & FormSettersProps;
 
 const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
   const checkRef = useRef<HTMLDivElement | null>(null);

@@ -1,16 +1,12 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
-import { BtnAct, FormBaseProps } from "@/types/types";
+import { BtnAct, FormBaseProps, FormSettersProps } from "@/types/types";
 import { FC, useMemo } from "react";
-import { UseFormSetValue, UseFormWatch } from "react-hook-form";
-import { FaTrashAlt } from "react-icons/fa";
-import { MdDriveFolderUpload } from "react-icons/md";
+import { FaTrashAlt, FaVideo } from "react-icons/fa";
+import { MdVideoCall } from "react-icons/md";
 import ErrorFormField from "./ErrorFormField";
+import { FiVideo } from "react-icons/fi";
 
-type PropsType = {
-  setValue: UseFormSetValue<any>;
-  watch: UseFormWatch<any>;
-} & FormBaseProps;
+type PropsType = {} & FormBaseProps & FormSettersProps;
 
 const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
   const videoData = watch("video") as FileList | string;
@@ -25,10 +21,14 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
 
   const elBtn = useMemo(
     () => ({
-      label: isUpload ? "1 File Uploaded" : "Upload",
-      icon: MdDriveFolderUpload,
+      label: isUpload
+        ? "1 File Uploaded"
+        : isURL
+        ? "1 video uploaded"
+        : "Upload",
+      icon: isUpload ? FaVideo : isURL ? FiVideo : MdVideoCall,
     }),
-    [isUpload]
+    [isUpload, isURL]
   );
   const elBtnRemove = useMemo(
     () => ({
@@ -43,7 +43,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
   return (
     <div className="w-full grid justify-items-start gap-5">
       <div
-        className={`w-full max-w-[600px] lg:max-w-1/2 max-h-[250px] flex justify-center items-center relative transition-all duration-300`}
+        className={`w-full max-w-[400px] max-h-[225px] flex justify-center items-center relative`}
       >
         <ErrorFormField
           {...{
@@ -55,7 +55,11 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
           }}
         />
 
-        <div className={`w-full h-full ${isVal ? "scale-100" : "scale-0"}`}>
+        <div
+          className={`w-full h-full transition-all duration-300 delay-100 ${
+            isVal ? "scale-100" : "scale-0"
+          }`}
+        >
           <video
             src={isUpload ? URL.createObjectURL(videoData?.[0] as File) : ""}
             controls
@@ -67,11 +71,15 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
         </div>
       </div>
 
-      <div className="w-full flex items-center gap-10">
+      <div
+        className={`w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10 max-w-[600px] items-start h-fit ${
+          isVal ? "justify-items-center mt-0" : "justify-items-start -mt-4"
+        }`}
+      >
         <label className="flex w-full max-w-[300px]">
           <input
             type="file"
-            accept="video"
+            accept="video/*"
             className="opacity-0 h-0 w-0"
             {...register("video")}
           />

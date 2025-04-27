@@ -1,25 +1,26 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt, makeDelay } from "@/lib/lib";
-import { FormBaseProps, FormFieldBasic, UserType } from "@/types/types";
+import {
+  FormBaseProps,
+  FormFieldBasic,
+  FormSettersProps,
+  UserType,
+} from "@/types/types";
 import { Pencil, PenOff } from "lucide-react";
 import { FC, useEffect, useState } from "react";
-import {
-  UseFormClearErrors,
-  UseFormSetFocus,
-  UseFormSetValue,
-} from "react-hook-form";
+import { UseFormClearErrors, UseFormSetFocus } from "react-hook-form";
 import "./FormFieldBtn.css";
 import ErrorFormField from "../ErrorFormField";
 
 type PropsType = {
   user?: UserType;
   setFocus: UseFormSetFocus<any>;
-  setValue: UseFormSetValue<any>;
   clearErrors: UseFormClearErrors<any>;
   el: FormFieldBasic;
   eventCloseInput?: boolean;
   setEventClose?: (val: boolean) => void;
-} & FormBaseProps;
+} & FormBaseProps &
+  Omit<FormSettersProps, "watch">;
 
 const FormFieldBtn: FC<PropsType> = ({
   register,

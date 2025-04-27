@@ -13,10 +13,15 @@ import {
   fieldsProfileAddress_1,
   swapAddressFieldsMerg,
 } from "@/config/fields/UserLayout/fieldsProfile";
-import { BtnAct, FormBaseProps, SwapFormPropsType } from "@/types/types";
+import {
+  BtnAct,
+  FormBaseProps,
+  FormSettersProps,
+  SwapFormPropsType,
+} from "@/types/types";
 import { Eraser } from "lucide-react";
 import { FC } from "react";
-import { UseFormClearErrors, UseFormSetValue } from "react-hook-form";
+import { UseFormClearErrors } from "react-hook-form";
 
 const clearBtnField = {
   label: "Clear",
@@ -24,9 +29,9 @@ const clearBtnField = {
 };
 
 type PropsType = FormBaseProps &
-  SwapFormPropsType & {
+  SwapFormPropsType &
+  Omit<FormSettersProps, "watch"> & {
     clearErrors: UseFormClearErrors<any>;
-    setValue: UseFormSetValue<any>;
     swapID: string;
     btnProfile?: boolean;
   };

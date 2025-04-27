@@ -5,14 +5,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
-const schema = z.object({
-  ...schemaBookStore(),
-});
-type FormBookStoreType = z.infer<typeof schema>;
+type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
 const CreateBookStore = () => {
   const formCtx = useForm<FormBookStoreType>({
-    resolver: zodResolver(schema),
+    resolver: zodResolver(schemaBookStore),
     mode: "onChange",
   });
 

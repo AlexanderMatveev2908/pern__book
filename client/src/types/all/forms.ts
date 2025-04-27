@@ -1,9 +1,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FieldErrors, UseFormRegister } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
 
 export type FormBaseProps = {
   register: UseFormRegister<any>;
   errors: FieldErrors;
+};
+
+export type FormSettersProps = {
+  setValue: UseFormSetValue<any>;
+  watch: UseFormWatch<any>;
 };
 
 export type SwapFormPropsType = {
