@@ -20,6 +20,7 @@ const ButtonsSwapper: FC<PropsType> = ({
   return (
     <div className="w-full grid grid-cols-[50px_1fr_50px] items-center">
       <button
+        type="button"
         onClick={() => {
           if (currForm) setCurrForm(currForm - 1);
         }}
@@ -46,6 +47,7 @@ const ButtonsSwapper: FC<PropsType> = ({
 
       {currForm === totLen - 1 ? null : (
         <button
+          type="button"
           disabled={isNextDisabled}
           onClick={() => currForm < totLen - 1 && setCurrForm(currForm + 1)}
           className={`justify-self-end ${isNextDisabled ? "" : "group"} ${

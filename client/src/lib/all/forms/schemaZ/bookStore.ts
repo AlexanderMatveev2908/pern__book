@@ -1,4 +1,5 @@
 import { REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
+import { CatBookStore } from "@/types/all/bookStore";
 import { z } from "zod";
 
 export const schemaBookStore = z
@@ -18,6 +19,10 @@ export const schemaBookStore = z
     images: z
       .union([z.array(z.string()), z.array(z.instanceof(File))])
       .optional(),
+    categories: z
+      .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))
+      .min(1, "You should chose at least 1 category for your Bookstore ")
+      .max(3, "You should chose at most 3 categories"),
     // images: z.number().min(10, "min is 10"),
   })
   .refine(

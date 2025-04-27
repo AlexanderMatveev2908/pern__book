@@ -9,7 +9,7 @@ type PropsType = {
 
 const WrapperFormField: FC<PropsType> = ({ title, children, sizeStyle }) => {
   return (
-    <div className="w-full grid gap-3">
+    <div className="w-full grid gap-4">
       <Title
         {...{
           title,
@@ -17,7 +17,7 @@ const WrapperFormField: FC<PropsType> = ({ title, children, sizeStyle }) => {
           styleParent: "justify-start",
         }}
       />
-      <div className={`w-full flex ${sizeStyle ?? "max-w-full"}`}>
+      <div className={`w-full grid ${sizeStyle ?? "max-w-full"}`}>
         {children}
       </div>
     </div>

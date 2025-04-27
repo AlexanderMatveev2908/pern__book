@@ -9,6 +9,8 @@ import { useFormContext } from "react-hook-form";
 import TxtField from "../components/inputs/TxtField";
 import VideoField from "../components/inputs/VideoField";
 import ImagesField from "../components/inputs/ImagesField/ImagesField";
+import CheckBoxSwapper from "../components/CheckBoxSwapper/CheckBoxSwapper";
+import { CatBookStore } from "@/types/all/bookStore";
 
 type PropsType = {
   handleSave: () => void;
@@ -22,6 +24,8 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
     setValue,
     watch,
   } = ctx;
+
+  const categories = watch("categories");
 
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
@@ -56,6 +60,18 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
 
       <WrapperFormField {...{ title: "Images ~" }}>
         <ImagesField {...{ setValue, register, errors, watch }} />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Categories" }}>
+        <CheckBoxSwapper
+          {...{
+            setValue,
+            register,
+            errors,
+            dataUser: categories,
+            fieldsArg: Object.values(CatBookStore),
+          }}
+        />
       </WrapperFormField>
     </form>
   );

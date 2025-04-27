@@ -41,7 +41,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
   );
 
   return (
-    <div className="w-full grid justify-items-start gap-5">
+    <div className="w-full grid justify-items-start">
       <div
         className={`w-full max-w-[400px] max-h-[225px] flex justify-center items-center relative`}
       >
@@ -73,7 +73,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
 
       <div
         className={`w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10 max-w-[600px] items-start h-fit ${
-          isVal ? "justify-items-center mt-0" : "justify-items-start -mt-4"
+          isVal ? "justify-items-center mt-5" : "justify-items-start mt-0"
         }`}
       >
         <label className="flex w-full max-w-[300px]">
