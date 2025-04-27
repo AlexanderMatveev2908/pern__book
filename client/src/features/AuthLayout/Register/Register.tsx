@@ -25,6 +25,7 @@ import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm.ts";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
 import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState.ts";
 import { useCLearTab } from "@/hooks/all/UI/useClearTab.ts";
+import { useListenFormOk } from "@/hooks/all/forms/useListenFormOk.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -83,13 +84,16 @@ const Register: FC = () => {
 
   const pwd = watch("password");
 
-  const { isFormOk, currForm, setCurrForm, currSwapState, isNextDisabled } =
-    useFormSwap({
-      fields: swapFieldsByAreaAuth,
-      watch,
-      errors,
-      customSwapCB: closeAllPwd,
-    });
+  const { currForm, setCurrForm, currSwapState, isNextDisabled } = useFormSwap({
+    fields: swapFieldsByAreaAuth,
+    watch,
+    errors,
+    customSwapCB: closeAllPwd,
+  });
+
+  const { isFormOk } = useListenFormOk({
+    errors,
+  });
 
   useEffect(() => {
     const handleSwapUI = () => {

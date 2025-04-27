@@ -17,10 +17,6 @@ export type SwapAddressActions =
       payload: boolean;
     }
   | {
-      type: ActionsSwap.SET_IS_FORM_OK;
-      payload: boolean;
-    }
-  | {
       type: ActionsSwap.SET_SWAP_STATE;
       payload: SwapModeType | null;
     };

@@ -24,7 +24,7 @@ export const useFormSwap = ({
 }: Params) => {
   const [state, dispatch] = useReducer(reducerSwap, swapAddressInitState);
 
-  const { currForm, isNextDisabled, isFormOk, currSwapState } = state;
+  const { currForm, isNextDisabled } = state;
 
   const setCurrForm = useCallback(
     (val: number, swapState: SwapModeType | null = SwapModeType.SWAPPED) => {
@@ -48,11 +48,6 @@ export const useFormSwap = ({
       dispatch({ type: ActionsSwap.SET_NEXT_DISABLED, payload: val }),
     []
   );
-  const setIsFormOk = useCallback(
-    (val: boolean) =>
-      dispatch({ type: ActionsSwap.SET_IS_FORM_OK, payload: val }),
-    []
-  );
 
   const vals = watch();
 
@@ -64,18 +59,11 @@ export const useFormSwap = ({
         valsForm: vals,
       });
 
-      const len = Object.keys(errors).length;
-      const makeMakeAPI =
-        typeof customValidateCB === "function" ? customValidateCB() : true;
-
       // __cg("swapper", isValid, i, j);
 
       if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
       else if ((isValid || currForm < i) && isNextDisabled)
         setNextDisabled(false);
-
-      if ((len || !makeMakeAPI) && isFormOk) setIsFormOk(false);
-      else if (!len && makeMakeAPI && !isFormOk) setIsFormOk(true);
     };
     listen();
   }, [
@@ -84,8 +72,6 @@ export const useFormSwap = ({
     errors,
     isNextDisabled,
     setNextDisabled,
-    isFormOk,
-    setIsFormOk,
     fields,
     customValidateCB,
   ]);
@@ -94,7 +80,5 @@ export const useFormSwap = ({
     ...state,
     setCurrForm,
     setNextDisabled,
-    setIsFormOk,
-    currSwapState,
   };
 };

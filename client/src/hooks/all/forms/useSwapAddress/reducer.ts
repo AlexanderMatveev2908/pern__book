@@ -17,11 +17,6 @@ export const reducerSwap = (
         ...state,
         isNextDisabled: action.payload,
       };
-    case ActionsSwap.SET_IS_FORM_OK:
-      return {
-        ...state,
-        isFormOk: action.payload,
-      };
     case ActionsSwap.SET_SWAP_STATE:
       return {
         ...state,

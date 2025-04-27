@@ -29,6 +29,7 @@ import {
 } from "@/config/fields/UserLayout/fieldsProfile";
 import { useCLearTab } from "@/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/hooks/all/UI/useFocusAddress";
+import { useListenFormOk } from "@/hooks/all/forms/useListenFormOk";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -79,13 +80,16 @@ const UserProfile: FC = () => {
     getValues,
     setValue,
   });
-  const { isFormOk, setCurrForm, currSwapState, currForm, ...restSwap } =
-    useFormSwap({
-      watch,
-      errors,
-      fields: swapAddressByArea,
-      customValidateCB: handleCheckEqData,
-    });
+  const { setCurrForm, currSwapState, currForm, ...restSwap } = useFormSwap({
+    watch,
+    errors,
+    fields: swapAddressByArea,
+  });
+
+  const { isFormOk } = useListenFormOk({
+    errors,
+    customValidateCB: handleCheckEqData,
+  });
 
   useFocusAddress({
     setFocus,
