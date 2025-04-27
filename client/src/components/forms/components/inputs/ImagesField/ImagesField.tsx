@@ -5,7 +5,6 @@ import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import { MdCloudUpload } from "react-icons/md";
 import { RiFolderUploadFill } from "react-icons/ri";
 import { FaImages, FaTrashAlt } from "react-icons/fa";
-import { __cg } from "@/lib/lib";
 import ShowImagesData from "./ShowImagesData";
 
 type PropsType = Omit<FormBaseProps, "register"> & FormSettersProps;
@@ -24,8 +23,7 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
     images.every((el) => typeof el === "string" && el?.trim()?.length);
   const isVal = isUploadFiles || isURLs;
 
-  const handleUploadBtnClick = (e: React.MouseEvent) =>
-    (e.currentTarget?.previousElementSibling as HTMLInputElement)?.click();
+  const handleUploadBtnClick = () => inputRef?.current?.click();
   const handleClearClick = () => {
     if (!inputRef.current) return;
 
@@ -98,7 +96,11 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
           isVal ? "justify-items-center mt-5" : "justify-items-start mt-0"
         }`}
       >
-        <label className="w-full max-w-[350px] flex justify-start">
+        <label
+          className={`w-full max-w-[350px] flex ${
+            isVal ? "justify-center" : "justify-start"
+          }`}
+        >
           <input
             ref={inputRef}
             type="file"
@@ -109,27 +111,29 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
               const files = e.target.files ?? [];
 
-              __cg("input", files);
-
               const data = Array.from(files);
 
               setValue("images", data, { shouldValidate: true });
             }}
           />
 
-          <ButtonIcon
-            {...{ el: elBtnLabel, handleClick: handleUploadBtnClick }}
-          />
+          <div className="w-full max-w-[300px]">
+            <ButtonIcon
+              {...{ el: elBtnLabel, handleClick: handleUploadBtnClick }}
+            />
+          </div>
         </label>
 
         {isVal && (
-          <ButtonIcon
-            {...{
-              el: elBtnRemove,
-              handleClick: handleClearClick,
-              act: BtnAct.DEL,
-            }}
-          />
+          <div className="flex w-full max-w-[300px]">
+            <ButtonIcon
+              {...{
+                el: elBtnRemove,
+                handleClick: handleClearClick,
+                act: BtnAct.DEL,
+              }}
+            />
+          </div>
         )}
       </div>
     </div>

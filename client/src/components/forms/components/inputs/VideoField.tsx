@@ -25,7 +25,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue, watch }) => {
         ? "1 File Uploaded"
         : isURL
         ? "1 video uploaded"
-        : "Upload",
+        : "Upload File",
       icon: isUpload ? FaVideo : isURL ? FiVideo : MdVideoCall,
     }),
     [isUpload, isURL]
