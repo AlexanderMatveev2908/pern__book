@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
 import { z } from "zod";
+import { schemaEmail } from "./auth";
+import { schemaPhone } from "./user";
 
 export const schemaBookStore = z
   .object({
@@ -16,8 +18,11 @@ export const schemaBookStore = z
       .regex(REG_STORE_DESC, "Invalid description format"),
     // video: z.number().min(10, "min is 10"),
     video: z.union([z.string(), z.instanceof(FileList)]).optional(),
-    images: z.any(),
+    images: z.union([z.array(z.string()), z.array(z.instanceof(File))]),
     // images: z.number().min(10, "min is 10"),
+    ...schemaEmail(),
+    ...schemaPhone(),
+    website: z.string().url("Invalid url format"),
   })
   .refine(
     (data) => {
@@ -52,4 +57,8 @@ export const schemaBookStore = z
         message: `Exceeded max length ${data.images?.length} / 5`,
         code: "custom",
       });
+  })
+  .refine((data) => data.website.startsWith("https://"), {
+    message: "We can allow HTTPS urls only ",
+    path: ["website"],
   });

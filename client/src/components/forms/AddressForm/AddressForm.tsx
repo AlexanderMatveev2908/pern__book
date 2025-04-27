@@ -20,7 +20,7 @@ import {
   SwapFormPropsType,
 } from "@/types/types";
 import { Eraser } from "lucide-react";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { UseFormClearErrors } from "react-hook-form";
 
 const clearBtnField = {
@@ -34,6 +34,7 @@ type PropsType = FormBaseProps &
     clearErrors: UseFormClearErrors<any>;
     swapID: string;
     btnProfile?: boolean;
+    includePhone?: boolean;
   };
 
 const AddressForm: FC<PropsType> = ({
@@ -45,6 +46,7 @@ const AddressForm: FC<PropsType> = ({
   setCurrForm,
   swapID,
   btnProfile,
+  includePhone = true,
 }) => {
   const handleClear = () => {
     let i = swapAddressFieldsMerg.length - 1;
@@ -58,6 +60,14 @@ const AddressForm: FC<PropsType> = ({
 
     setCurrForm(0);
   };
+
+  const fieldsProfileAddressFiltered_1 = useMemo(
+    () =>
+      fieldsProfileAddress_1.filter((el) =>
+        includePhone ? el.field !== "includePhone" : el
+      ),
+    [includePhone]
+  );
 
   return (
     <div className="w-full grid gap-8">
@@ -94,7 +104,7 @@ const AddressForm: FC<PropsType> = ({
                 !currForm ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
             >
-              {fieldsProfileAddress_1.map((el) => (
+              {fieldsProfileAddressFiltered_1.map((el) => (
                 <FormField key={el.id} {...{ el, register, errors }} />
               ))}
             </div>

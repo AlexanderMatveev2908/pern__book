@@ -24,6 +24,7 @@ import {
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm.ts";
 import { preventBrowser } from "@/lib/all/forms/preSubmit/submit.ts";
 import { SwapModeType } from "@/hooks/all/forms/useSwapAddress/initState.ts";
+import { useCLearTab } from "@/hooks/all/UI/useClearTab.ts";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 const Register: FC = () => {
@@ -101,6 +102,7 @@ const Register: FC = () => {
     handleSwapUI();
   }, [currForm, currSwapState, setFocus]);
   useFocus({ setFocus, key: "firstName" });
+  useCLearTab();
 
   return (
     <div className="parent__form">

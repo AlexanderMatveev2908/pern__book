@@ -11,6 +11,7 @@ import VideoField from "../components/inputs/VideoField";
 import ImagesField from "../components/inputs/ImagesField/ImagesField";
 import CheckBoxSwapper from "../components/CheckBoxSwapper/CheckBoxSwapper";
 import { CatBookStore } from "@/types/all/bookStore";
+import ContactForm from "./components/ContactForm";
 
 type PropsType = {
   handleSave: () => void;
@@ -69,6 +70,15 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
             watch,
             maxData: 3,
             fieldsArg: Object.values(CatBookStore),
+          }}
+        />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Contact" }}>
+        <ContactForm
+          {...{
+            register,
+            errors,
           }}
         />
       </WrapperFormField>

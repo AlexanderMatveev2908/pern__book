@@ -9,7 +9,17 @@ import {
 import { z } from "zod";
 import { schemaNames } from "./auth";
 
-export const schemaAddress = (opt: boolean = false) => {
+export const schemaPhone = (opt?: boolean) => ({
+  phone: z
+    .string()
+    .min(opt ? 0 : 9, "Phone is required")
+    .max(21, "Phone length exceeded")
+    .pipe(
+      opt ? z.string() : z.string().regex(REG_PHONE, "Invalid phone format")
+    ),
+});
+
+export const schemaAddress = (opt?: boolean) => {
   return {
     country: z
       .string()
@@ -38,13 +48,7 @@ export const schemaAddress = (opt: boolean = false) => {
       .pipe(
         opt ? z.string() : z.string().regex(REG_ZIP, "Invalid Zip Code format")
       ),
-    phone: z
-      .string()
-      .min(opt ? 0 : 9, "Phone is required")
-      .max(21, "Phone length exceeded")
-      .pipe(
-        opt ? z.string() : z.string().regex(REG_PHONE, "Invalid phone format")
-      ),
+    ...schemaPhone(opt),
   };
 };
 

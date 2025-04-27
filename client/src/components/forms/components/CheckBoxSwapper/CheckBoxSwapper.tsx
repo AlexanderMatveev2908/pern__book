@@ -14,7 +14,9 @@ type PropsType = {
   FormSettersProps;
 
 const calcByW = () =>
-  window.innerWidth > tailwindBreak.lg
+  window.innerWidth > tailwindBreak.xl
+    ? 12
+    : window.innerWidth > tailwindBreak.lg
     ? 9
     : window.innerWidth > tailwindBreak.sm
     ? 6
@@ -85,7 +87,7 @@ const CheckBoxSwapper: FC<PropsType> = ({
     );
 
   return (
-    <div className="w-full border-[3px] border-blue-600 justify-self-center rounded-xl max-w-[1000px] relative">
+    <div className="w-full border-[3px] border-blue-600 justify-self-center rounded-xl relative">
       <ErrorFormField
         {...{
           errors,
