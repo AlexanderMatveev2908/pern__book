@@ -23,7 +23,12 @@ const ImagesField: FC<PropsType> = ({ errors, watch, setValue }) => {
     images.every((el) => typeof el === "string" && el?.trim()?.length);
   const isVal = isUploadFiles || isURLs;
 
-  const handleUploadBtnClick = () => inputRef?.current?.click();
+  const handleUploadBtnClick = () => {
+    const myEvent = new MouseEvent("click");
+
+    inputRef.current?.dispatchEvent(myEvent);
+  };
+  // const handleUploadBtnClick = () => inputRef?.current?.click();
   const handleClearClick = () => {
     if (!inputRef.current) return;
 
