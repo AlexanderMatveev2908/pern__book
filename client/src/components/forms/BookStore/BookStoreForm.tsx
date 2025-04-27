@@ -25,8 +25,6 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
     watch,
   } = ctx;
 
-  const categories = watch("categories");
-
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
       <div className="w-full flex justify-end">
@@ -62,13 +60,14 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
         <ImagesField {...{ setValue, register, errors, watch }} />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Categories" }}>
+      <WrapperFormField {...{ title: "Categories (max-3)" }}>
         <CheckBoxSwapper
           {...{
             setValue,
-            register,
             errors,
-            dataUser: categories,
+            keyForm: "categories",
+            watch,
+            maxData: 3,
             fieldsArg: Object.values(CatBookStore),
           }}
         />
