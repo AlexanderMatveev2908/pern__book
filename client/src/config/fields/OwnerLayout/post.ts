@@ -34,6 +34,22 @@ export const fieldsContact: FormFieldBasic[] = [
   id: v4(),
 }));
 
+export const fieldsStoreAddress_0: FormFieldBasic[] = [...addressFields_0].map(
+  (el) => ({
+    ...el,
+    id: v4(),
+    place: `Company ${el.label}...`,
+  })
+);
+
+export const fieldsStoreAddress_1: FormFieldBasic[] = [...addressFields_1]
+  .map((el) => ({
+    ...el,
+    id: v4(),
+    place: `Company ${el.label}...`,
+  }))
+  .filter((el) => el.field !== "phone");
+
 export const fieldsSwapAddressStore = [
   addressFields_0,
   addressFields_1.filter((el) => el.field !== "phone"),

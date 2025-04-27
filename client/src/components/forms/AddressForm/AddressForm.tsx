@@ -2,14 +2,10 @@ import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import MapsBtn from "@/components/common/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/common/buttons/QuickFillBtn";
 import { ButtonsSwapper, FormField } from "@/components/components";
-import {
-  fieldsProfileAddress_0,
-  fieldsProfileAddress_1,
-  swapAddressFieldsMerg,
-} from "@/config/fields/UserLayout/fieldsProfile";
-import { BtnAct, SwapFormPropsType } from "@/types/types";
+import { swapAddressFieldsMerg } from "@/config/fields/UserLayout/fieldsProfile";
+import { BtnAct, FormFieldBasic } from "@/types/types";
 import { Eraser } from "lucide-react";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 
 const clearBtnField = {
@@ -17,10 +13,12 @@ const clearBtnField = {
   icon: Eraser,
 };
 
-type PropsType = SwapFormPropsType & {
+type PropsType = {
+  currForm: number;
+  setCurrForm: (val: number) => void;
   swapID: string;
   btnProfile?: boolean;
-  includePhone?: boolean;
+  arrAddressSwap: FormFieldBasic[][];
 };
 
 const AddressForm: FC<PropsType> = ({
@@ -28,7 +26,7 @@ const AddressForm: FC<PropsType> = ({
   setCurrForm,
   swapID,
   btnProfile,
-  includePhone = true,
+  arrAddressSwap,
 }) => {
   const {
     register,
@@ -50,14 +48,6 @@ const AddressForm: FC<PropsType> = ({
     setCurrForm(0);
   };
 
-  const fieldsProfileAddressFiltered_1 = useMemo(
-    () =>
-      fieldsProfileAddress_1.filter((el) =>
-        includePhone ? el : el.field !== "phone"
-      ),
-    [includePhone]
-  );
-
   return (
     <div className="w-full grid gap-8">
       <div id={swapID} className="form__content justify-self-center">
@@ -66,7 +56,9 @@ const AddressForm: FC<PropsType> = ({
             className={`w-[200%] flex transition-all duration-500 ${
               !currForm
                 ? "max-h-[300px] min-h-[300px]"
-                : "max-h-[350px] min-h-[350px]"
+                : arrAddressSwap[1].length > 2
+                ? "max-h-[350px] min-h-[350px]"
+                : "max-h-[225px] min-h-[225px]"
             }`}
             style={{
               transform: `translateX(-${currForm * 50}%)`,
@@ -77,7 +69,7 @@ const AddressForm: FC<PropsType> = ({
                 !currForm ? "opacity-100" : "opacity-0 pointer-events-none"
               }`}
             >
-              {fieldsProfileAddress_0.map((el) => (
+              {arrAddressSwap[0].map((el) => (
                 <FormField key={el.id} {...{ el, register, errors }} />
               ))}
             </div>
@@ -87,7 +79,7 @@ const AddressForm: FC<PropsType> = ({
                 !currForm ? "opacity-0 pointer-events-none" : "opacity-100"
               }`}
             >
-              {fieldsProfileAddressFiltered_1.map((el) => (
+              {arrAddressSwap[1].map((el) => (
                 <FormField key={el.id} {...{ el, register, errors }} />
               ))}
             </div>

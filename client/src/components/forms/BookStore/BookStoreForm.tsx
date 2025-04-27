@@ -3,9 +3,11 @@ import WrapperFormField from "@/components/HOC/WrapperFormField";
 import {
   fieldDescStore,
   fieldNameStore,
+  fieldsStoreAddress_0,
+  fieldsStoreAddress_1,
   fieldsSwapAddressStore,
 } from "@/config/fields/OwnerLayout/post";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import TxtField from "../components/inputs/TxtField";
 import VideoField from "../components/inputs/VideoField";
@@ -42,6 +44,11 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
     currForm: restSwapAddress.currForm,
   });
   useCLearTab();
+
+  const arrAddressSwap = useMemo(
+    () => [fieldsStoreAddress_0, fieldsStoreAddress_1],
+    []
+  );
 
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
@@ -103,7 +110,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
             ...restSwapAddress,
             swapID: "swapFormStore",
             btnProfile: true,
-            includePhone: false,
+            arrAddressSwap,
           }}
         />
       </WrapperFormField>

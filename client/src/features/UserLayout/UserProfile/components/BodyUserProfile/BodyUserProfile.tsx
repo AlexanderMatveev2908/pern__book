@@ -1,7 +1,11 @@
 import { BreadCrumbForm, Title } from "@/components/components";
 import AddressForm from "@/components/forms/AddressForm/AddressForm";
+import {
+  fieldsProfileAddress_0,
+  fieldsProfileAddress_1,
+} from "@/config/fields/UserLayout/fieldsProfile";
 import { SwapFormPropsType } from "@/types/types";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 
 type PropsType = {
   swapVals: SwapFormPropsType;
@@ -9,6 +13,11 @@ type PropsType = {
 
 const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
   const { currForm } = swapVals;
+
+  const arrAddressSwap = useMemo(
+    () => [fieldsProfileAddress_0, fieldsProfileAddress_1],
+    []
+  );
 
   return (
     <div className="w-full grid mt-10 gap-8">
@@ -21,6 +30,7 @@ const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
         {...{
           swapID: "userProfileSwap",
           ...swapVals,
+          arrAddressSwap,
         }}
       />
     </div>
