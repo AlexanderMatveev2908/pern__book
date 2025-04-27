@@ -27,6 +27,8 @@ body {
   --red__app: #dc2626;
   --green__app: #16a34a;
   --orange__app: #ea580c;
+  --gray__app: #d1d5db;
+  --gray__app_500: #6b7280;
 }
 
 @keyframes notice_bounce {

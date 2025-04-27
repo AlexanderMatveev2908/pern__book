@@ -1,10 +1,11 @@
 import { tailwindBreak } from "@/config/breakpoints";
-import { __cg, capt } from "@/lib/lib";
+import { __cg } from "@/lib/lib";
 import { FormBaseProps, FormSettersProps } from "@/types/types";
 import { FC, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
 import ErrorFormField from "../inputs/ErrorFormField";
+import BtnCheckBox from "./BtnCheckBox";
 
 type PropsType = {
   fieldsArg: string[];
@@ -79,7 +80,7 @@ const CheckBoxSwapper: FC<PropsType> = ({
       (dataUser as string[])?.includes(val)
         ? dataUser?.filter((el: string) => el !== val)
         : Array.isArray(dataUser)
-        ? dataUser?.length >= 3
+        ? dataUser?.length >= (maxData ?? 3)
           ? [...dataUser.slice(0, dataUser.length - 1), val]
           : [...dataUser, val]
         : [val],
@@ -118,20 +119,14 @@ const CheckBoxSwapper: FC<PropsType> = ({
               }}
             >
               {arr.map((val, j) => (
-                <button
-                  onClick={() => handleCatClick(val)}
-                  type="button"
+                <BtnCheckBox
                   key={idsChildren[j]}
-                  className={`min-w-[250px] max-w-[275px] border-2 rounded-xl 
-                   hover:text-blue-600 hover:border-blue-600 px-5 py-2 flex justify-center 
-                   appearance-none outline-0 items-center transition-all duration-300 cursor-pointer btn__logic_md ${
-                     isIn(val)
-                       ? "border-blue-600 scale-110 text-blue-600"
-                       : "border-white/50"
-                   }`}
-                >
-                  <span className="txt__2">{capt(val)}</span>
-                </button>
+                  {...{
+                    isIn: isIn(val),
+                    val,
+                    handleClick: () => handleCatClick(val),
+                  }}
+                />
               ))}
             </div>
           ))}
