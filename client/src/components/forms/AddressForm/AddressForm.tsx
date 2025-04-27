@@ -2,7 +2,6 @@ import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import MapsBtn from "@/components/common/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/common/buttons/QuickFillBtn";
 import { ButtonsSwapper, FormField } from "@/components/components";
-import { swapAddressFieldsMerg } from "@/config/fields/UserLayout/fieldsProfile";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import { Eraser } from "lucide-react";
 import { FC } from "react";
@@ -36,11 +35,18 @@ const AddressForm: FC<PropsType> = ({
   } = useFormContext();
 
   const handleClear = () => {
-    let i = swapAddressFieldsMerg.length - 1;
+    let i = arrAddressSwap.length - 1;
 
     do {
-      setValue(swapAddressFieldsMerg[i], "");
-      clearErrors(swapAddressFieldsMerg[i]);
+      const curr = arrAddressSwap[i];
+      let j = curr.length - 1;
+
+      do {
+        setValue(curr[j].field, "");
+        clearErrors(curr[j].field);
+
+        j--;
+      } while (j >= 0);
 
       i--;
     } while (i >= 0);

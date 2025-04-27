@@ -11,7 +11,7 @@ export const useListenFormOk = ({ customValidateCB, errors }: Params) => {
 
   useEffect(() => {
     const listen = () => {
-      const len = Object.keys(errors).length;
+      const len = !!Object.keys(errors).length;
       const makeMakeAPI =
         typeof customValidateCB === "function" ? customValidateCB() : true;
 
