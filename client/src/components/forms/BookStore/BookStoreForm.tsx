@@ -96,12 +96,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Contact" }}>
-        <ContactForm
-          {...{
-            register,
-            errors,
-          }}
-        />
+        <ContactForm />
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Address" }}>
