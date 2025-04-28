@@ -1,11 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
+import { REG_INT, REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
 import { z } from "zod";
 import { schemaEmail } from "./auth";
 import { schemaAddress } from "./user";
 
 export const schemaBookStore = z
   .object({
+    ...schemaEmail(),
+    ...schemaAddress(),
     name: z
       .string()
       .min(2, "BookStore name is required")
@@ -17,28 +19,36 @@ export const schemaBookStore = z
       .max(200, "Max length description exceeded")
       .regex(REG_STORE_DESC, "Invalid description format"),
     // video: z.number().min(10, "min is 10"),
-    video: z.union([z.string(), z.instanceof(FileList)]).optional(),
+    video: z
+      .union([z.string(), z.instanceof(FileList)])
+      .optional()
+      .refine(
+        (val) => {
+          if (!val?.length) return true;
+          if (val instanceof FileList)
+            return val?.[0]?.type?.startsWith("video");
+        },
+        {
+          message: "To Upload images use the input below",
+        }
+      ),
     images: z.union([z.array(z.string()), z.array(z.instanceof(File))]),
     // images: z.number().min(10, "min is 10"),
-    ...schemaEmail(),
-    website: z.string().url("Invalid url format"),
-    ...schemaAddress(),
+    website: z
+      .string()
+      .url("Invalid url format")
+      .refine((val) => val.startsWith("https://"), {
+        message: "We can allow HTTPS urls only ",
+      }),
+    deliveryPrice: z.string().default(""),
+    freeDeliveryAmount: z.string().nullable(),
+    deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
   })
-  .refine(
-    (data) => {
-      if (!data.video?.length) return true;
-      if (data?.video instanceof FileList)
-        return data?.video?.[0]?.type?.startsWith("video");
-    },
-    {
-      message: "To Upload images use the input below",
-      path: ["video"],
-    }
-  )
   .superRefine((data, ctx) => {
     const userUpload =
       !!data?.images?.length &&
       data?.images?.every((img: any) => img instanceof File);
+
     if (
       userUpload &&
       !data?.images.every((img: any) =>
@@ -57,8 +67,4 @@ export const schemaBookStore = z
         message: `Exceeded max length ${data.images?.length} / 5`,
         code: "custom",
       });
-  })
-  .refine((data) => data.website.startsWith("https://"), {
-    message: "We can allow HTTPS urls only ",
-    path: ["website"],
   });

@@ -42,12 +42,12 @@ export const defineBookStore = (seq: Sequelize) =>
       deliveryPrice: {
         type: DataTypes.DECIMAL(10, 2),
         defaultValue: 0,
-        allowNull: false,
+        allowNull: true,
       },
       freeDeliveryAmount: {
         type: DataTypes.DECIMAL(10, 2),
         defaultValue: 0,
-        allowNull: false,
+        allowNull: true,
       },
       timeDelivery: {
         type: DataTypes.INTEGER,

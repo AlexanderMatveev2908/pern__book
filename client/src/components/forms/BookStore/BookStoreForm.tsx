@@ -19,6 +19,7 @@ import AddressForm from "../AddressForm/AddressForm";
 import { useFormSwap } from "@/hooks/all/forms/useSwapAddress/useSwapForm";
 import { useCLearTab } from "@/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/hooks/all/UI/useFocusAddress";
+import DeliveryForm from "./components/DeliveryForm";
 
 type PropsType = {
   handleSave: () => void;
@@ -108,6 +109,10 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
             arrAddressSwap,
           }}
         />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Delivery" }}>
+        <DeliveryForm />
       </WrapperFormField>
     </form>
   );

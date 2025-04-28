@@ -129,8 +129,8 @@ const ImagesField: FC = () => {
               const files = e.target.files ?? [];
 
               const data = Array.from(files);
-              const dataTransfer = updateByTransfer(data);
-              inputRef.current.files = dataTransfer.files;
+              // const dataTransfer = updateByTransfer(data);
+              // inputRef.current.files = dataTransfer.files;
 
               setValue("images", data, { shouldValidate: true });
             }}

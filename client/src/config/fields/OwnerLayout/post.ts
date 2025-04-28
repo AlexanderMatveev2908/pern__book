@@ -1,4 +1,4 @@
-import { FormFieldBasic } from "@/types/types";
+import { FormFieldBasic, SwapFieldType } from "@/types/types";
 import { v4 } from "uuid";
 import { addressFields_0, addressFields_1 } from "../UserLayout/fieldsProfile";
 
@@ -50,7 +50,31 @@ export const fieldsStoreAddress_1: FormFieldBasic[] = [...addressFields_1]
   }))
   .filter((el) => el.field !== "phone");
 
-export const fieldsSwapAddressStore = [
+export const fieldsSwapAddressStore: SwapFieldType[][] = [
   addressFields_0,
   addressFields_1.filter((el) => el.field !== "phone"),
 ];
+
+export const fieldsDelivery: FormFieldBasic[] = [
+  {
+    field: "deliveryPrice",
+    label: "Delivery price ~",
+    place: "Delivery price...",
+    type: "number",
+  },
+  {
+    field: "freeDeliveryAmount",
+    label: "Amount for free delivery ~",
+    place: "Price to reach for free delivery...",
+    type: "number",
+  },
+  {
+    field: "deliveryTime",
+    label: "Delivery time (days)",
+    place: "Delivery time...",
+    type: "number",
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));

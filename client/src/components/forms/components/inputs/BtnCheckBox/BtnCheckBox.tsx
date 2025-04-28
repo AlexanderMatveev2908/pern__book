@@ -31,11 +31,11 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, val }) => {
      }`}
       style={
         {
-          "--scale_btn_check_hover": isRemoved ? 1 : 1.2,
+          "--scale_btn_check_hover": isRemoved ? 1 : 1.15,
           "--color_btn_check": isRemoved
             ? "var(--gray__app)"
             : "var(--blue__app)",
-          "--scale_btn_check": !isRemoved && !isHover && isIn ? 1.2 : 1,
+          "--scale_btn_check": !isRemoved && !isHover && isIn ? 1.15 : 1,
           "--border_btn_check": isRemoved
             ? "var(--gray__app_500)"
             : isIn || isHover
