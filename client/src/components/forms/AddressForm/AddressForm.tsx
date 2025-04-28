@@ -4,7 +4,7 @@ import QuickFillBtn from "@/components/common/buttons/QuickFillBtn";
 import { ButtonsSwapper, FormField } from "@/components/components";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import { Eraser } from "lucide-react";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
 const clearBtnField = {
@@ -53,6 +53,31 @@ const AddressForm: FC<PropsType> = ({
 
     setCurrForm(0);
   };
+
+  const isPhoneIn = useMemo(() => {
+    let isIn = false;
+    let i = arrAddressSwap.length - 1;
+
+    do {
+      const currArr = arrAddressSwap[i];
+      let j = currArr.length - 1;
+
+      do {
+        const curr = currArr[j];
+        if (curr.field === "phone") {
+          isIn = true;
+          break;
+        }
+
+        j--;
+      } while (j >= 0);
+      if (isIn) break;
+
+      i--;
+    } while (i >= 0);
+
+    return isIn;
+  }, [arrAddressSwap]);
 
   return (
     <div className="w-full grid gap-8">
@@ -117,7 +142,7 @@ const AddressForm: FC<PropsType> = ({
         </div>
         {btnProfile && (
           <div className="w-[275px]">
-            <QuickFillBtn {...{ setValue }} />
+            <QuickFillBtn {...{ setValue, isPhoneIn }} />
           </div>
         )}
       </div>
