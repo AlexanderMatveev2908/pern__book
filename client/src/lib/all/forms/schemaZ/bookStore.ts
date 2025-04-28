@@ -1,5 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { REG_INT, REG_STORE_DESC, REG_STORE_NAME } from "@/config/regex";
+import {
+  REG_INT,
+  REG_PRICE,
+  REG_STORE_DESC,
+  REG_STORE_NAME,
+} from "@/config/regex";
 import { z } from "zod";
 import { schemaEmail } from "./auth";
 import { schemaAddress } from "./user";
@@ -40,11 +45,45 @@ export const schemaBookStore = z
       .refine((val) => val.startsWith("https://"), {
         message: "We can allow HTTPS urls only ",
       }),
-    deliveryPrice: z.string().default(""),
-    freeDeliveryAmount: z.string().nullable(),
+    deliveryPrice: z.string().optional(),
+    freeDeliveryAmount: z.string().optional(),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
   })
   .superRefine((data, ctx) => {
+    if (data.deliveryPrice?.trim().length)
+      if (!REG_PRICE.test(data.deliveryPrice ?? ""))
+        ctx.addIssue({
+          path: ["deliveryPrice"],
+          code: "custom",
+          message: "Invalid price format",
+        });
+      else if (+data.deliveryPrice < 0.01)
+        ctx.addIssue({
+          path: ["deliveryPrice"],
+          code: "custom",
+          message: "Price must be at least $0.01",
+        });
+
+    if (
+      (!data.deliveryPrice?.trim().length || !+data.deliveryPrice) &&
+      data.freeDeliveryAmount?.trim().length
+    )
+      ctx.addIssue({
+        path: ["freeDeliveryAmount"],
+        code: "custom",
+        message: "You can not set free something that already is",
+      });
+
+    if (
+      data.freeDeliveryAmount?.trim().length &&
+      !REG_PRICE.test(data.freeDeliveryAmount ?? "")
+    )
+      ctx.addIssue({
+        path: ["freeDeliveryAmount"],
+        code: "custom",
+        message: "Invalid price format",
+      });
+
     const userUpload =
       !!data?.images?.length &&
       data?.images?.every((img: any) => img instanceof File);
