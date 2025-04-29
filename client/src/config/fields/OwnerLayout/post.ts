@@ -78,3 +78,10 @@ export const fieldsDelivery: FormFieldBasic[] = [
   ...el,
   id: v4(),
 }));
+
+export const fieldEmailWorker = {
+  field: "email",
+  label: "Email",
+  type: "email",
+  place: "Worker email...",
+};

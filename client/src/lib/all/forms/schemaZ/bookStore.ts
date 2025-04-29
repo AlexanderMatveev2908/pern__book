@@ -7,6 +7,7 @@ import {
 import { z } from "zod";
 import { schemaEmail } from "./auth";
 import { schemaAddress } from "./user";
+import { UserRole } from "@/types/types";
 
 export const schemaBookStore = z
   .object({
@@ -57,6 +58,27 @@ export const schemaBookStore = z
       }),
     freeDeliveryAmount: z.string().optional(),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
+    items: z
+      .array(
+        z.object({
+          email: z
+            .string()
+            .optional()
+            .refine(
+              (val) =>
+                !val?.trim().length ||
+                z.string().email().safeParse(val).success,
+              {
+                message: "Invalid email format",
+              }
+            ),
+          role: z
+            .enum([UserRole.EMPLOYEE, UserRole.MANAGER])
+            .nullable()
+            .optional(),
+        })
+      )
+      .optional(),
   })
   .refine(
     (data) => {

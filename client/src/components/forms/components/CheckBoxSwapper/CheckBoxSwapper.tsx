@@ -2,9 +2,9 @@ import { tailwindBreak } from "@/config/breakpoints";
 import { FC, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
-import ErrorFormField from "../inputs/ErrorFormField";
 import BtnCheckBox from "../inputs/BtnCheckBox/BtnCheckBox";
 import { useFormContext } from "react-hook-form";
+import { ErrorFormField } from "@/components/components";
 
 type PropsType = {
   fieldsArg: string[];

@@ -1,7 +1,7 @@
 import { FormBaseProps, FormFieldBasic } from "@/types/types";
 import { FC } from "react";
 import { capt } from "@/lib/lib";
-import ErrorFormField from "./ErrorFormField";
+import { ErrorFormField } from "@/components/components";
 
 type PropsType = {
   el: FormFieldBasic;

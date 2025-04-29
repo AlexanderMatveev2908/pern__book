@@ -3,7 +3,7 @@ import { FormBaseProps, FormFieldBasic } from "../../../../../types/types.ts";
 import "./PwdField.css";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import "./PwdField.css";
-import ErrorFormField from "../ErrorFormField";
+import { ErrorFormField } from "@/components/components.ts";
 
 type PropsType = {
   el: FormFieldBasic;

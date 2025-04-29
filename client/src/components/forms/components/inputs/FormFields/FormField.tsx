@@ -1,7 +1,7 @@
 import { FC } from "react";
-import { FormBaseProps, FormFieldBasic } from "../../../../types/types.ts";
+import { FormBaseProps, FormFieldBasic } from "../../../../../types/types.ts";
 import { capt } from "@/lib/lib.ts";
-import ErrorFormField from "./ErrorFormField.tsx";
+import { ErrorFormField } from "@/components/components.ts";
 
 type PropsType = {
   el: FormFieldBasic;

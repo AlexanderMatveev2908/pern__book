@@ -3,9 +3,9 @@ import { BtnAct } from "@/types/types";
 import { FC, useMemo } from "react";
 import { FaTrashAlt, FaVideo } from "react-icons/fa";
 import { MdVideoCall } from "react-icons/md";
-import ErrorFormField from "./ErrorFormField";
 import { FiVideo } from "react-icons/fi";
 import { useFormContext } from "react-hook-form";
+import { ErrorFormField } from "@/components/components";
 
 const VideoField: FC = () => {
   const {

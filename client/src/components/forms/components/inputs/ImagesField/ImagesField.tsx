@@ -1,12 +1,12 @@
 import { BtnAct } from "@/types/types";
 import { FC, useMemo, useRef } from "react";
-import ErrorFormField from "../ErrorFormField";
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import { MdCloudUpload } from "react-icons/md";
 import { RiFolderUploadFill } from "react-icons/ri";
 import { FaImages, FaTrashAlt } from "react-icons/fa";
 import ShowImagesData from "./ShowImagesData";
 import { useFormContext } from "react-hook-form";
+import ErrorFormField from "../../Errors/ErrorFormField";
 
 const updateByTransfer = (updated: File[]) => {
   const dataTransfer = new DataTransfer();
