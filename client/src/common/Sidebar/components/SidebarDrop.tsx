@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import SideLink from "./SideLink.tsx";
 import { useDispatch } from "react-redux";
-import { setIsSideOpen } from "../../Header/headerSlice.ts";
+import { setIsSideOpen } from "../../../features/common/Header/headerSlice.ts";
 import { LabelDropType } from "@/types/types.ts";
 import DropHandler from "@/components/elements/DropHandler/DropHandler.tsx";
 import { SideFieldType } from "@/core/config/fieldsData/Sidebar/sidebar.ts";

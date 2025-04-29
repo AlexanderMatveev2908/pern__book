@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
-import { setIsSideOpen } from "../../Header/headerSlice";
+import { setIsSideOpen } from "../../../features/common/Header/headerSlice";
 import { getPropsNav } from "@/core/lib/lib";
 import { SideFieldType } from "@/core/config/fieldsData/Sidebar/sidebar";
 

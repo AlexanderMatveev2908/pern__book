@@ -2,7 +2,7 @@ import { useLogout } from "@/core/hooks/hooks";
 import { LogOut } from "lucide-react";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
-import { setIsSideOpen } from "../../Header/headerSlice";
+import { setIsSideOpen } from "../../../features/common/Header/headerSlice";
 import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
 
 const SideLogout: FC = () => {

@@ -1,6 +1,10 @@
 import { FC, useCallback, useEffect, useRef } from "react";
 import { IoClose } from "react-icons/io5";
-import { closeToast, getToast, reopenToast } from "./toastSlice";
+import {
+  closeToast,
+  getToast,
+  reopenToast,
+} from "../../features/common/Toast/toastSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { EventApp } from "@/types/types";
 import "./Toast.css";
