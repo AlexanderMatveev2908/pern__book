@@ -41,10 +41,11 @@ const ButtonIcon: FC<PropsType> = ({ el, act, handleClick, isPending }) => {
       )} `}
     >
       {isPending ? <MiniSpinner /> : <el.icon className="icon__sm" />}
-
-      <span className="txt__3">
-        {isPending ? el.pendingLabel ?? el.label : el.label}
-      </span>
+      {el?.label && (
+        <span className="txt__3">
+          {isPending ? el.pendingLabel ?? el.label : el.label}
+        </span>
+      )}
     </button>
   );
 };

@@ -10,23 +10,25 @@ import { BtnAct, UserRole } from "@/types/types";
 import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
+import { IoPersonAddOutline } from "react-icons/io5";
 
 const btnRemoveWorker = {
-  label: "Remove",
   icon: AiOutlineUserDelete,
+};
+const btnAddWorker = {
+  icon: IoPersonAddOutline,
 };
 
 const TeamForm: FC = () => {
   const {
     register,
     control,
-    watch,
     setValue,
     getValues,
     formState: { errors },
   } = useFormContext();
 
-  const { fields } = useFieldArray({
+  const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
@@ -52,19 +54,29 @@ const TeamForm: FC = () => {
   };
   const getCurrVal = (index: number) => getValues(`items.${index}.role`);
 
-  console.log(watch());
-  console.log(errors);
+  const handleAppend = () =>
+    append({
+      email: "",
+      role: null,
+    });
+  const handleRemove = (i: number) => remove(i);
 
   return (
-    <div className="w-full grid ">
+    <div className="w-full grid grid-cols-1 gap-5">
       {fields.map((el, i) => (
         <div
           key={el.id}
-          className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-10 p-4 border-[3px] border-blue-600 rounded-xl"
+          className="w-full grid grid-cols-1 lg:grid-cols-[1fr_100px] gap-y-3 gap-x-10 p-4 border-[3px] border-blue-600 rounded-xl"
         >
           <div className="book_store_sub_form">
             <FormField
-              {...{ register, errors, index: i, el: fieldEmailWorker }}
+              {...{
+                register,
+                errors,
+                index: i,
+                el: fieldEmailWorker,
+                customStyle: "input__lg",
+              }}
             />
 
             <MySelect
@@ -78,10 +90,10 @@ const TeamForm: FC = () => {
               }}
             />
           </div>
-          <div className="w-[250px] justify-self-center">
+          <div className="w-[100px] justify-self-end flex items-end">
             <ButtonIcon
               {...{
-                handleClick: () => console.log("todo"),
+                handleClick: () => handleRemove(i),
                 el: btnRemoveWorker,
                 act: BtnAct.DEL,
               }}
@@ -89,6 +101,10 @@ const TeamForm: FC = () => {
           </div>
         </div>
       ))}
+
+      <div className="w-[100px]">
+        <ButtonIcon {...{ el: btnAddWorker, handleClick: handleAppend }} />
+      </div>
     </div>
   );
 };
