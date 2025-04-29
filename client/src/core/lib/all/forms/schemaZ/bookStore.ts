@@ -8,6 +8,7 @@ import {
   REG_STORE_DESC,
   REG_STORE_NAME,
 } from "@/core/config/regex";
+import { CatBookStore } from "@/types/all/bookStore";
 
 const allowedRoles = [UserRole.EMPLOYEE, UserRole.MANAGER];
 
@@ -22,9 +23,14 @@ export const schemaBookStore = z
       .regex(REG_STORE_NAME, "Invalid name format"),
     description: z
       .string()
-      .min(10, "If Provided a description should have at least 10 chars")
       .max(200, "Max length description exceeded")
-      .regex(REG_STORE_DESC, "Invalid description format"),
+      .optional()
+      .refine((val) => !val?.trim().length || val.length > 10, {
+        message: "If provided description must be at least 10 chars",
+      })
+      .refine((val) => !val?.trim().length || REG_STORE_DESC.test(val), {
+        message: "Invalid text chars",
+      }),
     // video: z.number().min(10, "min is 10"),
     video: z
       .union([z.string(), z.instanceof(FileList)])
@@ -42,13 +48,26 @@ export const schemaBookStore = z
     images: z
       .union([z.array(z.string()), z.array(z.instanceof(File))])
       .optional(),
+    categories: z
+      .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]), {
+        required_error: "Category required",
+        invalid_type_error: "Invalid data format",
+      })
+      .min(1, "You should chose at least one category")
+      .max(3, "We can not accept more than 3 categories"),
     // images: z.number().min(10, "min is 10"),
     website: z
       .string()
-      .url("Invalid url format")
-      .refine((val) => val.startsWith("https://"), {
+      .optional()
+      .refine((val) => !val?.trim().length || val.startsWith("https://"), {
         message: "We can allow HTTPS urls only ",
-      }),
+      })
+      .refine(
+        (val) => !val?.trim().length || z.string().url().safeParse(val).success,
+        {
+          message: "Invalid url format",
+        }
+      ),
     deliveryPrice: z
       .string()
       .optional()
@@ -75,10 +94,7 @@ export const schemaBookStore = z
         role: z
           .enum(allowedRoles as [string, ...string[]])
           .optional()
-          .nullable()
-          .refine((val) => allowedRoles.includes(val as UserRole), {
-            message: "You must chose a role for worker",
-          }),
+          .nullable(),
       })
     ),
   })
@@ -106,6 +122,7 @@ export const schemaBookStore = z
       message: "Invalid price format",
     }
   )
+
   .superRefine((data, ctx) => {
     const userUpload =
       !!data?.images?.length &&
@@ -129,5 +146,59 @@ export const schemaBookStore = z
         path: ["images"],
         message: `Exceeded max length ${data.images?.length} / 5`,
         code: "custom",
+      });
+
+    const len = data.items?.length;
+    let i = 0;
+    while (i < len) {
+      const curr = data.items[i];
+      if (curr.email?.trim().length && !curr.role) {
+        ctx.addIssue({
+          message: "Worker need a role",
+          code: "custom",
+          path: [`items.${i}.role`],
+        });
+        break;
+      }
+      if (curr.role && !curr.email?.trim().length) {
+        ctx.addIssue({
+          message: `This ${curr.role} need an email`,
+          code: "custom",
+          path: [`items.${i}.email`],
+        });
+        break;
+      }
+      i++;
+    }
+
+    const workers = len ? data.items.map((el) => el.email) : [];
+    i = 0;
+
+    // const checkArr: string[] = [];
+    const checkArr = new Set<string>();
+    let indexDuplicate: number | null = null;
+    if (len > 1) {
+      do {
+        const curr = workers[i];
+        // if (checkArr.some((el) => el === curr))
+        if (checkArr.has(curr as string)) {
+          // ctx.addIssue({
+          //   message: `You can not hire twice ${curr}`,
+          //   code: "custom",
+          //   path: [`items.${i}.email`],
+          // });
+          indexDuplicate = i;
+        }
+
+        // checkArr.push(curr as string);
+        checkArr.add(curr as string);
+        i++;
+      } while (i < len);
+    }
+    if (typeof indexDuplicate === "number")
+      ctx.addIssue({
+        message: `You can not hire twice a worker`,
+        code: "custom",
+        path: [`items.${indexDuplicate}.email`],
       });
   });

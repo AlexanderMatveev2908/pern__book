@@ -10,8 +10,6 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
       format("truetype"),
     url("./config/assets/Sour_Gummy/SourGummy-VariableFont_wdth,wght.ttf")
       format("truetype");
-  font-weight: 400;
-  font-style: normal;
 }
 
 * {

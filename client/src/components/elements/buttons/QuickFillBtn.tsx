@@ -24,7 +24,9 @@ const QuickFillBtn: FC<PropsType> = ({ setValue, keysUser }) => {
     do {
       const curr = keysUser[i];
 
-      setValue(curr, user?.[curr as keyof UserType] ?? "");
+      setValue(curr, user?.[curr as keyof UserType] ?? "", {
+        shouldValidate: true,
+      });
       i--;
     } while (i >= 0);
   };

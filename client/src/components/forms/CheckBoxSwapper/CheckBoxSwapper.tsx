@@ -24,6 +24,8 @@ const calcByW = () =>
 const calcTotSwap = (len: number, fieldsForSwap: number) =>
   Math.ceil(len / fieldsForSwap);
 
+// @ts-expect-error as any 🥴
+// eslint-disable-next-line
 const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
   const {
     setValue,
@@ -77,9 +79,9 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
       (dataUser as string[])?.includes(val)
         ? dataUser?.filter((el: string) => el !== val)
         : Array.isArray(dataUser)
-        ? dataUser?.length >= (maxData ?? 3)
-          ? [...dataUser.slice(1, dataUser.length), val]
-          : [...dataUser, val]
+        ? // ? dataUser?.length >= (maxData ?? 3)
+          // ? [...dataUser.slice(1, dataUser.length), val]
+          [...dataUser, val]
         : [val],
       { shouldValidate: true }
     );

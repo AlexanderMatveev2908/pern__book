@@ -22,6 +22,7 @@ import VideoField from "@/components/forms/inputs/VideoField";
 import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
 import CheckBoxSwapper from "@/components/forms/CheckBoxSwapper/CheckBoxSwapper";
 import { CatBookStore } from "@/types/all/bookStore";
+import Button from "@/components/elements/buttons/Button/Button";
 
 type PropsType = {
   handleSave: () => void;
@@ -120,6 +121,12 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
       <WrapperFormField {...{ title: "Team ~" }}>
         <TeamForm />
       </WrapperFormField>
+
+      <div className="w-[300px]">
+        <Button
+          {...{ type: "submit", label: "Create Bookstore", isDisabled: false }}
+        />
+      </div>
     </form>
   );
 };
