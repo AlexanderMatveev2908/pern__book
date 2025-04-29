@@ -1,9 +1,9 @@
-import { SideFieldType } from "@/config/fields/Sidebar/sidebarFields";
 import { FC } from "react";
 import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setIsSideOpen } from "../../Header/headerSlice";
-import { getPropsNav } from "@/lib/lib";
+import { getPropsNav } from "@/core/lib/lib";
+import { SideFieldType } from "@/core/config/fieldsData/Sidebar/sidebar";
 
 type PropsType = {
   el: SideFieldType;

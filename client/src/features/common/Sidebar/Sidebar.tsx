@@ -6,7 +6,7 @@ import { getSIde, setIsSideOpen } from "../Header/headerSlice";
 import SideLink from "./components/SideLink";
 import { getAuthState } from "../../AuthLayout/authSlice";
 import { useGetUserProfileQuery } from "../../UserLayout/userSliceAPI";
-import { getData, isObjOk } from "@/lib/lib";
+import { getData, isObjOk } from "@/core/lib/lib";
 import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
@@ -21,8 +21,8 @@ import {
   sideFieldsLogged,
   sideFieldsNonLogged,
   sideFieldsWorker,
-} from "@/config/fields/Sidebar/sidebarFields";
-import { LinksLoggedDrop } from "@/config/fields/general/fieldsActionsAuth";
+} from "@/core/config/fieldsData/Sidebar/sidebar";
+import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);

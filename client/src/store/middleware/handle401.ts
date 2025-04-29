@@ -5,7 +5,7 @@ import {
   getStorage,
   goTo,
   removeStorage,
-} from "@/lib/lib";
+} from "@/core/lib/lib";
 import { EventApp, MsgErrRefresh, ResApp, StorageKeys } from "@/types/types";
 import authSlice from "@/features/AuthLayout/authSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";

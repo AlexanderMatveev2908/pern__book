@@ -1,5 +1,5 @@
 import { FC, ReactNode } from "react";
-import { Title } from "../components";
+import Title from "../elements/Title";
 
 type PropsType = {
   isIn: boolean;

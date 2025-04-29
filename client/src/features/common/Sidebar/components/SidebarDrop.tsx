@@ -1,10 +1,10 @@
 import { FC, useState } from "react";
 import SideLink from "./SideLink.tsx";
-import { DropHandler } from "@/components/components.ts";
 import { useDispatch } from "react-redux";
-import { SideFieldType } from "@/config/fields/Sidebar/sidebarFields.ts";
 import { setIsSideOpen } from "../../Header/headerSlice.ts";
 import { LabelDropType } from "@/types/types.ts";
+import DropHandler from "@/components/elements/DropHandler/DropHandler.tsx";
+import { SideFieldType } from "@/core/config/fieldsData/Sidebar/sidebar.ts";
 
 type PropsType = {
   arr?: SideFieldType[];

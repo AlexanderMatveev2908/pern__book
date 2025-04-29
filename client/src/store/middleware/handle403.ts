@@ -1,11 +1,11 @@
-import noticeSlice from "@/features/common/Notice/noticeSlice";
+import noticeSlice from "@/features/Notice/noticeSlice";
 import {
   AllowedFromApp,
   EventApp,
   MsgCheckToken,
   StorageKeys,
 } from "@/types/types";
-import { formatMsgCode, getMsgErr, goTo, saveStorage } from "@/lib/lib";
+import { formatMsgCode, getMsgErr, goTo, saveStorage } from "@/core/lib/lib";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import { AxiosResponse } from "axios";
 import { MiddlewareAPI } from "@reduxjs/toolkit";

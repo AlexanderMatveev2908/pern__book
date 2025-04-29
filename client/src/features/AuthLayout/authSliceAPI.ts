@@ -1,4 +1,4 @@
-import { handleAsyncQuery } from "@/lib/lib";
+import { handleAsyncQuery } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 
 export type RegisterParamsAPI = {

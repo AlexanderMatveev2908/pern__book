@@ -1,5 +1,5 @@
 import { getAuthState } from "@/features/AuthLayout/authSlice";
-import { canPushUser } from "@/lib/lib";
+import { canPushUser } from "@/core/lib/lib";
 import { FC, ReactNode } from "react";
 import { useSelector } from "react-redux";
 import { Navigate } from "react-router-dom";

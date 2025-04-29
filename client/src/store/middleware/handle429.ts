@@ -1,6 +1,6 @@
 import authSlice from "@/features/AuthLayout/authSlice";
-import noticeSlice from "@/features/common/Notice/noticeSlice";
-import { getMsgErr, goTo, removeStorage, saveStorage } from "@/lib/lib";
+import noticeSlice from "@/features/Notice/noticeSlice";
+import { getMsgErr, goTo, removeStorage, saveStorage } from "@/core/lib/lib";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import apiSlice from "../apiSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";

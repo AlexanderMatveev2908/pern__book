@@ -1,4 +1,4 @@
-import { isRefreshing } from "@/lib/lib";
+import { isRefreshing } from "@/core/lib/lib";
 import authSlice from "@/features/AuthLayout/authSlice";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
 import { handle401, handleLogoutWithAccessExp } from "./handle401";

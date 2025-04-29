@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { appInstance } from "@/config/axios";
+import { appInstance } from "@/core/config/axios";
 import {
   __cg,
   isAccessExpired,
   isLoggingOut,
   isRefreshing,
   saveStorage,
-} from "@/lib/lib";
+} from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
 
