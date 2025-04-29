@@ -5,11 +5,12 @@ import { useFocus } from "@/core/hooks/hooks";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, FormEvent } from "react";
+import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { fieldsSwapAddressStore } from "@/core/config/fieldsData/OwnerLayout/post";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 
 const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
@@ -46,12 +47,12 @@ const CreateBooksStore: FC = () => {
     watch,
     formState: { errors },
   } = formCtx;
-  const dataSwap = useFormSwap({
+  const { setCurrForm } = useFormSwap({
+    ...useSwapCtxConsumer(),
     watch,
     errors,
     fields: fieldsSwapAddressStore,
   });
-  const { setCurrForm } = dataSwap;
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -76,7 +77,7 @@ const CreateBooksStore: FC = () => {
       <Title {...{ title: "create a bookstore" }} />
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
-          <BookStoreForm {...{ handleSave, dataSwap }} />
+          <BookStoreForm {...{ handleSave }} />
         </FormProvider>
       </div>
     </div>

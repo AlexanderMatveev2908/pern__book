@@ -28,7 +28,7 @@ import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import {
   allProfileKeys,
@@ -37,6 +37,7 @@ import {
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Button from "@/components/elements/buttons/Button/Button";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -89,7 +90,8 @@ const ProfileSettings = () => {
     getValues,
     setValue,
   });
-  const { setCurrForm, currSwapState, currForm, ...restSwap } = useFormSwap({
+  const { setCurrForm, currSwapState, currForm } = useFormSwap({
+    ...useSwapCtxConsumer(),
     watch,
     errors,
     fields: swapAddressByArea,
@@ -162,9 +164,7 @@ const ProfileSettings = () => {
               {...{ user, eventCloseInput: eventClose, setEventClose }}
             />
 
-            <BodyUserProfile
-              {...{ swapVals: { ...restSwap, currForm, setCurrForm } }}
-            />
+            <BodyUserProfile />
 
             <div className="w-[250px] justify-self-center mt-14">
               <Button

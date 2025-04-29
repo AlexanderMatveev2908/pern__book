@@ -3,10 +3,12 @@ import MapsBtn from "@/components/elements/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/elements/buttons/QuickFillBtn";
 import ButtonsSwapper from "@/components/forms/ButtonsSwapper/ButtonsSwapper";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import { Eraser } from "lucide-react";
 import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 
 const clearBtnField = {
   label: "Clear",
@@ -14,26 +16,26 @@ const clearBtnField = {
 };
 
 type PropsType = {
-  currForm: number;
-  setCurrForm: (val: number) => void;
   swapID: string;
   btnProfile?: boolean;
   arrAddressSwap: FormFieldBasic[][];
 };
 
-const AddressForm: FC<PropsType> = ({
-  currForm,
-  setCurrForm,
-  swapID,
-  btnProfile,
-  arrAddressSwap,
-}) => {
+const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
   const {
     register,
     formState: { errors },
     clearErrors,
     setValue,
+    watch,
   } = useFormContext();
+
+  const { currForm, setCurrForm } = useFormSwap({
+    ...useSwapCtxConsumer(),
+    watch,
+    errors,
+    fields: arrAddressSwap,
+  });
 
   const handleClear = () => {
     let i = arrAddressSwap.length - 1;
@@ -102,6 +104,7 @@ const AddressForm: FC<PropsType> = ({
               setCurrForm,
               totLen: 2,
               isNextDisabled: false,
+              // isNextDisabled,
             }}
           >
             <div className="w-[200px] justify-self-center">

@@ -1,6 +1,5 @@
 import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
-import { SwapModeType } from "@/core/hooks/all/forms/useSwapAddress/initState";
 import { useScroll, useShowPwd } from "@/core/hooks/hooks";
 import { makeDelay } from "@/core/lib/lib";
 import { AllowedFromApp } from "@/types/types";
@@ -17,6 +16,7 @@ import {
   titlesFormsManage,
 } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import ButtonsSwapper from "@/components/forms/ButtonsSwapper/ButtonsSwapper";
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 
 const ManageAccount: FC = () => {
   useScroll();

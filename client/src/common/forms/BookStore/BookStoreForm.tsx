@@ -3,7 +3,6 @@ import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import ContactForm from "./components/ContactForm";
 import AddressForm from "../AddressForm/AddressForm";
-import { ReturnSwapType } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import DeliveryForm from "./components/DeliveryForm";
@@ -24,13 +23,13 @@ import { CatBookStore } from "@/types/all/bookStore";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useLocation } from "react-router-dom";
 import { capt } from "@/core/lib/lib";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;
-  dataSwap: ReturnSwapType;
 };
 
-const BookStoreForm: FC<PropsType> = ({ handleSave, dataSwap }) => {
+const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
   const ctx = useFormContext();
   const path = useLocation().pathname;
   const {
@@ -39,10 +38,13 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, dataSwap }) => {
     setFocus,
   } = ctx;
 
+  const {
+    state: { currSwapState, currForm },
+  } = useSwapCtxConsumer();
   useFocusAddress({
     setFocus,
-    currSwapState: dataSwap.currSwapState,
-    currForm: dataSwap.currForm,
+    currSwapState: currSwapState,
+    currForm: currForm,
   });
   useCLearTab();
 
@@ -108,7 +110,6 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, dataSwap }) => {
       <WrapperFormField {...{ title: "Address" }}>
         <AddressForm
           {...{
-            ...dataSwap,
             swapID,
             btnProfile: true,
             arrAddressSwap,

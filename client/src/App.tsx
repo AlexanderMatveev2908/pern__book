@@ -19,6 +19,7 @@ import VerifyAccountLogged from "./pages/UserLayout/VerifyAccountLogged/VerifyAc
 import SecurityPwd from "./pages/UserLayout/SecurityPwd/SecurityPwd";
 import VerifyCb from "./pages/VerifyCb/VerifyCb";
 import Notice from "./pages/Notice/NoticePage";
+import SwapCtxProvider from "./core/contexts/SwapCtx/SwapAddressProvider";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -35,7 +36,14 @@ const App: FC = () => {
         <Route index={true} element={<HomePage />} />
 
         <Route path="auth" element={<AuthLayout />}>
-          <Route path="register" element={<Register />} />
+          <Route
+            path="register"
+            element={
+              <SwapCtxProvider>
+                <Register />
+              </SwapCtxProvider>
+            }
+          />
           <Route path="login" element={<Login />} />
           <Route path="verify-account" element={<VerifyAccount />} />
           <Route path="forgot-pwd" element={<ForgotPwd />} />
@@ -44,13 +52,27 @@ const App: FC = () => {
 
         <Route path="user" element={<UserLayout />}>
           <Route path="verify-account" element={<VerifyAccountLogged />} />
-          <Route path="profile-settings" element={<ProfileSettings />} />
+          <Route
+            path="profile-settings"
+            element={
+              <SwapCtxProvider>
+                <ProfileSettings />
+              </SwapCtxProvider>
+            }
+          />
           <Route path="manage-account" element={<ManageAccount />} />
           <Route path="security" element={<SecurityPwd />} />
         </Route>
 
         <Route path="owner" element={<OwnerLayout />}>
-          <Route path="create" element={<CreateBooksStorePage />} />
+          <Route
+            path="create"
+            element={
+              <SwapCtxProvider>
+                <CreateBooksStorePage />
+              </SwapCtxProvider>
+            }
+          />
         </Route>
 
         <Route path="notice" element={<Notice />} />

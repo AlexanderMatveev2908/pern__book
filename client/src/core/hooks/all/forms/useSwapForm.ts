@@ -1,42 +1,47 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeDelay, validateSwapper } from "@/core/lib/lib";
-import { useCallback, useEffect, useReducer } from "react";
+import { useCallback, useEffect } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
+import { SwapFieldType } from "@/types/types";
 import {
-  swapAddressInitState,
   SwapAddressStateType,
   SwapModeType,
-} from "./initState";
-import { ActionsSwap } from "./actions";
-import { reducerSwap } from "./reducer";
-import { SwapFieldType } from "@/types/types";
+} from "@/core/contexts/SwapCtx/ctx/initState";
+import {
+  ActionsSwap,
+  SwapAddressActions,
+} from "@/core/contexts/SwapCtx/ctx/actions";
 
 type Params = {
+  state: SwapAddressStateType;
+  dispatch: React.ActionDispatch<[action: SwapAddressActions]>;
+
   watch: UseFormWatch<any>;
   errors: FieldErrors;
   fields: SwapFieldType[][];
+
   customSwapCB?: () => void;
   customValidateCB?: () => boolean;
 };
 
-export type ReturnSwapType = SwapAddressStateType & {
-  setCurrForm: (val: number, swapState?: SwapModeType | null) => void;
+export type ReturnSwapType = {
+  setCurrForm: (val: number, swapMode?: SwapModeType | null) => void;
   setNextDisabled: (val: boolean) => void;
-};
+} & SwapAddressStateType;
 
 export const useFormSwap = ({
+  state,
+  dispatch,
   watch,
   errors,
   fields,
   customSwapCB,
   customValidateCB,
 }: Params): ReturnSwapType => {
-  const [state, dispatch] = useReducer(reducerSwap, swapAddressInitState);
-
   const { currForm, isNextDisabled } = state;
 
   const setCurrForm = useCallback(
-    (val: number, swapState: SwapModeType | null = SwapModeType.SWAPPED) => {
+    (val: number, swapMode: SwapModeType | null = SwapModeType.SWAPPED) => {
       if (typeof customSwapCB === "function") customSwapCB();
 
       dispatch({ type: ActionsSwap.SET_SWAP, payload: val });
@@ -46,16 +51,16 @@ export const useFormSwap = ({
       makeDelay(() => {
         dispatch({
           type: ActionsSwap.SET_SWAP_STATE,
-          payload: swapState,
+          payload: swapMode,
         });
       }, 500);
     },
-    [customSwapCB, state.currForm]
+    [customSwapCB, state.currForm, dispatch]
   );
   const setNextDisabled = useCallback(
     (val: boolean) =>
       dispatch({ type: ActionsSwap.SET_NEXT_DISABLED, payload: val }),
-    []
+    [dispatch]
   );
 
   const vals = watch();
@@ -74,6 +79,7 @@ export const useFormSwap = ({
       else if ((isValid || currForm < i) && isNextDisabled)
         setNextDisabled(false);
     };
+
     listen();
   }, [
     vals,

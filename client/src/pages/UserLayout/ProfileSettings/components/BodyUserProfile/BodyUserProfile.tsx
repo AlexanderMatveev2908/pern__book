@@ -5,15 +5,13 @@ import {
   fieldsProfileAddress_0,
   fieldsProfileAddress_1,
 } from "@/core/config/fieldsData/UserLayout/pofile";
-import { SwapFormPropsType } from "@/types/types";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { FC, useMemo } from "react";
 
-type PropsType = {
-  swapVals: SwapFormPropsType;
-};
-
-const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
-  const { currForm } = swapVals;
+const BodyUserProfile: FC = () => {
+  const {
+    state: { currForm },
+  } = useSwapCtxConsumer();
 
   const arrAddressSwap = useMemo(
     () => [fieldsProfileAddress_0, fieldsProfileAddress_1],
@@ -30,7 +28,6 @@ const BodyUserProfile: FC<PropsType> = ({ swapVals }) => {
       <AddressForm
         {...{
           swapID: "userProfileSwap",
-          ...swapVals,
           arrAddressSwap,
         }}
       />

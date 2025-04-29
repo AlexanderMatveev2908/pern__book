@@ -4,8 +4,7 @@ import {
   useRegisterUserMutation,
 } from "@/features/AuthLayout/authSliceAPI";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
-import { SwapModeType } from "@/core/hooks/all/forms/useSwapAddress/initState";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import {
   useFocus,
@@ -33,6 +32,8 @@ import PairPwd from "@/components/forms/PairPwd/PairPwd";
 import Terms from "./components/Terms";
 import ButtonsSwapper from "@/components/forms/ButtonsSwapper/ButtonsSwapper";
 import Button from "@/components/elements/buttons/Button/Button";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 
@@ -95,6 +96,7 @@ const Register: FC = () => {
   const pwd = watch("password");
 
   const { currForm, setCurrForm, currSwapState, isNextDisabled } = useFormSwap({
+    ...useSwapCtxConsumer(),
     fields: swapFieldsByAreaAuth,
     watch,
     errors,

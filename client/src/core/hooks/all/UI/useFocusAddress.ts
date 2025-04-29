@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import { useEffect } from "react";
 import { UseFormSetFocus } from "react-hook-form";
-import { SwapModeType } from "../forms/useSwapAddress/initState";
 
 type Params = {
   setFocus: UseFormSetFocus<any>;
