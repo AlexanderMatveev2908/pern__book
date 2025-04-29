@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt } from "@/lib/lib";
 import { MySelectFieldType } from "@/types/types";
-import { FC, useState } from "react";
+import { FC, useEffect, useRef, useState } from "react";
 import { FieldErrors } from "react-hook-form";
 import { FaCheckCircle, FaChevronDown } from "react-icons/fa";
 import ErrorFormField from "../Errors/ErrorFormField";
@@ -24,6 +24,23 @@ const MySelect: FC<PropsType> = ({
   index,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const btnRef = useRef<HTMLButtonElement | null>(null);
+  const ulRef = useRef<HTMLUListElement | null>(null);
+
+  useEffect(() => {
+    const listen = (e: MouseEvent) => {
+      const arrRefs = [btnRef.current, ulRef.current];
+      if (arrRefs.some((el) => !el)) return;
+
+      if (arrRefs.some((ref) => (e.target as Node).contains(ref)))
+        setIsOpen(false);
+    };
+
+    document.addEventListener("mousedown", listen);
+    return () => {
+      document.removeEventListener("mousedown", listen);
+    };
+  }, []);
 
   return (
     <div className="w-full grid h-full items-end relative ">
@@ -37,6 +54,7 @@ const MySelect: FC<PropsType> = ({
           }}
         />
         <button
+          ref={btnRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
           className="w-full flex justify-between appearance-none outline-0 cursor-pointer border-2 border-blue-600 rounded-xl px-4 py-2 items-center hover:text-blue-600 el__flow"
@@ -55,6 +73,7 @@ const MySelect: FC<PropsType> = ({
         </button>
 
         <ul
+          ref={ulRef}
           className={`w-full mt-2 h-fit absolute top-full left-0 border-2 grid bg-neutral-950 z-20 border-blue-600 rounded-xl transition-all duration-[0.4s] ${
             isOpen ? "" : "translate-y-[75px] opacity-0 pointer-events-none"
           }`}

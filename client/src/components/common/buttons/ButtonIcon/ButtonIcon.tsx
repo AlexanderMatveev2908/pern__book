@@ -36,7 +36,7 @@ const ButtonIcon: FC<PropsType> = ({ el, act, handleClick, isPending }) => {
       onClick={handleClick}
       disabled={isPending}
       type="button"
-      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-5 justify-center group ${getCol(
+      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-5 justify-center group z-20 bg-neutral-950 ${getCol(
         act ?? BtnAct.INFO
       )} `}
     >

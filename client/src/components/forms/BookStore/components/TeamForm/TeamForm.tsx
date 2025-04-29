@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import {
   fieldEmailWorker,
@@ -7,7 +7,6 @@ import {
 import { FormField } from "@/components/components";
 import MySelect from "@/components/forms/components/inputs/MySelect";
 import { BtnAct, UserRole } from "@/types/types";
-import { FaTrashAlt } from "react-icons/fa";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import ButtonIcon from "@/components/common/buttons/ButtonIcon/ButtonIcon";
 import { IoPersonAddOutline } from "react-icons/io5";
@@ -20,6 +19,9 @@ const btnAddWorker = {
 };
 
 const TeamForm: FC = () => {
+  const [border, setBorder] = useState<boolean>(false);
+  const parentRef = useRef<HTMLDivElement | null>(null);
+
   const {
     register,
     control,
@@ -27,11 +29,12 @@ const TeamForm: FC = () => {
     getValues,
     formState: { errors },
   } = useFormContext();
-
   const { fields, append, remove } = useFieldArray({
     control,
     name: "items",
   });
+
+  const len = useMemo(() => fields.length, [fields.length]);
 
   useEffect(() => {
     setValue("items", [
@@ -41,6 +44,17 @@ const TeamForm: FC = () => {
       },
     ]);
   }, [setValue]);
+  useEffect(() => {
+    const handleBorder = () => {
+      if (!parentRef.current) return;
+      const parent = parentRef.current;
+      const h = parent.offsetHeight;
+      if (h > 500 && !border) setBorder(true);
+      else if (parent.offsetHeight < 500 && border) setBorder(false);
+    };
+
+    handleBorder();
+  }, [len, border]);
 
   const handleClickSelect = (val: UserRole, i: number) => {
     const currVal = getValues(`items.${i}.role`);
@@ -48,11 +62,17 @@ const TeamForm: FC = () => {
       shouldValidate: true,
     });
   };
-  const checkIsIn = (val: UserRole, i: number) => {
-    const vals = getValues("items");
-    return vals?.[i]?.role === val;
-  };
-  const getCurrVal = (index: number) => getValues(`items.${index}.role`);
+  const checkIsIn = useCallback(
+    (val: UserRole, i: number) => {
+      const vals = getValues("items");
+      return vals?.[i]?.role === val;
+    },
+    [getValues]
+  );
+  const getCurrVal = useCallback(
+    (index: number) => getValues(`items.${index}.role`),
+    [getValues]
+  );
 
   const handleAppend = () =>
     append({
@@ -62,11 +82,20 @@ const TeamForm: FC = () => {
   const handleRemove = (i: number) => remove(i);
 
   return (
-    <div className="w-full grid grid-cols-1 gap-5">
+    <div
+      ref={parentRef}
+      className={`w-full grid grid-cols-1 gap-5 ${
+        border
+          ? "border-2 p-5 rounded-xl border-blue-600 max-h-[500px] scrollbar__app scrollbar__y overflow-y-scroll"
+          : ""
+      }`}
+    >
       {fields.map((el, i) => (
         <div
           key={el.id}
-          className="w-full grid grid-cols-1 lg:grid-cols-[1fr_100px] gap-y-3 gap-x-10 p-4 border-[3px] border-blue-600 rounded-xl"
+          className={`w-full grid grid-cols-1 md:grid-cols-[1fr_75px] gap-y-3 gap-x-10 p-4 relative ${
+            border ? "" : "border-[2px] border-blue-600 rounded-xl"
+          }`}
         >
           <div className="book_store_sub_form">
             <FormField
@@ -90,7 +119,11 @@ const TeamForm: FC = () => {
               }}
             />
           </div>
-          <div className="w-[100px] justify-self-end flex items-end">
+          <div
+            className={`w-[75px] justify-self-end flex items-end absolute  z-20 bg-neutral-950 md:static ${
+              border ? "-top-[2%]" : "-top-[10%]"
+            }`}
+          >
             <ButtonIcon
               {...{
                 handleClick: () => handleRemove(i),
@@ -102,7 +135,7 @@ const TeamForm: FC = () => {
         </div>
       ))}
 
-      <div className="w-[100px]">
+      <div className="w-[75px] ml-4">
         <ButtonIcon {...{ el: btnAddWorker, handleClick: handleAppend }} />
       </div>
     </div>
