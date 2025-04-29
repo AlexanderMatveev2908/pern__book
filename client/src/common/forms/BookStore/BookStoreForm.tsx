@@ -3,7 +3,7 @@ import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import ContactForm from "./components/ContactForm";
 import AddressForm from "../AddressForm/AddressForm";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
+import { ReturnSwapType } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import DeliveryForm from "./components/DeliveryForm";
@@ -14,7 +14,6 @@ import {
   fieldNameStore,
   fieldsStoreAddress_0,
   fieldsStoreAddress_1,
-  fieldsSwapAddressStore,
 } from "@/core/config/fieldsData/OwnerLayout/post";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import TxtField from "@/components/forms/inputs/TxtField";
@@ -23,35 +22,38 @@ import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
 import CheckBoxSwapper from "@/components/forms/CheckBoxSwapper/CheckBoxSwapper";
 import { CatBookStore } from "@/types/all/bookStore";
 import Button from "@/components/elements/buttons/Button/Button";
+import { useLocation } from "react-router-dom";
+import { capt } from "@/core/lib/lib";
 
 type PropsType = {
-  handleSave: () => void;
+  handleSave: (e: React.FormEvent) => void;
+  dataSwap: ReturnSwapType;
 };
 
-const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
+const BookStoreForm: FC<PropsType> = ({ handleSave, dataSwap }) => {
   const ctx = useFormContext();
+  const path = useLocation().pathname;
   const {
     register,
     formState: { errors },
-    watch,
     setFocus,
   } = ctx;
 
-  const { currSwapState, ...restSwapAddress } = useFormSwap({
-    watch,
-    errors,
-    fields: fieldsSwapAddressStore,
-  });
   useFocusAddress({
     setFocus,
-    currSwapState,
-    currForm: restSwapAddress.currForm,
+    currSwapState: dataSwap.currSwapState,
+    currForm: dataSwap.currForm,
   });
   useCLearTab();
 
   const arrAddressSwap = useMemo(
     () => [fieldsStoreAddress_0, fieldsStoreAddress_1],
     []
+  );
+
+  const swapID = useMemo(
+    () => "swapFormStore" + capt(path.split("/").pop() ?? ""),
+    [path]
   );
 
   return (
@@ -106,8 +108,8 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
       <WrapperFormField {...{ title: "Address" }}>
         <AddressForm
           {...{
-            ...restSwapAddress,
-            swapID: "swapFormStore",
+            ...dataSwap,
+            swapID,
             btnProfile: true,
             arrAddressSwap,
           }}

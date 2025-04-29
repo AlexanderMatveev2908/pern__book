@@ -5,9 +5,11 @@ import { useFocus } from "@/core/hooks/hooks";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
+import { FC, FormEvent } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapAddress/useSwapForm";
+import { fieldsSwapAddressStore } from "@/core/config/fieldsData/OwnerLayout/post";
 
 const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
@@ -40,9 +42,32 @@ const CreateBooksStore: FC = () => {
     mode: "onChange",
   });
 
-  const handleSave = formCtx.handleSubmit((formDataHook: FormBookStoreType) => {
-    console.log(formDataHook);
+  const {
+    watch,
+    formState: { errors },
+  } = formCtx;
+  const dataSwap = useFormSwap({
+    watch,
+    errors,
+    fields: fieldsSwapAddressStore,
   });
+  const { setCurrForm } = dataSwap;
+
+  const handleSave = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    const swap = document.getElementById("swapFormStoreCreate");
+    if (!swap) return;
+    const distance =
+      swap.getBoundingClientRect().top + window.scrollY - swap.offsetHeight / 2;
+
+    setCurrForm(1, null);
+
+    window.scroll({
+      top: distance,
+      behavior: "smooth",
+    });
+  };
 
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
@@ -51,7 +76,7 @@ const CreateBooksStore: FC = () => {
       <Title {...{ title: "create a bookstore" }} />
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
-          <BookStoreForm {...{ handleSave }} />
+          <BookStoreForm {...{ handleSave, dataSwap }} />
         </FormProvider>
       </div>
     </div>

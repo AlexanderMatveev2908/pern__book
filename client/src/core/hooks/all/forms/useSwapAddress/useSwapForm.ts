@@ -2,7 +2,11 @@
 import { makeDelay, validateSwapper } from "@/core/lib/lib";
 import { useCallback, useEffect, useReducer } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
-import { swapAddressInitState, SwapModeType } from "./initState";
+import {
+  swapAddressInitState,
+  SwapAddressStateType,
+  SwapModeType,
+} from "./initState";
 import { ActionsSwap } from "./actions";
 import { reducerSwap } from "./reducer";
 import { SwapFieldType } from "@/types/types";
@@ -15,13 +19,18 @@ type Params = {
   customValidateCB?: () => boolean;
 };
 
+export type ReturnSwapType = SwapAddressStateType & {
+  setCurrForm: (val: number, swapState?: SwapModeType | null) => void;
+  setNextDisabled: (val: boolean) => void;
+};
+
 export const useFormSwap = ({
   watch,
   errors,
   fields,
   customSwapCB,
   customValidateCB,
-}: Params) => {
+}: Params): ReturnSwapType => {
   const [state, dispatch] = useReducer(reducerSwap, swapAddressInitState);
 
   const { currForm, isNextDisabled } = state;
