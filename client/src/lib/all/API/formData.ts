@@ -1,4 +1,4 @@
-import { UserProfileForm } from "@/features/UserLayout/UserProfile/UserProfile";
+import { UserProfileForm } from "@/app/pages/UserLayout/ProfileSettings/ProfileSettings";
 import { captAll } from "../utils/formatters";
 
 const appendKey = (val: string) => captAll(val).trim();

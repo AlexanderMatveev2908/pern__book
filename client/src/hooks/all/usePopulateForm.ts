@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { UserProfileForm } from "@/features/UserLayout/UserProfile/UserProfile";
+import { UserProfileForm } from "@/app/pages/UserLayout/ProfileSettings/ProfileSettings";
 import { isObjOk } from "@/lib/lib";
 import { FormSettersProps, UserType } from "@/types/types";
 import { useEffect } from "react";

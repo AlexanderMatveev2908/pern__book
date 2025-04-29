@@ -1,10 +1,10 @@
-import { UserProfileForm } from "@/features/UserLayout/UserProfile/UserProfile";
 import { FieldErrors } from "react-hook-form";
 import { validateSwapper } from "../validators";
 import {
   keysHeaderProfile,
   swapAddressByArea,
 } from "@/config/fields/UserLayout/fieldsProfile";
+import { UserProfileForm } from "@/app/pages/UserLayout/ProfileSettings/ProfileSettings";
 
 type Params = {
   errors: FieldErrors;
