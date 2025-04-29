@@ -67,7 +67,9 @@ const VideoField: FC = () => {
           }`}
         >
           <video
-            src={isUpload ? URL.createObjectURL(videoData?.[0] as File) : ""}
+            src={
+              isUpload ? URL.createObjectURL(videoData?.[0] as File) : undefined
+            }
             controls
             muted
             className={`w-full object-cover h-full ${

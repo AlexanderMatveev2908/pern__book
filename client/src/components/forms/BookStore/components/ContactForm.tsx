@@ -16,7 +16,7 @@ const ContactForm: FC = () => {
   return (
     <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-10">
       {fieldsContact.map((el) => (
-        <FormField {...{ el, register, errors }} />
+        <FormField key={el.id} {...{ el, register, errors }} />
       ))}
 
       <div className="w-full flex justify-center h-full items-end max-w-[300px] justify-self-center mt-3 sm:mt-0">

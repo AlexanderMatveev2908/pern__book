@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from "react";
+import { FC, useMemo } from "react";
 import RemoveImgLayer from "./RemoveImgLayer";
 import { v4 } from "uuid";
 
@@ -15,13 +15,10 @@ const ShowImagesData: FC<PropsType> = ({
   isUploadFiles,
   handleRemoveOne,
 }) => {
-  const [ids, setIds] = useState<string[] | null>(
-    Array.isArray(images) && images?.length ? images.map(() => v4()) : null
+  const ids = useMemo(
+    () => Array.isArray(images) && images.map(() => v4()),
+    [images]
   );
-
-  useEffect(() => {
-    if (Array.isArray(images) && images?.length) setIds(images.map(() => v4()));
-  }, [images]);
 
   return (
     <div
@@ -34,7 +31,7 @@ const ShowImagesData: FC<PropsType> = ({
       {isVal &&
         images.map((_: File | string, i: number) => (
           <div
-            key={ids?.[i]}
+            key={(Array.isArray(ids) && ids?.[i]) || i}
             className="min-w-[150px] max-w-[150px] min-h-[150px] max-h-[150px] sm:min-w-[200px] sm:max-w-[200px] sm:min-h-[200px] sm:max-h-[200px] relative rounded-xl overflow-hidden"
           >
             <img

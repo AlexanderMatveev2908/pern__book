@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   REG_INT,
   REG_PRICE,
@@ -37,7 +36,9 @@ export const schemaBookStore = z
           message: "To Upload images use the input below",
         }
       ),
-    images: z.union([z.array(z.string()), z.array(z.instanceof(File))]),
+    images: z
+      .union([z.array(z.string()), z.array(z.instanceof(File))])
+      .optional(),
     // images: z.number().min(10, "min is 10"),
     website: z
       .string()
@@ -45,52 +46,51 @@ export const schemaBookStore = z
       .refine((val) => val.startsWith("https://"), {
         message: "We can allow HTTPS urls only ",
       }),
-    deliveryPrice: z.string().optional(),
+    deliveryPrice: z
+      .string()
+      .optional()
+      .refine((val) => !val?.trim().length || REG_PRICE.test(val ?? ""), {
+        message: "Invalid price format",
+      })
+      .refine((val) => !val?.trim().length || +val >= 0.01, {
+        message: "Price must be at least $0.01",
+      }),
     freeDeliveryAmount: z.string().optional(),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
   })
+  .refine(
+    (data) => {
+      const isPriceReal =
+        data.deliveryPrice?.trim().length &&
+        +(data.deliveryPrice ?? "0") >= 0.01;
+
+      if (data.freeDeliveryAmount?.trim().length) return isPriceReal;
+
+      return true;
+    },
+    {
+      path: ["freeDeliveryAmount"],
+      message: "You can not set free something that already is",
+    }
+  )
+  .refine(
+    (data) =>
+      !data.freeDeliveryAmount?.trim().length ||
+      REG_PRICE.test(data.freeDeliveryAmount ?? ""),
+    {
+      path: ["freeDeliveryAmount"],
+      message: "Invalid price format",
+    }
+  )
   .superRefine((data, ctx) => {
-    if (data.deliveryPrice?.trim().length)
-      if (!REG_PRICE.test(data.deliveryPrice ?? ""))
-        ctx.addIssue({
-          path: ["deliveryPrice"],
-          code: "custom",
-          message: "Invalid price format",
-        });
-      else if (+data.deliveryPrice < 0.01)
-        ctx.addIssue({
-          path: ["deliveryPrice"],
-          code: "custom",
-          message: "Price must be at least $0.01",
-        });
-
-    if (
-      (!data.deliveryPrice?.trim().length || !+data.deliveryPrice) &&
-      data.freeDeliveryAmount?.trim().length
-    )
-      ctx.addIssue({
-        path: ["freeDeliveryAmount"],
-        code: "custom",
-        message: "You can not set free something that already is",
-      });
-
-    if (
-      data.freeDeliveryAmount?.trim().length &&
-      !REG_PRICE.test(data.freeDeliveryAmount ?? "")
-    )
-      ctx.addIssue({
-        path: ["freeDeliveryAmount"],
-        code: "custom",
-        message: "Invalid price format",
-      });
-
     const userUpload =
       !!data?.images?.length &&
-      data?.images?.every((img: any) => img instanceof File);
+      data?.images?.every((img: File | string) => img instanceof File);
 
     if (
       userUpload &&
-      !data?.images.every((img: any) =>
+      Array.isArray(data.images) &&
+      !data?.images.every((img: File | string) =>
         (img as File)?.type?.startsWith("image")
       )
     )
@@ -100,7 +100,7 @@ export const schemaBookStore = z
         code: "custom",
       });
 
-    if (userUpload && data?.images?.length > 5)
+    if (userUpload && (data?.images?.length ?? 0) > 5)
       ctx.addIssue({
         path: ["images"],
         message: `Exceeded max length ${data.images?.length} / 5`,
