@@ -2,14 +2,12 @@ import { FC, useEffect } from "react";
 import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
-import NoticePage from "./pages/Notice/NoticePage";
 import HomePage from "./pages/Home/HomePage";
-import VerifyPage from "./pages/Verify/VerifyPage";
 import { setNavigator } from "@/lib/lib";
 import UserLayout from "./layouts/UserLayout";
 import { useNinjaToken } from "@/hooks/hooks";
 import OwnerLayout from "./layouts/OwnerLayout";
-import CreateBooksStorePage from "./pages/OwnerLayout/CreateBooksStorePage";
+import CreateBooksStorePage from "./pages/OwnerLayout/CreateBooksStore/CreateBooksStorePage";
 import Register from "./pages/AuthLayout/Register/Register";
 import Login from "./pages/AuthLayout/Login/Login";
 import ForgotPwd from "./pages/AuthLayout/ForgotPwd/ForgotPwd";
@@ -19,6 +17,8 @@ import ProfileSettings from "./pages/UserLayout/ProfileSettings/ProfileSettings"
 import ManageAccount from "./pages/UserLayout/ManageAccount/ManageAccount";
 import VerifyAccountLogged from "./pages/UserLayout/VerifyAccountLogged/VerifyAccountLogged";
 import SecurityPwd from "./pages/UserLayout/SecurityPwd/SecurityPwd";
+import VerifyCb from "./pages/Verify/VerifyCb";
+import Notice from "./pages/Notice/NoticePage";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -53,8 +53,8 @@ const App: FC = () => {
           <Route path="create" element={<CreateBooksStorePage />} />
         </Route>
 
-        <Route path="notice" element={<NoticePage />} />
-        <Route path="verify-cb" element={<VerifyPage />} />
+        <Route path="notice" element={<Notice />} />
+        <Route path="verify-cb" element={<VerifyCb />} />
 
         {/* <Route path="chat" element={<Chat />} /> */}
       </Route>

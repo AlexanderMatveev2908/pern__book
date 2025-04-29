@@ -1,16 +1,18 @@
-import { FC, useCallback, useEffect, useMemo, useRef } from "react";
+import { WrapPageAPI } from "@/components/components";
 import {
   useVerifyAccountMutation,
   useVerifyEmailForgotPwdMutation,
   useVerifyNewEmailMutation,
-} from "./verifyCbSliceAPI";
-import { useNavigate, useSearchParams } from "react-router-dom";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { useWrapMutationAPI } from "@/hooks/hooks";
+} from "@/features/common/VerifyCb/verifyCbSliceAPI";
+import { useScroll, useWrapMutationAPI } from "@/hooks/hooks";
 import { checkQueryAuth, isObjOk } from "@/lib/lib";
 import { AllowedFromApp, TokenEventType } from "@/types/types";
+import { FC, useCallback, useEffect, useMemo, useRef } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 
 const VerifyCb: FC = () => {
+  useScroll();
+
   const [searchParams] = useSearchParams();
   const hasRun = useRef<boolean>(false);
   const navigate = useNavigate();

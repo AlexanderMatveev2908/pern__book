@@ -1,13 +1,15 @@
+import { Title } from "@/components/components";
 import BookStoreForm from "@/components/forms/BookStore/BookStoreForm";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { useFocus } from "@/hooks/hooks";
 import { schemaBookStore } from "@/lib/all/forms/schemaZ/bookStore";
 import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
-const CreateBookStore = () => {
+const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
     {}) as unknown as { data: { user: UserType } };
 
@@ -45,11 +47,14 @@ const CreateBookStore = () => {
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
   return (
-    <div className="w-full grid justify-items-center gap-6">
-      <FormProvider {...formCtx}>
-        <BookStoreForm {...{ handleSave }} />
-      </FormProvider>
+    <div className="parent__page">
+      <Title {...{ title: "create a bookstore" }} />
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookStoreForm {...{ handleSave }} />
+        </FormProvider>
+      </div>
     </div>
   );
 };
-export default CreateBookStore;
+export default CreateBooksStore;
