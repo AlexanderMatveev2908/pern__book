@@ -1,7 +1,7 @@
 import { FC, useEffect } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
-import FieldArray from "../../../components/inputs/FormFields/FieldArray";
 import { fieldEmailWorker } from "@/config/fields/OwnerLayout/post";
+import { FormField } from "@/components/components";
 
 const TeamForm: FC = () => {
   const {
@@ -32,7 +32,7 @@ const TeamForm: FC = () => {
     <div className="w-full grid grid-cols-1 gap-5">
       <div className="book_store_sub_form">
         {fields.map((el, i) => (
-          <FieldArray
+          <FormField
             key={el.id}
             {...{ register, errors, index: i, el: fieldEmailWorker }}
           />

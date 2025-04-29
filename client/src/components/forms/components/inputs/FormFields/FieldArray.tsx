@@ -1,4 +1,4 @@
-import ErrorArray from "@/components/forms/components/Errors/ErrorArray";
+import { ErrorFormField } from "@/components/components";
 import { capt } from "@/lib/lib";
 import { FormBaseProps, FormFieldBasic } from "@/types/types";
 import { FC } from "react";
@@ -27,7 +27,7 @@ const FieldArray: FC<PropsType> = ({
             className={`${customStyle ?? "input__base"} txt__2`}
             {...register(`items.${index}.${el.field}`)}
           />
-          <ErrorArray {...{ errors, el, index }} />
+          <ErrorFormField {...{ errors, el, index }} />
         </div>
       </label>
     </div>
