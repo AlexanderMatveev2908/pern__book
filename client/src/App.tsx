@@ -29,6 +29,7 @@ const App: FC = () => {
 
   useNinjaToken();
 
+  // --
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
