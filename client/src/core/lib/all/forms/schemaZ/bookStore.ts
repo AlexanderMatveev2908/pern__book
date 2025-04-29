@@ -124,6 +124,7 @@ export const schemaBookStore = z
   )
 
   .superRefine((data, ctx) => {
+    //  * * IMAGES
     const userUpload =
       !!data?.images?.length &&
       data?.images?.every((img: File | string) => img instanceof File);
@@ -148,6 +149,7 @@ export const schemaBookStore = z
         code: "custom",
       });
 
+    // * USER ROLE
     const len = data.items?.length;
     let i = 0;
     while (i < len) {
@@ -171,6 +173,7 @@ export const schemaBookStore = z
       i++;
     }
 
+    // * DUPLICATES
     const workers = len ? data.items.map((el) => el.email) : [];
     i = 0;
 
