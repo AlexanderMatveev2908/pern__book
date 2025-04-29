@@ -43,5 +43,6 @@ export type SelectOptType = {
 
 export type MySelectFieldType = {
   label: string;
+  field: string;
   options: SelectOptType[];
 };

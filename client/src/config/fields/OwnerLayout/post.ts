@@ -94,6 +94,7 @@ export const fieldEmailWorker = {
 
 export const fieldSelectWorkerRole: MySelectFieldType = {
   label: "User role",
+  field: "role",
   options: [UserRole.EMPLOYEE, UserRole.MANAGER].map((el) => ({
     opt: el,
     label: capt(el),

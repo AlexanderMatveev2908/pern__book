@@ -9,6 +9,8 @@ import { schemaEmail } from "./auth";
 import { schemaAddress } from "./user";
 import { UserRole } from "@/types/types";
 
+const allowedRoles = [UserRole.EMPLOYEE, UserRole.MANAGER];
+
 export const schemaBookStore = z
   .object({
     ...schemaEmail(),
@@ -58,27 +60,27 @@ export const schemaBookStore = z
       }),
     freeDeliveryAmount: z.string().optional(),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
-    items: z
-      .array(
-        z.object({
-          email: z
-            .string()
-            .optional()
-            .refine(
-              (val) =>
-                !val?.trim().length ||
-                z.string().email().safeParse(val).success,
-              {
-                message: "Invalid email format",
-              }
-            ),
-          role: z
-            .enum([UserRole.EMPLOYEE, UserRole.MANAGER])
-            .nullable()
-            .optional(),
-        })
-      )
-      .optional(),
+    items: z.array(
+      z.object({
+        email: z
+          .string()
+          .optional()
+          .refine(
+            (val) =>
+              !val?.trim().length || z.string().email().safeParse(val).success,
+            {
+              message: "Invalid email format",
+            }
+          ),
+        role: z
+          .enum(allowedRoles as [string, ...string[]])
+          .optional()
+          .nullable()
+          .refine((val) => allowedRoles.includes(val as UserRole), {
+            message: "You must chose a role for worker",
+          }),
+      })
+    ),
   })
   .refine(
     (data) => {

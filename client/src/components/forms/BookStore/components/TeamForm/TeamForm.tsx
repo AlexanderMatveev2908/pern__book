@@ -33,7 +33,10 @@ const TeamForm: FC = () => {
   }, [setValue]);
 
   const handleClickSelect = (val: UserRole, i: number) => {
-    setValue(`items.${i}.role`, val);
+    const currVal = getValues(`items.${i}.role`);
+    setValue(`items.${i}.role`, currVal === val ? null : val, {
+      shouldValidate: true,
+    });
   };
   const checkIsIn = (val: UserRole, i: number) => {
     const vals = getValues("items");
@@ -42,6 +45,7 @@ const TeamForm: FC = () => {
   const getCurrVal = (index: number) => getValues(`items.${index}.role`);
 
   console.log(watch());
+  console.log(errors);
 
   return (
     <div className="w-full grid grid-cols-1 gap-5">

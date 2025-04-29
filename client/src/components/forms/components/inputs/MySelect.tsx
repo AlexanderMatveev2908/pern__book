@@ -4,6 +4,7 @@ import { MySelectFieldType } from "@/types/types";
 import { FC, useState } from "react";
 import { FieldErrors } from "react-hook-form";
 import { FaCheckCircle, FaChevronDown } from "react-icons/fa";
+import ErrorFormField from "../Errors/ErrorFormField";
 
 type PropsType = {
   el: MySelectFieldType;
@@ -27,6 +28,14 @@ const MySelect: FC<PropsType> = ({
   return (
     <div className="w-full grid h-full items-end relative ">
       <div className="w-full relative">
+        <ErrorFormField
+          {...{
+            errors,
+            index,
+            el,
+            styleCont: "-top-full right-0",
+          }}
+        />
         <button
           type="button"
           onClick={() => setIsOpen(!isOpen)}
