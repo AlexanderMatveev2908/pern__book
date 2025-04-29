@@ -23,7 +23,5 @@ export const useSavePrevErr = ({
     }
   }, [msg, prevErr, errors]);
 
-  console.log(msg);
-
   return { prevErr };
 };

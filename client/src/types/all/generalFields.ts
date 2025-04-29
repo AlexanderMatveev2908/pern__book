@@ -34,3 +34,14 @@ export type BtnFieldIconType = {
   pendingLabel?: string;
   icon: IconType;
 };
+
+export type SelectOptType = {
+  id: string;
+  opt: string;
+  label: string;
+};
+
+export type MySelectFieldType = {
+  label: string;
+  options: SelectOptType[];
+};

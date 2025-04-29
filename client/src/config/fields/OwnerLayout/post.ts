@@ -1,6 +1,12 @@
-import { FormFieldBasic, SwapFieldType } from "@/types/types";
+import {
+  FormFieldBasic,
+  MySelectFieldType,
+  SwapFieldType,
+  UserRole,
+} from "@/types/types";
 import { v4 } from "uuid";
 import { addressFields_0, addressFields_1 } from "../UserLayout/fieldsProfile";
+import { capt } from "@/lib/lib";
 
 export const fieldNameStore: FormFieldBasic = {
   field: "name",
@@ -84,4 +90,13 @@ export const fieldEmailWorker = {
   label: "Email",
   type: "email",
   place: "Worker email...",
+};
+
+export const fieldSelectWorkerRole: MySelectFieldType = {
+  label: "User role",
+  options: [UserRole.EMPLOYEE, UserRole.MANAGER].map((el) => ({
+    opt: el,
+    label: capt(el),
+    id: v4(),
+  })),
 };
