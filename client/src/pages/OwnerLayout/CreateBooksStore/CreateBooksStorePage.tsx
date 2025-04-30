@@ -14,6 +14,8 @@ import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { canSaveStore } from "@/core/lib/all/forms/preSubmit/bookStore";
+import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
+import { __cg, logFormData } from "@/core/lib/lib";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -70,7 +72,9 @@ const CreateBooksStore: FC = () => {
 
     handleSubmit(
       (data) => {
-        console.log(data);
+        __cg("data", data);
+        const formData = makeFormDataStore(data);
+        logFormData(formData);
       },
       (errs) => {
         handleFocusErrStore(setFocus, errs, setCurrForm);

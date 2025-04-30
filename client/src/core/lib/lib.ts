@@ -10,5 +10,4 @@ export * from "./all/navigation.js";
 export * from "./all/utils/formatters.js";
 export * from "./all/API/slicesAPI.js";
 export * from "./all/forms/schemaZ/user.js";
-export * from "./all/API/formData.js";
 export * from "./all/forms/preSubmit/preSubmitUser.js";

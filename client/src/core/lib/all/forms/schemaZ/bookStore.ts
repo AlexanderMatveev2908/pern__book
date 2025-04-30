@@ -145,26 +145,26 @@ export const schemaBookStore = z
     // * USER ROLE
     const len = data.items?.length;
     let i = 0;
-    while (i < len) {
-      const curr = data.items[i];
-      if (curr.email?.trim().length && !curr.role) {
-        ctx.addIssue({
-          message: "Worker need a role",
-          code: "custom",
-          path: [`items.${i}.role`],
-        });
-        break;
-      }
-      if (curr.role && !curr.email?.trim().length) {
-        ctx.addIssue({
-          message: `This ${curr.role} need an email`,
-          code: "custom",
-          path: [`items.${i}.email`],
-        });
-        break;
-      }
-      i++;
-    }
+    // while (i < len) {
+    //   const curr = data.items[i];
+    //   if (curr.email?.trim().length && !curr.role) {
+    //     ctx.addIssue({
+    //       message: "Worker need a role",
+    //       code: "custom",
+    //       path: [`items.${i}.role`],
+    //     });
+    //     break;
+    //   }
+    //   if (curr.role && !curr.email?.trim().length) {
+    //     ctx.addIssue({
+    //       message: `This ${curr.role} need an email`,
+    //       code: "custom",
+    //       path: [`items.${i}.email`],
+    //     });
+    //     break;
+    //   }
+    //   i++;
+    // }
 
     // * DUPLICATES
     const workers = len ? data.items.map((el) => el.email) : [];

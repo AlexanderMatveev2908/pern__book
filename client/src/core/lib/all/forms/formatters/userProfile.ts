@@ -1,9 +1,5 @@
 import { UserProfileForm } from "@/pages/UserLayout/ProfileSettings/ProfileSettings";
-import { captAll } from "../utils/formatters";
-
-const appendKey = (val: string) => captAll(val).trim();
-
-const parseNull = (str: string) => (str.trim().length ? str : "_");
+import { appendKey, parseNullPost } from "../../utils/formatters";
 
 export const makeFormDataProfile = (
   formDataHook: UserProfileForm
@@ -13,7 +9,7 @@ export const makeFormDataProfile = (
   for (const key in formDataHook) {
     if (key === "thumb") {
       if (typeof formDataHook.thumb === "string") {
-        formData.append("thumb", parseNull(formDataHook.thumb));
+        formData.append("thumb", parseNullPost(formDataHook.thumb));
       } else {
         const file = formDataHook?.thumb?.[0] as File | undefined;
 
@@ -23,7 +19,7 @@ export const makeFormDataProfile = (
       const val = formDataHook[key as keyof UserProfileForm];
       formData.append(
         key,
-        appendKey(parseNull((val as string) ?? "") as string)
+        appendKey(parseNullPost((val as string) ?? "") as string)
       );
     }
   }

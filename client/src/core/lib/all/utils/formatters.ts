@@ -13,3 +13,10 @@ export const captAll = (txt: string) =>
     .join(" ")
     .trim()
     .replace(/[\s\s]{2,}/g, " ");
+
+export const appendKey = (val: string) => captAll(val).trim();
+
+export const parseNullRead = (str: string) => (str.trim().length ? str : null);
+
+export const parseNullPost = (str: string | null): string =>
+  str?.trim().length ? str : "_";

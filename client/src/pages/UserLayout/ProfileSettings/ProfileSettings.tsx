@@ -8,7 +8,6 @@ import {
   getData,
   isSameData,
   makeDelay,
-  makeFormDataProfile,
   makeObj,
   preSubmitCheckProfile,
   schemaProfile,
@@ -38,6 +37,7 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
+import { makeFormDataProfile } from "@/core/lib/all/forms/formatters/userProfile";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 

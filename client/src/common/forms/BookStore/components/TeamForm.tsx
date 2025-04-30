@@ -119,8 +119,10 @@ const TeamForm: FC = () => {
         )
           setError(`items.${i}.role`, { message: "Worker need a role" });
         else if (
-          (curr.role || !curr.email.trim().length) &&
-          (errors as any)?.items?.[i]?.role
+          ((curr.role && curr.email.trim().length) ||
+            !curr.email.trim().length) &&
+          (errors as any)?.items?.[i]?.role &&
+          (errors as any)?.items?.[i]?.role?.type !== "custom"
         )
           clearErrors(`items.${i}.role`);
 
@@ -133,8 +135,10 @@ const TeamForm: FC = () => {
             message: `This ${curr.role} need an email`,
           });
         else if (
-          (!curr.role || z.string().email().safeParse(curr.email).success) &&
-          (errors as any)?.items?.[i]?.email
+          ((curr.role && z.string().email().safeParse(curr.email).success) ||
+            !curr.role) &&
+          (errors as any)?.items?.[i]?.email &&
+          (errors as any)?.items?.[i]?.email?.type !== "custom"
         )
           clearErrors(`items.${i}.email`);
 
@@ -145,6 +149,7 @@ const TeamForm: FC = () => {
     handleTeam();
   }, [vals, setError, errors, clearErrors]);
 
+  console.log(errors);
   return (
     <div
       ref={parentRef}
