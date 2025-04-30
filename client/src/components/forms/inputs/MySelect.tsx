@@ -1,23 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt } from "@/core/lib/lib";
-import { MySelectFieldType } from "@/types/types";
+import { FormBaseProps, MySelectFieldType } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
-import { FieldErrors } from "react-hook-form";
 import { FaCheckCircle, FaChevronDown } from "react-icons/fa";
 import ErrorFormField from "../Errors/ErrorFormField";
+import FocusAnchor from "../FocusAnchor";
 
 type PropsType = {
   el: MySelectFieldType;
-  errors: FieldErrors;
   index?: number;
   handleClick: (val: any, index: any) => void;
   checkIsIn: (val: any, index: any) => boolean;
   currVal: string | null;
-};
+} & FormBaseProps;
 
 const MySelect: FC<PropsType> = ({
   el,
   handleClick,
+  register,
   errors,
   checkIsIn,
   currVal,
@@ -53,6 +53,11 @@ const MySelect: FC<PropsType> = ({
             styleCont: "-top-full right-0",
           }}
         />
+
+        <FocusAnchor
+          {...{ fieldKey: `mySelect${index ? `.${index}.` : ""}`, register }}
+        />
+
         <button
           ref={btnRef}
           type="button"

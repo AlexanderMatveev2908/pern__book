@@ -1,34 +1,113 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  fieldsContact,
+  fieldsDelivery,
+  fieldsSwapStore,
+} from "@/core/config/fieldsData/OwnerLayout/post";
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import { FieldErrors, UseFormSetFocus } from "react-hook-form";
+import { makeDelay } from "../../API/API";
 
 //
 export const handleFocusErrStore = (
   setFocus: UseFormSetFocus<any>,
-  errs: FieldErrors
+  errs: FieldErrors,
+  setCurrForm: (val: number, swapMode?: SwapModeType | null) => void
 ): void => {
   const errKeys = Object.keys(errs);
-
-  console.log(errKeys);
 
   if (errKeys.includes("name")) setFocus("name");
   else if (errKeys.includes("description")) setFocus("description");
   else if (errKeys.includes("video")) setFocus("video_a");
   else if (errKeys.includes("images")) setFocus("images_a");
+  else if (errKeys.includes("categories")) setFocus("categories_a");
+
+  const contactKeys = fieldsContact.map((el) => el.field);
+  let i = 0;
+
+  do {
+    const curr = contactKeys[i];
+    if (errKeys.includes(curr)) {
+      setFocus(curr);
+      break;
+    }
+
+    i++;
+  } while (i < contactKeys.length);
+
+  i = 0;
+
+  do {
+    const currArr = fieldsSwapStore[i];
+
+    let j = 0;
+
+    do {
+      const curr = currArr[j];
+      if (errKeys.includes(curr.field)) {
+        const swap = document.getElementById("swapFormStoreCreate");
+        if (!swap) {
+          i = Infinity;
+          break;
+        }
+
+        const distance =
+          swap.getBoundingClientRect().top +
+          window.scrollY -
+          swap.offsetHeight / 2;
+
+        setCurrForm(i, null);
+
+        window.scroll({
+          top: distance,
+          behavior: "smooth",
+        });
+        makeDelay(() => setFocus(curr.field), 500);
+        i = Infinity;
+        break;
+      }
+
+      j++;
+    } while (j < currArr.length);
+
+    i++;
+  } while (i < fieldsSwapStore.length);
+
+  i = 0;
+
+  const keysDel = fieldsDelivery.map((el) => el.field);
+
+  do {
+    const curr = keysDel[i];
+    if (errKeys.includes(curr)) {
+      setFocus(curr);
+      break;
+    }
+
+    i++;
+  } while (i < keysDel.length);
+
+  console.log(errs);
+
+  i = 0;
+
+  while (i < (errs as any)?.items?.length) {
+    const curr = (errs as any).items[i];
+
+    if (Object.values(curr).some((el) => (el as any)?.message?.trim().length)) {
+      if (curr.email) {
+        setFocus(`items.${i}.email`);
+      } else {
+        setFocus(`mySelect.${i}._a`);
+      }
+
+      break;
+    }
+  }
 };
 
 /*
- const swap = document.getElementById("swapFormStoreCreate");
-          if (!swap) return;
-          const distance =
-            swap.getBoundingClientRect().top +
-            window.scrollY -
-            swap.offsetHeight / 2;
 
-          setCurrForm(1, null);
-
-          window.scroll({
-            top: distance,
-            behavior: "smooth",
           });
           */
 

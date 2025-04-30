@@ -97,7 +97,7 @@ const TeamForm: FC = () => {
             border ? "" : "border-[2px] border-blue-600 rounded-xl"
           }`}
         >
-          <div className="book_store_sub_form">
+          <div className="book_store_sub_form ">
             <FormField
               {...{
                 register,
@@ -112,6 +112,7 @@ const TeamForm: FC = () => {
               {...{
                 index: i,
                 el: fieldSelectWorkerRole,
+                register,
                 errors,
                 handleClick: handleClickSelect,
                 checkIsIn,

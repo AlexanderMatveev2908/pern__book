@@ -66,7 +66,7 @@ const CreateBooksStore: FC = () => {
         console.log(data);
       },
       (errs) => {
-        handleFocusErrStore(setFocus, errs);
+        handleFocusErrStore(setFocus, errs, setCurrForm);
       }
     )(e);
   };
