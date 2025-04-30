@@ -1,22 +1,14 @@
 import AddressForm from "@/common/forms/AddressForm/AddressForm";
 import Title from "@/components/elements/Title";
 import BreadCrumbForm from "@/components/forms/BreadCrumbForm";
-import {
-  fieldsProfileAddress_0,
-  fieldsProfileAddress_1,
-} from "@/core/config/fieldsData/UserLayout/pofile";
+import { fieldsSwapProfile } from "@/core/config/fieldsData/UserLayout/pofile";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 
 const BodyUserProfile: FC = () => {
   const {
     state: { currForm },
   } = useSwapCtxConsumer();
-
-  const arrAddressSwap = useMemo(
-    () => [fieldsProfileAddress_0, fieldsProfileAddress_1],
-    []
-  );
 
   return (
     <div className="w-full grid mt-10 gap-8">
@@ -28,7 +20,7 @@ const BodyUserProfile: FC = () => {
       <AddressForm
         {...{
           swapID: "userProfileSwap",
-          arrAddressSwap,
+          arrAddressSwap: fieldsSwapProfile,
         }}
       />
     </div>
