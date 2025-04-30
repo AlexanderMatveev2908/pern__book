@@ -36,6 +36,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk }) => {
     register,
     formState: { errors },
     setFocus,
+    setValue,
   } = ctx;
 
   const {
@@ -81,7 +82,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk }) => {
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Video ~" }}>
-        <VideoField />
+        <VideoField {...{ register, errors, setValue }} />
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "Images ~" }}>

@@ -1,25 +1,23 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
-import { BtnAct } from "@/types/types";
+import { BtnAct, FormBaseProps, FormSettersProps } from "@/types/types";
 import { FC, useMemo } from "react";
 import { FaTrashAlt, FaVideo } from "react-icons/fa";
 import { MdVideoCall } from "react-icons/md";
 import { FiVideo } from "react-icons/fi";
-import { useFormContext } from "react-hook-form";
+import { useWatch } from "react-hook-form";
 import ErrorFormField from "../Errors/ErrorFormField";
 import FocusAnchor from "../FocusAnchor";
 
-const VideoField: FC = () => {
-  const {
-    register,
-    setValue,
-    formState: { errors },
-    watch,
-  } = useFormContext();
+type PropsType = FormBaseProps & Omit<FormSettersProps, "watch">;
 
-  const videoData = watch("video") as FileList | string;
-  const isUpload = videoData?.[0] instanceof File;
-  const isURL = typeof videoData === "string" && videoData?.trim()?.length;
-  const isVal = isURL || isUpload;
+const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
+  const videoData = useWatch({ name: "video" });
+  const isUpload = useMemo(() => videoData?.[0] instanceof File, [videoData]);
+  const isURL = useMemo(
+    () => typeof videoData === "string" && videoData?.trim()?.length,
+    [videoData]
+  );
+  const isVal = useMemo(() => isURL || isUpload, [isUpload, isURL]);
 
   const handleUploadBtnClick = (e: React.MouseEvent) =>
     (e.currentTarget?.previousElementSibling as HTMLInputElement)?.click();
@@ -47,6 +45,11 @@ const VideoField: FC = () => {
     [isUpload, isURL]
   );
 
+  const mySrc = useMemo(
+    () => (isUpload ? URL.createObjectURL(videoData?.[0] as File) : undefined),
+    [isUpload, videoData]
+  );
+
   return (
     <div className="w-full grid justify-items-start">
       <div
@@ -69,9 +72,7 @@ const VideoField: FC = () => {
           }`}
         >
           <video
-            src={
-              isUpload ? URL.createObjectURL(videoData?.[0] as File) : undefined
-            }
+            src={mySrc}
             controls
             muted
             className={`w-full object-cover h-full ${

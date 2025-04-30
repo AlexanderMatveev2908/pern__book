@@ -18,14 +18,19 @@ export const makeFormDataStore = (
         continue;
       }
       formData.append(key, val);
+
+      // ? I THINK JUST VIDEO WILL BE KEPT AS FILE-LIST CAUSE IS HARDER TO WORK WITH INSTEAD OF ARRAY FILE
+    } else if (val instanceof FileList && val?.length && key === "video") {
+      formData.append("video", val?.[0] as File);
     } else if (Array.isArray(val) && val.length) {
       let j = 0;
 
       do {
         const curr = val[j];
-        console.log(curr);
         if (typeof curr === "string") {
           formData.append(key, curr);
+        } else if (curr instanceof File && key === "images") {
+          formData.append(`${key}[${j}]`, curr);
         } else if (
           typeof curr === "object" &&
           curr !== null &&

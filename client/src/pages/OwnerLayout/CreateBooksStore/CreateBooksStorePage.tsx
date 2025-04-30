@@ -5,7 +5,7 @@ import { useFocus } from "@/core/hooks/hooks";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
@@ -23,25 +23,29 @@ const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
     {}) as unknown as { data: { user: UserType } };
 
-  const schemaX = schemaBookStore.and(z.object({})).superRefine((data, ctx) => {
-    if (data.items?.length) {
-      let i = 0;
+  const schemaX = useMemo(
+    () =>
+      schemaBookStore.and(z.object({})).superRefine((data, ctx) => {
+        if (data.items?.length) {
+          let i = 0;
 
-      do {
-        const curr = data.items[i];
-        if (curr.email === user?.email) {
-          ctx.addIssue({
-            path: [`items.${i}.email`],
-            message: "You can not hire yourself",
-            code: "custom",
-          });
-          break;
+          do {
+            const curr = data.items[i];
+            if (curr.email === user?.email) {
+              ctx.addIssue({
+                path: [`items.${i}.email`],
+                message: "You can not hire yourself",
+                code: "custom",
+              });
+              break;
+            }
+
+            i++;
+          } while (i < data.items.length);
         }
-
-        i++;
-      } while (i < data.items.length);
-    }
-  });
+      }),
+    [user?.email]
+  );
 
   const formCtx = useForm<FormBookStoreType>({
     resolver: zodResolver(schemaX),
