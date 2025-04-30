@@ -22,6 +22,7 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
       >
         <input
           type="file"
+          accept="image/*"
           className="h-0 w-0 opacity-0"
           {...register("thumb")}
         />
@@ -43,8 +44,7 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
       <ErrorFormField
         {...{
           errors,
-          styleCont: "-top-[15%] right-0",
-          styleTool: "top-[120%]",
+          styleCont: { top: "-25%", right: "0" },
           el: { field: "thumb" },
         }}
       />

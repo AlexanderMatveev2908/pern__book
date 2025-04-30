@@ -101,7 +101,7 @@ const ImagesField: FC = () => {
         <ErrorFormField
           {...{
             errors,
-            styleCont: "-top-[50px] left-[100px]",
+            styleCont: { top: "-50px", right: "0px" },
             el: { field: "images" },
           }}
         />

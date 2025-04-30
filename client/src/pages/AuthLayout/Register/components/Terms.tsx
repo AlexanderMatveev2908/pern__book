@@ -63,7 +63,7 @@ const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
       <ErrorFormField
         {...{
           errors,
-          styleCont: "-right-[10%] -top-[135%]",
+          styleCont: { top: "-135%", right: "-10%" },
           el: { field: "terms" },
         }}
       />

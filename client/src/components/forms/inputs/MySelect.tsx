@@ -50,7 +50,6 @@ const MySelect: FC<PropsType> = ({
             errors,
             index,
             el,
-            styleCont: "-top-full right-0",
           }}
         />
 

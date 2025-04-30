@@ -29,7 +29,7 @@ const TxtField: FC<PropsType> = ({
             rows={4}
           />
           <ErrorFormField
-            {...{ errors, el, styleCont: "-top-[40%] right-0" }}
+            {...{ errors, el, styleCont: { top: "-40%", right: "0%" } }}
           />
         </div>
       </label>

@@ -94,7 +94,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
         {...{
           errors,
           el: { field: keyForm },
-          styleCont: "-top-[20%] right-0",
+          styleCont: { top: "-20%", right: "0%" },
         }}
       />
 

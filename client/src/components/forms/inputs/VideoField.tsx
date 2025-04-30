@@ -59,9 +59,9 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
           {...{
             el: { field: "video" },
             errors,
-            styleCont: ` ${
-              isVal ? "right-0 -top-[50px]" : "left-[50px] -top-[75px]"
-            } `,
+            styleCont: isVal
+              ? { top: "-50px", right: "0px" }
+              : { top: "-top-[75px]", right: "left-[50px] " },
           }}
         />
 
@@ -90,7 +90,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
         <label className="flex w-full max-w-[300px]">
           <input
             type="file"
-            accept="video/*"
+            // accept="video/*"
             className="opacity-0 h-0 w-0"
             {...register("video")}
           />
