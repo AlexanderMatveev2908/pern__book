@@ -16,11 +16,22 @@ export const handleFocusErrStore = (
 ): void => {
   const errKeys = Object.keys(errs);
 
-  if (errKeys.includes("name")) setFocus("name");
-  else if (errKeys.includes("description")) setFocus("description");
-  else if (errKeys.includes("video")) setFocus("video_a");
-  else if (errKeys.includes("images")) setFocus("images_a");
-  else if (errKeys.includes("categories")) setFocus("categories_a");
+  if (errKeys.includes("name")) {
+    setFocus("name");
+    return;
+  } else if (errKeys.includes("description")) {
+    setFocus("description");
+    return;
+  } else if (errKeys.includes("video")) {
+    setFocus("video_a");
+    return;
+  } else if (errKeys.includes("images")) {
+    setFocus("images_a");
+    return;
+  } else if (errKeys.includes("categories")) {
+    setFocus("categories_a");
+    return;
+  }
 
   const contactKeys = fieldsContact.map((el) => el.field);
   let i = 0;
@@ -29,7 +40,7 @@ export const handleFocusErrStore = (
     const curr = contactKeys[i];
     if (errKeys.includes(curr)) {
       setFocus(curr);
-      break;
+      return;
     }
 
     i++;
@@ -47,8 +58,7 @@ export const handleFocusErrStore = (
       if (errKeys.includes(curr.field)) {
         const swap = document.getElementById("swapFormStoreCreate");
         if (!swap) {
-          i = Infinity;
-          break;
+          return;
         }
 
         const distance =
@@ -63,8 +73,8 @@ export const handleFocusErrStore = (
           behavior: "smooth",
         });
         makeDelay(() => setFocus(curr.field), 500);
-        i = Infinity;
-        break;
+
+        return;
       }
 
       j++;
@@ -81,7 +91,7 @@ export const handleFocusErrStore = (
     const curr = keysDel[i];
     if (errKeys.includes(curr)) {
       setFocus(curr);
-      break;
+      return;
     }
 
     i++;
@@ -94,15 +104,21 @@ export const handleFocusErrStore = (
   while (i < (errs as any)?.items?.length) {
     const curr = (errs as any).items[i];
 
-    if (Object.values(curr).some((el) => (el as any)?.message?.trim().length)) {
+    if (
+      Object.values(curr ?? {}).some(
+        (el) => (el as any)?.message?.trim().length
+      )
+    ) {
       if (curr.email) {
         setFocus(`items.${i}.email`);
       } else {
         setFocus(`mySelect.${i}._a`);
       }
 
-      break;
+      return;
     }
+
+    i++;
   }
 };
 
