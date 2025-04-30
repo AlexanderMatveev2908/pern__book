@@ -105,6 +105,7 @@ const Register: FC = () => {
 
   const { isFormOk } = useListenFormOk({
     errors,
+    watch,
   });
 
   useEffect(() => {

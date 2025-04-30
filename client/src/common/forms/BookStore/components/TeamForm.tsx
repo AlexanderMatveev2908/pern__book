@@ -11,6 +11,7 @@ import {
   fieldEmailWorker,
   fieldSelectWorkerRole,
 } from "@/core/config/fieldsData/OwnerLayout/post";
+import { z } from "zod";
 
 const btnRemoveWorker = {
   icon: AiOutlineUserDelete,
@@ -118,8 +119,7 @@ const TeamForm: FC = () => {
         )
           setError(`items.${i}.role`, { message: "Worker need a role" });
         else if (
-          curr.email.trim().length &&
-          curr.role &&
+          (curr.role || !curr.email.trim().length) &&
           (errors as any)?.items?.[i]?.role
         )
           clearErrors(`items.${i}.role`);
@@ -130,14 +130,13 @@ const TeamForm: FC = () => {
           !(errors as any)?.items?.[i]?.email
         )
           setError(`items.${i}.email`, {
-            message: `This ${curr.role} need a role`,
+            message: `This ${curr.role} need an email`,
           });
-        // else if (
-        //   curr.role &&
-        //   curr.email.trim().length &&
-        //   (errors as any)?.items?.[i]?.email
-        // )
-        //   clearErrors(`items.${i}.email`);
+        else if (
+          (!curr.role || z.string().email().safeParse(curr.email).success) &&
+          (errors as any)?.items?.[i]?.email
+        )
+          clearErrors(`items.${i}.email`);
 
         i++;
       }
@@ -145,8 +144,6 @@ const TeamForm: FC = () => {
 
     handleTeam();
   }, [vals, setError, errors, clearErrors]);
-
-  console.log(errors);
 
   return (
     <div

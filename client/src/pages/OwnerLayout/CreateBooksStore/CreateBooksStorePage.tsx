@@ -12,6 +12,7 @@ import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -70,7 +71,7 @@ const CreateBooksStore: FC = () => {
       }
     )(e);
   };
-
+  const { isFormOk } = useListenFormOk({ errors, watch });
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
   return (
@@ -78,7 +79,7 @@ const CreateBooksStore: FC = () => {
       <Title {...{ title: "create a bookstore" }} />
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
-          <BookStoreForm {...{ handleSave }} />
+          <BookStoreForm {...{ handleSave, isFormOk }} />
         </FormProvider>
       </div>
     </div>

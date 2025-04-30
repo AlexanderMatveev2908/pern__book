@@ -100,6 +100,7 @@ const ProfileSettings = () => {
   const { isFormOk } = useListenFormOk({
     errors,
     customValidateCB: handleCheckEqData,
+    watch,
   });
 
   useFocusAddress({

@@ -1,13 +1,21 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
-import { FieldErrors } from "react-hook-form";
+import { FieldErrors, UseFormWatch } from "react-hook-form";
 
 type Params = {
   customValidateCB?: () => boolean;
   errors: FieldErrors;
+  watch: UseFormWatch<any>;
 };
 
-export const useListenFormOk = ({ customValidateCB, errors }: Params) => {
+export const useListenFormOk = ({
+  customValidateCB,
+  errors,
+  watch,
+}: Params) => {
   const [isFormOk, setIsFormOk] = useState(false);
+
+  const vals = watch();
 
   useEffect(() => {
     const listen = () => {
@@ -20,7 +28,7 @@ export const useListenFormOk = ({ customValidateCB, errors }: Params) => {
     };
 
     listen();
-  }, [customValidateCB, errors, isFormOk]);
+  }, [customValidateCB, errors, isFormOk, vals]);
 
   return {
     isFormOk,
