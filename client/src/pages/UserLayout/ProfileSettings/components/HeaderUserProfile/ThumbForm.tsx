@@ -11,7 +11,6 @@ const ThumbForm: FC<PropsType> = ({ register, watch, errors, setValue }) => {
   const thumb = watch("thumb") as FileList;
 
   //   [...(watch("thumb")?.length ? watch("thumb") : [])].map((el) =>
-  //     console.log(el)
   //   );
 
   return (

@@ -46,7 +46,6 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
     try {
       setIsPending(true);
       const data = await getMaps();
-      console.log(data);
 
       if (!data?.address)
         throw {

@@ -26,8 +26,6 @@ const ForgotPwd: FC = () => {
         }),
     });
 
-    console.log(res);
-
     if (!res) return;
 
     reset();

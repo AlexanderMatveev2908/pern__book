@@ -207,15 +207,11 @@ export const calcLenToken = () => {
       })
     )
   );
-
-  console.log(tokenToSend.length);
 };
 
 export const encryptCert = () => {
   // const aesKey = randomBytes(AES_KEY_LENGTH);
   // const iv = randomBytes(IV_LENGTH);
-  // console.log(makeHEX(aesKey));
-  // console.log(makeHEX(iv));
   // const p = path.join(
   //   path.dirname(fileURLToPath(import.meta.url)),
   //   "../../../certs/ca.pem"
@@ -224,7 +220,6 @@ export const encryptCert = () => {
   // const cypher = createCipheriv(TokAlg.CBC_HMAC, aesKey, iv);
   // const encrypted = Buffer.concat([cypher.update(cert), cypher.final()]);
   // const data = makeHEX(encrypted);
-  // console.log(data);
 };
 
 export const decryptCert = () => {

@@ -96,3 +96,12 @@ export const fieldSelectWorkerRole: MySelectFieldType = {
     id: v4(),
   })),
 };
+
+export const mandatoryKeys = [
+  "name",
+  "categories",
+  "email",
+  "phone",
+  ...fieldsSwapStore.flatMap((arr) => arr.map((el) => el.field)),
+  "deliveryTime",
+];

@@ -13,6 +13,7 @@ import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { canSaveStore } from "@/core/lib/all/forms/preSubmit/bookStore";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -44,6 +45,9 @@ const CreateBooksStore: FC = () => {
     resolver: zodResolver(schemaX),
     mode: "onChange",
     shouldFocusError: false,
+    defaultValues: {
+      categories: [],
+    },
   });
 
   const {
@@ -59,6 +63,8 @@ const CreateBooksStore: FC = () => {
     fields: fieldsSwapStore,
   });
 
+  const vals = watch();
+
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -71,7 +77,11 @@ const CreateBooksStore: FC = () => {
       }
     )(e);
   };
-  const { isFormOk } = useListenFormOk({ errors, watch });
+  const { isFormOk } = useListenFormOk({
+    errors,
+    watch,
+    customValidateCB: () => canSaveStore(vals),
+  });
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
   return (

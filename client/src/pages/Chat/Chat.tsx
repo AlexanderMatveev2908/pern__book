@@ -9,7 +9,6 @@
 //       socket.emit("test_client", { msg: "I send data as client" });
 
 //       socket.on("response_server", (res) => {
-//         console.log(res);
 //       });
 //     }
 //   }, [socket]);

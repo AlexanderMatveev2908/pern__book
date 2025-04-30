@@ -97,8 +97,6 @@ export const handleFocusErrStore = (
     i++;
   } while (i < keysDel.length);
 
-  console.log(errs);
-
   i = 0;
 
   while (i < (errs as any)?.items?.length) {
