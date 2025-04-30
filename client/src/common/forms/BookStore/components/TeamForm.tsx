@@ -30,6 +30,8 @@ const TeamForm: FC = () => {
     getValues,
     formState: { errors },
     watch,
+    setError,
+    clearErrors,
   } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -60,6 +62,7 @@ const TeamForm: FC = () => {
 
   const handleClickSelect = (val: UserRole, i: number) => {
     const currVal = getValues(`items.${i}.role`);
+
     setValue(`items.${i}.role`, currVal === val ? null : val, {
       shouldValidate: true,
     });
@@ -96,6 +99,54 @@ const TeamForm: FC = () => {
 
     return vals.length && vals?.every((val) => typeof val === "string");
   }, [fieldsData]);
+
+  const vals = watch();
+
+  useEffect(() => {
+    const handleTeam = () => {
+      const team = vals?.items;
+      if (!team?.length) return;
+
+      let i = 0;
+      while (i < team.length) {
+        const curr = team[i];
+
+        if (
+          curr.email.trim().length &&
+          !curr.role &&
+          !(errors as any)?.items?.[i]?.role
+        )
+          setError(`items.${i}.role`, { message: "Worker need a role" });
+        else if (
+          curr.email.trim().length &&
+          curr.role &&
+          (errors as any)?.items?.[i]?.role
+        )
+          clearErrors(`items.${i}.role`);
+
+        if (
+          curr.role &&
+          !curr.email.trim()?.length &&
+          !(errors as any)?.items?.[i]?.email
+        )
+          setError(`items.${i}.email`, {
+            message: `This ${curr.role} need a role`,
+          });
+        // else if (
+        //   curr.role &&
+        //   curr.email.trim().length &&
+        //   (errors as any)?.items?.[i]?.email
+        // )
+        //   clearErrors(`items.${i}.email`);
+
+        i++;
+      }
+    };
+
+    handleTeam();
+  }, [vals, setError, errors, clearErrors]);
+
+  console.log(errors);
 
   return (
     <div
