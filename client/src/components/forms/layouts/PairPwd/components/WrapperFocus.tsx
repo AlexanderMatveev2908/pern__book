@@ -1,7 +1,7 @@
 import { FC, useState } from "react";
 import CheckRegPwd from "./CheckRegPwd.tsx";
-import PwdField from "../../inputs/PwdField/PwdField.tsx";
 import { FormBaseProps, FormFieldBasic } from "@/types/types.ts";
+import PwdField from "@/components/forms/inputs/PwdField/PwdField.tsx";
 
 type PropsType = {
   pwd: string | null;

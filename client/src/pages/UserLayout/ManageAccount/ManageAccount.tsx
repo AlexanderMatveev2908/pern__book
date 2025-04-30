@@ -15,7 +15,7 @@ import {
   ActionsManageAccount,
   titlesFormsManage,
 } from "@/core/config/fieldsData/UserLayout/manageAccount";
-import ButtonsSwapper from "@/components/forms/ButtonsSwapper/ButtonsSwapper";
+import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 
 const ManageAccount: FC = () => {

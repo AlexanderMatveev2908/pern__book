@@ -17,12 +17,12 @@ import FormField from "@/components/forms/inputs/FormFields/FormField";
 import TxtField from "@/components/forms/inputs/TxtField";
 import VideoField from "@/components/forms/inputs/VideoField";
 import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
-import CheckBoxSwapper from "@/components/forms/CheckBoxSwapper/CheckBoxSwapper";
 import { CatBookStore } from "@/types/all/bookStore";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useLocation } from "react-router-dom";
 import { capt } from "@/core/lib/lib";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
+import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
 
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;

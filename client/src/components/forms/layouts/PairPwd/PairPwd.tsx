@@ -2,7 +2,7 @@ import { FormBaseProps, FormFieldBasic } from "@/types/types";
 import { FC } from "react";
 import WrapperFocus from "./components/WrapperFocus";
 import CreatePwd from "./components/CreatePwd";
-import PwdField from "../inputs/PwdField/PwdField";
+import PwdField from "../../inputs/PwdField/PwdField";
 
 type PropsType = {
   fields: FormFieldBasic[];

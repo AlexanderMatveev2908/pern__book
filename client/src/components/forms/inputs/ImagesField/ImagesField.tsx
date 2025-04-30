@@ -7,6 +7,7 @@ import { FaImages, FaTrashAlt } from "react-icons/fa";
 import ShowImagesData from "./ShowImagesData";
 import { useFormContext } from "react-hook-form";
 import ErrorFormField from "../../Errors/ErrorFormField";
+import FocusAnchor from "../../FocusAnchor";
 
 const updateByTransfer = (updated: File[]) => {
   const dataTransfer = new DataTransfer();
@@ -22,6 +23,7 @@ const ImagesField: FC = () => {
     setValue,
     formState: { errors },
     watch,
+    register,
   } = useFormContext();
 
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -103,6 +105,8 @@ const ImagesField: FC = () => {
             el: { field: "images" },
           }}
         />
+
+        <FocusAnchor {...{ register, fieldKey: "images" }} />
       </div>
 
       <ShowImagesData {...{ isVal, images, isUploadFiles, handleRemoveOne }} />

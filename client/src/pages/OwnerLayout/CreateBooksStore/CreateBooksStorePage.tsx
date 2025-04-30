@@ -11,6 +11,9 @@ import { z } from "zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
+import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
+
+export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
 const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
@@ -36,16 +39,17 @@ const CreateBooksStore: FC = () => {
     }
   });
 
-  type FormBookStoreType = z.infer<typeof schemaX>;
-
   const formCtx = useForm<FormBookStoreType>({
     resolver: zodResolver(schemaX),
     mode: "onChange",
+    shouldFocusError: false,
   });
 
   const {
     watch,
     formState: { errors },
+    handleSubmit,
+    setFocus,
   } = formCtx;
   const { setCurrForm } = useFormSwap({
     ...useSwapCtxConsumer(),
@@ -57,17 +61,14 @@ const CreateBooksStore: FC = () => {
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
 
-    const swap = document.getElementById("swapFormStoreCreate");
-    if (!swap) return;
-    const distance =
-      swap.getBoundingClientRect().top + window.scrollY - swap.offsetHeight / 2;
-
-    setCurrForm(1, null);
-
-    window.scroll({
-      top: distance,
-      behavior: "smooth",
-    });
+    handleSubmit(
+      (data) => {
+        console.log(data);
+      },
+      (errs) => {
+        handleFocusErrStore(setFocus, errs);
+      }
+    )(e);
   };
 
   useFocus({ setFocus: formCtx.setFocus, key: "name" });

@@ -6,6 +6,7 @@ import { MdVideoCall } from "react-icons/md";
 import { FiVideo } from "react-icons/fi";
 import { useFormContext } from "react-hook-form";
 import ErrorFormField from "../Errors/ErrorFormField";
+import FocusAnchor from "../FocusAnchor";
 
 const VideoField: FC = () => {
   const {
@@ -61,6 +62,7 @@ const VideoField: FC = () => {
           }}
         />
 
+        <FocusAnchor {...{ register, fieldKey: "video" }} />
         <div
           className={`w-full h-full transition-all duration-300 delay-100 ${
             isVal ? "scale-100" : "scale-0"

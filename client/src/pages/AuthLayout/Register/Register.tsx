@@ -26,14 +26,14 @@ import {
   swapFieldsByAreaAuth,
 } from "@/core/config/fieldsData/AuthLayout/auth";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
-import BreadCrumbForm from "@/components/forms/BreadCrumbForm";
+import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import PairPwd from "@/components/forms/PairPwd/PairPwd";
 import Terms from "./components/Terms";
-import ButtonsSwapper from "@/components/forms/ButtonsSwapper/ButtonsSwapper";
+import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
+import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 

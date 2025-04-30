@@ -11,10 +11,10 @@ import {
   useGetUserProfileQuery,
   useUpdatePwdMutation,
 } from "@/features/UserLayout/userSliceAPI";
-import PairPwd from "@/components/forms/PairPwd/PairPwd";
 import { fieldsNewPwdReset } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
+import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
 
 type PropsType = {
   propsPwd: ReturnShowPwd;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Button from "@/components/elements/buttons/Button/Button";
-import PairPwd from "@/components/forms/PairPwd/PairPwd";
+import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
 import { fieldsNewPwd } from "@/core/config/fieldsData/AuthLayout/auth";
 import { useShowPwd } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";

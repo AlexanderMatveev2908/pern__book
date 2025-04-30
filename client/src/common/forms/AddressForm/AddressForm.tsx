@@ -1,7 +1,7 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import MapsBtn from "@/components/elements/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/elements/buttons/QuickFillBtn";
-import ButtonsSwapper from "@/components/forms/ButtonsSwapper/ButtonsSwapper";
+import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { BtnAct, FormFieldBasic } from "@/types/types";

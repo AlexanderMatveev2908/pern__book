@@ -1,6 +1,6 @@
 import { FC, ReactNode } from "react";
 import Title from "../elements/Title";
-import SwitcherFormAuth from "../forms/SwitcherFormAuth";
+import SwitcherFormAuth from "../forms/layouts/SwitcherFormAuth";
 
 type PropsType = {
   title: string;
