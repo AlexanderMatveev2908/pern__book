@@ -8,8 +8,12 @@ export const handleFocusErrStore = (
 ): void => {
   const errKeys = Object.keys(errs);
 
+  console.log(errKeys);
+
   if (errKeys.includes("name")) setFocus("name");
   else if (errKeys.includes("description")) setFocus("description");
+  else if (errKeys.includes("video")) setFocus("video_a");
+  else if (errKeys.includes("images")) setFocus("images_a");
 };
 
 /*

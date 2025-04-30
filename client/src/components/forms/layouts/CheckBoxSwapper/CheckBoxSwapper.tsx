@@ -5,6 +5,7 @@ import { tailwindBreak } from "@/core/config/breakpoints";
 import ErrorFormField from "../../Errors/ErrorFormField";
 import BtnCheckBox from "../../inputs/BtnCheckBox/BtnCheckBox";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
+import FocusAnchor from "../../FocusAnchor";
 
 type PropsType = {
   fieldsArg: string[];
@@ -31,6 +32,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
     setValue,
     formState: { errors },
     watch,
+    register,
   } = useFormContext();
 
   const [fieldsForSwap, setFieldsForSwap] = useState(calcByW());
@@ -95,6 +97,8 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
           styleCont: "-top-[20%] right-0",
         }}
       />
+
+      <FocusAnchor {...{ register, fieldKey: "categories" }} />
 
       <div className="w-full max-w-full grid gap-5 grid-cols-1 overflow-hidden p-5">
         <div

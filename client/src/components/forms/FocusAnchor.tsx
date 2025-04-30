@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { capt } from "@/core/lib/lib";
 import { FC } from "react";
 import { UseFormRegister } from "react-hook-form";
 
@@ -13,7 +12,7 @@ const FocusAnchor: FC<PropsType> = ({ fieldKey, register }) => {
     <input
       type="text"
       className="absolute top-0 left-0 opacity-0 max-h-0 max-w-0"
-      {...register(fieldKey + capt("anchor"))}
+      {...register(fieldKey + "_a")}
     />
   );
 };

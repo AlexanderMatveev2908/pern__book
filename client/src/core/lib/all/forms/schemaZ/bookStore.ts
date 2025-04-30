@@ -47,7 +47,26 @@ export const schemaBookStore = z
       ),
     images: z
       .union([z.array(z.string()), z.array(z.instanceof(File))])
-      .optional(),
+      .optional()
+      .refine(
+        (val) => {
+          const userUpload =
+            Array.isArray(val) &&
+            !!val?.length &&
+            val?.every((img: File | string) => img instanceof File);
+
+          if (userUpload)
+            return val.every((img: File) => img?.type?.startsWith("image"));
+
+          return true;
+        },
+        {
+          message: "Use the input above for video",
+        }
+      )
+      .refine((val) => !val?.length || val.length <= 5, {
+        message: "For practical reason max length images is 5",
+      }),
     categories: z
       .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]), {
         required_error: "Category required",
@@ -124,31 +143,6 @@ export const schemaBookStore = z
   )
 
   .superRefine((data, ctx) => {
-    //  * * IMAGES
-    const userUpload =
-      !!data?.images?.length &&
-      data?.images?.every((img: File | string) => img instanceof File);
-
-    if (
-      userUpload &&
-      Array.isArray(data.images) &&
-      !data?.images.every((img: File | string) =>
-        (img as File)?.type?.startsWith("image")
-      )
-    )
-      ctx.addIssue({
-        path: ["images"],
-        message: "Use input above for video",
-        code: "custom",
-      });
-
-    if (userUpload && (data?.images?.length ?? 0) > 5)
-      ctx.addIssue({
-        path: ["images"],
-        message: `Exceeded max length ${data.images?.length} / 5`,
-        code: "custom",
-      });
-
     // * USER ROLE
     const len = data.items?.length;
     let i = 0;
