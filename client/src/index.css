@@ -6,10 +6,8 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 
 @font-face {
   font-family: "Sour Gummy";
-  src: url("./config/assets/Sour_Gummy/SourGummy-Italic-VariableFont_wdth,wght.ttf")
-      format("truetype"),
-    url("./config/assets/Sour_Gummy/SourGummy-VariableFont_wdth,wght.ttf")
-      format("truetype");
+  src: url("./public/Sour_Gummy/one.ttf") format("truetype"),
+    url("./public//Sour_Gummy/two.ttf") format("truetype");
 }
 
 * {
