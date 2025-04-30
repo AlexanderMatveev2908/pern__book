@@ -11,8 +11,7 @@ import "./BookStoreForm.css";
 import {
   fieldDescStore,
   fieldNameStore,
-  fieldsStoreAddress_0,
-  fieldsStoreAddress_1,
+  fieldsSwapStore,
 } from "@/core/config/fieldsData/OwnerLayout/post";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import TxtField from "@/components/forms/inputs/TxtField";
@@ -47,11 +46,6 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
     currForm: currForm,
   });
   useCLearTab();
-
-  const arrAddressSwap = useMemo(
-    () => [fieldsStoreAddress_0, fieldsStoreAddress_1],
-    []
-  );
 
   const swapID = useMemo(
     () => "swapFormStore" + capt(path.split("/").pop() ?? ""),
@@ -112,7 +106,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave }) => {
           {...{
             swapID,
             btnProfile: true,
-            arrAddressSwap,
+            arrAddressSwap: fieldsSwapStore,
           }}
         />
       </WrapperFormField>

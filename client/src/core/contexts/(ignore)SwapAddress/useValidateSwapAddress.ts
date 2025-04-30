@@ -1,5 +1,4 @@
 // /* eslint-disable @typescript-eslint/no-explicit-any */
-// import { swapAddressByArea } from "@/core/config/fieldsData/UserLayout/pofile";
 // import { validateSwapper } from "@/core/lib/lib";
 // import { useEffect, useState } from "react";
 // import { FieldErrors, UseFormWatch } from "react-hook-form";
@@ -25,7 +24,6 @@
 //     const sub = watch((valsForm) => {
 //       const { isValid, i } = validateSwapper({
 //         objErr: errors,
-//         fieldsByArea: swapAddressByArea,
 //         valsForm,
 //       });
 //       const len = Object.keys(errors).length;

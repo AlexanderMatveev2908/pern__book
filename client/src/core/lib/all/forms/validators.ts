@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { SwapFieldType } from "@/types/types";
+import { FormFieldBasic } from "@/types/types";
 import { FieldErrors } from "react-hook-form";
 
 export const isFormValid = (objErrs: FieldErrors, objVals: any) =>
@@ -37,7 +37,7 @@ export const validateSwapper = ({
   valsForm,
 }: {
   objErr: FieldErrors;
-  fieldsByArea: SwapFieldType[][];
+  fieldsByArea: FormFieldBasic[][];
   // formData obj type || null
   // i do not know to make dynamic types yet so i use any
   valsForm: any;

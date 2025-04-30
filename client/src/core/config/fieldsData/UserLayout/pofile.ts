@@ -1,5 +1,5 @@
 import { v4 } from "uuid";
-import { FormFieldBasic, SwapFieldType } from "@/types/types";
+import { FormFieldBasic } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { capt } from "@/core/lib/lib";
@@ -17,11 +17,7 @@ const namesFields = [
   },
 ];
 
-export const addressFields_0: SwapFieldType[] = [
-  "country",
-  "state",
-  "city",
-].map((el) => ({
+export const addressFields_0 = ["country", "state", "city"].map((el) => ({
   field: el,
   label: capt(el),
 }));
@@ -38,22 +34,12 @@ export const addressFields_1 = [
       }
 );
 
-export const swapAddressByArea = [addressFields_0, addressFields_1];
-export const swapAddressFieldsMerg = swapAddressByArea.flatMap((arr) =>
-  arr.map((el) => el.field)
+export const fieldsProfileHeader: FormFieldBasic[] = [...namesFields].map(
+  (el) => ({
+    ...el,
+    id: v4(),
+  })
 );
-export const allProfileKeys = [
-  ...swapAddressFieldsMerg,
-  ...namesFields.map((el) => el.field),
-  "thumb",
-];
-
-export const fieldsProfileHeader: FormFieldBasic[] = !namesFields?.length
-  ? []
-  : [...namesFields].map((el) => ({
-      ...el,
-      id: v4(),
-    }));
 
 export const keysHeaderProfile = fieldsProfileHeader
   .map((el) => el.field)
@@ -72,6 +58,17 @@ export const fieldsProfileAddress_1: FormFieldBasic[] = [
   ...el,
   id: v4(),
 }));
+
+export const fieldsSwapProfile = [
+  fieldsProfileAddress_0,
+  fieldsProfileAddress_1,
+];
+
+export const allProfileKeys = [
+  ...fieldsSwapProfile.flatMap((arr) => arr.map((el) => el.field)),
+  ...namesFields.map((el) => el.field),
+  "thumb",
+];
 
 export const BtnFieldIconType = [
   {

@@ -1,8 +1,8 @@
 import { FieldErrors } from "react-hook-form";
 import { validateSwapper } from "../validators";
 import {
+  fieldsSwapProfile,
   keysHeaderProfile,
-  swapAddressByArea,
 } from "@/core/config/fieldsData/UserLayout/pofile";
 import { UserProfileForm } from "@/pages/UserLayout/ProfileSettings/ProfileSettings";
 
@@ -33,7 +33,7 @@ export const preSubmitCheckProfile = ({
   const { i, j, isValid } = validateSwapper({
     objErr: errors,
     valsForm: null,
-    fieldsByArea: swapAddressByArea,
+    fieldsByArea: fieldsSwapProfile,
   });
 
   // __cg("swapper", isValid, i, j);

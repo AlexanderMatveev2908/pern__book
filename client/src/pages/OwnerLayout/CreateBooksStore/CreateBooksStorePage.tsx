@@ -9,8 +9,8 @@ import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
-import { fieldsSwapAddressStore } from "@/core/config/fieldsData/OwnerLayout/post";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
+import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
 
 const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
@@ -51,7 +51,7 @@ const CreateBooksStore: FC = () => {
     ...useSwapCtxConsumer(),
     watch,
     errors,
-    fields: fieldsSwapAddressStore,
+    fields: fieldsSwapStore,
   });
 
   const handleSave = (e: React.FormEvent) => {

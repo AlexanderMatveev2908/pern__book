@@ -2,7 +2,7 @@
 import { makeDelay, validateSwapper } from "@/core/lib/lib";
 import { useCallback, useEffect } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
-import { SwapFieldType } from "@/types/types";
+import { FormFieldBasic } from "@/types/types";
 import {
   SwapAddressStateType,
   SwapModeType,
@@ -18,7 +18,7 @@ type Params = {
 
   watch: UseFormWatch<any>;
   errors: FieldErrors;
-  fields: SwapFieldType[][];
+  fields: FormFieldBasic[][];
 
   customSwapCB?: () => void;
   customValidateCB?: () => boolean;

@@ -32,7 +32,7 @@ import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import {
   allProfileKeys,
-  swapAddressByArea,
+  fieldsSwapProfile,
 } from "@/core/config/fieldsData/UserLayout/pofile";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
@@ -94,7 +94,7 @@ const ProfileSettings = () => {
     ...useSwapCtxConsumer(),
     watch,
     errors,
-    fields: swapAddressByArea,
+    fields: fieldsSwapProfile,
   });
 
   const { isFormOk } = useListenFormOk({

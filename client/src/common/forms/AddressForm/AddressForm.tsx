@@ -30,7 +30,7 @@ const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
     watch,
   } = useFormContext();
 
-  const { currForm, setCurrForm } = useFormSwap({
+  const { currForm, setCurrForm, isNextDisabled } = useFormSwap({
     ...useSwapCtxConsumer(),
     watch,
     errors,
@@ -103,8 +103,8 @@ const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
               currForm,
               setCurrForm,
               totLen: 2,
-              isNextDisabled: false,
-              // isNextDisabled,
+              // isNextDisabled: false,
+              isNextDisabled,
             }}
           >
             <div className="w-[200px] justify-self-center">

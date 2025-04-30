@@ -1,9 +1,4 @@
-import {
-  FormFieldBasic,
-  MySelectFieldType,
-  SwapFieldType,
-  UserRole,
-} from "@/types/types";
+import { FormFieldBasic, MySelectFieldType, UserRole } from "@/types/types";
 import { v4 } from "uuid";
 import { addressFields_0, addressFields_1 } from "../UserLayout/pofile";
 import { capt } from "@/core/lib/lib";
@@ -56,9 +51,9 @@ export const fieldsStoreAddress_1: FormFieldBasic[] = [...addressFields_1]
   }))
   .filter((el) => el.field !== "phone");
 
-export const fieldsSwapAddressStore: SwapFieldType[][] = [
-  addressFields_0,
-  addressFields_1.filter((el) => el.field !== "phone"),
+export const fieldsSwapStore: FormFieldBasic[][] = [
+  fieldsStoreAddress_0,
+  fieldsStoreAddress_1,
 ];
 
 export const fieldsDelivery: FormFieldBasic[] = [

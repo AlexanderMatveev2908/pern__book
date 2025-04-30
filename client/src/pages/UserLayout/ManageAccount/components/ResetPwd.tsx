@@ -7,7 +7,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { ReturnShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
 import { useHandleDangerAccount } from "@/core/hooks/all/useHandleDangerAccount";
-import { SwapModeType } from "@/core/hooks/all/forms/useSwapAddress/initState";
 import {
   useGetUserProfileQuery,
   useUpdatePwdMutation,
@@ -15,6 +14,7 @@ import {
 import PairPwd from "@/components/forms/PairPwd/PairPwd";
 import { fieldsNewPwdReset } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 
 type PropsType = {
   propsPwd: ReturnShowPwd;
