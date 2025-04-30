@@ -149,7 +149,6 @@ const TeamForm: FC = () => {
     handleTeam();
   }, [vals, setError, errors, clearErrors]);
 
-  console.log(errors);
   return (
     <div
       ref={parentRef}

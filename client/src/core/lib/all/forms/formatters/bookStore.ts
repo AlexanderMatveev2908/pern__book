@@ -37,7 +37,7 @@ export const makeFormDataStore = (
           let y = 0;
 
           do {
-            formData.append(`${key}.[${j}].${pairs[y][0]}`, pairs[y][1]);
+            formData.append(`${key}[${j}][${pairs[y][0]}]`, pairs[y][1]);
 
             y++;
           } while (y < pairs.length);
