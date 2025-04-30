@@ -8,6 +8,7 @@ type PropsType = {
   act?: BtnAct;
   handleClick: (arg: any) => void;
   isPending?: boolean;
+  isDisabled?: boolean;
 };
 
 const getCol = (act: BtnAct) => {
@@ -30,13 +31,19 @@ const getCol = (act: BtnAct) => {
   return border + " " + hoverTxt;
 };
 
-const ButtonIcon: FC<PropsType> = ({ el, act, handleClick, isPending }) => {
+const ButtonIcon: FC<PropsType> = ({
+  el,
+  act,
+  handleClick,
+  isPending,
+  isDisabled,
+}) => {
   return (
     <button
       onClick={handleClick}
-      disabled={isPending}
+      disabled={isDisabled || isPending}
       type="button"
-      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-5 justify-center group z-20 bg-neutral-950 ${getCol(
+      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer btn__logic_md flex items-center gap-5 justify-center group z-20 bg-neutral-950 disabled:opacity-50 ${getCol(
         act ?? BtnAct.INFO
       )} `}
     >

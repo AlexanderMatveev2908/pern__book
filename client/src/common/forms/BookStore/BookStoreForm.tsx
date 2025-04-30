@@ -6,7 +6,7 @@ import AddressForm from "../AddressForm/AddressForm";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import DeliveryForm from "./components/DeliveryForm";
-import TeamForm from "./components/TeamForm/TeamForm";
+import TeamForm from "./components/TeamForm";
 import "./BookStoreForm.css";
 import {
   fieldDescStore,

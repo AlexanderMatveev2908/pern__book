@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import MySelect from "@/components/forms/inputs/MySelect";
@@ -28,6 +29,7 @@ const TeamForm: FC = () => {
     setValue,
     getValues,
     formState: { errors },
+    watch,
   } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -80,6 +82,20 @@ const TeamForm: FC = () => {
       role: null,
     });
   const handleRemove = (i: number) => remove(i);
+
+  const fieldsData = watch("items");
+  const isLastOk = useCallback(() => {
+    const last =
+      Array.isArray(fieldsData) && fieldsData?.length
+        ? fieldsData.at(-1)
+        : null;
+
+    if (last === null) return true;
+
+    const vals = Object.values(last ?? {});
+
+    return vals.length && vals?.every((val) => typeof val === "string");
+  }, [fieldsData]);
 
   return (
     <div
@@ -137,7 +153,13 @@ const TeamForm: FC = () => {
       ))}
 
       <div className="w-[75px] ml-4">
-        <ButtonIcon {...{ el: btnAddWorker, handleClick: handleAppend }} />
+        <ButtonIcon
+          {...{
+            el: btnAddWorker,
+            handleClick: handleAppend,
+            isDisabled: !!(errors as any)?.items?.length || !isLastOk(),
+          }}
+        />
       </div>
     </div>
   );

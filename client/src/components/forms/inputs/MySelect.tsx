@@ -32,7 +32,7 @@ const MySelect: FC<PropsType> = ({
       const arrRefs = [btnRef.current, ulRef.current];
       if (arrRefs.some((el) => !el)) return;
 
-      if (arrRefs.some((ref) => (e.target as Node).contains(ref)))
+      if (!arrRefs.some((ref) => ref?.contains(e.target as Node)))
         setIsOpen(false);
     };
 
