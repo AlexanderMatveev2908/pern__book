@@ -6,6 +6,8 @@ export class ImgBookStore extends CloudAsset {
   declare bookStoreID: string;
 }
 
+export type ImgBookStoreType = InstanceType<typeof ImgBookStore>;
+
 export const defineImgBookStore = (seq: Sequelize) =>
   ImgBookStore.init(
     {

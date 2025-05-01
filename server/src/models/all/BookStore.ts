@@ -2,7 +2,31 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
 import { CatBookStore } from "../../types/all/bookStore.js";
 
-export class BookStore extends Model {}
+export class BookStore extends Model {
+  declare id: string;
+  declare ownerID: string;
+
+  declare name: string;
+  declare description?: string | null;
+
+  declare categories: CatBookStore[];
+
+  declare email: string;
+  declare phone: string;
+  declare website?: string | null;
+
+  declare country: string;
+  declare state: string;
+  declare city: string;
+  declare street: string;
+  declare zipCode: string;
+
+  declare deliveryPrice?: number;
+  declare freeDeliveryAmount?: number;
+  declare deliveryTime: number;
+}
+
+export type BookStoreInstance = InstanceType<typeof BookStore>;
 
 export const defineBookStore = (seq: Sequelize) =>
   BookStore.init(
@@ -27,6 +51,7 @@ export const defineBookStore = (seq: Sequelize) =>
         validate: {
           maxLen(val: string[]) {
             if (val.length > 3) throw new Error("Too many cat");
+            return true;
           },
           enumVals(val: string[]) {
             let i = 0;
@@ -34,7 +59,11 @@ export const defineBookStore = (seq: Sequelize) =>
               const curr = val[i];
               if (!Object.values(CatBookStore).includes(curr as CatBookStore))
                 throw new Error("Invalid cat");
+
+              i++;
             }
+
+            return true;
           },
         },
       },
@@ -49,7 +78,7 @@ export const defineBookStore = (seq: Sequelize) =>
         defaultValue: 0,
         allowNull: true,
       },
-      timeDelivery: {
+      deliveryTime: {
         type: DataTypes.INTEGER,
         allowNull: false,
       },

@@ -21,6 +21,7 @@ import { limitRoute } from "../../middleware/general/limitRoute.js";
 import { checkSecurityToken } from "../../middleware/user/checkSecurityToken.js";
 import { validateSendEmail } from "../../middleware/sendMail/validateSendEmail.js";
 import { validateNewPwd } from "../../middleware/user/validateNewPwd.js";
+import { logJSON } from "../../lib/utils/log.js";
 
 const profileRouter = express.Router();
 
@@ -30,6 +31,7 @@ profileRouter
   .patch(
     verifyAccessToken({}),
     multerThumb,
+    wrapApp(logJSON),
     validateProfile,
     wrapApp(updateProfile)
   );

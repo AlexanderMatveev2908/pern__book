@@ -3,7 +3,7 @@ dotenv.config();
 import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
 import { frontURL, isDev, keyCert } from "./config/env.js";
-import { clearDB } from "./stuff/clear.js";
+import { clearDB, delStore, testDelVideo } from "./stuff/clear.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
 import { errMiddleware } from "./middleware/general/errMiddleware.js";
@@ -52,12 +52,13 @@ app.use(errMiddleware);
 // clearDB();
 
 // io.on("connection", handleSocket);
-
+// testDelVideo();
+// delStore();
 const start = async () => {
   try {
     await connectCloud();
     await connectDB();
-    await syncDB();
+    // await syncDB();
 
     await new Promise<void>((res, rej) => {
       // app.listen(PORT, (err) => {

@@ -6,7 +6,7 @@
     "city": "Onești",
     "street": "Strada Aurora",
     "zipCode": "601105",
-    "phone": "+00 012 345 678",
+    "phone": "+00 000 000 0000",
     "name": "aaa",
     "categories": [
       "classics"
@@ -14,6 +14,18 @@
     "deliveryTime": 1
   },
   "files": {
+    "video": [
+      {
+        "fieldname": "video",
+        "originalname": "audio.mp4",
+        "encoding": "7bit",
+        "mimetype": "video/mp4",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
+        "filename": "f2e11393-6e7d-4771-ad38-6b5d9141f2b9.mp4",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\f2e11393-6e7d-4771-ad38-6b5d9141f2b9.mp4",
+        "size": 31551484
+      }
+    ],
     "images": [
       {
         "fieldname": "images",
@@ -21,8 +33,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "daea42a1-24a5-4eb1-ab3a-feb2c9064568.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\daea42a1-24a5-4eb1-ab3a-feb2c9064568.avif",
+        "filename": "c4e5d017-5594-4555-898e-29239087c40e.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\c4e5d017-5594-4555-898e-29239087c40e.avif",
         "size": 60234
       },
       {
@@ -31,8 +43,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "a6f0ad4a-8f97-4ac1-b86c-b9b6a9333a40.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\a6f0ad4a-8f97-4ac1-b86c-b9b6a9333a40.avif",
+        "filename": "b3aae7a8-bc4f-4f87-99ca-f7b3d80f7deb.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\b3aae7a8-bc4f-4f87-99ca-f7b3d80f7deb.avif",
         "size": 40334
       },
       {
@@ -41,30 +53,31 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "e1f1bd43-b2f3-4bb9-b13c-cfcf7697ca48.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\e1f1bd43-b2f3-4bb9-b13c-cfcf7697ca48.avif",
+        "filename": "a349a9f4-c28d-4e17-b690-d888dc090a54.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\a349a9f4-c28d-4e17-b690-d888dc090a54.avif",
         "size": 23299
       },
       {
         "fieldname": "images",
-        "originalname": "4.avif",
+        "originalname": "6.avif",
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "773158c1-fcd5-44b5-904f-4de40dd8d1eb.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\773158c1-fcd5-44b5-904f-4de40dd8d1eb.avif",
-        "size": 76991
+        "filename": "aa744301-ea2b-4307-8fb1-66b6805e88f1.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\aa744301-ea2b-4307-8fb1-66b6805e88f1.avif",
+        "size": 89363
       },
       {
         "fieldname": "images",
-        "originalname": "5.avif",
+        "originalname": "7.avif",
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "ac27ae22-bec6-4155-86d5-745958d4486c.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\ac27ae22-bec6-4155-86d5-745958d4486c.avif",
-        "size": 30928
+        "filename": "ab37a4f9-870f-404f-9c89-0543be11c9ad.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\ab37a4f9-870f-404f-9c89-0543be11c9ad.avif",
+        "size": 27013
       }
     ]
-  }
+  },
+  "file": {}
 }

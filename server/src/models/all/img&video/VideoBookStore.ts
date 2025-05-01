@@ -6,6 +6,8 @@ export class VideoBookStore extends CloudAsset {
   declare bookStoreID: string;
 }
 
+export type VideoBookStoreType = InstanceType<typeof VideoBookStore>;
+
 export const defineVideoBookStore = (seq: Sequelize) =>
   VideoBookStore.init(
     {

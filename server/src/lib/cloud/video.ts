@@ -5,7 +5,7 @@ export const uploadVideoCloud = async (file: Express.Multer.File) => {
 
   const res = await v2.uploader.upload(file.path, {
     resource_type: "video",
-    folder: "videos",
+    folder: "pern__book_videos",
   });
   return {
     url: res.secure_url,

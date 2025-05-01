@@ -33,7 +33,11 @@ export const logJSON = async (
   await new Promise((res) =>
     fs.writeFile(
       path.join(dir, "json", "req.json"),
-      JSON.stringify({ body: req.body, files: req.files ?? {} }, null, 2),
+      JSON.stringify(
+        { body: req.body, files: req.files ?? {}, file: req.file ?? {} },
+        null,
+        2
+      ),
       res
     )
   );

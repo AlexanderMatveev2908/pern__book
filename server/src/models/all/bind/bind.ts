@@ -22,25 +22,35 @@ export const bindModels = (seq: Sequelize) => {
   defineKeyCbcHmac(seq);
 
   Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
-  User.hasMany(Token);
+  User.hasMany(Token, {
+    foreignKey: "userID",
+  });
 
   Thumb.belongsTo(User, {
     foreignKey: "userID",
   });
-  User.hasOne(Thumb);
+  User.hasOne(Thumb, {
+    foreignKey: "userID",
+  });
 
   ImgBooStore.belongsTo(BookStore, {
     foreignKey: "bookStoreID",
   });
-  BookStore.hasMany(ImgBooStore);
+  BookStore.hasMany(ImgBooStore, {
+    foreignKey: "bookStoreID",
+  });
 
   VideoBookStore.belongsTo(BookStore, {
     foreignKey: "bookStoreID",
   });
-  BookStore.hasOne(VideoBookStore);
+  BookStore.hasOne(VideoBookStore, {
+    foreignKey: "bookStoreID",
+  });
 
   BookStore.belongsTo(User, { foreignKey: "ownerID" });
-  User.hasMany(BookStore);
+  User.hasMany(BookStore, {
+    foreignKey: "ownerID",
+  });
 
   User.belongsToMany(BookStore, {
     through: BookStoreUser,

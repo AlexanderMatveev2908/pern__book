@@ -12,7 +12,7 @@ import { UserRole } from "../../types/types.js";
 
 const MAX_MB_IMG = 1024 * 1024 * 5;
 // ? COULD BE TOO MUCH FOR HOST PLATFORM SO SERVER COULD EASILY CRASH
-const MAX_MB_VID = 1024 * 1024 * 250;
+const MAX_MB_VID = 1024 * 1024 * 50;
 
 export const validateStore = [
   check("name")
