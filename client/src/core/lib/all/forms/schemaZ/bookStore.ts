@@ -95,8 +95,16 @@ export const schemaBookStore = z
       })
       .refine((val) => !val?.trim().length || +val >= 0.01, {
         message: "Price must be at least $0.01",
+      })
+      .refine((val) => !val?.trim().length || val.trim().length < 10, {
+        message: "A price must be less than 10 chars",
       }),
-    freeDeliveryAmount: z.string().optional(),
+    freeDeliveryAmount: z
+      .string()
+      .optional()
+      .refine((val) => !val?.trim().length || val.trim().length < 10, {
+        message: "A price must be less than 10 chars",
+      }),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
     items: z.array(
       z.object({
