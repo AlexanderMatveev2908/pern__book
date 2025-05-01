@@ -1,7 +1,10 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
+import { CloudAsset } from "../../../types/all/cloud.js";
 
-export class ImgBookStore extends Model {}
+export class ImgBookStore extends CloudAsset {
+  declare bookStoreID: string;
+}
 
 export const defineImgBookStore = (seq: Sequelize) =>
   ImgBookStore.init(

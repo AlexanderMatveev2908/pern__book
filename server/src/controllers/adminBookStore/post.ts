@@ -16,8 +16,10 @@ export const createBookStore = async (
   const video = (req?.files as { [fieldname: string]: Express.Multer.File[] })
     ?.video;
 
+  let videoData: any = null;
+
   if (video?.[0]) {
-    if (video?.[0]) await uploadVideoCloud(video?.[0]);
+    if (video?.[0]) videoData = await uploadVideoCloud(video?.[0]);
 
     try {
       await fs.promises.unlink(video[0].path);
@@ -38,7 +40,9 @@ export const createBookStore = async (
       i++;
     } while (i < images.length);
   } catch (err) {
-    console.log(err);
+    console.log("fail upload all images", err);
+
+    if (videoData) await delCloud(videoData.publicID);
     if (imagesData.length)
       await Promise.all(
         imagesData.map(async (img) => await delCloud(img.publicID))

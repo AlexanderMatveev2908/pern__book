@@ -1,10 +1,8 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
+import { CloudAsset } from "../../../types/all/cloud.js";
 
-export class Thumb extends Model {
-  declare id: string;
-  declare publicID: string;
-  declare url: string;
+export class Thumb extends CloudAsset {
   declare userID: string;
 }
 
