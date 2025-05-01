@@ -6,7 +6,7 @@ import { v4 } from "uuid";
 
 export const myDir = path.join(
   path.dirname(fileURLToPath(import.meta.url)),
-  "../../"
+  "../../../"
 );
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {

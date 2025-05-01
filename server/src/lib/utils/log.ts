@@ -22,7 +22,10 @@ export const logJSON = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), "../../");
+  const dir = path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../../../"
+  );
 
   if (!fs.existsSync(path.join(dir, "json")))
     await new Promise((res) => fs.mkdir(path.join(dir, "json"), res));

@@ -18,7 +18,7 @@ import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { seq } from "../../config/db.js";
 import { Transaction } from "sequelize";
-import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
+import { uploadThumb } from "../../lib/cloud/thumb.js";
 
 const delOldThumb = async (user: UserInstance, t: Transaction) => {
   await delCloud(user!.Thumb!.publicID);
