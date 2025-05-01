@@ -7,11 +7,17 @@
     "street": "Strada Aurora",
     "zipCode": "601105",
     "phone": "+00 012 345 678",
-    "name": "qq",
+    "name": "aaa",
     "categories": [
       "classics"
     ],
-    "deliveryTime": 1
+    "deliveryTime": 11,
+    "items": [
+      {
+        "email": "matveevalexander290800@gmail.com",
+        "role": "EMPLOYEE"
+      }
+    ]
   },
   "files": {}
 }

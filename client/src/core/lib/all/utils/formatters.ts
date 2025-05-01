@@ -14,6 +14,8 @@ export const captAll = (txt: string) =>
     .trim()
     .replace(/[\s\s]{2,}/g, " ");
 
+export const decapt = (txt: string) => txt.at(0) + txt.slice(1).toLowerCase();
+
 export const appendKey = (val: string) => captAll(val).trim();
 
 export const parseNullRead = (str: string) => (str.trim().length ? str : null);

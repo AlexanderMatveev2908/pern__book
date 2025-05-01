@@ -1,7 +1,7 @@
 import { FormFieldBasic, MySelectFieldType, UserRole } from "@/types/types";
 import { v4 } from "uuid";
 import { addressFields_0, addressFields_1 } from "../UserLayout/pofile";
-import { capt } from "@/core/lib/lib";
+import { decapt } from "@/core/lib/lib";
 
 export const fieldNameStore: FormFieldBasic = {
   field: "name",
@@ -61,19 +61,19 @@ export const fieldsDelivery: FormFieldBasic[] = [
     field: "deliveryPrice",
     label: "Delivery price ~",
     place: "Delivery price...",
-    type: "number",
+    type: "text",
   },
   {
     field: "freeDeliveryAmount",
     label: "Amount for free delivery ~",
     place: "Price to reach for free delivery...",
-    type: "number",
+    type: "text",
   },
   {
     field: "deliveryTime",
     label: "Delivery time (days)",
     place: "Delivery time...",
-    type: "number",
+    type: "text",
   },
 ].map((el) => ({
   ...el,
@@ -92,7 +92,7 @@ export const fieldSelectWorkerRole: MySelectFieldType = {
   field: "role",
   options: [UserRole.EMPLOYEE, UserRole.MANAGER].map((el) => ({
     opt: el,
-    label: capt(el),
+    label: decapt(el),
     id: v4(),
   })),
 };

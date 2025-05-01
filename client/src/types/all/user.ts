@@ -1,10 +1,10 @@
 import { ImageCloudType } from "./images";
 
 export enum UserRole {
-  OWNER = "owner",
-  MANAGER = "manager",
-  EMPLOYEE = "employee",
-  CUSTOMER = "customer",
+  CUSTOMER = "CUSTOMER",
+  EMPLOYEE = "EMPLOYEE",
+  MANAGER = "MANAGER",
+  OWNER = "OWNER",
 }
 
 export interface UserType {
