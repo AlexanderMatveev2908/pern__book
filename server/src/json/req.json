@@ -10,8 +10,7 @@
     "name": "aa",
     "categories": [
       "classics",
-      "philosophy",
-      "history"
+      "comics"
     ],
     "deliveryPrice": "2.22",
     "freeDeliveryAmount": "1.1",
@@ -39,8 +38,8 @@
         "encoding": "7bit",
         "mimetype": "video/mp4",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
-        "filename": "61b03050-a4c4-4022-9df7-887e9bc7f2df.mp4",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\61b03050-a4c4-4022-9df7-887e9bc7f2df.mp4",
+        "filename": "93421f3c-5855-4caa-a862-a5bfa47cc8bf.mp4",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\93421f3c-5855-4caa-a862-a5bfa47cc8bf.mp4",
         "size": 31551484
       }
     ],
@@ -51,8 +50,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
-        "filename": "3858aca0-b947-498a-af33-068f690ad5b9.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\3858aca0-b947-498a-af33-068f690ad5b9.avif",
+        "filename": "dd09c954-541b-4402-9c57-9473521f1efe.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\dd09c954-541b-4402-9c57-9473521f1efe.avif",
         "size": 60234
       },
       {
@@ -61,8 +60,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
-        "filename": "08493c7f-d277-4532-9c3d-71759ca0f30e.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\08493c7f-d277-4532-9c3d-71759ca0f30e.avif",
+        "filename": "727ef158-2f53-428d-a863-1e4759795b0a.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\727ef158-2f53-428d-a863-1e4759795b0a.avif",
         "size": 40334
       },
       {
@@ -71,8 +70,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
-        "filename": "8844b1ef-9cfe-4ec7-a0a0-6712830fcb30.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\8844b1ef-9cfe-4ec7-a0a0-6712830fcb30.avif",
+        "filename": "f4836ab4-6f16-499f-9132-e580c280199a.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\f4836ab4-6f16-499f-9132-e580c280199a.avif",
         "size": 76991
       },
       {
@@ -81,8 +80,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
-        "filename": "a44fc7df-2993-40cf-9a11-4f059e4dadfb.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\a44fc7df-2993-40cf-9a11-4f059e4dadfb.avif",
+        "filename": "270c0562-d76d-46ce-aeab-8d8db6218df2.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\270c0562-d76d-46ce-aeab-8d8db6218df2.avif",
         "size": 30928
       },
       {
@@ -91,8 +90,8 @@
         "encoding": "7bit",
         "mimetype": "image/avif",
         "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
-        "filename": "9c9ef6a8-611d-4482-8c9e-34c4468084bb.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\9c9ef6a8-611d-4482-8c9e-34c4468084bb.avif",
+        "filename": "8f905ec2-fec1-415e-a80b-c43552999dbf.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\8f905ec2-fec1-415e-a80b-c43552999dbf.avif",
         "size": 16820
       }
     ]

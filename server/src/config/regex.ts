@@ -17,3 +17,7 @@ export const REG_PHONE =
   /^\+\d{1,3}[-\s]?\(?\d{1,4}\)?[-\s]?\d{3,4}[-\s]?\d{3,4}$/;
 
 export const REG_STORE_NAME = /^[\p{L}\s`'@#$&]+$/u;
+export const REG_STORE_DESC = /^[\p{L}\s`'@#$&?!]+$/u;
+
+export const REG_PRICE = /^\d+(\.\d{1,2})?$/;
+export const REG_INT = /^\d+$/;

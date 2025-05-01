@@ -28,9 +28,10 @@ export const makeFormDataStore = (
       do {
         const curr = val[j];
         if (typeof curr === "string") {
+          formData.append(`${key}[${j}]`, curr);
+        }
+        if (curr instanceof File && key === "images") {
           formData.append(key, curr);
-        } else if (curr instanceof File && key === "images") {
-          formData.append(`${key}`, curr);
         } else if (
           typeof curr === "object" &&
           curr !== null &&
@@ -42,7 +43,7 @@ export const makeFormDataStore = (
           let y = 0;
 
           do {
-            formData.append(`${key}[${j}][${pairs[y][0]}]`, pairs[y][1]);
+            formData.append(`${key}[${j}][${pairs[y][0]}]`, pairs[y][1].trim());
 
             y++;
           } while (y < pairs.length);

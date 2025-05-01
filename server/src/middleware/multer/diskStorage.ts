@@ -23,7 +23,10 @@ const storage = multer.diskStorage({
   },
 });
 
-export const multerDiskStorage = multer({ storage }).fields([
+export const multerDiskStorage = multer({
+  storage,
+  limits: { fileSize: Infinity },
+}).fields([
   { name: "video", maxCount: 1 },
   { name: "images", maxCount: 5 },
 ]);
