@@ -105,6 +105,9 @@ export const schemaBookStore = z
       .refine((val) => !val?.trim().length || +val >= 0.01, {
         message: "Price must be at least $0.01",
       })
+      .refine((val) => !val?.trim().length || REG_PRICE.test(val ?? ""), {
+        message: "Invalid price format",
+      })
       .refine((val) => !val?.trim().length || val.trim().length < 10, {
         message: "A price must be less than 10 chars",
       }),
@@ -141,15 +144,6 @@ export const schemaBookStore = z
     {
       path: ["freeDeliveryAmount"],
       message: "You can not set free something that already is",
-    }
-  )
-  .refine(
-    (data) =>
-      !data.freeDeliveryAmount?.trim().length ||
-      REG_PRICE.test(data.freeDeliveryAmount ?? ""),
-    {
-      path: ["freeDeliveryAmount"],
-      message: "Invalid price format",
     }
   )
   .superRefine((data, ctx) => {

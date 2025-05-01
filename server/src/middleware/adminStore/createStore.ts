@@ -28,7 +28,7 @@ export const validateStore = [
   }),
 
   check().custom((_, { req }) => {
-    const images = req.files.images as Express.Multer.File[] | undefined;
+    const images = req.files?.images as Express.Multer.File[] | undefined;
     if (images?.length) {
       let i = 0;
 
@@ -42,21 +42,20 @@ export const validateStore = [
 
         i++;
       } while (i < images.length);
-
-      const video = req.files.video as Express.Multer.File[] | undefined;
-
-      if (video?.length) {
-        // * ALSO UNIQUE
-        const curr = video[0];
-
-        if (!curr.mimetype.startsWith("video"))
-          throw new Error("Invalid video type");
-        if (curr.size > MAX_MB_VID)
-          throw new Error(`Video ${curr.originalname} is too large 😠`);
-      }
-
-      return true;
     }
+    const video = req.files?.video as Express.Multer.File[] | undefined;
+
+    if (video?.length) {
+      // * ALSO UNIQUE
+      const curr = video[0];
+
+      if (!curr.mimetype.startsWith("video"))
+        throw new Error("Invalid video type");
+      if (curr.size > MAX_MB_VID)
+        throw new Error(`Video ${curr.originalname} is too large 😠`);
+    }
+
+    return true;
   }),
 
   check("categories")
@@ -91,6 +90,12 @@ export const validateStore = [
       ? true
       : Promise.reject("Invalid free delivery amount")
   ),
+
+  check("deliveryTime")
+    .toInt()
+    .isInt()
+    .withMessage("Invalid delivery time")
+    .custom((val) => (+val ? true : Promise.reject("Invalid delivery time"))),
 
   handleValidator(422),
 ];

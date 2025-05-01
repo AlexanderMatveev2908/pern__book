@@ -11,7 +11,7 @@ export const createBookStore = async (
     ?.images;
   const video = (req?.files as { [fieldname: string]: Express.Multer.File[] })
     ?.video;
-  if (images.length) {
+  if (images?.length) {
     let i = 0;
     do {
       const curr = images[i];
@@ -25,7 +25,7 @@ export const createBookStore = async (
     } while (i < images.length);
   }
 
-  if (fs.existsSync(video[0].path))
+  if (fs.existsSync(video?.[0]?.path))
     await new Promise((res) => {
       fs.unlink(video[0].path, res);
     });
