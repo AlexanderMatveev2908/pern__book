@@ -26,6 +26,7 @@ import {
   sideFieldsWorker,
 } from "@/core/config/fieldsData/Sidebar/sidebar";
 import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
+import FakeSideLink from "./components/FakeSideLink";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
@@ -95,7 +96,13 @@ const Sidebar: FC = () => {
 
             <SidebarDrop {...propsAccount} />
 
-            <SidebarDrop {...{ label: fieldAdminDrop, arr: sideFieldsAdmin }} />
+            <SidebarDrop {...{ label: fieldAdminDrop, arr: sideFieldsAdmin }}>
+              {user?.isVerified
+                ? null
+                : sideFieldsAdmin.map((el) => (
+                    <FakeSideLink key={el.id} {...{ el }} />
+                  ))}
+            </SidebarDrop>
 
             <SidebarDrop
               {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}

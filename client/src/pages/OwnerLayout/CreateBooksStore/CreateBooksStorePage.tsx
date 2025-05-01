@@ -17,6 +17,7 @@ import { canSaveStore } from "@/core/lib/all/forms/preSubmit/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/ownerSliceAPI";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -100,14 +101,16 @@ const CreateBooksStore: FC = () => {
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
   return (
-    <div className="parent__page">
-      <Title {...{ title: "create a bookstore" }} />
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookStoreForm {...{ handleSave, isFormOk, isLoading }} />
-        </FormProvider>
+    <WrapPageAPI {...{ canStay: user?.isVerified }}>
+      <div className="parent__page">
+        <Title {...{ title: "create a bookstore" }} />
+        <div className="w-full grid justify-items-center gap-6">
+          <FormProvider {...formCtx}>
+            <BookStoreForm {...{ handleSave, isFormOk, isLoading }} />
+          </FormProvider>
+        </div>
       </div>
-    </div>
+    </WrapPageAPI>
   );
 };
 export default CreateBooksStore;

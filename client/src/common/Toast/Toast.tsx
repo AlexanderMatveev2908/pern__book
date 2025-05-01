@@ -22,6 +22,28 @@ IS IMPORTANT TO BALANCE BETWEEN RERENDER IN STATE IN REFS THAT ARE REALLY USEFUL
 
 */
 
+const styles = {
+  [EventApp.OK]: {
+    border: "border-green-600",
+    text: "text-green-600",
+    bg: "bg-green-600",
+  },
+  [EventApp.INFO]: {
+    border: "border-blue-600",
+    text: "text-blue-600",
+    bg: "bg-blue-600",
+  },
+  [EventApp.ERR]: {
+    border: "border-red-600",
+    text: "text-red-600",
+    bg: "bg-red-600",
+  },
+};
+
+const getBorder = (type: EventApp) => styles?.[type]?.border;
+const getTxt = (type: EventApp) => styles?.[type]?.text;
+const getBg = (type: EventApp) => styles?.[type]?.bg;
+
 const Toast: FC = () => {
   const toastRef = useRef<HTMLDivElement | null>(null);
   const counterRef = useRef<HTMLDivElement | null>(null);
@@ -95,9 +117,9 @@ const Toast: FC = () => {
   return (
     <div
       ref={toastRef}
-      className={`z__toast fixed top-5 right-5 border-[3px] bg-[#000] rounded-xl w-fit min-w-[300px] sm:min-w-[450px] max-w-[80vw] sm:max-w-[500px] md:max-w-[600px] el__toast_container overflow-hidden ${
-        toast?.type === EventApp.OK ? "border-green-600" : "border-red-600"
-      }`}
+      className={`z__toast fixed top-5 right-5 border-[3px] bg-[#000] rounded-xl w-fit min-w-[300px] sm:min-w-[450px] max-w-[80vw] sm:max-w-[500px] md:max-w-[600px] el__toast_container overflow-hidden ${getBorder(
+        toast?.type as EventApp
+      )}`}
       style={{
         transform: "translateX(150%)",
         opacity: 0,
@@ -106,9 +128,9 @@ const Toast: FC = () => {
       <div className="w-full grid justify-items-start relative pb-2">
         {/* TYPE EVENT */}
         <div
-          className={`w-full flex justify-start pt-[4px] px-8 ${
-            toast?.type === EventApp.OK ? "text-green-600" : "text-red-600"
-          }`}
+          className={`w-full flex justify-start pt-[4px] px-8 ${getTxt(
+            toast?.type as EventApp
+          )}`}
         >
           <div className="w-full flex items-center gap-3">
             <span className="txt__5">{toast?.statusCode ?? ""}</span>
@@ -118,9 +140,9 @@ const Toast: FC = () => {
 
         {/* SIDE LINE */}
         <div
-          className={`absolute top-0 bottom-0 left-0 min-w-[10px] min-h-[120%] ${
-            toast?.type === EventApp.OK ? "bg-green-600" : "bg-red-600"
-          }`}
+          className={`absolute top-0 bottom-0 left-0 min-w-[10px] min-h-[120%] ${getBg(
+            toast?.type as EventApp
+          )}`}
         ></div>
 
         {/* CLOSE BTN */}
@@ -139,9 +161,9 @@ const Toast: FC = () => {
         {/* TIMER */}
         <div
           ref={counterRef}
-          className={`absolute left-0 bottom-0 h-[3px] ${
-            toast?.type === EventApp.OK ? "bg-green-600" : "bg-red-600"
-          }`}
+          className={`absolute left-0 bottom-0 h-[3px] ${getBg(
+            toast?.type as EventApp
+          )}`}
           style={{
             width: "100%",
           }}

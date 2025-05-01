@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC, ReactNode, useState } from "react";
 import SideLink from "./SideLink.tsx";
 import { useDispatch } from "react-redux";
 import { setIsSideOpen } from "../../../features/common/Header/headerSlice.ts";
@@ -8,10 +8,11 @@ import { SideFieldType } from "@/core/config/fieldsData/Sidebar/sidebar.ts";
 
 type PropsType = {
   arr?: SideFieldType[];
+  children?: ReactNode;
   label: LabelDropType;
 };
 
-const SidebarDrop: FC<PropsType> = ({ arr, label }) => {
+const SidebarDrop: FC<PropsType> = ({ arr, label, children }) => {
   const [isDropOpen, setIsDropOpen] = useState<boolean>(false);
 
   const dispatch = useDispatch();
@@ -32,10 +33,11 @@ const SidebarDrop: FC<PropsType> = ({ arr, label }) => {
             isDropOpen ? "pt-5" : "-translate-y-[50px]"
           }`}
         >
-          {!!arr?.length &&
-            arr.map((el) => (
-              <SideLink key={el.id} {...{ el, handleSideClick }} />
-            ))}
+          {children ??
+            (!!arr?.length &&
+              arr.map((el) => (
+                <SideLink key={el.id} {...{ el, handleSideClick }} />
+              )))}
         </div>
       </div>
     </div>
