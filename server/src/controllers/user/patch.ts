@@ -2,7 +2,6 @@ import { Response } from "express";
 import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import { Thumb, ThumbInstance } from "../../models/all/img&video/Thumb.js";
-import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
 import { User, UserInstance } from "../../models/models.js";
 import { delCloud } from "../../lib/cloud/delete.js";
 import {
@@ -19,6 +18,7 @@ import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { seq } from "../../config/db.js";
 import { Transaction } from "sequelize";
+import { uploadThumb } from "../../lib/cloud/uploadSingle.js";
 
 const delOldThumb = async (user: UserInstance, t: Transaction) => {
   await delCloud(user!.Thumb!.publicID);

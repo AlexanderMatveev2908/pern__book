@@ -1,7 +1,7 @@
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import Title from "@/components/elements/Title";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { useFocus } from "@/core/hooks/hooks";
+import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,13 +15,17 @@ import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { canSaveStore } from "@/core/lib/all/forms/preSubmit/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
-import { __cg, logFormData } from "@/core/lib/lib";
+import { __cg } from "@/core/lib/lib";
+import { useCreateBookStoreMutation } from "@/features/OwnerLayout/ownerSliceAPI";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
 const CreateBooksStore: FC = () => {
   const { data: { user } = {} } = (useGetUserProfileQuery() ??
     {}) as unknown as { data: { user: UserType } };
+
+  const [createBookStore, { isLoading }] = useCreateBookStoreMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
 
   const schemaX = useMemo(
     () =>
@@ -75,10 +79,13 @@ const CreateBooksStore: FC = () => {
     e.preventDefault();
 
     handleSubmit(
-      (data) => {
+      async (data) => {
         __cg("data", data);
         const formData = makeFormDataStore(data);
-        logFormData(formData);
+
+        await wrapMutationAPI({
+          cbAPI: () => createBookStore(formData),
+        });
       },
       (errs) => {
         handleFocusErrStore(setFocus, errs, setCurrForm);
@@ -97,7 +104,7 @@ const CreateBooksStore: FC = () => {
       <Title {...{ title: "create a bookstore" }} />
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
-          <BookStoreForm {...{ handleSave, isFormOk }} />
+          <BookStoreForm {...{ handleSave, isFormOk, isLoading }} />
         </FormProvider>
       </div>
     </div>

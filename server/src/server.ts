@@ -15,11 +15,13 @@ import { connectCloud } from "./config/cloud.js";
 import { Server } from "socket.io";
 import http from "http";
 import { handleSocket } from "./controllers/socket/test.js";
+import { logJSON } from "./lib/utils/log.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
 
-// trust first proxy hop
+// trust myDir proxy
+//  hop
 app.set("trust proxy", 1);
 
 const server = http.createServer(app);

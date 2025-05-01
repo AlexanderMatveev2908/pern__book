@@ -27,9 +27,10 @@ import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBox
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;
   isFormOk: boolean;
+  isLoading: boolean;
 };
 
-const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk }) => {
+const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
   const ctx = useFormContext();
   const path = useLocation().pathname;
   const {
@@ -127,6 +128,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk }) => {
             type: "submit",
             label: "Create Bookstore",
             isDisabled: !isFormOk,
+            isAging: isLoading,
           }}
         />
       </div>

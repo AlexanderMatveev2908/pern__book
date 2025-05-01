@@ -1,4 +1,10 @@
+import path from "path";
+import fs from "fs";
 import { isDev } from "../../config/env.js";
+import { ReqApp } from "../../types/types.js";
+import { fileURLToPath } from "url";
+import { NextFunction } from "express";
+import { err500 } from "../responseClient/err.js";
 
 export const __cg = (str: string, ...arg: any[]) => {
   if (!isDev) return;
@@ -10,3 +16,29 @@ export const __cg = (str: string, ...arg: any[]) => {
   }
   console.groupEnd();
 };
+
+export const logJSON = async (
+  req: ReqApp,
+  res: Response,
+  next: NextFunction
+): Promise<any> => {
+  const dir = path.join(path.dirname(fileURLToPath(import.meta.url)), "../../");
+
+  if (!fs.existsSync(path.join(dir, "json")))
+    await new Promise((res) => fs.mkdir(path.join(dir, "json"), res));
+
+  await new Promise((res) =>
+    fs.writeFile(
+      path.join(dir, "json", "req.json"),
+      JSON.stringify({ body: req.body, files: req.files ?? {} }, null, 2),
+      res
+    )
+  );
+
+  return next();
+};
+
+/*
+  if (!fs.existsSync(path.join(dir, "video")))
+    await new Promise((res) => fs.mkdir(path.join(dir, "video"), res));
+  */

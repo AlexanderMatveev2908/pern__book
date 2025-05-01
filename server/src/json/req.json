@@ -1,0 +1,100 @@
+{
+  "body": {
+    "email": "matveevalexander470@gmail.com",
+    "country": "Romania",
+    "state": "Bacău",
+    "city": "Onești",
+    "street": "Strada Aurora",
+    "zipCode": "601105",
+    "phone": "+00 012 345 678",
+    "name": "aa",
+    "categories": [
+      "classics",
+      "philosophy",
+      "history"
+    ],
+    "deliveryPrice": "2.22",
+    "freeDeliveryAmount": "1.1",
+    "deliveryTime": "1",
+    "items": [
+      {
+        "email": "matveevalexander290800@gmail.com",
+        "role": "employee"
+      },
+      {
+        "email": "matveevalexander290800@gmail.co",
+        "role": "manager"
+      },
+      {
+        "email": "matveev.alexander.29.08.00@gmail.com",
+        "role": "employee"
+      }
+    ]
+  },
+  "files": {
+    "video": [
+      {
+        "fieldname": "video",
+        "originalname": "audio.mp4",
+        "encoding": "7bit",
+        "mimetype": "video/mp4",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
+        "filename": "61b03050-a4c4-4022-9df7-887e9bc7f2df.mp4",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\61b03050-a4c4-4022-9df7-887e9bc7f2df.mp4",
+        "size": 31551484
+      }
+    ],
+    "images": [
+      {
+        "fieldname": "images",
+        "originalname": "1.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
+        "filename": "3858aca0-b947-498a-af33-068f690ad5b9.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\3858aca0-b947-498a-af33-068f690ad5b9.avif",
+        "size": 60234
+      },
+      {
+        "fieldname": "images",
+        "originalname": "2.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
+        "filename": "08493c7f-d277-4532-9c3d-71759ca0f30e.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\08493c7f-d277-4532-9c3d-71759ca0f30e.avif",
+        "size": 40334
+      },
+      {
+        "fieldname": "images",
+        "originalname": "4.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
+        "filename": "8844b1ef-9cfe-4ec7-a0a0-6712830fcb30.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\8844b1ef-9cfe-4ec7-a0a0-6712830fcb30.avif",
+        "size": 76991
+      },
+      {
+        "fieldname": "images",
+        "originalname": "5.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
+        "filename": "a44fc7df-2993-40cf-9a11-4f059e4dadfb.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\a44fc7df-2993-40cf-9a11-4f059e4dadfb.avif",
+        "size": 30928
+      },
+      {
+        "fieldname": "images",
+        "originalname": "10.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads",
+        "filename": "9c9ef6a8-611d-4482-8c9e-34c4468084bb.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\src\\uploads\\9c9ef6a8-611d-4482-8c9e-34c4468084bb.avif",
+        "size": 16820
+      }
+    ]
+  }
+}

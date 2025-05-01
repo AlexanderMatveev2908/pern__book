@@ -5,6 +5,7 @@ import verifyRouter from "./all/verify.js";
 import routerRefresh from "./all/refresh.js";
 import sendMailRouter from "./all/sendEmail.js";
 import { __cr } from "../middleware/general/logger.js";
+import adminExpressRouterStore from "./all/adminBookStore.js";
 
 const routerApp = express.Router();
 
@@ -15,5 +16,6 @@ routerApp.use("/refresh", routerRefresh);
 routerApp.use("/verify", verifyRouter);
 routerApp.use("/send-email", sendMailRouter);
 routerApp.use("/user", profileRouter);
+routerApp.use("/admin-book-store", adminExpressRouterStore);
 
 export default routerApp;

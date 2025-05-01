@@ -30,7 +30,7 @@ export const makeFormDataStore = (
         if (typeof curr === "string") {
           formData.append(key, curr);
         } else if (curr instanceof File && key === "images") {
-          formData.append(`${key}[${j}]`, curr);
+          formData.append(`${key}`, curr);
         } else if (
           typeof curr === "object" &&
           curr !== null &&

@@ -2,7 +2,7 @@ import express from "express";
 import { getUserProfile } from "../../controllers/user/get.js";
 import { getUserID } from "../../middleware/protected/getUserID.js";
 import { wrapApp } from "../../middleware/general/wrapApp.js";
-import { uploadSingle } from "../../middleware/multer/single.js";
+import { multerThumb } from "../../middleware/multer/thumb.js";
 import { validateProfile } from "../../middleware/user/updateProfile.js";
 import {
   updateEmail,
@@ -29,7 +29,7 @@ profileRouter
   .get(getUserID, wrapApp(getUserProfile))
   .patch(
     verifyAccessToken({}),
-    uploadSingle,
+    multerThumb,
     validateProfile,
     wrapApp(updateProfile)
   );
