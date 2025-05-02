@@ -64,7 +64,40 @@ export const useWrapQueryAPI = (params: ParamsHookQ) => {
     [handleErrAPI, dispatch]
   );
 
+  const {
+    isSuccess,
+    toast,
+    data,
+    isError,
+    error,
+    push,
+    pushNotice,
+    customErrCB,
+    hideErr,
+  } = params ?? {};
+
   useEffect(() => {
-    handleQueryAPI(params);
-  }, [params, handleQueryAPI]);
+    handleQueryAPI({
+      isSuccess,
+      toast,
+      data,
+      isError,
+      error,
+      push,
+      pushNotice,
+      customErrCB,
+      hideErr,
+    });
+  }, [
+    handleQueryAPI,
+    isSuccess,
+    toast,
+    data,
+    isError,
+    error,
+    push,
+    pushNotice,
+    customErrCB,
+    hideErr,
+  ]);
 };

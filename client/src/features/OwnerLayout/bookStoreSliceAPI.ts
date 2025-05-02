@@ -1,6 +1,5 @@
-import { __cg, catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
-import { setBookStore } from "./bookStoreSlice";
+import { TagsAPI } from "@/types/types";
 
 export const bookStoreSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -12,7 +11,22 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       }),
     }),
 
-    getBookStore: builder.mutation({
+    getBookStore: builder.query({
+      query: (bookStoreID: string) => ({
+        url: `/admin-book-store/${bookStoreID}`,
+        method: "GET",
+      }),
+      providesTags: [TagsAPI.BOOK_STORE],
+    }),
+  }),
+});
+
+export const { useCreateBookStoreMutation, useGetBookStoreQuery } =
+  bookStoreSliceAPI;
+
+/*
+  ? EVEN IS NOT SEMANTICALLY CORRECT USING MUTATION FOR GET REQ WAS PRETTY USEFUL TO REMEMBER ENTITY ADAPTERS, THEY ARE USED FOR ASYNC THUNK MAINLY OR OPTIMIST UPDATES
+      getBookStore: builder.mutation({
       query: (bookStoreID: string) => ({
         url: `/admin-book-store/${bookStoreID}`,
         method: "GET",
@@ -26,8 +40,4 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         });
       },
     }),
-  }),
-});
-
-export const { useCreateBookStoreMutation, useGetBookStoreMutation } =
-  bookStoreSliceAPI;
+    */
