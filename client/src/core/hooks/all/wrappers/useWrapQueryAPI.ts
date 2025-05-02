@@ -7,55 +7,37 @@ import { __cg } from "@/core/lib/lib";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { AxiosResponse } from "axios";
 
-export const useWrapQueryAPI = ({
-  isSuccess,
-  toast,
-  data,
-  isError,
-  error,
-  push,
-  pushNotice,
-  customErrCB,
-  //  @ts-expect-error A meteorite could hit my room and during the explosion push on main code with incorrect types
-  // eslint-disable-next-line
-  ...args
-}: {
-  isSuccess: boolean;
-  data: any;
-  isError: boolean;
-  error: any;
+type ParamsHookQ = {
+  isSuccess?: boolean;
+  data?: any;
+  isError?: boolean;
+  error?: any;
   push?: boolean;
   pushNotice?: [boolean, (() => any)?];
   toast?: boolean;
-  args?: any;
   customErrCB?: (err: any) => any;
-}) => {
+  hideErr?: boolean;
+};
+
+export const useWrapQueryAPI = (params: ParamsHookQ) => {
   const dispatch = useDispatch();
 
   const { handleErrAPI } = useErrAPI();
 
   const handleQueryAPI = useCallback(
-    async ({
-      isSuccess,
-      toast,
-      data,
-      isError,
-      error,
-      push,
-      pushNotice,
-      customErrCB,
-      hideErr,
-    }: {
-      isSuccess: boolean;
-      data: any;
-      isError: boolean;
-      error: any;
-      push?: boolean;
-      pushNotice?: [boolean, (() => any)?];
-      toast?: boolean;
-      customErrCB?: (err: any) => any;
-      hideErr?: boolean;
-    }) => {
+    async (params: ParamsHookQ) => {
+      const {
+        isSuccess,
+        toast,
+        data,
+        isError,
+        error,
+        push,
+        pushNotice,
+        customErrCB,
+        hideErr,
+      } = params ?? {};
+
       if (isSuccess) {
         __cg("query api", data);
 
@@ -83,24 +65,6 @@ export const useWrapQueryAPI = ({
   );
 
   useEffect(() => {
-    handleQueryAPI({
-      isSuccess,
-      toast,
-      data,
-      isError,
-      error,
-      push,
-      pushNotice,
-    });
-  }, [
-    isSuccess,
-    toast,
-    data,
-    isError,
-    error,
-    push,
-    pushNotice,
-    customErrCB,
-    handleQueryAPI,
-  ]);
+    handleQueryAPI(params);
+  }, [params, handleQueryAPI]);
 };

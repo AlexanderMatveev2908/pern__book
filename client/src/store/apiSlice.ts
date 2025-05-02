@@ -6,7 +6,7 @@ const apiSlice = createApi({
   // define a base url with options like in axios with his interceptors
   baseQuery: axiosBaseQuery,
   // tags that we use for invalidation of cache api data like in tanstack use query
-  tagTypes: [TagsAPI.USER],
+  tagTypes: [TagsAPI.USER, TagsAPI.BOOK_STORE],
   // i can leave key of slice by default to api of naming as i want
   reducerPath: "appAPI",
   // refetchOnMountOrArgChange: false,

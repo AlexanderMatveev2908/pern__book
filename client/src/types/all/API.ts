@@ -14,6 +14,7 @@ export enum SendMailEnd {
 
 export enum TagsAPI {
   USER = "USER",
+  BOOK_STORE = "BOOK_STORE",
 }
 
 export interface ResApp extends AxiosResponse {
