@@ -71,12 +71,13 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
       setValue("street", street ?? "", { shouldValidate: true });
       setValue("zipCode", zipCode ?? "", { shouldValidate: true });
     } catch (err: any) {
-      const { msg, code } = err;
+      const { msg, code, message } = err ?? {};
 
+      console.log(err);
       dispatch(
         openToast({
           statusCode: code,
-          msg,
+          msg: msg ?? message,
           type: EventApp.ERR,
         })
       );

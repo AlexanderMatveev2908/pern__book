@@ -59,7 +59,7 @@ export const sideFieldsAdmin: SideFieldType[] = addArrIDs([
   {
     label: "Open a bookstore",
     icon: MdAddBusiness,
-    path: "/owner/create-book-store",
+    path: "/owner/book-store/create",
   },
   {
     label: "My Bookstores",

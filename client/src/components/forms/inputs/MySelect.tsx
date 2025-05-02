@@ -64,7 +64,7 @@ const MySelect: FC<PropsType> = ({
           className="w-full flex justify-between appearance-none outline-0 cursor-pointer border-2 border-blue-600 rounded-xl px-4 py-2 items-center hover:text-blue-600 el__flow"
         >
           <span className="txt__3">
-            {typeof currVal === "object" ? el.label : capt(currVal)}
+            {typeof currVal === "object" ? el.label : capt(currVal ?? "")}
           </span>
 
           <div className="w-fit">

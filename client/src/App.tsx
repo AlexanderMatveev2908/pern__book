@@ -6,8 +6,8 @@ import HomePage from "./pages/Home/HomePage";
 import { setNavigator } from "@/core/lib/lib";
 import UserLayout from "./layouts/UserLayout";
 import { useNinjaToken } from "@/core/hooks/hooks";
-import OwnerLayout from "./layouts/OwnerLayout";
-import CreateBooksStorePage from "./pages/OwnerLayout/CreateBooksStore/CreateBooksStorePage";
+import OwnerLayout from "./layouts/OwnerLayout/OwnerLayout";
+import CreateBooksStorePage from "./pages/OwnerLayout/BookStoreLayout/CreateBooksStore/CreateBooksStorePage";
 import Register from "./pages/AuthLayout/Register/Register";
 import Login from "./pages/AuthLayout/Login/Login";
 import ForgotPwd from "./pages/AuthLayout/ForgotPwd/ForgotPwd";
@@ -20,7 +20,8 @@ import SecurityPwd from "./pages/UserLayout/SecurityPwd/SecurityPwd";
 import VerifyCb from "./pages/VerifyCb/VerifyCb";
 import Notice from "./pages/Notice/NoticePage";
 import SwapCtxProvider from "./core/contexts/SwapCtx/SwapAddressProvider";
-import BookStorePage from "./pages/OwnerLayout/BookStorePage/BookStorePage";
+import BookStorePage from "./pages/OwnerLayout/BookStoreLayout/BookStorePage/BookStorePage";
+import BookStoreLayout from "./layouts/OwnerLayout/BookStoreLayout";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -66,15 +67,17 @@ const App: FC = () => {
         </Route>
 
         <Route path="owner" element={<OwnerLayout />}>
-          <Route
-            path="create-book-store"
-            element={
-              <SwapCtxProvider>
-                <CreateBooksStorePage />
-              </SwapCtxProvider>
-            }
-          />
-          <Route path="book-store/:bookStoreID" element={<BookStorePage />} />
+          <Route path="book-store" element={<BookStoreLayout />}>
+            <Route
+              path="create"
+              element={
+                <SwapCtxProvider>
+                  <CreateBooksStorePage />
+                </SwapCtxProvider>
+              }
+            />
+            <Route path=":bookStoreID" element={<BookStorePage />} />
+          </Route>
         </Route>
 
         <Route path="notice" element={<Notice />} />

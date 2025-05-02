@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { EventApp } from "@/types/types";
+import { BaseResAPI, EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useErrAPI } from "./useErrAPI";
@@ -12,7 +12,7 @@ export const useWrapMutationAPI = () => {
 
   const { handleErrAPI } = useErrAPI();
   const wrapMutationAPI = useCallback(
-    async ({
+    async <T extends BaseResAPI & Record<string, any>>({
       cbAPI,
       push,
       pushNotice,
@@ -26,9 +26,9 @@ export const useWrapMutationAPI = () => {
       showToast?: boolean;
       customErrCB?: (err: any) => any;
       hideErr?: boolean;
-    }) => {
+    }): Promise<T | null> => {
       try {
-        const data = await cbAPI().unwrap();
+        const data: T = await cbAPI().unwrap();
 
         __cg("mutation api", data);
 
