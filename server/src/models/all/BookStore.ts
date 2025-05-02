@@ -34,8 +34,8 @@ export class BookStore extends Model {
   declare deliveryTime: number;
 
   declare items?: TeamType[];
-  declare ImgBookStoreType?: ImgBookStoreType[];
-  declare VideoBookStoreType?: VideoBookStoreType;
+  declare ImgBookStore?: ImgBookStoreType[];
+  declare VideoBookStore?: VideoBookStoreType;
 }
 
 export type BookStoreInstance = InstanceType<typeof BookStore>;

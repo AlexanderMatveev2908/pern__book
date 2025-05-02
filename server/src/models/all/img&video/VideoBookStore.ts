@@ -3,11 +3,12 @@ import { v4 } from "uuid";
 import { CloudAsset } from "../../../types/all/cloud.js";
 
 export class VideoBookStore extends Model {
+  declare publicID: string;
+  declare url: string;
   declare bookStoreID: string;
 }
 
-export type VideoBookStoreType = InstanceType<typeof VideoBookStore> &
-  CloudAsset;
+export type VideoBookStoreType = InstanceType<typeof VideoBookStore>;
 
 export const defineVideoBookStore = (seq: Sequelize) =>
   VideoBookStore.init(
