@@ -18,6 +18,7 @@ import {
 import { captAll } from "../../lib/utils/formatters.js";
 import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
 import { User } from "../../models/models.js";
+import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 
 const clearUnnecessary = async (
   videoData: Partial<VideoBookStoreType> | null,
@@ -142,6 +143,20 @@ const checkTeam = async (bodyData: Partial<BookStoreInstance>) => {
       NOT_VERIFIED: NOT_VERIFIED.map((el) => el.email),
     };
   }
+
+  const emailUser = new Map(users.map((u) => [u.email, u]));
+
+  return {
+    IDS: team.map((member) => {
+      const user = emailUser.get(member.email)!;
+
+      return {
+        id: user.id,
+        role: member.role,
+        userEmail: member.email,
+      };
+    }),
+  };
 };
 
 export const createBookStore = async (
@@ -228,24 +243,36 @@ export const createBookStore = async (
       );
 
     const team = await checkTeam(bodyData);
-    if (team?.NOT_FOUND && Array.isArray(team?.NOT_FOUND))
-      return err422(res, {
-        msg: `${team.NOT_FOUND[0]} ${
-          team.NOT_FOUND.length > 1
-            ? `and others ${team.NOT_FOUND.length - 1} members do not`
-            : "does not"
-        } exists`,
-      });
-    if (team?.NOT_VERIFIED && Array.isArray(team?.NOT_VERIFIED))
-      return err422(res, {
-        msg: `${team.NOT_VERIFIED[0]} ${
-          team.NOT_VERIFIED.length > 1
-            ? `and others ${
-                team.NOT_VERIFIED.length - 1
-              } members are not verified`
-            : "is not verified"
-        }`,
-      });
+    if (typeof team === "object") {
+      if (team?.NOT_FOUND && Array.isArray(team?.NOT_FOUND))
+        return err422(res, {
+          msg: `${team.NOT_FOUND[0]} ${
+            team.NOT_FOUND.length > 1
+              ? `and others ${team.NOT_FOUND.length - 1} members do not`
+              : "does not"
+          } exists`,
+        });
+      if (team?.NOT_VERIFIED && Array.isArray(team?.NOT_VERIFIED))
+        return err422(res, {
+          msg: `${team.NOT_VERIFIED[0]} ${
+            team.NOT_VERIFIED.length > 1
+              ? `and others ${
+                  team.NOT_VERIFIED.length - 1
+                } members are not verified`
+              : "is not verified"
+          }`,
+        });
+      if (team?.IDS && Array.isArray(team.IDS))
+        await BookStoreUser.bulkCreate(
+          team.IDS.map((member) => ({
+            bookStoreID: newBookStore.id,
+            userID: member.id,
+            userEmail: member.userEmail,
+            role: member.role,
+          })),
+          { transaction: t }
+        );
+    }
 
     await t.commit();
 

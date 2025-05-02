@@ -1,6 +1,7 @@
 import { delCloud, ResourceType } from "../lib/cloud/delete.js";
 import { calcTimeRun } from "../lib/utils/utils.js";
 import { BookStore, BookStoreInstance } from "../models/all/BookStore.js";
+import { BookStoreUser } from "../models/all/BookStoreUser.js";
 import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
 import { ImgBookStore } from "../models/all/img&video/ImgBookStore.js";
 import { Thumb } from "../models/all/img&video/Thumb.js";
@@ -80,6 +81,10 @@ export const delStores = async () => {
           );
           await VideoBookStore.destroy({ where: { bookStoreID: curr.id } });
         }
+
+        await BookStoreUser.destroy({
+          where: { bookStoreID: curr.id },
+        });
 
         await curr.destroy();
 

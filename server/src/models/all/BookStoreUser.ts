@@ -7,6 +7,7 @@ import { BookStoreInstance } from "./BookStore.js";
 export class BookStoreUser extends Model {
   declare id: string;
   declare userID: string | UserInstance;
+  declare userEmail: string;
   declare bookStoreID: string | BookStoreInstance;
   declare role: UserRole;
 }
@@ -30,6 +31,10 @@ export const defineBookStoreUser = (seq: Sequelize) =>
           key: "id",
         },
       },
+      userEmail: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       bookStoreID: {
         type: DataTypes.STRING(36),
         allowNull: false,
@@ -52,5 +57,10 @@ export const defineBookStoreUser = (seq: Sequelize) =>
       tableName: "bookStoreUsers",
       modelName: "BookStoreUser",
       timestamps: true,
+      indexes: [
+        {
+          fields: ["userEmail"],
+        },
+      ],
     }
   );
