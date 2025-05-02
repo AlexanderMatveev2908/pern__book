@@ -2,11 +2,11 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
 import { CloudAsset } from "../../../types/all/cloud.js";
 
-export class ImgBookStore extends CloudAsset {
+export class ImgBookStore extends Model {
   declare bookStoreID: string;
 }
 
-export type ImgBookStoreType = InstanceType<typeof ImgBookStore>;
+export type ImgBookStoreType = InstanceType<typeof ImgBookStore> & CloudAsset;
 
 export const defineImgBookStore = (seq: Sequelize) =>
   ImgBookStore.init(
@@ -38,7 +38,7 @@ export const defineImgBookStore = (seq: Sequelize) =>
     },
     {
       sequelize: seq,
-      tableName: "imgBookStores",
+      tableName: "imagesBookStore",
       modelName: "ImgBookStore",
       timestamps: true,
     }

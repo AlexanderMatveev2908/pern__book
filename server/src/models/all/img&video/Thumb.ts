@@ -2,11 +2,11 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
 import { CloudAsset } from "../../../types/all/cloud.js";
 
-export class Thumb extends CloudAsset {
+export class Thumb extends Model {
   declare userID: string;
 }
 
-export type ThumbInstance = InstanceType<typeof Thumb>;
+export type ThumbInstance = InstanceType<typeof Thumb> & CloudAsset;
 
 export const defineThumb = (seq: Sequelize) =>
   Thumb.init(

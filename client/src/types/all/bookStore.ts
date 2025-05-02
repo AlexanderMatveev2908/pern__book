@@ -1,3 +1,6 @@
+import { AssetCloudType } from "./images";
+import { UserRole } from "./user";
+
 export enum CatBookStore {
   CLASSICS = "classics",
   PHILOSOPHY = "philosophy",
@@ -23,4 +26,33 @@ export enum CatBookStore {
   COOKING = "cooking",
   TRAVEL = "travel",
   ROMANCE = "romance",
+}
+
+interface TeamItem {
+  userEmail: string;
+  role: UserRole;
+  userID: string;
+  bookStoreID: string;
+}
+
+export interface BookStoreType {
+  id: string;
+  ownerID: string;
+  name: string;
+  description?: string | null;
+  categories: CatBookStore[];
+  email: string;
+  phone: string;
+  website?: string | null;
+  country: string;
+  state: string;
+  city: string;
+  street: string;
+  zipCode: string;
+  deliveryPrice?: number;
+  freeDeliveryAmount?: number;
+  deliveryTime: number;
+  items?: TeamItem[];
+  ImgBookStoreType?: AssetCloudType[];
+  VideoBookStoreType?: AssetCloudType;
 }

@@ -1,4 +1,5 @@
 import apiSlice from "@/store/apiSlice";
+import { BookStoreType } from "@/types/all/bookStore";
 import { TagsAPI } from "@/types/types";
 
 export const bookStoreSliceAPI = apiSlice.injectEndpoints({
@@ -11,7 +12,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       }),
     }),
 
-    getBookStore: builder.query({
+    getBookStore: builder.query<{ bookStore: BookStoreType }, string>({
       query: (bookStoreID: string) => ({
         url: `/admin-book-store/${bookStoreID}`,
         method: "GET",
@@ -26,6 +27,7 @@ export const { useCreateBookStoreMutation, useGetBookStoreQuery } =
 
 /*
   ? EVEN IS NOT SEMANTICALLY CORRECT USING MUTATION FOR GET REQ WAS PRETTY USEFUL TO REMEMBER ENTITY ADAPTERS, THEY ARE USED FOR ASYNC THUNK MAINLY OR OPTIMIST UPDATES
+  * THE ERROR I GET IS THAT I USED TO PASS SKIP TO REDUCER INSTEAD IT HAS TO BE PASSED AS OPT TO HOOK, THIS IN PROSPECT TO MAKE REQ ONLY WITH VALID ID THAT RESPECT UUID4
       getBookStore: builder.mutation({
       query: (bookStoreID: string) => ({
         url: `/admin-book-store/${bookStoreID}`,

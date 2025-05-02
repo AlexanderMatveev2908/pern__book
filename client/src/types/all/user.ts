@@ -1,4 +1,4 @@
-import { ImageCloudType } from "./images";
+import { AssetCloudType } from "./images";
 
 export enum UserRole {
   CUSTOMER = "CUSTOMER",
@@ -16,7 +16,7 @@ export interface UserType {
   isVerified: boolean;
   role: UserRole;
 
-  thumb: ImageCloudType | null;
+  thumb: AssetCloudType | null;
 
   country: string | null;
   state: string | null;
