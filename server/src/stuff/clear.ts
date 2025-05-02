@@ -50,36 +50,41 @@ export const getDataDB = async () => {
   // );
 };
 
-export const delStore = async () => {
+export const delStores = async () => {
   calcTimeRun(async () => {
-    const store: BookStoreInstance | null = await BookStore.findOne({
-      where: { id: "875ac3e9-1458-4d12-8676-a494982b920a" },
-    });
+    const stores: BookStoreInstance[] = await BookStore.findAll({ where: {} });
 
-    const images = await ImgBookStore.findAll({
-      where: { bookStoreID: store?.id },
-    });
-    const video = await VideoBookStore.findOne({
-      where: { bookStoreID: store?.id },
-    });
-    if (!video) throw new Error("no video");
+    if (stores.length) {
+      let i = 0;
 
-    await Promise.all(
-      images.map(async (img) => await delCloud(img.publicID ?? ""))
-    );
-    await delCloud(video.publicID ?? "");
-    await VideoBookStore.destroy({ where: { bookStoreID: store?.id } });
-    await ImgBookStore.destroy({ where: { bookStoreID: store?.id } });
-    await store?.destroy();
-  });
-};
+      do {
+        const curr = stores[i];
 
-export const testDelVideo = async () => {
-  const video = await VideoBookStore.findOne({
-    where: { bookStoreID: "964864e9-4271-4ff1-971e-ab1deca54e1c" },
-  });
+        const images = await ImgBookStore.findAll({
+          where: { bookStoreID: curr.id },
+        });
+        if (images.length) {
+          await Promise.all(
+            images.map(async (i) => await delCloud(i.publicID))
+          );
+          await ImgBookStore.destroy({ where: { bookStoreID: curr.id } });
+        }
+        const videos = await VideoBookStore.findAll({
+          where: { bookStoreID: curr.id },
+        });
+        if (videos.length) {
+          await Promise.all(
+            videos.map(
+              async (v) => await delCloud(v.publicID, ResourceType.VID)
+            )
+          );
+          await VideoBookStore.destroy({ where: { bookStoreID: curr.id } });
+        }
 
-  calcTimeRun(async () => {
-    await delCloud(video?.publicID ?? "", ResourceType.VID);
+        await curr.destroy();
+
+        i++;
+      } while (i < stores.length);
+    }
   });
 };

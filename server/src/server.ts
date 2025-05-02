@@ -3,7 +3,6 @@ dotenv.config();
 import express from "express";
 import { connectDB, syncDB } from "./config/db.js";
 import { frontURL, isDev, keyCert } from "./config/env.js";
-import { clearDB, delStore, testDelVideo } from "./stuff/clear.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
 import { errMiddleware } from "./middleware/general/errMiddleware.js";
@@ -16,6 +15,7 @@ import { Server } from "socket.io";
 import http from "http";
 import { handleSocket } from "./controllers/socket/test.js";
 import { logJSON } from "./lib/utils/log.js";
+import { delStores } from "./stuff/clear.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
@@ -46,14 +46,13 @@ if (!isDev) {
     res.sendFile(path.resolve(getDirClient(), "index.html"));
   });
 }
-
 app.use(errMiddleware);
 // getDataDB();
 // clearDB();
 
 // io.on("connection", handleSocket);
-// testDelVideo();
-// delStore();
+// delStores();
+
 const start = async () => {
   try {
     await connectCloud();

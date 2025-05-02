@@ -34,7 +34,15 @@ export const logJSON = async (
     fs.writeFile(
       path.join(dir, "json", "req.json"),
       JSON.stringify(
-        { body: req.body, files: req.files ?? {}, file: req.file ?? {} },
+        {
+          body: req.body,
+          files: req.files ?? {},
+          file: req.file ?? {},
+          query: req.query ?? {},
+          params: req.params ?? {},
+          auth: req.headers?.authorization ?? {},
+          refresh: req.cookies?.refreshToken ?? {},
+        },
         null,
         2
       ),

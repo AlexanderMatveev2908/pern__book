@@ -7,77 +7,30 @@
     "street": "Strada Aurora",
     "zipCode": "601105",
     "phone": "+00 000 000 0000",
-    "name": "aaa",
+    "name": "aa",
     "categories": [
       "classics"
     ],
-    "deliveryTime": 1
-  },
-  "files": {
-    "video": [
+    "deliveryTime": 1,
+    "items": [
       {
-        "fieldname": "video",
-        "originalname": "audio.mp4",
-        "encoding": "7bit",
-        "mimetype": "video/mp4",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "f2e11393-6e7d-4771-ad38-6b5d9141f2b9.mp4",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\f2e11393-6e7d-4771-ad38-6b5d9141f2b9.mp4",
-        "size": 31551484
-      }
-    ],
-    "images": [
-      {
-        "fieldname": "images",
-        "originalname": "1.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "c4e5d017-5594-4555-898e-29239087c40e.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\c4e5d017-5594-4555-898e-29239087c40e.avif",
-        "size": 60234
+        "email": "matveev.alexander.29.08.00@gmail.com",
+        "role": "MANAGER"
       },
       {
-        "fieldname": "images",
-        "originalname": "2.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "b3aae7a8-bc4f-4f87-99ca-f7b3d80f7deb.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\b3aae7a8-bc4f-4f87-99ca-f7b3d80f7deb.avif",
-        "size": 40334
+        "email": "matveevalexander290800@gmail.com",
+        "role": "EMPLOYEE"
       },
       {
-        "fieldname": "images",
-        "originalname": "3.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "a349a9f4-c28d-4e17-b690-d888dc090a54.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\a349a9f4-c28d-4e17-b690-d888dc090a54.avif",
-        "size": 23299
-      },
-      {
-        "fieldname": "images",
-        "originalname": "6.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "aa744301-ea2b-4307-8fb1-66b6805e88f1.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\aa744301-ea2b-4307-8fb1-66b6805e88f1.avif",
-        "size": 89363
-      },
-      {
-        "fieldname": "images",
-        "originalname": "7.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "ab37a4f9-870f-404f-9c89-0543be11c9ad.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\ab37a4f9-870f-404f-9c89-0543be11c9ad.avif",
-        "size": 27013
+        "email": "matveevalexander290800@gmail.co",
+        "role": "EMPLOYEE"
       }
     ]
   },
-  "file": {}
+  "files": {},
+  "file": {},
+  "query": {},
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg2NDg3M2Y2LTBiNmYtNDVjNS05NzI0LTlhZDcxNTU2OWMwNSIsImlhdCI6MTc0NjE4MDEzOSwiZXhwIjoxNzQ2MTgwMTk5fQ.VHaCqKTtpzEmbNNkTI6Uuihjnc30SqR5lid9lqsIPEQ",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.HTSaiKRgsuZI3W9jCjx6tcTaXWmokYIyZqX81rPf1maYocVNBx0vviCcFvnpbiF8k47ZXVeJ96jlflyM6PQKAgkQykz2b2rueiKIeAA4OJj1kIpnRHyDXzbFVnVfoZQqr3QqIN9QVYbtjCJUceCto6QGeCwBy3VPqcSPZxmRpQ3nhJS1dcwXNK3uj3_PAO2ZrzCV370gH8kGmNeIosYNpzOhqYdATPofs5tm1pAG1xt-4IVbVUn50E27KKsBafJZLUHQ4j6PfxdKu33VUfqeMMZ1F1K706RmFxPmsooykOW3l-_nrBw0hYvadLYE_lF_qjscCzNbXOM_kD8A-pSHNg.0dTQr_QqXk3C08qe.N43JNEnIekV7VPc_-nrqQvdDMjkmuO3hiPlrAaiEF2nCEEUCtkhMFeAETX7V.FWqwXZPC1S93xZ-kRaN98Q"
 }

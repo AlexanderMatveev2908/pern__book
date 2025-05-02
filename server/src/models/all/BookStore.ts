@@ -1,6 +1,12 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
 import { CatBookStore } from "../../types/all/bookStore.js";
+import { UserRole } from "../../types/types.js";
+
+export interface TeamType {
+  email: string;
+  role: UserRole;
+}
 
 export class BookStore extends Model {
   declare id: string;
@@ -24,6 +30,8 @@ export class BookStore extends Model {
   declare deliveryPrice?: number;
   declare freeDeliveryAmount?: number;
   declare deliveryTime: number;
+
+  declare items?: TeamType[];
 }
 
 export type BookStoreInstance = InstanceType<typeof BookStore>;

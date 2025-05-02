@@ -5,7 +5,7 @@ import fs from "fs";
 import { uploadVideoCloud } from "../../lib/cloud/video.js";
 import { uploadImdDisk } from "../../lib/cloud/imagesDisk.js";
 import { delCloud } from "../../lib/cloud/delete.js";
-import { err500 } from "../../lib/responseClient/err.js";
+import { err422, err500 } from "../../lib/responseClient/err.js";
 import { seq } from "../../config/db.js";
 import {
   ImgBookStore,
@@ -17,6 +17,7 @@ import {
 } from "../../models/all/img&video/VideoBookStore.js";
 import { captAll } from "../../lib/utils/formatters.js";
 import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
+import { User } from "../../models/models.js";
 
 const clearUnnecessary = async (
   videoData: Partial<VideoBookStoreType> | null,
@@ -34,13 +35,16 @@ const clearUnnecessary = async (
 const MANDATORY_KEYS = [
   "name",
   "categories",
+
   "email",
   "phone",
+
   "country",
   "state",
   "city",
   "street",
   "zipCode",
+
   "deliveryTime",
 ] as string[];
 
@@ -81,6 +85,64 @@ const addOptKeys = (body: Partial<BookStoreInstance>) =>
 
     return acc;
   }, {} as BookStoreInstance);
+
+const checkTeam = async (bodyData: Partial<BookStoreInstance>) => {
+  const team = bodyData?.items;
+  if (
+    !Array.isArray(team) ||
+    !team?.length ||
+    !Object.values(team?.[0] ?? {}).every((val) => !!val) ||
+    !Object.keys(team?.[0] ?? {}).length
+  )
+    return null;
+
+  // let i = 0;
+  // let nonExistentEmail: string | null = null;
+
+  // do {
+  //   const curr = team[i];
+
+  //   const user = await User.findOne({
+  //     where: { email: curr.email },
+  //   });
+  //   if (!user) {
+  //     nonExistentEmail = curr.email;
+  //     break;
+  //   }
+
+  //   i++;
+  // } while (i < team.length);
+
+  // return nonExistentEmail
+  //   ? {
+  //       nonExist: nonExistentEmail,
+  //     }
+  //   : true;
+
+  const users = await User.findAll({
+    where: { email: team.map((t) => t.email) },
+  });
+
+  const rightEmails = new Set(users.map((u) => u.email));
+  if (users.length !== team.length) {
+    const notFound = team.filter((member) => !rightEmails.has(member.email));
+
+    return {
+      NOT_FOUND: notFound.map((el) => el.email),
+    };
+  }
+
+  const verified = new Set(
+    users.filter((u) => u.isVerified).map((el) => el.email)
+  );
+  if (verified.size !== users.length) {
+    const NOT_VERIFIED = team.filter((member) => !verified.has(member.email));
+
+    return {
+      NOT_VERIFIED: NOT_VERIFIED.map((el) => el.email),
+    };
+  }
+};
 
 export const createBookStore = async (
   req: ReqApp,
@@ -164,6 +226,26 @@ export const createBookStore = async (
         })),
         { transaction: t }
       );
+
+    const team = await checkTeam(bodyData);
+    if (team?.NOT_FOUND && Array.isArray(team?.NOT_FOUND))
+      return err422(res, {
+        msg: `${team.NOT_FOUND[0]} ${
+          team.NOT_FOUND.length > 1
+            ? `and others ${team.NOT_FOUND.length - 1} members do not`
+            : "does not"
+        } exists`,
+      });
+    if (team?.NOT_VERIFIED && Array.isArray(team?.NOT_VERIFIED))
+      return err422(res, {
+        msg: `${team.NOT_VERIFIED[0]} ${
+          team.NOT_VERIFIED.length > 1
+            ? `and others ${
+                team.NOT_VERIFIED.length - 1
+              } members are not verified`
+            : "is not verified"
+        }`,
+      });
 
     await t.commit();
 

@@ -7,8 +7,7 @@ export const validateEmail = [
     .isLength({ max: 50 })
     .withMessage("Email can not have more than 50 chars")
     .isEmail()
-    .withMessage("Invalid email address")
-    .normalizeEmail(),
+    .withMessage("Invalid email address"),
 ];
 
 export const validatePassword = [

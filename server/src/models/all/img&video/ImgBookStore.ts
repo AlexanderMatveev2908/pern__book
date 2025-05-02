@@ -38,8 +38,8 @@ export const defineImgBookStore = (seq: Sequelize) =>
     },
     {
       sequelize: seq,
-      tableName: "imagesCloud",
-      modelName: "ImgCloud",
+      tableName: "imgBookStores",
+      modelName: "ImgBookStore",
       timestamps: true,
     }
   );
