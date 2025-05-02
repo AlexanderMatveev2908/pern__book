@@ -1,10 +1,8 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
-import { CloudAsset } from "../../../types/all/cloud.js";
+import { CloudClass } from "./cloud.js";
 
-export class VideoBookStore extends Model {
-  declare publicID: string;
-  declare url: string;
+export class VideoBookStore extends CloudClass {
   declare bookStoreID: string;
 }
 
