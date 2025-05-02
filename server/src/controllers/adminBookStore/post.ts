@@ -276,7 +276,10 @@ export const createBookStore = async (
 
     await t.commit();
 
-    return res201(res, { msg: "BookStore created" });
+    return res201(res, {
+      msg: "BookStore created",
+      bookStoreID: newBookStore.id,
+    });
   } catch (err) {
     console.log(err);
     await t.rollback();

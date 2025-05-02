@@ -5,7 +5,7 @@ import { PwdSecurityForm } from "@/pages/UserLayout/SecurityPwd/SecurityPwd";
 
 export const userSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getUserProfile: builder.query<UserType, void>({
+    getUserProfile: builder.query<{ user: UserType }, void>({
       query: () => ({
         url: `/user/profile`,
         method: "GET",

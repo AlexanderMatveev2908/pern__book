@@ -20,6 +20,7 @@ import SecurityPwd from "./pages/UserLayout/SecurityPwd/SecurityPwd";
 import VerifyCb from "./pages/VerifyCb/VerifyCb";
 import Notice from "./pages/Notice/NoticePage";
 import SwapCtxProvider from "./core/contexts/SwapCtx/SwapAddressProvider";
+import BookStorePage from "./pages/OwnerLayout/BookStorePage/BookStorePage";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -66,13 +67,14 @@ const App: FC = () => {
 
         <Route path="owner" element={<OwnerLayout />}>
           <Route
-            path="create"
+            path="create-book-store"
             element={
               <SwapCtxProvider>
                 <CreateBooksStorePage />
               </SwapCtxProvider>
             }
           />
+          <Route path="book-store/:bookStoreID" element={<BookStorePage />} />
         </Route>
 
         <Route path="notice" element={<Notice />} />

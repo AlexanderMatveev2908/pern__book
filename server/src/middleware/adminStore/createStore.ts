@@ -24,7 +24,7 @@ export const validateStore = [
   check("description").custom((val) => {
     if (!val?.length) return true;
 
-    if (val.length > 200) throw new Error("Description too long");
+    if (val.length > 1200) throw new Error("Description too long");
     if (!REG_STORE_DESC.test(val)) throw new Error("Invalid description chars");
   }),
 

@@ -16,8 +16,9 @@ import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { canSaveStore } from "@/core/lib/all/forms/preSubmit/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";
-import { useCreateBookStoreMutation } from "@/features/OwnerLayout/ownerSliceAPI";
+import { useCreateBookStoreMutation } from "@/features/OwnerLayout/ownerBookStoreSliceAPI";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import { doLorem } from "@/core/lib/all/utils/place";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -58,6 +59,7 @@ const CreateBooksStore: FC = () => {
     shouldFocusError: false,
     defaultValues: {
       categories: [],
+      description: doLorem(),
     },
   });
 
@@ -66,6 +68,7 @@ const CreateBooksStore: FC = () => {
     formState: { errors },
     handleSubmit,
     setFocus,
+    reset,
   } = formCtx;
   const { setCurrForm } = useFormSwap({
     ...useSwapCtxConsumer(),
@@ -84,9 +87,13 @@ const CreateBooksStore: FC = () => {
         __cg("data", data);
         const formData = makeFormDataStore(data);
 
-        await wrapMutationAPI({
+        const res = await wrapMutationAPI({
           cbAPI: () => createBookStore(formData),
         });
+
+        if (!res) return;
+
+        reset();
       },
       (errs) => {
         handleFocusErrStore(setFocus, errs, setCurrForm);

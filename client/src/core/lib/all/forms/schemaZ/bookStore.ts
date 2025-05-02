@@ -23,7 +23,7 @@ export const schemaBookStore = z
       .regex(REG_STORE_NAME, "Invalid name format"),
     description: z
       .string()
-      .max(200, "Max length description exceeded")
+      .max(12000, "Max length description exceeded")
       .optional()
       .refine((val) => !val?.trim().length || val.length > 10, {
         message: "If provided description must be at least 10 chars",

@@ -1,6 +1,6 @@
 import apiSlice from "@/store/apiSlice";
 
-export const ownerSliceAPI = apiSlice.injectEndpoints({
+export const ownerBookStoreSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createBookStore: builder.mutation({
       query: (data: FormData) => ({
@@ -12,4 +12,4 @@ export const ownerSliceAPI = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreateBookStoreMutation } = ownerSliceAPI;
+export const { useCreateBookStoreMutation } = ownerBookStoreSliceAPI;
