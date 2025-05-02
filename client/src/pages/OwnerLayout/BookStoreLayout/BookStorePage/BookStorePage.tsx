@@ -1,3 +1,5 @@
+import ImagesSwapper from "@/components/elements/ImagesSwapper/ImagesSwapper";
+import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
@@ -16,14 +18,23 @@ const BookStorePage: FC = () => {
     skip: !itPass,
   });
   useWrapQueryAPI({ ...res });
+  const { data: { bookStore } = {} } = res ?? {};
 
   return (
     <WrapPageAPI
       {...{
         canStay: user?.isVerified && itPass,
         isLoading: res?.isLoading,
+        error: res?.error,
+        isError: res?.isError,
       }}
-    ></WrapPageAPI>
+    >
+      <div className="parent__form">
+        <Title {...{ title: bookStore?.name }} />
+
+        <ImagesSwapper {...{ images: bookStore?.ImgBookStores }} />
+      </div>
+    </WrapPageAPI>
   );
 };
 
