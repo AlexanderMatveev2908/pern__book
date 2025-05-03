@@ -12,12 +12,12 @@ const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
   return (
     <div
       onClick={() => setIsDropOpen(!isDropOpen)}
-      className="w-full grid grid-cols-[1fr_50px] group cursor-pointer"
+      className="w-full grid grid-cols-[1fr_50px] z__drop_store_handler group cursor-pointer"
     >
       <div className="w-fit flex gap-5 justify-start items-center">
         <el.icon className="icon__md icon__with_txt" />
 
-        <span className="txt__2 group-hover:text-blue-600 el__flow">
+        <span className="txt__3 group-hover:text-blue-600 el__flow">
           {el.label}
         </span>
       </div>

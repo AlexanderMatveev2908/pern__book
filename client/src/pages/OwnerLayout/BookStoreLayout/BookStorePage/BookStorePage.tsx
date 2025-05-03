@@ -7,6 +7,7 @@ import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
+import DropActions from "./components/DropActions";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -32,10 +33,11 @@ const BookStorePage: FC = () => {
       <div className="parent__form">
         <Title {...{ title: bookStore?.name }} />
 
+        <DropActions />
+
         <ImagesSwapper
           {...{
             images: bookStore?.ImgBookStores,
-            video: bookStore?.VideoBookStore,
           }}
         />
       </div>

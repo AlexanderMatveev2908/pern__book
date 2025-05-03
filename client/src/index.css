@@ -50,6 +50,13 @@ body {
 
 /* INDEX*/
 
+.z__drop_store {
+  z-index: 100;
+}
+.z__drop_store_handler {
+  z-index: 250;
+}
+
 .z__sidebar_bg {
   z-index: 500;
 }

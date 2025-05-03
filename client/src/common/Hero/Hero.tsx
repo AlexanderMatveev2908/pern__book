@@ -4,7 +4,7 @@ import { heroImages } from "@/core/config/assetsDev/assetsDev";
 
 const Hero: FC = () => {
   return (
-    <div className="parent_page px-10">
+    <div className="parent_page px-10 mt-10">
       <ImagesSwapper {...{ images: heroImages }} />
     </div>
   );
