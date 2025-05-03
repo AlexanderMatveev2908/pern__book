@@ -1,11 +1,13 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
-import { actionsBookStoreAdmin } from "@/core/config/fieldsData/bookStore/actions";
+import {
+  actionsBookStoreAdmin,
+  KEY_MAP_STORE,
+} from "@/core/config/fieldsData/bookStore/actions";
 import { FC, useEffect, useRef, useState } from "react";
 import { GiSherlockHolmes } from "react-icons/gi";
-import { Link } from "react-router-dom";
 
 type PropsType = {
-  bookStoreID: string;
+  bookStoreID?: string;
 };
 
 const dropLabel = {
@@ -28,6 +30,13 @@ const DropActions: FC<PropsType> = ({ bookStoreID }) => {
     return () => document.removeEventListener("mousedown", listenDrop);
   }, []);
 
+  const handlers = new Map(
+    Object.values(KEY_MAP_STORE).map((key) => [
+      key,
+      () => console.log(bookStoreID + "_" + key),
+    ])
+  );
+
   return (
     <div className="w-full flex justify-end">
       <div
@@ -44,15 +53,15 @@ const DropActions: FC<PropsType> = ({ bookStoreID }) => {
           }`}
         >
           {actionsBookStoreAdmin.map((el) => (
-            <Link
-              to={el.path}
+            <div
               key={el.id}
               className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}
+              onClick={handlers.get(el.originalKey)}
             >
               <el.icon className="icon__sm" />
 
               <span className="txt__2">{el.label}</span>
-            </Link>
+            </div>
           ))}
         </ul>
       </div>

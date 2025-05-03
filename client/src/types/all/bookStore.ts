@@ -28,7 +28,7 @@ export enum CatBookStore {
   ROMANCE = "romance",
 }
 
-interface TeamItem {
+export interface TeamItem {
   userEmail: string;
   role: UserRole;
   userID: string;
@@ -52,7 +52,7 @@ export interface BookStoreType {
   deliveryPrice?: number;
   freeDeliveryAmount?: number;
   deliveryTime: number;
-  items?: TeamItem[];
+  team?: TeamItem[];
   ImgBookStores?: AssetCloudType[];
   VideoBookStore?: AssetCloudType;
 }
