@@ -11,8 +11,10 @@ import DropActions from "./components/DropActions";
 import {
   KEY_MAP_STORE,
   labelsBookStore,
+  labelTeamStore,
   statsBooks,
   statsOrders,
+  statsReviews,
 } from "@/core/config/fieldsData/bookStore/actions";
 import DropStats from "./components/DropStats";
 
@@ -61,11 +63,17 @@ const BookStorePage: FC = () => {
                 fields: statsOrders([0]),
               }}
             />
+            <DropStats
+              {...{
+                el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
+                fields: statsReviews([0]),
+              }}
+            />
           </div>
 
           <DropStats
             {...{
-              el: labelsBookStore.get(KEY_MAP_STORE.TEAM),
+              el: labelTeamStore,
               styleUL:
                 "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
             }}

@@ -2,9 +2,11 @@ import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import {
   actionsBookStoreAdmin,
   KEY_MAP_STORE,
+  labelsBookStore,
 } from "@/core/config/fieldsData/bookStore/actions";
 import { FC, useEffect, useRef, useState } from "react";
 import { GiSherlockHolmes } from "react-icons/gi";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {
   bookStoreID?: string;
@@ -18,6 +20,7 @@ const dropLabel = {
 const DropActions: FC<PropsType> = ({ bookStoreID }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
+  const nav = useNavigate();
 
   useEffect(() => {
     const listenDrop = (e: MouseEvent) => {
@@ -33,7 +36,10 @@ const DropActions: FC<PropsType> = ({ bookStoreID }) => {
   const handlers = new Map(
     Object.values(KEY_MAP_STORE).map((key) => [
       key,
-      () => console.log(bookStoreID + "_" + key),
+      () =>
+        key !== KEY_MAP_STORE.DELETE
+          ? nav(labelsBookStore.get(key)!.path + bookStoreID)
+          : console.log("delete"),
     ])
   );
 
