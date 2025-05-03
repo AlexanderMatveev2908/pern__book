@@ -1,4 +1,4 @@
-import { mandatoryKeys } from "@/core/config/fieldsData/OwnerLayout/post";
+import { mandatoryKeysStore } from "@/core/config/fieldsData/OwnerLayout/post";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const canSaveStore = (vals: any) => {
@@ -7,7 +7,7 @@ export const canSaveStore = (vals: any) => {
   let i = 0;
 
   do {
-    const curr = vals?.[mandatoryKeys[i]];
+    const curr = vals?.[mandatoryKeysStore[i]];
 
     if (
       (typeof curr === "string" && !curr.trim().length) ||
@@ -18,7 +18,7 @@ export const canSaveStore = (vals: any) => {
     }
 
     i++;
-  } while (i < mandatoryKeys.length);
+  } while (i < mandatoryKeysStore.length);
 
   return isValid;
 };

@@ -5,7 +5,7 @@ import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useMemo } from "react";
+import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
@@ -20,6 +20,7 @@ import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStoreSlic
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { doLorem } from "@/core/lib/all/utils/place";
 import { useNavigate } from "react-router-dom";
+import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -31,30 +32,7 @@ const CreateBooksStore: FC = () => {
   const [createBookStore, { isLoading }] = useCreateBookStoreMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
 
-  const schemaX = useMemo(
-    () =>
-      schemaBookStore.and(z.object({})).superRefine((data, ctx) => {
-        if (data.items?.length) {
-          let i = 0;
-
-          do {
-            const curr = data.items[i];
-            if (curr.email === user?.email) {
-              ctx.addIssue({
-                path: [`items.${i}.email`],
-                message: "You can not hire yourself",
-                code: "custom",
-              });
-              break;
-            }
-
-            i++;
-          } while (i < data.items.length);
-        }
-      }),
-    [user?.email]
-  );
-
+  const schemaX = useMakeSchemaXStore();
   const formCtx = useForm<FormBookStoreType>({
     resolver: zodResolver(schemaX),
     mode: "onChange",
@@ -71,6 +49,7 @@ const CreateBooksStore: FC = () => {
     handleSubmit,
     setFocus,
     reset,
+    setValue,
   } = formCtx;
   const { setCurrForm } = useFormSwap({
     ...useSwapCtxConsumer(),
@@ -110,6 +89,14 @@ const CreateBooksStore: FC = () => {
   });
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
+  useEffect(() => {
+    setValue("items", [
+      {
+        email: "",
+        role: null,
+      },
+    ]);
+  }, [setValue]);
   return (
     <WrapPageAPI {...{ canStay: user?.isVerified }}>
       <div className="parent__page">

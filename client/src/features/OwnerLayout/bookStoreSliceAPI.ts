@@ -19,11 +19,26 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       }),
       providesTags: [TagsAPI.BOOK_STORE],
     }),
+
+    updateBookStore: builder.mutation<
+      { bookStoreID: string },
+      { bookStoreID: string; formData: FormData }
+    >({
+      query: ({ formData, bookStoreID }) => ({
+        url: `/admin-book-store/${bookStoreID}`,
+        method: "PUT",
+        data: formData,
+      }),
+      invalidatesTags: [TagsAPI.BOOK_STORE],
+    }),
   }),
 });
 
-export const { useCreateBookStoreMutation, useGetBookStoreQuery } =
-  bookStoreSliceAPI;
+export const {
+  useCreateBookStoreMutation,
+  useGetBookStoreQuery,
+  useUpdateBookStoreMutation,
+} = bookStoreSliceAPI;
 
 /*
   ? EVEN IS NOT SEMANTICALLY CORRECT USING MUTATION FOR GET REQ WAS PRETTY USEFUL TO REMEMBER ENTITY ADAPTERS, THEY ARE USED FOR ASYNC THUNK MAINLY OR OPTIMIST UPDATES

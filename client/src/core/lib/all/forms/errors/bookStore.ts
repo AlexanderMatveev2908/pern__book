@@ -48,6 +48,13 @@ export const handleFocusErrStore = (
 
   i = 0;
 
+  const absPath = window.location.href;
+  const origin = window.location.origin;
+  const relative = absPath.substring(origin.length);
+  const swapID = `swapFormStore${
+    relative.split("/").some((el) => el === "create") ? "Create" : "Update"
+  }`;
+
   do {
     const currArr = fieldsSwapStore[i];
 
@@ -56,7 +63,7 @@ export const handleFocusErrStore = (
     do {
       const curr = currArr[j];
       if (errKeys.includes(curr.field)) {
-        const swap = document.getElementById("swapFormStoreCreate");
+        const swap = document.getElementById(swapID);
         if (!swap) {
           return;
         }

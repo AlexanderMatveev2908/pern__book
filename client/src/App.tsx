@@ -22,6 +22,7 @@ import Notice from "./pages/Notice/NoticePage";
 import SwapCtxProvider from "./core/contexts/SwapCtx/SwapAddressProvider";
 import BookStorePage from "./pages/OwnerLayout/BookStoreLayout/BookStorePage/BookStorePage";
 import BookStoreLayout from "./layouts/OwnerLayout/BookStoreLayout";
+import UpdateBookStore from "./pages/OwnerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStore";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -77,6 +78,14 @@ const App: FC = () => {
               }
             />
             <Route path=":bookStoreID" element={<BookStorePage />} />
+            <Route
+              path="update/:bookStoreID"
+              element={
+                <SwapCtxProvider>
+                  <UpdateBookStore />
+                </SwapCtxProvider>
+              }
+            />
           </Route>
         </Route>
 

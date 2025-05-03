@@ -50,10 +50,13 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
   });
   useCLearTab();
 
-  const swapID = useMemo(
-    () => "swapFormStore" + capt(path.split("/").pop() ?? ""),
-    [path]
-  );
+  const swapID = useMemo(() => {
+    const splitted = path.split("/");
+
+    return `swapFormStore${
+      splitted.some((el) => el === "create") ? "Create" : "Update"
+    }`;
+  }, [path]);
 
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
@@ -126,7 +129,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
         <Button
           {...{
             type: "submit",
-            label: "Create Bookstore",
+            label: `${path.includes("create") ? "Create" : "Update"} Bookstore`,
             isDisabled: !isFormOk,
             isAging: isLoading,
           }}

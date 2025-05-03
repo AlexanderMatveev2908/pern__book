@@ -42,14 +42,6 @@ const TeamForm: FC = () => {
   const len = useMemo(() => fields.length, [fields.length]);
 
   useEffect(() => {
-    setValue("items", [
-      {
-        email: "",
-        role: null,
-      },
-    ]);
-  }, [setValue]);
-  useEffect(() => {
     const handleBorder = () => {
       if (!parentRef.current) return;
       const parent = parentRef.current;

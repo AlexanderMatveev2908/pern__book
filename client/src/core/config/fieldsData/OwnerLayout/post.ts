@@ -97,11 +97,21 @@ export const fieldSelectWorkerRole: MySelectFieldType = {
   })),
 };
 
-export const mandatoryKeys = [
+export const mandatoryKeysStore = [
   "name",
   "categories",
   "email",
   "phone",
   ...fieldsSwapStore.flatMap((arr) => arr.map((el) => el.field)),
   "deliveryTime",
+];
+
+export const optKeysStore = [
+  "description",
+  "website",
+  "deliveryPrice",
+  "freeDeliveryAmount",
+  "team",
+  "ImgBookStores",
+  "VideoBookStore",
 ];
