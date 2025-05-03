@@ -13,9 +13,10 @@ type PropsType = {
       }[]
     | null;
   children?: React.ReactNode[] | null;
+  styleUL?: string;
 };
 
-const DropStats: FC<PropsType> = ({ el, fields, children }) => {
+const DropStats: FC<PropsType> = ({ el, fields, children, styleUL }) => {
   const [isDropOpen, setIsDropOpen] = useState(
     window.innerWidth > tailwindBreak.md
   );
@@ -39,10 +40,12 @@ const DropStats: FC<PropsType> = ({ el, fields, children }) => {
 
       <ul
         className={`w-full grid transition-all duration-300 gap-3 ${
-          isDropOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
+          isDropOpen
+            ? `${styleUL ?? "max-h-[500px]"} opacity-100`
+            : "max-h-0 opacity-0"
         }`}
       >
-        {fields === null
+        {!fields
           ? children
           : fields?.map((el) => (
               <li

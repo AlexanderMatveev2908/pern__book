@@ -66,8 +66,25 @@ const BookStorePage: FC = () => {
           <DropStats
             {...{
               el: labelsBookStore.get(KEY_MAP_STORE.TEAM),
+              styleUL:
+                "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
             }}
-          ></DropStats>
+          >
+            {(bookStore?.team ?? []).map((el, i) => (
+              <li
+                key={i}
+                className="w-full grid grid-cols-1 sm:grid-cols-2 items-center gap-y-1"
+              >
+                <div className="w-full truncate">
+                  <span className="txt__2">{el.userEmail}</span>
+                </div>
+
+                <div className=" justify-self-start sm:justify-self-end pr-3">
+                  <span className="txt__2 ">{el.role}</span>
+                </div>
+              </li>
+            ))}
+          </DropStats>
         </div>
       </div>
     </WrapPageAPI>
