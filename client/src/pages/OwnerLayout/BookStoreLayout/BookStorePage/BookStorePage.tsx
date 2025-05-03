@@ -32,7 +32,12 @@ const BookStorePage: FC = () => {
       <div className="parent__form">
         <Title {...{ title: bookStore?.name }} />
 
-        <ImagesSwapper {...{ images: bookStore?.ImgBookStores }} />
+        <ImagesSwapper
+          {...{
+            images: bookStore?.ImgBookStores,
+            video: bookStore?.VideoBookStore,
+          }}
+        />
       </div>
     </WrapPageAPI>
   );
