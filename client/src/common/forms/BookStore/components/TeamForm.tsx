@@ -181,7 +181,7 @@ const TeamForm: FC = () => {
             />
           </div>
           <div
-            className={`w-[75px] justify-self-end flex items-end absolute  z-20 bg-neutral-950 md:static ${
+            className={`w-[75px] justify-self-end flex items-end absolute z-20 bg-neutral-950 md:static ${
               border ? "-top-[2%]" : "-top-[10%]"
             }`}
           >

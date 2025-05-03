@@ -42,7 +42,7 @@ export const defineKeyCbcHmac = (seq: Sequelize) =>
     {
       sequelize: seq,
       timestamps: true,
-      tableName: "keysCbcHmac",
+      tableName: "keys_cbc_hmac",
       modelName: "KeyCbcHmac",
     }
   );

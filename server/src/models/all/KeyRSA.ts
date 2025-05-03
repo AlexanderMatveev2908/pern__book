@@ -42,7 +42,7 @@ export const definePairRSA = (seq: Sequelize) =>
     {
       sequelize: seq,
       timestamps: true,
-      tableName: "keysRSA",
+      tableName: "keys_rsa",
       modelName: "KeyRSA",
     }
   );

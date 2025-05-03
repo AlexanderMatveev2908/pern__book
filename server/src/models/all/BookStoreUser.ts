@@ -39,7 +39,7 @@ export const defineBookStoreUser = (seq: Sequelize) =>
         type: DataTypes.STRING(36),
         allowNull: false,
         references: {
-          model: "bookStores",
+          model: "book_stores",
           key: "id",
         },
       },
@@ -54,7 +54,7 @@ export const defineBookStoreUser = (seq: Sequelize) =>
     },
     {
       sequelize: seq,
-      tableName: "bookStoreUsers",
+      tableName: "book_stores_users",
       modelName: "BookStoreUser",
       timestamps: true,
       indexes: [

@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { connectDB, syncDB } from "./config/db.js";
+import { connectDB, seq, syncDB } from "./config/db.js";
 import { frontURL, isDev, keyCert } from "./config/env.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
@@ -53,11 +53,18 @@ app.use(errMiddleware);
 // io.on("connection", handleSocket);
 // delStores();
 
+const DROP = async () => {
+  await seq.drop({
+    cascade: true,
+  });
+};
+
 const start = async () => {
   try {
     await connectCloud();
     await connectDB();
-    await syncDB();
+    // await syncDB();
+    // await DROP();
 
     await new Promise<void>((res, rej) => {
       // app.listen(PORT, (err) => {

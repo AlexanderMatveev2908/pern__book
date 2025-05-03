@@ -140,7 +140,7 @@ export const defineBookStore = (seq: Sequelize) =>
     },
     {
       sequelize: seq,
-      tableName: "bookStores",
+      tableName: "book_stores",
       modelName: "BookStore",
       timestamps: true,
     }

@@ -31,7 +31,7 @@ const ErrorFormField: FC<PropsType> = ({ errors, el, styleCont, index }) => {
     <div
       className={`absolute transition-all pointer-events-none duration-[0.4s] ${
         msg ? "translate-y-0 opacity-100" : "translate-y-[100px] opacity-0"
-      } min-h-full`}
+      } min-h-full z-60`}
       style={styleCont ?? defStyle}
     >
       <div
