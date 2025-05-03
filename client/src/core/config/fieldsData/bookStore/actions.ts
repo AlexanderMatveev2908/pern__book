@@ -41,64 +41,109 @@ export const actionsBookStoreAdmin = [...labelsBookStore.entries()].map(
   })
 );
 
-export const statsStore = (
-  valsBooks?: (number | string)[],
-  valsTeam?: TeamItem[],
-  valsOrders?: (number | string)[]
-) =>
-  new Map([
-    [
-      KEY_MAP_STORE.BOOKS,
-      {
-        fields: [
-          {
-            label: "Total books",
-            val: valsBooks?.[0],
-          },
-        ].map((el) => ({
-          ...el,
-          id: v4(),
-        })),
-      },
-    ],
-    [
-      KEY_MAP_STORE.TEAM,
-      {
-        fields: [
-          {
-            label: "Total Employee",
-            val: valsTeam?.length + "",
-          },
-          {
-            label: "Managers",
-            val: valsTeam
-              ? valsTeam.filter((el) => el.role === UserRole.MANAGER).length
-              : 0,
-          },
-          {
-            label: "Employee",
-            val: valsTeam
-              ? valsTeam.filter((el) => el.role === UserRole.EMPLOYEE).length
-              : 0,
-          },
-        ].map((el) => ({
-          ...el,
-          id: v4(),
-        })),
-      },
-    ],
-    [
-      KEY_MAP_STORE.ORDERS,
-      {
-        fields: [
-          {
-            label: "Total Orders",
-            val: valsOrders?.[0],
-          },
-        ].map((el) => ({
-          ...el,
-          id: v4(),
-        })),
-      },
-    ],
-  ]);
+export const statsBooks = (valsBooks?: (number | string)[]) =>
+  [
+    {
+      label: "Total books",
+      val: valsBooks?.[0],
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
+
+export const statsTeam = (valsTeam?: TeamItem[]) =>
+  [
+    {
+      label: "Total Employee",
+      val: valsTeam?.length + "",
+    },
+    {
+      label: "Managers",
+      val: valsTeam
+        ? valsTeam.filter((el) => el.role === UserRole.MANAGER).length
+        : 0,
+    },
+    {
+      label: "Employee",
+      val: valsTeam
+        ? valsTeam.filter((el) => el.role === UserRole.EMPLOYEE).length
+        : 0,
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
+
+export const statsOrders = (valsOrders?: (number | string)[]) =>
+  [
+    {
+      label: "Total Orders",
+      val: valsOrders?.[0],
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
+
+// export const statsStore = (
+//   valsBooks?: (number | string)[],
+//   valsTeam?: TeamItem[],
+//   valsOrders?: (number | string)[]
+// ) =>
+//   new Map([
+//     [
+//       KEY_MAP_STORE.BOOKS,
+//       {
+//         fields: [
+//           {
+//             label: "Total books",
+//             val: valsBooks?.[0],
+//           },
+//         ].map((el) => ({
+//           ...el,
+//           id: v4(),
+//         })),
+//       },
+//     ],
+//     [
+//       KEY_MAP_STORE.TEAM,
+//       {
+//         fields: [
+//           {
+//             label: "Total Employee",
+//             val: valsTeam?.length + "",
+//           },
+//           {
+//             label: "Managers",
+//             val: valsTeam
+//               ? valsTeam.filter((el) => el.role === UserRole.MANAGER).length
+//               : 0,
+//           },
+//           {
+//             label: "Employee",
+//             val: valsTeam
+//               ? valsTeam.filter((el) => el.role === UserRole.EMPLOYEE).length
+//               : 0,
+//           },
+//         ].map((el) => ({
+//           ...el,
+//           id: v4(),
+//         })),
+//       },
+//     ],
+//     [
+//       KEY_MAP_STORE.ORDERS,
+//       {
+//         fields: [
+//           {
+//             label: "Total Orders",
+//             val: valsOrders?.[0],
+//           },
+//         ].map((el) => ({
+//           ...el,
+//           id: v4(),
+//         })),
+//       },
+//     ],
+//   ]);

@@ -1,6 +1,7 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
+import { tailwindBreak } from "@/core/config/breakpoints";
 import { LabelStoreType } from "@/core/config/fieldsData/bookStore/actions";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 
 type PropsType = {
   el?: LabelStoreType;
@@ -15,15 +16,30 @@ type PropsType = {
 };
 
 const DropStats: FC<PropsType> = ({ el, fields, children }) => {
-  const [isDropOpen, setIsDropOpen] = useState(false);
+  const [isDropOpen, setIsDropOpen] = useState(
+    window.innerWidth > tailwindBreak.md
+  );
+
+  useEffect(() => {
+    const resize = () => setIsDropOpen(window.innerWidth > tailwindBreak.md);
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
   return !el ? null : (
     <div>
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
+      {isDropOpen && (
+        <hr
+          className={`bg-blue-600 h-[3px] w-full border-0 my-2 ${isDropOpen}`}
+        />
+      )}
+
       <ul
-        className={`w-full grid gap-5 transition-all duration-300 ${
-          isDropOpen ? "max-h-[500px] opacity-100" : "max-h-0 opacity-0"
+        className={`w-full grid transition-all duration-300 gap-3 ${
+          isDropOpen ? "max-h-[1000px] opacity-100" : "max-h-0 opacity-0"
         }`}
       >
         {fields === null
