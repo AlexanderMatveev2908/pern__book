@@ -100,13 +100,13 @@ export const validateStore = [
   ...validateAddress(),
 
   check("deliveryPrice").custom((val) =>
-    !val?.length || (REG_PRICE.test(val) && +val > 0.01)
+    !val?.length || (REG_PRICE.test(val) && +val >= 0.01)
       ? true
       : Promise.reject("Invalid price")
   ),
 
   check("freeDeliveryAmount").custom((val) =>
-    !val?.length || (REG_PRICE.test(val) && +val > 0.01)
+    !val?.length || (REG_PRICE.test(val) && +val >= 0.01)
       ? true
       : Promise.reject("Invalid free delivery amount")
   ),

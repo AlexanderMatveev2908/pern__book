@@ -1,3 +1,4 @@
+import { Op } from "sequelize";
 import { captAll } from "../../../lib/utils/formatters.js";
 import { BookStoreInstance } from "../../../models/all/BookStore.js";
 import { User } from "../../../models/models.js";
@@ -56,7 +57,7 @@ export const addOptKeys = (body: Partial<BookStoreInstance>) =>
     return acc;
   }, {} as BookStoreInstance);
 
-export const checkTeam = async (bodyData: Partial<BookStoreInstance>) => {
+export const makeTeam = async (bodyData: Partial<BookStoreInstance>) => {
   const team = bodyData?.items;
   if (
     !Array.isArray(team) ||
@@ -67,45 +68,45 @@ export const checkTeam = async (bodyData: Partial<BookStoreInstance>) => {
     return null;
 
   const users = await User.findAll({
-    where: { email: team.map((t) => t.email) },
+    where: {
+      email: {
+        [Op.in]: team.map((member) => member.email),
+      },
+    },
   });
 
   const emailUser = new Map(users.map((u) => [u.email, u]));
 
-  return {
-    IDS: team.map((member) => {
-      const user = emailUser.get(member.email)!;
+  return team.map((member) => {
+    const user = emailUser.get(member.email)!;
 
-      return {
-        id: user.id,
-        role: member.role,
-        userEmail: member.email,
-      };
-    }),
-  };
+    return {
+      id: user.id,
+      role: member.role,
+      userEmail: member.email,
+    };
+  });
 };
 
-/*
-  // let i = 0;
-  // let nonExistentEmail: string | null = null;
+// let i = 0;
+// let nonExistentEmail: string | null = null;
 
-  // do {
-  //   const curr = team[i];
+// do {
+//   const curr = team[i];
 
-  //   const user = await User.findOne({
-  //     where: { email: curr.email },
-  //   });
-  //   if (!user) {
-  //     nonExistentEmail = curr.email;
-  //     break;
-  //   }
+//   const user = await User.findOne({
+//     where: { email: curr.email },
+//   });
+//   if (!user) {
+//     nonExistentEmail = curr.email;
+//     break;
+//   }
 
-  //   i++;
-  // } while (i < team.length);
+//   i++;
+// } while (i < team.length);
 
-  // return nonExistentEmail
-  //   ? {
-  //       nonExist: nonExistentEmail,
-  //     }
-  //   : true;
-  */
+// return nonExistentEmail
+//   ? {
+//       nonExist: nonExistentEmail,
+//     }
+//   : true;

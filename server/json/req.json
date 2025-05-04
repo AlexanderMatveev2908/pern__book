@@ -1,14 +1,13 @@
 {
   "body": {
-    "email": "matveevalexander470@gmail.com",
+    "email": "matveev.alexander.29.08.00@gmail.com",
     "country": "Romania",
-    "state": "Bacău",
-    "city": "Onești",
+    "state": "Ba",
+    "city": "Wwww",
     "street": "Strada Sfinții Apostoli",
     "zipCode": "601073",
-    "phone": "+00 000 000 000",
-    "name": "Store-1",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
+    "phone": "+00 000 000",
+    "name": "Changed",
     "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1746349639/pern__book_videos/p5eto05ax3gegcovlqjj.mp4",
     "images": [
       "https://res.cloudinary.com/dzusujmak/image/upload/v1746349641/pern__book_stores/e7drm6b9firzfa86ubeh.avif",
@@ -18,14 +17,11 @@
       "https://res.cloudinary.com/dzusujmak/image/upload/v1746349644/pern__book_stores/ikxatlve5ebybsamavlv.avif"
     ],
     "categories": [
-      "classics",
-      "psychology",
-      "comics"
+      "philosophy",
+      "history",
+      "manga"
     ],
-    "website": "https://pern-book.onrender.com",
-    "deliveryPrice": "50.50",
-    "freeDeliveryAmount": "12.99",
-    "deliveryTime": "5",
+    "deliveryTime": "1",
     "items": [
       {
         "email": "matveevalexander2908@gmail.com",
@@ -43,6 +39,6 @@
   "params": {
     "bookStoreID": "056defbf-9fcd-4f31-a79e-03e880a6ac71"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM1NTg0OCwiZXhwIjoxNzQ2MzU1OTA4fQ.L_vLIREp2qPWa-lL_Gi38mn69j1LjWIVl8ukvKodRjs",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM2MjAwMSwiZXhwIjoxNzQ2MzYyMDYxfQ.xhRFfRzFVYpJQcxcFXPmpMiqcNA-McmQZRYV6LKA0wo",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.wuYwH_Ir8ALRMGqbTzNsNkUi7FjZLVPR9vDDzBKwww2jCJMh-jYLA40EjBZu51qnmSLSFEE1_lqAqUyYYhSifEj7gFeqnYd_5uMLI8tbqZhT4mG7z7bAjwvwbFP_Wjte1FiWXJnQ1VKO9dZQhHnwqILbU1Nyc-6ZDeX6sIKcnFA2B64Lt6JbtAIoUMgKGLOvFhE759QoBaWnyReq6FWfcipNyMKU90LDfeAKnWMma5ldXvrtXE-ZHdmPkxozQC9n1qeAcppKTW_yYirIxsmKPUzQcQgqX_yZeMttEuaz4q4UWEF3RNtAFb2e-9rE6xaa4rwMxxOVbQ3Bq6eQsYNxPQ.oWgd9EXudcmSaZ9N.Rl7dVQIv_NW8ihtNBXO7YKc7aAmh3DxR5do5NSRb26wBSUnAx2Q2zjXa-DsX.hIRV0ue0ni8-N5UKj6CWrA"
 }

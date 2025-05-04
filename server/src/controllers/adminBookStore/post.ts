@@ -8,11 +8,7 @@ import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { clearUnnecessary, handleAssetsCloud } from "./helpers/cloudUpload.js";
-import {
-  addMandatoryKeys,
-  addOptKeys,
-  checkTeam,
-} from "./helpers/storeData.js";
+import { addMandatoryKeys, addOptKeys, makeTeam } from "./helpers/storeData.js";
 
 export const createBookStore = async (
   req: ReqApp,
@@ -55,10 +51,10 @@ export const createBookStore = async (
         { transaction: t }
       );
 
-    const team = await checkTeam(bodyData);
-    if (team?.IDS && Array.isArray(team.IDS))
+    const team = await makeTeam(bodyData);
+    if (Array.isArray(team))
       await BookStoreUser.bulkCreate(
-        team.IDS.map((member) => ({
+        team.map((member) => ({
           bookStoreID: newBookStore.id,
           userID: member.id,
           userEmail: member.userEmail,
