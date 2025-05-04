@@ -12,7 +12,7 @@ export const useWrapMutationAPI = () => {
 
   const { handleErrAPI } = useErrAPI();
   const wrapMutationAPI = useCallback(
-    async <T extends BaseResAPI & Record<string, any>>({
+    async <T extends BaseResAPI<Record<string, any>>>({
       cbAPI,
       push,
       pushNotice,

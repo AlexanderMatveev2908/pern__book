@@ -25,4 +25,4 @@ export interface ResApp extends AxiosResponse {
   };
 }
 
-export type BaseResAPI = { ok: boolean; status: number; msg: string };
+export type BaseResAPI<T> = { ok: boolean; status: number; msg: string } & T;

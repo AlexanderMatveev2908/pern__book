@@ -20,7 +20,6 @@ import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
 import { CatBookStore } from "@/types/all/bookStore";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useLocation } from "react-router-dom";
-import { capt } from "@/core/lib/lib";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
 

@@ -17,7 +17,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
     }),
 
     getBookStore: builder.query<
-      { bookStore: BookStoreType } & BaseResAPI,
+      BaseResAPI<{ bookStore: BookStoreType }>,
       string
     >({
       query: (bookStoreID: string) => ({
@@ -39,7 +39,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       invalidatesTags: [TagsAPI.BOOK_STORE],
     }),
 
-    delStore: builder.mutation<BaseResAPI, string>({
+    delStore: builder.mutation<BaseResAPI<void>, string>({
       query: (bookStoreID) => ({
         url: BASE_URL + bookStoreID,
         method: "DELETE",
