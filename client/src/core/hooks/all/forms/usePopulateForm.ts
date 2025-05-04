@@ -10,7 +10,7 @@ type Params = {
   user: UserType;
 } & Omit<FormSettersProps, "watch">;
 
-export const usePopulateForm = ({ getValues, user, setValue }: Params) => {
+export const usePopulateProfile = ({ getValues, user, setValue }: Params) => {
   useEffect(() => {
     const updateForm = () => {
       const fields = getValues();

@@ -10,6 +10,7 @@ import { handleValidator } from "../../lib/middleware/handleValidator.js";
 import { getMyStore } from "../../controllers/adminBookStore/get.js";
 import { updateBookStore } from "../../controllers/adminBookStore/put.js";
 import { checkTeam } from "../../middleware/adminStore/checkTeam.js";
+import { deleteStore } from "../../controllers/adminBookStore/delete.js";
 
 const adminExpressRouterStore = express.Router();
 
@@ -39,6 +40,11 @@ adminExpressRouterStore
     validateStore,
     checkTeam,
     wrapApp(updateBookStore)
+  )
+  .delete(
+    verifyAccessToken({ isVerified: true }),
+    [...validateIDs, handleValidator(422)],
+    wrapApp(deleteStore)
   );
 
 export default adminExpressRouterStore;

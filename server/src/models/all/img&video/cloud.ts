@@ -2,6 +2,7 @@ import { DataTypes, Model } from "sequelize";
 import { v4 } from "uuid";
 
 export class CloudClass extends Model {
+  declare id: string;
   declare publicID: string;
   declare url: string;
 }

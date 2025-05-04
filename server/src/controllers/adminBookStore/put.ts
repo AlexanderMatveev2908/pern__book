@@ -4,8 +4,13 @@ import { res200 } from "../../lib/responseClient/res.js";
 import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
 import { clearUnnecessary, handleAssetsCloud } from "./helpers/cloudUpload.js";
 import { seq } from "../../config/db.js";
-import { err404, err422, err500 } from "../../lib/responseClient/err.js";
-import { addMandatoryKeys, addOptKeys, makeTeam } from "./helpers/storeData.js";
+import { err404, err500 } from "../../lib/responseClient/err.js";
+import {
+  addMandatoryKeys,
+  addOptKeys,
+  getStoreByID,
+  makeTeam,
+} from "./helpers/storeData.js";
 import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
@@ -16,29 +21,12 @@ export const updateBookStore = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  const { userID } = req;
   const { bookStoreID } = req.params;
   const bodyData: Partial<BookStoreInstance> = req.body;
 
   const { videoData, imagesData } = (await handleAssetsCloud(req)) ?? {};
 
-  const bookStore: BookStoreInstance | null = await BookStore.findOne({
-    where: {
-      ownerID: userID,
-      id: bookStoreID,
-    },
-    include: [
-      {
-        model: ImgBookStore,
-        as: "images",
-      },
-      {
-        model: VideoBookStore,
-        as: "video",
-      },
-    ],
-    nest: true,
-  });
+  const bookStore = await getStoreByID(req);
 
   if (!bookStore) {
     await clearUnnecessary(videoData!, imagesData!);

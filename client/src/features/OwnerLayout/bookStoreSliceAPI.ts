@@ -1,12 +1,14 @@
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
-import { TagsAPI } from "@/types/types";
+import { BaseResAPI, TagsAPI } from "@/types/types";
+
+const BASE_URL = "/admin-book-store/";
 
 export const bookStoreSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createBookStore: builder.mutation<{ bookStoreID: string }, FormData>({
       query: (data: FormData) => ({
-        url: "/admin-book-store",
+        url: BASE_URL,
         method: "POST",
         data,
       }),
@@ -14,7 +16,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
 
     getBookStore: builder.query<{ bookStore: BookStoreType }, string>({
       query: (bookStoreID: string) => ({
-        url: `/admin-book-store/${bookStoreID}`,
+        url: BASE_URL + bookStoreID,
         method: "GET",
       }),
       providesTags: [TagsAPI.BOOK_STORE],
@@ -25,9 +27,17 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       { bookStoreID: string; formData: FormData }
     >({
       query: ({ formData, bookStoreID }) => ({
-        url: `/admin-book-store/${bookStoreID}`,
+        url: BASE_URL + bookStoreID,
         method: "PUT",
         data: formData,
+      }),
+      invalidatesTags: [TagsAPI.BOOK_STORE],
+    }),
+
+    delStore: builder.mutation<BaseResAPI, string>({
+      query: (bookStoreID) => ({
+        url: BASE_URL + bookStoreID,
+        method: "DELETE",
       }),
       invalidatesTags: [TagsAPI.BOOK_STORE],
     }),

@@ -22,3 +22,6 @@ export const parseNullRead = (str: string) => (str.trim().length ? str : null);
 
 export const parseNullPost = (str: string | null): string =>
   str?.trim().length ? str : "_";
+
+export const countW = (len: number, txt?: string) =>
+  (txt?.length ?? 0) > len ? txt?.slice(0, len) + "..." : txt;

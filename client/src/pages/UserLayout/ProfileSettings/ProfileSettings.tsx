@@ -1,6 +1,6 @@
 import {
   useFocus,
-  usePopulateForm,
+  usePopulateProfile,
   useScroll,
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
@@ -85,7 +85,7 @@ const ProfileSettings = () => {
   }, [vals, user]);
 
   const { wrapMutationAPI } = useWrapMutationAPI();
-  usePopulateForm({
+  usePopulateProfile({
     user,
     getValues,
     setValue,

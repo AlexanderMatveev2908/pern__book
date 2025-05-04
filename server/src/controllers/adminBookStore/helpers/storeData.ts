@@ -1,7 +1,10 @@
 import { Op } from "sequelize";
 import { captAll } from "../../../lib/utils/formatters.js";
-import { BookStoreInstance } from "../../../models/all/BookStore.js";
+import { BookStore, BookStoreInstance } from "../../../models/all/BookStore.js";
 import { User } from "../../../models/models.js";
+import { ReqApp } from "../../../types/types.js";
+import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
+import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
 
 const MANDATORY_KEYS = [
   "name",
@@ -85,6 +88,20 @@ export const makeTeam = async (bodyData: Partial<BookStoreInstance>) => {
       role: member.role,
       userEmail: member.email,
     };
+  });
+};
+
+export const getStoreByID = async (req: ReqApp) => {
+  const { userID } = req;
+  const { bookStoreID } = req.params;
+
+  return await BookStore.findOne({
+    where: { ownerID: userID, id: bookStoreID },
+    include: [
+      { model: ImgBookStore, as: "images" },
+      { model: VideoBookStore, as: "video" },
+    ],
+    nest: true,
   });
 };
 

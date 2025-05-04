@@ -24,6 +24,9 @@ export interface UserType {
   street: string | null;
   zipCode: string | null;
   phone: string | null;
+
+  isOwner: boolean;
+  isWorker: boolean;
 }
 
 export interface AuthState {

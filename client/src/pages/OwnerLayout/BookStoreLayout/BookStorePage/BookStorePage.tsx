@@ -42,7 +42,7 @@ const BookStorePage: FC = () => {
       <div className="parent__form">
         <Title {...{ title: bookStore?.name }} />
 
-        <DropActions {...{ bookStoreID }} />
+        <DropActions {...{ bookStore }} />
 
         <ImagesSwapper
           {...{

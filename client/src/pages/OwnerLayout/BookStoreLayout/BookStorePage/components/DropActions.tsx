@@ -4,12 +4,23 @@ import {
   KEY_MAP_STORE,
   labelsBookStore,
 } from "@/core/config/fieldsData/bookStore/actions";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
+import { countW } from "@/core/lib/lib";
+import {
+  closePopup,
+  loadPop,
+  openPopup,
+} from "@/features/common/Popup/popupSlice";
+import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
+import { BookStoreType } from "@/types/all/bookStore";
+import { BtnAct, BtnPopupKeys } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { GiSherlockHolmes } from "react-icons/gi";
+import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 type PropsType = {
-  bookStoreID?: string;
+  bookStore?: BookStoreType;
 };
 
 const dropLabel = {
@@ -17,7 +28,7 @@ const dropLabel = {
   label: "Manage",
 };
 
-const DropActions: FC<PropsType> = ({ bookStoreID }) => {
+const DropActions: FC<PropsType> = ({ bookStore }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
   const nav = useNavigate();
@@ -33,13 +44,51 @@ const DropActions: FC<PropsType> = ({ bookStoreID }) => {
     return () => document.removeEventListener("mousedown", listenDrop);
   }, []);
 
+  const dispatch = useDispatch();
+  const [mutate] = bookStoreSliceAPI.endpoints.delStore.useMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
+  const handleOpenPop = () =>
+    dispatch(
+      openPopup({
+        txt: `Are You sure to delete ${countW(
+          30,
+          bookStore?.name
+        )} and all associeted data ?`,
+        leftBtn: {
+          label: "I Change idea",
+          act: BtnAct.DO,
+          cb: async () => {
+            dispatch(closePopup());
+          },
+        },
+        rightBtn: {
+          label: "Delete",
+          act: BtnAct.DEL,
+          cb: async () => {
+            dispatch(loadPop(BtnPopupKeys.RIGHT));
+
+            const res = await wrapMutationAPI({
+              cbAPI: () => mutate(bookStore?.id ?? ""),
+            });
+
+            dispatch(closePopup());
+
+            if (!res) return;
+
+            nav("/", { replace: true });
+          },
+        },
+      })
+    );
+
   const handlers = new Map(
     Object.values(KEY_MAP_STORE).map((key) => [
       key,
       () =>
         key !== KEY_MAP_STORE.DELETE
-          ? nav(labelsBookStore.get(key)!.path + bookStoreID)
-          : console.log("delete"),
+          ? nav(labelsBookStore.get(key)!.path + bookStore?.id)
+          : handleOpenPop(),
     ])
   );
 
