@@ -72,8 +72,9 @@ const UpdateBookStore: FC = () => {
     const handleFill = () => {
       if (isObjOk(bookStore)) {
         for (const key in bookStore) {
+          const val = (bookStore as any)[key as keyof BookStoreType];
+
           if (mandatoryKeysStore.includes(key)) {
-            const val = (bookStore as any)[key as keyof BookStoreType];
             setValue(
               key as keyof FormBookStoreType,
               typeof val === "number" ? +val + "" : val,
@@ -82,13 +83,39 @@ const UpdateBookStore: FC = () => {
               }
             );
           } else if (optKeysStore.includes(key)) {
+            setValue(
+              key as keyof FormBookStoreType,
+              isNaN(val) ? val : +val ? val : "",
+              {
+                shouldValidate: true,
+              }
+            );
+          } else if (key === "team") {
+            const hasData =
+              Array.isArray(val) &&
+              val.length &&
+              val.every((member) => isObjOk(member));
+            setValue(
+              "items",
+              hasData
+                ? val.map((el) => ({
+                    email: el.userEmail,
+                    role: el.role,
+                  }))
+                : [
+                    {
+                      email: "",
+                      role: null,
+                    },
+                  ]
+            );
           }
         }
       }
     };
 
     handleFill();
-  }, [bookStore]);
+  }, [bookStore, setValue]);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -116,7 +143,7 @@ const UpdateBookStore: FC = () => {
 
         <div className="w-full grid justify-items-center gap-6">
           <FormProvider {...formCtx}>
-            <BookStoreForm {...{ isLoading }} />
+            <BookStoreForm {...{ isLoading, handleSave }} />
           </FormProvider>
         </div>
       </div>

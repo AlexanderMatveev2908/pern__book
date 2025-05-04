@@ -41,7 +41,7 @@ export class User extends Model<
   declare zipCode: CreationOptional<string>;
   declare phone: CreationOptional<string>;
 
-  declare Thumb?: ThumbInstance;
+  declare thumb?: ThumbInstance;
 
   async existUser(this: User) {
     return await User.findOne({

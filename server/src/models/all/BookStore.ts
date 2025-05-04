@@ -34,7 +34,7 @@ export class BookStore extends Model {
   declare deliveryTime: number;
 
   declare items?: TeamType[];
-  declare ImgBookStore?: ImgBookStoreType[];
+  declare images?: ImgBookStoreType[];
   declare VideoBookStore?: VideoBookStoreType;
 }
 

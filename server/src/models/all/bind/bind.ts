@@ -31,6 +31,7 @@ export const bindModels = (seq: Sequelize) => {
   });
   User.hasOne(Thumb, {
     foreignKey: "userID",
+    as: "thumb",
   });
 
   ImgBooStore.belongsTo(BookStore, {
@@ -38,6 +39,7 @@ export const bindModels = (seq: Sequelize) => {
   });
   BookStore.hasMany(ImgBooStore, {
     foreignKey: "bookStoreID",
+    as: "images",
   });
 
   VideoBookStore.belongsTo(BookStore, {
@@ -45,6 +47,7 @@ export const bindModels = (seq: Sequelize) => {
   });
   BookStore.hasOne(VideoBookStore, {
     foreignKey: "bookStoreID",
+    as: "video",
   });
 
   BookStore.belongsTo(User, { foreignKey: "ownerID" });

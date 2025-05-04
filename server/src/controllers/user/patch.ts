@@ -21,8 +21,8 @@ import { Transaction } from "sequelize";
 import { uploadThumb } from "../../lib/cloud/thumb.js";
 
 const delOldThumb = async (user: UserInstance, t: Transaction) => {
-  await delCloud(user!.Thumb!.publicID);
-  await user.Thumb!.destroy({ transaction: t });
+  await delCloud(user!.thumb!.publicID);
+  await user.thumb!.destroy({ transaction: t });
 };
 
 export const updateProfile = async (
@@ -36,6 +36,7 @@ export const updateProfile = async (
     include: [
       {
         model: Thumb,
+        as: "thumb",
       },
     ],
     nest: true,
@@ -67,7 +68,7 @@ export const updateProfile = async (
         { transaction: t }
       );
 
-    if ((!isURL || isCloudUpload) && user.Thumb?.publicID)
+    if ((!isURL || isCloudUpload) && user.thumb?.publicID)
       await delOldThumb(user, t);
 
     await t.commit();

@@ -20,6 +20,7 @@ export const getUserProfile = async (
       {
         model: Thumb,
         attributes: { exclude: [] },
+        as: "thumb",
       },
     ],
     // raw is like lean or toObject in mongoose and it allow u to to get data as js obj and not as document mongoDB, in this case postGres model, it also make operation faster
@@ -28,15 +29,8 @@ export const getUserProfile = async (
     nest: true,
   });
 
-  const clientData = {
-    ...user,
-    thumb: user?.Thumb,
-  };
-
-  delete clientData?.Thumb;
-
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
 
-  return res200(res, { user: clientData });
+  return res200(res, { user });
 };

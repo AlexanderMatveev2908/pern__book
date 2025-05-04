@@ -53,6 +53,6 @@ export interface BookStoreType {
   freeDeliveryAmount?: number;
   deliveryTime: number;
   team?: TeamItem[];
-  ImgBookStores?: AssetCloudType[];
-  VideoBookStore?: AssetCloudType;
+  images?: AssetCloudType[];
+  video?: AssetCloudType;
 }

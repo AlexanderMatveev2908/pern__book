@@ -111,7 +111,4 @@ export const optKeysStore = [
   "website",
   "deliveryPrice",
   "freeDeliveryAmount",
-  "team",
-  "ImgBookStores",
-  "VideoBookStore",
 ];

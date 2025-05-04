@@ -13,7 +13,10 @@ export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
 
   const bookStore = await BookStore.findOne({
     where: { ownerID: userID, id: bookStoreID },
-    include: [ImgBookStore, VideoBookStore],
+    include: [
+      { model: ImgBookStore, as: "images" },
+      { model: VideoBookStore, as: "video" },
+    ],
     nest: true,
   });
 

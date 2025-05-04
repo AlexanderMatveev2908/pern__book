@@ -46,7 +46,7 @@ const BookStorePage: FC = () => {
 
         <ImagesSwapper
           {...{
-            images: bookStore?.ImgBookStores,
+            images: bookStore?.images,
           }}
         />
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
