@@ -9,6 +9,7 @@ import { validateIDs } from "../../middleware/sharedValidators/ids.js";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
 import { getMyStore } from "../../controllers/adminBookStore/get.js";
 import { updateBookStore } from "../../controllers/adminBookStore/put.js";
+import { checkTeam } from "../../middleware/adminStore/checkTeam.js";
 
 const adminExpressRouterStore = express.Router();
 
@@ -17,8 +18,9 @@ adminExpressRouterStore
   .post(
     verifyAccessToken({ isVerified: true }),
     multerDiskStorage,
-    validateStore,
     wrapApp(logJSON),
+    validateStore,
+    checkTeam,
     wrapApp(createBookStore)
   );
 
@@ -31,9 +33,11 @@ adminExpressRouterStore
   )
   .put(
     verifyAccessToken({ isVerified: true }),
+    [...validateIDs, handleValidator(422)],
     multerDiskStorage,
     wrapApp(logJSON),
     validateStore,
+    checkTeam,
     wrapApp(updateBookStore)
   );
 
