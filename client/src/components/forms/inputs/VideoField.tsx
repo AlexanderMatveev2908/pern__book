@@ -75,6 +75,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
             src={mySrc}
             controls
             muted
+            autoPlay
             className={`w-full object-cover h-full ${
               isVal ? "max-w-full max-h-full" : "max-w-0 max-h-0"
             }`}

@@ -8,14 +8,7 @@
     "zipCode": "601073",
     "phone": "+00 000 000",
     "name": "Changed",
-    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1746349639/pern__book_videos/p5eto05ax3gegcovlqjj.mp4",
-    "images": [
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349641/pern__book_stores/e7drm6b9firzfa86ubeh.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349642/pern__book_stores/cjsiojsjcmczredgzp9y.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349642/pern__book_stores/geoyuq9fajq76qkascx9.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349643/pern__book_stores/u4tbwnxoxaimzkc29j1j.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349644/pern__book_stores/ikxatlve5ebybsamavlv.avif"
-    ],
+    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1746363606/pern__book_videos/vpildtpf6olxv9lylva8.mp4",
     "categories": [
       "philosophy",
       "history",
@@ -39,6 +32,6 @@
   "params": {
     "bookStoreID": "056defbf-9fcd-4f31-a79e-03e880a6ac71"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM2MjAwMSwiZXhwIjoxNzQ2MzYyMDYxfQ.xhRFfRzFVYpJQcxcFXPmpMiqcNA-McmQZRYV6LKA0wo",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM2NjgyNywiZXhwIjoxNzQ2MzY2ODg3fQ.UopZYeScPOhe1mnTw7nRXlxlZ3n_Pkx5H8PsI3nlSGs",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.wuYwH_Ir8ALRMGqbTzNsNkUi7FjZLVPR9vDDzBKwww2jCJMh-jYLA40EjBZu51qnmSLSFEE1_lqAqUyYYhSifEj7gFeqnYd_5uMLI8tbqZhT4mG7z7bAjwvwbFP_Wjte1FiWXJnQ1VKO9dZQhHnwqILbU1Nyc-6ZDeX6sIKcnFA2B64Lt6JbtAIoUMgKGLOvFhE759QoBaWnyReq6FWfcipNyMKU90LDfeAKnWMma5ldXvrtXE-ZHdmPkxozQC9n1qeAcppKTW_yYirIxsmKPUzQcQgqX_yZeMttEuaz4q4UWEF3RNtAFb2e-9rE6xaa4rwMxxOVbQ3Bq6eQsYNxPQ.oWgd9EXudcmSaZ9N.Rl7dVQIv_NW8ihtNBXO7YKc7aAmh3DxR5do5NSRb26wBSUnAx2Q2zjXa-DsX.hIRV0ue0ni8-N5UKj6CWrA"
 }

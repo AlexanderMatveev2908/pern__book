@@ -35,7 +35,7 @@ export class BookStore extends Model {
 
   declare items?: TeamType[];
   declare images?: ImgBookStoreType[];
-  declare VideoBookStore?: VideoBookStoreType;
+  declare video?: VideoBookStoreType;
 }
 
 export type BookStoreInstance = InstanceType<typeof BookStore>;

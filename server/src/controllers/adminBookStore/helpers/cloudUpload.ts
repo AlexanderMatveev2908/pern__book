@@ -63,7 +63,7 @@ export const handleAssetsCloud = async (req: ReqApp) => {
         console.log("err delete images locally", err);
       }
     }
-
-    return { videoData, imagesData };
   }
+
+  return { videoData, imagesData };
 };
