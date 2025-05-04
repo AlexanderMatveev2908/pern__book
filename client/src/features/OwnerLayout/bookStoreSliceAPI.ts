@@ -1,3 +1,4 @@
+import { catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BaseResAPI, TagsAPI } from "@/types/types";
@@ -12,9 +13,13 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         method: "POST",
         data,
       }),
+      invalidatesTags: [TagsAPI.USER],
     }),
 
-    getBookStore: builder.query<{ bookStore: BookStoreType }, string>({
+    getBookStore: builder.query<
+      { bookStore: BookStoreType } & BaseResAPI,
+      string
+    >({
       query: (bookStoreID: string) => ({
         url: BASE_URL + bookStoreID,
         method: "GET",
@@ -39,7 +44,24 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         url: BASE_URL + bookStoreID,
         method: "DELETE",
       }),
-      invalidatesTags: [TagsAPI.BOOK_STORE],
+      invalidatesTags: [TagsAPI.USER],
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        catchErr(async () => {
+          await queryFulfilled;
+
+          dispatch(
+            bookStoreSliceAPI.util.updateQueryData(
+              "getBookStore",
+              id,
+              (draft) => {
+                draft.bookStore = null!;
+                draft.status = 418;
+                draft.msg = "🥷🏼";
+              }
+            )
+          );
+        });
+      },
     }),
   }),
 });

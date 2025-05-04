@@ -15,6 +15,7 @@ import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
 import { UserType } from "@/types/types";
 import {
+  createStoreField,
   fieldAccountLogged,
   fieldAccountNonLogged,
   fieldAdminDrop,
@@ -71,6 +72,14 @@ const Sidebar: FC = () => {
     [authState.isLogged, user?.isVerified]
   );
 
+  const fieldsAdmin = useMemo(
+    () =>
+      sideFieldsAdmin.filter((el) =>
+        user?.isOwner ? el : el.path === "/owner/book-store/create"
+      ),
+    [user?.isOwner]
+  );
+
   return (
     <>
       <div
@@ -96,17 +105,17 @@ const Sidebar: FC = () => {
 
             <SidebarDrop {...propsAccount} />
 
-            <SidebarDrop {...{ label: fieldAdminDrop, arr: sideFieldsAdmin }}>
-              {user?.isVerified
-                ? null
-                : sideFieldsAdmin.map((el) => (
-                    <FakeSideLink key={el.id} {...{ el }} />
-                  ))}
+            <SidebarDrop {...{ label: fieldAdminDrop, arr: fieldsAdmin }}>
+              {user?.isVerified ? null : (
+                <FakeSideLink {...{ el: createStoreField }} />
+              )}
             </SidebarDrop>
 
-            <SidebarDrop
-              {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}
-            />
+            {user?.isWorker && (
+              <SidebarDrop
+                {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}
+              />
+            )}
 
             <SideLogout />
           </div>

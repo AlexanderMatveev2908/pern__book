@@ -7,35 +7,17 @@
     "street": "Strada Sfinții Apostoli",
     "zipCode": "601073",
     "phone": "+00 000 000 000",
-    "name": "Aa",
+    "name": "aa",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
-    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1746380164/pern__book_videos/gqat8fr64wwzjieawy7e.mp4",
-    "images": [
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746380166/pern__book_stores/tfbzbpbfi7fgfo4yunsc.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746380167/pern__book_stores/vcek0zes9u1oyf21dhfu.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746380168/pern__book_stores/dzzb6w2lvonr6g2ctgud.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746380168/pern__book_stores/bctenqsldrumc9r4i5j2.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746380169/pern__book_stores/i3gvazlcipfoggvmsmf6.avif"
-    ],
     "categories": [
-      "classics",
-      "psychology",
-      "comics"
+      "classics"
     ],
-    "deliveryTime": "11",
-    "items": [
-      {
-        "email": "matveev.alexander.29.08.00@gmail.com",
-        "role": "EMPLOYEE"
-      }
-    ]
+    "deliveryTime": "1"
   },
   "files": {},
   "file": {},
   "query": {},
-  "params": {
-    "bookStoreID": "71ac026b-196e-4690-a4f3-2d4d112aab33"
-  },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM4MDE3MCwiZXhwIjoxNzQ2MzgwMjMwfQ._AJvDZr02zUncws8TVN3VYiCTlD5HeIeD102yzChoGg",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.wuYwH_Ir8ALRMGqbTzNsNkUi7FjZLVPR9vDDzBKwww2jCJMh-jYLA40EjBZu51qnmSLSFEE1_lqAqUyYYhSifEj7gFeqnYd_5uMLI8tbqZhT4mG7z7bAjwvwbFP_Wjte1FiWXJnQ1VKO9dZQhHnwqILbU1Nyc-6ZDeX6sIKcnFA2B64Lt6JbtAIoUMgKGLOvFhE759QoBaWnyReq6FWfcipNyMKU90LDfeAKnWMma5ldXvrtXE-ZHdmPkxozQC9n1qeAcppKTW_yYirIxsmKPUzQcQgqX_yZeMttEuaz4q4UWEF3RNtAFb2e-9rE6xaa4rwMxxOVbQ3Bq6eQsYNxPQ.oWgd9EXudcmSaZ9N.Rl7dVQIv_NW8ihtNBXO7YKc7aAmh3DxR5do5NSRb26wBSUnAx2Q2zjXa-DsX.hIRV0ue0ni8-N5UKj6CWrA"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM4NjM0MCwiZXhwIjoxNzQ2Mzg2NDAwfQ.v2D5Hse5leaSzt9VmrLdkybncanG2kjKWEo6pafDui4",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.qmo-zRVnsLgH3pN9yTHREO7_vI8uBKlcNhB2UdLU9l-IOzvPpqwRQGFE0Oao0Rc3B5APfdn0vZ_NuFQoLtsPKFGHaU0ivGhANrIxHmIb30IJc0GMhi1VZMIwIVGTltzmcfKQ34HlfHktdITo87A2Mx25MNTu9sa8ugojUcK4Hp4iFSfRgcyFhrZB6A503mgoXjGrqZJOkQ1Ys-_QCQQN2L59yhoB7kJCz-Bspl1XEKQ8h9fcHNikFPQ-6mHPEn6qZ3Xm1A2mrnXf_WMwX3As1kX9EBb4WDaNqdNnKEiF-exwm8E1FphZjKmopv5k8nOlH8NyWRaVv3AQl4lifc1aQQ.6IooDOUWAxluBLoQ.KS1_4ZBG3JEpAfdhUe93u9CnQdftE8QFNLMApqK2O1XtyN9Ag8yTVSY1ACh2.KDqehoaDi6muoZROnRRgEQ"
 }

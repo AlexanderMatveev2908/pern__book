@@ -3,14 +3,18 @@ import { ReqApp } from "../../types/types.js";
 import { User } from "../../models/models.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Thumb } from "../../models/all/img&video/Thumb.js";
+import { BookStore } from "../../models/all/BookStore.js";
+import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 
 export const getUserProfile = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  if (!req.userID) return res204(res);
+  const { userID } = req;
 
-  const user = await User.findByPk(req.userID, {
+  if (!userID) return res204(res);
+
+  const user = await User.findByPk(userID, {
     // attributes is like select in mongoose where u specify what u want or what to exclude with - like (-password, ...ecc)
     attributes: {
       exclude: ["password", "createdAt", "updatedAt", "tempEmail"],
@@ -29,8 +33,23 @@ export const getUserProfile = async (
     nest: true,
   });
 
+  const isOwner = !!(await BookStore.count({
+    where: { ownerID: req.userID },
+  }));
+  const isWorker = !!(await BookStoreUser.count({
+    where: {
+      userID,
+    },
+  }));
+
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
 
-  return res200(res, { user });
+  return res200(res, {
+    user: {
+      ...user,
+      isOwner,
+      isWorker,
+    },
+  });
 };
