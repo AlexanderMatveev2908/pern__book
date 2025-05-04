@@ -7,6 +7,7 @@ export const REG_PWD =
 export const REG_ID =
   /^([a-f0-9]{8})-([a-f0-9]{4})-4[a-f0-9]{3}-([a-f0-9]{4})-([a-f0-9]{12})$/;
 export const REG_TOK = /^[a-f0-9]{304}$/;
+export const REG_CLOUD = /^https:\/\/res.cloudinary.com\/.*$/;
 
 export const REG_COUNTRY = /^[\p{L}\s`']+$/u;
 export const REG_STATE = /^[\p{L}\s`']+$/u;

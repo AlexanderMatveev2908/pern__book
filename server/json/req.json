@@ -7,94 +7,42 @@
     "street": "Strada Sfinții Apostoli",
     "zipCode": "601073",
     "phone": "+00 000 000 000",
-    "name": "store-1",
+    "name": "Store-1",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
+    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1746349639/pern__book_videos/p5eto05ax3gegcovlqjj.mp4",
+    "images": [
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349641/pern__book_stores/e7drm6b9firzfa86ubeh.avif",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349642/pern__book_stores/cjsiojsjcmczredgzp9y.avif",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349642/pern__book_stores/geoyuq9fajq76qkascx9.avif",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349643/pern__book_stores/u4tbwnxoxaimzkc29j1j.avif",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1746349644/pern__book_stores/ikxatlve5ebybsamavlv.avif"
+    ],
     "categories": [
       "classics",
       "psychology",
       "comics"
     ],
-    "deliveryTime": 1,
+    "website": "https://pern-book.onrender.com",
+    "deliveryPrice": "50.50",
+    "freeDeliveryAmount": "12.99",
+    "deliveryTime": "5",
     "items": [
       {
-        "email": "matveev.alexander.29.08.00@gmail.com",
+        "email": "matveevalexander2908@gmail.com",
         "role": "EMPLOYEE"
       },
       {
-        "email": "matveevalexander2908@gmail.com",
+        "email": "matveev.alexander.29.08.00@gmail.com",
         "role": "MANAGER"
       }
     ]
   },
-  "files": {
-    "video": [
-      {
-        "fieldname": "video",
-        "originalname": "audio.mp4",
-        "encoding": "7bit",
-        "mimetype": "video/mp4",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "499c9f47-8e0c-436e-8a0c-5f94f98b674d.mp4",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\499c9f47-8e0c-436e-8a0c-5f94f98b674d.mp4",
-        "size": 31551484
-      }
-    ],
-    "images": [
-      {
-        "fieldname": "images",
-        "originalname": "1.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "33639a91-bef9-4ba4-842b-f0879b8214f0.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\33639a91-bef9-4ba4-842b-f0879b8214f0.avif",
-        "size": 60234
-      },
-      {
-        "fieldname": "images",
-        "originalname": "2.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "d5dfc0e3-53b4-46f8-899a-a2c605f4d285.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\d5dfc0e3-53b4-46f8-899a-a2c605f4d285.avif",
-        "size": 40334
-      },
-      {
-        "fieldname": "images",
-        "originalname": "3.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "61cef230-a7a6-4a94-a005-7866f803ba49.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\61cef230-a7a6-4a94-a005-7866f803ba49.avif",
-        "size": 23299
-      },
-      {
-        "fieldname": "images",
-        "originalname": "6.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "1142ce4d-5996-4600-8799-1cdd8e5d4e48.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\1142ce4d-5996-4600-8799-1cdd8e5d4e48.avif",
-        "size": 89363
-      },
-      {
-        "fieldname": "images",
-        "originalname": "7.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "8e2fd521-4d07-4cb1-9261-995b5817deb4.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\8e2fd521-4d07-4cb1-9261-995b5817deb4.avif",
-        "size": 27013
-      }
-    ]
-  },
+  "files": {},
   "file": {},
   "query": {},
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjI5NjAyMywiZXhwIjoxNzQ2Mjk2MDgzfQ.Dxx0J0Bg6REpli8fxnM70vw8NTjA4iYp2SK6OqPP24c",
+  "params": {
+    "bookStoreID": "056defbf-9fcd-4f31-a79e-03e880a6ac71"
+  },
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjM0OTY4MiwiZXhwIjoxNzQ2MzQ5NzQyfQ.L0szTqUvttzkWReohm7AuSsCNZ8uA28vJXkfBZ0yLeQ",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.wuYwH_Ir8ALRMGqbTzNsNkUi7FjZLVPR9vDDzBKwww2jCJMh-jYLA40EjBZu51qnmSLSFEE1_lqAqUyYYhSifEj7gFeqnYd_5uMLI8tbqZhT4mG7z7bAjwvwbFP_Wjte1FiWXJnQ1VKO9dZQhHnwqILbU1Nyc-6ZDeX6sIKcnFA2B64Lt6JbtAIoUMgKGLOvFhE759QoBaWnyReq6FWfcipNyMKU90LDfeAKnWMma5ldXvrtXE-ZHdmPkxozQC9n1qeAcppKTW_yYirIxsmKPUzQcQgqX_yZeMttEuaz4q4UWEF3RNtAFb2e-9rE6xaa4rwMxxOVbQ3Bq6eQsYNxPQ.oWgd9EXudcmSaZ9N.Rl7dVQIv_NW8ihtNBXO7YKc7aAmh3DxR5do5NSRb26wBSUnAx2Q2zjXa-DsX.hIRV0ue0ni8-N5UKj6CWrA"
 }

@@ -21,7 +21,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import { FormBookStoreType } from "../CreateBooksStore/CreateBooksStorePage";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
-import { __cg, isObjOk } from "@/core/lib/lib";
+import { __cg, isObjOk, logFormData } from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
@@ -31,6 +31,7 @@ import {
   optKeysStore,
 } from "@/core/config/fieldsData/OwnerLayout/post";
 import { BookStoreType } from "@/types/all/bookStore";
+import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 
 const UpdateBookStore: FC = () => {
   useScroll();
@@ -83,13 +84,29 @@ const UpdateBookStore: FC = () => {
               }
             );
           } else if (optKeysStore.includes(key)) {
-            setValue(
-              key as keyof FormBookStoreType,
-              isNaN(val) ? val : +val ? val : "",
-              {
-                shouldValidate: true,
+            if (typeof val === "object") {
+              if (Array.isArray(val)) {
+                setValue(
+                  key as keyof FormBookStoreType,
+                  val.map((el) => el.url),
+                  {
+                    shouldValidate: true,
+                  }
+                );
+              } else {
+                setValue(key as keyof FormBookStoreType, val?.url ?? "", {
+                  shouldValidate: true,
+                });
               }
-            );
+            } else {
+              setValue(
+                key as keyof FormBookStoreType,
+                isNaN(val) ? val : +val ? val : "",
+                {
+                  shouldValidate: true,
+                }
+              );
+            }
           } else if (key === "team") {
             const hasData =
               Array.isArray(val) &&
@@ -121,8 +138,14 @@ const UpdateBookStore: FC = () => {
     e.preventDefault();
 
     handleSubmit(
-      async (formData) => {
-        __cg("data", formData);
+      async (formDataHook) => {
+        const formData = makeFormDataStore(formDataHook);
+
+        logFormData(formData);
+
+        wrapMutationAPI({
+          cbAPI: () => mutate({ bookStoreID: bookStoreID!, formData }),
+        });
       },
       (errs) => handleFocusErrStore(setFocus, errs, setCurrForm)
     )(e);
@@ -143,7 +166,7 @@ const UpdateBookStore: FC = () => {
 
         <div className="w-full grid justify-items-center gap-6">
           <FormProvider {...formCtx}>
-            <BookStoreForm {...{ isLoading, handleSave }} />
+            <BookStoreForm {...{ isLoading, handleSave, isFormOk: true }} />
           </FormProvider>
         </div>
       </div>

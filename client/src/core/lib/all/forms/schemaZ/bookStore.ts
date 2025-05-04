@@ -37,7 +37,7 @@ export const schemaBookStore = z
       .optional()
       .refine(
         (val) => {
-          if (!val?.length) return true;
+          if (!val?.length || typeof val === "string") return true;
           if (val instanceof FileList)
             return val?.[0]?.type?.startsWith("video");
         },

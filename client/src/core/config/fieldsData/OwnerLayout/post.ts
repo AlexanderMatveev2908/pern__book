@@ -111,4 +111,6 @@ export const optKeysStore = [
   "website",
   "deliveryPrice",
   "freeDeliveryAmount",
+  "video",
+  "images",
 ];

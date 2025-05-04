@@ -46,7 +46,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
   );
 
   const mySrc = useMemo(
-    () => (isUpload ? URL.createObjectURL(videoData?.[0] as File) : undefined),
+    () => (isUpload ? URL.createObjectURL(videoData?.[0] as File) : videoData),
     [isUpload, videoData]
   );
 
