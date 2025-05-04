@@ -12,8 +12,6 @@ import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
-import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
-import { canSaveStore } from "@/core/lib/all/forms/preSubmit/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStoreSliceAPI";
@@ -58,7 +56,7 @@ const CreateBooksStore: FC = () => {
     fields: fieldsSwapStore,
   });
 
-  const vals = watch();
+  // const vals = watch();
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
@@ -82,11 +80,11 @@ const CreateBooksStore: FC = () => {
       }
     )(e);
   };
-  const { isFormOk } = useListenFormOk({
-    errors,
-    watch,
-    customValidateCB: () => canSaveStore(vals),
-  });
+  // const { isFormOk } = useListenFormOk({
+  //   errors,
+  //   watch,
+  //   customValidateCB: () => canSaveStore(vals),
+  // });
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
 
   useEffect(() => {
@@ -103,7 +101,7 @@ const CreateBooksStore: FC = () => {
         <Title {...{ title: "create a bookstore" }} />
         <div className="w-full grid justify-items-center gap-6">
           <FormProvider {...formCtx}>
-            <BookStoreForm {...{ handleSave, isFormOk, isLoading }} />
+            <BookStoreForm {...{ handleSave, isFormOk: true, isLoading }} />
           </FormProvider>
         </div>
       </div>

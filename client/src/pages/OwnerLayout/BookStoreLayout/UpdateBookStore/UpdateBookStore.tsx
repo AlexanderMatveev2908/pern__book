@@ -9,19 +9,24 @@ import {
   useWrapMutationAPI,
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
-import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import {
   useGetBookStoreQuery,
   useUpdateBookStoreMutation,
 } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useEffect, useMemo } from "react";
+import { FC, useCallback, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { FormBookStoreType } from "../CreateBooksStore/CreateBooksStorePage";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
-import { __cg, isObjOk, logFormData } from "@/core/lib/lib";
+import {
+  __cg,
+  isObjOk,
+  isSameData,
+  logFormData,
+  makeObj,
+} from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
@@ -32,9 +37,35 @@ import {
 } from "@/core/config/fieldsData/OwnerLayout/post";
 import { BookStoreType } from "@/types/all/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+
+const processTeam = (team: any[]) => {
+  return team?.length
+    ? team.map((el: any) => ({ email: el.userEmail, role: el.role }))
+    : [];
+};
+
+const processVideo = (video: any) => {
+  return video?.url;
+};
+
+const processImages = (images: any[]) => {
+  return images?.map((el: any) => el.url) ?? [];
+};
+
+const processPrice = (value: any) => {
+  const numVal = +(value ?? "0");
+  return numVal ? value : null;
+};
+
+const processNumberToString = (value: number) => {
+  return value + "";
+};
 
 const UpdateBookStore: FC = () => {
   useScroll();
+
+  const nav = useNavigate();
 
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
   const { bookStoreID } = useParams() ?? {};
@@ -143,14 +174,76 @@ const UpdateBookStore: FC = () => {
 
         logFormData(formData);
 
-        wrapMutationAPI({
+        const res = await wrapMutationAPI({
           cbAPI: () => mutate({ bookStoreID: bookStoreID!, formData }),
         });
+
+        if (!res) return;
+
+        nav(`/owner/book-store/${bookStoreID}`);
       },
       (errs) => handleFocusErrStore(setFocus, errs, setCurrForm)
     )(e);
   };
   useFocus({ setFocus: formCtx.setFocus, key: "name" });
+
+  const vals = watch();
+  const handleCheckEqData = useCallback(() => {
+    const originalObj = [...mandatoryKeysStore, ...optKeysStore, "team"].reduce(
+      (acc: any, curr) => {
+        const val: any = bookStore?.[curr as keyof BookStoreType];
+
+        switch (curr) {
+          case "team":
+            acc[curr] = processTeam(val);
+            break;
+          case "video":
+            acc[curr] = processVideo(val);
+            break;
+          case "images":
+            acc[curr] = processImages(val);
+            break;
+          case "deliveryPrice":
+          case "freeDeliveryAmount":
+            acc[curr] = processPrice(val);
+            break;
+          default:
+            acc[curr] =
+              typeof val === "number" ? processNumberToString(val) : val;
+            break;
+        }
+
+        return acc;
+      },
+      {}
+    );
+
+    const newVals = [...mandatoryKeysStore, ...optKeysStore, "items"].reduce(
+      (acc: any, curr) => {
+        const val = vals?.[curr as keyof FormBookStoreType];
+
+        if (curr === "items")
+          acc.team = Object.values(val?.[0] ?? {}).every((val) => !!val)
+            ? val
+            : [];
+        else acc[curr] = val || null;
+
+        return acc;
+      },
+      {}
+    );
+
+    __cg("original", originalObj);
+    __cg("vals", newVals);
+
+    return !isSameData(originalObj, newVals);
+  }, [vals, bookStore]);
+
+  const { isFormOk } = useListenFormOk({
+    watch,
+    errors,
+    customValidateCB: handleCheckEqData,
+  });
 
   return (
     <WrapPageAPI
@@ -166,7 +259,7 @@ const UpdateBookStore: FC = () => {
 
         <div className="w-full grid justify-items-center gap-6">
           <FormProvider {...formCtx}>
-            <BookStoreForm {...{ isLoading, handleSave, isFormOk: true }} />
+            <BookStoreForm {...{ isLoading, handleSave, isFormOk }} />
           </FormProvider>
         </div>
       </div>
