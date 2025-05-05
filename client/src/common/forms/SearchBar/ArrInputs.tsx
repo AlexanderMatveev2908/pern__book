@@ -1,11 +1,12 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { fieldsSearchStore } from "@/core/config/fieldsData/SearchBar/general";
+import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { FaSearchPlus } from "react-icons/fa";
 
 type PropsType = {
-  fieldsActive: string[];
-  setFieldsActive: React.Dispatch<React.SetStateAction<string[]>>;
+  fieldsActive: FormFieldBasic[];
+  setFieldsActive: React.Dispatch<React.SetStateAction<FormFieldBasic[]>>;
 };
 
 const addFieldBtn = {
@@ -49,10 +50,10 @@ const ArrInputs: FC<PropsType> = ({ setFieldsActive, fieldsActive }) => {
         }`}
       >
         {fieldsSearchStore.map((el) =>
-          fieldsActive.includes(el.field) ? null : (
+          fieldsActive.includes(el) ? null : (
             <li
               onClick={() => {
-                setFieldsActive((prev) => [...prev, el.field]);
+                setFieldsActive((prev) => [...prev, el]);
                 setIsDropOpen(false);
               }}
               key={el.id}

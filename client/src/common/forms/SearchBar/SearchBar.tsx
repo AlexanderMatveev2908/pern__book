@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 import ArrInputs from "./ArrInputs";
 import { FaSearchMinus } from "react-icons/fa";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
-import { BtnAct } from "@/types/types";
+import { BtnAct, FormFieldBasic } from "@/types/types";
 
 type PropsType = {
   isLoading?: boolean;
@@ -20,39 +20,41 @@ const SearchBar: FC<PropsType> = ({ isLoading, handleSave }) => {
   const {
     register,
     formState: { errors },
-    watch,
   } = useFormContext();
 
-  const [fieldsActive, setFieldsActive] = useState(["name"]);
+  const [fieldsActive, setFieldsActive] = useState<FormFieldBasic[]>([
+    fieldsSearchStore[0],
+  ]);
 
   return (
     <form className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4 ">
       <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
-        {fieldsSearchStore.map((el) =>
-          !fieldsActive.includes(el.field) ? null : (
-            <div key={el.id} className="w-full flex gap-10">
-              <FormField
+        {fieldsActive.map((el) => (
+          <div key={el.id} className="w-full flex gap-10">
+            <FormField
+              {...{
+                el,
+                showLabel: false,
+                register,
+                errors,
+                customStyle: "input__lg",
+              }}
+            />
+
+            <div className="w-full max-w-[75px]">
+              <ButtonIcon
                 {...{
-                  el,
-                  showLabel: false,
-                  register,
-                  errors,
-                  customStyle: "input__lg",
+                  el: removeFieldBtn,
+                  handleClick: () =>
+                    setFieldsActive((prev) =>
+                      prev.filter((val) => val.field !== el.field)
+                    ),
+                  act: BtnAct.DEL,
                 }}
               />
-
-              <div className="w-full max-w-[75px]">
-                <ButtonIcon
-                  {...{
-                    el: removeFieldBtn,
-                    handleClick: () => null,
-                    act: BtnAct.DEL,
-                  }}
-                />
-              </div>
             </div>
-          )
-        )}
+          </div>
+        ))}
 
         <ArrInputs {...{ fieldsActive, setFieldsActive }} />
       </div>

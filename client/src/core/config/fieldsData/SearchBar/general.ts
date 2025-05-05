@@ -1,6 +1,7 @@
+import { FormFieldBasic } from "@/types/types";
 import { v4 } from "uuid";
 
-export const fieldsSearchStore = [
+export const fieldsSearchStore: FormFieldBasic[] = [
   {
     field: "name",
     label: "Name",
