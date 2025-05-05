@@ -9,33 +9,33 @@ import {
   REG_ZIP,
 } from "@/core/config/regex";
 
-export const schemaPhone = (opt?: boolean) => ({
-  phone: z
+export const areaSchema = (opt?: boolean) => ({
+  country: z
     .string()
-    .min(opt ? 0 : 9, "Phone is required")
-    .max(21, "Phone length exceeded")
-    .pipe(
-      opt ? z.string() : z.string().regex(REG_PHONE, "Invalid phone format")
-    ),
+    .min(opt ? 0 : 2, "Country is required")
+    .max(50, "Max length Country exceeded")
+    .refine((val) => !val?.trim()?.length || REG_COUNTRY.test(val), {
+      message: "Invalid Country format",
+    }),
+  state: z
+    .string()
+    .min(opt ? 0 : 2, "State is required")
+    .max(50, "Max length State exceeded")
+    .refine((val) => !val?.trim()?.length || REG_STATE.test(val), {
+      message: "Invalid State format",
+    }),
+  city: z
+    .string()
+    .min(opt ? 0 : 2, "City is required")
+    .max(50, "Max length City exceeded")
+    .refine((val) => !val?.trim()?.length || REG_CITY.test(val), {
+      message: "Invalid City format",
+    }),
 });
 
 export const schemaAddress = (opt?: boolean) => {
   return {
-    country: z
-      .string()
-      .min(opt ? 0 : 2, "Country is required")
-      .max(50, "Max length Country exceeded")
-      .regex(REG_COUNTRY, "Invalid Country format"),
-    state: z
-      .string()
-      .min(opt ? 0 : 2, "State is required")
-      .max(50, "Max length State exceeded")
-      .regex(REG_STATE, "Invalid State format"),
-    city: z
-      .string()
-      .min(opt ? 0 : 2, "City is required")
-      .max(50, "Max length City exceeded")
-      .regex(REG_CITY, "Invalid City format"),
+    ...areaSchema(opt),
     street: z
       .string()
       .min(opt ? 0 : 4, "Street is required")
@@ -48,7 +48,13 @@ export const schemaAddress = (opt?: boolean) => {
       .pipe(
         opt ? z.string() : z.string().regex(REG_ZIP, "Invalid Zip Code format")
       ),
-    ...schemaPhone(opt),
+    phone: z
+      .string()
+      .min(opt ? 0 : 9, "Phone is required")
+      .max(21, "Phone length exceeded")
+      .pipe(
+        opt ? z.string() : z.string().regex(REG_PHONE, "Invalid phone format")
+      ),
   };
 };
 

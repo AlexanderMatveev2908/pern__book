@@ -239,6 +239,7 @@ button:disabled {
 .btn__logic_lg,
 .btn__logic_xl {
   transition: 0.3s;
+  cursor: pointer;
 }
 .btn__logic_xl:enabled:hover {
   transform: scale(1.3);

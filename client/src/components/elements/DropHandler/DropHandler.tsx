@@ -1,11 +1,14 @@
-import { LabelDropType } from "@/types/types";
 import { FC } from "react";
 import { FaChevronDown } from "react-icons/fa";
+import { IconType } from "react-icons/lib";
 
 type PropsType = {
   isDropOpen: boolean;
   setIsDropOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  el?: LabelDropType;
+  el?: {
+    label?: string;
+    icon?: IconType;
+  };
 };
 
 const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
@@ -15,7 +18,7 @@ const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
       className="w-full grid grid-cols-[1fr_50px] relative group cursor-pointer"
     >
       <div className="w-fit flex gap-5 justify-start items-center">
-        <el.icon className="icon__md icon__with_txt" />
+        {el.icon && <el.icon className="icon__md icon__with_txt" />}
 
         <span className="txt__3 group-hover:text-blue-600 el__flow">
           {el.label}
