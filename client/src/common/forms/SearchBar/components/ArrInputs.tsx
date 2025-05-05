@@ -1,20 +1,27 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
-import { fieldsSearchStore } from "@/core/config/fieldsData/SearchBar/general";
-import { __cg } from "@/core/lib/lib";
+import { __cg, makeDelay } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
+import { UseFormSetFocus } from "react-hook-form";
 import { FaSearchPlus } from "react-icons/fa";
 
 type PropsType = {
   fieldsActive: FormFieldBasic[];
   setFieldsActive: React.Dispatch<React.SetStateAction<FormFieldBasic[]>>;
+  txtInputs: FormFieldBasic[];
+  setFocus: UseFormSetFocus<any>;
 };
 
 const addFieldBtn = {
   icon: FaSearchPlus,
 };
 
-const ArrInputs: FC<PropsType> = ({ setFieldsActive, fieldsActive }) => {
+const ArrInputs: FC<PropsType> = ({
+  setFieldsActive,
+  fieldsActive,
+  txtInputs,
+  setFocus,
+}) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
 
@@ -31,7 +38,7 @@ const ArrInputs: FC<PropsType> = ({ setFieldsActive, fieldsActive }) => {
     };
   }, []);
 
-  return fieldsActive.length === fieldsSearchStore.length ? null : (
+  return fieldsActive.length === txtInputs.length ? null : (
     <div
       ref={dropRef}
       className="w-full max-w-[75px] justify-self-end relative"
@@ -50,11 +57,12 @@ const ArrInputs: FC<PropsType> = ({ setFieldsActive, fieldsActive }) => {
             : "translate-y-[75px] opacity-0 pointer-events-none"
         }`}
       >
-        {fieldsSearchStore.map((el) =>
+        {txtInputs.map((el) =>
           fieldsActive.includes(el) ? null : (
             <li
-              onClick={() => {
+              onClick={async () => {
                 setFieldsActive((prev) => [...prev, el]);
+                makeDelay(async () => await setFocus(el.field), 0);
                 setIsDropOpen(false);
               }}
               key={el.id}

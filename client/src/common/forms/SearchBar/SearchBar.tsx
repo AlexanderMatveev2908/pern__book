@@ -1,5 +1,4 @@
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import { fieldsSearchStore } from "@/core/config/fieldsData/SearchBar/general";
 import { FC, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import ArrInputs from "./components/ArrInputs";
@@ -15,6 +14,7 @@ import "./SearchBar.css";
 type PropsType = {
   isLoading?: boolean;
   handleSave: () => void;
+  txtInputs: FormFieldBasic[];
 };
 
 const removeFieldBtn = {
@@ -23,11 +23,12 @@ const removeFieldBtn = {
 
 const getSize = (label: boolean) => (label ? "max-w-[200px]" : "max-w-[75px]");
 
-const SearchBar: FC<PropsType> = ({ handleSave }) => {
+const SearchBar: FC<PropsType> = ({ handleSave, txtInputs }) => {
   const {
     register,
     formState: { errors },
     setValue,
+    setFocus,
   } = useFormContext();
 
   const [labelBtns, setLabelBtns] = useState(
@@ -48,7 +49,7 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
   }, []);
 
   const [fieldsActive, setFieldsActive] = useState<FormFieldBasic[]>([
-    fieldsSearchStore[0],
+    txtInputs[0],
   ]);
 
   return (
@@ -88,7 +89,9 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
 
         <div className="w-full search_bar__btns gap-y-5 gap-x-10">
           <div className="w-full search_bar__add">
-            <ArrInputs {...{ fieldsActive, setFieldsActive }} />
+            <ArrInputs
+              {...{ fieldsActive, setFieldsActive, txtInputs, setFocus }}
+            />
           </div>
 
           <div className="w-full gap-x-10 grid grid-cols-2 gap-y-5">
