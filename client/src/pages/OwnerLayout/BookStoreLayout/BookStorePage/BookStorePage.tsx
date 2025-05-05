@@ -9,20 +9,13 @@ import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActions from "./components/DropActions";
 import {
-  KEY_MAP_STORE,
-  labelDelivery,
-  labelsBookStore,
   labelTeamStore,
-  statsBooks,
-  statsDelivery,
-  statsOrders,
-  statsReviews,
   statsTeam,
 } from "@/core/config/fieldsData/bookStore/actions";
 import DropStats from "./components/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/InfoStoreAllUsers";
-import InfoBookStoreWorker from "@/components/elements/cards/bookstore/infoBookStoreWorker";
+import InfoBookStoreWorker from "@/components/elements/cards/bookstore/InfoBookStoreWorker";
 
 const BookStorePage: FC = () => {
   useScroll();

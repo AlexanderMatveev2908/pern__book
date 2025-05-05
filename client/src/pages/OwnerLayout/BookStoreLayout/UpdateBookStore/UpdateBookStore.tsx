@@ -20,7 +20,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormBookStoreType } from "../CreateBooksStore/CreateBooksStorePage";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
-import { __cg, isObjOk, isSameData, logFormData } from "@/core/lib/lib";
+import { __cg, isObjOk, isSameData } from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";

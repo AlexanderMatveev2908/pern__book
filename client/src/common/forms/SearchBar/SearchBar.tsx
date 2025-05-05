@@ -17,7 +17,7 @@ const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const SearchBar: FC<PropsType> = ({ isLoading, handleSave }) => {
+const SearchBar: FC<PropsType> = ({ handleSave }) => {
   const {
     register,
     formState: { errors },
