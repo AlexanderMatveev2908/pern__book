@@ -27,6 +27,7 @@ export interface UserType {
 
   isOwner: boolean;
   isWorker: boolean;
+  hasWorkers: boolean;
 }
 
 export interface AuthState {

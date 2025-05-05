@@ -36,7 +36,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [TagsAPI.BOOK_STORE],
+      invalidatesTags: [TagsAPI.BOOK_STORE, TagsAPI.USER],
     }),
 
     delStore: builder.mutation<BaseResAPI<void>, string>({

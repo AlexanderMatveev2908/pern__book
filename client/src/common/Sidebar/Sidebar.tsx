@@ -74,10 +74,13 @@ const Sidebar: FC = () => {
 
   const fieldsAdmin = useMemo(
     () =>
-      sideFieldsAdmin.filter((el) =>
-        user?.isOwner ? el : el.path === "/owner/book-store/create"
-      ),
-    [user?.isOwner]
+      sideFieldsAdmin.filter((el) => {
+        if (el.path === "/owner/book-store") return user?.isOwner;
+        if (el.path === "/owner/team") return user?.hasWorkers;
+
+        return true;
+      }),
+    [user]
   );
 
   return (

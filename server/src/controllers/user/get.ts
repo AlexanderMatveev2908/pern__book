@@ -5,6 +5,7 @@ import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Thumb } from "../../models/all/img&video/Thumb.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
+import { Op } from "sequelize";
 
 export const getUserProfile = async (
   req: ReqApp,
@@ -33,14 +34,25 @@ export const getUserProfile = async (
     nest: true,
   });
 
-  const isOwner = !!(await BookStore.count({
-    where: { ownerID: req.userID },
-  }));
+  const bookStores = await BookStore.findAll({
+    where: {
+      ownerID: userID,
+    },
+  });
+  const isOwner = !!bookStores.length;
   const isWorker = !!(await BookStoreUser.count({
     where: {
       userID,
     },
   }));
+  const teams = await BookStoreUser.findAll({
+    where: {
+      bookStoreID: {
+        [Op.in]: bookStores.map((bookStore) => bookStore.id),
+      },
+    },
+  });
+  const hasWorkers = !!teams.length;
 
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
@@ -50,6 +62,7 @@ export const getUserProfile = async (
       ...user,
       isOwner,
       isWorker,
+      hasWorkers,
     },
   });
 };

@@ -9,16 +9,10 @@ import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActions from "./components/DropActions";
 import {
-  categoriesStoreLabel,
-  fieldsStatsComtact,
   KEY_MAP_STORE,
   labelDelivery,
-  labelDescription,
-  labelFieldAddressStore,
-  labelFieldContact,
   labelsBookStore,
   labelTeamStore,
-  statsAddress,
   statsBooks,
   statsDelivery,
   statsOrders,
@@ -27,6 +21,8 @@ import {
 } from "@/core/config/fieldsData/bookStore/actions";
 import DropStats from "./components/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import InfoStoreAllUsers from "@/components/elements/cards/bookstore/InfoStoreAllUsers";
+import InfoBookStoreWorker from "@/components/elements/cards/bookstore/infoBookStoreWorker";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -40,8 +36,8 @@ const BookStorePage: FC = () => {
   useWrapQueryAPI({ ...res });
   const { data: { bookStore } = {} } = res ?? {};
 
-  const idsArr = useCreateIds({
-    lengths: [bookStore?.categories?.length, bookStore?.team?.length],
+  const ids = useCreateIds({
+    lengths: [bookStore?.team?.length],
   });
 
   return (
@@ -53,7 +49,7 @@ const BookStorePage: FC = () => {
         isError: res?.isError,
       }}
     >
-      <div className="parent__form">
+      <div className="parent__form mb-[-150px]">
         <Title {...{ title: bookStore?.name }} />
 
         <DropActions {...{ bookStore }} />
@@ -64,75 +60,9 @@ const BookStorePage: FC = () => {
           }}
         />
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <div className="w-full grid grid-cols-1 sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_3fr] gap-x-10 gap-y-3">
-            <DropStats {...{ el: categoriesStoreLabel, fields: null }}>
-              {bookStore?.categories?.map((el, i) => (
-                <li
-                  key={idsArr?.[0]?.[i] ?? i}
-                  className="w-full flex justify-start"
-                >
-                  <span className="txt__2">{el}</span>
-                </li>
-              ))}
-            </DropStats>
+          <InfoStoreAllUsers {...{ bookStore }} />
 
-            <DropStats
-              {...{
-                el: labelDescription,
-                fields: null,
-                styleUL:
-                  "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
-              }}
-            >
-              <li className="w-full flex justify-start">
-                <span className="txt__2">
-                  {bookStore?.description ?? "No description provided"}
-                </span>
-              </li>
-            </DropStats>
-          </div>
-
-          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-3">
-            <DropStats
-              {...{
-                el: labelFieldAddressStore,
-                fields: statsAddress(bookStore),
-              }}
-            ></DropStats>
-            <DropStats
-              {...{
-                el: labelFieldContact,
-                fields: fieldsStatsComtact(bookStore),
-              }}
-            ></DropStats>
-          </div>
-
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-            <DropStats
-              {...{
-                el: labelsBookStore.get(KEY_MAP_STORE.BOOKS),
-                fields: statsBooks([0]),
-              }}
-            />
-            <DropStats
-              {...{
-                el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
-                fields: statsReviews([0]),
-              }}
-            />
-            <DropStats
-              {...{
-                el: labelDelivery,
-                fields: statsDelivery(bookStore),
-              }}
-            />
-            <DropStats
-              {...{
-                el: labelsBookStore.get(KEY_MAP_STORE.ORDERS),
-                fields: statsOrders([0]),
-              }}
-            />
-          </div>
+          <InfoBookStoreWorker {...{ bookStore }} />
 
           <DropStats
             {...{
@@ -148,7 +78,7 @@ const BookStorePage: FC = () => {
 
             {(bookStore?.team ?? []).map((el, i) => (
               <li
-                key={idsArr?.[1]?.[i] ?? i}
+                key={ids?.[0]?.[i] ?? i}
                 className="w-full grid grid-cols-1 sm:flex justify-between items-center gap-y-1"
               >
                 <div className="w-full">
@@ -169,6 +99,16 @@ const BookStorePage: FC = () => {
               </li>
             ))}
           </DropStats>
+        </div>
+
+        <div className="w-full flex justify-center mt-[150px]">
+          <video
+            autoPlay
+            muted
+            controls
+            src={bookStore?.video?.url}
+            className="aspect-video w-full object-cover max-w-[800px]"
+          ></video>
         </div>
       </div>
     </WrapPageAPI>

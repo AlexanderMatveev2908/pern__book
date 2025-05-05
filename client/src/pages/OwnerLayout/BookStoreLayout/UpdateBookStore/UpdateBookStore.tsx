@@ -161,8 +161,6 @@ const UpdateBookStore: FC = () => {
       async (formDataHook) => {
         const formData = makeFormDataStore(formDataHook);
 
-        logFormData(formData);
-
         const res = await wrapMutationAPI({
           cbAPI: () => mutate({ bookStoreID: bookStoreID!, formData }),
         });
