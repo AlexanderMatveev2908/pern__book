@@ -30,8 +30,10 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
     setValue,
   } = useFormContext();
 
-  const [labelBtns, setLabelBtns] = useState(false);
-  const [labelSubmit, setLabelSubmit] = useState(false);
+  const [labelBtns, setLabelBtns] = useState(
+    window.innerWidth > tailwindBreak.sm
+  );
+  const [labelSubmit, setLabelSubmit] = useState(window.innerWidth > 450);
 
   useEffect(() => {
     const listenSize = () => {
@@ -93,6 +95,7 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
             <div className={`w-full justify-self-center ${getSize(labelBtns)}`}>
               <ButtonIcon
                 {...{
+                  handleClick: () => console.log(`dff`),
                   el: {
                     icon: IoFilter,
                     label: labelBtns ? "Filter" : null,
@@ -104,6 +107,7 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
             <div className={`w-full justify-self-center ${getSize(labelBtns)}`}>
               <ButtonIcon
                 {...{
+                  handleClick: () => console.log(`ddd`),
                   el: {
                     icon: FaSort,
                     label: labelBtns ? "Sort" : null,

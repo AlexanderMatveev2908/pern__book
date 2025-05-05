@@ -25,7 +25,7 @@ export type EmailFormType = {
 
 export type BtnFieldIconType = {
   id?: string;
-  label?: string;
+  label?: string | null;
   pendingLabel?: string;
   icon: IconType;
 };
