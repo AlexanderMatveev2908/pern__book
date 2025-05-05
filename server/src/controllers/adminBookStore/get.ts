@@ -21,3 +21,12 @@ export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
 
   return res200(res, { bookStore: bookStoreObj });
 };
+
+export const getAllStores = async (
+  req: ReqApp,
+  res: Response
+): Promise<any> => {
+  const { userID } = req;
+
+  return res200(res, { msg: "all good" });
+};

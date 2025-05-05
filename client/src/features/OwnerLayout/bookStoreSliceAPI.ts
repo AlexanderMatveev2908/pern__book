@@ -27,6 +27,31 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       providesTags: [TagsAPI.BOOK_STORE],
     }),
 
+    getAllStores: builder.query<
+      BaseResAPI<{ bookStores: BookStoreType[] }>,
+      void
+    >({
+      query: () => ({
+        url: BASE_URL,
+        method: "GET",
+      }),
+      providesTags: (res) =>
+        res?.bookStores?.length
+          ? [
+              ...res.bookStores.map((store) => ({
+                type: TagsAPI.BOOK_STORE,
+                id: store.id,
+              })),
+              { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
+            ]
+          : [
+              {
+                type: TagsAPI.BOOK_STORE_LIST,
+                id: "LIST",
+              },
+            ],
+    }),
+
     updateBookStore: builder.mutation<
       { bookStoreID: string },
       { bookStoreID: string; formData: FormData }
@@ -46,7 +71,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [TagsAPI.USER],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
-        catchErr(async () => {
+        await catchErr(async () => {
           await queryFulfilled;
 
           dispatch(

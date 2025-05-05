@@ -1,43 +1,8 @@
 {
-  "body": {
-    "email": "matveevalexander470@gmail.com",
-    "country": "Romania",
-    "state": "Bacău",
-    "city": "Onești",
-    "street": "Strada Ion Creangă",
-    "zipCode": "601095",
-    "phone": "+00 000 000 000",
-    "name": "Aa",
-    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1746435142/pern__book_videos/jzyoivciruceuxdsnzlm.mp4",
-    "images": [
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746435144/pern__book_stores/hpicg4wsgewy4f0b1nac.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746435144/pern__book_stores/cz6qzqaramx4leu7umgv.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746435145/pern__book_stores/ws3prhq2qjadn4ko6ubi.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746435146/pern__book_stores/cjjlg1ciapcjorzz7gsd.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1746435147/pern__book_stores/svtj4jmp9aovl9gkvevy.avif"
-    ],
-    "categories": [
-      "psychology",
-      "classics",
-      "philosophy"
-    ],
-    "website": "https://pern-book.onrender.com",
-    "deliveryPrice": "50.00",
-    "freeDeliveryAmount": "120.50",
-    "deliveryTime": "32",
-    "items": [
-      {
-        "email": "matveev.alexander.29.08.00@gmail.com",
-        "role": "EMPLOYEE"
-      }
-    ]
-  },
   "files": {},
   "file": {},
   "query": {},
-  "params": {
-    "bookStoreID": "7b677c62-37cd-42c3-99d7-aa1c67afabfb"
-  },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjQzOTIwMCwiZXhwIjoxNzQ2NDM5MjYwfQ.S1RHydiB238c48DYuqw4g9gVqxJr75Gv5GecmnEiNR0",
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjQ0NDI4MSwiZXhwIjoxNzQ2NDQ0MzQxfQ.-DWToU_CdxGXAUwyLt98e8n4eB04OA6FVTv_S9n4kE0",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.I_7n_kWRxrH6MLviR0_Xf4QWfQ8Of9IDIwecqmMc7V_sL0jWrJpx4VFOZImvlhN89_wfO45raFFIDrrPi0Kedn4jvXGtm6V53F4D2wqoYjVJ23Mjieng3EE4gnSXeWA9xu3OAymX0lQ_G90j7pycCGOwbYkiu8daAAcMHOPyS48gdbfPvuOPFuB0fvIRMVHDLGfUO2PS3YBqTNE6upC4XYInLhh37L4Qc-QBbOu1VY7az4sXC1HQRnKl2IDPg2zGmC-QH9R_EJhwmCpDuypg5gtubydawVxptaKf8dY4ijyVngdnOCNMZFT8qEtCTpMC_yHUCEX2Ut3NaeD_TZBDFA.nWTkuDh6-s5wiaC4.w7-48yCkY0x1E8bpoUpr4aAZDz-K1wK52qAc-Q61jmavzK3y6dZGQCDBNNxx.lgUgIjbpT-p7MI6eN3D7tA"
 }

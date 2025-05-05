@@ -7,7 +7,10 @@ import { validateStore } from "../../middleware/adminStore/store.js";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
 import { validateIDs } from "../../middleware/sharedValidators/ids.js";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
-import { getMyStore } from "../../controllers/adminBookStore/get.js";
+import {
+  getAllStores,
+  getMyStore,
+} from "../../controllers/adminBookStore/get.js";
 import { updateBookStore } from "../../controllers/adminBookStore/put.js";
 import { checkTeam } from "../../middleware/adminStore/checkTeam.js";
 import { deleteStore } from "../../controllers/adminBookStore/delete.js";
@@ -23,6 +26,11 @@ adminExpressRouterStore
     validateStore,
     checkTeam,
     wrapApp(createBookStore)
+  )
+  .get(
+    verifyAccessToken({ isVerified: true }),
+    wrapApp(logJSON),
+    wrapApp(getAllStores)
   );
 
 adminExpressRouterStore
