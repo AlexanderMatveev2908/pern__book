@@ -1,6 +1,6 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import { tailwindBreak } from "@/core/config/breakpoints";
-import { FC, useEffect, useState } from "react";
+import { FC, ReactNode, useEffect, useState } from "react";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {
@@ -15,7 +15,7 @@ type PropsType = {
         label: string;
       }[]
     | null;
-  children?: React.ReactNode[] | null;
+  children?: ReactNode | React.ReactNode[] | null;
   styleUL?: string;
 };
 
@@ -46,38 +46,39 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL }) => {
             : "max-h-0 opacity-0"
         }`}
       >
-        {!fields
-          ? children
-          : fields?.map((el) => (
-              <li
-                key={el.id}
-                className="w-full flex justify-between items-center pr-4 gap-3"
-              >
-                <div className="w-full flex justify-start">
-                  <span
-                    className="txt__2 clamp_txt"
-                    style={{
-                      lineClamp: 4,
-                      WebkitLineClamp: 4,
-                    }}
-                  >
-                    {el.label}
-                  </span>
-                </div>
+        {Array.isArray(fields) &&
+          fields?.map((el) => (
+            <li
+              key={el.id}
+              className="w-full flex justify-between items-center pr-4 gap-3"
+            >
+              <div className="flex justify-start">
+                <span
+                  className="txt__2 clamp_txt"
+                  style={{
+                    lineClamp: 4,
+                    WebkitLineClamp: 4,
+                  }}
+                >
+                  {el.label}
+                </span>
+              </div>
 
-                <div className="w-full">
-                  <span
-                    className="txt__2 text-wrap clamp_txt text-right"
-                    style={{
-                      lineClamp: 3,
-                      WebkitLineClamp: 3,
-                    }}
-                  >
-                    {el?.val}
-                  </span>
-                </div>
-              </li>
-            ))}
+              <div className="w-fit flex justify-end">
+                <span
+                  className="txt__2 text-wrap clamp_txt text-right"
+                  style={{
+                    lineClamp: 3,
+                    WebkitLineClamp: 3,
+                  }}
+                >
+                  {el?.val}
+                </span>
+              </div>
+            </li>
+          ))}
+
+        {children}
       </ul>
     </div>
   );

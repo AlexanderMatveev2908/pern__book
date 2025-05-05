@@ -9,9 +9,11 @@ import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActions from "./components/DropActions";
 import {
+  categoriesStoreLabel,
   fieldsStatsComtact,
   KEY_MAP_STORE,
   labelDelivery,
+  labelDescription,
   labelFieldAddressStore,
   labelFieldContact,
   labelsBookStore,
@@ -24,7 +26,7 @@ import {
   statsTeam,
 } from "@/core/config/fieldsData/bookStore/actions";
 import DropStats from "./components/DropStats";
-import { isObjOk } from "@/core/lib/lib";
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -37,6 +39,10 @@ const BookStorePage: FC = () => {
   });
   useWrapQueryAPI({ ...res });
   const { data: { bookStore } = {} } = res ?? {};
+
+  const idsArr = useCreateIds({
+    lengths: [bookStore?.categories?.length, bookStore?.team?.length],
+  });
 
   return (
     <WrapPageAPI
@@ -58,6 +64,34 @@ const BookStorePage: FC = () => {
           }}
         />
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
+          <div className="w-full grid grid-cols-1 sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_3fr] gap-x-10 gap-y-3">
+            <DropStats {...{ el: categoriesStoreLabel, fields: null }}>
+              {bookStore?.categories?.map((el, i) => (
+                <li
+                  key={idsArr?.[0]?.[i] ?? i}
+                  className="w-full flex justify-start"
+                >
+                  <span className="txt__2">{el}</span>
+                </li>
+              ))}
+            </DropStats>
+
+            <DropStats
+              {...{
+                el: labelDescription,
+                fields: null,
+                styleUL:
+                  "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
+              }}
+            >
+              <li className="w-full flex justify-start">
+                <span className="txt__2">
+                  {bookStore?.description ?? "No description provided"}
+                </span>
+              </li>
+            </DropStats>
+          </div>
+
           <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-3">
             <DropStats
               {...{
@@ -105,15 +139,17 @@ const BookStorePage: FC = () => {
               el: labelTeamStore,
               styleUL:
                 "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
-              fields: isObjOk(bookStore?.team)
-                ? statsTeam(bookStore?.team)
-                : null,
+              fields: statsTeam(bookStore?.team),
             }}
           >
-            {/* {(bookStore?.team ?? []).map((el, i) => (
+            {!!bookStore?.team?.length && (
+              <hr className="w-full border-0 bg-blue-600 h-[2px] mt-2" />
+            )}
+
+            {(bookStore?.team ?? []).map((el, i) => (
               <li
-                key={i}
-                className="w-full grid grid-cols-1 sm:grid-cols-2 items-center gap-y-1"
+                key={idsArr?.[1]?.[i] ?? i}
+                className="w-full grid grid-cols-1 sm:flex justify-between items-center gap-y-1"
               >
                 <div className="w-full">
                   <span
@@ -131,7 +167,7 @@ const BookStorePage: FC = () => {
                   <span className="txt__2 ">{el.role}</span>
                 </div>
               </li>
-            ))} */}
+            ))}
           </DropStats>
         </div>
       </div>

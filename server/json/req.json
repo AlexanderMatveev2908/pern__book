@@ -14,17 +14,7 @@
       "psychology",
       "comics"
     ],
-    "deliveryTime": "85",
-    "items": [
-      {
-        "email": "matveev.alexander.29.08.00@gmail.com",
-        "role": "EMPLOYEE"
-      },
-      {
-        "email": "matveevalexander2908@gmail.com",
-        "role": "MANAGER"
-      }
-    ]
+    "deliveryTime": "85"
   },
   "files": {},
   "file": {},
@@ -32,6 +22,6 @@
   "params": {
     "bookStoreID": "0f6c4a05-dfa3-41a7-a2e5-c17ba14ec51a"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjQzMDM0NCwiZXhwIjoxNzQ2NDMwNDA0fQ.xYQExj5W7YVTidzLZmt3dQ8q3H6nO6QamZJfbNY7QEc",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjQzMzYyOCwiZXhwIjoxNzQ2NDMzNjg4fQ.uscayMNnb05tx5jDe57XL4vCfN_YVO3k6V0-1BOMFuY",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.I_7n_kWRxrH6MLviR0_Xf4QWfQ8Of9IDIwecqmMc7V_sL0jWrJpx4VFOZImvlhN89_wfO45raFFIDrrPi0Kedn4jvXGtm6V53F4D2wqoYjVJ23Mjieng3EE4gnSXeWA9xu3OAymX0lQ_G90j7pycCGOwbYkiu8daAAcMHOPyS48gdbfPvuOPFuB0fvIRMVHDLGfUO2PS3YBqTNE6upC4XYInLhh37L4Qc-QBbOu1VY7az4sXC1HQRnKl2IDPg2zGmC-QH9R_EJhwmCpDuypg5gtubydawVxptaKf8dY4ijyVngdnOCNMZFT8qEtCTpMC_yHUCEX2Ut3NaeD_TZBDFA.nWTkuDh6-s5wiaC4.w7-48yCkY0x1E8bpoUpr4aAZDz-K1wK52qAc-Q61jmavzK3y6dZGQCDBNNxx.lgUgIjbpT-p7MI6eN3D7tA"
 }

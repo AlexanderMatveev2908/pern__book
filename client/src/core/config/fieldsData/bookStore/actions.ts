@@ -11,8 +11,13 @@ import { v4 } from "uuid";
 import { BookStoreType, TeamItem } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { IconType } from "react-icons/lib";
-import { MdConnectWithoutContact, MdReviews } from "react-icons/md";
-import { capt, formatValDel, priceFormatter } from "@/core/lib/lib";
+import {
+  MdConnectWithoutContact,
+  MdOutlineCategory,
+  MdReviews,
+} from "react-icons/md";
+import { capt, formatValDel } from "@/core/lib/lib";
+import { CiTextAlignJustify } from "react-icons/ci";
 
 // * I USE MAP JUST FOR LEARNING POUPROSE, NORMALLY I WOULD JUST USE ARRAYS TO KEEP VALS
 
@@ -162,6 +167,16 @@ export const statsDelivery = (bookStore?: BookStoreType) =>
       val: formatValDel(el.key, val),
     };
   });
+
+export const categoriesStoreLabel = {
+  label: "Categories",
+  icon: MdOutlineCategory,
+};
+
+export const labelDescription = {
+  label: "About store",
+  icon: CiTextAlignJustify,
+};
 
 // export const statsStore = (
 //   valsBooks?: (number | string)[],
