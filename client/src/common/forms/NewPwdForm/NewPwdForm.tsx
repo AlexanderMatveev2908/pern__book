@@ -62,7 +62,7 @@ const NewPwdForm: FC<PropsType> = ({
             }}
           />
 
-          <div className="w-full max-w-[300px] w-full justify-self-center mt-10">
+          <div className="w-full max-w-[300px] justify-self-center mt-10">
             <Button
               {...{
                 label: "Save Password",

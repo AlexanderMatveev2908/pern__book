@@ -34,7 +34,7 @@ const EmailForm: FC<PropsType> = ({
         <div className="w-full grid gap-5 p-6">
           <FormField {...{ register, errors, el: emailField }} />
 
-          <div className="w-full max-w-[250px] w-full justify-self-center mt-10">
+          <div className="w-full max-w-[250px] justify-self-center mt-10">
             <Button
               {...{
                 label: "Send Email",
