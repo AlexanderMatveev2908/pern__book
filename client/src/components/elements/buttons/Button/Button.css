@@ -6,8 +6,7 @@
 }
 .btn__container:enabled:hover {
   transform: scale(1.1);
-  background-color: var(--blue__app);
-  color: whitesmoke;
+  background-color: var(--main__btn_bg);
   cursor: pointer;
 }
 .btn__container:enabled:active {

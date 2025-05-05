@@ -1,8 +1,9 @@
-import { FC, useEffect, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import "./Button.css";
 import { v4 } from "uuid";
 import { makeRandomMinMax } from "@/core/lib/lib";
 import SpinnerBtn from "../../spinners/SpinnerBtn/SpinnerBtn";
+import { BtnAct } from "@/types/types";
 
 const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 
@@ -13,7 +14,38 @@ type PropsType = {
   label?: string;
   Icon?: React.ElementType;
   isDisabled: boolean;
+  act?: BtnAct;
 };
+
+const style = new Map([
+  [
+    BtnAct.DEL,
+    {
+      border: "border-red-600",
+      bg: "bg-red-600",
+      cssVar: "--red__app",
+      text: "enabled:hover:text-red-600",
+    },
+  ],
+  [
+    BtnAct.DO,
+    {
+      border: "border-green-600",
+      bg: "bg-green-600",
+      cssVar: "--green__app",
+      text: "enabled:hover:text-green-600",
+    },
+  ],
+  [
+    BtnAct.INFO,
+    {
+      border: "border-blue-600",
+      bg: "bg-blue-600",
+      cssVar: "--blue__app",
+      text: "enabled:hover:text-blue-600",
+    },
+  ],
+]);
 
 const Button: FC<PropsType> = ({
   isAging,
@@ -22,6 +54,7 @@ const Button: FC<PropsType> = ({
   type = "submit",
   Icon,
   isDisabled,
+  act = BtnAct.INFO,
 }) => {
   const [canLoad, setCanLoad] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -88,7 +121,14 @@ const Button: FC<PropsType> = ({
       type={type}
       ref={btnRef}
       disabled={isDisabled || isPending}
-      className={`appearance-none w-full el__border_sm py-2 px-10 flex justify-center items-center disabled:opacity-50 ${"btn__container"}`}
+      className={`appearance-none w-full border-2 rounded-xl py-2 px-10 flex justify-center items-center disabled:opacity-50 btn__container ${
+        style.get(act)?.border
+      } ${style.get(act)?.text}`}
+      style={
+        {
+          "--main__btn_bg": style.get(act)?.cssVar,
+        } as React.CSSProperties
+      }
     >
       {/* <div ref={bubbleRefs}></div> */}
       {ids.map((id, i) => (
@@ -97,8 +137,8 @@ const Button: FC<PropsType> = ({
           {...{ id }}
           className={`absolute bottom-1/2 rounded-full pointer-events-none ${
             i % 2 === 0
-              ? "w-[8px] h-[8px] border-2 border-blue-600"
-              : "h-[5px] w-[5px] bg-blue-600"
+              ? `w-[8px] h-[8px] border-2 ${style.get(act)?.border}`
+              : `h-[5px] w-[5px] ${style.get(act)?.bg}`
           } `}
           style={
             {

@@ -16,6 +16,7 @@ import DropStats from "./components/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/InfoStoreAllUsers";
 import InfoBookStoreWorker from "@/components/elements/cards/bookstore/InfoBookStoreWorker";
+import { isObjOk } from "@/core/lib/lib";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -94,15 +95,17 @@ const BookStorePage: FC = () => {
           </DropStats>
         </div>
 
-        <div className="w-full flex justify-center mt-[150px]">
-          <video
-            autoPlay
-            muted
-            controls
-            src={bookStore?.video?.url}
-            className="aspect-video w-full object-cover max-w-[800px]"
-          ></video>
-        </div>
+        {isObjOk(bookStore?.video) && (
+          <div className="w-full flex justify-center mt-[150px]">
+            <video
+              autoPlay
+              muted
+              controls
+              src={bookStore?.video?.url}
+              className="aspect-video w-full object-cover max-w-[800px]"
+            ></video>
+          </div>
+        )}
       </div>
     </WrapPageAPI>
   );

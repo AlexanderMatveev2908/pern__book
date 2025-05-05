@@ -66,14 +66,27 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
         <ArrInputs {...{ fieldsActive, setFieldsActive }} />
       </div>
 
-      <div className="w-full max-w-[250px] justify-self-center mt-5">
-        <Button
-          {...{
-            label: "Search",
-            isDisabled: false,
-            type: "submit",
-          }}
-        />
+      <div className="w-full grid grid-cols-2 items-center justify-items-center">
+        <div className="w-full max-w-[250px] justify-self-center mt-5">
+          <Button
+            {...{
+              label: "Search",
+              isDisabled: false,
+              type: "submit",
+              act: BtnAct.DO,
+            }}
+          />
+        </div>
+        <div className="w-full max-w-[250px] justify-self-center mt-5">
+          <Button
+            {...{
+              label: "Delete",
+              isDisabled: false,
+              type: "button",
+              act: BtnAct.DEL,
+            }}
+          />
+        </div>
       </div>
     </form>
   );
