@@ -1,6 +1,11 @@
-import { REG_ID, REG_STORE_NAME } from "@/core/config/regex";
+import {
+  REG_CITY,
+  REG_COUNTRY,
+  REG_ID,
+  REG_STATE,
+  REG_STORE_NAME,
+} from "@/core/config/regex";
 import { z } from "zod";
-import { areaSchema } from "./user";
 
 export const searchBarStore = z.object({
   name: z
@@ -10,14 +15,32 @@ export const searchBarStore = z.object({
     .refine((val) => !val?.trim()?.length || REG_STORE_NAME.test(val), {
       message: "Invalid name format",
     }),
-
-  ...areaSchema(true),
-
   ID: z
     .string()
     .max(36, "Invalid id length")
     .optional()
     .refine((val) => !val?.trim()?.length || REG_ID.test(val), {
       message: "Invalid id",
+    }),
+  country: z
+    .string()
+    .max(50, "Max length Country exceeded")
+    .optional()
+    .refine((val) => !val?.trim()?.length || REG_COUNTRY.test(val), {
+      message: "Invalid Country",
+    }),
+  state: z
+    .string()
+    .max(50, "Max length State exceeded")
+    .optional()
+    .refine((val) => !val?.trim()?.length || REG_STATE.test(val), {
+      message: "INvalid state",
+    }),
+  city: z
+    .string()
+    .max(50, "Max length City exceeded")
+    .optional()
+    .refine((val) => !val?.trim()?.length || REG_CITY.test(val), {
+      message: "INvalid state",
     }),
 });

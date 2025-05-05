@@ -9,33 +9,23 @@ import {
   REG_ZIP,
 } from "@/core/config/regex";
 
-export const areaSchema = (opt?: boolean) => ({
-  country: z
-    .string()
-    .min(opt ? 0 : 2, "Country is required")
-    .max(50, "Max length Country exceeded")
-    .refine((val) => !val?.trim()?.length || REG_COUNTRY.test(val), {
-      message: "Invalid Country format",
-    }),
-  state: z
-    .string()
-    .min(opt ? 0 : 2, "State is required")
-    .max(50, "Max length State exceeded")
-    .refine((val) => !val?.trim()?.length || REG_STATE.test(val), {
-      message: "Invalid State format",
-    }),
-  city: z
-    .string()
-    .min(opt ? 0 : 2, "City is required")
-    .max(50, "Max length City exceeded")
-    .refine((val) => !val?.trim()?.length || REG_CITY.test(val), {
-      message: "Invalid City format",
-    }),
-});
-
 export const schemaAddress = (opt?: boolean) => {
   return {
-    ...areaSchema(opt),
+    country: z
+      .string()
+      .min(opt ? 0 : 2, "Country is required")
+      .max(50, "Max length Country exceeded")
+      .regex(REG_COUNTRY, "Invalid country"),
+    state: z
+      .string()
+      .min(opt ? 0 : 2, "State is required")
+      .max(50, "Max length State exceeded")
+      .regex(REG_STATE, "Invalid state"),
+    city: z
+      .string()
+      .min(opt ? 0 : 2, "City is required")
+      .max(50, "Max length City exceeded")
+      .regex(REG_CITY, "Invalid city"),
     street: z
       .string()
       .min(opt ? 0 : 4, "Street is required")

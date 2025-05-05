@@ -1,7 +1,8 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { searchBarStore } from "@/core/lib/all/forms/schemaZ/searchBar";
+import { __cg } from "@/core/lib/lib";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -25,16 +26,15 @@ const BookStores: FC = () => {
   const { handleSubmit, setFocus } = formCtx;
 
   const handleSave = handleSubmit((data) => {
-    console.log(data);
+    __cg("data", data);
   });
+
+  useFocus({ key: "name", setFocus });
 
   return (
     <WrapPageAPI
       {...{
         canStay: user?.isOwner,
-        isLoading: res?.isLoading,
-        isError: res?.isError,
-        error: res?.error,
       }}
     >
       <div className="parent__page">

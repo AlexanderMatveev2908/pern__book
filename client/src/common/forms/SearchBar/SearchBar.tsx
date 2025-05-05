@@ -6,6 +6,7 @@ import ArrInputs from "./ArrInputs";
 import { FaSearchMinus } from "react-icons/fa";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { BtnAct, FormFieldBasic } from "@/types/types";
+import Button from "@/components/elements/buttons/Button/Button";
 
 type PropsType = {
   isLoading?: boolean;
@@ -20,6 +21,7 @@ const SearchBar: FC<PropsType> = ({ isLoading, handleSave }) => {
   const {
     register,
     formState: { errors },
+    setValue,
   } = useFormContext();
 
   const [fieldsActive, setFieldsActive] = useState<FormFieldBasic[]>([
@@ -27,7 +29,10 @@ const SearchBar: FC<PropsType> = ({ isLoading, handleSave }) => {
   ]);
 
   return (
-    <form className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4 ">
+    <form
+      onSubmit={handleSave}
+      className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4 "
+    >
       <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
         {fieldsActive.map((el) => (
           <div key={el.id} className="w-full flex gap-10">
@@ -45,11 +50,13 @@ const SearchBar: FC<PropsType> = ({ isLoading, handleSave }) => {
               <ButtonIcon
                 {...{
                   el: removeFieldBtn,
-                  handleClick: () =>
+                  act: BtnAct.DEL,
+                  handleClick: () => {
+                    setValue(el.field, "");
                     setFieldsActive((prev) =>
                       prev.filter((val) => val.field !== el.field)
-                    ),
-                  act: BtnAct.DEL,
+                    );
+                  },
                 }}
               />
             </div>
@@ -57,6 +64,16 @@ const SearchBar: FC<PropsType> = ({ isLoading, handleSave }) => {
         ))}
 
         <ArrInputs {...{ fieldsActive, setFieldsActive }} />
+      </div>
+
+      <div className="w-full max-w-[250px] justify-self-center mt-5">
+        <Button
+          {...{
+            label: "Search",
+            isDisabled: false,
+            type: "submit",
+          }}
+        />
       </div>
     </form>
   );
