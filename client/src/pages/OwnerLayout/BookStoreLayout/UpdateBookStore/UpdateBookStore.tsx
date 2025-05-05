@@ -33,19 +33,14 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 
-const processTeam = (team: any[]) => {
-  return team?.length
+const processTeam = (team: any[]) =>
+  team?.length
     ? team.map((el: any) => ({ email: el.userEmail, role: el.role }))
     : [];
-};
 
-const processVideo = (video: any) => {
-  return video?.url;
-};
+const processVideo = (video: any) => video?.url;
 
-const processImages = (images: any[]) => {
-  return images?.map((el: any) => el.url) ?? [];
-};
+const processImages = (images: any[]) => images?.map((el: any) => el.url) ?? [];
 
 const processPrice = (value: any) => {
   const numVal = +(value ?? "0");
@@ -242,7 +237,7 @@ const UpdateBookStore: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        canStay: user?.isVerified && itPass,
+        canStay: user?.isOwner && itPass,
         isError: res?.isError,
         isLoading: res?.isLoading,
         error: res?.error,

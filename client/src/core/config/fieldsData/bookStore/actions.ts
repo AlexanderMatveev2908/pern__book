@@ -1,12 +1,18 @@
 import { RiBookShelfFill, RiTeamFill } from "react-icons/ri";
 import { TbTruckDelivery } from "react-icons/tb";
 import { GrUpdate } from "react-icons/gr";
-import { FaPenFancy, FaTrashAlt } from "react-icons/fa";
+import {
+  FaMapMarkerAlt,
+  FaPenFancy,
+  FaTrashAlt,
+  FaWarehouse,
+} from "react-icons/fa";
 import { v4 } from "uuid";
-import { TeamItem } from "@/types/all/bookStore";
+import { BookStoreType, TeamItem } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { IconType } from "react-icons/lib";
-import { MdReviews } from "react-icons/md";
+import { MdConnectWithoutContact, MdReviews } from "react-icons/md";
+import { capt, formatValDel, priceFormatter } from "@/core/lib/lib";
 
 // * I USE MAP JUST FOR LEARNING POUPROSE, NORMALLY I WOULD JUST USE ARRAYS TO KEEP VALS
 
@@ -48,40 +54,11 @@ export const actionsBookStoreAdmin = [...labelsBookStore.entries()].map(
   })
 );
 
-export const labelTeamStore = {
-  icon: RiTeamFill,
-  path: "/",
-  label: "Team",
-};
-
 export const statsBooks = (valsBooks?: (number | string)[]) =>
   [
     {
       label: "Total books",
       val: valsBooks?.[0],
-    },
-  ].map((el) => ({
-    ...el,
-    id: v4(),
-  }));
-
-export const statsTeam = (valsTeam?: TeamItem[]) =>
-  [
-    {
-      label: "Total Employee",
-      val: valsTeam?.length + "",
-    },
-    {
-      label: "Managers",
-      val: valsTeam
-        ? valsTeam.filter((el) => el.role === UserRole.MANAGER).length
-        : 0,
-    },
-    {
-      label: "Employee",
-      val: valsTeam
-        ? valsTeam.filter((el) => el.role === UserRole.EMPLOYEE).length
-        : 0,
     },
   ].map((el) => ({
     ...el,
@@ -109,6 +86,82 @@ export const statsOrders = (valsOrders?: (number | string)[]) =>
     ...el,
     id: v4(),
   }));
+
+export const labelTeamStore = {
+  icon: RiTeamFill,
+  label: "Team",
+};
+
+export const statsTeam = (valsTeam?: TeamItem[]) =>
+  [
+    {
+      label: "Total Employee",
+      val: valsTeam?.length + "",
+    },
+    {
+      label: "Managers",
+      val: valsTeam
+        ? valsTeam.filter((el) => el.role === UserRole.MANAGER).length
+        : 0,
+    },
+    {
+      label: "Employee",
+      val: valsTeam
+        ? valsTeam.filter((el) => el.role === UserRole.EMPLOYEE).length
+        : 0,
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
+
+export const labelFieldAddressStore = {
+  label: "Address",
+  icon: FaMapMarkerAlt,
+};
+
+export const statsAddress = (bookStore?: BookStoreType) =>
+  ["country", "state", "city", "street", "zipCode"].map((el) => ({
+    label: capt(el),
+    val: bookStore?.[el as keyof BookStoreType],
+    id: v4(),
+  }));
+
+export const labelFieldContact = {
+  label: "Contact",
+  icon: MdConnectWithoutContact,
+};
+
+export const fieldsStatsComtact = (bookStore?: BookStoreType) =>
+  ["email", "phone", "website"].map((el) => {
+    const val = bookStore?.[el as keyof BookStoreType];
+
+    return {
+      id: v4(),
+      label: capt(el),
+      val: val ?? "N/A",
+    };
+  });
+
+export const labelDelivery = {
+  label: "Delivery",
+  icon: FaWarehouse,
+};
+
+export const statsDelivery = (bookStore?: BookStoreType) =>
+  [
+    { key: "deliveryTime", label: "Delivery Time" },
+    { key: "deliveryPrice", label: "Delivery price" },
+    { key: "freeDeliveryAmount", label: "Free delivery amount" },
+  ].map((el) => {
+    const val = bookStore?.[el.key as keyof BookStoreType];
+
+    return {
+      id: v4(),
+      label: el.label,
+      val: formatValDel(el.key, val),
+    };
+  });
 
 // export const statsStore = (
 //   valsBooks?: (number | string)[],

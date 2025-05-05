@@ -104,12 +104,12 @@ body {
   @apply text-gray-300;
 }
 
-.lips {
+.clamp_txt {
   overflow: hidden;
   display: -webkit-box;
-  line-clamp: 2;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+  white-space: normal;
+  word-break: break-word;
 }
 
 /* ICONS */

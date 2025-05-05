@@ -9,14 +9,22 @@ import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActions from "./components/DropActions";
 import {
+  fieldsStatsComtact,
   KEY_MAP_STORE,
+  labelDelivery,
+  labelFieldAddressStore,
+  labelFieldContact,
   labelsBookStore,
   labelTeamStore,
+  statsAddress,
   statsBooks,
+  statsDelivery,
   statsOrders,
   statsReviews,
+  statsTeam,
 } from "@/core/config/fieldsData/bookStore/actions";
 import DropStats from "./components/DropStats";
+import { isObjOk } from "@/core/lib/lib";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -33,7 +41,7 @@ const BookStorePage: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        canStay: user?.isVerified && itPass,
+        canStay: user?.isOwner && itPass,
         isLoading: res?.isLoading,
         error: res?.error,
         isError: res?.isError,
@@ -49,8 +57,23 @@ const BookStorePage: FC = () => {
             images: bookStore?.images,
           }}
         />
-        <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
+        <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
+          <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-3">
+            <DropStats
+              {...{
+                el: labelFieldAddressStore,
+                fields: statsAddress(bookStore),
+              }}
+            ></DropStats>
+            <DropStats
+              {...{
+                el: labelFieldContact,
+                fields: fieldsStatsComtact(bookStore),
+              }}
+            ></DropStats>
+          </div>
+
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
             <DropStats
               {...{
                 el: labelsBookStore.get(KEY_MAP_STORE.BOOKS),
@@ -59,14 +82,20 @@ const BookStorePage: FC = () => {
             />
             <DropStats
               {...{
-                el: labelsBookStore.get(KEY_MAP_STORE.ORDERS),
-                fields: statsOrders([0]),
+                el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
+                fields: statsReviews([0]),
               }}
             />
             <DropStats
               {...{
-                el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
-                fields: statsReviews([0]),
+                el: labelDelivery,
+                fields: statsDelivery(bookStore),
+              }}
+            />
+            <DropStats
+              {...{
+                el: labelsBookStore.get(KEY_MAP_STORE.ORDERS),
+                fields: statsOrders([0]),
               }}
             />
           </div>
@@ -76,22 +105,33 @@ const BookStorePage: FC = () => {
               el: labelTeamStore,
               styleUL:
                 "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
+              fields: isObjOk(bookStore?.team)
+                ? statsTeam(bookStore?.team)
+                : null,
             }}
           >
-            {(bookStore?.team ?? []).map((el, i) => (
+            {/* {(bookStore?.team ?? []).map((el, i) => (
               <li
                 key={i}
                 className="w-full grid grid-cols-1 sm:grid-cols-2 items-center gap-y-1"
               >
-                <div className="w-full truncate">
-                  <span className="txt__2">{el.userEmail}</span>
+                <div className="w-full">
+                  <span
+                    className="txt__2 max-w-full clamp_txt"
+                    style={{
+                      lineClamp: 3,
+                      WebkitLineClamp: 3,
+                    }}
+                  >
+                    {el.userEmail}
+                  </span>
                 </div>
 
-                <div className=" justify-self-start sm:justify-self-end pr-3">
+                <div className="justify-self-start sm:justify-self-end pr-3">
                   <span className="txt__2 ">{el.role}</span>
                 </div>
               </li>
-            ))}
+            ))} */}
           </DropStats>
         </div>
       </div>

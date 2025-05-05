@@ -105,11 +105,13 @@ const Sidebar: FC = () => {
 
             <SidebarDrop {...propsAccount} />
 
-            <SidebarDrop {...{ label: fieldAdminDrop, arr: fieldsAdmin }}>
-              {user?.isVerified ? null : (
-                <FakeSideLink {...{ el: createStoreField }} />
-              )}
-            </SidebarDrop>
+            {authState.isLogged && (
+              <SidebarDrop {...{ label: fieldAdminDrop, arr: fieldsAdmin }}>
+                {user?.isVerified ? null : (
+                  <FakeSideLink {...{ el: createStoreField }} />
+                )}
+              </SidebarDrop>
+            )}
 
             {user?.isWorker && (
               <SidebarDrop

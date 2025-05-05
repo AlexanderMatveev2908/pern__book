@@ -1,14 +1,17 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import { tailwindBreak } from "@/core/config/breakpoints";
-import { LabelStoreType } from "@/core/config/fieldsData/bookStore/actions";
 import { FC, useEffect, useState } from "react";
+import { IconType } from "react-icons/lib";
 
 type PropsType = {
-  el?: LabelStoreType;
+  el?: {
+    label: string;
+    icon: IconType;
+  };
   fields?:
     | {
         id: string;
-        val?: string | number;
+        val?: any;
         label: string;
       }[]
     | null;
@@ -32,11 +35,9 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL }) => {
     <div>
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
-      {isDropOpen && (
-        <hr
-          className={`bg-blue-600 h-[3px] w-full border-0 my-2 ${isDropOpen}`}
-        />
-      )}
+      <hr
+        className={`bg-blue-600 h-[3px] w-full border-0 my-3 ${isDropOpen}`}
+      />
 
       <ul
         className={`w-full grid transition-all duration-300 gap-3 ${
@@ -50,11 +51,31 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL }) => {
           : fields?.map((el) => (
               <li
                 key={el.id}
-                className="w-full flex justify-between items-center py-3 pr-4"
+                className="w-full flex justify-between items-center pr-4 gap-3"
               >
-                <span className="txt__2">{el.label}</span>
+                <div className="w-full flex justify-start">
+                  <span
+                    className="txt__2 clamp_txt"
+                    style={{
+                      lineClamp: 4,
+                      WebkitLineClamp: 4,
+                    }}
+                  >
+                    {el.label}
+                  </span>
+                </div>
 
-                <span className="txt__2">{el?.val}</span>
+                <div className="w-full">
+                  <span
+                    className="txt__2 text-wrap clamp_txt text-right"
+                    style={{
+                      lineClamp: 3,
+                      WebkitLineClamp: 3,
+                    }}
+                  >
+                    {el?.val}
+                  </span>
+                </div>
               </li>
             ))}
       </ul>
