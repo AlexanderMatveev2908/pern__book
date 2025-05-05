@@ -1,12 +1,16 @@
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { fieldsSearchStore } from "@/core/config/fieldsData/SearchBar/general";
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import { useFormContext } from "react-hook-form";
-import ArrInputs from "./ArrInputs";
-import { FaSearchMinus } from "react-icons/fa";
+import ArrInputs from "./components/ArrInputs";
+import { FaSearch, FaSearchMinus, FaSort } from "react-icons/fa";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import Button from "@/components/elements/buttons/Button/Button";
+import { IoFilter } from "react-icons/io5";
+import { tailwindBreak } from "@/core/config/breakpoints";
+import { MdClear } from "react-icons/md";
+import "./SearchBar.css";
 
 type PropsType = {
   isLoading?: boolean;
@@ -17,12 +21,25 @@ const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
+const getSize = (label: boolean) => (label ? "max-w-[200px]" : "max-w-[75px]");
+
 const SearchBar: FC<PropsType> = ({ handleSave }) => {
   const {
     register,
     formState: { errors },
     setValue,
   } = useFormContext();
+
+  const [label, setLabel] = useState(false);
+
+  useEffect(() => {
+    const listenSize = () => setLabel(window.innerWidth > tailwindBreak.sm);
+
+    window.addEventListener("resize", listenSize);
+    return () => {
+      window.removeEventListener("resize", listenSize);
+    };
+  }, []);
 
   const [fieldsActive, setFieldsActive] = useState<FormFieldBasic[]>([
     fieldsSearchStore[0],
@@ -35,7 +52,7 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
     >
       <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
         {fieldsActive.map((el) => (
-          <div key={el.id} className="w-full flex gap-10">
+          <div key={el.id} className="w-full flex gap-5 sm:gap-10">
             <FormField
               {...{
                 el,
@@ -63,27 +80,65 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
           </div>
         ))}
 
-        <ArrInputs {...{ fieldsActive, setFieldsActive }} />
+        <div className="w-full search_bar__btns gap-y-5 gap-x-10">
+          <div className="w-full search_bar__add">
+            <ArrInputs {...{ fieldsActive, setFieldsActive }} />
+          </div>
+
+          <div className="w-full gap-x-10 grid grid-cols-2 gap-y-5">
+            <div className={`w-full justify-self-center ${getSize(label)}`}>
+              <ButtonIcon
+                {...{
+                  el: {
+                    icon: IoFilter,
+                    label: label ? "Filter" : null,
+                  },
+                }}
+              />
+            </div>
+
+            <div className={`w-full justify-self-center ${getSize(label)}`}>
+              <ButtonIcon
+                {...{
+                  el: {
+                    icon: FaSort,
+                    label: label ? "Sort" : null,
+                  },
+                }}
+              />
+            </div>
+          </div>
+        </div>
       </div>
 
-      <div className="w-full grid grid-cols-2 items-center justify-items-center">
-        <div className="w-full max-w-[250px] justify-self-center mt-5">
+      <div className="w-full grid grid-cols-2 search_bar__submit gap-x-10 items-center justify-items-center">
+        <div
+          className={`w-full items-center justify-self-center mt-5 ${getSize(
+            label
+          )}`}
+        >
           <Button
             {...{
-              label: "Search",
+              label: label ? "Search" : null,
               isDisabled: false,
               type: "submit",
               act: BtnAct.DO,
+              Icon: FaSearch,
             }}
           />
         </div>
-        <div className="w-full max-w-[250px] justify-self-center mt-5">
+        <div
+          className={`w-full items-center justify-self-center mt-5 ${getSize(
+            label
+          )}`}
+        >
           <Button
             {...{
-              label: "Delete",
+              label: label ? "Clear" : null,
               isDisabled: false,
               type: "button",
               act: BtnAct.DEL,
+              Icon: MdClear,
             }}
           />
         </div>

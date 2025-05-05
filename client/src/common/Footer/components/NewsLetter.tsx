@@ -44,7 +44,7 @@ const NewsLetter: FC = () => {
           }}
         />
 
-        <div className="max-w-[200px] justify-self-center sm:justify-self-start">
+        <div className="w-full max-w-[200px] justify-self-center sm:justify-self-start">
           <Button
             {...{
               label: "Subscribe",

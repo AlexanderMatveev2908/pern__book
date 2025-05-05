@@ -13,7 +13,7 @@ type PropsType = {
   type?: "button" | "submit";
   label?: string;
   Icon?: React.ElementType;
-  isDisabled: boolean;
+  isDisabled?: boolean;
   act?: BtnAct;
 };
 
@@ -121,7 +121,7 @@ const Button: FC<PropsType> = ({
       type={type}
       ref={btnRef}
       disabled={isDisabled || isPending}
-      className={`appearance-none w-full border-2 rounded-xl py-2 px-10 flex justify-center items-center disabled:opacity-50 btn__container ${
+      className={`appearance-none w-full border-2 rounded-xl py-2 px-5 flex justify-center items-center disabled:opacity-50 btn__container ${
         style.get(act)?.border
       } ${style.get(act)?.text}`}
       style={
@@ -153,10 +153,12 @@ const Button: FC<PropsType> = ({
           }
         ></div>
       ))}
-      <div className="w-full flex justify-center items-center gap-5">
+      <div className="min-w-full flex justify-center items-center gap-5">
         {Icon && <Icon className="icon__sm" />}
 
-        <span className="txt__3">{isPending ? "Pending..." : label}</span>
+        {label && (
+          <span className="txt__3">{isPending ? "Pending..." : label}</span>
+        )}
       </div>
     </button>
   );

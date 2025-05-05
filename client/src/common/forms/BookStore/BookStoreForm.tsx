@@ -124,7 +124,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
         <TeamForm />
       </WrapperFormField>
 
-      <div className="w-[300px]">
+      <div className="w-full w-[300px]">
         <Button
           {...{
             type: "submit",

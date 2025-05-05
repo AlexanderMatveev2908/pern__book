@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+.search_bar__btns {
+  @apply grid grid-cols-1;
+}
+
+@media screen and (min-width: 450px) {
+  .search_bar__btns {
+    @apply grid-cols-[1fr_75px];
+  }
+  .search_bar__add {
+    @apply order-2;
+  }
+  .search_bar__submit {
+    @apply grid-cols-[1fr_1fr_75px];
+  }
+}

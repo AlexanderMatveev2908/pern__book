@@ -122,7 +122,7 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
         />
       </div>
 
-      <div className="w-[300px]">
+      <div className="w-full max-w-[300px]">
         <Button
           {...{
             label: "Update password",

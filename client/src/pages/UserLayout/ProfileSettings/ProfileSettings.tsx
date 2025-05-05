@@ -167,7 +167,7 @@ const ProfileSettings = () => {
 
             <BodyUserProfile />
 
-            <div className="w-[250px] justify-self-center mt-14">
+            <div className="w-full max-w-[250px] justify-self-center mt-14">
               <Button
                 {...{
                   type: "submit",

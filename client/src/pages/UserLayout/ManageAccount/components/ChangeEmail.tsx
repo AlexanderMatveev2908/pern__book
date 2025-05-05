@@ -95,7 +95,7 @@ const ChangeEmail: FC<PropsType> = ({ cond }) => {
         />
       </div>
 
-      <div className="w-[250px]">
+      <div className="w-full max-w-[250px]">
         <Button
           {...{
             label: "Update Email",

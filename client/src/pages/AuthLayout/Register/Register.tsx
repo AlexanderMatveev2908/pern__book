@@ -183,7 +183,7 @@ const Register: FC = () => {
                 isNextDisabled,
               }}
             >
-              <div className="w-[225px] justify-self-center">
+              <div className="w-full max-w-[225px] justify-self-center">
                 <Button
                   {...{
                     isAging: isLoading,
