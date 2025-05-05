@@ -11,7 +11,7 @@ type PropsType = {
   isAging?: boolean;
   isPending?: boolean;
   type?: "button" | "submit";
-  label?: string;
+  label?: string | null;
   Icon?: React.ElementType;
   isDisabled?: boolean;
   act?: BtnAct;

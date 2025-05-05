@@ -30,10 +30,14 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
     setValue,
   } = useFormContext();
 
-  const [label, setLabel] = useState(false);
+  const [labelBtns, setLabelBtns] = useState(false);
+  const [labelSubmit, setLabelSubmit] = useState(false);
 
   useEffect(() => {
-    const listenSize = () => setLabel(window.innerWidth > tailwindBreak.sm);
+    const listenSize = () => {
+      setLabelBtns(window.innerWidth > tailwindBreak.sm);
+      setLabelSubmit(window.innerWidth > 450);
+    };
 
     window.addEventListener("resize", listenSize);
     return () => {
@@ -86,23 +90,23 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
           </div>
 
           <div className="w-full gap-x-10 grid grid-cols-2 gap-y-5">
-            <div className={`w-full justify-self-center ${getSize(label)}`}>
+            <div className={`w-full justify-self-center ${getSize(labelBtns)}`}>
               <ButtonIcon
                 {...{
                   el: {
                     icon: IoFilter,
-                    label: label ? "Filter" : null,
+                    label: labelBtns ? "Filter" : null,
                   },
                 }}
               />
             </div>
 
-            <div className={`w-full justify-self-center ${getSize(label)}`}>
+            <div className={`w-full justify-self-center ${getSize(labelBtns)}`}>
               <ButtonIcon
                 {...{
                   el: {
                     icon: FaSort,
-                    label: label ? "Sort" : null,
+                    label: labelBtns ? "Sort" : null,
                   },
                 }}
               />
@@ -114,12 +118,12 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
       <div className="w-full grid grid-cols-2 search_bar__submit gap-x-10 items-center justify-items-center">
         <div
           className={`w-full items-center justify-self-center mt-5 ${getSize(
-            label
+            labelSubmit
           )}`}
         >
           <Button
             {...{
-              label: label ? "Search" : null,
+              label: labelSubmit ? "Search" : null,
               isDisabled: false,
               type: "submit",
               act: BtnAct.DO,
@@ -129,12 +133,12 @@ const SearchBar: FC<PropsType> = ({ handleSave }) => {
         </div>
         <div
           className={`w-full items-center justify-self-center mt-5 ${getSize(
-            label
+            labelSubmit
           )}`}
         >
           <Button
             {...{
-              label: label ? "Clear" : null,
+              label: labelSubmit ? "Clear" : null,
               isDisabled: false,
               type: "button",
               act: BtnAct.DEL,
