@@ -29,4 +29,7 @@ export const fieldsSearchStore: FormFieldBasic[] = [
   place: `${el.label} Store...`,
 }));
 
-export const storeFilters = [filtersCat];
+export const storeFilters = [filtersCat].map((el) => ({
+  ...el,
+  id: v4(),
+}));

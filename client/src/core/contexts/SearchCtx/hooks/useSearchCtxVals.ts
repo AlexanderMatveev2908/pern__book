@@ -1,5 +1,10 @@
 import { useCallback, useEffect } from "react";
-import { SearchCtxActions, SearchCtxActionsType } from "../reducer/actions";
+import {
+  ParamsBar,
+  ParamsSearch,
+  SearchCtxActions,
+  SearchCtxActionsType,
+} from "../reducer/actions";
 import { SearchCtxStateType } from "../reducer/initState";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { FormFieldBasic } from "@/types/types";
@@ -9,14 +14,10 @@ type Params = {
   dispatch: React.ActionDispatch<[action: SearchCtxActionsType]>;
 };
 
-type ParamsBar = {
-  el: "filterBar" | "sortBar";
-  val: boolean;
-};
-
 export type SearchCtxValsConsumer = SearchCtxStateType & {
   setTxtInputs: (val: FormFieldBasic[]) => void;
-  setBar: ({ el, val }: ParamsBar) => void;
+  setBar: (params: ParamsBar) => void;
+  setSearch: (params: ParamsSearch) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -59,9 +60,16 @@ export const useSearchCtxVals = ({
     []
   );
 
+  const setSearch = useCallback(
+    ({ el, val }: ParamsSearch) =>
+      dispatch({ type: SearchCtxActions.SET_SEARCH, payload: { el, val } }),
+    []
+  );
+
   return {
     ...state,
     setTxtInputs,
     setBar,
+    setSearch,
   };
 };

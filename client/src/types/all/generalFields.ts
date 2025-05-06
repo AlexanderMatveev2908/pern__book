@@ -43,6 +43,8 @@ export type MySelectFieldType = {
 };
 
 export type FiltersSearch = {
+  id: string;
+  field: string;
   label: string;
   icon: IconType;
   fields: FormFieldBasic[];

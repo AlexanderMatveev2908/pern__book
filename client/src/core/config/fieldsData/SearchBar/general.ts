@@ -4,8 +4,9 @@ import { FiltersSearch } from "@/types/types";
 import { MdOutlineCategory } from "react-icons/md";
 import { v4 } from "uuid";
 
-export const filtersCat: FiltersSearch = {
+export const filtersCat: Partial<FiltersSearch> = {
   label: "Categories",
+  field: "categories",
   icon: MdOutlineCategory,
   fields: Object.values(CatBookStore).map((el) => ({
     field: el,

@@ -1,10 +1,20 @@
-import { FormFieldBasic } from "@/types/types";
+import { FiltersSearch, FormFieldBasic } from "@/types/types";
 
 export enum SearchCtxActions {
   SET_LABEL = "SET_LABEL",
   SET_TXT_INPUTS = "SET_TXT_INPUTS",
   SET_BAR = "SET_BAR",
+  SET_SEARCH = "SET_SEARCH",
 }
+
+export type ParamsBar = {
+  el: "filterBar" | "sortBar";
+  val: boolean;
+};
+export type ParamsSearch = {
+  el: "currFilter" | "currSorter";
+  val: FiltersSearch;
+};
 
 export type SearchCtxActionsType =
   | {
@@ -17,5 +27,9 @@ export type SearchCtxActionsType =
     }
   | {
       type: SearchCtxActions.SET_BAR;
-      payload: { val: boolean; el: "filterBar" | "sortBar" };
+      payload: ParamsBar;
+    }
+  | {
+      type: SearchCtxActions.SET_SEARCH;
+      payload: ParamsSearch;
     };

@@ -5,7 +5,7 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { searchBarStore } from "@/core/lib/all/forms/schemaZ/searchBar";
+import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { __cg } from "@/core/lib/lib";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";

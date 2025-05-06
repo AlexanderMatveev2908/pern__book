@@ -25,7 +25,7 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, val }) => {
         setIsHover(false);
       }}
       type="button"
-      className={`min-w-[250px] max-w-[275px] rounded-xl px-5 py-2 flex justify-center 
+      className={`w-full max-w-[275px] rounded-xl px-5 py-2 flex justify-center 
      appearance-none outline-0 items-center transition-all duration-300 cursor-pointer btn__checkbox ${
        isIn ? "border-blue-600 text-blue-600" : ""
      }`}

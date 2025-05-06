@@ -19,12 +19,13 @@ export const getSize = (label: boolean) =>
   label ? "max-w-[200px]" : "max-w-[75px]";
 
 const SearchBar: FC<PropsType> = ({ handleSave, txtInputs, filters }) => {
-  const { setTxtInputs } = useSearchCtx();
+  const { setTxtInputs, setSearch } = useSearchCtx();
 
   const { setFocus } = useFormContext();
 
   useLayoutEffect(() => {
     setTxtInputs([txtInputs[0]]);
+    setSearch({ el: "currFilter", val: filters[0] });
   }, []);
 
   return (

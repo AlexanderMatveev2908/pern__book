@@ -5,6 +5,7 @@ import {
   REG_STATE,
   REG_STORE_NAME,
 } from "@/core/config/regex";
+import { CatBookStore } from "@/types/all/bookStore";
 import { z } from "zod";
 
 export const searchBarStore = z.object({
@@ -43,4 +44,8 @@ export const searchBarStore = z.object({
     .refine((val) => !val?.trim()?.length || REG_CITY.test(val), {
       message: "INvalid state",
     }),
+
+  categories: z.array(
+    z.enum(Object.values(CatBookStore) as [string, ...string[]]).optional()
+  ),
 });
