@@ -1,6 +1,9 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { fieldsSearchStore } from "@/core/config/fieldsData/SearchBar/store";
+import {
+  fieldsSearchStore,
+  storeFilters,
+} from "@/core/config/fieldsData/SearchBar/store";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { searchBarStore } from "@/core/lib/all/forms/schemaZ/searchBar";
 import { __cg } from "@/core/lib/lib";
@@ -45,6 +48,7 @@ const BookStores: FC = () => {
               isLoading: res?.isLoading,
               handleSave,
               txtInputs: fieldsSearchStore,
+              filters: storeFilters,
             }}
           />
         </FormProvider>

@@ -1,5 +1,6 @@
 import { FormFieldBasic } from "@/types/types";
 import { v4 } from "uuid";
+import { filtersCat } from "./general";
 
 export const fieldsSearchStore: FormFieldBasic[] = [
   {
@@ -27,3 +28,5 @@ export const fieldsSearchStore: FormFieldBasic[] = [
   id: v4(),
   place: `${el.label} Store...`,
 }));
+
+export const storeFilters = [filtersCat];

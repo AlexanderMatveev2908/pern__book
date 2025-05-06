@@ -41,3 +41,9 @@ export type MySelectFieldType = {
   field: string;
   options: SelectOptType[];
 };
+
+export type FiltersSearch = {
+  label: string;
+  icon: IconType;
+  fields: FormFieldBasic[];
+};

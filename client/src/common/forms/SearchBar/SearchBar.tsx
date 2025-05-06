@@ -1,5 +1,5 @@
 import { FC, useLayoutEffect } from "react";
-import { FormFieldBasic } from "@/types/types";
+import { FiltersSearch, FormFieldBasic } from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import BgBlack from "./components/BgBlack";
@@ -12,12 +12,13 @@ type PropsType = {
   isLoading?: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
+  filters: FiltersSearch[];
 };
 
 export const getSize = (label: boolean) =>
   label ? "max-w-[200px]" : "max-w-[75px]";
 
-const SearchBar: FC<PropsType> = ({ handleSave, txtInputs }) => {
+const SearchBar: FC<PropsType> = ({ handleSave, txtInputs, filters }) => {
   const { setTxtInputs } = useSearchCtx();
 
   const { setFocus } = useFormContext();
@@ -32,7 +33,7 @@ const SearchBar: FC<PropsType> = ({ handleSave, txtInputs }) => {
       className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4 "
     >
       <BgBlack />
-      <FilterBar />
+      <FilterBar {...{ filters }} />
 
       <TxtInputs {...{ txtInputs }}>
         <ButtonsForm {...{ txtInputs, setFocus }} />

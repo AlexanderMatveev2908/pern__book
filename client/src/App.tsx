@@ -72,7 +72,7 @@ const App: FC = () => {
         <Route path="owner" element={<OwnerLayout />}>
           <Route path="book-store" element={<BookStoreLayout />}>
             <Route
-              index
+              path="book-stores"
               element={
                 <SearchCtxProvider>
                   <BookStores />
