@@ -1,4 +1,4 @@
-import { FiltersSearch, FormFieldBasic } from "@/types/types";
+import { FilterSearch, FormFieldBasic } from "@/types/types";
 
 export enum SearchCtxActions {
   SET_LABEL = "SET_LABEL",
@@ -13,7 +13,7 @@ export type ParamsBar = {
 };
 export type ParamsSearch = {
   el: "currFilter" | "currSorter";
-  val: FiltersSearch;
+  val: FilterSearch;
 };
 
 export type SearchCtxActionsType =

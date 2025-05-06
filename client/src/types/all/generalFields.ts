@@ -42,7 +42,7 @@ export type MySelectFieldType = {
   options: SelectOptType[];
 };
 
-export type FiltersSearch = {
+export type FilterSearch = {
   id: string;
   field: string;
   label: string;

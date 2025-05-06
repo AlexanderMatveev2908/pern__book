@@ -1,5 +1,5 @@
 import { FC, useLayoutEffect } from "react";
-import { FiltersSearch, FormFieldBasic } from "@/types/types";
+import { FilterSearch, FormFieldBasic } from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import BgBlack from "./components/BgBlack";
@@ -12,7 +12,7 @@ type PropsType = {
   isLoading?: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
-  filters: FiltersSearch[];
+  filters: FilterSearch[];
 };
 
 export const getSize = (label: boolean) =>

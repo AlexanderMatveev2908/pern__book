@@ -1,13 +1,13 @@
 import Title from "@/components/elements/Title";
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FiltersSearch, FormFieldBasic } from "@/types/types";
+import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { IoCloseSharp } from "react-icons/io5";
 
 type PropsType = {
-  filters: FiltersSearch[];
+  filters: FilterSearch[];
 };
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES
@@ -29,8 +29,13 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
     bars: { filterBar },
     setBar,
     searchers: { currFilter },
+    setSearch,
   } = useSearchCtx();
-  const { watch, setValue } = useFormContext();
+  const {
+    watch,
+    setValue,
+    formState: { errors },
+  } = useFormContext();
 
   useEffect(() => {
     const listenClick = (e: MouseEvent) => {
@@ -55,7 +60,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
     [watch]
   );
 
-  const handleClick = useCallback(
+  const handleClickVal = useCallback(
     (el: FormFieldBasic) => {
       const key = currFilter?.field;
       if (!key) return;
@@ -75,8 +80,13 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
     },
     [currFilter, setValue, watch]
   );
+  const handleClickLabel = useCallback(
+    (el: FilterSearch) => setSearch({ el: "currFilter", val: el }),
+    [setSearch]
+  );
 
   console.log(watch());
+  console.log(errors);
 
   return (
     <div
@@ -111,9 +121,10 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
             <div className="w-full max-w-full grid grid-cols-1 gap-y-3">
               {filters.map((el) => (
                 <button
+                  onClick={() => handleClickLabel(el)}
                   type="button"
                   key={el.id}
-                  className={`w-fit max-w-full flex   items-center gap-x-5 justify-start hover:text-blue-600 el__flow flex-wrap cursor-pointer ${
+                  className={`w-fit max-w-full flex items-center gap-x-5 justify-start hover:text-blue-600 transition-[color] duration-300 flex-wrap cursor-pointer ${
                     currFilter?.label === el.label
                       ? "border-b-[3px] pb-1 text-blue-600"
                       : ""
@@ -145,7 +156,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
                       {...{
                         val: el.field,
                         isIn: getIsIn({ key: currFilter.field, el }),
-                        handleClick: () => handleClick(el),
+                        handleClick: () => handleClickVal(el),
                       }}
                     />
                   </div>
