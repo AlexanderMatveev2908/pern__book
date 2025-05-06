@@ -23,7 +23,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
-      <div className="w-full grid grid-cols-2 gap-x-10 items-center search_bar_btns_right">
+      <div className="w-full grid grid-cols-2 lg:grid-cols-[1fr_75px] gap-x-10 items-center search_bar_btns_right">
         <div className={`w-full justify-self-center ${getSize(labelSubmit)}`}>
           <ButtonIcon
             {...{
