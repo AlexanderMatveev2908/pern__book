@@ -6,11 +6,9 @@ const BgBlack: FC = () => {
 
   const isBg = useMemo(() => Object.values(bars).some((el) => !!el), [bars]);
 
-  return (
-    <div
-      className={`${isBg ? "fixed inset-0 bg-black/60 z__popup_bg" : ""}`}
-    ></div>
-  );
+  return isBg ? (
+    <div className="fixed inset-0 bg-black/60 z__popup_bg"></div>
+  ) : null;
 };
 
 export default BgBlack;
