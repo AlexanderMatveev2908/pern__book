@@ -46,10 +46,10 @@ export const searchBarStore = z.object({
       message: "INvalid state",
     }),
 
-  categories: z.array(
-    z.enum(Object.values(CatBookStore) as [string, ...string[]]).optional()
-  ),
-  orders: z.array(
-    z.enum(Object.values(OrderStage) as [string, ...string[]]).optional()
-  ),
+  categories: z
+    .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))
+    .optional(),
+  orders: z
+    .array(z.enum(Object.values(OrderStage) as [string, ...string[]]))
+    .optional(),
 });

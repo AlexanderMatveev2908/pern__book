@@ -15,9 +15,6 @@ type PropsType = {
   filters: FilterSearch[];
 };
 
-export const getSize = (label: boolean) =>
-  label ? "max-w-[200px]" : "max-w-[75px]";
-
 const SearchBar: FC<PropsType> = ({ handleSave, txtInputs, filters }) => {
   const { setTxtInputs, setSearch } = useSearchCtx();
 
@@ -26,7 +23,7 @@ const SearchBar: FC<PropsType> = ({ handleSave, txtInputs, filters }) => {
   useLayoutEffect(() => {
     setTxtInputs([txtInputs[0]]);
     setSearch({ el: "currFilter", val: filters[0] });
-  }, []);
+  }, [filters, setSearch, setTxtInputs, txtInputs]);
 
   return (
     <form

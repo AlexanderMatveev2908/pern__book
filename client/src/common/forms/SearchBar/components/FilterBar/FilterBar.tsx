@@ -1,5 +1,6 @@
 import Title from "@/components/elements/Title";
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
+import { tailwindBreak } from "@/core/config/breakpoints";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
@@ -14,10 +15,12 @@ type PropsType = {
 
 const FilterBar: FC<PropsType> = ({ filters }) => {
   const barRef = useRef<HTMLDivElement | null>(null);
-  const [showLabel, setShowLabel] = useState(window.innerWidth > 400);
+  const [showLabel, setShowLabel] = useState(
+    window.innerWidth > tailwindBreak.sm
+  );
 
   useEffect(() => {
-    const listenSize = () => setShowLabel(window.innerWidth > 400);
+    const listenSize = () => setShowLabel(window.innerWidth > tailwindBreak.sm);
 
     window.addEventListener("resize", listenSize);
     return () => {
@@ -31,11 +34,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
     searchers: { currFilter },
     setSearch,
   } = useSearchCtx();
-  const {
-    watch,
-    setValue,
-    formState: { errors },
-  } = useFormContext();
+  const { watch, setValue } = useFormContext();
 
   useEffect(() => {
     const listenClick = (e: MouseEvent) => {
@@ -85,9 +84,6 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
     [setSearch]
   );
 
-  console.log(watch());
-  console.log(errors);
-
   return (
     <div
       ref={barRef}
@@ -115,7 +111,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
         </div>
 
         {/* I AM NOT SURE ABOUT THIS PART, THE FACT IS THAT IF I REMOVED SCROLL CLASSES JUST  BIGGER PARENT SCROLL, LEAVING THEM IS LIKE PASSING SCROLL AD PROPS TO CHILDREN METAPHORICALLY, AND PASSING DOWN SCROLL PROP IN A KIND OF RECURSIVE WAY AT THE END ALLOW USER TO SEE A SPLITTED GRID WITH DIFFERENT SCROLL BAR AS I WANTED*/}
-        <div className="grid grid-cols-[1fr_3px_1fr] sm:grid-cols-[1fr_3px_2fr] scrollbar__app scrollbar__y overflow-y-auto  max-h-full w-full">
+        <div className="grid grid-cols-[1fr_3px_2fr] scrollbar__app scrollbar__y overflow-y-auto  max-h-full w-full">
           {/* LAST CHILD ,REAL CONSUMER OF SCROLL EFFECT */}
           <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4 py-3">
             <div className="w-full max-w-full grid grid-cols-1 gap-y-3">
@@ -144,8 +140,8 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
             <div className="min-h-screen bg-blue-600 w-[3px] overflow-hidden"></div>
           </div>
 
-          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4 min-w-full py-3 ">
-            <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
+          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
+            <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-5">
               {Array.isArray(currFilter?.fields) &&
                 currFilter.fields.map((el) => (
                   <div
