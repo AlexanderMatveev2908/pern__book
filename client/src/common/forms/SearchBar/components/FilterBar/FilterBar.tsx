@@ -38,7 +38,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
       className={`fixed w-full bottom-0 left-0 border-[3px] border-blue-600 rounded-t-2xl z__popup bg-neutral-950 h-full max-h-[75%] grid grid-cols-1 items-start transition-all duration-500 z__popup ${
         filterBar
           ? "opacity-100 translate-y-0"
-          : "pointer-events-none translate-y-full"
+          : "pointer-events-none translate-y-full opacity-0"
       }`}
     >
       {/* THIS ALLOW CHILDREN SCROLL */}
