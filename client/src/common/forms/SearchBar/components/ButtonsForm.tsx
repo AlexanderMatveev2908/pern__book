@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC } from "react";
 import DropInputs from "./TxtInputs/DropInputs";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
-import { UseFormSetFocus } from "react-hook-form";
+import { useFormContext, UseFormSetFocus } from "react-hook-form";
 import { getSize } from "../SearchBar";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
@@ -20,6 +21,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
     setBar,
     labels: { labelSubmit },
   } = useSearchCtx();
+  const { reset } = useFormContext();
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
@@ -66,6 +68,8 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
               type: "button",
               act: BtnAct.DEL,
               Icon: MdClear,
+              handleClick: () => reset(),
+
               // isPending: true,
             }}
           />

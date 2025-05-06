@@ -16,6 +16,7 @@ type PropsType = {
   Icon?: React.ElementType;
   isDisabled?: boolean;
   act?: BtnAct;
+  handleClick?: () => void;
 };
 
 const style = new Map([
@@ -56,6 +57,7 @@ const Button: FC<PropsType> = ({
   Icon,
   isDisabled,
   act = BtnAct.INFO,
+  handleClick,
 }) => {
   const [canLoad, setCanLoad] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -119,6 +121,7 @@ const Button: FC<PropsType> = ({
     </div>
   ) : (
     <button
+      onClick={() => (typeof handleClick === "function" ? handleClick() : null)}
       type={type}
       ref={btnRef}
       disabled={isDisabled || isPending}
