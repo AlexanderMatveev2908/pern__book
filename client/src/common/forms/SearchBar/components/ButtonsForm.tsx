@@ -10,6 +10,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
+import { useFakeLoading } from "@/core/hooks/all/useFakeloading";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
@@ -22,6 +23,10 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
     labels: { labelSubmit },
   } = useSearchCtx();
   const { reset } = useFormContext();
+  const { handleTimer: clickClear, isFakePending: pendingClear } =
+    useFakeLoading();
+  const { handleTimer: clickSubmit, isFakePending: pendingSubmit } =
+    useFakeLoading();
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
@@ -48,11 +53,12 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
           <Button
             {...{
               label: labelSubmit ? "Search" : null,
-              isDisabled: false,
+              isDisabled: pendingClear,
               type: "submit",
               act: BtnAct.DO,
               Icon: FaSearch,
-              // isPending: true,
+              isPending: pendingSubmit,
+              handleClick: clickSubmit,
             }}
           />
         </div>
@@ -64,13 +70,16 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
           <Button
             {...{
               label: labelSubmit ? "Clear" : null,
-              isDisabled: false,
+              isDisabled: pendingSubmit,
               type: "button",
               act: BtnAct.DEL,
               Icon: MdClear,
-              handleClick: () => reset(),
+              handleClick: () => {
+                reset();
+                clickClear();
+              },
 
-              // isPending: true,
+              isPending: pendingClear,
             }}
           />
         </div>
