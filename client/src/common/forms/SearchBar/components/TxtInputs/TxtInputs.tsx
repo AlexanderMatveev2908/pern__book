@@ -1,29 +1,26 @@
-import { FC } from "react";
-import DropInputs from "./DropInputs";
+import { FC, ReactNode } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
-import { BtnAct, FormFieldBasic } from "@/types/types";
+import { BtnAct } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
-import BtnsSearch from "./BtnsSearch";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
-  txtInputs: FormFieldBasic[];
+  children: ReactNode;
 };
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ txtInputs }) => {
+const TxtInputs: FC<PropsType> = ({ children }) => {
   const { activeTxtInputs, setTxtInputs } = useSearchCtx();
 
   const {
     register,
     formState: { errors },
     setValue,
-    setFocus,
   } = useFormContext();
 
   return (
@@ -57,13 +54,7 @@ const TxtInputs: FC<PropsType> = ({ txtInputs }) => {
         </div>
       ))}
 
-      <div className="w-full search_bar__btns gap-y-5 gap-x-10">
-        <div className="w-full search_bar__add">
-          <DropInputs {...{ txtInputs, setFocus }} />
-        </div>
-
-        <BtnsSearch />
-      </div>
+      {children}
     </div>
   );
 };

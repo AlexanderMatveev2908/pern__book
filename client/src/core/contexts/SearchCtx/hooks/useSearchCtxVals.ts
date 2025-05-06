@@ -34,7 +34,10 @@ export const useSearchCtxVals = ({
       });
       dispatch({
         type: SearchCtxActions.SET_LABEL,
-        payload: { label: "labelSubmit", val: window.innerWidth > 450 },
+        payload: {
+          label: "labelSubmit",
+          val: window.innerWidth > tailwindBreak.lg,
+        },
       });
     };
 

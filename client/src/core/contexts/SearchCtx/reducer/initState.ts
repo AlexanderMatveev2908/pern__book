@@ -16,7 +16,7 @@ export type SearchCtxStateType = {
 export const initStateSearch: SearchCtxStateType = {
   labels: {
     labelSearch: window.innerWidth > tailwindBreak.sm,
-    labelSubmit: window.innerWidth > 450,
+    labelSubmit: window.innerWidth > tailwindBreak.lg,
   },
   activeTxtInputs: [],
   bars: {
