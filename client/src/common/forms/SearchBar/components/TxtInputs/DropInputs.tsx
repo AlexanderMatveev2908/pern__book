@@ -1,4 +1,5 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { __cg, makeDelay } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
@@ -6,8 +7,6 @@ import { UseFormSetFocus } from "react-hook-form";
 import { FaSearchPlus } from "react-icons/fa";
 
 type PropsType = {
-  fieldsActive: FormFieldBasic[];
-  setFieldsActive: React.Dispatch<React.SetStateAction<FormFieldBasic[]>>;
   txtInputs: FormFieldBasic[];
   setFocus: UseFormSetFocus<any>;
 };
@@ -16,12 +15,7 @@ const addFieldBtn = {
   icon: FaSearchPlus,
 };
 
-const ArrInputs: FC<PropsType> = ({
-  setFieldsActive,
-  fieldsActive,
-  txtInputs,
-  setFocus,
-}) => {
+const DropInputs: FC<PropsType> = ({ txtInputs, setFocus }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
 
@@ -38,7 +32,9 @@ const ArrInputs: FC<PropsType> = ({
     };
   }, []);
 
-  return fieldsActive.length === txtInputs.length ? null : (
+  const { activeTxtInputs, setTxtInputs } = useSearchCtx();
+
+  return activeTxtInputs.length === txtInputs.length ? null : (
     <div
       ref={dropRef}
       className="w-full max-w-[75px] justify-self-end relative"
@@ -58,10 +54,10 @@ const ArrInputs: FC<PropsType> = ({
         }`}
       >
         {txtInputs.map((el) =>
-          fieldsActive.includes(el) ? null : (
+          activeTxtInputs.includes(el) ? null : (
             <li
               onClick={async () => {
-                setFieldsActive((prev) => [...prev, el]);
+                setTxtInputs([...activeTxtInputs, el]);
                 makeDelay(async () => await setFocus(el.field), 0);
                 setIsDropOpen(false);
               }}
@@ -77,4 +73,4 @@ const ArrInputs: FC<PropsType> = ({
   );
 };
 
-export default ArrInputs;
+export default DropInputs;
