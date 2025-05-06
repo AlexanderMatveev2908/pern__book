@@ -10,6 +10,7 @@ type PropsType = {};
 const BtnsSearch: FC<PropsType> = ({}) => {
   const {
     labels: { labelSearch },
+    setBar,
   } = useSearchCtx();
 
   return (
@@ -17,7 +18,7 @@ const BtnsSearch: FC<PropsType> = ({}) => {
       <div className={`w-full justify-self-center ${getSize(labelSearch)}`}>
         <ButtonIcon
           {...{
-            handleClick: () => console.log(`dff`),
+            handleClick: () => setBar({ val: true, el: "filterBar" }),
             el: {
               icon: IoFilter,
               label: labelSearch ? "Filter" : null,

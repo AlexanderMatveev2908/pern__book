@@ -3,7 +3,7 @@ import { FormFieldBasic } from "@/types/types";
 export enum SearchCtxActions {
   SET_LABEL = "SET_LABEL",
   SET_TXT_INPUTS = "SET_TXT_INPUTS",
-  SET_FIXED = "SET_FIXED",
+  SET_BAR = "SET_BAR",
 }
 
 export type SearchCtxActionsType =
@@ -16,6 +16,6 @@ export type SearchCtxActionsType =
       payload: FormFieldBasic[];
     }
   | {
-      type: SearchCtxActions.SET_FIXED;
-      payload: { val: boolean; el: "footerBar" | "sortBar" };
+      type: SearchCtxActions.SET_BAR;
+      payload: { val: boolean; el: "filterBar" | "sortBar" };
     };

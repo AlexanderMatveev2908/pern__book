@@ -69,3 +69,19 @@ export const genHEX = () => {
     .map((el) => el.toString(16).padStart(2, "0"))
     .join("");
 };
+
+export const cpyObj = <T>(obj: T): T => {
+  if (typeof obj !== "object" || obj === null) return obj;
+
+  if (obj instanceof Date) return new Date(obj.getTime()) as T;
+
+  if (Array.isArray(obj)) return obj.map((el) => cpyObj(el)) as T;
+
+  const cpy = {} as T;
+  for (const key in obj) {
+    if (Object.prototype.hasOwnProperty.call(obj, key))
+      cpy[key] = cpyObj(obj[key]);
+  }
+
+  return cpy;
+};

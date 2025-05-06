@@ -24,6 +24,18 @@ export const reducerSearch = (
         activeTxtInputs: action.payload,
       };
 
+    case SearchCtxActions.SET_BAR: {
+      const { el, val } = action.payload;
+
+      return {
+        ...state,
+        bars: {
+          ...state.bars,
+          [el]: val,
+        },
+      };
+    }
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }

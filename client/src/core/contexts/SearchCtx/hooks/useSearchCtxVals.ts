@@ -9,8 +9,14 @@ type Params = {
   dispatch: React.ActionDispatch<[action: SearchCtxActionsType]>;
 };
 
+type ParamsBar = {
+  el: "filterBar" | "sortBar";
+  val: boolean;
+};
+
 export type SearchCtxValsConsumer = SearchCtxStateType & {
   setTxtInputs: (val: FormFieldBasic[]) => void;
+  setBar: ({ el, val }: ParamsBar) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -44,8 +50,15 @@ export const useSearchCtxVals = ({
     []
   );
 
+  const setBar = useCallback(
+    ({ el, val }: ParamsBar) =>
+      dispatch({ type: SearchCtxActions.SET_BAR, payload: { el, val } }),
+    []
+  );
+
   return {
     ...state,
     setTxtInputs,
+    setBar,
   };
 };
