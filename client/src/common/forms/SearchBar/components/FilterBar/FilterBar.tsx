@@ -33,7 +33,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
   return (
     <div
       ref={barRef}
-      className={`fixed w-full bottom-0 left-0 border-[3px] border-blue-600 rounded-t-2xl z__popup bg-neutral-950 h-full max-h-[75vh] grid grid-cols-1 items-start transition-all duration-500 z__popup overflow-hidden ${
+      className={`fixed w-full bottom-0 left-0 border-[3px] border-blue-600 rounded-t-2xl z__popup bg-neutral-950 h-full max-h-[75%] grid grid-cols-1 items-start transition-all duration-500 z__popup overflow-hidden ${
         filterBar
           ? "opacity-100 translate-y-0"
           : "pointer-events-none translate-y-full"
@@ -54,19 +54,19 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
           </div>
         </div>
 
-        <div className="grid grid-cols-[1fr_10px_1fr] max-h-full">
-          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full">
+        <div className="grid grid-cols-[1fr_3px_2fr] max-h-full">
+          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4">
             {`   Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui
             numquam iusto odio tempore incidunt eveniet minima explicabo magni
             eum adipisci quibusdam dicta, accusantium, commodi fugit maxime!
-            Sunt, velit ullam. Molestiae!`.repeat(10)}
+            Sunt, velit ullam. Molestiae!`.repeat(11)}
           </div>
           <div className="h-full bg-blue-600 w-[3px]"></div>
-          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full">
+          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4">
             {` Lorem ipsum dolor sit amet, consectetur adipisicing elit. Qui
             numquam iusto odio tempore incidunt eveniet minima explicabo magni
             eum adipisci quibusdam dicta, accusantium, commodi fugit maxime!
-            Sunt, velit ullam. Molestiae!`.repeat(100)}
+            Sunt, velit ullam. Molestiae!`.repeat(20)}
           </div>
         </div>
       </div>
