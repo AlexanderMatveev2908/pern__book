@@ -4,6 +4,7 @@ import { v4 } from "uuid";
 import { makeRandomMinMax } from "@/core/lib/lib";
 import SpinnerBtn from "../../spinners/SpinnerBtn/SpinnerBtn";
 import { BtnAct } from "@/types/types";
+import MiniSpinner from "../../spinners/MiniSpinner/MiniSpinner";
 
 const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 
@@ -154,7 +155,11 @@ const Button: FC<PropsType> = ({
         ></div>
       ))}
       <div className="min-w-full flex justify-center items-center gap-5">
-        {Icon && <Icon className="icon__sm" />}
+        {isPending ? (
+          <MiniSpinner {...{ act }} />
+        ) : (
+          Icon && <Icon className="icon__sm" />
+        )}
 
         {label && (
           <span className="txt__3">{isPending ? "Pending..." : label}</span>

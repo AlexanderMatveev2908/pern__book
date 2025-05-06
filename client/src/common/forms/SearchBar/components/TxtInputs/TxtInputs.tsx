@@ -1,4 +1,4 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import DropInputs from "./DropInputs";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
@@ -17,10 +17,6 @@ const removeFieldBtn = {
 };
 
 const TxtInputs: FC<PropsType> = ({ txtInputs }) => {
-  //   const [fieldsActive, setFieldsActive] = useState<FormFieldBasic[]>([
-  //     txtInputs[0],
-  //   ]);
-
   const { activeTxtInputs, setTxtInputs } = useSearchCtx();
 
   const {

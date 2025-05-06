@@ -3,18 +3,18 @@ import { FC } from "react";
 
 type PropsType = {};
 
-const FilterBar: FC<PropsType> = ({}) => {
+const SortBar: FC<PropsType> = ({}) => {
   const {
-    bars: { filterBar },
+    bars: { sortBar },
   } = useSearchCtx();
 
   return (
     <div
       className={`fixed inset-0 ${
-        filterBar ? "z__popup" : "pointer-events-none"
+        sortBar ? "z__popup" : "pointer-events-none"
       }`}
     ></div>
   );
 };
 
-export default FilterBar;
+export default SortBar;

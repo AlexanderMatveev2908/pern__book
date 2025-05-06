@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect, useState } from "react";
+import { FC, useLayoutEffect } from "react";
 import { FaSearch } from "react-icons/fa";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import Button from "@/components/elements/buttons/Button/Button";
@@ -6,6 +6,9 @@ import { MdClear } from "react-icons/md";
 import "./SearchBar.css";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import BgBlack from "./components/BgBlack";
+import FilterBar from "./components/FilterBar/FilterBar";
+import SortBar from "./components/SortBar/SortBar";
 
 type PropsType = {
   isLoading?: boolean;
@@ -33,6 +36,10 @@ const SearchBar: FC<PropsType> = ({ handleSave, txtInputs }) => {
     >
       <TxtInputs {...{ txtInputs }} />
 
+      <BgBlack />
+      <FilterBar />
+      <SortBar />
+
       <div className="w-full grid grid-cols-2 search_bar__submit gap-x-10 items-center justify-items-center">
         <div
           className={`w-full items-center justify-self-center mt-5 ${getSize(
@@ -46,6 +53,7 @@ const SearchBar: FC<PropsType> = ({ handleSave, txtInputs }) => {
               type: "submit",
               act: BtnAct.DO,
               Icon: FaSearch,
+              // isPending: true,
             }}
           />
         </div>
@@ -61,6 +69,7 @@ const SearchBar: FC<PropsType> = ({ handleSave, txtInputs }) => {
               type: "button",
               act: BtnAct.DEL,
               Icon: MdClear,
+              // isPending: true,
             }}
           />
         </div>
