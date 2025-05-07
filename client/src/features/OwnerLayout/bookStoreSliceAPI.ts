@@ -1,9 +1,11 @@
+import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
 import { catchErr } from "@/core/lib/lib";
+import { SearchStoreFormType } from "@/pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BaseResAPI, TagsAPI } from "@/types/types";
 
-const BASE_URL = "/admin-book-store/";
+const BASE_URL = "/admin-book-store";
 
 export const bookStoreSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -21,7 +23,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       string
     >({
       query: (bookStoreID: string) => ({
-        url: BASE_URL + bookStoreID,
+        url: `${BASE_URL}/${bookStoreID}`,
         method: "GET",
       }),
       providesTags: [TagsAPI.BOOK_STORE],
@@ -29,12 +31,16 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
 
     getAllStores: builder.query<
       BaseResAPI<{ bookStores: BookStoreType[] }>,
-      void
+      SearchStoreFormType
     >({
-      query: () => ({
-        url: BASE_URL,
-        method: "GET",
-      }),
+      query: (vals) => {
+        const params = makeParams(vals);
+
+        return {
+          url: `${BASE_URL}?${params + ""}`,
+          method: "GET",
+        };
+      },
       providesTags: (res) =>
         res?.bookStores?.length
           ? [
@@ -57,7 +63,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       { bookStoreID: string; formData: FormData }
     >({
       query: ({ formData, bookStoreID }) => ({
-        url: BASE_URL + bookStoreID,
+        url: `${BASE_URL}/${bookStoreID}`,
         method: "PUT",
         data: formData,
       }),
@@ -66,7 +72,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
 
     delStore: builder.mutation<BaseResAPI<void>, string>({
       query: (bookStoreID) => ({
-        url: BASE_URL + bookStoreID,
+        url: BASE_URL + "/" + bookStoreID,
         method: "DELETE",
       }),
       invalidatesTags: [TagsAPI.USER],

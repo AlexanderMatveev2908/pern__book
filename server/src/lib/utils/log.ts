@@ -38,7 +38,12 @@ export const logJSON = async (
           body: req.body,
           files: req.files ?? {},
           file: req.file ?? {},
-          query: req.query ?? {},
+          query: Object.fromEntries(
+            Object.entries(req.query ?? {}).map(([key, val]) => [
+              key,
+              typeof val === "object" ? JSON.stringify(val) : val,
+            ])
+          ),
           params: req.params ?? {},
           auth: req.headers?.authorization ?? {},
           refresh: req.cookies?.refreshToken ?? {},

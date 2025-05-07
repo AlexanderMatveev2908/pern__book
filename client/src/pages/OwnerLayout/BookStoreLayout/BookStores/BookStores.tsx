@@ -5,9 +5,9 @@ import {
   numericFiltersStore,
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
+import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
-import { __cg } from "@/core/lib/lib";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,23 +15,28 @@ import { FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 
-type SearchStoreFormType = z.infer<typeof searchBarStore>;
+export type SearchStoreFormType = z.infer<typeof searchBarStore>;
 
 const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
-
-  const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery();
-  useWrapQueryAPI({ ...res });
 
   const formCtx = useForm<SearchStoreFormType>({
     resolver: zodResolver(searchBarStore),
     mode: "onChange",
   });
 
-  const { handleSubmit, setFocus } = formCtx;
+  const { handleSubmit, setFocus, watch } = formCtx;
+  const vals = watch();
 
-  const handleSave = handleSubmit((data) => {
-    __cg("data", data);
+  const { args, setArgs } = useDebounce({ vals });
+
+  const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(args, {
+    skip: false,
+  });
+  useWrapQueryAPI({ ...res });
+
+  const handleSave = handleSubmit(() => {
+    setArgs({ ...vals, _: Date.now() });
   });
 
   useFocus({ key: "name", setFocus });
