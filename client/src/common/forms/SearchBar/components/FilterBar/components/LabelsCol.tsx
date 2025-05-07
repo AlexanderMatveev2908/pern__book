@@ -10,7 +10,7 @@ type PropsType = {
 
 const LabelsCol: FC<PropsType> = ({ filters, numericFilters }) => {
   const [showLabel, setShowLabel] = useState(
-    window.innerWidth > tailwindBreak.sm
+    window.innerWidth > tailwindBreak.md
   );
   const {
     setSearch,
@@ -18,7 +18,7 @@ const LabelsCol: FC<PropsType> = ({ filters, numericFilters }) => {
   } = useSearchCtx();
 
   useEffect(() => {
-    const listenSize = () => setShowLabel(window.innerWidth > tailwindBreak.sm);
+    const listenSize = () => setShowLabel(window.innerWidth > tailwindBreak.md);
 
     window.addEventListener("resize", listenSize);
     return () => {

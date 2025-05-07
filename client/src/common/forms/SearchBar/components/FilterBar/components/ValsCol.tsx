@@ -57,7 +57,7 @@ const ValsCol: FC = () => {
   return (
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
       <div
-        className={`min-w-full grid grid-cols-1 gap-x-10  ${
+        className={`min-w-full grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-10  ${
           isNormalField
             ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
             : "md:grid-cols-2 h-fit items-start gap-y-2"
