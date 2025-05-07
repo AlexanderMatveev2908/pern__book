@@ -1,6 +1,6 @@
+import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
 import { catchErr } from "@/core/lib/lib";
-import { SearchStoreFormType } from "@/pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BaseResAPI, TagsAPI } from "@/types/types";

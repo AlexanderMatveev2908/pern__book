@@ -75,7 +75,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus, keyStorage }) => {
               act: BtnAct.DEL,
               Icon: MdClear,
               handleClick: () => {
-                reset({ _: Date.now() });
+                reset({});
                 delKeyStorage(keyStorage);
               },
             }}

@@ -6,13 +6,15 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
+import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { getStorage } from "@/core/lib/lib";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { StorageKeys } from "@/types/types";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FormProvider } from "react-hook-form";
 
 const BookStores: FC = () => {
@@ -20,7 +22,7 @@ const BookStores: FC = () => {
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const { args, setArgs } = useSearchCtx();
-  const { handleSubmit, setFocus, getValues, watch } = formCtx;
+  const { handleSubmit, setFocus, setValue, getValues, watch } = formCtx;
   const vals = watch();
   useDebounce({
     getValues,
@@ -29,9 +31,22 @@ const BookStores: FC = () => {
     setArgs,
   });
 
-  const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(args, {
-    skip: false,
-  });
+  useEffect(() => {
+    const savedData = getStorage(StorageKeys.STORES_OWNER);
+    if (savedData) {
+      const parsed = JSON.parse(savedData);
+      for (const key in parsed) {
+        setValue(key as keyof SearchStoreFormType, parsed[key]);
+      }
+    }
+  }, [setValue]);
+
+  const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
+    args as SearchStoreFormType,
+    {
+      skip: false,
+    }
+  );
   useWrapQueryAPI({ ...res });
   useFocus({ key: "name", setFocus });
 
