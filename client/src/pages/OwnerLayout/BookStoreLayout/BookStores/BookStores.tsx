@@ -2,6 +2,7 @@ import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsSearchStore,
+  numericFiltersStore,
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
@@ -49,6 +50,7 @@ const BookStores: FC = () => {
               handleSave,
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
+              numericFilters: numericFiltersStore,
             }}
           />
         </FormProvider>

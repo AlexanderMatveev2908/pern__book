@@ -1,6 +1,6 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FormFieldBasic } from "@/types/types";
+import { FilterSubField } from "@/types/types";
 import { FC, useCallback } from "react";
 import { useFormContext } from "react-hook-form";
 
@@ -11,31 +11,31 @@ const ValsCol: FC = () => {
   } = useSearchCtx();
 
   const handleClickVal = useCallback(
-    (el: FormFieldBasic) => {
+    (el: FilterSubField) => {
       const key = currFilter?.field;
       if (!key) return;
       const value = watch(key);
 
       if (!Array.isArray(value)) {
-        setValue(key, [el.field]);
+        setValue(key, [el.val]);
         return null;
       }
 
       setValue(
         key,
-        value.includes(el.field)
-          ? value.filter((str) => str !== el.field)
-          : [...value, el.field]
+        value.includes(el.val)
+          ? value.filter((str) => str !== el.val)
+          : [...value, el.val]
       );
     },
     [currFilter, setValue, watch]
   );
 
   const getIsIn = useCallback(
-    ({ key, el }: { key: string; el: FormFieldBasic }) => {
+    ({ key, el }: { key: string; el: FilterSubField }) => {
       const value = watch(key);
 
-      return Array.isArray(value) ? value.includes(el.field) : false;
+      return Array.isArray(value) ? value.includes(el.val) : false;
     },
     [watch]
   );
@@ -44,6 +44,7 @@ const ValsCol: FC = () => {
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
       <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-5">
         {Array.isArray(currFilter?.fields) &&
+          currFilter.fields.every((el) => !!(el as FilterSubField)?.val) &&
           currFilter.fields.map((el) => (
             <div
               key={el.id}
@@ -52,8 +53,11 @@ const ValsCol: FC = () => {
               <BtnCheckBox
                 {...{
                   label: el.label ?? "",
-                  isIn: getIsIn({ key: currFilter.field, el }),
-                  handleClick: () => handleClickVal(el),
+                  isIn: getIsIn({
+                    key: currFilter.field,
+                    el: el as FilterSubField,
+                  }),
+                  handleClick: () => handleClickVal(el as FilterSubField),
                 }}
               />
             </div>

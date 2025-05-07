@@ -1,11 +1,11 @@
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FilterSearch } from "@/types/types";
+import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { FC, useCallback, useEffect, useState } from "react";
 
 type PropsType = {
   filters: FilterSearch[];
-  numericFilters?: FilterSearch[];
+  numericFilters?: NumericFilterSearch[];
 };
 
 const LabelsCol: FC<PropsType> = ({ filters, numericFilters }) => {
@@ -27,14 +27,18 @@ const LabelsCol: FC<PropsType> = ({ filters, numericFilters }) => {
   }, []);
 
   const handleClickLabel = useCallback(
-    (el: FilterSearch) => setSearch({ el: "currFilter", val: el }),
+    (el: FilterSearch | NumericFilterSearch) =>
+      setSearch({ el: "currFilter", val: el }),
     [setSearch]
   );
 
   return (
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4 py-3">
       <div className="w-full max-w-full grid grid-cols-1 gap-y-3">
-        {filters.map((el) => (
+        {[
+          ...filters,
+          ...(Array.isArray(numericFilters) ? numericFilters : []),
+        ].map((el) => (
           <button
             onClick={() => handleClickLabel(el)}
             type="button"

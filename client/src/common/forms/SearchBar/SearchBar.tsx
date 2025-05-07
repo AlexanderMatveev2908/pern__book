@@ -1,5 +1,9 @@
 import { FC, useLayoutEffect } from "react";
-import { FilterSearch, FormFieldBasic } from "@/types/types";
+import {
+  FilterSearch,
+  FormFieldBasic,
+  NumericFilterSearch,
+} from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import BgBlack from "./components/BgBlack";
@@ -13,7 +17,7 @@ type PropsType = {
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
-  numericFilters?: FilterSearch[];
+  numericFilters?: NumericFilterSearch[];
 };
 
 const SearchBar: FC<PropsType> = ({

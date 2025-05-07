@@ -1,4 +1,8 @@
-import { FilterSearch, FormFieldBasic } from "@/types/types";
+import {
+  FilterSearch,
+  FormFieldBasic,
+  NumericFilterSearch,
+} from "@/types/types";
 import { v4 } from "uuid";
 import {
   avgPriceFilter,
@@ -36,7 +40,7 @@ export const fieldsSearchStore: FormFieldBasic[] = [
   place: `${el.label} Store...`,
 }));
 
-export const storeFilters = [
+export const storeFilters: FilterSearch[] = [
   filtersCat,
   filtersOrders,
   filtersDelivery,
@@ -48,9 +52,12 @@ export const storeFilters = [
     ...el,
     id: v4(),
   })),
-})) as FilterSearch[];
+}));
 
-export const numericFiltersStore = [avgPriceFilter, avgQtyFilter].map((el) => ({
+export const numericFiltersStore: NumericFilterSearch[] = [
+  avgPriceFilter,
+  avgQtyFilter,
+].map((el) => ({
   ...el,
   id: v4(),
   fields: el.fields?.map((el) => ({

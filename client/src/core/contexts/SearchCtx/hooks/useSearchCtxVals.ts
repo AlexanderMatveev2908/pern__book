@@ -46,24 +46,24 @@ export const useSearchCtxVals = ({
     return () => {
       window.removeEventListener("resize", listenSize);
     };
-  }, []);
+  }, [dispatch]);
 
   const setTxtInputs = useCallback(
     (val: FormFieldBasic[]) =>
       dispatch({ type: SearchCtxActions.SET_TXT_INPUTS, payload: val }),
-    []
+    [dispatch]
   );
 
   const setBar = useCallback(
     ({ el, val }: ParamsBar) =>
       dispatch({ type: SearchCtxActions.SET_BAR, payload: { el, val } }),
-    []
+    [dispatch]
   );
 
   const setSearch = useCallback(
     ({ el, val }: ParamsSearch) =>
       dispatch({ type: SearchCtxActions.SET_SEARCH, payload: { el, val } }),
-    []
+    [dispatch]
   );
 
   return {

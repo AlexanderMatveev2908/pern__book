@@ -42,10 +42,20 @@ export type MySelectFieldType = {
   options: SelectOptType[];
 };
 
+export type FilterSubField = {
+  id?: string;
+  label: string;
+  val: string;
+};
+
 export type FilterSearch = {
   id: string;
   field: string;
   label: string;
   icon: IconType;
+  fields: FilterSubField[];
+};
+
+export type NumericFilterSearch = Omit<FilterSearch, "fields"> & {
   fields: FormFieldBasic[];
 };

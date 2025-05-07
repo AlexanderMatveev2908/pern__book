@@ -1,6 +1,6 @@
 import Title from "@/components/elements/Title";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FilterSearch } from "@/types/types";
+import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { FC, useEffect, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import LabelsCol from "./components/LabelsCol";
@@ -8,7 +8,7 @@ import ValsCol from "./components/ValsCol";
 
 type PropsType = {
   filters: FilterSearch[];
-  numericFilters?: FilterSearch[];
+  numericFilters?: NumericFilterSearch[];
 };
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES

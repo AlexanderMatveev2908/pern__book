@@ -1,5 +1,9 @@
 import { tailwindBreak } from "@/core/config/breakpoints";
-import { FilterSearch, FormFieldBasic } from "@/types/types";
+import {
+  FilterSearch,
+  FormFieldBasic,
+  NumericFilterSearch,
+} from "@/types/types";
 
 export type SearchCtxStateType = {
   labels: {
@@ -12,7 +16,7 @@ export type SearchCtxStateType = {
     sortBar: boolean;
   };
   searchers: {
-    currFilter: FilterSearch | null;
+    currFilter: FilterSearch | NumericFilterSearch | null;
     currSorter: FilterSearch | null;
   };
 };
