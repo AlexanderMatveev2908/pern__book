@@ -1,40 +1,25 @@
 import Title from "@/components/elements/Title";
-import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
-import { tailwindBreak } from "@/core/config/breakpoints";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FilterSearch, FormFieldBasic } from "@/types/types";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
-import { useFormContext } from "react-hook-form";
+import { FilterSearch } from "@/types/types";
+import { FC, useEffect, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
+import LabelsCol from "./components/LabelsCol";
+import ValsCol from "./components/ValsCol";
 
 type PropsType = {
   filters: FilterSearch[];
+  numericFilters?: FilterSearch[];
 };
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES
 
-const FilterBar: FC<PropsType> = ({ filters }) => {
+const FilterBar: FC<PropsType> = ({ filters, numericFilters }) => {
   const barRef = useRef<HTMLDivElement | null>(null);
-  const [showLabel, setShowLabel] = useState(
-    window.innerWidth > tailwindBreak.sm
-  );
-
-  useEffect(() => {
-    const listenSize = () => setShowLabel(window.innerWidth > tailwindBreak.sm);
-
-    window.addEventListener("resize", listenSize);
-    return () => {
-      window.removeEventListener("resize", listenSize);
-    };
-  }, []);
 
   const {
     bars: { filterBar },
     setBar,
-    searchers: { currFilter },
-    setSearch,
   } = useSearchCtx();
-  const { watch, setValue } = useFormContext();
 
   useEffect(() => {
     const listenClick = (e: MouseEvent) => {
@@ -49,40 +34,6 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
       document.removeEventListener("mousedown", listenClick);
     };
   }, [setBar]);
-
-  const getIsIn = useCallback(
-    ({ key, el }: { key: string; el: FormFieldBasic }) => {
-      const value = watch(key);
-
-      return Array.isArray(value) ? value.includes(el.field) : false;
-    },
-    [watch]
-  );
-
-  const handleClickVal = useCallback(
-    (el: FormFieldBasic) => {
-      const key = currFilter?.field;
-      if (!key) return;
-      const value = watch(key);
-
-      if (!Array.isArray(value)) {
-        setValue(key, [el.field]);
-        return;
-      }
-
-      setValue(
-        key,
-        value.includes(el.field)
-          ? value.filter((str) => str !== el.field)
-          : [...value, el.field]
-      );
-    },
-    [currFilter, setValue, watch]
-  );
-  const handleClickLabel = useCallback(
-    (el: FilterSearch) => setSearch({ el: "currFilter", val: el }),
-    [setSearch]
-  );
 
   return (
     <div
@@ -113,52 +64,13 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
         {/* I AM NOT SURE ABOUT THIS PART, THE FACT IS THAT IF I REMOVED SCROLL CLASSES JUST  BIGGER PARENT SCROLL, LEAVING THEM IS LIKE PASSING SCROLL AD PROPS TO CHILDREN METAPHORICALLY, AND PASSING DOWN SCROLL PROP IN A KIND OF RECURSIVE WAY AT THE END ALLOW USER TO SEE A SPLITTED GRID WITH DIFFERENT SCROLL BAR AS I WANTED*/}
         <div className="grid grid-cols-[1fr_3px_2fr] scrollbar__app scrollbar__y overflow-y-auto  max-h-full w-full">
           {/* LAST CHILD ,REAL CONSUMER OF SCROLL EFFECT */}
-          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4 py-3">
-            <div className="w-full max-w-full grid grid-cols-1 gap-y-3">
-              {filters.map((el) => (
-                <button
-                  onClick={() => handleClickLabel(el)}
-                  type="button"
-                  key={el.id}
-                  className={`w-fit max-w-full flex items-center gap-x-5 justify-start hover:text-blue-600 transition-[color] duration-300 flex-wrap cursor-pointer ${
-                    currFilter?.label === el.label
-                      ? "border-b-[3px] pb-1 text-blue-600"
-                      : ""
-                  }`}
-                >
-                  <el.icon className="icon__md" />
-                  {showLabel && (
-                    <span className="txt__3 text-wrap">{el.label}</span>
-                  )}
-                </button>
-              ))}
-            </div>
-          </div>
-
+          <LabelsCol {...{ filters, numericFilters }} />
           {/* AVOID HERE SCROLL OR THERE WOULD BE TOO MUCH SCROLL BARS RESULTING CONFUSING, THEN WOULD ALSO BE UNCOMFORTABLE TO GRAB THE RIGHT ONE SCROLL BAR OF COL HAVING TWO OF THEM TOO NEAR EACH OTHER */}
           <div className="max-h-full overflow-hidden w-full">
             <div className="min-h-screen bg-blue-600 w-[3px] overflow-hidden"></div>
           </div>
 
-          <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
-            <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-5">
-              {Array.isArray(currFilter?.fields) &&
-                currFilter.fields.map((el) => (
-                  <div
-                    key={el.id}
-                    className="w-full max-w-[200px] justify-self-center"
-                  >
-                    <BtnCheckBox
-                      {...{
-                        label: el.label ?? "",
-                        isIn: getIsIn({ key: currFilter.field, el }),
-                        handleClick: () => handleClickVal(el),
-                      }}
-                    />
-                  </div>
-                ))}
-            </div>
-          </div>
+          <ValsCol />
         </div>
       </div>
     </div>

@@ -13,9 +13,15 @@ type PropsType = {
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
+  numericFilters?: FilterSearch[];
 };
 
-const SearchBar: FC<PropsType> = ({ handleSave, txtInputs, filters }) => {
+const SearchBar: FC<PropsType> = ({
+  handleSave,
+  txtInputs,
+  filters,
+  numericFilters,
+}) => {
   const { setTxtInputs, setSearch } = useSearchCtx();
 
   const { setFocus } = useFormContext();
@@ -31,7 +37,7 @@ const SearchBar: FC<PropsType> = ({ handleSave, txtInputs, filters }) => {
       className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4 "
     >
       <BgBlack />
-      <FilterBar {...{ filters }} />
+      <FilterBar {...{ filters, numericFilters }} />
 
       <TxtInputs {...{ txtInputs }}>
         <ButtonsForm {...{ txtInputs, setFocus }} />

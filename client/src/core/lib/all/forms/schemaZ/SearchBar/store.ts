@@ -1,3 +1,4 @@
+import { ratingRanges } from "@/core/config/fieldsData/SearchBar/general";
 import {
   REG_CITY,
   REG_COUNTRY,
@@ -55,4 +56,5 @@ export const searchBarStore = z.object({
   delivery: z
     .array(z.enum(Object.values(DeliveryType) as [string, ...string[]]))
     .optional(),
+  avgRating: z.array(z.enum(ratingRanges as [string, ...string[]])).optional(),
 });
