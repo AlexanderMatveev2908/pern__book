@@ -3,7 +3,7 @@ export enum StorageKeys {
   NOTICE = "notice",
   INIT = "init",
   SECURITY = "manageAccountToken",
-  STORES_OWNER = "searchStoresOwner",
-  SEARCH_BAR_STORES_OWNER = "searchBarLabelsOwnerStore",
+  STORES_OWNER = "searchValsOwnerStores",
+  SEARCH_BAR_STORES_OWNER = "searchLabelsOwnerStores",
   // FORGOT_PWD = "forgotPwdToken",
 }
