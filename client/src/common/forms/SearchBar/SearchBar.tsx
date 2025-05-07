@@ -3,6 +3,7 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
+  StorageKeys,
 } from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
@@ -18,6 +19,7 @@ type PropsType = {
   isLoading?: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
+  keyStorage: StorageKeys;
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
 };
@@ -27,6 +29,7 @@ const SearchBar: FC<PropsType> = ({
   txtInputs,
   filters,
   numericFilters,
+  keyStorage,
 }) => {
   const { setTxtInputs, setSearch } = useSearchCtx();
 
@@ -80,7 +83,7 @@ const SearchBar: FC<PropsType> = ({
       <FilterBar {...{ filters, numericFilters }} />
 
       <TxtInputs {...{ txtInputs }}>
-        <ButtonsForm {...{ txtInputs, setFocus }} />
+        <ButtonsForm {...{ txtInputs, setFocus, keyStorage }} />
       </TxtInputs>
     </form>
   );

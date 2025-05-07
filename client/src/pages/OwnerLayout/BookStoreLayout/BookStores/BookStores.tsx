@@ -5,41 +5,36 @@ import {
   numericFiltersStore,
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
+import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { StorageKeys } from "@/types/types";
 import { FC } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { z } from "zod";
-
-export type SearchStoreFormType = z.infer<typeof searchBarStore>;
+import { FormProvider } from "react-hook-form";
 
 const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
-  const formCtx = useForm<SearchStoreFormType>({
-    resolver: zodResolver(searchBarStore),
-    mode: "onChange",
-  });
-
+  const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit, setFocus, watch } = formCtx;
   const vals = watch();
 
-  const { args, setArgs } = useDebounce({ vals });
+  const { args, setArgs } = useDebounce({
+    vals,
+    keyStorage: StorageKeys.STORES_OWNER,
+  });
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(args, {
     skip: false,
   });
   useWrapQueryAPI({ ...res });
+  useFocus({ key: "name", setFocus });
 
   const handleSave = handleSubmit(() => {
     setArgs({ ...vals, _: Date.now() });
   });
-
-  useFocus({ key: "name", setFocus });
 
   return (
     <WrapPageAPI
@@ -56,6 +51,7 @@ const BookStores: FC = () => {
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
               numericFilters: numericFiltersStore,
+              keyStorage: StorageKeys.STORES_OWNER,
             }}
           />
         </FormProvider>

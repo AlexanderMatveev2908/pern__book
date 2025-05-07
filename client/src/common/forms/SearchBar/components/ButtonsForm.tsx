@@ -2,21 +2,22 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC } from "react";
 import DropInputs from "./TxtInputs/DropInputs";
-import { BtnAct, FormFieldBasic } from "@/types/types";
+import { BtnAct, FormFieldBasic, StorageKeys } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
 import { useFormContext, UseFormSetFocus } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
-import { getSizeSearchbarBtns } from "@/core/lib/lib";
+import { delKeyStorage, getSizeSearchbarBtns } from "@/core/lib/lib";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
   setFocus: UseFormSetFocus<any>;
+  keyStorage: StorageKeys;
 };
 
-const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
+const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus, keyStorage }) => {
   const {
     setBar,
     labels: { labelSubmit },
@@ -74,7 +75,8 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus }) => {
               act: BtnAct.DEL,
               Icon: MdClear,
               handleClick: () => {
-                reset();
+                reset({});
+                delKeyStorage(keyStorage);
               },
             }}
           />
