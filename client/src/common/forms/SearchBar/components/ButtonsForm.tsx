@@ -8,7 +8,11 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
-import { delKeyStorage, getSizeSearchbarBtns } from "@/core/lib/lib";
+import {
+  delKeyStorage,
+  getSizeSearchbarBtns,
+  saveStorage,
+} from "@/core/lib/lib";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
@@ -26,7 +30,7 @@ const ButtonsForm: FC<PropsType> = ({
     labels: { labelSubmit },
     setTxtInputs,
   } = useSearchCtx();
-  const { reset, setFocus } = useFormContext();
+  const { reset } = useFormContext();
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
@@ -48,7 +52,7 @@ const ButtonsForm: FC<PropsType> = ({
         </div>
 
         <div className="w-full">
-          <DropInputs {...{ txtInputs, setFocus, keyStorageLabels }} />
+          <DropInputs {...{ txtInputs, keyStorageLabels }} />
         </div>
       </div>
 
@@ -79,10 +83,10 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DEL,
               Icon: MdClear,
               handleClick: () => {
-                setTxtInputs([txtInputs[0]]);
                 reset({});
+                setTxtInputs([txtInputs[0]]);
                 delKeyStorage(keyStorageVals);
-                delKeyStorage(keyStorageLabels);
+                saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
               },
             }}
           />

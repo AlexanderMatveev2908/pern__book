@@ -46,6 +46,7 @@ const SearchBar: FC<PropsType> = ({
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updated = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updated);
+
     if (!savedLabels?.length) {
       saveStorage({ key: keyStorageLabels, data: updated });
     } else {

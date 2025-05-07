@@ -3,16 +3,12 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
-  StorageKeys,
 } from "@/types/types";
 import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
-import { getStorage } from "@/core/lib/lib";
 
 export type ArgsSearchType = (SearchStoreFormType | { a: "test" }) & {
   _?: number;
 };
-
-const savedActiveLabels = getStorage(StorageKeys.SEARCH_BAR_STORES_OWNER);
 
 export type SearchCtxStateType = {
   labels: {
@@ -36,7 +32,7 @@ export const initStateSearch: SearchCtxStateType = {
     labelSearch: window.innerWidth > tailwindBreak.sm,
     labelSubmit: window.innerWidth > tailwindBreak.lg,
   },
-  activeTxtInputs: savedActiveLabels ? JSON.parse(savedActiveLabels) : [],
+  activeTxtInputs: [],
   bars: {
     filterBar: false,
     sortBar: false,
