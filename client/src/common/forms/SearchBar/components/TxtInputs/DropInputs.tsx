@@ -3,7 +3,7 @@ import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { makeDelay, saveStorage } from "@/core/lib/lib";
 import { FormFieldBasic, StorageKeys } from "@/types/types";
-import { FC, useEffect, useRef, useState } from "react";
+import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { UseFormSetFocus } from "react-hook-form";
 import { FaSearchPlus } from "react-icons/fa";
 
@@ -40,6 +40,12 @@ const DropInputs: FC<PropsType> = ({
 
   const { activeTxtInputs, setTxtInputs } = useSearchCtx();
 
+  const arg = useMemo(() => {
+    const active = new Set(activeTxtInputs.map((el) => el.field));
+    const filtered = txtInputs.filter((el) => !active.has(el.field));
+    return filtered;
+  }, [activeTxtInputs, txtInputs]);
+
   return activeTxtInputs.length === txtInputs.length ? null : (
     <div
       ref={dropRef}
@@ -59,23 +65,21 @@ const DropInputs: FC<PropsType> = ({
             : "translate-y-[75px] opacity-0 pointer-events-none"
         }`}
       >
-        {txtInputs.map((el) =>
-          activeTxtInputs.includes(el) ? null : (
-            <li
-              onClick={async () => {
-                const updated = [...activeTxtInputs, el];
-                setTxtInputs(updated);
-                saveStorage({ key: keyStorageLabels, data: updated });
-                await makeDelay(async () => await setFocus(el.field), 0);
-                setIsDropOpen(false);
-              }}
-              key={el.id}
-              className="w-full hover:text-blue-600 el__flow cursor-pointer"
-            >
-              <span className="txt__3">{el.field}</span>
-            </li>
-          )
-        )}
+        {arg.map((el) => (
+          <li
+            onClick={async () => {
+              const updated = [...activeTxtInputs, el];
+              setTxtInputs(updated);
+              saveStorage({ key: keyStorageLabels, data: updated });
+              await makeDelay(async () => await setFocus(el.field), 0);
+              setIsDropOpen(false);
+            }}
+            key={el.id}
+            className="w-full hover:text-blue-600 el__flow cursor-pointer"
+          >
+            <span className="txt__3">{el.field}</span>
+          </li>
+        ))}
       </ul>
     </div>
   );

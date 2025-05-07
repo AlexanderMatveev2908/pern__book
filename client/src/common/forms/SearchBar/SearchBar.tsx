@@ -36,7 +36,6 @@ const SearchBar: FC<PropsType> = ({
   const { setTxtInputs, setSearch } = useSearchCtx();
 
   const {
-    setFocus,
     watch,
     clearErrors,
     formState: { errors },
@@ -86,9 +85,7 @@ const SearchBar: FC<PropsType> = ({
       <FilterBar {...{ filters, numericFilters }} />
 
       <TxtInputs {...{ txtInputs, keyStorageLabels }}>
-        <ButtonsForm
-          {...{ txtInputs, setFocus, keyStorageVals, keyStorageLabels }}
-        />
+        <ButtonsForm {...{ txtInputs, keyStorageVals, keyStorageLabels }} />
       </TxtInputs>
     </form>
   );
