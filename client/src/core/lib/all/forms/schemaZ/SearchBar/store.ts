@@ -103,6 +103,25 @@ export const searchBarStore = z
       .refine((val) => !val?.trim().length || REG_INT.test(val), {
         message: "Invalid chars max qty",
       }),
+
+    workers: z
+      .string()
+      .optional()
+      .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
+        message: "Invalid number",
+      }),
+    managers: z
+      .string()
+      .optional()
+      .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
+        message: "Invalid number",
+      }),
+    employees: z
+      .string()
+      .optional()
+      .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
+        message: "Invalid number",
+      }),
   })
   .superRefine((data, ctx) => {
     if (isValidNumber(data?.minAvgPrice) && isValidNumber(data?.maxAvgPrice)) {

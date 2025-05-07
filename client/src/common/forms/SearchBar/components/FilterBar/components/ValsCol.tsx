@@ -60,7 +60,7 @@ const ValsCol: FC = () => {
         className={`min-w-full grid grid-cols-1 gap-x-10  ${
           isNormalField
             ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
-            : "md:grid-cols-2 h-fit items-start"
+            : "md:grid-cols-2 h-fit items-start gap-y-2"
         }`}
       >
         {!Array.isArray(currFilter?.fields)
@@ -100,7 +100,7 @@ const ValsCol: FC = () => {
                   },
                 }}
               >
-                <div className="w-full flex justify-start py-3">
+                <div className="w-full flex justify-start  items-center mt-3">
                   <span className="txt__1 text-red-600">
                     {errors?.[(el as FormFieldBasic).field]?.message as string}
                   </span>

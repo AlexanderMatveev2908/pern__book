@@ -62,7 +62,7 @@ const FilterBar: FC<PropsType> = ({ filters, numericFilters }) => {
         </div>
 
         {/* I AM NOT SURE ABOUT THIS PART, THE FACT IS THAT IF I REMOVED SCROLL CLASSES JUST  BIGGER PARENT SCROLL, LEAVING THEM IS LIKE PASSING SCROLL AD PROPS TO CHILDREN METAPHORICALLY, AND PASSING DOWN SCROLL PROP IN A KIND OF RECURSIVE WAY AT THE END ALLOW USER TO SEE A SPLITTED GRID WITH DIFFERENT SCROLL BAR AS I WANTED*/}
-        <div className="grid grid-cols-[1fr_3px_2fr] scrollbar__app scrollbar__y overflow-y-auto  max-h-full w-full">
+        <div className="grid grid-cols-[65px_3px_1fr] sm:grid-cols-[1fr_3px_2fr] scrollbar__app scrollbar__y overflow-y-auto  max-h-full w-full">
           {/* LAST CHILD ,REAL CONSUMER OF SCROLL EFFECT */}
           <LabelsCol {...{ filters, numericFilters }} />
           {/* AVOID HERE SCROLL OR THERE WOULD BE TOO MUCH SCROLL BARS RESULTING CONFUSING, THEN WOULD ALSO BE UNCOMFORTABLE TO GRAB THE RIGHT ONE SCROLL BAR OF COL HAVING TWO OF THEM TOO NEAR EACH OTHER */}
