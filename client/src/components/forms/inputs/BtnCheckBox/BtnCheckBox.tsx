@@ -5,10 +5,10 @@ import "./BtnCheckBox.css";
 type PropsType = {
   handleClick: () => void;
   isIn: boolean;
-  val: string;
+  label: string;
 };
 
-const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, val }) => {
+const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label }) => {
   const [isHover, setIsHover] = useState(false);
   const [isRemoved, setRemoved] = useState(false);
 
@@ -44,7 +44,7 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, val }) => {
         } as React.CSSProperties
       }
     >
-      <span className="txt__2">{capt(val)}</span>
+      <span className="txt__2">{capt(label)}</span>
     </button>
   );
 };

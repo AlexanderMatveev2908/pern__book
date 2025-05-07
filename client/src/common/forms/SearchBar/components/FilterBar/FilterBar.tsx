@@ -150,7 +150,7 @@ const FilterBar: FC<PropsType> = ({ filters }) => {
                   >
                     <BtnCheckBox
                       {...{
-                        val: el.field,
+                        label: el.label ?? "",
                         isIn: getIsIn({ key: currFilter.field, el }),
                         handleClick: () => handleClickVal(el),
                       }}

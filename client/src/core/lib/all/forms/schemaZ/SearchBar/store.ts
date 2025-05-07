@@ -6,7 +6,7 @@ import {
   REG_STORE_NAME,
 } from "@/core/config/regex";
 import { CatBookStore } from "@/types/all/bookStore";
-import { OrderStage } from "@/types/all/orders";
+import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";
 
 export const searchBarStore = z.object({
@@ -51,5 +51,8 @@ export const searchBarStore = z.object({
     .optional(),
   orders: z
     .array(z.enum(Object.values(OrderStage) as [string, ...string[]]))
+    .optional(),
+  delivery: z
+    .array(z.enum(Object.values(DeliveryType) as [string, ...string[]]))
     .optional(),
 });

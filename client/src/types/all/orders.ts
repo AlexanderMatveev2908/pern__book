@@ -8,3 +8,8 @@ export enum OrderStage {
   CANCELLED = "cancelled",
   REFUNDED = "refunded",
 }
+
+export enum DeliveryType {
+  FREE = "free_delivery",
+  PAY = "delivery_charged ",
+}

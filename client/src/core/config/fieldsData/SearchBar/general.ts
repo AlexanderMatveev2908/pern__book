@@ -1,7 +1,8 @@
 import { capt } from "@/core/lib/lib";
 import { CatBookStore } from "@/types/all/bookStore";
-import { OrderStage } from "@/types/all/orders";
+import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { FilterSearch } from "@/types/types";
+import { CiDeliveryTruck } from "react-icons/ci";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
@@ -24,6 +25,17 @@ export const filtersOrders: Partial<FilterSearch> = {
   fields: Object.values(OrderStage).map((el) => ({
     id: v4(),
     label: capt(el),
+    field: el,
+  })),
+};
+
+export const filtersDelivery: Partial<FilterSearch> = {
+  label: "Delivery",
+  field: "delivery",
+  icon: CiDeliveryTruck,
+  fields: Object.values(DeliveryType).map((el) => ({
+    label: capt(el.split("_").join(" ")),
+    id: v4(),
     field: el,
   })),
 };

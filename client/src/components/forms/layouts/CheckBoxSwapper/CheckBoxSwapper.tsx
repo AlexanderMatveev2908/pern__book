@@ -6,6 +6,7 @@ import ErrorFormField from "../../Errors/ErrorFormField";
 import BtnCheckBox from "../../inputs/BtnCheckBox/BtnCheckBox";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
 import FocusAnchor from "../../FocusAnchor";
+import { capt } from "@/core/lib/lib";
 
 type PropsType = {
   fieldsArg: string[];
@@ -126,7 +127,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
                   key={idsChildren[j]}
                   {...{
                     isIn: isIn(val),
-                    val,
+                    label: capt(val),
                     handleClick: () => handleCatClick(val),
                   }}
                 />
