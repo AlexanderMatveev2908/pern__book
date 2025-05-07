@@ -11,7 +11,7 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
-import { __cg, makeNum } from "@/core/lib/lib";
+import { makeNum } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 
 type PropsType = {
@@ -69,9 +69,6 @@ const SearchBar: FC<PropsType> = ({
     };
 
     handleErrors();
-
-    __cg("vals", vals);
-    __cg("err", errors);
   }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
 
   return (
