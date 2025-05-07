@@ -50,30 +50,29 @@ body {
 
 /* INDEX*/
 
-.z__drop_store {
-  z-index: 100;
-}
-.z__drop_store_handler {
-  z-index: 250;
-}
-
 .z__sidebar_bg {
-  z-index: 2500;
+  z-index: 700;
 }
 .z__sidebar {
-  z-index: 3000;
+  z-index: 750;
 }
+
 .z__header {
-  z-index: 3500;
+  z-index: 800;
 }
+.z__drop_header {
+  z-index: 850;
+}
+
 .z__popup_bg {
-  z-index: 4000;
+  z-index: 900;
 }
 .z__popup {
-  z-index: 4500;
+  z-index: 950;
 }
+
 .z__toast {
-  z-index: 5000;
+  z-index: 1000;
 }
 
 /* TXT */

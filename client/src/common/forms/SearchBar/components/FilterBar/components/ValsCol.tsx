@@ -57,10 +57,10 @@ const ValsCol: FC = () => {
   return (
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
       <div
-        className={`min-w-full grid grid-cols-1 gap-x-10 gap-y-5 ${
+        className={`min-w-full grid grid-cols-1 gap-x-10  ${
           isNormalField
-            ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
-            : "md:grid-cols-2"
+            ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-y-5"
+            : "md:grid-cols-2 h-fit items-start"
         }`}
       >
         {!Array.isArray(currFilter?.fields)
@@ -73,7 +73,7 @@ const ValsCol: FC = () => {
           ? currFilter.fields.map((el) => (
               <div
                 key={el.id}
-                className="w-full max-w-[200px] justify-self-center"
+                className="w-full max-w-[200px] justify-self-center h-fit items-start"
               >
                 <BtnCheckBox
                   {...{
@@ -90,8 +90,22 @@ const ValsCol: FC = () => {
           : currFilter.fields.map((el) => (
               <FormField
                 key={el.id}
-                {...{ el: el as FormFieldBasic, register, errors }}
-              />
+                {...{
+                  el: el as FormFieldBasic,
+                  register,
+                  errors,
+                  styleContErr: {
+                    top: "-100%",
+                    right: "0%",
+                  },
+                }}
+              >
+                <div className="w-full flex justify-start py-3">
+                  <span className="txt__1 text-red-600">
+                    {errors?.[(el as FormFieldBasic).field]?.message as string}
+                  </span>
+                </div>
+              </FormField>
             ))}
       </div>
     </div>

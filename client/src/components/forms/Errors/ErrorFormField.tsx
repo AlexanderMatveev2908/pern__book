@@ -7,7 +7,9 @@ import { FieldErrors } from "react-hook-form";
 type PropsType = {
   errors: FieldErrors;
   el: FormFieldBasic;
-  styleCont?: any;
+  styleCont?: {
+    [key: string]: string;
+  };
   index?: number;
 };
 
@@ -31,13 +33,16 @@ const ErrorFormField: FC<PropsType> = ({ errors, el, styleCont, index }) => {
     <div
       className={`absolute transition-all pointer-events-none duration-[0.4s] ${
         msg ? "translate-y-0 opacity-100" : "translate-y-[100px] opacity-0"
-      } min-h-full z__drop_store_handler`}
+      } min-h-full z-60`}
       style={styleCont ?? defStyle}
     >
       <div
         className={`text-red-600 border-2 border-red-600 rounded-xl py-1 px-5 bg-[#000] relative`}
       >
-        <span className="txt__1 text-red-600 break-after-all">
+        <span
+          className="txt__1 text-red-600 text-nowrap
+          sm:break-after-all"
+        >
           {(msg as string) || prevErr}
         </span>
         <div

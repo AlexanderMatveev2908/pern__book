@@ -101,7 +101,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
         <DropHandler {...{ el: dropLabel, isDropOpen, setIsDropOpen }} />
 
         <ul
-          className={`grid absolute bg-neutral-950  border-2 border-blue-600 py-2 max-h-[150px] w-full left-0 top-[65px] rounded-xl px-3  scrollbar__app  scrollbar__y overflow-y-scroll z__drop_store transition-all duration-300 ${
+          className={`grid absolute bg-neutral-950  border-2 border-blue-600 py-2 max-h-[150px] w-full left-0 top-[65px] rounded-xl px-3  scrollbar__app  scrollbar__y overflow-y-scroll z-60 transition-all duration-300 ${
             isDropOpen
               ? "pointer-events-auto -translate-y-[0] opacity-100"
               : "pointer-events-none -translate-y-[100px] opacity-0"

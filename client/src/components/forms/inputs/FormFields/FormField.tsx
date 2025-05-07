@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, ReactNode } from "react";
 import { capt } from "@/core/lib/lib.ts";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
 import { FormBaseProps, FormFieldBasic } from "@/types/types.ts";
@@ -8,6 +8,10 @@ type PropsType = {
   showLabel?: boolean;
   customStyle?: string;
   index?: number;
+  styleContErr?: {
+    [key: string]: string;
+  };
+  children?: ReactNode;
 } & FormBaseProps;
 
 const FormField: FC<PropsType> = ({
@@ -17,6 +21,8 @@ const FormField: FC<PropsType> = ({
   customStyle,
   showLabel = true,
   index,
+  styleContErr,
+  children,
 }) => {
   const registerParamHook =
     typeof index === "number" ? `items.${index}.${el.field}` : el.field;
@@ -36,7 +42,11 @@ const FormField: FC<PropsType> = ({
             className={`${customStyle ?? "input__base"} txt__2`}
             {...register(registerParamHook)}
           />
-          <ErrorFormField {...{ errors, el, index }} />
+          {children ?? (
+            <ErrorFormField
+              {...{ errors, el, index, styleCont: styleContErr }}
+            />
+          )}
         </div>
       </label>
     </div>

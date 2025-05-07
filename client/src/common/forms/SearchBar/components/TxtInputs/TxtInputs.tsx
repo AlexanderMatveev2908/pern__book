@@ -34,6 +34,7 @@ const TxtInputs: FC<PropsType> = ({ children }) => {
               register,
               errors,
               customStyle: "input__lg",
+              styleContErr: { top: "-75%", right: "-0%" },
             }}
           />
 
