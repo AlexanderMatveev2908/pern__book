@@ -39,17 +39,23 @@ const SearchBar: FC<PropsType> = ({
     watch,
     clearErrors,
     formState: { errors },
+    trigger,
   } = useFormContext();
 
   useEffect(() => {
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updated = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updated);
-    if (!savedLabels?.length)
+    if (!savedLabels?.length) {
       saveStorage({ key: keyStorageLabels, data: updated });
+    } else {
+      for (const el of savedLabels) {
+        trigger(el.field);
+      }
+    }
 
     setSearch({ el: "currFilter", val: filters[0] });
-  }, [filters, setSearch, setTxtInputs, txtInputs, keyStorageLabels]);
+  }, [filters, setSearch, setTxtInputs, txtInputs, keyStorageLabels, trigger]);
 
   const vals = watch();
 
