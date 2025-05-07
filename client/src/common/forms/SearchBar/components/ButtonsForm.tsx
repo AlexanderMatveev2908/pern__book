@@ -14,10 +14,16 @@ import { delKeyStorage, getSizeSearchbarBtns } from "@/core/lib/lib";
 type PropsType = {
   txtInputs: FormFieldBasic[];
   setFocus: UseFormSetFocus<any>;
-  keyStorage: StorageKeys;
+  keyStorageVals: StorageKeys;
+  keyStorageLabels: StorageKeys;
 };
 
-const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus, keyStorage }) => {
+const ButtonsForm: FC<PropsType> = ({
+  txtInputs,
+  setFocus,
+  keyStorageVals,
+  keyStorageLabels,
+}) => {
   const {
     setBar,
     labels: { labelSubmit },
@@ -44,7 +50,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus, keyStorage }) => {
         </div>
 
         <div className="w-full">
-          <DropInputs {...{ txtInputs, setFocus }} />
+          <DropInputs {...{ txtInputs, setFocus, keyStorageLabels }} />
         </div>
       </div>
 
@@ -76,7 +82,8 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, setFocus, keyStorage }) => {
               Icon: MdClear,
               handleClick: () => {
                 reset({});
-                delKeyStorage(keyStorage);
+                delKeyStorage(keyStorageVals);
+                delKeyStorage(keyStorageLabels);
               },
             }}
           />

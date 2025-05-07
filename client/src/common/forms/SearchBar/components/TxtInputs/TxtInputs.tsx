@@ -1,20 +1,22 @@
 import { FC, ReactNode } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
-import { BtnAct } from "@/types/types";
+import { BtnAct, StorageKeys } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { saveStorage } from "@/core/lib/lib";
 
 type PropsType = {
   children: ReactNode;
+  keyStorageLabels: StorageKeys;
 };
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ children }) => {
+const TxtInputs: FC<PropsType> = ({ children, keyStorageLabels }) => {
   const { activeTxtInputs, setTxtInputs } = useSearchCtx();
 
   const {
@@ -45,9 +47,11 @@ const TxtInputs: FC<PropsType> = ({ children }) => {
                 act: BtnAct.DEL,
                 handleClick: () => {
                   setValue(el.field, "");
-                  setTxtInputs(
-                    activeTxtInputs.filter((val) => val.field !== el.field)
+                  const filtered = activeTxtInputs.filter(
+                    (val) => val.field !== el.field
                   );
+                  setTxtInputs(filtered);
+                  saveStorage({ key: keyStorageLabels, data: filtered });
                 },
               }}
             />

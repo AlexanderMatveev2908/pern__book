@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { makeDelay } from "@/core/lib/lib";
-import { FormFieldBasic } from "@/types/types";
+import { makeDelay, saveStorage } from "@/core/lib/lib";
+import { FormFieldBasic, StorageKeys } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { UseFormSetFocus } from "react-hook-form";
 import { FaSearchPlus } from "react-icons/fa";
@@ -10,13 +10,18 @@ import { FaSearchPlus } from "react-icons/fa";
 type PropsType = {
   txtInputs: FormFieldBasic[];
   setFocus: UseFormSetFocus<any>;
+  keyStorageLabels: StorageKeys;
 };
 
 const addFieldBtn = {
   icon: FaSearchPlus,
 };
 
-const DropInputs: FC<PropsType> = ({ txtInputs, setFocus }) => {
+const DropInputs: FC<PropsType> = ({
+  txtInputs,
+  setFocus,
+  keyStorageLabels,
+}) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
 
@@ -58,7 +63,9 @@ const DropInputs: FC<PropsType> = ({ txtInputs, setFocus }) => {
           activeTxtInputs.includes(el) ? null : (
             <li
               onClick={async () => {
-                setTxtInputs([...activeTxtInputs, el]);
+                const updated = [...activeTxtInputs, el];
+                setTxtInputs(updated);
+                saveStorage({ key: keyStorageLabels, data: updated });
                 await makeDelay(async () => await setFocus(el.field), 0);
                 setIsDropOpen(false);
               }}

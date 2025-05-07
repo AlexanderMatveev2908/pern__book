@@ -1,4 +1,4 @@
-import { FC, useEffect, useLayoutEffect } from "react";
+import { FC, useEffect } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -12,14 +12,15 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
-import { makeNum } from "@/core/lib/lib";
+import { getStorage, makeNum } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 
 type PropsType = {
   isLoading?: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
-  keyStorage: StorageKeys;
+  keyStorageVals: StorageKeys;
+  keyStorageLabels: StorageKeys;
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
 };
@@ -29,7 +30,8 @@ const SearchBar: FC<PropsType> = ({
   txtInputs,
   filters,
   numericFilters,
-  keyStorage,
+  keyStorageVals,
+  keyStorageLabels,
 }) => {
   const { setTxtInputs, setSearch } = useSearchCtx();
 
@@ -40,10 +42,11 @@ const SearchBar: FC<PropsType> = ({
     formState: { errors },
   } = useFormContext();
 
-  useLayoutEffect(() => {
-    setTxtInputs([txtInputs[0]]);
+  useEffect(() => {
+    const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
+    setTxtInputs(savedLabels.length ? savedLabels : [txtInputs[0]]);
     setSearch({ el: "currFilter", val: filters[0] });
-  }, [filters, setSearch, setTxtInputs, txtInputs]);
+  }, [filters, setSearch, setTxtInputs, txtInputs, keyStorageLabels]);
 
   const vals = watch();
 
@@ -82,8 +85,10 @@ const SearchBar: FC<PropsType> = ({
       <BgBlack />
       <FilterBar {...{ filters, numericFilters }} />
 
-      <TxtInputs {...{ txtInputs }}>
-        <ButtonsForm {...{ txtInputs, setFocus, keyStorage }} />
+      <TxtInputs {...{ txtInputs, keyStorageLabels }}>
+        <ButtonsForm
+          {...{ txtInputs, setFocus, keyStorageVals, keyStorageLabels }}
+        />
       </TxtInputs>
     </form>
   );
