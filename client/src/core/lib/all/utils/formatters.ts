@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
   `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;
 
@@ -86,4 +87,10 @@ export const formatValDel = (key: string, val: any) => {
     default:
       throw new Error(`Invalid key: ${key}`);
   }
+};
+
+export const makeNum = (type: "min" | "max", txt?: string) => {
+  const formatted = type === "min" ? +(txt ?? "0") : +(txt || Infinity);
+
+  return isNaN(formatted) ? (type === "min" ? 0 : Infinity) : formatted;
 };

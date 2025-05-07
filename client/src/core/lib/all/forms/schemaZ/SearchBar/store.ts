@@ -18,6 +18,10 @@ export const msgsFormStore = {
     min: "Min price is bigger than max price",
     max: "Max price is lower than min price",
   },
+  qty: {
+    min: "Min qty must be lower than max qty",
+    max: "Max qty must be bigger than min qty",
+  },
 };
 
 export const searchBarStore = z
@@ -114,7 +118,22 @@ export const searchBarStore = z
           code: "custom",
           message: msgsFormStore.price.max,
           path: ["maxAvgPrice"],
-          params: { type: "DISPARITY" },
+        });
+    }
+
+    if (isValidNumber(data?.minAvgQty) && isValidNumber(data?.maxAvgQty)) {
+      if (+data.minAvgQty! > +data.maxAvgQty!)
+        ctx.addIssue({
+          code: "custom",
+          path: ["minAvgQty"],
+          message: msgsFormStore.qty.min,
+        });
+
+      if (+data.maxAvgQty! < +data.minAvgQty!)
+        ctx.addIssue({
+          code: "custom",
+          path: ["maxAvgQty"],
+          message: msgsFormStore.qty.max,
         });
     }
   });

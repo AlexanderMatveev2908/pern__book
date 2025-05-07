@@ -11,7 +11,7 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
-import { __cg } from "@/core/lib/lib";
+import { __cg, makeNum } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 
 type PropsType = {
@@ -49,11 +49,23 @@ const SearchBar: FC<PropsType> = ({
       if (
         errors?.minAvgPrice?.message === msgsFormStore.price.min ||
         errors?.maxAvgPrice?.message === msgsFormStore.price.max
-      )
-        if (+(vals?.minAvgPrice ?? "0") < +(vals?.maxAvgPrice ?? "0")) {
+      ) {
+        if (
+          makeNum("min", vals?.minAvgPrice) < makeNum("max", vals?.maxAvgPrice)
+        ) {
           clearErrors("minAvgPrice");
           clearErrors("maxAvgPrice");
         }
+      }
+      if (
+        errors?.minAvgQty?.message === msgsFormStore.qty.min ||
+        errors?.maxAvgQty?.message === msgsFormStore.qty.max
+      ) {
+        if (makeNum("min", vals?.minAvgQty) < makeNum("max", vals?.maxAvgQty)) {
+          clearErrors("minAvgQty");
+          clearErrors("maxAvgQty");
+        }
+      }
     };
 
     handleErrors();
