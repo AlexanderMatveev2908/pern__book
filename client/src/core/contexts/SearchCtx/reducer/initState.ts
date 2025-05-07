@@ -4,6 +4,11 @@ import {
   FormFieldBasic,
   NumericFilterSearch,
 } from "@/types/types";
+import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
+
+export type ArgsSearchType = (SearchStoreFormType | { a: "test" }) & {
+  _?: number;
+};
 
 export type SearchCtxStateType = {
   labels: {
@@ -19,6 +24,7 @@ export type SearchCtxStateType = {
     currFilter: FilterSearch | NumericFilterSearch | null;
     currSorter: FilterSearch | null;
   };
+  args: ArgsSearchType;
 };
 
 export const initStateSearch: SearchCtxStateType = {
@@ -35,4 +41,5 @@ export const initStateSearch: SearchCtxStateType = {
     currFilter: null,
     currSorter: null,
   },
+  args: {},
 };

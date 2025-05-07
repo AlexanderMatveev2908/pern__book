@@ -5,7 +5,7 @@ import {
   SearchCtxActions,
   SearchCtxActionsType,
 } from "../reducer/actions";
-import { SearchCtxStateType } from "../reducer/initState";
+import { ArgsSearchType, SearchCtxStateType } from "../reducer/initState";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { FormFieldBasic } from "@/types/types";
 
@@ -18,6 +18,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setTxtInputs: (val: FormFieldBasic[]) => void;
   setBar: (params: ParamsBar) => void;
   setSearch: (params: ParamsSearch) => void;
+  setArgs: (vals: ArgsSearchType) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -66,10 +67,18 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
+  const setArgs = useCallback(
+    (vals: ArgsSearchType) => {
+      dispatch({ type: SearchCtxActions.SET_ARGS, payload: vals });
+    },
+    [dispatch]
+  );
+
   return {
     ...state,
     setTxtInputs,
     setBar,
     setSearch,
+    setArgs,
   };
 };

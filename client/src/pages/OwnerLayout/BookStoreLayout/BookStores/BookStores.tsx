@@ -6,6 +6,7 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
@@ -18,12 +19,14 @@ const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit, setFocus, watch } = formCtx;
+  const { args, setArgs } = useSearchCtx();
+  const { handleSubmit, setFocus, getValues, watch } = formCtx;
   const vals = watch();
-
-  const { args, setArgs } = useDebounce({
+  useDebounce({
+    getValues,
     vals,
     keyStorage: StorageKeys.STORES_OWNER,
+    setArgs,
   });
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(args, {
@@ -33,7 +36,7 @@ const BookStores: FC = () => {
   useFocus({ key: "name", setFocus });
 
   const handleSave = handleSubmit(() => {
-    setArgs({ ...vals, _: Date.now() });
+    setArgs({ ...getValues(), _: Date.now() });
   });
 
   return (

@@ -88,3 +88,10 @@ export const cpyObj = <T>(obj: T): T => {
 
 export const isValidNumber = (txt?: string) =>
   !!txt?.trim()?.length && !isNaN(+txt) && +(txt ?? "0");
+
+export const clearTimer = (timerID: React.RefObject<NodeJS.Timeout | null>) => {
+  if (timerID.current) {
+    clearTimeout(timerID.current);
+    timerID.current = null;
+  }
+};

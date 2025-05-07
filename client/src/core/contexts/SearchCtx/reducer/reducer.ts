@@ -49,6 +49,12 @@ export const reducerSearch = (
       };
     }
 
+    case SearchCtxActions.SET_ARGS:
+      return {
+        ...state,
+        args: action.payload,
+      };
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }
