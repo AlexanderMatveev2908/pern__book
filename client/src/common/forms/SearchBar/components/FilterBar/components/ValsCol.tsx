@@ -1,11 +1,17 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
+import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FilterSubField } from "@/types/types";
-import { FC, useCallback } from "react";
+import { FilterSubField, FormFieldBasic } from "@/types/types";
+import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
 const ValsCol: FC = () => {
-  const { watch, setValue } = useFormContext();
+  const {
+    watch,
+    setValue,
+    register,
+    formState: { errors },
+  } = useFormContext();
   const {
     searchers: { currFilter },
   } = useSearchCtx();
@@ -40,28 +46,53 @@ const ValsCol: FC = () => {
     [watch]
   );
 
+  const isNormalField = useMemo(() => {
+    if (!Array.isArray(currFilter?.fields)) return false;
+
+    return currFilter.fields.every(
+      (el) => "val" in el && typeof el.val === "string"
+    );
+  }, [currFilter]);
+
   return (
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
-      <div className="min-w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-10 gap-y-5">
-        {Array.isArray(currFilter?.fields) &&
-          currFilter.fields.every((el) => !!(el as FilterSubField)?.val) &&
-          currFilter.fields.map((el) => (
-            <div
-              key={el.id}
-              className="w-full max-w-[200px] justify-self-center"
-            >
-              <BtnCheckBox
-                {...{
-                  label: el.label ?? "",
-                  isIn: getIsIn({
-                    key: currFilter.field,
-                    el: el as FilterSubField,
-                  }),
-                  handleClick: () => handleClickVal(el as FilterSubField),
-                }}
+      <div
+        className={`min-w-full grid grid-cols-1 gap-x-10 gap-y-5 ${
+          isNormalField
+            ? "md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+            : "md:grid-cols-2"
+        }`}
+      >
+        {!Array.isArray(currFilter?.fields)
+          ? null
+          : currFilter.fields.every(
+              (el) =>
+                !!(el as FilterSubField)?.val &&
+                typeof (el as FilterSubField)?.val === "string"
+            )
+          ? currFilter.fields.map((el) => (
+              <div
+                key={el.id}
+                className="w-full max-w-[200px] justify-self-center"
+              >
+                <BtnCheckBox
+                  {...{
+                    label: el.label ?? "",
+                    isIn: getIsIn({
+                      key: currFilter.field,
+                      el: el as FilterSubField,
+                    }),
+                    handleClick: () => handleClickVal(el as FilterSubField),
+                  }}
+                />
+              </div>
+            ))
+          : currFilter.fields.map((el) => (
+              <FormField
+                key={el.id}
+                {...{ el: el as FormFieldBasic, register, errors }}
               />
-            </div>
-          ))}
+            ))}
       </div>
     </div>
   );

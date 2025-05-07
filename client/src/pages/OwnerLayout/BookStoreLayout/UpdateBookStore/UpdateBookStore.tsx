@@ -169,7 +169,7 @@ const UpdateBookStore: FC = () => {
 
         nav(`/owner/book-store/${bookStoreID}`);
       },
-      (errs) => handleFocusErrStore(setFocus, errs, setCurrForm)
+      async (errs) => await handleFocusErrStore(setFocus, errs, setCurrForm)
     )(e);
   };
   useFocus({ setFocus: formCtx.setFocus, key: "name" });

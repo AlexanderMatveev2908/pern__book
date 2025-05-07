@@ -85,3 +85,6 @@ export const cpyObj = <T>(obj: T): T => {
 
   return cpy;
 };
+
+export const isValidNumber = (txt?: string) =>
+  !!txt?.trim()?.length && !isNaN(+txt) && +(txt ?? "0");

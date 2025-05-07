@@ -1,4 +1,4 @@
-import { FC, useLayoutEffect } from "react";
+import { FC, useEffect, useLayoutEffect } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -11,6 +11,8 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
+import { __cg } from "@/core/lib/lib";
+import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 
 type PropsType = {
   isLoading?: boolean;
@@ -28,12 +30,37 @@ const SearchBar: FC<PropsType> = ({
 }) => {
   const { setTxtInputs, setSearch } = useSearchCtx();
 
-  const { setFocus } = useFormContext();
+  const {
+    setFocus,
+    watch,
+    clearErrors,
+    formState: { errors },
+  } = useFormContext();
 
   useLayoutEffect(() => {
     setTxtInputs([txtInputs[0]]);
     setSearch({ el: "currFilter", val: filters[0] });
   }, [filters, setSearch, setTxtInputs, txtInputs]);
+
+  const vals = watch();
+
+  useEffect(() => {
+    const handleErrors = () => {
+      if (
+        errors?.minAvgPrice?.message === msgsFormStore.price.min ||
+        errors?.maxAvgPrice?.message === msgsFormStore.price.max
+      )
+        if (+(vals?.minAvgPrice ?? "0") < +(vals?.maxAvgPrice ?? "0")) {
+          clearErrors("minAvgPrice");
+          clearErrors("maxAvgPrice");
+        }
+    };
+
+    handleErrors();
+
+    __cg("vals", vals);
+    __cg("err", errors);
+  }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
 
   return (
     <form

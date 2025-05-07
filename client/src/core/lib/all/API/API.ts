@@ -36,7 +36,7 @@ export const isUnHandledErr = (res: any) => {
   return isUnhandled;
 };
 
-export const makeDelay = (cb: () => any, delay: number = 250) =>
+export const makeDelay = async (cb: () => any, delay: number = 250) =>
   new Promise((res) =>
     setTimeout(async () => {
       const result = await cb();

@@ -75,8 +75,8 @@ const CreateBooksStore: FC = () => {
         reset();
         nav(`/owner/book-store/${res.bookStoreID}`);
       },
-      (errs) => {
-        handleFocusErrStore(setFocus, errs, setCurrForm);
+      async (errs) => {
+        await handleFocusErrStore(setFocus, errs, setCurrForm);
       }
     )(e);
   };

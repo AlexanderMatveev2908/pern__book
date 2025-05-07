@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { __cg, makeDelay } from "@/core/lib/lib";
+import { makeDelay } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
 import { UseFormSetFocus } from "react-hook-form";
@@ -58,7 +59,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs, setFocus }) => {
             <li
               onClick={async () => {
                 setTxtInputs([...activeTxtInputs, el]);
-                makeDelay(async () => await setFocus(el.field), 0);
+                await makeDelay(async () => await setFocus(el.field), 0);
                 setIsDropOpen(false);
               }}
               key={el.id}

@@ -47,7 +47,7 @@ const FilterBar: FC<PropsType> = ({ filters, numericFilters }) => {
       {/* THIS ALLOW CHILDREN SCROLL */}
       <div className="flex flex-col items-start scrollbar__app scrollbar__y overflow-y-auto max-h-full">
         {/* JUST A LABEL AND A CLOSE BTN, HEIGHT DOES NOT MATTER HERE I THINK */}
-        <div className="w-full pt-2 border-b-[3px] border-blue-600">
+        <div className="w-full pt-2 border-b-[3px] relative border-blue-600">
           <div className="flex justify-between items-center px-4">
             <Title {...{ title: "filter", styleParent: "justify-start" }} />
 

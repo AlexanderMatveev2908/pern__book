@@ -9,11 +9,11 @@ import { FieldErrors, UseFormSetFocus } from "react-hook-form";
 import { makeDelay } from "../../API/API";
 
 //
-export const handleFocusErrStore = (
+export const handleFocusErrStore = async (
   setFocus: UseFormSetFocus<any>,
   errs: FieldErrors,
   setCurrForm: (val: number, swapMode?: SwapModeType | null) => void
-): void => {
+): Promise<void> => {
   const errKeys = Object.keys(errs);
 
   if (errKeys.includes("name")) {
@@ -79,7 +79,7 @@ export const handleFocusErrStore = (
           top: distance,
           behavior: "smooth",
         });
-        makeDelay(() => setFocus(curr.field), 500);
+        await makeDelay(() => setFocus(curr.field), 500);
 
         return;
       }

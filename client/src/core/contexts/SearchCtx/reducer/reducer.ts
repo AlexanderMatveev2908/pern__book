@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SearchCtxActions, SearchCtxActionsType } from "./actions";
 import { SearchCtxStateType } from "./initState";
 
