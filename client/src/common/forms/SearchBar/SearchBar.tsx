@@ -12,7 +12,7 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
-import { getStorage, makeNum } from "@/core/lib/lib";
+import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 
 type PropsType = {
@@ -43,7 +43,11 @@ const SearchBar: FC<PropsType> = ({
 
   useEffect(() => {
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
-    setTxtInputs(savedLabels.length ? savedLabels : [txtInputs[0]]);
+    const updated = savedLabels.length ? savedLabels : [txtInputs[0]];
+    setTxtInputs(updated);
+    if (!savedLabels?.length)
+      saveStorage({ key: keyStorageLabels, data: updated });
+
     setSearch({ el: "currFilter", val: filters[0] });
   }, [filters, setSearch, setTxtInputs, txtInputs, keyStorageLabels]);
 

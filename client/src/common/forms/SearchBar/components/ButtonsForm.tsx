@@ -24,6 +24,7 @@ const ButtonsForm: FC<PropsType> = ({
   const {
     setBar,
     labels: { labelSubmit },
+    setTxtInputs,
   } = useSearchCtx();
   const { reset, setFocus } = useFormContext();
 
@@ -78,6 +79,7 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DEL,
               Icon: MdClear,
               handleClick: () => {
+                setTxtInputs([txtInputs[0]]);
                 reset({});
                 delKeyStorage(keyStorageVals);
                 delKeyStorage(keyStorageLabels);
