@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -16,7 +16,7 @@ import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
-import { showErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
+import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 
 type PropsType = {
   isLoading?: boolean;
@@ -38,6 +38,8 @@ const SearchBar: FC<PropsType> = ({
   keyStorageLabels,
   isFetching,
 }) => {
+  const hasRun = useRef<boolean>(false);
+
   const {
     setTxtInputs,
     setSearch,
@@ -58,9 +60,11 @@ const SearchBar: FC<PropsType> = ({
     getValues,
     watch,
   } = useFormContext();
+  const vals = watch();
 
   const { isDirty, dirtyFields } = useFormState({ control });
 
+  // * POPULATE FORM EXISTING VALS
   useEffect(() => {
     const savedVals = getStorage(keyStorageVals);
 
@@ -98,8 +102,7 @@ const SearchBar: FC<PropsType> = ({
     txtInputs,
   ]);
 
-  const vals = watch();
-
+  // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
   useDebounce({
     getValues,
     realTimeVals: vals,
@@ -107,6 +110,19 @@ const SearchBar: FC<PropsType> = ({
     setArgs,
   });
 
+  // * SYNC LOADING SUBMIT AND CLEAR BTN
+  useSyncLoading({
+    isFetching,
+    isPendingCustom: isPending.submit,
+    setIsPending: (val: boolean) => setIsPending({ el: "submit", val }),
+  });
+  useSyncLoading({
+    isFetching,
+    isPendingCustom: isPending.clear,
+    setIsPending: (val: boolean) => setIsPending({ el: "clear", val }),
+  });
+
+  // * CLEAR OLD ERRORS
   useEffect(() => {
     const handleErrors = () => {
       if (
@@ -133,18 +149,26 @@ const SearchBar: FC<PropsType> = ({
 
     handleErrors();
   }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
+  // * OPEN BAR ON ERROR INSIDE IT
+  useEffect(() => {
+    console.log("render");
 
-  useSyncLoading({
-    isFetching,
-    isPendingCustom: isPending.submit,
-    setIsPending: (val: boolean) => setIsPending({ el: "submit", val }),
-  });
-  useSyncLoading({
-    isFetching,
-    isPendingCustom: isPending.clear,
-    setIsPending: (val: boolean) => setIsPending({ el: "clear", val }),
-  });
+    if (isDirty && numericFilters?.length) {
+      const { currArr } =
+        getErrFooterBar({
+          errs: errors,
+          numericFilters,
+        }) ?? {};
 
+      if (!currArr || hasRun.current) return;
+
+      hasRun.current = true;
+      setBar({ el: "filterBar", val: true });
+      setSearch({ el: "currFilter", val: currArr });
+    }
+  }, [isDirty, vals, dirtyFields, numericFilters, errors, setBar, setSearch]);
+
+  // * DISABLE BTN ON ERRORS
   useEffect(() => {
     const handleMainBtn = () => {
       const hasErr =
@@ -159,12 +183,6 @@ const SearchBar: FC<PropsType> = ({
     handleMainBtn();
   }, [vals, setBtnDisabled, errors, isBtnDisabled]);
 
-  useEffect(() => {
-    if (isDirty && numericFilters?.length) {
-      showErrFooterBar({ errs: errors, numericFilters, setBar, setSearch });
-    }
-  }, [isDirty, dirtyFields, numericFilters, errors, setBar, setSearch]);
-
   return (
     <form
       onSubmit={handleSave}
@@ -175,7 +193,13 @@ const SearchBar: FC<PropsType> = ({
 
       <TxtInputs {...{ txtInputs, keyStorageLabels }}>
         <ButtonsForm
-          {...{ txtInputs, keyStorageVals, keyStorageLabels, isFetching }}
+          {...{
+            txtInputs,
+            keyStorageVals,
+            keyStorageLabels,
+            isFetching,
+            numericFilters,
+          }}
         />
       </TxtInputs>
     </form>

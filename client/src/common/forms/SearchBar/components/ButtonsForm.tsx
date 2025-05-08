@@ -1,7 +1,12 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import DropInputs from "./TxtInputs/DropInputs";
-import { BtnAct, FormFieldBasic, StorageKeys } from "@/types/types";
+import {
+  BtnAct,
+  FormFieldBasic,
+  NumericFilterSearch,
+  StorageKeys,
+} from "@/types/types";
 import { IoFilter } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
@@ -13,12 +18,15 @@ import {
   getSizeSearchbarBtns,
   saveStorage,
 } from "@/core/lib/lib";
+import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
+import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
   keyStorageVals: StorageKeys;
   keyStorageLabels: StorageKeys;
   isFetching: boolean;
+  numericFilters?: NumericFilterSearch[];
 };
 
 const ButtonsForm: FC<PropsType> = ({
@@ -26,6 +34,7 @@ const ButtonsForm: FC<PropsType> = ({
   keyStorageVals,
   keyStorageLabels,
   isFetching,
+  numericFilters,
 }) => {
   const {
     setBar,
@@ -34,15 +43,26 @@ const ButtonsForm: FC<PropsType> = ({
     isPending,
     setIsPending,
     setArgs,
-    isBtnDisabled,
   } = useSearchCtx();
-  const { reset } = useFormContext();
+  const {
+    reset,
+    formState: { errors },
+    watch,
+  } = useFormContext();
+
+  const vals = watch();
+
+  const field = useMemo(
+    () => getErrFooterBar({ errs: errors, numericFilters })?.currEl,
+    // eslint-disable-next-line
+    [numericFilters, errors, vals]
+  );
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
       <div className="w-full grid grid-cols-2 lg:grid-cols-[1fr_75px] gap-x-10 items-center search_bar_btns_right">
         <div
-          className={`w-full justify-self-center ${getSizeSearchbarBtns(
+          className={`w-full justify-self-center relative ${getSizeSearchbarBtns(
             labelSubmit
           )}`}
         >
@@ -55,6 +75,8 @@ const ButtonsForm: FC<PropsType> = ({
               },
             }}
           />
+
+          {field && <ErrorFormField {...{ errors, el: field }} />}
         </div>
 
         <div className="w-full">
@@ -75,7 +97,7 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DO,
               Icon: FaSearch,
               isPending: isPending.submit,
-              isDisabled: isFetching || isBtnDisabled,
+              isDisabled: isFetching,
             }}
           />
         </div>

@@ -9,7 +9,7 @@ import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxCon
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { showErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
+import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { StorageKeys } from "@/types/types";
@@ -39,12 +39,16 @@ const BookStores: FC = () => {
       setArgs({ ...getValues(), _: Date.now() });
     },
     (errs) => {
-      showErrFooterBar({
-        errs,
-        setSearch,
-        setBar,
-        numericFilters: numericFiltersStore,
-      });
+      const { currArr } =
+        getErrFooterBar({
+          errs,
+          numericFilters: numericFiltersStore,
+        }) ?? {};
+
+      if (!currArr) return;
+
+      setBar({ el: "filterBar", val: true });
+      setSearch({ el: "currFilter", val: currArr });
     }
   );
 
