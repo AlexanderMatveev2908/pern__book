@@ -37,6 +37,7 @@ type PropsType = {
   keyStorageLabels: StorageKeys;
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
+  defVals: ArgsSearchType;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -48,6 +49,7 @@ const SearchBar: FC<PropsType> = ({
   keyStorageLabels,
   isFetching,
   isLoading,
+  defVals,
 }) => {
   // const savedVals = getStorage(keyStorageVals);
   const hasWarningRun = useRef<boolean>(false);
@@ -57,7 +59,7 @@ const SearchBar: FC<PropsType> = ({
     //   : {
     //       [txtInputs[0].field]: "",
     //     }
-    {}
+    defVals
   );
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
@@ -94,9 +96,7 @@ const SearchBar: FC<PropsType> = ({
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updatedLabels = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updatedLabels);
-
-    if (!savedLabels?.length)
-      saveStorage({ key: keyStorageLabels, data: updatedLabels });
+    saveStorage({ key: keyStorageLabels, data: updatedLabels });
 
     setSearch({ el: "currFilter", val: filters[0] });
 
@@ -168,6 +168,7 @@ const SearchBar: FC<PropsType> = ({
     setPopulated,
     isPopulated,
     canSpin,
+    setCanSpin,
   ]);
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
@@ -273,6 +274,7 @@ const SearchBar: FC<PropsType> = ({
             keyStorageLabels,
             isFetching,
             numericFilters,
+            defVals,
           }}
         />
       </TxtInputs>
