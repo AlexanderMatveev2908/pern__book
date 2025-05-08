@@ -12,10 +12,11 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext, useFormState, useWatch } from "react-hook-form";
 import "./SearchBar.css";
-import { __cg, getStorage, makeNum, saveStorage } from "@/core/lib/lib";
+import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
+import { showErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 
 type PropsType = {
   isLoading?: boolean;
@@ -44,6 +45,7 @@ const SearchBar: FC<PropsType> = ({
     setIsPending,
     setBtnDisabled,
     setArgs,
+    setBar,
   } = useSearchCtx();
 
   const {
@@ -72,9 +74,15 @@ const SearchBar: FC<PropsType> = ({
     if (savedVals) {
       const parsed = JSON.parse(savedVals);
       for (const key in parsed) {
-        setValue(key, parsed[key], {
-          shouldValidate: true,
-        });
+        const val = parsed[key];
+        if (
+          (typeof val === "string" && val.trim().length) ||
+          (Array.isArray(val) && val.length)
+        )
+          setValue(key, val, {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
       }
     }
   }, [
@@ -142,10 +150,12 @@ const SearchBar: FC<PropsType> = ({
   }, [vals, setBtnDisabled, errors]);
 
   useEffect(() => {
-    __cg("form", isDirty);
-    __cg("fields", dirtyFields);
-  }, [vals, isDirty, dirtyFields]);
+    if (isDirty && numericFilters?.length) {
+      showErrFooterBar({ errs: errors, numericFilters, setBar, setSearch });
+    }
+  }, [isDirty, dirtyFields, numericFilters, errors, setBar, setSearch]);
 
+  console.log("render");
   return (
     <form
       onSubmit={handleSave}

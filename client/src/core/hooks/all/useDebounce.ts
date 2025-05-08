@@ -21,7 +21,6 @@ export const useDebounce = ({
   const oldVals = useRef<ArgsSearchType>(getValues());
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
-  console.log("render");
   useEffect(() => {
     timerID.current = setTimeout(() => {
       const currVals = getValues();

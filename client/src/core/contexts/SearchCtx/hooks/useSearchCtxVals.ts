@@ -10,7 +10,6 @@ import { ArgsSearchType, SearchCtxStateType } from "../reducer/initState";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { FormFieldBasic } from "@/types/types";
 import { FieldErrors } from "react-hook-form";
-import { isObjOk } from "@/core/lib/lib";
 
 type Params = {
   state: SearchCtxStateType;
@@ -90,7 +89,7 @@ export const useSearchCtxVals = ({
     (errs: FieldErrors) => {
       const hasErr =
         !!Object.keys(errs ?? {}).length &&
-        Object.values(errs).every((el) => isObjOk(el));
+        Object.values(errs).every((el) => !!el);
 
       if (hasErr === state.isBtnDisabled) return null;
 

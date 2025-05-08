@@ -9,6 +9,7 @@ import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxCon
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { showErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { StorageKeys } from "@/types/types";
@@ -19,7 +20,8 @@ const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { args, setArgs, setIsPending, isBtnDisabled } = useSearchCtx();
+  const { args, setArgs, setIsPending, isBtnDisabled, setSearch, setBar } =
+    useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
@@ -31,10 +33,20 @@ const BookStores: FC = () => {
   useWrapQueryAPI({ ...res });
   useFocus({ key: "name", setFocus });
 
-  const handleSave = handleSubmit(() => {
-    setIsPending({ el: "submit", val: true });
-    setArgs({ ...getValues(), _: Date.now() });
-  });
+  const handleSave = handleSubmit(
+    () => {
+      setIsPending({ el: "submit", val: true });
+      setArgs({ ...getValues(), _: Date.now() });
+    },
+    (errs) => {
+      showErrFooterBar({
+        errs,
+        setSearch,
+        setBar,
+        numericFilters: numericFiltersStore,
+      });
+    }
+  );
 
   return (
     <WrapPageAPI
