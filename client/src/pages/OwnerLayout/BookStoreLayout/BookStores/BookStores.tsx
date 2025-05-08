@@ -30,7 +30,7 @@ const BookStores: FC = () => {
     isBtnDisabled,
     setSearch,
     setBar,
-    pagination,
+    pagination: { page, limit },
   } = useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
 
@@ -48,7 +48,8 @@ const BookStores: FC = () => {
       setIsPending({ el: "submit", val: true });
       setArgs({
         ...(getValues() as ArgsSearchType),
-        ...pagination,
+        page,
+        limit,
         _: Date.now(),
       });
     },
@@ -93,7 +94,7 @@ const BookStores: FC = () => {
             isLoading: res?.isLoading || res?.isFetching || !isPopulated,
           }}
         >
-          <PagesCounter />
+          <PagesCounter {...{ totPages: 20 }} />
         </WrapPageAPI>
       </div>
     </WrapPageAPI>

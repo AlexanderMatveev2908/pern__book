@@ -236,10 +236,10 @@ button:disabled {
   @apply opacity-50;
 }
 
-.btn__logic_sm,
-.btn__logic_md,
-.btn__logic_lg,
-.btn__logic_xl {
+.btn__logic_sm:enabled,
+.btn__logic_md:enabled,
+.btn__logic_lg:enabled,
+.btn__logic_xl:enabled {
   transition: 0.3s;
   cursor: pointer;
 }

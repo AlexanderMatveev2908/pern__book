@@ -32,7 +32,7 @@ export type ParamsPending = {
 };
 
 export type ParamsPagination = {
-  el: "limit" | "page";
+  el: "limit" | "page" | "block";
   val: number;
 };
 

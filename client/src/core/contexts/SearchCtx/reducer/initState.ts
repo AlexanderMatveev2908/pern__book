@@ -5,9 +5,12 @@ import {
   NumericFilterSearch,
 } from "@/types/types";
 import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
+import { setLimitCards } from "@/core/lib/lib";
 
 export type ArgsSearchType = (SearchStoreFormType | { a: "test" }) & {
   _?: number;
+  page?: number;
+  limit?: number;
 };
 
 export type SearchCtxStateType = {
@@ -33,6 +36,7 @@ export type SearchCtxStateType = {
   isPopulated: boolean;
   canMakeAPI: boolean;
   pagination: {
+    block: number;
     page: number;
     limit: number;
   };
@@ -61,7 +65,8 @@ export const initStateSearch: SearchCtxStateType = {
   isPopulated: false,
   canMakeAPI: true,
   pagination: {
-    limit: 5,
+    block: 0,
+    limit: setLimitCards(),
     page: 0,
   },
 };
