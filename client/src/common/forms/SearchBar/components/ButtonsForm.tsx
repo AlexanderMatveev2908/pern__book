@@ -16,6 +16,7 @@ import { FaSearch } from "react-icons/fa";
 import {
   delKeyStorage,
   getSizeSearchbarBtns,
+  makeDelay,
   saveStorage,
 } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
@@ -43,17 +44,20 @@ const ButtonsForm: FC<PropsType> = ({
     isPending,
     setIsPending,
     setArgs,
+    isBtnDisabled,
+    setSearch,
   } = useSearchCtx();
   const {
     reset,
     formState: { errors },
     watch,
+    setFocus,
   } = useFormContext();
 
   const vals = watch();
 
-  const field = useMemo(
-    () => getErrFooterBar({ errs: errors, numericFilters })?.currEl,
+  const errEl = useMemo(
+    () => getErrFooterBar({ errs: errors, numericFilters }),
     // eslint-disable-next-line
     [numericFilters, errors, vals]
   );
@@ -68,7 +72,13 @@ const ButtonsForm: FC<PropsType> = ({
         >
           <ButtonIcon
             {...{
-              handleClick: () => setBar({ val: true, el: "filterBar" }),
+              handleClick: () => {
+                setBar({ val: true, el: "filterBar" });
+                if (errEl !== null) {
+                  setSearch({ el: "currFilter", val: errEl.currArr });
+                  makeDelay(() => setFocus(errEl.currEl.field), 0);
+                }
+              },
               el: {
                 icon: IoFilter,
                 label: labelSubmit ? "Filter" : null,
@@ -76,7 +86,7 @@ const ButtonsForm: FC<PropsType> = ({
             }}
           />
 
-          {field && <ErrorFormField {...{ errors, el: field }} />}
+          {errEl && <ErrorFormField {...{ errors, el: errEl?.currArr }} />}
         </div>
 
         <div className="w-full">
@@ -97,7 +107,7 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DO,
               Icon: FaSearch,
               isPending: isPending.submit,
-              isDisabled: isFetching,
+              isDisabled: isFetching || isBtnDisabled,
             }}
           />
         </div>
