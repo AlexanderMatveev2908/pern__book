@@ -12,7 +12,7 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
-import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
+import { getStorage, makeDelay, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
@@ -58,6 +58,7 @@ const SearchBar: FC<PropsType> = ({
     formState: { isDirty, dirtyFields, errors },
     getValues,
     watch,
+    setFocus,
   } = useFormContext();
   const vals = watch();
 
@@ -149,7 +150,7 @@ const SearchBar: FC<PropsType> = ({
   // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {
     if (isDirty && numericFilters?.length) {
-      const { currArr } =
+      const { currArr, currEl } =
         getErrFooterBar({
           errs: errors,
           numericFilters,
@@ -160,8 +161,21 @@ const SearchBar: FC<PropsType> = ({
       hasRun.current = true;
       setBar({ el: "filterBar", val: true });
       setSearch({ el: "currFilter", val: currArr });
+      if (currEl)
+        makeDelay(() => {
+          setFocus(currEl.field);
+        }, 150);
     }
-  }, [isDirty, vals, dirtyFields, numericFilters, errors, setBar, setSearch]);
+  }, [
+    isDirty,
+    vals,
+    dirtyFields,
+    numericFilters,
+    errors,
+    setFocus,
+    setBar,
+    setSearch,
+  ]);
 
   // * DISABLE BTN ON ERRORS
   // ? YOU COULD LEAVE BTN ENABLED AND OPEN BAR ON CLICK AS SECOND CB IN HANDLE_SUBMIT OF REACT_USE_FORM, IT DEPENDS ON YOUR PREFERENCE, THE IMPORTANT THING IS JUST TO SKIP QUERY ON ERROR TO AVOID SENDING INVALID INPUTS LIKE `<script></script>`
