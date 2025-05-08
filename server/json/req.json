@@ -1,8 +1,15 @@
 {
   "files": {},
   "file": {},
-  "query": {},
+  "query": {
+    "categories": [
+      "classics",
+      "philosophy",
+      "history",
+      "psychology"
+    ]
+  },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjcxMjcxNiwiZXhwIjoxNzQ2NzEyNzc2fQ.157mCHMKxEPhOJkRBkxfZ5U3O7e2XrY1lbER_0_jwj8",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjcxMzMwMywiZXhwIjoxNzQ2NzEzMzYzfQ.Zg5FkvyPBsK74YME5LHKEmyzH-LWUljCOmrb5bV-450",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.KN9dNfbKPkFQQOSy4-szq1DIy4LCXAlRF-XzBt-IU-Lxhb0zMzCzCuklr6HyfYt5GxWCb8w5lYDkDvUKdPahRJ0TGMliI2NGe-RI3kulRsvFIyFnW3gJJI2lrIXqmDhq5qnC-XTJXp7XU1LiQIf53Hk9UK8IOn46V1_iSza7tVBBkIRVm-_ZOoSKKeAt9Q3p74ucsV7hVCywYwttFMKfvGni2VsfODZ-PjJbhypPWRjlOmL-F1TbqDlIcTi5o0zLpWO6uikPDIITY3bjQxT1Ttz_oxp2eCqy37VVA2SWkUq6FYcokIbMbkN0yV2O9YndsMQIsYnMK40VyEiVvbeM2A.hO6QmF-LR-ape2x0.urYTNG-R3_L1KFtnYNwIlQTzmt88txgHj-2-Hj_3TLYEVHL4a6x18rc-lFWf.vX2hzGZOc3iMB8PTH8pCLg"
 }

@@ -13,7 +13,6 @@ import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
 import {
-  __cg,
   clearTimer,
   getStorage,
   isObjOk,
@@ -130,10 +129,6 @@ const SearchBar: FC<PropsType> = ({
       const currVals = getValues();
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      __cg("old", oldVals.current);
-      __cg("new", currVals);
-      __cg("same", isSame);
-
       if (isSame) {
         if (
           !isPopulated &&
@@ -245,6 +240,9 @@ const SearchBar: FC<PropsType> = ({
       const hasErr =
         !!Object.keys(errors ?? {}).length &&
         Object.values(errors).every((el) => el?.message);
+      // const currVals = getValues();
+      // const isSame: boolean = isSameData(oldVals.current, currVals);
+      // const isDisabled = hasErr || isSame;
 
       if (hasErr === isBtnDisabled) return null;
 
@@ -252,7 +250,7 @@ const SearchBar: FC<PropsType> = ({
     };
 
     handleMainBtn();
-  }, [vals, setBtnDisabled, errors, isBtnDisabled]);
+  }, [vals, setBtnDisabled, errors, isBtnDisabled, getValues]);
 
   return isLoading ? (
     <SkeletonBar />
