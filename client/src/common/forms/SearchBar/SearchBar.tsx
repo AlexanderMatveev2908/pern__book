@@ -164,6 +164,7 @@ const SearchBar: FC<PropsType> = ({
   }, [isDirty, vals, dirtyFields, numericFilters, errors, setBar, setSearch]);
 
   // * DISABLE BTN ON ERRORS
+  // ? YOU COULD LEAVE BTN ENABLED AND OPEN BAR ON CLICK AS SECOND CB IN HANDLE_SUBMIT OF REACT_USE_FORM, IT DEPENDS ON YOUR PREFERENCE, THE IMPORTANT THING IS JUST TO SKIP QUERY ON ERROR TO AVOID SENDING INVALID INPUTS LIKE `<script></script>`
   useEffect(() => {
     const handleMainBtn = () => {
       const hasErr =
