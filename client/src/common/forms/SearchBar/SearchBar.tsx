@@ -17,6 +17,7 @@ import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
+import SkeletonBar from "./components/SkeletonBar";
 
 type PropsType = {
   isLoading?: boolean;
@@ -37,6 +38,7 @@ const SearchBar: FC<PropsType> = ({
   keyStorageVals,
   keyStorageLabels,
   isFetching,
+  isLoading,
 }) => {
   const hasRun = useRef<boolean>(false);
 
@@ -193,10 +195,12 @@ const SearchBar: FC<PropsType> = ({
     handleMainBtn();
   }, [vals, setBtnDisabled, errors, isBtnDisabled]);
 
-  return (
+  return isLoading ? (
+    <SkeletonBar />
+  ) : (
     <form
       onSubmit={handleSave}
-      className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4 "
+      className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4"
     >
       <BgBlack />
       <FilterBar {...{ filters, numericFilters }} />
