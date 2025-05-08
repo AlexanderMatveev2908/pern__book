@@ -69,8 +69,8 @@ const SearchBar: FC<PropsType> = ({
     setArgs,
     setBar,
     isBtnDisabled,
-    canSpin,
-    setCanSpin,
+    canMakeAPI,
+    setCanMakeAPI,
     setPopulated,
     isPopulated,
   } = useSearchCtx();
@@ -140,11 +140,12 @@ const SearchBar: FC<PropsType> = ({
         return null;
       }
 
-      oldVals.current = currVals;
+      oldVals.current = currVals as ArgsSearchType;
       saveStorage({ key: keyStorageVals, data: currVals });
 
-      if (canSpin) setArgs({ ...currVals, _: Date.now() });
-      else setCanSpin(true);
+      if (canMakeAPI)
+        setArgs({ ...(currVals as ArgsSearchType), _: Date.now() });
+      else setCanMakeAPI(true);
 
       clearTimer(timerID);
     }, 500);
@@ -158,8 +159,8 @@ const SearchBar: FC<PropsType> = ({
     setArgs,
     vals,
     txtInputs,
-    canSpin,
-    setCanSpin,
+    canMakeAPI,
+    setCanMakeAPI,
     setPopulated,
     isPopulated,
   ]);

@@ -79,10 +79,10 @@ export const reducerSearch = (
         isPopulated: action.payload,
       };
 
-    case SearchCtxActions.SET_CAN_SPIN:
+    case SearchCtxActions.SET_CAN_MAKE_API:
       return {
         ...state,
-        canSpin: action.payload,
+        canMakeAPI: action.payload,
       };
 
     default:

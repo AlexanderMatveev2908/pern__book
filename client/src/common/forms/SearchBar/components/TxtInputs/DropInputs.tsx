@@ -34,7 +34,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs, keyStorageLabels }) => {
     };
   }, []);
 
-  const { activeTxtInputs, setTxtInputs, setCanSpin } = useSearchCtx();
+  const { activeTxtInputs, setTxtInputs, setCanMakeAPI } = useSearchCtx();
 
   const arg = useMemo(() => {
     const active = new Set(activeTxtInputs.map((el) => el.field));
@@ -64,7 +64,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs, keyStorageLabels }) => {
         {arg.map((el) => (
           <li
             onClick={async () => {
-              setCanSpin(false);
+              setCanMakeAPI(false);
               const updated = [...activeTxtInputs, el];
               setTxtInputs(updated);
               saveStorage({ key: keyStorageLabels, data: updated });

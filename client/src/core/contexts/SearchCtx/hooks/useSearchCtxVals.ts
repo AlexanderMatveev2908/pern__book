@@ -23,7 +23,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setIsPending: (vals: ParamsPending) => void;
   setBtnDisabled: (val: boolean) => void;
   setPopulated: (val: boolean) => void;
-  setCanSpin: (val: boolean) => void;
+  setCanMakeAPI: (val: boolean) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -99,9 +99,9 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
-  const setCanSpin = useCallback(
+  const setCanMakeAPI = useCallback(
     (val: boolean) =>
-      dispatch({ type: SearchCtxActions.SET_CAN_SPIN, payload: val }),
+      dispatch({ type: SearchCtxActions.SET_CAN_MAKE_API, payload: val }),
     [dispatch]
   );
 
@@ -114,6 +114,6 @@ export const useSearchCtxVals = ({
     setIsPending,
     setBtnDisabled,
     setPopulated,
-    setCanSpin,
+    setCanMakeAPI,
   };
 };

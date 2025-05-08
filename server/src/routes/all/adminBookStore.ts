@@ -14,6 +14,7 @@ import {
 import { updateBookStore } from "../../controllers/adminBookStore/put.js";
 import { checkTeam } from "../../middleware/adminStore/checkTeam.js";
 import { deleteStore } from "../../controllers/adminBookStore/delete.js";
+import { validateQueryListStores } from "../../middleware/adminStore/listStores.js";
 
 const adminExpressRouterStore = express.Router();
 
@@ -29,6 +30,7 @@ adminExpressRouterStore
   )
   .get(
     verifyAccessToken({ isVerified: true }),
+    validateQueryListStores,
     wrapApp(logJSON),
     wrapApp(getAllStores)
   );

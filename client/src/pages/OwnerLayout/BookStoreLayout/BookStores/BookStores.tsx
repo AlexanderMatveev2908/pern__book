@@ -1,4 +1,5 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
+import PagesCounter from "@/components/elements/PagesCounter";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsSearchStore,
@@ -8,6 +9,7 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
@@ -43,7 +45,7 @@ const BookStores: FC = () => {
   const handleSave = handleSubmit(
     () => {
       setIsPending({ el: "submit", val: true });
-      setArgs({ ...getValues(), _: Date.now() });
+      setArgs({ ...(getValues() as ArgsSearchType), _: Date.now() });
     },
     (errs) => {
       const { currArr } =
@@ -65,7 +67,7 @@ const BookStores: FC = () => {
         canStay: user?.isOwner,
       }}
     >
-      <div className="parent__page">
+      <div className="parent__page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar
             {...{
@@ -85,7 +87,9 @@ const BookStores: FC = () => {
           {...{
             isLoading: res?.isLoading || res?.isFetching || !isPopulated,
           }}
-        ></WrapPageAPI>
+        >
+          <PagesCounter />
+        </WrapPageAPI>
       </div>
     </WrapPageAPI>
   );

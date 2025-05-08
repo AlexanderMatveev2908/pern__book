@@ -14,7 +14,7 @@ export enum SearchCtxActions {
   SET_IS_PENDING = "SET_IS_PENDING",
   SET_BTN_DISABLED = "SET_BTN_DISABLED",
   SET_POPULATED = "SET_POPULATED",
-  SET_CAN_SPIN = "SET_CAN_SPIN",
+  SET_CAN_MAKE_API = "SET_CAN_MAKE_API",
 }
 
 export type ParamsBar = {
@@ -64,6 +64,6 @@ export type SearchCtxActionsType =
       payload: boolean;
     }
   | {
-      type: SearchCtxActions.SET_CAN_SPIN;
+      type: SearchCtxActions.SET_CAN_MAKE_API;
       payload: boolean;
     };
