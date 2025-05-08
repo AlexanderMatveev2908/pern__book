@@ -13,7 +13,6 @@ import {
   filtersRating,
 } from "./general";
 import { FaUsers } from "react-icons/fa";
-import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 
 export const fieldsSearchStore: FormFieldBasic[] = [
   {
@@ -93,23 +92,23 @@ export const numericFiltersStore: NumericFilterSearch[] = [
   })),
 }));
 
-export const defValsOwnerStores: SearchStoreFormType = {
-  name: "",
-  ID: "",
-  country: "",
-  state: "",
-  city: "",
+// export const defValsOwnerStores: SearchStoreFormType = {
+//   name: "",
+//   ID: "",
+//   country: "",
+//   state: "",
+//   city: "",
 
-  categories: [],
-  orders: [],
-  delivery: [],
-  avgRating: [],
+//   categories: [],
+//   orders: [],
+//   delivery: [],
+//   avgRating: [],
 
-  minAvgPrice: "",
-  maxAvgPrice: "",
-  minAvgQty: "",
-  maxAvgQty: "",
-  workers: "",
-  managers: "",
-  employees: "",
-};
+//   minAvgPrice: "",
+//   maxAvgPrice: "",
+//   minAvgQty: "",
+//   maxAvgQty: "",
+//   workers: "",
+//   managers: "",
+//   employees: "",
+// };

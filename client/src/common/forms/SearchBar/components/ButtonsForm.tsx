@@ -16,7 +16,6 @@ import { FaSearch } from "react-icons/fa";
 import { getSizeSearchbarBtns, makeDelay, saveStorage } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
-import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
@@ -24,7 +23,6 @@ type PropsType = {
   keyStorageLabels: StorageKeys;
   isFetching: boolean;
   numericFilters?: NumericFilterSearch[];
-  defVals: ArgsSearchType;
 };
 
 const ButtonsForm: FC<PropsType> = ({
@@ -33,7 +31,6 @@ const ButtonsForm: FC<PropsType> = ({
   keyStorageLabels,
   isFetching,
   numericFilters,
-  defVals,
 }) => {
   const {
     setBar,
@@ -122,10 +119,10 @@ const ButtonsForm: FC<PropsType> = ({
               handleClick: () => {
                 setIsPending({ el: "clear", val: true });
 
-                reset(defVals);
+                reset({});
                 setTxtInputs([txtInputs[0]]);
 
-                saveStorage({ data: defVals, key: keyStorageVals });
+                saveStorage({ data: {}, key: keyStorageVals });
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
               },
               isPending: isPending.clear,

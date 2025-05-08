@@ -36,7 +36,6 @@ type PropsType = {
   keyStorageLabels: StorageKeys;
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
-  defVals: ArgsSearchType;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -48,7 +47,6 @@ const SearchBar: FC<PropsType> = ({
   keyStorageLabels,
   isFetching,
   isLoading,
-  defVals,
 }) => {
   // const savedVals = getStorage(keyStorageVals);
   const hasWarningRun = useRef<boolean>(false);
@@ -58,7 +56,7 @@ const SearchBar: FC<PropsType> = ({
     //   : {
     //       [txtInputs[0].field]: "",
     //     }
-    defVals
+    null
   );
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
@@ -145,7 +143,7 @@ const SearchBar: FC<PropsType> = ({
       oldVals.current = currVals;
       saveStorage({ key: keyStorageVals, data: currVals });
 
-      if (canSpin) setArgs({ ...currVals });
+      if (canSpin) setArgs({ ...currVals, _: Date.now() });
       else setCanSpin(true);
 
       clearTimer(timerID);
@@ -269,7 +267,6 @@ const SearchBar: FC<PropsType> = ({
             keyStorageLabels,
             isFetching,
             numericFilters,
-            defVals,
           }}
         />
       </TxtInputs>

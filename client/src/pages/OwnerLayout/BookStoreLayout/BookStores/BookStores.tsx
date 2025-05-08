@@ -1,7 +1,6 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
-  defValsOwnerStores,
   fieldsSearchStore,
   numericFiltersStore,
   storeFilters,
@@ -78,7 +77,6 @@ const BookStores: FC = () => {
               numericFilters: numericFiltersStore,
               keyStorageVals: StorageKeys.STORES_OWNER_VALS,
               keyStorageLabels: StorageKeys.STORES_OWNER_LABELS,
-              defVals: defValsOwnerStores,
             }}
           />
         </FormProvider>
