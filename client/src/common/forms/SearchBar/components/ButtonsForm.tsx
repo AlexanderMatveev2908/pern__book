@@ -34,6 +34,7 @@ const ButtonsForm: FC<PropsType> = ({
     isPending,
     setIsPending,
     setArgs,
+    isBtnDisabled,
   } = useSearchCtx();
   const { reset } = useFormContext();
 
@@ -74,7 +75,7 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DO,
               Icon: FaSearch,
               isPending: isPending.submit,
-              isDisabled: isFetching,
+              isDisabled: isFetching || isBtnDisabled,
             }}
           />
         </div>

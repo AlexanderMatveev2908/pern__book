@@ -10,7 +10,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
-import { useFormContext, useFormState, useWatch } from "react-hook-form";
+import { useFormContext, useFormState } from "react-hook-form";
 import "./SearchBar.css";
 import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
@@ -46,6 +46,7 @@ const SearchBar: FC<PropsType> = ({
     setBtnDisabled,
     setArgs,
     setBar,
+    isBtnDisabled,
   } = useSearchCtx();
 
   const {
@@ -55,6 +56,7 @@ const SearchBar: FC<PropsType> = ({
     setValue,
     control,
     getValues,
+    watch,
   } = useFormContext();
 
   const { isDirty, dirtyFields } = useFormState({ control });
@@ -96,9 +98,7 @@ const SearchBar: FC<PropsType> = ({
     txtInputs,
   ]);
 
-  const vals = useWatch({
-    control,
-  });
+  const vals = watch();
 
   useDebounce({
     getValues,
@@ -146,8 +146,18 @@ const SearchBar: FC<PropsType> = ({
   });
 
   useEffect(() => {
-    setBtnDisabled(errors);
-  }, [vals, setBtnDisabled, errors]);
+    const handleMainBtn = () => {
+      const hasErr =
+        !!Object.keys(errors ?? {}).length &&
+        Object.values(errors).every((el) => el?.message);
+
+      if (hasErr === isBtnDisabled) return null;
+
+      setBtnDisabled(hasErr);
+    };
+
+    handleMainBtn();
+  }, [vals, setBtnDisabled, errors, isBtnDisabled]);
 
   useEffect(() => {
     if (isDirty && numericFilters?.length) {
@@ -155,7 +165,6 @@ const SearchBar: FC<PropsType> = ({
     }
   }, [isDirty, dirtyFields, numericFilters, errors, setBar, setSearch]);
 
-  console.log("render");
   return (
     <form
       onSubmit={handleSave}

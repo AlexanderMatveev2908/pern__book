@@ -69,6 +69,12 @@ const BookStores: FC = () => {
             }}
           />
         </FormProvider>
+
+        <WrapPageAPI
+          {...{
+            isLoading: res?.isFetching,
+          }}
+        ></WrapPageAPI>
       </div>
     </WrapPageAPI>
   );
