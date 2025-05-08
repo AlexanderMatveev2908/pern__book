@@ -29,6 +29,7 @@ export type SearchCtxStateType = {
     submit: boolean;
     clear: boolean;
   };
+  isBtnDisabled: boolean;
 };
 
 export const initStateSearch: SearchCtxStateType = {
@@ -50,4 +51,5 @@ export const initStateSearch: SearchCtxStateType = {
     submit: false,
     clear: false,
   },
+  isBtnDisabled: false,
 };

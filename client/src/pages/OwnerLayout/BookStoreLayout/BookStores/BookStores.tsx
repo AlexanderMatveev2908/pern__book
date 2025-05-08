@@ -8,42 +8,24 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { getStorage } from "@/core/lib/lib";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { StorageKeys } from "@/types/types";
-import { FC, useEffect } from "react";
+import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 
 const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { args, setArgs, setIsPending } = useSearchCtx();
-  const { handleSubmit, setFocus, setValue, getValues, watch } = formCtx;
-  useDebounce({
-    getValues,
-    watch,
-    keyStorage: StorageKeys.STORES_OWNER,
-    setArgs,
-  });
-
-  useEffect(() => {
-    const savedData = getStorage(StorageKeys.STORES_OWNER);
-    if (savedData) {
-      const parsed = JSON.parse(savedData);
-      for (const key in parsed) {
-        setValue(key as keyof SearchStoreFormType, parsed[key]);
-      }
-    }
-  }, [setValue]);
+  const { args, setArgs, setIsPending, isBtnDisabled } = useSearchCtx();
+  const { handleSubmit, setFocus, getValues } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     args as SearchStoreFormType,
     {
-      skip: false,
+      skip: isBtnDisabled,
     }
   );
   useWrapQueryAPI({ ...res });

@@ -12,6 +12,7 @@ export enum SearchCtxActions {
   SET_SEARCH = "SET_SEARCH",
   SET_ARGS = "SET_ARGS",
   SET_IS_PENDING = "SET_IS_PENDING",
+  SET_BTN_DISABLED = "SET_BTN_DISABLED",
 }
 
 export type ParamsBar = {
@@ -51,4 +52,8 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_IS_PENDING;
       payload: ParamsPending;
+    }
+  | {
+      type: SearchCtxActions.SET_BTN_DISABLED;
+      payload: boolean;
     };

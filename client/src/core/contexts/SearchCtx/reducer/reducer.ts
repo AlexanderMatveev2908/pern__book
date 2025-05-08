@@ -67,6 +67,12 @@ export const reducerSearch = (
       };
     }
 
+    case SearchCtxActions.SET_BTN_DISABLED:
+      return {
+        ...state,
+        isBtnDisabled: action.payload,
+      };
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }

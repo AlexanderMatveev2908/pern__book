@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useEffect } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -10,11 +10,12 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
-import { useFormContext } from "react-hook-form";
+import { useFormContext, useFormState, useWatch } from "react-hook-form";
 import "./SearchBar.css";
-import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
+import { __cg, getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
+import { useDebounce } from "@/core/hooks/all/useDebounce";
 
 type PropsType = {
   isLoading?: boolean;
@@ -36,36 +37,67 @@ const SearchBar: FC<PropsType> = ({
   keyStorageLabels,
   isFetching,
 }) => {
-  const hasRun = useRef<boolean>(false);
-  const { setTxtInputs, setSearch, isPending, setIsPending } = useSearchCtx();
+  const {
+    setTxtInputs,
+    setSearch,
+    isPending,
+    setIsPending,
+    setBtnDisabled,
+    setArgs,
+  } = useSearchCtx();
 
   const {
-    watch,
     clearErrors,
     formState: { errors },
     trigger,
+    setValue,
+    control,
+    getValues,
   } = useFormContext();
 
+  const { isDirty, dirtyFields } = useFormState({ control });
+
   useEffect(() => {
-    if (hasRun.current) return;
+    const savedVals = getStorage(keyStorageVals);
 
-    hasRun.current = true;
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
-    const updated = savedLabels.length ? savedLabels : [txtInputs[0]];
-    setTxtInputs(updated);
+    const updatedLabels = savedLabels.length ? savedLabels : [txtInputs[0]];
+    setTxtInputs(updatedLabels);
 
-    if (!savedLabels?.length) {
-      saveStorage({ key: keyStorageLabels, data: updated });
-    } else {
-      for (const el of savedLabels) {
-        trigger(el.field);
-      }
-    }
+    if (!savedLabels?.length)
+      saveStorage({ key: keyStorageLabels, data: updatedLabels });
 
     setSearch({ el: "currFilter", val: filters[0] });
-  }, [filters, setSearch, setTxtInputs, txtInputs, keyStorageLabels, trigger]);
 
-  const vals = watch();
+    if (savedVals) {
+      const parsed = JSON.parse(savedVals);
+      for (const key in parsed) {
+        setValue(key, parsed[key], {
+          shouldValidate: true,
+        });
+      }
+    }
+  }, [
+    setValue,
+    keyStorageVals,
+    filters,
+    keyStorageLabels,
+    setSearch,
+    setTxtInputs,
+    trigger,
+    txtInputs,
+  ]);
+
+  const vals = useWatch({
+    control,
+  });
+
+  useDebounce({
+    getValues,
+    realTimeVals: vals,
+    keyStorage: StorageKeys.STORES_OWNER,
+    setArgs,
+  });
 
   useEffect(() => {
     const handleErrors = () => {
@@ -105,7 +137,14 @@ const SearchBar: FC<PropsType> = ({
     setIsPending: (val: boolean) => setIsPending({ el: "clear", val }),
   });
 
-  console.log("render");
+  useEffect(() => {
+    setBtnDisabled(errors);
+  }, [vals, setBtnDisabled, errors]);
+
+  useEffect(() => {
+    __cg("form", isDirty);
+    __cg("fields", dirtyFields);
+  }, [vals, isDirty, dirtyFields]);
 
   return (
     <form

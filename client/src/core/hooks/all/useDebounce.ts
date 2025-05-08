@@ -3,25 +3,25 @@ import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { clearTimer, isSameData, saveStorage } from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { UseFormGetValues, UseFormWatch } from "react-hook-form";
+import { UseFormGetValues } from "react-hook-form";
 
 type Params = {
   getValues: UseFormGetValues<any>;
   setArgs: (vals: ArgsSearchType) => void;
   keyStorage: StorageKeys;
-  watch: UseFormWatch<any>;
+  realTimeVals: ArgsSearchType;
 };
 
 export const useDebounce = ({
   getValues,
   keyStorage,
   setArgs,
-  watch,
+  realTimeVals,
 }: Params) => {
-  const realTimeVals = watch();
   const oldVals = useRef<ArgsSearchType>(getValues());
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
+  console.log("render");
   useEffect(() => {
     timerID.current = setTimeout(() => {
       const currVals = getValues();
@@ -31,10 +31,7 @@ export const useDebounce = ({
       // __cg("new", currVals);
       // __cg("same", isSame);
 
-      if (isSame) {
-        clearTimer(timerID);
-        return null;
-      }
+      if (isSame) return null;
 
       oldVals.current = currVals;
       setArgs({ ...currVals });

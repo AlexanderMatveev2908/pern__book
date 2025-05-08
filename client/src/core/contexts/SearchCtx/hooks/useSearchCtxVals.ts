@@ -9,6 +9,8 @@ import {
 import { ArgsSearchType, SearchCtxStateType } from "../reducer/initState";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { FormFieldBasic } from "@/types/types";
+import { FieldErrors } from "react-hook-form";
+import { isObjOk } from "@/core/lib/lib";
 
 type Params = {
   state: SearchCtxStateType;
@@ -21,6 +23,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setSearch: (params: ParamsSearch) => void;
   setArgs: (vals: ArgsSearchType) => void;
   setIsPending: (vals: ParamsPending) => void;
+  setBtnDisabled: (errs: FieldErrors) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -83,6 +86,19 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
+  const setBtnDisabled = useCallback(
+    (errs: FieldErrors) => {
+      const hasErr =
+        !!Object.keys(errs ?? {}).length &&
+        Object.values(errs).every((el) => isObjOk(el));
+
+      if (hasErr === state.isBtnDisabled) return null;
+
+      dispatch({ type: SearchCtxActions.SET_BTN_DISABLED, payload: hasErr });
+    },
+    [dispatch, state.isBtnDisabled]
+  );
+
   return {
     ...state,
     setTxtInputs,
@@ -90,5 +106,6 @@ export const useSearchCtxVals = ({
     setSearch,
     setArgs,
     setIsPending,
+    setBtnDisabled,
   };
 };
