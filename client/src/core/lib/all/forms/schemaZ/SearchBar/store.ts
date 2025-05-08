@@ -108,19 +108,19 @@ export const searchBarStore = z
       .string()
       .optional()
       .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
-        message: "Invalid number",
+        message: "Invalid number workers",
       }),
     managers: z
       .string()
       .optional()
       .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
-        message: "Invalid number",
+        message: "Invalid number managers",
       }),
     employees: z
       .string()
       .optional()
       .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
-        message: "Invalid number",
+        message: "Invalid number employees",
       }),
   })
   .superRefine((data, ctx) => {

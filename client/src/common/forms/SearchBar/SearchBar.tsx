@@ -10,7 +10,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
-import { useFormContext, useFormState } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
 import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
@@ -53,16 +53,13 @@ const SearchBar: FC<PropsType> = ({
 
   const {
     clearErrors,
-    formState: { errors },
     trigger,
     setValue,
-    control,
+    formState: { isDirty, dirtyFields, errors },
     getValues,
     watch,
   } = useFormContext();
   const vals = watch();
-
-  const { isDirty, dirtyFields } = useFormState({ control });
 
   // * POPULATE FORM EXISTING VALS
   useEffect(() => {
@@ -151,8 +148,6 @@ const SearchBar: FC<PropsType> = ({
   }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
   // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {
-    console.log("render");
-
     if (isDirty && numericFilters?.length) {
       const { currArr } =
         getErrFooterBar({
