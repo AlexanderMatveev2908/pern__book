@@ -28,7 +28,7 @@ import SkeletonBar from "./components/SkeletonBar";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 
 type PropsType = {
-  isLoading?: boolean;
+  isLoading: boolean;
   isFetching: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
@@ -69,8 +69,6 @@ const SearchBar: FC<PropsType> = ({
     setArgs,
     setBar,
     isBtnDisabled,
-    isPopulated,
-    setPopulated,
     canSpin,
     setCanSpin,
   } = useSearchCtx();
@@ -120,7 +118,6 @@ const SearchBar: FC<PropsType> = ({
     setTxtInputs,
     trigger,
     txtInputs,
-    isPopulated,
   ]);
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
@@ -135,8 +132,7 @@ const SearchBar: FC<PropsType> = ({
       __cg("same", isSame);
 
       if (isSame) {
-        if (!isPopulated) setPopulated(true);
-
+        clearTimer(timerID);
         return null;
       }
 
@@ -158,8 +154,6 @@ const SearchBar: FC<PropsType> = ({
     setArgs,
     vals,
     txtInputs,
-    setPopulated,
-    isPopulated,
     canSpin,
     setCanSpin,
   ]);

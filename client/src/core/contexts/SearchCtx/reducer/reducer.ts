@@ -73,12 +73,6 @@ export const reducerSearch = (
         isBtnDisabled: action.payload,
       };
 
-    case SearchCtxActions.SET_POPULATED:
-      return {
-        ...state,
-        isPopulated: action.payload,
-      };
-
     case SearchCtxActions.SET_CAN_SPIN:
       return {
         ...state,

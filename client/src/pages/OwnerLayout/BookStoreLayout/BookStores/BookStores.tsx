@@ -20,15 +20,8 @@ const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const {
-    args,
-    setArgs,
-    isPopulated,
-    setIsPending,
-    isBtnDisabled,
-    setSearch,
-    setBar,
-  } = useSearchCtx();
+  const { args, setArgs, setIsPending, isBtnDisabled, setSearch, setBar } =
+    useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
@@ -83,7 +76,7 @@ const BookStores: FC = () => {
 
         <WrapPageAPI
           {...{
-            isLoading: res?.isFetching || !isPopulated,
+            isLoading: res?.isLoading || res?.isFetching,
           }}
         ></WrapPageAPI>
       </div>
