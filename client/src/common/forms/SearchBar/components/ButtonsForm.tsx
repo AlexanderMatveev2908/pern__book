@@ -29,6 +29,8 @@ const ButtonsForm: FC<PropsType> = ({
     setBar,
     labels: { labelSubmit },
     setTxtInputs,
+    isPending,
+    setIsPending,
   } = useSearchCtx();
   const { reset } = useFormContext();
 
@@ -68,6 +70,8 @@ const ButtonsForm: FC<PropsType> = ({
               type: "submit",
               act: BtnAct.DO,
               Icon: FaSearch,
+              isPending: isPending.submit,
+              isDisabled: isPending.clear,
             }}
           />
         </div>
@@ -83,11 +87,14 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DEL,
               Icon: MdClear,
               handleClick: () => {
+                setIsPending({ el: "clear", val: true });
                 reset({});
                 setTxtInputs([txtInputs[0]]);
                 delKeyStorage(keyStorageVals);
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
               },
+              isPending: isPending.clear,
+              isDisabled: isPending.submit,
             }}
           />
         </div>

@@ -1,4 +1,4 @@
-import { FC, useEffect } from "react";
+import { FC, useEffect, useRef } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -14,9 +14,11 @@ import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
 import { getStorage, makeNum, saveStorage } from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
+import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 
 type PropsType = {
   isLoading?: boolean;
+  isFetching: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
   keyStorageVals: StorageKeys;
@@ -32,8 +34,10 @@ const SearchBar: FC<PropsType> = ({
   numericFilters,
   keyStorageVals,
   keyStorageLabels,
+  isFetching,
 }) => {
-  const { setTxtInputs, setSearch } = useSearchCtx();
+  const hasRun = useRef<boolean>(false);
+  const { setTxtInputs, setSearch, isPending, setIsPending } = useSearchCtx();
 
   const {
     watch,
@@ -43,6 +47,9 @@ const SearchBar: FC<PropsType> = ({
   } = useFormContext();
 
   useEffect(() => {
+    if (hasRun.current) return;
+
+    hasRun.current = true;
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updated = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updated);
@@ -86,6 +93,19 @@ const SearchBar: FC<PropsType> = ({
 
     handleErrors();
   }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
+
+  useSyncLoading({
+    isFetching,
+    isPendingCustom: isPending.submit,
+    setIsPending: (val: boolean) => setIsPending({ el: "submit", val }),
+  });
+  useSyncLoading({
+    isFetching,
+    isPendingCustom: isPending.clear,
+    setIsPending: (val: boolean) => setIsPending({ el: "clear", val }),
+  });
+
+  console.log("render");
 
   return (
     <form

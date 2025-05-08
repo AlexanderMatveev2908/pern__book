@@ -2,9 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "categories": "[\"psychology\",\"manga\",\"politics\"]"
+    "categories": "[\"classics\",\"psychology\",\"it\",\"comics\"]",
+    "name": "aaaaaaa"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjY0Mjk0OCwiZXhwIjoxNzQ2NjQzMDA4fQ.11fImZ-YGL4oFU4wSX6YfdVF2lf18w90cZ2WJ5GCht4",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.FkV5b24Ks9DSLFibQFLoagW_MX8Jckw686GVrjWolBx6WZBf7WS11_iK8RmBAUbfFYgX5TcEqRe9AEh5JXT4MS5M2_xsjE2KtMT2wIthtmOFb4Rs2Ka3Hbgic63MZ5wfgFCHGdVuj3u5u6bUm4e7hGqXtyX_PuBaEQ6g-rnSwmg0zFh74NQyFFK38D9O9bBVo6XTMiqGs38VgWwY0Izs7-0DT64-Z5fQnmkVRSJfd-AggSQqjnLB5Co5_wApnSAZXsXg1NLJiBfK4Bl_wb34Yf5IYXJBrS7tzG6lbUFp22IUqbKspTEX2ZxYgzC8755W0B6-wvStmWm580fIBSijkQ.sE8Sf-qo26mxLZ03.2mswOk96KnLQLmdBqA1pf2PPcr8IliZYJ3lpzC9vSxDZNmPoJAqrxJSz6P3V.BIfmLXvIOfbt6oDVQnE8DQ"
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjY4MjEyOCwiZXhwIjoxNzQ2NjgyMTg4fQ.bj2yu8s-IlFrJARt9nbqcJoTVLkLoxTjTwMwPwKLwdo",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.KN9dNfbKPkFQQOSy4-szq1DIy4LCXAlRF-XzBt-IU-Lxhb0zMzCzCuklr6HyfYt5GxWCb8w5lYDkDvUKdPahRJ0TGMliI2NGe-RI3kulRsvFIyFnW3gJJI2lrIXqmDhq5qnC-XTJXp7XU1LiQIf53Hk9UK8IOn46V1_iSza7tVBBkIRVm-_ZOoSKKeAt9Q3p74ucsV7hVCywYwttFMKfvGni2VsfODZ-PjJbhypPWRjlOmL-F1TbqDlIcTi5o0zLpWO6uikPDIITY3bjQxT1Ttz_oxp2eCqy37VVA2SWkUq6FYcokIbMbkN0yV2O9YndsMQIsYnMK40VyEiVvbeM2A.hO6QmF-LR-ape2x0.urYTNG-R3_L1KFtnYNwIlQTzmt88txgHj-2-Hj_3TLYEVHL4a6x18rc-lFWf.vX2hzGZOc3iMB8PTH8pCLg"
 }

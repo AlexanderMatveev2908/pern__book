@@ -1,33 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
-import { clearTimer, saveStorage } from "@/core/lib/lib";
+import { clearTimer, isSameData, saveStorage } from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { UseFormGetValues } from "react-hook-form";
+import { UseFormGetValues, UseFormWatch } from "react-hook-form";
 
 type Params = {
   getValues: UseFormGetValues<any>;
   setArgs: (vals: ArgsSearchType) => void;
   keyStorage: StorageKeys;
-  vals: ArgsSearchType;
+  watch: UseFormWatch<any>;
 };
 
 export const useDebounce = ({
   getValues,
   keyStorage,
   setArgs,
-  vals,
+  watch,
 }: Params) => {
+  const realTimeVals = watch();
+  const oldVals = useRef<ArgsSearchType>(getValues());
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const vals = getValues();
-      setArgs({ ...vals });
-      saveStorage({ key: keyStorage, data: vals });
-      clearTimer(timerID);
-    }, 400);
+      const currVals = getValues();
+      const isSame: boolean = isSameData(oldVals.current, currVals);
 
-    return () => clearTimer(timerID);
-  }, [getValues, keyStorage, setArgs, vals]);
+      // __cg("old", oldVals.current);
+      // __cg("new", currVals);
+      // __cg("same", isSame);
+
+      if (isSame) {
+        clearTimer(timerID);
+        return null;
+      }
+
+      oldVals.current = currVals;
+      setArgs({ ...currVals });
+      saveStorage({ key: keyStorage, data: currVals });
+      clearTimer(timerID);
+    }, 500);
+
+    return () => {
+      clearTimer(timerID);
+    };
+  }, [getValues, keyStorage, setArgs, realTimeVals]);
 };

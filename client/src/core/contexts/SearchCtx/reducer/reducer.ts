@@ -55,6 +55,18 @@ export const reducerSearch = (
         args: action.payload,
       };
 
+    case SearchCtxActions.SET_IS_PENDING: {
+      const { el, val } = action.payload;
+
+      return {
+        ...state,
+        isPending: {
+          ...state.isPending,
+          [el]: val,
+        },
+      };
+    }
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }

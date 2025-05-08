@@ -25,6 +25,10 @@ export type SearchCtxStateType = {
     currSorter: FilterSearch | null;
   };
   args: ArgsSearchType;
+  isPending: {
+    submit: boolean;
+    clear: boolean;
+  };
 };
 
 export const initStateSearch: SearchCtxStateType = {
@@ -42,4 +46,8 @@ export const initStateSearch: SearchCtxStateType = {
     currSorter: null,
   },
   args: {},
+  isPending: {
+    submit: false,
+    clear: false,
+  },
 };

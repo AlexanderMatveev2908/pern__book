@@ -11,6 +11,7 @@ export enum SearchCtxActions {
   SET_BAR = "SET_BAR",
   SET_SEARCH = "SET_SEARCH",
   SET_ARGS = "SET_ARGS",
+  SET_IS_PENDING = "SET_IS_PENDING",
 }
 
 export type ParamsBar = {
@@ -20,6 +21,10 @@ export type ParamsBar = {
 export type ParamsSearch = {
   el: "currFilter" | "currSorter";
   val: FilterSearch | NumericFilterSearch;
+};
+export type ParamsPending = {
+  el: "submit" | "clear";
+  val: boolean;
 };
 
 export type SearchCtxActionsType =
@@ -42,4 +47,8 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_ARGS;
       payload: ArgsSearchType;
+    }
+  | {
+      type: SearchCtxActions.SET_IS_PENDING;
+      payload: ParamsPending;
     };

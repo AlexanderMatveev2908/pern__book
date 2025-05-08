@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react";
 import {
   ParamsBar,
+  ParamsPending,
   ParamsSearch,
   SearchCtxActions,
   SearchCtxActionsType,
@@ -19,6 +20,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setBar: (params: ParamsBar) => void;
   setSearch: (params: ParamsSearch) => void;
   setArgs: (vals: ArgsSearchType) => void;
+  setIsPending: (vals: ParamsPending) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -74,11 +76,19 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
+  const setIsPending = useCallback(
+    ({ el, val }: ParamsPending) => {
+      dispatch({ type: SearchCtxActions.SET_IS_PENDING, payload: { el, val } });
+    },
+    [dispatch]
+  );
+
   return {
     ...state,
     setTxtInputs,
     setBar,
     setSearch,
     setArgs,
+    setIsPending,
   };
 };

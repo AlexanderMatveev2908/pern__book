@@ -21,12 +21,11 @@ const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { args, setArgs } = useSearchCtx();
+  const { args, setArgs, setIsPending } = useSearchCtx();
   const { handleSubmit, setFocus, setValue, getValues, watch } = formCtx;
-  const vals = watch();
   useDebounce({
     getValues,
-    vals,
+    watch,
     keyStorage: StorageKeys.STORES_OWNER,
     setArgs,
   });
@@ -51,6 +50,7 @@ const BookStores: FC = () => {
   useFocus({ key: "name", setFocus });
 
   const handleSave = handleSubmit(() => {
+    setIsPending({ el: "submit", val: true });
     setArgs({ ...getValues(), _: Date.now() });
   });
 
@@ -65,6 +65,7 @@ const BookStores: FC = () => {
           <SearchBar
             {...{
               isLoading: res?.isLoading,
+              isFetching: res?.isFetching,
               handleSave,
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
