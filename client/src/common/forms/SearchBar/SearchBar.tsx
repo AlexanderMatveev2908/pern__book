@@ -16,6 +16,7 @@ import {
   __cg,
   clearTimer,
   getStorage,
+  isObjOk,
   isSameData,
   makeDelay,
   makeNum,
@@ -48,11 +49,16 @@ const SearchBar: FC<PropsType> = ({
   isFetching,
   isLoading,
 }) => {
+  // const savedVals = getStorage(keyStorageVals);
   const hasWarningRun = useRef<boolean>(false);
-  const hasPopulateRun = useRef<boolean>(false);
-  const oldVals = useRef<ArgsSearchType | null>({
-    [txtInputs[0].field]: "",
-  });
+  const oldVals = useRef<ArgsSearchType | null>(
+    // savedVals
+    //   ? JSON.parse(savedVals)
+    //   : {
+    //       [txtInputs[0].field]: "",
+    //     }
+    {}
+  );
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
   const {
@@ -64,6 +70,10 @@ const SearchBar: FC<PropsType> = ({
     setArgs,
     setBar,
     isBtnDisabled,
+    isPopulated,
+    setPopulated,
+    canSpin,
+    setCanSpin,
   } = useSearchCtx();
 
   const {
@@ -113,6 +123,7 @@ const SearchBar: FC<PropsType> = ({
     setTxtInputs,
     trigger,
     txtInputs,
+    isPopulated,
   ]);
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
@@ -126,40 +137,38 @@ const SearchBar: FC<PropsType> = ({
       __cg("new", currVals);
       __cg("same", isSame);
 
-      if (isSame) return null;
+      if (isSame) {
+        if (
+          !isPopulated &&
+          [currVals, oldVals.current].every((el) => isObjOk(el))
+        )
+          setPopulated(true);
 
-      const kLen = Object.keys(currVals ?? {}).length;
-      const truthyVals = Object.values(currVals).some((el) =>
-        typeof el === "string"
-          ? !!el.trim().length
-          : Array.isArray(el)
-          ? el.length
-          : !!el
-      );
-      const defKey = txtInputs
-        .map((el) => el.field)
-        .filter((el) => el === txtInputs[0].field)[0];
-
-      if ((!kLen || !truthyVals) && !hasPopulateRun.current) {
-        __cg("cond", true);
-        oldVals.current = {
-          ...oldVals.current,
-          [defKey]: "",
-        };
-        hasPopulateRun.current = true;
         return null;
       }
 
       oldVals.current = currVals;
-      setArgs({ ...currVals });
       saveStorage({ key: keyStorageVals, data: currVals });
+
+      if (canSpin) setArgs({ ...currVals });
+      else setCanSpin(true);
+
       clearTimer(timerID);
     }, 500);
 
     return () => {
       clearTimer(timerID);
     };
-  }, [getValues, keyStorageVals, setArgs, vals, txtInputs]);
+  }, [
+    getValues,
+    keyStorageVals,
+    setArgs,
+    vals,
+    txtInputs,
+    setPopulated,
+    isPopulated,
+    canSpin,
+  ]);
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
   useSyncLoading({

@@ -46,7 +46,7 @@ const TxtInputs: FC<PropsType> = ({ children, keyStorageLabels }) => {
                 el: removeFieldBtn,
                 act: BtnAct.DEL,
                 handleClick: () => {
-                  setValue(el.field, "");
+                  setValue(el.field, "", { shouldValidate: true });
                   const filtered = activeTxtInputs.filter(
                     (val) => val.field !== el.field
                   );

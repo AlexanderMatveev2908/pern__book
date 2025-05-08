@@ -13,12 +13,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
-import {
-  delKeyStorage,
-  getSizeSearchbarBtns,
-  makeDelay,
-  saveStorage,
-} from "@/core/lib/lib";
+import { getSizeSearchbarBtns, makeDelay, saveStorage } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 
@@ -43,7 +38,6 @@ const ButtonsForm: FC<PropsType> = ({
     setTxtInputs,
     isPending,
     setIsPending,
-    setArgs,
     isBtnDisabled,
     setSearch,
   } = useSearchCtx();
@@ -124,10 +118,13 @@ const ButtonsForm: FC<PropsType> = ({
               Icon: MdClear,
               handleClick: () => {
                 setIsPending({ el: "clear", val: true });
-                setArgs({ _: Date.now() });
-                reset({});
+
+                const cleared = { [txtInputs[0].field]: "" };
+
+                reset(cleared);
                 setTxtInputs([txtInputs[0]]);
-                delKeyStorage(keyStorageVals);
+
+                saveStorage({ data: cleared, key: keyStorageVals });
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
               },
               isPending: isPending.clear,
