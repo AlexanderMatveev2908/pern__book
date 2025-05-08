@@ -18,12 +18,14 @@ type PropsType = {
   txtInputs: FormFieldBasic[];
   keyStorageVals: StorageKeys;
   keyStorageLabels: StorageKeys;
+  isFetching: boolean;
 };
 
 const ButtonsForm: FC<PropsType> = ({
   txtInputs,
   keyStorageVals,
   keyStorageLabels,
+  isFetching,
 }) => {
   const {
     setBar,
@@ -31,6 +33,7 @@ const ButtonsForm: FC<PropsType> = ({
     setTxtInputs,
     isPending,
     setIsPending,
+    setArgs,
   } = useSearchCtx();
   const { reset } = useFormContext();
 
@@ -71,7 +74,7 @@ const ButtonsForm: FC<PropsType> = ({
               act: BtnAct.DO,
               Icon: FaSearch,
               isPending: isPending.submit,
-              isDisabled: isPending.clear,
+              isDisabled: isFetching,
             }}
           />
         </div>
@@ -88,13 +91,14 @@ const ButtonsForm: FC<PropsType> = ({
               Icon: MdClear,
               handleClick: () => {
                 setIsPending({ el: "clear", val: true });
+                setArgs({ _: Date.now() });
                 reset({});
                 setTxtInputs([txtInputs[0]]);
                 delKeyStorage(keyStorageVals);
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
               },
               isPending: isPending.clear,
-              isDisabled: isPending.submit,
+              isDisabled: isFetching,
             }}
           />
         </div>

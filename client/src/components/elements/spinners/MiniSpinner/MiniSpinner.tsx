@@ -15,7 +15,7 @@ const styles = new Map([
 const MiniSpinner: FC<PropsType> = ({ act = BtnAct.INFO }) => {
   return (
     <div
-      className={`w-[35px] h-[35px] border-[4px] border-r-transparent border-b-transparent rounded-full el__mini_spinner ${styles.get(
+      className={`w-[30px] h-[30px] border-[4px] border-r-transparent border-b-transparent rounded-full el__mini_spinner ${styles.get(
         act
       )}`}
     ></div>

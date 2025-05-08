@@ -116,7 +116,9 @@ const SearchBar: FC<PropsType> = ({
       <FilterBar {...{ filters, numericFilters }} />
 
       <TxtInputs {...{ txtInputs, keyStorageLabels }}>
-        <ButtonsForm {...{ txtInputs, keyStorageVals, keyStorageLabels }} />
+        <ButtonsForm
+          {...{ txtInputs, keyStorageVals, keyStorageLabels, isFetching }}
+        />
       </TxtInputs>
     </form>
   );

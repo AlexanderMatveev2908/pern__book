@@ -1,4 +1,3 @@
-import { __cg } from "@/core/lib/lib";
 import { useEffect } from "react";
 
 type Params = {
@@ -14,7 +13,7 @@ export const useSyncLoading = ({
 }: Params) => {
   useEffect(() => {
     if (isPendingCustom && !isFetching) setIsPending(false);
-    __cg("real", isFetching);
-    __cg("custom", isPendingCustom);
+    // __cg("real", isFetching);
+    // __cg("custom", isPendingCustom);
   }, [isPendingCustom, isFetching, setIsPending]);
 };
