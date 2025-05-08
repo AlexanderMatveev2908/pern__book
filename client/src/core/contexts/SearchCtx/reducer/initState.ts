@@ -8,8 +8,6 @@ import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
 
 export type ArgsSearchType = (SearchStoreFormType | { a: "test" }) & {
   _?: number;
-  limit: number;
-  page: number;
 };
 
 export type SearchCtxStateType = {
@@ -34,6 +32,10 @@ export type SearchCtxStateType = {
   isBtnDisabled: boolean;
   isPopulated: boolean;
   canMakeAPI: boolean;
+  pagination: {
+    page: number;
+    limit: number;
+  };
 };
 
 export const initStateSearch: SearchCtxStateType = {
@@ -50,10 +52,7 @@ export const initStateSearch: SearchCtxStateType = {
     currFilter: null,
     currSorter: null,
   },
-  args: {
-    limit: 5,
-    page: 0,
-  },
+  args: {},
   isPending: {
     submit: false,
     clear: false,
@@ -61,4 +60,8 @@ export const initStateSearch: SearchCtxStateType = {
   isBtnDisabled: false,
   isPopulated: false,
   canMakeAPI: true,
+  pagination: {
+    limit: 5,
+    page: 0,
+  },
 };

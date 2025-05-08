@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from "react";
 import {
   ParamsBar,
+  ParamsPagination,
   ParamsPending,
   ParamsSearch,
   SearchCtxActions,
@@ -24,6 +25,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setBtnDisabled: (val: boolean) => void;
   setPopulated: (val: boolean) => void;
   setCanMakeAPI: (val: boolean) => void;
+  setPagination: (vals: ParamsPagination) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -105,6 +107,12 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
+  const setPagination = useCallback(
+    ({ el, val }: ParamsPagination) =>
+      dispatch({ type: SearchCtxActions.SET_PAGINATION, payload: { el, val } }),
+    [dispatch]
+  );
+
   return {
     ...state,
     setTxtInputs,
@@ -115,5 +123,6 @@ export const useSearchCtxVals = ({
     setBtnDisabled,
     setPopulated,
     setCanMakeAPI,
+    setPagination,
   };
 };

@@ -1,5 +1,5 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
-import PagesCounter from "@/components/elements/PagesCounter";
+import PagesCounter from "@/components/elements/PageCounter/PagesCounter";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsSearchStore,
@@ -30,6 +30,7 @@ const BookStores: FC = () => {
     isBtnDisabled,
     setSearch,
     setBar,
+    pagination,
   } = useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
 
@@ -45,7 +46,11 @@ const BookStores: FC = () => {
   const handleSave = handleSubmit(
     () => {
       setIsPending({ el: "submit", val: true });
-      setArgs({ ...(getValues() as ArgsSearchType), _: Date.now() });
+      setArgs({
+        ...(getValues() as ArgsSearchType),
+        ...pagination,
+        _: Date.now(),
+      });
     },
     (errs) => {
       const { currArr } =

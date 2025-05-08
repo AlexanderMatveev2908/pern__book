@@ -85,6 +85,18 @@ export const reducerSearch = (
         canMakeAPI: action.payload,
       };
 
+    case SearchCtxActions.SET_PAGINATION: {
+      const { el, val } = action.payload;
+
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          [el]: val,
+        },
+      };
+    }
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }

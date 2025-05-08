@@ -73,6 +73,8 @@ const SearchBar: FC<PropsType> = ({
     setCanMakeAPI,
     setPopulated,
     isPopulated,
+    pagination,
+    setPagination,
   } = useSearchCtx();
 
   const {
@@ -93,7 +95,8 @@ const SearchBar: FC<PropsType> = ({
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updatedLabels = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updatedLabels);
-    saveStorage({ key: keyStorageLabels, data: updatedLabels });
+    if (!savedLabels.length)
+      saveStorage({ key: keyStorageLabels, data: updatedLabels });
 
     setSearch({ el: "currFilter", val: filters[0] });
 
@@ -110,6 +113,8 @@ const SearchBar: FC<PropsType> = ({
             shouldDirty: true,
           });
       }
+
+      setPagination({ el: "page", val: parsed?.page ?? 0 });
     }
   }, [
     setValue,
@@ -120,13 +125,14 @@ const SearchBar: FC<PropsType> = ({
     setTxtInputs,
     trigger,
     txtInputs,
+    setPagination,
   ]);
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const currVals = getValues();
+      const currVals = { ...getValues(), ...pagination };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       if (isSame) {
@@ -141,10 +147,16 @@ const SearchBar: FC<PropsType> = ({
       }
 
       oldVals.current = currVals as ArgsSearchType;
-      saveStorage({ key: keyStorageVals, data: currVals });
+      saveStorage({
+        key: keyStorageVals,
+        data: currVals,
+      });
 
       if (canMakeAPI)
-        setArgs({ ...(currVals as ArgsSearchType), _: Date.now() });
+        setArgs({
+          ...(currVals as ArgsSearchType),
+          _: Date.now(),
+        });
       else setCanMakeAPI(true);
 
       clearTimer(timerID);
@@ -163,6 +175,7 @@ const SearchBar: FC<PropsType> = ({
     setCanMakeAPI,
     setPopulated,
     isPopulated,
+    pagination,
   ]);
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN

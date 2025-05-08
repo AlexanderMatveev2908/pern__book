@@ -15,6 +15,7 @@ export enum SearchCtxActions {
   SET_BTN_DISABLED = "SET_BTN_DISABLED",
   SET_POPULATED = "SET_POPULATED",
   SET_CAN_MAKE_API = "SET_CAN_MAKE_API",
+  SET_PAGINATION = "SET_PAGINATION",
 }
 
 export type ParamsBar = {
@@ -28,6 +29,11 @@ export type ParamsSearch = {
 export type ParamsPending = {
   el: "submit" | "clear";
   val: boolean;
+};
+
+export type ParamsPagination = {
+  el: "limit" | "page";
+  val: number;
 };
 
 export type SearchCtxActionsType =
@@ -66,4 +72,8 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_CAN_MAKE_API;
       payload: boolean;
+    }
+  | {
+      type: SearchCtxActions.SET_PAGINATION;
+      payload: ParamsPagination;
     };
