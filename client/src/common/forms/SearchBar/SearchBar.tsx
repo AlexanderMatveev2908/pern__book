@@ -12,12 +12,20 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import { useFormContext } from "react-hook-form";
 import "./SearchBar.css";
-import { getStorage, makeDelay, makeNum, saveStorage } from "@/core/lib/lib";
+import {
+  __cg,
+  clearTimer,
+  getStorage,
+  isSameData,
+  makeDelay,
+  makeNum,
+  saveStorage,
+} from "@/core/lib/lib";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
-import { useDebounce } from "@/core/hooks/all/useDebounce";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import SkeletonBar from "./components/SkeletonBar";
+import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 
 type PropsType = {
   isLoading?: boolean;
@@ -40,7 +48,12 @@ const SearchBar: FC<PropsType> = ({
   isFetching,
   isLoading,
 }) => {
-  const hasRun = useRef<boolean>(false);
+  const hasWarningRun = useRef<boolean>(false);
+  const hasPopulateRun = useRef<boolean>(false);
+  const oldVals = useRef<ArgsSearchType | null>({
+    [txtInputs[0].field]: "",
+  });
+  const timerID = useRef<NodeJS.Timeout | null>(null);
 
   const {
     setTxtInputs,
@@ -103,12 +116,50 @@ const SearchBar: FC<PropsType> = ({
   ]);
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
-  useDebounce({
-    getValues,
-    realTimeVals: vals,
-    keyStorage: StorageKeys.STORES_OWNER,
-    setArgs,
-  });
+
+  useEffect(() => {
+    timerID.current = setTimeout(() => {
+      const currVals = getValues();
+      const isSame: boolean = isSameData(oldVals.current, currVals);
+
+      __cg("old", oldVals.current);
+      __cg("new", currVals);
+      __cg("same", isSame);
+
+      if (isSame) return null;
+
+      const kLen = Object.keys(currVals ?? {}).length;
+      const truthyVals = Object.values(currVals).some((el) =>
+        typeof el === "string"
+          ? !!el.trim().length
+          : Array.isArray(el)
+          ? el.length
+          : !!el
+      );
+      const defKey = txtInputs
+        .map((el) => el.field)
+        .filter((el) => el === txtInputs[0].field)[0];
+
+      if ((!kLen || !truthyVals) && !hasPopulateRun.current) {
+        __cg("cond", true);
+        oldVals.current = {
+          ...oldVals.current,
+          [defKey]: "",
+        };
+        hasPopulateRun.current = true;
+        return null;
+      }
+
+      oldVals.current = currVals;
+      setArgs({ ...currVals });
+      saveStorage({ key: keyStorageVals, data: currVals });
+      clearTimer(timerID);
+    }, 500);
+
+    return () => {
+      clearTimer(timerID);
+    };
+  }, [getValues, keyStorageVals, setArgs, vals, txtInputs]);
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
   useSyncLoading({
@@ -158,9 +209,9 @@ const SearchBar: FC<PropsType> = ({
           numericFilters,
         }) ?? {};
 
-      if (!currArr || hasRun.current) return;
+      if (!currArr || hasWarningRun.current) return;
 
-      hasRun.current = true;
+      hasWarningRun.current = true;
       setBar({ el: "filterBar", val: true });
       setSearch({ el: "currFilter", val: currArr });
       if (currEl)
