@@ -16,7 +16,6 @@ import {
   __cg,
   clearTimer,
   getStorage,
-  isObjOk,
   isSameData,
   makeDelay,
   makeNum,
@@ -138,11 +137,7 @@ const SearchBar: FC<PropsType> = ({
       __cg("same", isSame);
 
       if (isSame) {
-        if (
-          !isPopulated &&
-          [currVals, oldVals.current].every((el) => isObjOk(el))
-        )
-          setPopulated(true);
+        if (!isPopulated) setPopulated(true);
 
         return null;
       }
