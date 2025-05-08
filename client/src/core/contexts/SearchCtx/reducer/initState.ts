@@ -30,6 +30,7 @@ export type SearchCtxStateType = {
     clear: boolean;
   };
   isBtnDisabled: boolean;
+  isPopulated: boolean;
   canSpin: boolean;
 };
 
@@ -53,5 +54,6 @@ export const initStateSearch: SearchCtxStateType = {
     clear: false,
   },
   isBtnDisabled: false,
+  isPopulated: false,
   canSpin: false,
 };

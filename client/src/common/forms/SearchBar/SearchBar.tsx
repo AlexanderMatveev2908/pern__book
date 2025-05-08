@@ -16,6 +16,7 @@ import {
   __cg,
   clearTimer,
   getStorage,
+  isObjOk,
   isSameData,
   makeDelay,
   makeNum,
@@ -71,6 +72,8 @@ const SearchBar: FC<PropsType> = ({
     isBtnDisabled,
     canSpin,
     setCanSpin,
+    setPopulated,
+    isPopulated,
   } = useSearchCtx();
 
   const {
@@ -132,6 +135,12 @@ const SearchBar: FC<PropsType> = ({
       __cg("same", isSame);
 
       if (isSame) {
+        if (
+          !isPopulated &&
+          [currVals, oldVals.current].every((el) => isObjOk(el))
+        )
+          setPopulated(true);
+
         clearTimer(timerID);
         return null;
       }
@@ -156,6 +165,8 @@ const SearchBar: FC<PropsType> = ({
     txtInputs,
     canSpin,
     setCanSpin,
+    setPopulated,
+    isPopulated,
   ]);
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
