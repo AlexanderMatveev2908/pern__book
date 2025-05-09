@@ -1,5 +1,6 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
@@ -17,7 +18,6 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
-  StorageKeys,
 } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { useFormContext } from "react-hook-form";
@@ -25,8 +25,6 @@ import { useFormContext } from "react-hook-form";
 type Params = {
   isFetching: boolean;
   txtInputs: FormFieldBasic[];
-  keyStorageVals: StorageKeys;
-  keyStorageLabels: StorageKeys;
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
 };
@@ -35,8 +33,6 @@ export const useSearchBar = ({
   txtInputs,
   filters,
   numericFilters,
-  keyStorageVals,
-  keyStorageLabels,
   isFetching,
 }: Params) => {
   // const savedVals = getStorage(keyStorageVals);
@@ -50,6 +46,7 @@ export const useSearchBar = ({
     null
   );
   const timerID = useRef<NodeJS.Timeout | null>(null);
+  const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
   const {
     setTxtInputs,

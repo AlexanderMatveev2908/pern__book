@@ -1,23 +1,25 @@
 import { FC, ReactNode } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
-import { BtnAct, StorageKeys } from "@/types/types";
+import { BtnAct } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { saveStorage } from "@/core/lib/lib";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
 
 type PropsType = {
   children: ReactNode;
-  keyStorageLabels: StorageKeys;
 };
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ children, keyStorageLabels }) => {
+const TxtInputs: FC<PropsType> = ({ children }) => {
   const { activeTxtInputs, setTxtInputs } = useSearchCtx();
+
+  const { keyStorageLabels } = useGetSearchKeysStorage();
 
   const {
     register,

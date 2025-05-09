@@ -3,7 +3,6 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
-  StorageKeys,
 } from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
@@ -14,15 +13,12 @@ import SkeletonBar from "./components/SkeletonBar";
 import { useSearchBar } from "./useSearchBar";
 import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
-import { getKeysSearchBar } from "@/core/lib/lib";
 
 type PropsType = {
   isLoading: boolean;
   isFetching: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
-  keyStorageVals: StorageKeys;
-  keyStorageLabels: StorageKeys;
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
 };
@@ -32,8 +28,6 @@ const SearchBar: FC<PropsType> = ({
   txtInputs,
   filters,
   numericFilters,
-  keyStorageVals,
-  keyStorageLabels,
   isFetching,
   isLoading,
 }) => {
@@ -41,16 +35,12 @@ const SearchBar: FC<PropsType> = ({
     txtInputs,
     filters,
     numericFilters,
-    keyStorageVals,
-    keyStorageLabels,
     isFetching,
   });
 
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
-  const keys = getKeysSearchBar(path);
-  console.log(keys);
   return isLoading ? (
     <SkeletonBar />
   ) : (
@@ -62,12 +52,10 @@ const SearchBar: FC<PropsType> = ({
       <BgBlack />
       <FilterBar {...{ filters, numericFilters }} />
 
-      <TxtInputs {...{ txtInputs, keyStorageLabels }}>
+      <TxtInputs {...{ txtInputs }}>
         <ButtonsForm
           {...{
             txtInputs,
-            keyStorageVals,
-            keyStorageLabels,
             isFetching,
             numericFilters,
           }}

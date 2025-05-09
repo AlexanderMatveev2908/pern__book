@@ -1,12 +1,7 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC, useMemo } from "react";
 import DropInputs from "./TxtInputs/DropInputs";
-import {
-  BtnAct,
-  FormFieldBasic,
-  NumericFilterSearch,
-  StorageKeys,
-} from "@/types/types";
+import { BtnAct, FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
@@ -16,19 +11,16 @@ import { FaSearch } from "react-icons/fa";
 import { getSizeSearchbarBtns, makeDelay, saveStorage } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
-  keyStorageVals: StorageKeys;
-  keyStorageLabels: StorageKeys;
   isFetching: boolean;
   numericFilters?: NumericFilterSearch[];
 };
 
 const ButtonsForm: FC<PropsType> = ({
   txtInputs,
-  keyStorageVals,
-  keyStorageLabels,
   isFetching,
   numericFilters,
 }) => {
@@ -56,6 +48,8 @@ const ButtonsForm: FC<PropsType> = ({
     // eslint-disable-next-line
     [numericFilters, errors, vals]
   );
+
+  const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
@@ -85,7 +79,7 @@ const ButtonsForm: FC<PropsType> = ({
         </div>
 
         <div className="w-full">
-          <DropInputs {...{ txtInputs, keyStorageLabels }} />
+          <DropInputs {...{ txtInputs }} />
         </div>
       </div>
 

@@ -1,25 +1,27 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
 import { makeDelay, saveStorage } from "@/core/lib/lib";
-import { FormFieldBasic, StorageKeys } from "@/types/types";
+import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
 import { FaSearchPlus } from "react-icons/fa";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
-  keyStorageLabels: StorageKeys;
 };
 
 const addFieldBtn = {
   icon: FaSearchPlus,
 };
 
-const DropInputs: FC<PropsType> = ({ txtInputs, keyStorageLabels }) => {
+const DropInputs: FC<PropsType> = ({ txtInputs }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
 
   const { setFocus } = useFormContext();
+
+  const { keyStorageLabels } = useGetSearchKeysStorage();
 
   useEffect(() => {
     const listenClick = (e: MouseEvent) => {

@@ -22,15 +22,12 @@ export const removeStorage = () => {
 };
 
 export const getKeysSearchBar = (path: string) => {
-  const keys = new Map([
-    [
-      "ownerBookStoreBookStores",
-      {
-        vals: StorageKeys.STORES_OWNER_VALS,
-        labels: StorageKeys.STORES_OWNER_LABELS,
-      },
-    ],
-  ]);
+  const keys = {
+    ownerBookStoreBookStores: {
+      keyStorageVals: StorageKeys.STORES_OWNER_VALS,
+      keyStorageLabels: StorageKeys.STORES_OWNER_LABELS,
+    },
+  };
 
   const formatted = path
     .split("/")
@@ -45,5 +42,5 @@ export const getKeysSearchBar = (path: string) => {
     )
     .join("");
 
-  return keys.get(formatted);
+  return keys[formatted as keyof typeof keys];
 };

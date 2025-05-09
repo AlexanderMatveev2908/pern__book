@@ -83,8 +83,6 @@ const BookStores: FC = () => {
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
               numericFilters: numericFiltersStore,
-              keyStorageVals: StorageKeys.STORES_OWNER_VALS,
-              keyStorageLabels: StorageKeys.STORES_OWNER_LABELS,
             }}
           />
         </FormProvider>
