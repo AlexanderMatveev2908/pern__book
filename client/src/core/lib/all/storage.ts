@@ -26,12 +26,10 @@ export const formatP = (p: string) =>
     .split("/")
     .slice(1)
     .map((el, i) =>
-      !i
-        ? el
-        : el
-            .split("-")
-            .map((el) => capt(el))
-            .join("")
+      el
+        .split("-")
+        .map((el, j) => (!i && !j ? el : capt(el)))
+        .join("")
     )
     .join("");
 
