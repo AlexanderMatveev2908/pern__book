@@ -23,7 +23,7 @@ type PropsType = {
 
 const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
   const [isDropOpen, setIsDropOpen] = useState(
-    window.innerWidth > tailwindBreak.md
+    abs ? false : window.innerWidth > tailwindBreak.md
   );
 
   useEffect(() => {

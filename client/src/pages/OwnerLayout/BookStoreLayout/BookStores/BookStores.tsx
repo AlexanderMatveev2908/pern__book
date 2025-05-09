@@ -10,7 +10,7 @@ import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxCon
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
-import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
@@ -20,6 +20,8 @@ import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem/BookStoreItem";
 
 const BookStores: FC = () => {
+  useScroll();
+
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();

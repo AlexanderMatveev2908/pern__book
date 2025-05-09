@@ -20,7 +20,7 @@ const InfoCardStats: FC<PropsType> = ({ el }) => {
         className={`transition-all duration-[0.4s] ${
           isDropOpen
             ? "opacity-100 max-h-[500px]"
-            : "opacity-0 pointer-events-none max-h-0"
+            : "opacity-0 pointer-events-none max-h-0 -z-50"
         }`}
       >
         <InfoBookStoreWorker {...{ abs: true, bookStore: el }} />

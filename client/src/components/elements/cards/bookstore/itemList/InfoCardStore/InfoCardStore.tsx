@@ -42,7 +42,7 @@ const InfoCardStore: FC<PropsType> = ({ el }) => {
           className={`transition-all duration-[0.4s] ${
             isDropOpen
               ? "opacity-100 max-h-[500px]"
-              : "opacity-0 pointer-events-none max-h-0"
+              : "opacity-0 pointer-events-none -z-50 max-h-0"
           }`}
         >
           <DropStats {...{ el: categoriesStoreLabel, fields: null, abs: true }}>

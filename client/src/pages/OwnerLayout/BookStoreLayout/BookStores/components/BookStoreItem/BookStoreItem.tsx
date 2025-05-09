@@ -11,12 +11,14 @@ type PropsType = {
 
 const BookStoreItem: FC<PropsType> = ({ el }) => {
   return (
-    <div className="w-full grid grid-cols-1 border-[3px] gap-y-5 border-blue-600 p-3 rounded-xl max-w-full">
+    <div className="w-full grid grid-cols-1 border-[3px] gap-y-5 border-blue-600 p-3 rounded-xl max-w-[400px] sm:max-w-full justify-self-center">
       <ItemID {...{ ID: el.id }} />
-      <div className="w-full grid grid-cols-1 gap-y-5">
-        <ImagesItem {...{ images: el.images }} />
+      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-5">
+        <div className="w-full grid grid-cols-1 h-fit items-start">
+          <ImagesItem {...{ images: el.images }} />
+        </div>
 
-        <div className="w-full grid grid-cols-1">
+        <div className="w-full grid grid-cols-1 sm:h-fit sm:items-start">
           <InfoCardStore {...{ el }} />
           <InfoCardStats {...{ el }} />
         </div>

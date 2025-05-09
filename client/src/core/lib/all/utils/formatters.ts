@@ -40,7 +40,7 @@ export const priceFormatter = (price?: string, fb?: string) => {
 
 export const formatPlural = (val: number = 0) => (val > 1 ? "s" : "");
 
-const formatChainArrrStr = (parts: string[]) => {
+const formatChainArrStr = (parts: string[]) => {
   if (parts.length === 1) return parts[0];
 
   let i = 0;
@@ -65,7 +65,7 @@ export const formatDay = (days?: number) => {
   const years = Math.floor(totalDays / 365);
   const months = Math.floor(totalDays / 30);
   const weeks = Math.floor((totalDays % 30) / 7);
-  const daysNum = totalDays % 7;
+  const daysNum = Math.floor(((totalDays % 30) % 7) % 7);
 
   const parts: string[] = [];
 
@@ -73,7 +73,7 @@ export const formatDay = (days?: number) => {
   if (weeks) parts.push(`${weeks} week${formatPlural(weeks)}`);
   if (daysNum) parts.push(`${daysNum} day${formatPlural(daysNum)}`);
 
-  return years ? "Maybe a little too much..." : formatChainArrrStr(parts);
+  return years ? "Maybe a little too much..." : formatChainArrStr(parts);
 };
 
 export const formatValDel = (key: string, val: any) => {
