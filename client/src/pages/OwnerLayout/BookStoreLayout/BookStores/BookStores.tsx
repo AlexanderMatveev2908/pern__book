@@ -77,7 +77,6 @@ const BookStores: FC = () => {
         <FormProvider {...formCtx}>
           <SearchBar
             {...{
-              isLoading: res?.isLoading,
               isFetching: res?.isFetching,
               handleSave,
               txtInputs: fieldsSearchStore,

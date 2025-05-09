@@ -97,6 +97,12 @@ export const reducerSearch = (
       };
     }
 
+    case SearchCtxActions.SET_ERR_NUMBERS:
+      return {
+        ...state,
+        errNumbers: action.payload,
+      };
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }

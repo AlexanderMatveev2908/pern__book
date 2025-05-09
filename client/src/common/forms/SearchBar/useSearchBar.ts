@@ -1,4 +1,5 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { ParamsErrNumber } from "@/core/contexts/SearchCtx/reducer/actions";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
@@ -8,7 +9,6 @@ import {
   __cg,
   clearTimer,
   getStorage,
-  isObjOk,
   isSameData,
   makeDelay,
   makeNum,
@@ -37,17 +37,11 @@ export const useSearchBar = ({
 }: Params) => {
   // const savedVals = getStorage(keyStorageVals);
   const hasWarningRun = useRef<boolean>(false);
-  const oldVals = useRef<ArgsSearchType | null>(
-    // savedVals
-    //   ? JSON.parse(savedVals)
-    //   : {
-    //       [txtInputs[0].field]: "",
-    //     }
-    null
-  );
+  const oldVals = useRef<ArgsSearchType | null>(null);
   const timerID = useRef<NodeJS.Timeout | null>(null);
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
+  const state = useSearchCtx();
   const {
     setTxtInputs,
     setSearch,
@@ -63,7 +57,10 @@ export const useSearchBar = ({
     isPopulated,
     pagination: { page, limit, block },
     setPagination,
-  } = useSearchCtx();
+    args,
+    errNumbers,
+    setErrNumbers,
+  } = state;
 
   const {
     clearErrors,
@@ -130,16 +127,14 @@ export const useSearchBar = ({
       const currVals = getValues();
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      __cg("old", oldVals.current);
-      __cg("new", currVals);
-      __cg("is same", isSame);
-
       if (isSame) {
-        if (
-          !isPopulated &&
-          [currVals, oldVals.current].every((el) => isObjOk(el))
-        )
+        if (!isPopulated) {
+          oldVals.current = {
+            ...currVals,
+            [txtInputs[0].field]: currVals[txtInputs[0].field] || "",
+          };
           setPopulated(true);
+        }
 
         clearTimer(timerID);
         return null;
@@ -167,6 +162,7 @@ export const useSearchBar = ({
       clearTimer(timerID);
     };
   }, [
+    txtInputs,
     block,
     limit,
     getValues,
@@ -192,7 +188,87 @@ export const useSearchBar = ({
     setIsPending: (val: boolean) => setIsPending({ el: "clear", val }),
   });
 
-  // * CLEAR OLD ERRORS
+  // * OPEN BAR ON ERROR INSIDE IT
+  useEffect(() => {
+    if (isDirty && numericFilters?.length) {
+      const { currArr, currEl } =
+        getErrFooterBar({
+          errs: errors,
+          numericFilters,
+        }) ?? {};
+
+      if (!isPopulated || !currArr || hasWarningRun.current) return;
+
+      hasWarningRun.current = true;
+
+      setBar({ el: "filterBar", val: true });
+      setSearch({ el: "currFilter", val: currArr });
+      if (currEl)
+        makeDelay(() => {
+          setFocus(currEl.field);
+        }, 400);
+    }
+  }, [
+    isPopulated,
+    isDirty,
+    vals,
+    dirtyFields,
+    numericFilters,
+    errors,
+    setFocus,
+    setBar,
+    setSearch,
+    isBtnDisabled,
+  ]);
+
+  // * DISABLE BTN ON ERRORS
+  // ? YOU COULD LEAVE BTN ENABLED AND OPEN BAR ON CLICK AS SECOND CB IN HANDLE_SUBMIT OF REACT_USE_FORM, IT DEPENDS ON YOUR PREFERENCE, THE IMPORTANT THING IS JUST TO SKIP QUERY ON ERROR TO AVOID SENDING INVALID INPUTS LIKE `<script></script>`
+  useEffect(() => {
+    const handleMainBtn = () => {
+      const hasErr =
+        !!Object.keys(errors ?? {}).length &&
+        Object.values(errors).every((el) => el?.message);
+      const hasPagination = [args["page"], args["limit"]].every(
+        (el) => typeof el === "number"
+      );
+      const isDisabled = hasErr || !hasPagination;
+
+      // const currVals = getValues();
+      // const isSame: boolean = isSameData(oldVals.current, currVals);
+      // const isDisabled = hasErr || isSame;
+
+      if (isDisabled === isBtnDisabled) return null;
+
+      setBtnDisabled(isDisabled);
+    };
+
+    handleMainBtn();
+  }, [
+    vals,
+    setBtnDisabled,
+    errors,
+    isBtnDisabled,
+    getValues,
+    args,
+    errNumbers,
+    numericFilters,
+    setErrNumbers,
+  ]);
+
+  useEffect(() => {
+    const handleNumberErr = () => {
+      const errFilter = getErrFooterBar({
+        errs: errors,
+        numericFilters,
+      });
+      if (!isSameData(errFilter, errNumbers))
+        setErrNumbers(errFilter as ParamsErrNumber);
+    };
+
+    handleNumberErr();
+  }, [errNumbers, setErrNumbers, errors, numericFilters, vals]);
+
+  // * CLEAR OLD ERRORS NUMBERS
   useEffect(() => {
     const handleErrors = () => {
       if (
@@ -220,55 +296,7 @@ export const useSearchBar = ({
     handleErrors();
   }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
 
-  // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {
-    if (isDirty && numericFilters?.length) {
-      const { currArr, currEl } =
-        getErrFooterBar({
-          errs: errors,
-          numericFilters,
-        }) ?? {};
-
-      if (!currArr || hasWarningRun.current) return;
-
-      hasWarningRun.current = true;
-
-      setBar({ el: "filterBar", val: true });
-      setSearch({ el: "currFilter", val: currArr });
-      if (currEl)
-        makeDelay(() => {
-          setFocus(currEl.field);
-        }, 400);
-    }
-  }, [
-    isDirty,
-    vals,
-    dirtyFields,
-    numericFilters,
-    errors,
-    setFocus,
-    setBar,
-    setSearch,
-  ]);
-
-  // * DISABLE BTN ON ERRORS
-  // ? YOU COULD LEAVE BTN ENABLED AND OPEN BAR ON CLICK AS SECOND CB IN HANDLE_SUBMIT OF REACT_USE_FORM, IT DEPENDS ON YOUR PREFERENCE, THE IMPORTANT THING IS JUST TO SKIP QUERY ON ERROR TO AVOID SENDING INVALID INPUTS LIKE `<script></script>`
-  useEffect(() => {
-    const handleMainBtn = () => {
-      const hasErr =
-        !!Object.keys(errors ?? {}).length &&
-        Object.values(errors).every((el) => el?.message);
-      // const currVals = getValues();
-      // const isSame: boolean = isSameData(oldVals.current, currVals);
-      // const isDisabled = hasErr || isSame;
-
-      if (hasErr === isBtnDisabled) return null;
-
-      setBtnDisabled(hasErr);
-    };
-
-    handleMainBtn();
-  }, [vals, setBtnDisabled, errors, isBtnDisabled, getValues]);
-
-  return {};
+    __cg("state", state);
+  }, [state]);
 };

@@ -16,6 +16,7 @@ export enum SearchCtxActions {
   SET_POPULATED = "SET_POPULATED",
   SET_CAN_MAKE_API = "SET_CAN_MAKE_API",
   SET_PAGINATION = "SET_PAGINATION",
+  SET_ERR_NUMBERS = "SET_ERR_NUMBERS",
 }
 
 export type ParamsBar = {
@@ -34,6 +35,11 @@ export type ParamsPending = {
 export type ParamsPagination = {
   el: "limit" | "page" | "block";
   val: number;
+};
+
+export type ParamsErrNumber = null | {
+  currArr: NumericFilterSearch;
+  currEl: FormFieldBasic;
 };
 
 export type SearchCtxActionsType =
@@ -76,4 +82,8 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_PAGINATION;
       payload: ParamsPagination;
+    }
+  | {
+      type: SearchCtxActions.SET_ERR_NUMBERS;
+      payload: ParamsErrNumber;
     };

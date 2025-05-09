@@ -13,9 +13,9 @@ import SkeletonBar from "./components/SkeletonBar";
 import { useSearchBar } from "./useSearchBar";
 import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
-  isLoading: boolean;
   isFetching: boolean;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
@@ -29,7 +29,6 @@ const SearchBar: FC<PropsType> = ({
   filters,
   numericFilters,
   isFetching,
-  isLoading,
 }) => {
   useSearchBar({
     txtInputs,
@@ -38,10 +37,12 @@ const SearchBar: FC<PropsType> = ({
     isFetching,
   });
 
+  const { isPopulated } = useSearchCtx();
+
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
-  return isLoading ? (
+  return !isPopulated ? (
     <SkeletonBar />
   ) : (
     <form

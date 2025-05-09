@@ -69,6 +69,8 @@ export const makeParams = <T extends Record<string, string | string[]>>(
 
     if (typeof val === "string" && val.trim().length) {
       params.append(key, val);
+    } else if (typeof val === "number") {
+      params.append(key, val + "");
     } else if (Array.isArray(val) && val.length) {
       for (const el of val as string[]) {
         params.append(key, el);

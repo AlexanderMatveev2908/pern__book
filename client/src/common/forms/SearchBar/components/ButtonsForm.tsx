@@ -1,5 +1,5 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import DropInputs from "./TxtInputs/DropInputs";
 import { BtnAct, FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
@@ -10,7 +10,6 @@ import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { getSizeSearchbarBtns, makeDelay, saveStorage } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
-import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
 
 type PropsType = {
@@ -19,11 +18,7 @@ type PropsType = {
   numericFilters?: NumericFilterSearch[];
 };
 
-const ButtonsForm: FC<PropsType> = ({
-  txtInputs,
-  isFetching,
-  numericFilters,
-}) => {
+const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
   const {
     setBar,
     labels: { labelSubmit },
@@ -33,21 +28,13 @@ const ButtonsForm: FC<PropsType> = ({
     isBtnDisabled,
     setSearch,
     setPagination,
+    errNumbers,
   } = useSearchCtx();
   const {
     reset,
     formState: { errors },
-    watch,
     setFocus,
   } = useFormContext();
-
-  const vals = watch();
-
-  const errEl = useMemo(
-    () => getErrFooterBar({ errs: errors, numericFilters }),
-    // eslint-disable-next-line
-    [numericFilters, errors, vals]
-  );
 
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
@@ -63,9 +50,9 @@ const ButtonsForm: FC<PropsType> = ({
             {...{
               handleClick: () => {
                 setBar({ val: true, el: "filterBar" });
-                if (errEl !== null) {
-                  setSearch({ el: "currFilter", val: errEl.currArr });
-                  makeDelay(() => setFocus(errEl.currEl.field), 0);
+                if (errNumbers !== null) {
+                  setSearch({ el: "currFilter", val: errNumbers.currArr });
+                  makeDelay(() => setFocus(errNumbers.currEl.field), 0);
                 }
               },
               el: {
@@ -75,7 +62,7 @@ const ButtonsForm: FC<PropsType> = ({
             }}
           />
 
-          {errEl && <ErrorFormField {...{ errors, el: errEl?.currArr }} />}
+          <ErrorFormField {...{ errors, el: errNumbers?.currEl }} />
         </div>
 
         <div className="w-full">

@@ -6,7 +6,7 @@ import { FieldErrors } from "react-hook-form";
 
 type PropsType = {
   errors: FieldErrors;
-  el: FormFieldBasic;
+  el?: FormFieldBasic;
   styleCont?: {
     [key: string]: string;
   };
@@ -16,9 +16,9 @@ type PropsType = {
 const ErrorFormField: FC<PropsType> = ({ errors, el, styleCont, index }) => {
   const msg =
     typeof index === "number"
-      ? ((errors?.items as any)?.[index]?.[el.field]?.message as string)
-      : errors[el.field]?.message;
-  const { prevErr } = useSavePrevErr({ errors, key: el.field, index });
+      ? ((errors?.items as any)?.[index]?.[el?.field ?? ""]?.message as string)
+      : errors?.[el?.field ?? ""]?.message;
+  const { prevErr } = useSavePrevErr({ errors, key: el?.field ?? "", index });
 
   const defStyle = useMemo(
     () => ({
@@ -29,7 +29,7 @@ const ErrorFormField: FC<PropsType> = ({ errors, el, styleCont, index }) => {
     []
   );
 
-  return (
+  return !el ? null : (
     <div
       className={`absolute transition-all pointer-events-none duration-[0.4s] ${
         msg ? "translate-y-0 opacity-100" : "translate-y-[100px] opacity-0"

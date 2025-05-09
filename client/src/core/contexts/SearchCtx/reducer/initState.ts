@@ -40,6 +40,10 @@ export type SearchCtxStateType = {
     page: number;
     limit: number;
   };
+  errNumbers: null | {
+    currArr: NumericFilterSearch;
+    currEl: FormFieldBasic;
+  };
 };
 
 export const initStateSearch: SearchCtxStateType = {
@@ -69,4 +73,5 @@ export const initStateSearch: SearchCtxStateType = {
     limit: setLimitCards(),
     page: 0,
   },
+  errNumbers: null,
 };

@@ -10,6 +10,7 @@ import {
   REG_STORE_NAME,
 } from "../../config/regex.js";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { checkPagination } from "../sharedValidators/pagination.js";
 
 export const validateQueryListStores = [
   check("name").custom((val) =>
@@ -60,6 +61,8 @@ export const validateQueryListStores = [
 
     return true;
   }),
+
+  ...checkPagination,
 
   handleValidator(422),
 ];
