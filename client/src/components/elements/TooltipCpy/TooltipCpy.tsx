@@ -3,9 +3,10 @@ import "./TooltipCpy.css";
 
 type PropsType = {
   txt: string;
+  bd?: boolean;
 };
 
-const TooltipCpy: FC<PropsType> = ({ txt }) => {
+const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const toolRef = useRef<HTMLDivElement | null>(null);
 
@@ -41,11 +42,21 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
       disabled={!txt}
       type="button"
       ref={btnRef}
-      className="relative w-full flex justify-start appearance-none min-w-full outline-0 h-full"
+      className="relative w-full flex justify-start appearance-none outline-0"
     >
       {txt && (
-        <div className="el__cpy_txt appearance-none py-1 px-5 cursor-pointer overflow-x-auto scrollbar__x scrollbar__app w-full max-w-full el__border_sm">
-          <span className="txt__2 text-nowrap block max-w-full overflow-x-auto scrollbar__x scrollbar__app">
+        <div
+          className={` py-1 px-4 cursor-pointer max-w-full overflow-hidden ${
+            bd ? "el__border_sm el__cpy_txt" : "hover:text-blue-600 el__flow"
+          }`}
+        >
+          <span
+            className="txt__2 clamp_txt block max-w-full"
+            style={{
+              lineClamp: 1,
+              WebkitLineClamp: 1,
+            }}
+          >
             {txt}
           </span>
         </div>
