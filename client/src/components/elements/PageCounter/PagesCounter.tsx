@@ -25,13 +25,14 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
 
   useEffect(() => {
     const listenResize = () => {
-      setSizeBlock(getNumBtns());
-
+      const maxSizeBtns = getNumBtns();
+      setSizeBlock(maxSizeBtns);
       const maxCards = setLimitCards();
-      setPagination({ el: "limit", val: maxCards });
-      setArgs({ ...args, limit: maxCards });
 
-      if (totPages < getNumBtns()) setPagination({ el: "block", val: 0 });
+      if (totPages < maxSizeBtns) setPagination({ el: "block", val: 0 });
+      else setPagination({ el: "limit", val: maxCards });
+
+      setArgs({ ...args, limit: maxCards });
     };
 
     window.addEventListener("resize", listenResize);
@@ -66,10 +67,12 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
         page: val,
         limit,
       });
+      // eslint-disable-next-line
+      const { limit: _, ...rest } = args;
       saveStorage({
         key: keyStorageVals,
         data: {
-          ...args,
+          ...rest,
           page: val,
           block,
         },
