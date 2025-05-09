@@ -38,7 +38,11 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
     <div className="w-full relative">
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
-      <hr className="bg-blue-600 h-[3px] w-full border-0 my-3" />
+      <hr
+        className={` h-[3px] w-full border-0  ${
+          abs ? "bg-transparent my-2" : "bg-blue-600 my-3"
+        }`}
+      />
 
       <ul
         className={`w-full grid transition-all duration-[0.4s] gap-3 ${
