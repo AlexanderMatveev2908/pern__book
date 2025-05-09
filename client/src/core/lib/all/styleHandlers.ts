@@ -28,13 +28,13 @@ export const getNumBtns = () =>
     : 2;
 
 export const setLimitCards = () =>
-  window.innerWidth > tailwindBreak.lg
-    ? 20
+  window.innerWidth > tailwindBreak._2xl
+    ? 12
+    : window.innerWidth > tailwindBreak.xl
+    ? 9
     : window.innerWidth > tailwindBreak.md
-    ? 15
-    : window.innerWidth > tailwindBreak.sm
-    ? 10
-    : 5;
+    ? 8
+    : 4;
 
 export const calcCurrBlock = ({
   i,

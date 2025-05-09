@@ -43,11 +43,13 @@ export const validateQueryListStores = [
     ];
 
     for (const pair in Object.entries(req?.query ?? {})) {
-      if (
-        (expectedArr.includes(pair[0]) && !Array.isArray(pair[1])) ||
-        (pair[1] as unknown as string[])?.some((el) => typeof el !== "string")
-      )
+      if (expectedArr.includes(pair[0]) && !Array.isArray(pair[1]))
         throw new Error("Invalid data structures of array");
+      if (
+        Array.isArray(pair[1]) &&
+        pair[1].some((el) => typeof el !== "string")
+      )
+        throw new Error("Invalid vals array");
 
       if (
         expectedFloat.includes(pair[0]) &&

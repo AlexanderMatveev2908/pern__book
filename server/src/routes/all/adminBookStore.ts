@@ -30,8 +30,8 @@ adminExpressRouterStore
   )
   .get(
     verifyAccessToken({ isVerified: true }),
-    validateQueryListStores,
     wrapApp(logJSON),
+    validateQueryListStores,
     wrapApp(getAllStores)
   );
 
