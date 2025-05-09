@@ -2,12 +2,9 @@ import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import {
   categoriesStoreLabel,
   fieldsStatsContact,
-  KEY_MAP_STORE,
   labelFieldAddressStore,
   labelFieldContact,
-  labelsBookStore,
   statsAddress,
-  statsBooks,
 } from "@/core/config/fieldsData/bookStore/actions";
 import { labelCardStore } from "@/core/config/fieldsData/bookStore/card";
 import DropStats from "@/components/elements/cards/shared/DropStats";
@@ -26,17 +23,15 @@ const InfoCardStore: FC<PropsType> = ({ el }) => {
   const ids = useCreateIds({ lengths: [el.categories.length] });
 
   return (
-    <div className="w-full grid grid-cols-1">
+    <div className="w-full grid grid-cols-1 gap-4">
       <div
-        className={`w-full grid gap-4 el__near relative ${
-          isDropOpen ? "" : ""
-        }`}
-        style={
-          {
-            "--opacity__near": isDropOpen ? 1 : 0,
-            "--h__near": isDropOpen ? "100%" : "0%",
-          } as React.CSSProperties
-        }
+        className="w-full grid grid-cols-1 gap-4"
+        // style={
+        //   {
+        //     "--opacity__near": isDropOpen ? 1 : 0,
+        //     "--h__near": isDropOpen ? "100%" : "0%",
+        //   } as React.CSSProperties
+        // }
       >
         <DropHandler
           {...{ isDropOpen, setIsDropOpen, el: labelCardStore(el.name) }}
@@ -60,14 +55,6 @@ const InfoCardStore: FC<PropsType> = ({ el }) => {
               </li>
             ))}
           </DropStats>
-
-          <DropStats
-            {...{
-              el: labelsBookStore.get(KEY_MAP_STORE.BOOKS),
-              fields: statsBooks([0]),
-              abs: true,
-            }}
-          />
 
           <DropStats
             {...{

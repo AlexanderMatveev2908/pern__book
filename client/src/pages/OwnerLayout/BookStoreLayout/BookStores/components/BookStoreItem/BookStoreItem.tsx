@@ -1,3 +1,4 @@
+import InfoCardStats from "@/components/elements/cards/bookstore/itemList/InfoCardStats";
 import InfoCardStore from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStore";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
@@ -15,7 +16,10 @@ const BookStoreItem: FC<PropsType> = ({ el }) => {
       <div className="w-full grid grid-cols-1 gap-y-5">
         <ImagesItem {...{ images: el.images }} />
 
-        <InfoCardStore {...{ el }} />
+        <div className="w-full grid grid-cols-1">
+          <InfoCardStore {...{ el }} />
+          <InfoCardStats {...{ el }} />
+        </div>
       </div>
     </div>
   );
