@@ -42,22 +42,24 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
       disabled={!txt}
       type="button"
       ref={btnRef}
-      className="relative w-full flex justify-start appearance-none outline-0"
+      className="relative w-full flex justify-start appearance-none outline-0 max-w-full h-full"
     >
       {txt && (
         <div
-          className={` py-1  cursor-pointer w-full max-w-full ${
+          className={`py-1 cursor-pointer flex w-full max-w-full overflow-x-auto ${
             bd
               ? "el__border_sm el__cpy_txt justify-center px-4"
-              : "hover:text-blue-600 el__flow justify-start"
+              : "hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scrollbar__x scrollbar__app min-h-full top-0 left-0 "
           }`}
         >
           <span
-            className="txt__2 clamp_txt w-fit text-start"
-            style={{
-              lineClamp: 1,
-              WebkitLineClamp: 1,
-            }}
+            className="txt__2 w-fit text-nowrap"
+            style={
+              {
+                // lineClamp: 1,
+                // WebkitLineClamp: 1,
+              }
+            }
           >
             {txt}
           </span>
