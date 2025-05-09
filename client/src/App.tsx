@@ -3,7 +3,7 @@ import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
 import AuthLayout from "./layouts/AuthLayout";
 import HomePage from "./pages/Home/HomePage";
-import { setNavigator } from "@/core/lib/lib";
+import { formatP, setNavigator } from "@/core/lib/lib";
 import UserLayout from "./layouts/UserLayout";
 import { useNinjaToken } from "@/core/hooks/hooks";
 import OwnerLayout from "./layouts/OwnerLayout/OwnerLayout";
@@ -34,6 +34,8 @@ const App: FC = () => {
   }, [navigate]);
 
   useNinjaToken();
+  const res = formatP("/test/something/with-hy");
+  console.log(res);
 
   return (
     <Routes>

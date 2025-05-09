@@ -21,6 +21,20 @@ export const removeStorage = () => {
   sessionStorage.clear();
 };
 
+export const formatP = (p: string) =>
+  p
+    .split("/")
+    .slice(1)
+    .map((el, i) =>
+      !i
+        ? el
+        : el
+            .split("-")
+            .map((el) => capt(el))
+            .join("")
+    )
+    .join("");
+
 export const getKeysSearchBar = (path: string) => {
   const keys = {
     ownerBookStoreBookStores: {
@@ -29,18 +43,7 @@ export const getKeysSearchBar = (path: string) => {
     },
   };
 
-  const formatted = path
-    .split("/")
-    .slice(1)
-    .map((el) =>
-      !el.includes("-")
-        ? el
-        : el
-            .split("-")
-            .map((el) => capt(el))
-            .join("")
-    )
-    .join("");
+  const formatted = formatP(path);
 
   return keys[formatted as keyof typeof keys];
 };
