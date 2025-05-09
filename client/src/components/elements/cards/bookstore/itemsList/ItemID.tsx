@@ -13,7 +13,7 @@ const ItemID: FC<PropsType> = ({ ID }) => {
         <FaDatabase className="icon__md" />
       </div>
 
-      <div className="w-full flex justify-start">
+      <div className="w-full">
         <TooltipCpy {...{ txt: ID, bd: false }} />
       </div>
     </div>

@@ -46,12 +46,14 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
     >
       {txt && (
         <div
-          className={`el__cpy_txt py-1 px-4 cursor-pointer max-w-full  ${
-            bd ? "el__border_sm" : "hover:text-blue-600 el__flow"
+          className={` py-1  cursor-pointer w-full max-w-full ${
+            bd
+              ? "el__border_sm el__cpy_txt justify-center px-4"
+              : "hover:text-blue-600 el__flow justify-start"
           }`}
         >
           <span
-            className="txt__2 clamp_txt"
+            className="txt__2 clamp_txt w-fit text-start"
             style={{
               lineClamp: 1,
               WebkitLineClamp: 1,

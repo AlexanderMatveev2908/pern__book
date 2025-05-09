@@ -23,7 +23,9 @@ export const getNumBtns = () =>
     ? 5
     : window.innerWidth > 500
     ? 4
-    : 3;
+    : window.innerWidth > 400
+    ? 3
+    : 2;
 
 export const setLimitCards = () =>
   window.innerWidth > tailwindBreak.lg
