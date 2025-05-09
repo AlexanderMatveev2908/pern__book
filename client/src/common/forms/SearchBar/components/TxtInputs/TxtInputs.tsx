@@ -6,7 +6,7 @@ import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { saveStorage } from "@/core/lib/lib";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/searchBar/useGetSearchKeysStorage";
 
 type PropsType = {
   children: ReactNode;

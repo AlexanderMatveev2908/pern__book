@@ -10,10 +10,13 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import ButtonsForm from "./components/ButtonsForm";
 import "./SearchBar.css";
 import SkeletonBar from "./components/SkeletonBar";
-import { useSearchBar } from "./useSearchBar";
 import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { usePopulateSearch } from "@/core/hooks/all/searchBar/usePopulateSearch";
+import { useDebounceSearch } from "@/core/hooks/all/searchBar/useDebounceSearch";
+import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
+import { useHandleErrSearch } from "@/core/hooks/all/searchBar/useHandleErrSearch";
 
 type PropsType = {
   isFetching: boolean;
@@ -30,12 +33,28 @@ const SearchBar: FC<PropsType> = ({
   numericFilters,
   isFetching,
 }) => {
-  useSearchBar({
-    txtInputs,
-    filters,
-    numericFilters,
+  const { isPending, setIsPending } = useSearchCtx();
+
+  // * POPULATE FORM EXISTING VALS
+  usePopulateSearch({ filters, txtInputs });
+
+  // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
+  useDebounceSearch({ txtInputs });
+
+  // * SYNC LOADING SUBMIT AND CLEAR BTN
+  useSyncLoading({
     isFetching,
+    isPendingCustom: isPending.submit,
+    setIsPending: (val: boolean) => setIsPending({ el: "submit", val }),
   });
+  useSyncLoading({
+    isFetching,
+    isPendingCustom: isPending.clear,
+    setIsPending: (val: boolean) => setIsPending({ el: "clear", val }),
+  });
+
+  // * MANAGEMENT ERRORS SEARCH BAR
+  useHandleErrSearch({ numericFilters });
 
   const { isPopulated } = useSearchCtx();
 

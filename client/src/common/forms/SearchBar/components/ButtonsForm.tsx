@@ -10,7 +10,7 @@ import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
 import { getSizeSearchbarBtns, makeDelay, saveStorage } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/searchBar/useGetSearchKeysStorage";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
