@@ -27,12 +27,15 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
   );
 
   useEffect(() => {
-    const resize = () =>
-      abs ? null : setIsDropOpen(window.innerWidth > tailwindBreak.md);
+    const resize = () => {
+      if (abs) return null;
+      const res = window.innerWidth > tailwindBreak.md;
+      if (res !== isDropOpen) setIsDropOpen(res);
+    };
 
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
-  }, [abs]);
+  }, [abs, isDropOpen]);
 
   return !el ? null : (
     <div className="w-full relative">

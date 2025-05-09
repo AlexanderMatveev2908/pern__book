@@ -14,7 +14,7 @@ const ImagesItem: FC<PropsType> = ({ images }) => {
           images.map((el) => (
             <div
               key={el.publicID}
-              className="w-full min-w-[150px] max-w-[150px] max-h-[150px] rounded-xl overflow-hidden border-2 border-neutral-800 snap-center sm:min-w-[250px] sm:max-w-[250px] sm:max-h-[250px] sm:min-h-[250px]"
+              className="w-full min-w-[150px] max-w-[150px] max-h-[150px] rounded-xl overflow-hidden border-2 border-neutral-800 snap-center sm:min-w-[200px] sm:max-w-[200px] sm:max-h-[200px] sm:min-h-[200px]"
             >
               <img src={el.url} alt="" className="w-full h-full object-cover" />
             </div>

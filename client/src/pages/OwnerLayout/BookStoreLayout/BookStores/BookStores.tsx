@@ -95,7 +95,7 @@ const BookStores: FC = () => {
             isLoading: res?.isLoading || !isPopulated,
           }}
         >
-          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10">
+          <div className="w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10">
             {Array.isArray(bookStores) &&
               !!bookStores.length &&
               bookStores.map((el) => <BookStoreItem key={el.id} {...{ el }} />)}
