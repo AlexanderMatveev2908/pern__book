@@ -41,14 +41,14 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       if (totPages < maxSizeBtns) setPagination({ el: "block", val: 0 });
       else setPagination({ el: "limit", val: maxCards });
 
-      setArgs({ ...args, limit: maxCards });
+      setArgs({ ...args, page, limit: maxCards });
     };
 
     window.addEventListener("resize", listenResize);
     return () => {
       window.removeEventListener("resize", listenResize);
     };
-  }, [setPagination, block, limit, setArgs, args, totPages]);
+  }, [setPagination, block, limit, setArgs, args, totPages, page]);
 
   useEffect(() => {
     if (totPages < getNumBtns() && block)

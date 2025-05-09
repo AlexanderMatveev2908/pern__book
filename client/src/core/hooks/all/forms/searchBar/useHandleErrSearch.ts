@@ -1,4 +1,5 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { isSameData, makeDelay, makeNum } from "@/core/lib/lib";
@@ -17,7 +18,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     setBar,
     setSearch,
     args,
-    preSubmit: { errNumbers, hasFormErrs, isPopulated },
+    preSubmit: { errNumbers, hasFormErrs, hasPagination, isPopulated },
     setPreSubmit,
   } = useSearchCtx();
   const {
@@ -91,12 +92,23 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
         errs: errors,
         numericFilters,
       });
+
       if (!isSameData(errFilter, errNumbers))
         setPreSubmit({ el: "errNumbers", val: errFilter });
     };
 
     handleNumberErr();
   }, [errNumbers, errors, numericFilters, vals, setPreSubmit]);
+
+  // * PREVENT SENDING DATA WITHOUT PAGINATION, BECAUSE I DO NOT WANT TO TRIGGER SOME ACTIONS ON BLOCK_PAGES CHANGE, I KEEP VALS SEPARATED AND THEN MIX ON_SUBMIT, THEN I NEED TO SAVE IT IN STORAGE FOR UI REASONS
+  useEffect(() => {
+    const neededKeys = ["limit", "page"];
+    const hasPaginationVals = neededKeys.every(
+      (k) => typeof args[k as keyof ArgsSearchType] === "number"
+    );
+    if (hasPaginationVals !== hasPagination)
+      setPreSubmit({ el: "hasPagination", val: hasPaginationVals });
+  }, [args, hasPagination, setPreSubmit]);
 
   // * CLEAR OLD ERRORS NUMBERS
   useEffect(() => {
