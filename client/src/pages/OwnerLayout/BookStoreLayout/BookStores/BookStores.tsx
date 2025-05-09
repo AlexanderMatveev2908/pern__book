@@ -94,6 +94,7 @@ const BookStores: FC = () => {
             isLoading: res?.isLoading || res?.isFetching || !isPopulated,
           }}
         >
+          <div className="min-h-[1000px]"></div>
           <PagesCounter
             {...{ totPages: 7, keyStorageVals: StorageKeys.STORES_OWNER_VALS }}
           />

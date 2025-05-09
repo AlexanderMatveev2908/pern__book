@@ -4,8 +4,15 @@ import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
-import { __cg, getNumBtns, saveStorage, setLimitCards } from "@/core/lib/lib";
+import {
+  getNumBtns,
+  makeDelay,
+  saveStorage,
+  setLimitCards,
+} from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
+import { useLocation } from "react-router-dom";
+import { getSearchBarID } from "@/core/lib/all/utils/ids";
 
 type PropsType = {
   totPages: number;
@@ -22,6 +29,8 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());
+  const path = useLocation().pathname;
+  const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
   useEffect(() => {
     const listenResize = () => {
@@ -77,8 +86,20 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
           block,
         },
       });
+
+      makeDelay(() => {
+        const el = document.getElementById(searchBarID);
+        if (!el) return;
+        const h = el.offsetHeight;
+        const top = el.getBoundingClientRect().top;
+
+        window.scroll({
+          top: top - h,
+          behavior: "smooth",
+        });
+      }, 200);
     },
-    [args, block, keyStorageVals, setArgs, setPagination, limit]
+    [args, block, keyStorageVals, setArgs, setPagination, limit, searchBarID]
   );
 
   const vals = useMemo(
@@ -89,14 +110,6 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
       ).filter((val) => val < totPages + 1),
     [block, sizeBLock, totPages]
   );
-
-  useEffect(() => {
-    // __cg("tot_pages", totPages);
-    // __cg("len", ids.length);
-    __cg("curr page", page);
-    // __cg("limit", limit);
-    // __cg("block", block);
-  }, [totPages, limit, block, page, ids]);
 
   return (
     <div className="w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">

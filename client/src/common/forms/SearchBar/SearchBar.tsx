@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -12,6 +12,9 @@ import ButtonsForm from "./components/ButtonsForm";
 import "./SearchBar.css";
 import SkeletonBar from "./components/SkeletonBar";
 import { useSearchBar } from "./useSearchBar";
+import { useLocation } from "react-router-dom";
+import { getSearchBarID } from "@/core/lib/all/utils/ids";
+import { getKeysSearchBar } from "@/core/lib/lib";
 
 type PropsType = {
   isLoading: boolean;
@@ -43,10 +46,16 @@ const SearchBar: FC<PropsType> = ({
     isFetching,
   });
 
+  const path = useLocation().pathname;
+  const searchBarID = useMemo(() => getSearchBarID(path), [path]);
+
+  const keys = getKeysSearchBar(path);
+  console.log(keys);
   return isLoading ? (
     <SkeletonBar />
   ) : (
     <form
+      id={searchBarID}
       onSubmit={handleSave}
       className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4"
     >
