@@ -94,7 +94,9 @@ const BookStores: FC = () => {
             isLoading: res?.isLoading || res?.isFetching || !isPopulated,
           }}
         >
-          <PagesCounter {...{ totPages: 20 }} />
+          <PagesCounter
+            {...{ totPages: 7, keyStorageVals: StorageKeys.STORES_OWNER_VALS }}
+          />
         </WrapPageAPI>
       </div>
     </WrapPageAPI>

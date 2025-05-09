@@ -40,6 +40,7 @@ const ButtonsForm: FC<PropsType> = ({
     setIsPending,
     isBtnDisabled,
     setSearch,
+    setPagination,
   } = useSearchCtx();
   const {
     reset,
@@ -121,6 +122,8 @@ const ButtonsForm: FC<PropsType> = ({
 
                 reset({});
                 setTxtInputs([txtInputs[0]]);
+                setPagination({ el: "block", val: 0 });
+                setPagination({ el: "page", val: 0 });
 
                 saveStorage({ data: {}, key: keyStorageVals });
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });

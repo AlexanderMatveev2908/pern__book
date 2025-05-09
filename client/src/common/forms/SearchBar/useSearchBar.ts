@@ -63,8 +63,8 @@ export const useSearchBar = ({
     setCanMakeAPI,
     setPopulated,
     isPopulated,
-    pagination: { page, limit, block },
     setPagination,
+    pagination: { block, page },
   } = useSearchCtx();
 
   const {
@@ -123,7 +123,7 @@ export const useSearchBar = ({
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const currVals = { ...getValues(), page, limit };
+      const currVals = { ...getValues(), block, page };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       if (isSame) {
@@ -140,7 +140,7 @@ export const useSearchBar = ({
       oldVals.current = currVals as ArgsSearchType;
       saveStorage({
         key: keyStorageVals,
-        data: { ...currVals, block },
+        data: currVals,
       });
 
       if (canMakeAPI)
@@ -156,9 +156,7 @@ export const useSearchBar = ({
     return () => {
       clearTimer(timerID);
     };
-    // eslint-disable-next-line
   }, [
-    limit,
     getValues,
     keyStorageVals,
     setArgs,
@@ -167,6 +165,7 @@ export const useSearchBar = ({
     setCanMakeAPI,
     setPopulated,
     isPopulated,
+    block,
     page,
   ]);
 
@@ -258,6 +257,4 @@ export const useSearchBar = ({
 
     handleMainBtn();
   }, [vals, setBtnDisabled, errors, isBtnDisabled, getValues]);
-
-  return {};
 };
