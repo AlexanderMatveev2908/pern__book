@@ -4,6 +4,7 @@ import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import {
+  __cg,
   clearTimer,
   getStorage,
   isObjOk,
@@ -63,8 +64,8 @@ export const useSearchBar = ({
     setCanMakeAPI,
     setPopulated,
     isPopulated,
+    pagination: { page, limit, block },
     setPagination,
-    pagination: { block, page },
   } = useSearchCtx();
 
   const {
@@ -104,8 +105,14 @@ export const useSearchBar = ({
           });
       }
 
-      setPagination({ el: "page", val: parsed?.page ?? 0 });
-      setPagination({ el: "block", val: parsed?.block ?? 0 });
+      setPagination({
+        el: "page",
+        val: parsed?.page ?? 0,
+      });
+      setPagination({
+        el: "block",
+        val: parsed?.block ?? 0,
+      });
     }
   }, [
     setValue,
@@ -123,8 +130,12 @@ export const useSearchBar = ({
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const currVals = { ...getValues(), block, page };
+      const currVals = getValues();
       const isSame: boolean = isSameData(oldVals.current, currVals);
+
+      __cg("old", oldVals.current);
+      __cg("new", currVals);
+      __cg("is same", isSame);
 
       if (isSame) {
         if (
@@ -140,12 +151,14 @@ export const useSearchBar = ({
       oldVals.current = currVals as ArgsSearchType;
       saveStorage({
         key: keyStorageVals,
-        data: currVals,
+        data: { ...currVals, page, block },
       });
 
       if (canMakeAPI)
         setArgs({
           ...(currVals as ArgsSearchType),
+          page,
+          limit,
           _: Date.now(),
         });
       else setCanMakeAPI(true);
@@ -157,6 +170,8 @@ export const useSearchBar = ({
       clearTimer(timerID);
     };
   }, [
+    block,
+    limit,
     getValues,
     keyStorageVals,
     setArgs,
@@ -165,7 +180,6 @@ export const useSearchBar = ({
     setCanMakeAPI,
     setPopulated,
     isPopulated,
-    block,
     page,
   ]);
 
@@ -221,12 +235,13 @@ export const useSearchBar = ({
       if (!currArr || hasWarningRun.current) return;
 
       hasWarningRun.current = true;
+
       setBar({ el: "filterBar", val: true });
       setSearch({ el: "currFilter", val: currArr });
       if (currEl)
         makeDelay(() => {
           setFocus(currEl.field);
-        }, 150);
+        }, 400);
     }
   }, [
     isDirty,
@@ -257,4 +272,6 @@ export const useSearchBar = ({
 
     handleMainBtn();
   }, [vals, setBtnDisabled, errors, isBtnDisabled, getValues]);
+
+  return {};
 };

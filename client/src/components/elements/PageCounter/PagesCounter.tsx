@@ -4,7 +4,7 @@ import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
-import { getNumBtns, saveStorage, setLimitCards } from "@/core/lib/lib";
+import { __cg, getNumBtns, saveStorage, setLimitCards } from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 
 type PropsType = {
@@ -20,27 +20,33 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
     args,
   } = useSearchCtx();
 
-  const [ids, setIds] = useState(
-    Array.from({ length: getNumBtns() }, () => v4())
-  );
+  const [ids] = useState(Array.from({ length: totPages }, () => v4()));
+  const [sizeBLock, setSizeBlock] = useState(getNumBtns());
 
   useEffect(() => {
     const listenResize = () => {
-      setIds(Array.from({ length: getNumBtns() }, () => v4()));
+      setSizeBlock(getNumBtns());
 
       const maxCards = setLimitCards();
       setPagination({ el: "limit", val: maxCards });
       setArgs({ ...args, limit: maxCards });
+
+      if (totPages < getNumBtns()) setPagination({ el: "block", val: 0 });
     };
 
     window.addEventListener("resize", listenResize);
     return () => {
       window.removeEventListener("resize", listenResize);
     };
-  }, [setPagination, block, limit, setArgs, args]);
+  }, [setPagination, block, limit, setArgs, args, totPages]);
+
+  useEffect(() => {
+    if (totPages < getNumBtns() && block)
+      setPagination({ el: "block", val: 0 });
+  }, [setPagination, totPages, block]);
 
   const handlePrev = useCallback(
-    () => setPagination({ el: "block", val: block - 1 }),
+    () => (block ? setPagination({ el: "block", val: block - 1 }) : null),
 
     [block, setPagination]
   );
@@ -52,19 +58,39 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
     [block, setPagination, limit, totPages, page]
   );
 
+  const handlePage = useCallback(
+    (val: number) => {
+      setPagination({ el: "page", val });
+      setArgs({
+        ...args,
+        page: val,
+        limit,
+      });
+      saveStorage({
+        key: keyStorageVals,
+        data: {
+          ...args,
+          page: val,
+          block,
+        },
+      });
+    },
+    [args, block, keyStorageVals, setArgs, setPagination, limit]
+  );
+
   const vals = useMemo(
     () =>
       Array.from(
         { length: getNumBtns() },
-        (_, i) => i + block * ids.length
-      ).filter((val) => val < totPages),
-    [block, ids.length, totPages]
+        (_, i) => i + block * sizeBLock
+      ).filter((val) => val - 1 < totPages),
+    [block, sizeBLock, totPages]
   );
 
   useEffect(() => {
     // __cg("tot_pages", totPages);
     // __cg("len", ids.length);
-    // __cg("curr page", page);
+    __cg("curr page", page);
     // __cg("limit", limit);
     // __cg("block", block);
   }, [totPages, limit, block, page, ids]);
@@ -86,31 +112,18 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
             key={ids[i]}
             {...{
               isIn: val === page,
-              handleClick: () => {
-                setPagination({ el: "page", val });
-                setArgs({
-                  ...args,
-                  page: val,
-                });
-                saveStorage({
-                  key: keyStorageVals,
-                  data: {
-                    ...args,
-                    page: val,
-                    block,
-                  },
-                });
-              },
+              handleClick: () => handlePage(val),
+
               val: val + 1,
             }}
           />
         ))}
       </div>
 
-      {(block + 1) * ids.length + 1 > totPages ? null : (
+      {(block + 1) * sizeBLock + 1 > totPages ? null : (
         <button
           onClick={handleNext}
-          disabled={(block + 1) * ids.length + 1 > totPages}
+          disabled={(block + 1) * sizeBLock + 1 > totPages}
           type="button"
           className="disabled:opacity-50 hover:text-blue-600 appearance-none btn__logic_xl justify-self-end"
         >

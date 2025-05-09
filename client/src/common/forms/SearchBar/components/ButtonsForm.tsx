@@ -122,6 +122,7 @@ const ButtonsForm: FC<PropsType> = ({
 
                 reset({});
                 setTxtInputs([txtInputs[0]]);
+
                 setPagination({ el: "block", val: 0 });
                 setPagination({ el: "page", val: 0 });
 

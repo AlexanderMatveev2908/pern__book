@@ -30,7 +30,7 @@ const BookStores: FC = () => {
     isBtnDisabled,
     setSearch,
     setBar,
-    pagination: { page, limit },
+    pagination: { limit, page },
   } = useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
 
