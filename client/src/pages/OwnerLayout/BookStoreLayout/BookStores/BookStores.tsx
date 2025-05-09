@@ -17,7 +17,7 @@ import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { StorageKeys } from "@/types/types";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
-import BookStoreItem from "./components/BookStoreItem/BookStoreItem";
+import BookStoreItem from "./components/BookStoreItem";
 
 const BookStores: FC = () => {
   useScroll();
@@ -95,7 +95,7 @@ const BookStores: FC = () => {
             isLoading: res?.isLoading || !isPopulated,
           }}
         >
-          <div className="w-full grid grid-cols-1 gap-y-5 gap-x-10">
+          <div className="w-full grid grid-cols-[repeat(auto-fit,minmax(300px,1fr))] gap-10">
             {Array.isArray(bookStores) &&
               !!bookStores.length &&
               bookStores.map((el) => <BookStoreItem key={el.id} {...{ el }} />)}
