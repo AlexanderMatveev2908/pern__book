@@ -106,7 +106,12 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
                 setPagination({ el: "block", val: 0 });
                 setPagination({ el: "page", val: 0 });
 
-                saveStorage({ data: {}, key: keyStorageVals });
+                saveStorage({
+                  data: {
+                    [txtInputs[0].field]: "",
+                  },
+                  key: keyStorageVals,
+                });
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
               },
               isPending: isPending.clear,
