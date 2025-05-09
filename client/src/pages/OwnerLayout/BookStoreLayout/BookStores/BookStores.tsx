@@ -92,10 +92,11 @@ const BookStores: FC = () => {
           }}
         >
           <div className="min-h-[1000px]"></div>
-          <PagesCounter
-            {...{ totPages: 7, keyStorageVals: StorageKeys.STORES_OWNER_VALS }}
-          />
         </WrapPageAPI>
+
+        <PagesCounter
+          {...{ totPages: 7, keyStorageVals: StorageKeys.STORES_OWNER_VALS }}
+        />
       </div>
     </WrapPageAPI>
   );
