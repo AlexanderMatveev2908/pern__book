@@ -17,7 +17,7 @@ const removeFieldBtn = {
 };
 
 const TxtInputs: FC<PropsType> = ({ children }) => {
-  const { activeTxtInputs, setTxtInputs, setArgs, args, setCanMakeAPI } =
+  const { activeTxtInputs, setTxtInputs, setArgs, args, setPreSubmit } =
     useSearchCtx();
 
   const { keyStorageLabels } = useGetSearchKeysStorage();
@@ -49,7 +49,7 @@ const TxtInputs: FC<PropsType> = ({ children }) => {
                 el: removeFieldBtn,
                 act: BtnAct.DEL,
                 handleClick: () => {
-                  setCanMakeAPI(false);
+                  setPreSubmit({ el: "canMakeAPI", val: false });
                   setArgs({
                     ...args,
                     [el.field]: "",

@@ -14,11 +14,12 @@ export type ArgsSearchType = (SearchStoreFormType | { a: "test" }) & {
 };
 
 export type SearchCtxStateType = {
+  activeTxtInputs: FormFieldBasic[];
+  // ? LABELS JUST UI NOT APP LOGIC, COULD VOID PUT IN CTX WITH CUSTOM HOOK
   labels: {
     labelSubmit: boolean;
     labelSearch: boolean;
   };
-  activeTxtInputs: FormFieldBasic[];
   bars: {
     filterBar: boolean;
     sortBar: boolean;
@@ -32,17 +33,20 @@ export type SearchCtxStateType = {
     submit: boolean;
     clear: boolean;
   };
-  isBtnDisabled: boolean;
-  isPopulated: boolean;
-  canMakeAPI: boolean;
+  preSubmit: {
+    hasFormErrs: boolean;
+    isPopulated: boolean;
+    hasPagination: boolean;
+    canMakeAPI: boolean;
+    errNumbers: null | {
+      currArr: NumericFilterSearch;
+      currEl: FormFieldBasic;
+    };
+  };
   pagination: {
     block: number;
     page: number;
     limit: number;
-  };
-  errNumbers: null | {
-    currArr: NumericFilterSearch;
-    currEl: FormFieldBasic;
   };
 };
 
@@ -65,13 +69,16 @@ export const initStateSearch: SearchCtxStateType = {
     submit: false,
     clear: false,
   },
-  isBtnDisabled: false,
-  isPopulated: false,
-  canMakeAPI: true,
+  preSubmit: {
+    hasFormErrs: false,
+    isPopulated: false,
+    hasPagination: false,
+    canMakeAPI: true,
+    errNumbers: null,
+  },
   pagination: {
     block: 0,
     limit: setLimitCards(),
     page: 0,
   },
-  errNumbers: null,
 };

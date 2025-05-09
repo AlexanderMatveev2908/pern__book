@@ -15,12 +15,10 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
   const {
-    isPopulated,
-    setPopulated,
     pagination: { page, limit, block },
-    canMakeAPI,
     setArgs,
-    setCanMakeAPI,
+    preSubmit: { canMakeAPI, isPopulated },
+    setPreSubmit,
   } = useSearchCtx();
   const { keyStorageVals } = useGetSearchKeysStorage();
 
@@ -42,7 +40,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
             ...currVals,
             [txtInputs[0].field]: currVals[txtInputs[0].field] || "",
           };
-          setPopulated(true);
+          setPreSubmit({ el: "isPopulated", val: true });
         }
 
         clearTimer(timerID);
@@ -64,7 +62,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
           _: Date.now(),
         });
       } else {
-        setCanMakeAPI(true);
+        setPreSubmit({ el: "canMakeAPI", val: true });
       }
 
       clearTimer(timerID);
@@ -82,9 +80,8 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
     setArgs,
     vals,
     canMakeAPI,
-    setCanMakeAPI,
-    setPopulated,
     isPopulated,
     page,
+    setPreSubmit,
   ]);
 };

@@ -67,24 +67,6 @@ export const reducerSearch = (
       };
     }
 
-    case SearchCtxActions.SET_BTN_DISABLED:
-      return {
-        ...state,
-        isBtnDisabled: action.payload,
-      };
-
-    case SearchCtxActions.SET_POPULATED:
-      return {
-        ...state,
-        isPopulated: action.payload,
-      };
-
-    case SearchCtxActions.SET_CAN_MAKE_API:
-      return {
-        ...state,
-        canMakeAPI: action.payload,
-      };
-
     case SearchCtxActions.SET_PAGINATION: {
       const { el, val } = action.payload;
 
@@ -97,11 +79,17 @@ export const reducerSearch = (
       };
     }
 
-    case SearchCtxActions.SET_ERR_NUMBERS:
+    case SearchCtxActions.SET_PRE_SUBMIT: {
+      const { el, val } = action.payload;
+
       return {
         ...state,
-        errNumbers: action.payload,
+        preSubmit: {
+          ...state.preSubmit,
+          [el]: val,
+        },
       };
+    }
 
     default:
       throw new Error("Invalid action " + (action as any)?.type);

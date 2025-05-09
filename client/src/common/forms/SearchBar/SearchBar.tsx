@@ -56,7 +56,9 @@ const SearchBar: FC<PropsType> = ({
   // * MANAGEMENT ERRORS SEARCH BAR
   useHandleErrSearch({ numericFilters });
 
-  const { isPopulated } = useSearchCtx();
+  const {
+    preSubmit: { isPopulated },
+  } = useSearchCtx();
 
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);

@@ -1,9 +1,9 @@
 import { useCallback, useEffect } from "react";
 import {
   ParamsBar,
-  ParamsErrNumber,
   ParamsPagination,
   ParamsPending,
+  ParamsPreSubmit,
   ParamsSearch,
   SearchCtxActions,
   SearchCtxActionsType,
@@ -23,11 +23,8 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setSearch: (params: ParamsSearch) => void;
   setArgs: (vals: ArgsSearchType) => void;
   setIsPending: (vals: ParamsPending) => void;
-  setBtnDisabled: (val: boolean) => void;
-  setPopulated: (val: boolean) => void;
-  setCanMakeAPI: (val: boolean) => void;
   setPagination: (vals: ParamsPagination) => void;
-  setErrNumbers: (val: ParamsErrNumber) => void;
+  setPreSubmit: (vals: ParamsPreSubmit) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -90,34 +87,15 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
-  const setBtnDisabled = useCallback(
-    (val: boolean) => {
-      dispatch({ type: SearchCtxActions.SET_BTN_DISABLED, payload: val });
-    },
-    [dispatch]
-  );
-
-  const setPopulated = useCallback(
-    (val: boolean) =>
-      dispatch({ type: SearchCtxActions.SET_POPULATED, payload: val }),
-    [dispatch]
-  );
-
-  const setCanMakeAPI = useCallback(
-    (val: boolean) =>
-      dispatch({ type: SearchCtxActions.SET_CAN_MAKE_API, payload: val }),
-    [dispatch]
-  );
-
   const setPagination = useCallback(
     ({ el, val }: ParamsPagination) =>
       dispatch({ type: SearchCtxActions.SET_PAGINATION, payload: { el, val } }),
     [dispatch]
   );
 
-  const setErrNumbers = useCallback(
-    (val: null | ParamsErrNumber) =>
-      dispatch({ type: SearchCtxActions.SET_ERR_NUMBERS, payload: val }),
+  const setPreSubmit = useCallback(
+    ({ el, val }: ParamsPreSubmit) =>
+      dispatch({ type: SearchCtxActions.SET_PRE_SUBMIT, payload: { el, val } }),
     [dispatch]
   );
 
@@ -128,10 +106,7 @@ export const useSearchCtxVals = ({
     setSearch,
     setArgs,
     setIsPending,
-    setBtnDisabled,
-    setPopulated,
-    setCanMakeAPI,
     setPagination,
-    setErrNumbers,
+    setPreSubmit,
   };
 };

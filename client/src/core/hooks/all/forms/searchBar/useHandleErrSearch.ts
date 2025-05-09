@@ -1,5 +1,4 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { ParamsErrNumber } from "@/core/contexts/SearchCtx/reducer/actions";
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { isSameData, makeDelay, makeNum } from "@/core/lib/lib";
@@ -18,11 +17,8 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     setBar,
     setSearch,
     args,
-    isPopulated,
-    isBtnDisabled,
-    setBtnDisabled,
-    errNumbers,
-    setErrNumbers,
+    preSubmit: { errNumbers, hasFormErrs, isPopulated },
+    setPreSubmit,
   } = useSearchCtx();
   const {
     formState: { errors, isDirty, dirtyFields },
@@ -48,13 +44,13 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
       // const isSame: boolean = isSameData(oldVals.current, currVals);
       // const isDisabled = hasErr || isSame;
 
-      if (isDisabled === isBtnDisabled) return null;
+      if (isDisabled === hasFormErrs) return null;
 
-      setBtnDisabled(isDisabled);
+      setPreSubmit({ el: "hasFormErrs", val: isDisabled });
     };
 
     handleMainBtn();
-  }, [vals, setBtnDisabled, errors, isBtnDisabled, args]);
+  }, [vals, errors, args, hasFormErrs, setPreSubmit]);
 
   // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {
@@ -86,7 +82,6 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     setFocus,
     setBar,
     setSearch,
-    isBtnDisabled,
   ]);
 
   //  * SHOW FIRST ERROR MESSAGE ABOVE FILTER BTN SO USER KNOW THAT HAS TO DIX ERROR OR WILL NOT BE ABLE TO FILTER
@@ -97,11 +92,11 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
         numericFilters,
       });
       if (!isSameData(errFilter, errNumbers))
-        setErrNumbers(errFilter as ParamsErrNumber);
+        setPreSubmit({ el: "errNumbers", val: errFilter });
     };
 
     handleNumberErr();
-  }, [errNumbers, setErrNumbers, errors, numericFilters, vals]);
+  }, [errNumbers, errors, numericFilters, vals, setPreSubmit]);
 
   // * CLEAR OLD ERRORS NUMBERS
   useEffect(() => {

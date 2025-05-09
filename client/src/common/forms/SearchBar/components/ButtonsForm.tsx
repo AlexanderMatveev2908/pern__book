@@ -25,10 +25,9 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
     setTxtInputs,
     isPending,
     setIsPending,
-    isBtnDisabled,
     setSearch,
     setPagination,
-    errNumbers,
+    preSubmit: { errNumbers, hasFormErrs },
   } = useSearchCtx();
   const {
     reset,
@@ -83,7 +82,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
               act: BtnAct.DO,
               Icon: FaSearch,
               isPending: isPending.submit,
-              isDisabled: isFetching || isBtnDisabled,
+              isDisabled: isFetching || hasFormErrs,
             }}
           />
         </div>

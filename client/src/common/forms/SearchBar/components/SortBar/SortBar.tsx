@@ -1,9 +1,7 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FC } from "react";
 
-type PropsType = {};
-
-const SortBar: FC<PropsType> = ({}) => {
+const SortBar: FC = () => {
   const {
     bars: { sortBar },
   } = useSearchCtx();

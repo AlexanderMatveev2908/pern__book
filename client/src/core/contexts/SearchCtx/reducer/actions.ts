@@ -12,11 +12,8 @@ export enum SearchCtxActions {
   SET_SEARCH = "SET_SEARCH",
   SET_ARGS = "SET_ARGS",
   SET_IS_PENDING = "SET_IS_PENDING",
-  SET_BTN_DISABLED = "SET_BTN_DISABLED",
-  SET_POPULATED = "SET_POPULATED",
-  SET_CAN_MAKE_API = "SET_CAN_MAKE_API",
   SET_PAGINATION = "SET_PAGINATION",
-  SET_ERR_NUMBERS = "SET_ERR_NUMBERS",
+  SET_PRE_SUBMIT = "SET_PRE_SUBMIT",
 }
 
 export type ParamsBar = {
@@ -40,6 +37,22 @@ export type ParamsPagination = {
 export type ParamsErrNumber = null | {
   currArr: NumericFilterSearch;
   currEl: FormFieldBasic;
+};
+
+export type ParamsPreSubmit = {
+  el:
+    | "hasFormErrs"
+    | "isPopulated"
+    | "hasPagination"
+    | "canMakeAPI"
+    | "errNumbers";
+  val:
+    | boolean
+    | null
+    | {
+        currArr: NumericFilterSearch;
+        currEl: FormFieldBasic;
+      };
 };
 
 export type SearchCtxActionsType =
@@ -68,22 +81,10 @@ export type SearchCtxActionsType =
       payload: ParamsPending;
     }
   | {
-      type: SearchCtxActions.SET_BTN_DISABLED;
-      payload: boolean;
-    }
-  | {
-      type: SearchCtxActions.SET_POPULATED;
-      payload: boolean;
-    }
-  | {
-      type: SearchCtxActions.SET_CAN_MAKE_API;
-      payload: boolean;
-    }
-  | {
       type: SearchCtxActions.SET_PAGINATION;
       payload: ParamsPagination;
     }
   | {
-      type: SearchCtxActions.SET_ERR_NUMBERS;
-      payload: ParamsErrNumber;
+      type: SearchCtxActions.SET_PRE_SUBMIT;
+      payload: ParamsPreSubmit;
     };
