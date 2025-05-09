@@ -90,7 +90,7 @@ const BookStores: FC = () => {
 
         <WrapPageAPI
           {...{
-            isLoading: res?.isLoading || res?.isFetching || !isPopulated,
+            isLoading: res?.isLoading || !isPopulated,
           }}
         >
           <div className="w-full grid grid-cols-1 gap-y-5 gap-x-10">

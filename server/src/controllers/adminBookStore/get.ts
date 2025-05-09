@@ -5,6 +5,7 @@ import { err404 } from "../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { getStoreByID } from "./helpers/storeData.js";
 import { BookStore } from "../../models/all/BookStore.js";
+import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
   const bookStore = await getStoreByID(req);
@@ -40,6 +41,12 @@ export const getAllStores = async (
     where: {
       ownerID: userID,
     },
+    include: [
+      {
+        model: ImgBookStore,
+        as: "images",
+      },
+    ],
   });
 
   return res200(res, { msg: "all good", bookStores });

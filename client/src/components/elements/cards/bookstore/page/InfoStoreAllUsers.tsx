@@ -1,13 +1,13 @@
 import {
   categoriesStoreLabel,
-  fieldsStatsComtact,
+  fieldsStatsContact,
   labelDescription,
   labelFieldAddressStore,
   labelFieldContact,
   statsAddress,
 } from "@/core/config/fieldsData/bookStore/actions";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStats from "@/pages/OwnerLayout/BookStoreLayout/BookStorePage/components/DropStats";
+import DropStats from "@/components/elements/cards/shared/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 
@@ -51,13 +51,13 @@ const InfoStoreAllUsers: FC<PropsType> = ({ bookStore }) => {
             el: labelFieldAddressStore,
             fields: statsAddress(bookStore),
           }}
-        ></DropStats>
+        />
         <DropStats
           {...{
             el: labelFieldContact,
-            fields: fieldsStatsComtact(bookStore),
+            fields: fieldsStatsContact(bookStore),
           }}
-        ></DropStats>
+        />
       </div>
     </>
   );

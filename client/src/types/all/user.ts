@@ -16,7 +16,11 @@ export interface UserType {
   isVerified: boolean;
   role: UserRole;
 
-  thumb: AssetCloudType | null;
+  thumb:
+    | (AssetCloudType & {
+        userID: string;
+      })
+    | null;
 
   country: string | null;
   state: string | null;

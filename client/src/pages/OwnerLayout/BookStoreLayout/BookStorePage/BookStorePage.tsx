@@ -12,7 +12,7 @@ import {
   labelTeamStore,
   statsTeam,
 } from "@/core/config/fieldsData/bookStore/actions";
-import DropStats from "./components/DropStats";
+import DropStats from "../../../../components/elements/cards/shared/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
 import InfoBookStoreWorker from "@/components/elements/cards/bookstore/page/InfoBookStoreWorker";

@@ -137,7 +137,7 @@ export const labelFieldContact = {
   icon: MdConnectWithoutContact,
 };
 
-export const fieldsStatsComtact = (bookStore?: BookStoreType) =>
+export const fieldsStatsContact = (bookStore?: BookStoreType) =>
   ["email", "phone", "website"].map((el) => {
     const val = bookStore?.[el as keyof BookStoreType];
 

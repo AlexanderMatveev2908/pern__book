@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { FC, ReactNode, useEffect, useState } from "react";
@@ -17,34 +18,45 @@ type PropsType = {
     | null;
   children?: ReactNode | React.ReactNode[] | null;
   styleUL?: string;
+  abs?: boolean;
 };
 
-const DropStats: FC<PropsType> = ({ el, fields, children, styleUL }) => {
+const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
   const [isDropOpen, setIsDropOpen] = useState(
     window.innerWidth > tailwindBreak.md
   );
 
   useEffect(() => {
-    const resize = () => setIsDropOpen(window.innerWidth > tailwindBreak.md);
+    const resize = () =>
+      abs ? null : setIsDropOpen(window.innerWidth > tailwindBreak.md);
 
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
-  }, []);
+  }, [abs]);
 
   return !el ? null : (
-    <div>
+    <div className="w-full relative">
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
-      <hr
-        className={`bg-blue-600 h-[3px] w-full border-0 my-3 ${isDropOpen}`}
-      />
+      <hr className="bg-blue-600 h-[3px] w-full border-0 my-3" />
 
       <ul
-        className={`w-full grid transition-all duration-300 gap-3 ${
-          isDropOpen
+        className={`w-full grid transition-all duration-[0.4s] gap-3 ${
+          abs
+            ? "absolute top-0 left-0 bg-neutral-950 z-50 border-2 border-blue-600 p-3 rounded-xl"
+            : ""
+        } ${
+          abs
+            ? isDropOpen
+              ? "opacity-100"
+              : "translate-y-[50px] pointer-events-none opacity-0"
+            : isDropOpen
             ? `${styleUL ?? "max-h-[500px]"} opacity-100`
             : "max-h-0 opacity-0"
         }`}
+        style={{
+          transform: abs && isDropOpen ? "translateY(calc(-100% - 20px))" : "",
+        }}
       >
         {Array.isArray(fields) &&
           fields?.map((el) => (
@@ -52,7 +64,9 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL }) => {
               key={el.id}
               className="w-full flex justify-between items-center pr-4 gap-3"
             >
-              <div className="flex justify-start">
+              <div
+                className={`flex justify-start ${abs ? "min-w-[75px]" : ""}`}
+              >
                 <span
                   className="txt__2 clamp_txt"
                   style={{
