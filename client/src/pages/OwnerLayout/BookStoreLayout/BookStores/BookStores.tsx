@@ -17,6 +17,7 @@ import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { StorageKeys } from "@/types/types";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
+import BookStoreItem from "./components/BookStoreItem/BookStoreItem";
 
 const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
@@ -41,6 +42,7 @@ const BookStores: FC = () => {
     }
   );
   useWrapQueryAPI({ ...res });
+  const { data: { bookStores } = {} } = res ?? {};
   useFocus({ key: "name", setFocus });
 
   const handleSave = handleSubmit(
@@ -91,7 +93,11 @@ const BookStores: FC = () => {
             isLoading: res?.isLoading || res?.isFetching || !isPopulated,
           }}
         >
-          <div className="min-h-[1000px]"></div>
+          <div className="w-full grid grid-cols-1 gap-y-5 gap-x-10">
+            {Array.isArray(bookStores) &&
+              !!bookStores.length &&
+              bookStores.map((el) => <BookStoreItem key={el.id} {...{ el }} />)}
+          </div>
         </WrapPageAPI>
 
         <PagesCounter

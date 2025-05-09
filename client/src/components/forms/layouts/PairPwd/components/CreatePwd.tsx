@@ -52,7 +52,9 @@ const CreatePwd: FC = () => {
         <span className="txt__2">Generate password</span>
       </button>
 
-      <TooltipCpy {...{ txt: pwd }} />
+      <div className="w-full max-w-fit justify-self-center">
+        <TooltipCpy {...{ txt: pwd }} />
+      </div>
     </div>
   );
 };

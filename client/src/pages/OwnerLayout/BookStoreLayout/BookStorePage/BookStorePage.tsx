@@ -14,8 +14,8 @@ import {
 } from "@/core/config/fieldsData/bookStore/actions";
 import DropStats from "./components/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import InfoStoreAllUsers from "@/components/elements/cards/bookstore/InfoStoreAllUsers";
-import InfoBookStoreWorker from "@/components/elements/cards/bookstore/InfoBookStoreWorker";
+import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
+import InfoBookStoreWorker from "@/components/elements/cards/bookstore/page/InfoBookStoreWorker";
 import { isObjOk } from "@/core/lib/lib";
 
 const BookStorePage: FC = () => {

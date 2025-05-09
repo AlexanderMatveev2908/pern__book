@@ -41,11 +41,13 @@ const TooltipCpy: FC<PropsType> = ({ txt }) => {
       disabled={!txt}
       type="button"
       ref={btnRef}
-      className="relative w-full flex justify-start"
+      className="relative w-full flex justify-start appearance-none min-w-full outline-0 h-full"
     >
       {txt && (
-        <div className="el__cpy_txt appearance-none el__border_sm py-1 px-5 cursor-pointer">
-          <span className="txt__2">{txt}</span>
+        <div className="el__cpy_txt appearance-none py-1 px-5 cursor-pointer overflow-x-auto scrollbar__x scrollbar__app w-full max-w-full el__border_sm">
+          <span className="txt__2 text-nowrap block max-w-full overflow-x-auto scrollbar__x scrollbar__app">
+            {txt}
+          </span>
         </div>
       )}
 

@@ -37,7 +37,6 @@ const PairPwd: FC<PropsType> = ({
           <PwdField key={el.id} {...{ register, errors, el, ...confirmPwd }} />
         )
       )}
-
       <CreatePwd />
     </>
   );

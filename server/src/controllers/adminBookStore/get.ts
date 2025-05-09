@@ -1,9 +1,10 @@
 import { Response } from "express";
-import { res200 } from "../../lib/responseClient/res.js";
+import { res200, res204 } from "../../lib/responseClient/res.js";
 import { ReqApp } from "../../types/types.js";
 import { err404 } from "../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { getStoreByID } from "./helpers/storeData.js";
+import { BookStore } from "../../models/all/BookStore.js";
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
   const bookStore = await getStoreByID(req);
@@ -28,5 +29,18 @@ export const getAllStores = async (
 ): Promise<any> => {
   const { userID } = req;
 
-  return res200(res, { msg: "all good" });
+  const count = await BookStore.count({
+    where: {
+      ownerID: userID,
+    },
+  });
+  if (!count) return res204(res);
+
+  const bookStores = await BookStore.findAll({
+    where: {
+      ownerID: userID,
+    },
+  });
+
+  return res200(res, { msg: "all good", bookStores });
 };
