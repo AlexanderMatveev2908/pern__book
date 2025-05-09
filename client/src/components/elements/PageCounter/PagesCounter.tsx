@@ -10,22 +10,22 @@ import {
   saveStorage,
   setLimitCards,
 } from "@/core/lib/lib";
-import { StorageKeys } from "@/types/types";
 import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 
 type PropsType = {
   totPages: number;
-  keyStorageVals: StorageKeys;
 };
 
-const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
+const PagesCounter: FC<PropsType> = ({ totPages }) => {
   const {
     pagination: { page, block, limit },
     setPagination,
     setArgs,
     args,
   } = useSearchCtx();
+  const { keyStorageVals } = useGetSearchKeysStorage();
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());

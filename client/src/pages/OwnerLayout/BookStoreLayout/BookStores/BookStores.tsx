@@ -11,10 +11,8 @@ import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxP
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { StorageKeys } from "@/types/types";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
@@ -31,8 +29,6 @@ const BookStores: FC = () => {
     isPopulated,
     setIsPending,
     isBtnDisabled,
-    setSearch,
-    setBar,
     pagination: { limit, page },
   } = useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
@@ -56,19 +52,19 @@ const BookStores: FC = () => {
         limit,
         _: Date.now(),
       });
-    },
-    (errs) => {
-      const { currArr } =
-        getErrFooterBar({
-          errs,
-          numericFilters: numericFiltersStore,
-        }) ?? {};
-
-      if (!currArr) return;
-
-      setBar({ el: "filterBar", val: true });
-      setSearch({ el: "currFilter", val: currArr });
     }
+    // (errs) => {
+    // const { currArr } =
+    //   getErrFooterBar({
+    //     errs,
+    //     numericFilters: numericFiltersStore,
+    //   }) ?? {};
+
+    // if (!currArr) return;
+
+    // setBar({ el: "filterBar", val: true });
+    // setSearch({ el: "currFilter", val: currArr });
+    // }
   );
 
   return (
@@ -92,7 +88,7 @@ const BookStores: FC = () => {
 
         <WrapPageAPI
           {...{
-            isLoading: res?.isLoading || !isPopulated,
+            isLoading: res?.isLoading || res?.isFetching || !isPopulated,
           }}
         >
           <div className="w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10">
@@ -102,9 +98,7 @@ const BookStores: FC = () => {
           </div>
         </WrapPageAPI>
 
-        <PagesCounter
-          {...{ totPages: 7, keyStorageVals: StorageKeys.STORES_OWNER_VALS }}
-        />
+        <PagesCounter {...{ totPages: 7 }} />
       </div>
     </WrapPageAPI>
   );
