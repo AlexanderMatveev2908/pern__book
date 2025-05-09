@@ -1,4 +1,4 @@
-import InfoCardStore from "@/components/elements/cards/bookstore/itemList/InfoCardStore";
+import InfoCardStore from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStore";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import { BookStoreType } from "@/types/all/bookStore";
