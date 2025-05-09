@@ -13,10 +13,10 @@ import SkeletonBar from "./components/SkeletonBar";
 import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { usePopulateSearch } from "@/core/hooks/all/searchBar/usePopulateSearch";
-import { useDebounceSearch } from "@/core/hooks/all/searchBar/useDebounceSearch";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
-import { useHandleErrSearch } from "@/core/hooks/all/searchBar/useHandleErrSearch";
+import { usePopulateSearch } from "@/core/hooks/all/forms/searchBar/usePopulateSearch";
+import { useDebounceSearch } from "@/core/hooks/all/forms/searchBar/useDebounceSearch";
+import { useHandleErrSearch } from "@/core/hooks/all/forms/searchBar/useHandleErrSearch";
 
 type PropsType = {
   isFetching: boolean;

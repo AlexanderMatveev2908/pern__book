@@ -1,6 +1,6 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/searchBar/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { makeDelay, saveStorage } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useMemo, useRef, useState } from "react";

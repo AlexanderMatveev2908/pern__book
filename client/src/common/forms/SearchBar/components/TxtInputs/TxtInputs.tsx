@@ -6,7 +6,7 @@ import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { saveStorage } from "@/core/lib/lib";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/searchBar/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 
 type PropsType = {
   children: ReactNode;
@@ -17,7 +17,8 @@ const removeFieldBtn = {
 };
 
 const TxtInputs: FC<PropsType> = ({ children }) => {
-  const { activeTxtInputs, setTxtInputs } = useSearchCtx();
+  const { activeTxtInputs, setTxtInputs, setArgs, args, setCanMakeAPI } =
+    useSearchCtx();
 
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
@@ -48,6 +49,11 @@ const TxtInputs: FC<PropsType> = ({ children }) => {
                 el: removeFieldBtn,
                 act: BtnAct.DEL,
                 handleClick: () => {
+                  setCanMakeAPI(false);
+                  setArgs({
+                    ...args,
+                    [el.field]: "",
+                  });
                   setValue(el.field, "", { shouldValidate: true });
                   const filtered = activeTxtInputs.filter(
                     (val) => val.field !== el.field

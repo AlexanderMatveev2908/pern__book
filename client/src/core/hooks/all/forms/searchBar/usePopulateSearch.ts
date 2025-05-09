@@ -1,9 +1,9 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/searchBar/useGetSearchKeysStorage";
 import { getStorage, saveStorage } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
+import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 
 type Params = {
   txtInputs: FormFieldBasic[];
