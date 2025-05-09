@@ -32,9 +32,9 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
       const currVals = getValues();
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      // __cg("old", oldVals.current);
-      // __cg("new", vals);
-      // __cg("same", isSame);
+      __cg("old", oldVals.current);
+      __cg("new", vals);
+      __cg("same", isSame);
 
       if (isSame) {
         if (!isPopulated) {
@@ -56,8 +56,6 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
       });
 
       if (canMakeAPI) {
-        __cg("allowed vals", currVals);
-
         setArgs({
           ...(currVals as ArgsSearchType),
           page,

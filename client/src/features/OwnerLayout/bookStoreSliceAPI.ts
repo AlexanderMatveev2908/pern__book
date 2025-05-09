@@ -1,6 +1,6 @@
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
-import { __cg, catchErr } from "@/core/lib/lib";
+import { catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BaseResAPI, TagsAPI } from "@/types/types";
@@ -34,8 +34,6 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       SearchStoreFormType
     >({
       query: (vals) => {
-        __cg("received", vals);
-
         const params = makeParams(vals);
 
         return {
