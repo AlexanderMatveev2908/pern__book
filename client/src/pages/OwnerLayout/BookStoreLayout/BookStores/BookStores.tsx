@@ -27,7 +27,7 @@ const BookStores: FC = () => {
     args,
     setArgs,
     setIsPending,
-    preSubmit: { hasFormErrs, isPopulated, canMakeAPI, hasPagination },
+    preSubmit: { hasFormErrs, isPopulated, hasPagination },
     pagination: { limit, page },
   } = useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
@@ -35,7 +35,7 @@ const BookStores: FC = () => {
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     args as SearchStoreFormType,
     {
-      skip: hasFormErrs || !canMakeAPI || !hasPagination,
+      skip: hasFormErrs || !hasPagination,
     }
   );
   useWrapQueryAPI({ ...res });

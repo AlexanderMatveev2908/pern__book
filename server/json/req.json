@@ -2,38 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "name": "name",
-    "country": "country",
-    "state": "state",
-    "city": "city",
-    "ID": "7b677c62-37cd-42c3-99d7-aa1c67afabfb",
-    "categories": [
-      "classics",
-      "history",
-      "it"
-    ],
-    "orders": [
-      "pending",
-      "shipped",
-      "cancelled"
-    ],
-    "delivery": "delivery_charged ",
-    "avgRating": [
-      "0-1",
-      "1.1-2",
-      "4.1-5"
-    ],
-    "minAvgPrice": "111",
-    "maxAvgPrice": "222",
-    "minAvgQty": "5",
-    "maxAvgQty": "22",
-    "workers": "1",
-    "managers": "2",
-    "employees": "3",
-    "page": "1",
+    "page": "0",
     "limit": "4"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjgyNTYyNSwiZXhwIjoxNzQ2ODI1Njg1fQ.i3qyyX5uVL-aIxVT36OJi3aEpYjwRI1AtvgRmIzXTjw",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjgyNjA5NiwiZXhwIjoxNzQ2ODI2MTU2fQ.JT05uN3VpjaucMAY4TUXMa4dvKNuWjccNEFLda7vt0o",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.ij-oXEVnwvQqCHx51ek0VAb1iror7fU6NtSSDn_vaYkrBDgpxajL9j7V2hJqATMwyBflM8IuBw9P9wl0S-za9-ntm7F-jsR5T1er5FGQYBZYlUirVQZMaJq2Vhlc5QKLJRGrh52xRAcq2v4S7zxZyQSfP8Dlfilr0CLJ4_xbsjF69oGJSvEYX84FL25oulunZLH6njm2IY9Nq4RY4XbCOtA81GYmXhvOeYwuiIJGPNUcr97kFVU1D4YPGqjURIdRHEhOqvsjAvSYhlWzzQeFSjtAShRFYRgTZTHwJJaqpck1YSB8jJQ23kMDbUIrWY340p2kYd2SQ5gLaWJ6uz4c0g.TLpKghtgZYMrZv9Q.XPrKvAsnQvHtaS9ibM7fDYX6LjsQxOJi-yvgIQxrM5GdBv_e8jIkJJasImdm.N81R3UEmRX9DRyPnKtSfKw"
 }
