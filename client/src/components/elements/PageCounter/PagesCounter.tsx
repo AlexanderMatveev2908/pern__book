@@ -86,7 +86,7 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
       Array.from(
         { length: getNumBtns() },
         (_, i) => i + block * sizeBLock
-      ).filter((val) => val - 1 < totPages),
+      ).filter((val) => val < totPages + 1),
     [block, sizeBLock, totPages]
   );
 
@@ -100,14 +100,18 @@ const PagesCounter: FC<PropsType> = ({ totPages, keyStorageVals }) => {
 
   return (
     <div className="w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
-      <button
-        disabled={!block}
-        onClick={handlePrev}
-        type="button"
-        className="appearance-none disabled:opacity-50 hover:text-blue-600 btn__logic_xl justify-self-start"
-      >
-        <ArrowBigLeft className="icon__xl" />
-      </button>
+      {block ? (
+        <button
+          disabled={!block}
+          onClick={handlePrev}
+          type="button"
+          className="appearance-none disabled:opacity-50 hover:text-blue-600 btn__logic_xl justify-self-start"
+        >
+          <ArrowBigLeft className="icon__xl" />
+        </button>
+      ) : (
+        <div className=""></div>
+      )}
 
       <div className="w-full flex justify-around items-center gap-5">
         {vals.map((val, i) => (
