@@ -22,6 +22,10 @@ export const msgsFormStore = {
     min: "Min qty must be lower than max qty",
     max: "Max qty must be bigger than min qty",
   },
+  work: {
+    managers: "You do not have all these managers",
+    employees: "You do not have all these employees",
+  },
 };
 
 export const searchBarStore = z
@@ -153,6 +157,25 @@ export const searchBarStore = z
           code: "custom",
           path: ["maxAvgQty"],
           message: msgsFormStore.qty.max,
+        });
+    }
+
+    if (
+      (isValidNumber(data?.managers) || isValidNumber(data?.employees)) &&
+      isValidNumber(data?.workers)
+    ) {
+      if (+(data?.managers ?? 0) > +data.workers!)
+        ctx.addIssue({
+          code: "custom",
+          message: msgsFormStore.work.managers,
+          path: ["managers"],
+        });
+
+      if (+(data?.employees ?? 0) > +data.workers!)
+        ctx.addIssue({
+          code: "custom",
+          message: msgsFormStore.work.employees,
+          path: ["employees"],
         });
     }
   });

@@ -2,10 +2,32 @@
   "files": {},
   "file": {},
   "query": {
-    "limit": "4",
+    "ID": "7b677c62-37cd-42c3-99d7-aa1c67afabfb",
+    "country": "aaaaaa",
+    "state": "aaaaaaaa",
+    "city": "bbbbbbb",
+    "categories": [
+      "classics",
+      "philosophy",
+      "psychology",
+      "history"
+    ],
+    "orders": [
+      "pending",
+      "processing"
+    ],
+    "delivery": "free_delivery",
+    "avgRating": [
+      "0-1",
+      "2.1-3"
+    ],
+    "minAvgPrice": "333",
+    "maxAvgQty": "1111",
+    "managers": "10",
+    "limit": "8",
     "page": "0"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0Njg5MDMyNCwiZXhwIjoxNzQ2ODkwMzg0fQ.tr4x2q01YEePczFnvBvlPMyFsyj-gTFus5nvJsUBGSU",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0Njg5MTExMSwiZXhwIjoxNzQ2ODkxMTcxfQ.wfHQTBe0jDkx_FVDs2zTxMXR8LhYyj2ONOg_PG_4nKo",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.bCxnWTwx8wZIe0RF3cROKRyDDBNoSX7u9zHeMDiyqJwS_JWniLps6lC96QIjPTj1BQWLY7oardkE6CedLz4hHGZ2RfQ2qo4CNMxMlE3sjYwIhy_Lumfkc-gnoHmb85gF2envQPEQ5vxH3RTjTJZKQBZxMOkqJmYaAQkSyRnKhLhwevqY8XdkMPMEvFhgpUUksOXj4HaNBxBIlzvmC2fZCwKyDdW_X13HNN4v-cW67ApUyLp6m_UaTwknhkvjufk7bKktkerlRv7plPl-LUbKxVKjsYVtjGM9V4KKPm4FMZ1qbvpBdpRKIuo2ay7XvYgd_jL7voNM3vPdLnh9MW5eAQ.ocWO9Ou54xE92nQe.q-LIPTl6NI67vdAZKvXe-eKFIFsl94qDxo6Kfk-rQhj-dQYIMthX7Shcd2Qm.c_hRRs5Jg38283FWv_NsdQ"
 }

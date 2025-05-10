@@ -114,6 +114,15 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
           clearErrors("maxAvgQty");
         }
       }
+      if (
+        errors?.managers?.message === msgsFormStore.work.managers ||
+        errors?.employees?.message === msgsFormStore.work.employees
+      ) {
+        if (makeNum("min", vals?.managers) < makeNum("max", vals?.workers))
+          clearErrors("managers");
+        if (makeNum("min", vals?.employees) < makeNum("max", vals?.workers))
+          clearErrors("employees");
+      }
     };
 
     handleErrors();
