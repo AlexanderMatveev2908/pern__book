@@ -13,9 +13,10 @@ import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
+import { ReqQueryAPI } from "@/types/types";
 
 const BookStores: FC = () => {
   useScroll();
@@ -33,7 +34,7 @@ const BookStores: FC = () => {
   const { handleSubmit, setFocus, getValues } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
-    args as SearchStoreFormType,
+    args as ReqQueryAPI<SearchStoreFormType>,
     {
       skip: hasFormErrs || !hasPagination,
     }
@@ -66,6 +67,11 @@ const BookStores: FC = () => {
     // }
   );
 
+  const spinPage = useMemo(
+    () => res?.isLoading || res?.isFetching || !isPopulated || !hasPagination,
+    [res?.isLoading, res?.isFetching, isPopulated, hasPagination]
+  );
+
   return (
     <WrapPageAPI
       {...{
@@ -87,7 +93,7 @@ const BookStores: FC = () => {
 
         <WrapPageAPI
           {...{
-            isLoading: res?.isLoading || res?.isFetching || !isPopulated,
+            isLoading: spinPage,
           }}
         >
           <div className="w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10">

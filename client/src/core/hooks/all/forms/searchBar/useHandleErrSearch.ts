@@ -36,18 +36,14 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
       const hasErr =
         !!Object.keys(errors ?? {}).length &&
         Object.values(errors).every((el) => el?.message);
-      const hasPagination = [args?.["page"], args?.["limit"]].every(
-        (el) => typeof el === "number"
-      );
-      const isDisabled = hasErr || !hasPagination;
 
       // const currVals = getValues();
       // const isSame: boolean = isSameData(oldVals.current, currVals);
       // const isDisabled = hasErr || isSame;
 
-      if (isDisabled === hasFormErrs) return null;
+      if (hasErr === hasFormErrs) return null;
 
-      setPreSubmit({ el: "hasFormErrs", val: isDisabled });
+      setPreSubmit({ el: "hasFormErrs", val: hasErr });
     };
 
     handleMainBtn();
@@ -108,7 +104,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     );
     if (hasPaginationVals !== hasPagination)
       setPreSubmit({ el: "hasPagination", val: hasPaginationVals });
-  }, [args, hasPagination, setPreSubmit]);
+  }, [args, vals, hasPagination, setPreSubmit]);
 
   // * CLEAR OLD ERRORS NUMBERS
   useEffect(() => {

@@ -35,14 +35,6 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
       __cg("same", isSame);
 
       if (isSame) {
-        if (!isPopulated) {
-          oldVals.current = {
-            ...currVals,
-            [txtInputs[0].field]: currVals[txtInputs[0].field] || "",
-          };
-          setPreSubmit({ el: "isPopulated", val: true });
-        }
-
         clearTimer(timerID);
         return null;
       }

@@ -35,11 +35,12 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
   useEffect(() => {
     const listenResize = () => {
       const maxSizeBtns = getNumBtns();
-      setSizeBlock(maxSizeBtns);
-      const maxCards = setLimitCards();
+      if (sizeBLock !== maxSizeBtns) setSizeBlock(maxSizeBtns);
+      if (totPages < maxSizeBtns && block)
+        setPagination({ el: "block", val: 0 });
 
-      if (totPages < maxSizeBtns) setPagination({ el: "block", val: 0 });
-      else setPagination({ el: "limit", val: maxCards });
+      const maxCards = setLimitCards();
+      if (limit !== maxCards) setPagination({ el: "limit", val: maxCards });
 
       setArgs({ ...args, page, limit: maxCards });
     };
@@ -48,12 +49,7 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
     return () => {
       window.removeEventListener("resize", listenResize);
     };
-  }, [setPagination, block, limit, setArgs, args, totPages, page]);
-
-  useEffect(() => {
-    if (totPages < getNumBtns() && block)
-      setPagination({ el: "block", val: 0 });
-  }, [setPagination, totPages, block]);
+  }, [setPagination, block, limit, setArgs, args, totPages, page, sizeBLock]);
 
   const handlePrev = useCallback(
     () => (block ? setPagination({ el: "block", val: block - 1 }) : null),
@@ -71,17 +67,16 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
   const handlePage = useCallback(
     (val: number) => {
       setPagination({ el: "page", val });
+
       setArgs({
         ...args,
         page: val,
         limit,
       });
-      // eslint-disable-next-line
-      const { limit: _, ...rest } = args;
       saveStorage({
         key: keyStorageVals,
         data: {
-          ...rest,
+          ...args,
           page: val,
           block,
         },

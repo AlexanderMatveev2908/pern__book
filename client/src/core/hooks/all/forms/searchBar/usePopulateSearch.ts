@@ -13,7 +13,8 @@ type Params = {
 export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
   const { setValue } = useFormContext();
 
-  const { setTxtInputs, setSearch, setPagination } = useSearchCtx();
+  const { setTxtInputs, setSearch, setPagination, setPreSubmit } =
+    useSearchCtx();
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
   useEffect(() => {
@@ -22,6 +23,7 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updatedLabels = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updatedLabels);
+
     if (!savedLabels.length)
       saveStorage({ key: keyStorageLabels, data: updatedLabels });
 
@@ -50,8 +52,11 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
         val: parsed?.block ?? 0,
       });
     }
+
+    setPreSubmit({ el: "isPopulated", val: true });
   }, [
     setValue,
+    setPreSubmit,
     keyStorageVals,
     filters,
     keyStorageLabels,
