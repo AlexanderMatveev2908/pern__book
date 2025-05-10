@@ -1,16 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
 import { BtnAct } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import { useFormContext } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import { saveStorage, setLimitCards } from "@/core/lib/lib";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type PropsType = {
   children: ReactNode;
-} & SearchCtxValsConsumer;
+} & SearchCtxValsConsumer &
+  UseFormReturn<any>;
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
@@ -23,14 +25,11 @@ const TxtInputs: FC<PropsType> = ({
   setPreSubmit,
   setArgs,
   args,
+  register,
+  formState: { errors },
+  setValue,
 }) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
-
-  const {
-    register,
-    formState: { errors },
-    setValue,
-  } = useFormContext();
 
   return (
     <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">

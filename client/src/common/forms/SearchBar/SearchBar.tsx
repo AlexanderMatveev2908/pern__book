@@ -80,10 +80,11 @@ const SearchBar: FC<PropsType> = ({
       <BgBlack {...{ bars: ctx.bars }} />
       <FilterBar {...{ ...ctx, filters, numericFilters }} />
 
-      <TxtInputs {...{ ...ctx, txtInputs }}>
+      <TxtInputs {...{ ...ctx, ...formCtx, txtInputs }}>
         <ButtonsForm
           {...{
             ...ctx,
+            ...formCtx,
             txtInputs,
             isFetching,
             numericFilters,

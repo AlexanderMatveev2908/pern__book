@@ -1,9 +1,10 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC } from "react";
 import DropInputs from "./TxtInputs/DropInputs";
 import { BtnAct, FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
-import { useFormContext } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
@@ -21,7 +22,8 @@ type PropsType = {
   txtInputs: FormFieldBasic[];
   isFetching: boolean;
   numericFilters?: NumericFilterSearch[];
-} & SearchCtxValsConsumer;
+} & SearchCtxValsConsumer &
+  UseFormReturn<any>;
 
 const ButtonsForm: FC<PropsType> = ({
   txtInputs,
@@ -35,13 +37,10 @@ const ButtonsForm: FC<PropsType> = ({
   preSubmit: { errNumbers, hasFormErrs },
   setArgs,
   setPreSubmit,
+  reset,
+  formState: { errors },
+  setFocus,
 }) => {
-  const {
-    reset,
-    formState: { errors },
-    setFocus,
-  } = useFormContext();
-
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
   return (
