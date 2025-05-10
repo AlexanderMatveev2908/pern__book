@@ -46,7 +46,7 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       if (totPages < maxSizeBtns) setCurrBlock(0);
 
       const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
-      if (maxPossible > currBlock) setCurrBlock(maxPossible - 2);
+      if (maxPossible > currBlock) setCurrBlock(0);
 
       const maxCards = setLimitCards();
       if (limit !== maxCards)
