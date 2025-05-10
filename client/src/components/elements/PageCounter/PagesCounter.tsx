@@ -1,6 +1,6 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
@@ -28,7 +28,6 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
   } = useSearchCtx();
   const { limit, page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
-  const hasRun = useRef<boolean>(false);
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());
@@ -37,12 +36,8 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
   useEffect(() => {
-    const updated = calcBlockBySize(page, sizeBLock);
-    if (updated !== currBlock && !hasRun.current) {
-      hasRun.current = true;
-      setCurrBlock(updated);
-    }
-  }, [currBlock, sizeBLock, page]);
+    setCurrBlock(calcBlockBySize(page, sizeBLock));
+  }, [sizeBLock, page]);
 
   useEffect(() => {
     const listenResize = () => {

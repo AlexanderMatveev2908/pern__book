@@ -28,14 +28,14 @@ const BookStores: FC = () => {
     args,
     setArgs,
     setIsPending,
-    preSubmit: { hasFormErrs, isPopulated, hasPagination },
+    preSubmit: { hasFormErrs, isPopulated },
   } = useSearchCtx();
   const { handleSubmit, setFocus } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     args as ReqQueryAPI<SearchStoreFormType>,
     {
-      skip: hasFormErrs || !hasPagination,
+      skip: hasFormErrs,
     }
   );
   useWrapQueryAPI({ ...res });
@@ -65,8 +65,8 @@ const BookStores: FC = () => {
   );
 
   const spinPage = useMemo(
-    () => res?.isLoading || res?.isFetching || !isPopulated || !hasPagination,
-    [res?.isLoading, res?.isFetching, isPopulated, hasPagination]
+    () => res?.isLoading || res?.isFetching || !isPopulated,
+    [res?.isLoading, res?.isFetching, isPopulated]
   );
 
   return (

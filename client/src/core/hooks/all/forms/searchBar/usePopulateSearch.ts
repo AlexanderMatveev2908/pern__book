@@ -1,5 +1,5 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { getStorage, saveStorage } from "@/core/lib/lib";
+import { getStorage, saveStorage, setLimitCards } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
@@ -42,9 +42,12 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
           });
       }
 
+      setPreSubmit({ el: "canMakeAPI", val: false });
+
       setArgs({
         ...parsed,
         page: parsed?.page ?? 0,
+        limit: setLimitCards(),
       });
     }
 
