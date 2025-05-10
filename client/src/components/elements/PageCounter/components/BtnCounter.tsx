@@ -4,9 +4,10 @@ type PropsType = {
   handleClick: () => void;
   isIn: boolean;
   val: number;
+  isDisabled: boolean;
 };
 
-const BtnCounter: FC<PropsType> = ({ handleClick, isIn, val }) => {
+const BtnCounter: FC<PropsType> = ({ handleClick, isIn, val, isDisabled }) => {
   const [isHover, setIsHover] = useState(false);
 
   return (
@@ -14,6 +15,7 @@ const BtnCounter: FC<PropsType> = ({ handleClick, isIn, val }) => {
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => setIsHover(false)}
       onClick={handleClick}
+      disabled={isDisabled}
       type="button"
       className={`btn__counter_page appearance-none border-3 rounded-xl px-4 py-1 flex justify-center items-center
      ${isIn || isHover ? "border-blue-600" : "border-neutral-600 "}`}

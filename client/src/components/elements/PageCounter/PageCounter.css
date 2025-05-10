@@ -2,10 +2,12 @@
 
 .btn__counter_page {
   transition: 0.3s;
-  cursor: pointer;
   transform: scale(var(--scale_counter_page));
 }
-.btn__counter_page:active {
+.btn__counter_page:enabled {
+  cursor: pointer;
+}
+.btn__counter_page:enabled:active {
   transition: 0.15s;
   transform: scale(0.8);
 }

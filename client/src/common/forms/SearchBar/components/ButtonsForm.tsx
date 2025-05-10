@@ -8,7 +8,12 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
-import { getSizeSearchbarBtns, makeDelay, saveStorage } from "@/core/lib/lib";
+import {
+  getSizeSearchbarBtns,
+  makeDelay,
+  saveStorage,
+  setLimitCards,
+} from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 
@@ -26,8 +31,9 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
     isPending,
     setIsPending,
     setSearch,
-    setPagination,
     preSubmit: { errNumbers, hasFormErrs },
+    setArgs,
+    setPreSubmit,
   } = useSearchCtx();
   const {
     reset,
@@ -98,18 +104,23 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
               act: BtnAct.DEL,
               Icon: MdClear,
               handleClick: () => {
+                setPreSubmit({ el: "canMakeAPI", val: false });
                 setIsPending({ el: "clear", val: true });
+
+                const def = {
+                  [txtInputs[0].field]: "",
+                  limit: setLimitCards(),
+                  page: 0,
+                  // _: Date.now(),
+                };
+
+                setArgs(def);
 
                 reset({});
                 setTxtInputs([txtInputs[0]]);
 
-                setPagination({ el: "block", val: 0 });
-                setPagination({ el: "page", val: 0 });
-
                 saveStorage({
-                  data: {
-                    [txtInputs[0].field]: "",
-                  },
+                  data: def,
                   key: keyStorageVals,
                 });
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });

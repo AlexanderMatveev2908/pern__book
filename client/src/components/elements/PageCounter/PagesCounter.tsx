@@ -5,7 +5,6 @@ import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
-  __cg,
   calcBlockBySize,
   getNumBtns,
   makeDelay,
@@ -21,7 +20,12 @@ type PropsType = {
 };
 
 const PagesCounter: FC<PropsType> = ({ totPages }) => {
-  const { setArgs, args } = useSearchCtx();
+  const {
+    setArgs,
+    args,
+    setPreSubmit,
+    preSubmit: { hasFormErrs },
+  } = useSearchCtx();
   const { limit, page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
   const hasRun = useRef<boolean>(false);
@@ -47,11 +51,8 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       if (totPages < maxSizeBtns) setCurrBlock(0);
 
       const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
-      __cg("max", maxPossible);
-      __cg("curr", currBlock);
-      if (maxPossible > currBlock) {
-        setCurrBlock(maxPossible - 2);
-      }
+      if (maxPossible > currBlock) setCurrBlock(maxPossible - 2);
+
       const maxCards = setLimitCards();
       if (limit !== maxCards)
         setArgs({
@@ -82,6 +83,8 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
 
   const handlePage = useCallback(
     (val: number) => {
+      setPreSubmit({ el: "canMakeAPI", val: false });
+
       setArgs({
         ...args,
         page: val,
@@ -105,7 +108,7 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
         });
       }, 200);
     },
-    [args, keyStorageVals, setArgs, limit, searchBarID]
+    [args, setPreSubmit, keyStorageVals, setArgs, limit, searchBarID]
   );
 
   const vals = useMemo(
@@ -121,10 +124,10 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
     <div className="w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
       {currBlock ? (
         <button
-          disabled={!currBlock}
+          disabled={!currBlock || hasFormErrs}
           onClick={handlePrev}
           type="button"
-          className="appearance-none disabled:opacity-50 hover:text-blue-600 btn__logic_xl justify-self-start"
+          className="appearance-none disabled:opacity-50 enabled:hover:text-blue-600 btn__logic_xl justify-self-start"
         >
           <ArrowBigLeft className="icon__xl" />
         </button>
@@ -139,8 +142,8 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
             {...{
               isIn: val === page,
               handleClick: () => handlePage(val),
-
               val: val + 1,
+              isDisabled: hasFormErrs,
             }}
           />
         ))}
@@ -149,9 +152,9 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       {(currBlock + 1) * sizeBLock + 1 > totPages ? null : (
         <button
           onClick={handleNext}
-          disabled={(currBlock + 1) * sizeBLock + 1 > totPages}
+          disabled={(currBlock + 1) * sizeBLock + 1 > totPages || hasFormErrs}
           type="button"
-          className="disabled:opacity-50 hover:text-blue-600 appearance-none btn__logic_xl justify-self-end"
+          className="disabled:opacity-50 enabled:hover:text-blue-600 appearance-none btn__logic_xl justify-self-end"
         >
           <ArrowBigRight className="icon__xl" />
         </button>
