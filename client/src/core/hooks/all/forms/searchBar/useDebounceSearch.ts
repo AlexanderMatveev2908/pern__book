@@ -15,11 +15,12 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
   const {
-    pagination: { page, limit, block },
     setArgs,
     preSubmit: { canMakeAPI, isPopulated },
     setPreSubmit,
+    args,
   } = useSearchCtx();
+  const { limit = 4, page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   const { getValues, watch } = useFormContext();
@@ -27,7 +28,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const currVals = getValues();
+      const currVals = { ...getValues(), limit, page };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       __cg("old", oldVals.current);
@@ -42,16 +43,12 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
       oldVals.current = currVals as ArgsSearchType;
       saveStorage({
         key: keyStorageVals,
-        data: { ...currVals, page, block },
+        data: currVals,
       });
 
       // ? IS DIFFERENT FROM BTN_DISABLED CAUSE THE BTN IS UPDATE IS REAL_TIME WITH WATCH TO PROVIDE ACCURATE INFO ABOUT ERRORS KEYS AND MSGS, CAN_MAKE_API IS MORE ABOUT PREVENTING API TO RUN FOR UNNECESSARY REASONS, LIKE IF I ALREADY SET ARGS OR ADD FIELDS TO ARGS BUT THEY ARE EMPTY STRINGS AND WOULD NOT CHANGE THE SQL QUERY TO GET DATA
       if (canMakeAPI) {
-        setArgs({
-          ...(currVals as ArgsSearchType),
-          page,
-          limit,
-        });
+        setArgs(currVals);
       } else {
         setPreSubmit({ el: "canMakeAPI", val: true });
       }
@@ -64,7 +61,6 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
     };
   }, [
     txtInputs,
-    block,
     limit,
     getValues,
     keyStorageVals,

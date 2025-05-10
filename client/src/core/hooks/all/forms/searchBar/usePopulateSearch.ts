@@ -13,8 +13,7 @@ type Params = {
 export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
   const { setValue } = useFormContext();
 
-  const { setTxtInputs, setSearch, setPagination, setPreSubmit } =
-    useSearchCtx();
+  const { setTxtInputs, setArgs, setSearch, setPreSubmit } = useSearchCtx();
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
   useEffect(() => {
@@ -43,13 +42,9 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
           });
       }
 
-      setPagination({
-        el: "page",
-        val: parsed?.page ?? 0,
-      });
-      setPagination({
-        el: "block",
-        val: parsed?.block ?? 0,
+      setArgs({
+        ...parsed,
+        page: parsed?.page ?? 0,
       });
     }
 
@@ -63,6 +58,6 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
     setSearch,
     setTxtInputs,
     txtInputs,
-    setPagination,
+    setArgs,
   ]);
 };

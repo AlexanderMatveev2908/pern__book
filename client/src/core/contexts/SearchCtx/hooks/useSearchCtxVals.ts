@@ -1,7 +1,6 @@
 import { useCallback, useEffect } from "react";
 import {
   ParamsBar,
-  ParamsPagination,
   ParamsPending,
   ParamsPreSubmit,
   ParamsSearch,
@@ -23,7 +22,6 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setSearch: (params: ParamsSearch) => void;
   setArgs: (vals: ArgsSearchType) => void;
   setIsPending: (vals: ParamsPending) => void;
-  setPagination: (vals: ParamsPagination) => void;
   setPreSubmit: (vals: ParamsPreSubmit) => void;
 };
 
@@ -87,12 +85,6 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
-  const setPagination = useCallback(
-    ({ el, val }: ParamsPagination) =>
-      dispatch({ type: SearchCtxActions.SET_PAGINATION, payload: { el, val } }),
-    [dispatch]
-  );
-
   const setPreSubmit = useCallback(
     ({ el, val }: ParamsPreSubmit) =>
       dispatch({ type: SearchCtxActions.SET_PRE_SUBMIT, payload: { el, val } }),
@@ -106,7 +98,6 @@ export const useSearchCtxVals = ({
     setSearch,
     setArgs,
     setIsPending,
-    setPagination,
     setPreSubmit,
   };
 };

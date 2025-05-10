@@ -67,18 +67,6 @@ export const reducerSearch = (
       };
     }
 
-    case SearchCtxActions.SET_PAGINATION: {
-      const { el, val } = action.payload;
-
-      return {
-        ...state,
-        pagination: {
-          ...state.pagination,
-          [el]: val,
-        },
-      };
-    }
-
     case SearchCtxActions.SET_PRE_SUBMIT: {
       const { el, val } = action.payload;
 

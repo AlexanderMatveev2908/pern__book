@@ -6,7 +6,6 @@ import {
   ReqQueryAPI,
 } from "@/types/types";
 import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
-import { setLimitCards } from "@/core/lib/lib";
 
 export type ArgsSearchType = ReqQueryAPI<
   SearchStoreFormType | { a: "test" }
@@ -42,11 +41,6 @@ export type SearchCtxStateType = {
       currEl: FormFieldBasic;
     };
   };
-  pagination: {
-    block: number;
-    page: number;
-    limit: number;
-  };
 };
 
 export const initStateSearch: SearchCtxStateType = {
@@ -74,10 +68,5 @@ export const initStateSearch: SearchCtxStateType = {
     hasPagination: false,
     canMakeAPI: true,
     errNumbers: null,
-  },
-  pagination: {
-    block: 0,
-    limit: setLimitCards(),
-    page: 0,
   },
 };

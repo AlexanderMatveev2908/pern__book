@@ -1,10 +1,11 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
+  calcBlockBySize,
   getNumBtns,
   makeDelay,
   saveStorage,
@@ -19,66 +20,71 @@ type PropsType = {
 };
 
 const PagesCounter: FC<PropsType> = ({ totPages }) => {
-  const {
-    pagination: { page, block, limit },
-    setPagination,
-    setArgs,
-    args,
-  } = useSearchCtx();
+  const { setArgs, args } = useSearchCtx();
+  const { limit, page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
+  const hasRun = useRef<boolean>(false);
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());
+  const [currBlock, setCurrBlock] = useState(0);
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
+
+  useEffect(() => {
+    const updated = calcBlockBySize(page, sizeBLock);
+    if (updated !== currBlock && !hasRun.current) {
+      hasRun.current = true;
+      setCurrBlock(updated);
+    }
+  }, [currBlock, sizeBLock, page]);
 
   useEffect(() => {
     const listenResize = () => {
       const maxSizeBtns = getNumBtns();
       if (sizeBLock !== maxSizeBtns) setSizeBlock(maxSizeBtns);
-      if (totPages < maxSizeBtns && block)
-        setPagination({ el: "block", val: 0 });
+      if (totPages < maxSizeBtns) setCurrBlock(0);
 
       const maxCards = setLimitCards();
-      if (limit !== maxCards) setPagination({ el: "limit", val: maxCards });
-
-      setArgs({ ...args, page, limit: maxCards });
+      if (limit !== maxCards)
+        setArgs({
+          ...args,
+          page,
+          limit: maxCards,
+        });
     };
 
     window.addEventListener("resize", listenResize);
     return () => {
       window.removeEventListener("resize", listenResize);
     };
-  }, [setPagination, block, limit, setArgs, args, totPages, page, sizeBLock]);
+  }, [currBlock, limit, setArgs, args, totPages, page, sizeBLock]);
 
   const handlePrev = useCallback(
-    () => (block ? setPagination({ el: "block", val: block - 1 }) : null),
+    () => (currBlock ? setCurrBlock((prev) => prev - 1) : null),
 
-    [block, setPagination]
+    [currBlock]
   );
   const handleNext = useCallback(
     () =>
-      totPages * limit < page + 1
+      totPages * (limit ?? 4) < page + 1
         ? null
-        : setPagination({ el: "block", val: block + 1 }),
-    [block, setPagination, limit, totPages, page]
+        : setCurrBlock((prev) => prev + 1),
+    [limit, totPages, page]
   );
 
   const handlePage = useCallback(
     (val: number) => {
-      setPagination({ el: "page", val });
-
       setArgs({
         ...args,
         page: val,
-        limit,
+        limit: limit ?? 4,
       });
       saveStorage({
         key: keyStorageVals,
         data: {
           ...args,
           page: val,
-          block,
         },
       });
 
@@ -92,23 +98,23 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
         });
       }, 200);
     },
-    [args, block, keyStorageVals, setArgs, setPagination, limit, searchBarID]
+    [args, keyStorageVals, setArgs, limit, searchBarID]
   );
 
   const vals = useMemo(
     () =>
       Array.from(
         { length: getNumBtns() },
-        (_, i) => i + block * sizeBLock
+        (_, i) => i + currBlock * sizeBLock
       ).filter((val) => val < totPages + 1),
-    [block, sizeBLock, totPages]
+    [currBlock, sizeBLock, totPages]
   );
 
   return (
     <div className="w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
-      {block ? (
+      {currBlock ? (
         <button
-          disabled={!block}
+          disabled={!currBlock}
           onClick={handlePrev}
           type="button"
           className="appearance-none disabled:opacity-50 hover:text-blue-600 btn__logic_xl justify-self-start"
@@ -133,10 +139,10 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
         ))}
       </div>
 
-      {(block + 1) * sizeBLock + 1 > totPages ? null : (
+      {(currBlock + 1) * sizeBLock + 1 > totPages ? null : (
         <button
           onClick={handleNext}
-          disabled={(block + 1) * sizeBLock + 1 > totPages}
+          disabled={(currBlock + 1) * sizeBLock + 1 > totPages}
           type="button"
           className="disabled:opacity-50 hover:text-blue-600 appearance-none btn__logic_xl justify-self-end"
         >

@@ -12,7 +12,6 @@ export enum SearchCtxActions {
   SET_SEARCH = "SET_SEARCH",
   SET_ARGS = "SET_ARGS",
   SET_IS_PENDING = "SET_IS_PENDING",
-  SET_PAGINATION = "SET_PAGINATION",
   SET_PRE_SUBMIT = "SET_PRE_SUBMIT",
 }
 
@@ -79,10 +78,6 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_IS_PENDING;
       payload: ParamsPending;
-    }
-  | {
-      type: SearchCtxActions.SET_PAGINATION;
-      payload: ParamsPagination;
     }
   | {
       type: SearchCtxActions.SET_PRE_SUBMIT;

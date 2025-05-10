@@ -9,7 +9,6 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
@@ -17,6 +16,7 @@ import { FC, useMemo } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
+import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 
 const BookStores: FC = () => {
   useScroll();
@@ -29,9 +29,8 @@ const BookStores: FC = () => {
     setArgs,
     setIsPending,
     preSubmit: { hasFormErrs, isPopulated, hasPagination },
-    pagination: { limit, page },
   } = useSearchCtx();
-  const { handleSubmit, setFocus, getValues } = formCtx;
+  const { handleSubmit, setFocus } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     args as ReqQueryAPI<SearchStoreFormType>,
@@ -47,11 +46,9 @@ const BookStores: FC = () => {
     () => {
       setIsPending({ el: "submit", val: true });
       setArgs({
-        ...(getValues() as ArgsSearchType),
-        page,
-        limit,
+        ...args,
         _: Date.now(),
-      });
+      } as ArgsSearchType);
     }
     // (errs) => {
     // const { currArr } =

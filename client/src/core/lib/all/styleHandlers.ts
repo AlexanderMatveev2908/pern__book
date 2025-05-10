@@ -45,3 +45,6 @@ export const calcCurrBlock = ({
   block: number;
   limit: number;
 }) => i + 1 + block * limit;
+
+export const calcBlockBySize = (page: number, blockSize: number) =>
+  Math.floor(page / blockSize);
