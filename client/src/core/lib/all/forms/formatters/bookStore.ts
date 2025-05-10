@@ -59,7 +59,9 @@ export const makeFormDataStore = (
   return formData;
 };
 
-export const makeParams = <T extends Record<string, string | string[]>>(
+export const makeParams = <
+  T extends Record<string, string | number | string[]>
+>(
   formDataHook: T
 ) => {
   const params = new URLSearchParams();

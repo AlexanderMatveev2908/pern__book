@@ -6,6 +6,7 @@ import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { getStoreByID } from "./helpers/storeData.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
+import { calcPagination } from "../../lib/query/pagination.js";
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
   const bookStore = await getStoreByID(req);
@@ -36,6 +37,8 @@ export const getAllStores = async (
     },
   });
   if (!count) return res204(res);
+
+  const { skip, totPages } = calcPagination(req, count);
 
   const bookStores = await BookStore.findAll({
     where: {

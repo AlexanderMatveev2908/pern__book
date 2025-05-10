@@ -27,3 +27,14 @@ export interface ResApp extends AxiosResponse {
 }
 
 export type BaseResAPI<T> = { ok: boolean; status: number; msg: string } & T;
+
+export type ResPaginationAPI<T> = {
+  totPages: number;
+  nHits: number;
+} & T;
+
+export type ReqQueryAPI<T> = {
+  page: number;
+  limit: number;
+  _?: number;
+} & T;

@@ -3,7 +3,12 @@ import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
 import { catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BaseResAPI, TagsAPI } from "@/types/types";
+import {
+  BaseResAPI,
+  ReqQueryAPI,
+  ResPaginationAPI,
+  TagsAPI,
+} from "@/types/types";
 
 const BASE_URL = "/admin-book-store";
 
@@ -30,8 +35,8 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
     }),
 
     getAllStores: builder.query<
-      BaseResAPI<{ bookStores: BookStoreType[] }>,
-      SearchStoreFormType
+      BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreType[] }>>,
+      ReqQueryAPI<SearchStoreFormType>
     >({
       query: (vals) => {
         const params = makeParams(vals);

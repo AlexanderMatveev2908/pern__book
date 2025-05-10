@@ -36,7 +36,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
       const hasErr =
         !!Object.keys(errors ?? {}).length &&
         Object.values(errors).every((el) => el?.message);
-      const hasPagination = [args["page"], args["limit"]].every(
+      const hasPagination = [args?.["page"], args?.["limit"]].every(
         (el) => typeof el === "number"
       );
       const isDisabled = hasErr || !hasPagination;
@@ -104,7 +104,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
   useEffect(() => {
     const neededKeys = ["limit", "page"];
     const hasPaginationVals = neededKeys.every(
-      (k) => typeof args[k as keyof ArgsSearchType] === "number"
+      (k) => typeof args?.[k as keyof ArgsSearchType] === "number"
     );
     if (hasPaginationVals !== hasPagination)
       setPreSubmit({ el: "hasPagination", val: hasPaginationVals });

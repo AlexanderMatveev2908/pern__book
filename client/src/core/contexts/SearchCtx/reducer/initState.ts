@@ -3,15 +3,14 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
+  ReqQueryAPI,
 } from "@/types/types";
 import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
 import { setLimitCards } from "@/core/lib/lib";
 
-export type ArgsSearchType = (SearchStoreFormType | { a: "test" }) & {
-  _?: number;
-  page?: number;
-  limit?: number;
-};
+export type ArgsSearchType = ReqQueryAPI<
+  SearchStoreFormType | { a: "test" }
+> | null;
 
 export type SearchCtxStateType = {
   activeTxtInputs: FormFieldBasic[];
@@ -64,7 +63,7 @@ export const initStateSearch: SearchCtxStateType = {
     currFilter: null,
     currSorter: null,
   },
-  args: {},
+  args: null,
   isPending: {
     submit: false,
     clear: false,
