@@ -4,22 +4,26 @@ import { FaSearchMinus } from "react-icons/fa";
 import { BtnAct } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { saveStorage, setLimitCards } from "@/core/lib/lib";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type PropsType = {
   children: ReactNode;
-};
+} & SearchCtxValsConsumer;
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ children }) => {
-  const { activeTxtInputs, setTxtInputs, setPreSubmit, setArgs, args } =
-    useSearchCtx();
-
+const TxtInputs: FC<PropsType> = ({
+  children,
+  activeTxtInputs,
+  setTxtInputs,
+  setPreSubmit,
+  setArgs,
+  args,
+}) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
   const {

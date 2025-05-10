@@ -1,19 +1,26 @@
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getStorage, saveStorage, setLimitCards } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect } from "react";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, Path, UseFormReturn } from "react-hook-form";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
-type Params = {
+type Params<T extends FieldValues> = {
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
-};
+} & SearchCtxValsConsumer &
+  UseFormReturn<T>;
 
-export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
-  const { setValue } = useFormContext();
-
-  const { setTxtInputs, setArgs, setSearch, setPreSubmit } = useSearchCtx();
+export const usePopulateSearch = ({
+  txtInputs,
+  filters,
+  setTxtInputs,
+  setArgs,
+  setSearch,
+  setPreSubmit,
+  setValue,
+}: Params<any>) => {
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
 
   useEffect(() => {
@@ -38,7 +45,7 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
           (typeof val === "string" && val.trim().length) ||
           (Array.isArray(val) && val.length)
         )
-          setValue(key, val, {
+          setValue(key as Path<any>, val, {
             shouldValidate: true,
             shouldDirty: true,
           });

@@ -1,35 +1,36 @@
 import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, UseFormReturn } from "react-hook-form";
 import {
   clearTimer,
   isSameData,
   saveStorage,
   setLimitCards,
 } from "@/core/lib/lib";
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FormFieldBasic } from "@/types/types";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
-type Params = {
+type Params<T> = {
   txtInputs: FormFieldBasic[];
-};
+  realTimeVals: T;
+} & SearchCtxValsConsumer &
+  UseFormReturn<T & FieldValues>;
 
-export const useDebounceSearch = ({ txtInputs }: Params) => {
+export const useDebounceSearch = <T>({
+  txtInputs,
+  setArgs,
+  preSubmit: { canMakeAPI, isPopulated },
+  setPreSubmit,
+  args,
+  realTimeVals,
+  getValues,
+}: Params<T>) => {
   const oldVals = useRef<ArgsSearchType | null>(null);
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
-  const {
-    setArgs,
-    preSubmit: { canMakeAPI, isPopulated },
-    setPreSubmit,
-    args,
-  } = useSearchCtx();
   const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
-
-  const { getValues, watch } = useFormContext();
-  const vals = watch();
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
@@ -59,7 +60,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
       }
 
       clearTimer(timerID);
-    }, 500);
+    }, 1000);
 
     return () => {
       clearTimer(timerID);
@@ -70,7 +71,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
     getValues,
     keyStorageVals,
     setArgs,
-    vals,
+    realTimeVals,
     canMakeAPI,
     isPopulated,
     page,

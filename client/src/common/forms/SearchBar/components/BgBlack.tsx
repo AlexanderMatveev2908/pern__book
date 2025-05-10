@@ -1,9 +1,13 @@
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FC, useMemo } from "react";
 
-const BgBlack: FC = () => {
-  const { bars } = useSearchCtx();
+type PropsType = {
+  bars: {
+    filterBar: boolean;
+    sortBar: boolean;
+  };
+};
 
+const BgBlack: FC<PropsType> = ({ bars }) => {
   const isBg = useMemo(() => Object.values(bars).some((el) => !!el), [bars]);
 
   return isBg ? (

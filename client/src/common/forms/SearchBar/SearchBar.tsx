@@ -17,6 +17,7 @@ import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { usePopulateSearch } from "@/core/hooks/all/forms/searchBar/usePopulateSearch";
 import { useDebounceSearch } from "@/core/hooks/all/forms/searchBar/useDebounceSearch";
 import { useHandleErrSearch } from "@/core/hooks/all/forms/searchBar/useHandleErrSearch";
+import { useFormContext } from "react-hook-form";
 
 type PropsType = {
   isFetching: boolean;
@@ -33,13 +34,22 @@ const SearchBar: FC<PropsType> = ({
   numericFilters,
   isFetching,
 }) => {
-  const { isPending, setIsPending } = useSearchCtx();
+  const ctx = useSearchCtx();
+  const { isPending, setIsPending } = ctx;
+
+  const {
+    preSubmit: { isPopulated },
+  } = useSearchCtx();
+
+  const formCtx = useFormContext();
+  const { watch } = formCtx;
+  const realTimeVals = useMemo(() => watch(), [watch]);
 
   // * POPULATE FORM EXISTING VALS
-  usePopulateSearch({ filters, txtInputs });
+  usePopulateSearch({ ...ctx, ...formCtx, filters, txtInputs });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
-  useDebounceSearch({ txtInputs });
+  useDebounceSearch({ ...ctx, ...formCtx, realTimeVals, txtInputs });
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
   useSyncLoading({
@@ -54,11 +64,7 @@ const SearchBar: FC<PropsType> = ({
   });
 
   // * MANAGEMENT ERRORS SEARCH BAR
-  useHandleErrSearch({ numericFilters });
-
-  const {
-    preSubmit: { isPopulated },
-  } = useSearchCtx();
+  useHandleErrSearch({ ...ctx, ...formCtx, realTimeVals, numericFilters });
 
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
@@ -71,12 +77,13 @@ const SearchBar: FC<PropsType> = ({
       onSubmit={handleSave}
       className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4"
     >
-      <BgBlack />
-      <FilterBar {...{ filters, numericFilters }} />
+      <BgBlack {...{ bars: ctx.bars }} />
+      <FilterBar {...{ ...ctx, filters, numericFilters }} />
 
-      <TxtInputs {...{ txtInputs }}>
+      <TxtInputs {...{ ...ctx, txtInputs }}>
         <ButtonsForm
           {...{
+            ...ctx,
             txtInputs,
             isFetching,
             numericFilters,

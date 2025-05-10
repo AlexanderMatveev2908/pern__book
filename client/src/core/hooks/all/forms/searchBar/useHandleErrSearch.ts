@@ -1,32 +1,31 @@
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { isSameData, makeDelay, makeNum } from "@/core/lib/lib";
 import { NumericFilterSearch } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { useFormContext } from "react-hook-form";
+import { FieldValues, UseFormReturn } from "react-hook-form";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
-type Params = {
+type Params<T extends FieldValues> = {
   numericFilters?: NumericFilterSearch[];
-};
+  realTimeVals: T;
+} & SearchCtxValsConsumer &
+  UseFormReturn<T>;
 
-export const useHandleErrSearch = ({ numericFilters }: Params) => {
+export const useHandleErrSearch = ({
+  numericFilters,
+  setBar,
+  setSearch,
+  args,
+  realTimeVals,
+  preSubmit: { errNumbers, hasFormErrs, isPopulated },
+  setPreSubmit,
+  formState: { errors, isDirty, dirtyFields },
+  clearErrors,
+  setFocus,
+}: Params<any>) => {
   const hasWarningRun = useRef<boolean>(false);
-
-  const {
-    setBar,
-    setSearch,
-    args,
-    preSubmit: { errNumbers, hasFormErrs, isPopulated },
-    setPreSubmit,
-  } = useSearchCtx();
-  const {
-    formState: { errors, isDirty, dirtyFields },
-    watch,
-    clearErrors,
-    setFocus,
-  } = useFormContext();
-  const vals = watch();
 
   // * DISABLE BTN ON ERRORS
   // ? YOU COULD LEAVE BTN ENABLED AND OPEN BAR ON CLICK AS SECOND CB IN HANDLE_SUBMIT OF REACT_USE_FORM, IT DEPENDS ON YOUR PREFERENCE, THE IMPORTANT THING IS JUST TO SKIP QUERY ON ERROR TO AVOID SENDING INVALID INPUTS LIKE `<script></script>`
@@ -42,7 +41,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     };
 
     handleMainBtn();
-  }, [vals, errors, args, hasFormErrs, setPreSubmit]);
+  }, [realTimeVals, errors, args, hasFormErrs, setPreSubmit]);
 
   // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {
@@ -67,7 +66,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
   }, [
     isPopulated,
     isDirty,
-    vals,
+    realTimeVals,
     dirtyFields,
     numericFilters,
     errors,
@@ -89,7 +88,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     };
 
     handleNumberErr();
-  }, [errNumbers, errors, numericFilters, vals, setPreSubmit]);
+  }, [errNumbers, errors, numericFilters, realTimeVals, setPreSubmit]);
 
   // * CLEAR OLD ERRORS NUMBERS, IT COULD BE USEFUL TO SHARE THIS ERROR IN ALL COMPONENTS, LIKE A THING COULD BE SHOW IT ABOVE LABEL OF FILTER IN THE COL OF FOOTER_BAR SPLITTED
   useEffect(() => {
@@ -99,7 +98,8 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
         errors?.maxAvgPrice?.message === msgsFormStore.price.max
       ) {
         if (
-          makeNum("min", vals?.minAvgPrice) < makeNum("max", vals?.maxAvgPrice)
+          makeNum("min", realTimeVals?.minAvgPrice) <
+          makeNum("max", realTimeVals?.maxAvgPrice)
         ) {
           clearErrors("minAvgPrice");
           clearErrors("maxAvgPrice");
@@ -109,7 +109,10 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
         errors?.minAvgQty?.message === msgsFormStore.qty.min ||
         errors?.maxAvgQty?.message === msgsFormStore.qty.max
       ) {
-        if (makeNum("min", vals?.minAvgQty) < makeNum("max", vals?.maxAvgQty)) {
+        if (
+          makeNum("min", realTimeVals?.minAvgQty) <
+          makeNum("max", realTimeVals?.maxAvgQty)
+        ) {
           clearErrors("minAvgQty");
           clearErrors("maxAvgQty");
         }
@@ -118,13 +121,25 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
         errors?.managers?.message === msgsFormStore.work.managers ||
         errors?.employees?.message === msgsFormStore.work.employees
       ) {
-        if (makeNum("min", vals?.managers) < makeNum("max", vals?.workers))
+        if (
+          makeNum("min", realTimeVals?.managers) <
+          makeNum("max", realTimeVals?.workers)
+        )
           clearErrors("managers");
-        if (makeNum("min", vals?.employees) < makeNum("max", vals?.workers))
+        if (
+          makeNum("min", realTimeVals?.employees) <
+          makeNum("max", realTimeVals?.e)
+        )
           clearErrors("employees");
       }
     };
 
     handleErrors();
-  }, [vals, clearErrors, errors?.minAvgPrice, errors?.maxAvgPrice, errors]);
+  }, [
+    realTimeVals,
+    clearErrors,
+    errors?.minAvgPrice,
+    errors?.maxAvgPrice,
+    errors,
+  ]);
 };

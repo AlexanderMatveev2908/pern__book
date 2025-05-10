@@ -1,25 +1,25 @@
 import Title from "@/components/elements/Title";
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { FC, useEffect, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import LabelsCol from "./components/LabelsCol";
 import ValsCol from "./components/ValsCol";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type PropsType = {
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
-};
+} & SearchCtxValsConsumer;
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES
 
-const FilterBar: FC<PropsType> = ({ filters, numericFilters }) => {
+const FilterBar: FC<PropsType> = ({
+  filters,
+  numericFilters,
+  bars: { filterBar },
+  setBar,
+}) => {
   const barRef = useRef<HTMLDivElement | null>(null);
-
-  const {
-    bars: { filterBar },
-    setBar,
-  } = useSearchCtx();
 
   useEffect(() => {
     const listenClick = (e: MouseEvent) => {

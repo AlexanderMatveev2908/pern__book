@@ -4,7 +4,6 @@ import DropInputs from "./TxtInputs/DropInputs";
 import { BtnAct, FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdClear } from "react-icons/md";
 import { FaSearch } from "react-icons/fa";
@@ -16,25 +15,27 @@ import {
 } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
   isFetching: boolean;
   numericFilters?: NumericFilterSearch[];
-};
+} & SearchCtxValsConsumer;
 
-const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
-  const {
-    setBar,
-    labels: { labelSubmit },
-    setTxtInputs,
-    isPending,
-    setIsPending,
-    setSearch,
-    preSubmit: { errNumbers, hasFormErrs },
-    setArgs,
-    setPreSubmit,
-  } = useSearchCtx();
+const ButtonsForm: FC<PropsType> = ({
+  txtInputs,
+  isFetching,
+  setBar,
+  labels: { labelSubmit },
+  setTxtInputs,
+  isPending,
+  setIsPending,
+  setSearch,
+  preSubmit: { errNumbers, hasFormErrs },
+  setArgs,
+  setPreSubmit,
+}) => {
   const {
     reset,
     formState: { errors },
