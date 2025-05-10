@@ -5,6 +5,7 @@ import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
+  __cg,
   calcBlockBySize,
   getNumBtns,
   makeDelay,
@@ -45,6 +46,12 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       if (sizeBLock !== maxSizeBtns) setSizeBlock(maxSizeBtns);
       if (totPages < maxSizeBtns) setCurrBlock(0);
 
+      const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
+      __cg("max", maxPossible);
+      __cg("curr", currBlock);
+      if (maxPossible > currBlock) {
+        setCurrBlock(maxPossible - 2);
+      }
       const maxCards = setLimitCards();
       if (limit !== maxCards)
         setArgs({
