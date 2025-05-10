@@ -90,11 +90,9 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       makeDelay(() => {
         const el = document.getElementById(searchBarID);
         if (!el) return;
-        const h = el.offsetHeight;
-        const top = el.getBoundingClientRect().top;
 
         window.scroll({
-          top: top - h,
+          top: el.offsetHeight,
           behavior: "smooth",
         });
       }, 200);

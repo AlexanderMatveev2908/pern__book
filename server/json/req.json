@@ -2,10 +2,36 @@
   "files": {},
   "file": {},
   "query": {
-    "page": "0",
+    "name": "www",
+    "categories": [
+      "classics",
+      "philosophy",
+      "psychology"
+    ],
+    "orders": [
+      "pending",
+      "paid"
+    ],
+    "delivery": "free_delivery",
+    "avgRating": [
+      "0-1",
+      "3.1-4"
+    ],
+    "minAvgPrice": "11",
+    "maxAvgPrice": "22",
+    "minAvgQty": "33",
+    "maxAvgQty": "55",
+    "workers": "77",
+    "managers": "22",
+    "employees": "55",
+    "country": "aaa",
+    "state": "qqqq",
+    "city": "rrr",
+    "ID": "7b677c62-37cd-42c3-99d7-aa1c67afabfb",
+    "page": "4",
     "limit": "4"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NjgyNjA5NiwiZXhwIjoxNzQ2ODI2MTU2fQ.JT05uN3VpjaucMAY4TUXMa4dvKNuWjccNEFLda7vt0o",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.ij-oXEVnwvQqCHx51ek0VAb1iror7fU6NtSSDn_vaYkrBDgpxajL9j7V2hJqATMwyBflM8IuBw9P9wl0S-za9-ntm7F-jsR5T1er5FGQYBZYlUirVQZMaJq2Vhlc5QKLJRGrh52xRAcq2v4S7zxZyQSfP8Dlfilr0CLJ4_xbsjF69oGJSvEYX84FL25oulunZLH6njm2IY9Nq4RY4XbCOtA81GYmXhvOeYwuiIJGPNUcr97kFVU1D4YPGqjURIdRHEhOqvsjAvSYhlWzzQeFSjtAShRFYRgTZTHwJJaqpck1YSB8jJQ23kMDbUIrWY340p2kYd2SQ5gLaWJ6uz4c0g.TLpKghtgZYMrZv9Q.XPrKvAsnQvHtaS9ibM7fDYX6LjsQxOJi-yvgIQxrM5GdBv_e8jIkJJasImdm.N81R3UEmRX9DRyPnKtSfKw"
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0Njg2ODMyMiwiZXhwIjoxNzQ2ODY4MzgyfQ.N2FpdlO_zqPIr0zLZKxnSek1DtPweuy8KGsUzDXesuU",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.bCxnWTwx8wZIe0RF3cROKRyDDBNoSX7u9zHeMDiyqJwS_JWniLps6lC96QIjPTj1BQWLY7oardkE6CedLz4hHGZ2RfQ2qo4CNMxMlE3sjYwIhy_Lumfkc-gnoHmb85gF2envQPEQ5vxH3RTjTJZKQBZxMOkqJmYaAQkSyRnKhLhwevqY8XdkMPMEvFhgpUUksOXj4HaNBxBIlzvmC2fZCwKyDdW_X13HNN4v-cW67ApUyLp6m_UaTwknhkvjufk7bKktkerlRv7plPl-LUbKxVKjsYVtjGM9V4KKPm4FMZ1qbvpBdpRKIuo2ay7XvYgd_jL7voNM3vPdLnh9MW5eAQ.ocWO9Ou54xE92nQe.q-LIPTl6NI67vdAZKvXe-eKFIFsl94qDxo6Kfk-rQhj-dQYIMthX7Shcd2Qm.c_hRRs5Jg38283FWv_NsdQ"
 }
