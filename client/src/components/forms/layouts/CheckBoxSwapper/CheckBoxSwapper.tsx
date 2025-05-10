@@ -123,14 +123,15 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
               }}
             >
               {arr.map((val, j) => (
-                <BtnCheckBox
-                  key={idsChildren[j]}
-                  {...{
-                    isIn: isIn(val),
-                    label: capt(val),
-                    handleClick: () => handleCatClick(val),
-                  }}
-                />
+                <div key={idsChildren[j]} className="w-full max-w-[225px]">
+                  <BtnCheckBox
+                    {...{
+                      isIn: isIn(val),
+                      label: capt(val),
+                      handleClick: () => handleCatClick(val),
+                    }}
+                  />
+                </div>
               ))}
             </div>
           ))}
