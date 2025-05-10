@@ -43,7 +43,7 @@ const SearchBar: FC<PropsType> = ({
 
   const formCtx = useFormContext();
   const { watch } = formCtx;
-  const realTimeVals = useMemo(() => watch(), [watch]);
+  const realTimeVals = watch();
 
   // * POPULATE FORM EXISTING VALS
   usePopulateSearch({ ...ctx, ...formCtx, filters, txtInputs });
