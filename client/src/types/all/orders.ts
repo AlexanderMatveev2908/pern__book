@@ -11,5 +11,5 @@ export enum OrderStage {
 
 export enum DeliveryType {
   FREE = "free_delivery",
-  PAY = "delivery_charged ",
+  PAY = "delivery_charged",
 }

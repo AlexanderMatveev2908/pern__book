@@ -1,4 +1,4 @@
-import { Op } from "sequelize";
+import { literal, Op } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
 
 export const createStoreQ = (req: ReqApp) => {
@@ -39,11 +39,35 @@ export const createStoreQ = (req: ReqApp) => {
 
     if (key === "ID") query.id = val;
 
-    if (key === "categories") {
+    if (key === "categories")
       query.categories = {
         [Op.overlap]: Array.isArray(val) ? val : [val],
         // [Op.contains]: Array.isArray(val) ? val : [val],
       };
+
+    if (key === "delivery") {
+      const cond = [];
+
+      if (
+        (Array.isArray(val) && val.includes("free_delivery")) ||
+        val === "free_delivery"
+      )
+        cond.push({
+          deliveryPrice: {
+            [Op.lte]: 0,
+          },
+        });
+      if (
+        (Array.isArray(val) && val.includes("delivery_charged")) ||
+        val === "delivery_charged"
+      )
+        cond.push({
+          deliveryPrice: {
+            [Op.gt]: 0,
+          },
+        });
+
+      if (cond.length) query[Op.or as any] = cond;
     }
   }
 
