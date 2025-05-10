@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { useFormContext } from "react-hook-form";
 import {
-  __cg,
   clearTimer,
   isSameData,
   saveStorage,
@@ -37,9 +36,9 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
       const currVals = { ...getValues(), limit, page };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      __cg("old", oldVals.current);
-      __cg("new", currVals);
-      __cg("same", isSame);
+      // __cg("old", oldVals.current);
+      // __cg("new", currVals);
+      // __cg("same", isSame);
 
       if (isSame) {
         clearTimer(timerID);
