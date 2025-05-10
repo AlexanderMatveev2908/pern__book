@@ -20,7 +20,7 @@ type Params<T> = {
 export const useDebounceSearch = <T>({
   txtInputs,
   setArgs,
-  preSubmit: { canMakeAPI, isPopulated },
+  preSubmit: { canMakeAPI, isPopulated, hasFormErrs },
   setPreSubmit,
   args,
   realTimeVals,
@@ -53,7 +53,7 @@ export const useDebounceSearch = <T>({
       });
 
       // ? IS DIFFERENT FROM BTN_DISABLED CAUSE THE BTN IS UPDATE IS REAL_TIME WITH WATCH TO PROVIDE ACCURATE INFO ABOUT ERRORS KEYS AND MSGS, CAN_MAKE_API IS MORE ABOUT PREVENTING API TO RUN FOR UNNECESSARY REASONS, LIKE IF I ALREADY SET ARGS OR ADD FIELDS TO ARGS BUT THEY ARE EMPTY STRINGS AND WOULD NOT CHANGE THE SQL QUERY TO GET DATA
-      if (canMakeAPI) {
+      if (canMakeAPI && !hasFormErrs) {
         setArgs(currVals);
       } else {
         setPreSubmit({ el: "canMakeAPI", val: true });
@@ -67,6 +67,7 @@ export const useDebounceSearch = <T>({
     };
   }, [
     txtInputs,
+    hasFormErrs,
     limit,
     getValues,
     keyStorageVals,

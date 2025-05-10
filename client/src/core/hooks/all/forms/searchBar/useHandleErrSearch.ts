@@ -17,7 +17,6 @@ export const useHandleErrSearch = ({
   numericFilters,
   setBar,
   setSearch,
-  args,
   realTimeVals,
   preSubmit: { errNumbers, hasFormErrs, isPopulated },
   setPreSubmit,
@@ -35,13 +34,13 @@ export const useHandleErrSearch = ({
         !!Object.keys(errors ?? {}).length &&
         Object.values(errors).every((el) => el?.message);
 
-      if (hasErr === hasFormErrs) return null;
+      if (hasErr === hasFormErrs) return;
 
       setPreSubmit({ el: "hasFormErrs", val: hasErr });
     };
 
     handleMainBtn();
-  }, [realTimeVals, errors, args, hasFormErrs, setPreSubmit]);
+  }, [realTimeVals, errors, hasFormErrs, setPreSubmit]);
 
   // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {

@@ -31,6 +31,8 @@ export const createStoreQ = (req: ReqApp) => {
         query[key] = {
           [Op.iLike]: `%${val}%`,
         };
+
+      if (key === "ID") query.id = val;
     }
   }
 

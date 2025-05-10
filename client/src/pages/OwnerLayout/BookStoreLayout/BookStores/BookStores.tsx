@@ -12,7 +12,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
@@ -54,6 +54,8 @@ const BookStores: FC = () => {
     () => res?.isLoading || res?.isFetching || !isPopulated,
     [res?.isLoading, res?.isFetching, isPopulated]
   );
+
+  useEffect(() => {}, [hasFormErrs]);
 
   return (
     <WrapPageAPI
