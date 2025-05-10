@@ -70,8 +70,8 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
               const updated = [...activeTxtInputs, el];
               setTxtInputs(updated);
               saveStorage({ key: keyStorageLabels, data: updated });
-              await makeDelay(async () => await setFocus(el.field), 0);
               setIsDropOpen(false);
+              makeDelay(() => setFocus(el.field), 0);
             }}
             key={el.id}
             className="w-full hover:text-blue-600 el__flow cursor-pointer"

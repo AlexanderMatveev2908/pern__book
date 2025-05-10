@@ -111,12 +111,13 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, isFetching }) => {
                   [txtInputs[0].field]: "",
                   limit: setLimitCards(),
                   page: 0,
-                  // _: Date.now(),
+                  _: Date.now(),
                 };
 
                 setArgs(def);
-
-                reset({});
+                reset({
+                  [txtInputs[0].field]: "",
+                });
                 setTxtInputs([txtInputs[0]]);
 
                 saveStorage({

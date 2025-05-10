@@ -35,34 +35,20 @@ const BookStores: FC = () => {
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     args as ReqQueryAPI<SearchStoreFormType>,
     {
-      skip: hasFormErrs,
+      skip: hasFormErrs || !isPopulated,
     }
   );
   useWrapQueryAPI({ ...res });
   const { data: { bookStores } = {} } = res ?? {};
   useFocus({ key: "name", setFocus });
 
-  const handleSave = handleSubmit(
-    () => {
-      setIsPending({ el: "submit", val: true });
-      setArgs({
-        ...args,
-        _: Date.now(),
-      } as ArgsSearchType);
-    }
-    // (errs) => {
-    // const { currArr } =
-    //   getErrFooterBar({
-    //     errs,
-    //     numericFilters: numericFiltersStore,
-    //   }) ?? {};
-
-    // if (!currArr) return;
-
-    // setBar({ el: "filterBar", val: true });
-    // setSearch({ el: "currFilter", val: currArr });
-    // }
-  );
+  const handleSave = handleSubmit(() => {
+    setIsPending({ el: "submit", val: true });
+    setArgs({
+      ...args,
+      _: Date.now(),
+    } as ArgsSearchType);
+  });
 
   const spinPage = useMemo(
     () => res?.isLoading || res?.isFetching || !isPopulated,

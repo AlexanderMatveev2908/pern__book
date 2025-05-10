@@ -39,12 +39,7 @@ export type ParamsErrNumber = null | {
 };
 
 export type ParamsPreSubmit = {
-  el:
-    | "hasFormErrs"
-    | "isPopulated"
-    | "hasPagination"
-    | "canMakeAPI"
-    | "errNumbers";
+  el: "hasFormErrs" | "isPopulated" | "canMakeAPI" | "errNumbers";
   val:
     | boolean
     | null

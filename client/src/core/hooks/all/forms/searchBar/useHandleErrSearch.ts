@@ -36,10 +36,6 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
         !!Object.keys(errors ?? {}).length &&
         Object.values(errors).every((el) => el?.message);
 
-      // const currVals = getValues();
-      // const isSame: boolean = isSameData(oldVals.current, currVals);
-      // const isDisabled = hasErr || isSame;
-
       if (hasErr === hasFormErrs) return null;
 
       setPreSubmit({ el: "hasFormErrs", val: hasErr });
@@ -80,7 +76,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     setSearch,
   ]);
 
-  //  * SHOW FIRST ERROR MESSAGE ABOVE FILTER BTN SO USER KNOW THAT HAS TO DIX ERROR OR WILL NOT BE ABLE TO FILTER
+  //  * SHOW FIRST ERROR MESSAGE ABOVE FILTER BTN SO USER KNOW THAT HAS TO FIX ERROR OR WILL NOT BE ABLE TO FILTER AT ALL
   useEffect(() => {
     const handleNumberErr = () => {
       const errFilter = getErrFooterBar({
@@ -95,17 +91,7 @@ export const useHandleErrSearch = ({ numericFilters }: Params) => {
     handleNumberErr();
   }, [errNumbers, errors, numericFilters, vals, setPreSubmit]);
 
-  // // * PREVENT SENDING DATA WITHOUT PAGINATION, BECAUSE I DO NOT WANT TO TRIGGER SOME ACTIONS ON BLOCK_PAGES CHANGE, I KEEP VALS SEPARATED AND THEN MIX ON_SUBMIT, THEN I NEED TO SAVE IT IN STORAGE FOR UI REASONS
-  // useEffect(() => {
-  //   const neededKeys = ["limit", "page"];
-  //   const hasPaginationVals = neededKeys.every(
-  //     (k) => typeof args?.[k as keyof ArgsSearchType] === "number"
-  //   );
-  //   if (hasPaginationVals !== hasPagination)
-  //     setPreSubmit({ el: "hasPagination", val: hasPaginationVals });
-  // }, [args, vals, hasPagination, setPreSubmit]);
-
-  // * CLEAR OLD ERRORS NUMBERS
+  // * CLEAR OLD ERRORS NUMBERS, IT COULD BE USEFUL TO SHARE THIS ERROR IN ALL COMPONENTS, LIKE A THING COULD BE SHOW IT ABOVE LABEL OF FILTER IN THE COL OF FOOTER_BAR SPLITTED
   useEffect(() => {
     const handleErrors = () => {
       if (

@@ -26,7 +26,7 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
     setPreSubmit,
     preSubmit: { hasFormErrs },
   } = useSearchCtx();
-  const { limit, page = 0 } = args ?? {};
+  const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));

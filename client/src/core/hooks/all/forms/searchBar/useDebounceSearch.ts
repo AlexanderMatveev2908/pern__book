@@ -1,7 +1,13 @@
 import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { useFormContext } from "react-hook-form";
-import { __cg, clearTimer, isSameData, saveStorage } from "@/core/lib/lib";
+import {
+  __cg,
+  clearTimer,
+  isSameData,
+  saveStorage,
+  setLimitCards,
+} from "@/core/lib/lib";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FormFieldBasic } from "@/types/types";
 import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
@@ -20,7 +26,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
     setPreSubmit,
     args,
   } = useSearchCtx();
-  const { limit = 4, page = 0 } = args ?? {};
+  const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   const { getValues, watch } = useFormContext();
@@ -40,7 +46,7 @@ export const useDebounceSearch = ({ txtInputs }: Params) => {
         return null;
       }
 
-      oldVals.current = currVals as ArgsSearchType;
+      oldVals.current = currVals;
       saveStorage({
         key: keyStorageVals,
         data: currVals,

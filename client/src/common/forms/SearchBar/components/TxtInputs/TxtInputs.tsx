@@ -5,7 +5,7 @@ import { BtnAct } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { saveStorage } from "@/core/lib/lib";
+import { saveStorage, setLimitCards } from "@/core/lib/lib";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 
 type PropsType = {
@@ -17,7 +17,7 @@ const removeFieldBtn = {
 };
 
 const TxtInputs: FC<PropsType> = ({ children }) => {
-  const { activeTxtInputs, setTxtInputs, setArgs, args, setPreSubmit } =
+  const { activeTxtInputs, setTxtInputs, setPreSubmit, setArgs, args } =
     useSearchCtx();
 
   const { keyStorageLabels } = useGetSearchKeysStorage();
@@ -50,10 +50,14 @@ const TxtInputs: FC<PropsType> = ({ children }) => {
                 act: BtnAct.DEL,
                 handleClick: () => {
                   setPreSubmit({ el: "canMakeAPI", val: false });
+
                   setArgs({
                     ...args,
+                    page: args?.page ?? 0,
+                    limit: args?.limit ?? setLimitCards(),
                     [el.field]: "",
                   });
+
                   setValue(el.field, "", { shouldValidate: true });
                   const filtered = activeTxtInputs.filter(
                     (val) => val.field !== el.field

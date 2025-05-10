@@ -34,7 +34,6 @@ export type SearchCtxStateType = {
   preSubmit: {
     hasFormErrs: boolean;
     isPopulated: boolean;
-    hasPagination: boolean;
     canMakeAPI: boolean;
     errNumbers: null | {
       currArr: NumericFilterSearch;
@@ -65,7 +64,6 @@ export const initStateSearch: SearchCtxStateType = {
   preSubmit: {
     hasFormErrs: false,
     isPopulated: false,
-    hasPagination: false,
     canMakeAPI: true,
     errNumbers: null,
   },

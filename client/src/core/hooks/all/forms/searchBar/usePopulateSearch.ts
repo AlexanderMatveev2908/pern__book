@@ -19,10 +19,12 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
   useEffect(() => {
     const savedVals = getStorage(keyStorageVals);
 
+    // * UPDATE LABELS OF SEARCH BY TEXT
     const savedLabels = JSON.parse(getStorage(keyStorageLabels) ?? "[]");
     const updatedLabels = savedLabels.length ? savedLabels : [txtInputs[0]];
     setTxtInputs(updatedLabels);
 
+    // ? IF NOT LENGTH UPDATE STORAGE TO HAVE FIRST EL
     if (!savedLabels.length)
       saveStorage({ key: keyStorageLabels, data: updatedLabels });
 
@@ -42,6 +44,7 @@ export const usePopulateSearch = ({ txtInputs, filters }: Params) => {
           });
       }
 
+      // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
       setPreSubmit({ el: "canMakeAPI", val: false });
 
       setArgs({
