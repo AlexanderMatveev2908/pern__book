@@ -79,15 +79,21 @@ export const getAllStores = async (
       },
       {
         model: User,
-        as: "bookStoreUser",
+        as: "workers",
+        attributes: ["email"],
+        through: {
+          attributes: ["id", "role"],
+        },
+        where: {},
+        required: false,
       },
     ],
     group: [
       "BookStore.id",
       "images.id",
       "orders.id",
-      "bookStoreUser.id",
-      "BookStoreUser.id",
+      "workers.id",
+      "workers->BookStoreUser.id",
     ],
     having: { ...queryAfterPipe },
   });
