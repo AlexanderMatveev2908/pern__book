@@ -44,7 +44,9 @@ export const getAllStores = async (
 
   const { skip, totPages } = calcPagination(req, count);
 
-  const { queryStore, queryOrders } = createStoreQ(req);
+  const { queryStore, queryOrders, queryReviews } = createStoreQ(req);
+
+  console.log(queryReviews);
 
   const bookStores = await BookStore.findAll({
     // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
@@ -71,9 +73,7 @@ export const getAllStores = async (
       },
     ],
     group: ["BookStore.id", "images.id", "orders.id"],
-    having: {
-      [Op.or]: [literal("COALESCE(AVG(reviews.rating), 0) BETWEEN 0 AND 1")],
-    },
+    having: { ...queryReviews },
   });
 
   return res200(res, { msg: "all good", bookStores });

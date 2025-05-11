@@ -77,7 +77,36 @@ export const createStoreQ = (req: ReqApp) => {
       queryOrders.stage = {
         [Op.in]: Array.isArray(val) ? val : [val],
       };
+
+    if (k === "avgRating") {
+      const cond: WhereOptions = [];
+
+      if (Array.isArray(val) && val.length) {
+        for (const opt of val) {
+          if (typeof opt !== "string") continue;
+          const pair = opt.split("-");
+
+          cond.push(
+            literal(
+              `COALESCE(AVG(reviews.rating), 0) BETWEEN ${pair[0]} AND ${pair[1]}`
+            )
+          );
+        }
+      } else {
+        if (typeof val !== "string") continue;
+
+        const pair = val.split("-");
+
+        cond.push(
+          literal(
+            `COALESCE(AVG(reviews.rating), 0) BETWEEN ${pair[0]} AND ${pair[1]}`
+          )
+        );
+      }
+
+      if (cond.length) queryReviews[Op.or as any] = cond;
+    }
   }
 
-  return { queryStore, queryOrders };
+  return { queryStore, queryOrders, queryReviews };
 };
