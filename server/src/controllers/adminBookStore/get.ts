@@ -10,10 +10,15 @@ import { calcPagination } from "../../lib/query/pagination.js";
 import { createStoreQ } from "../../lib/query/bookStore/query.js";
 import { Order } from "../../models/all/Order.js";
 import { Review } from "../../models/all/Review.js";
-import { col, fn, literal, Op } from "sequelize";
 import { seq } from "../../config/db.js";
 import { Book } from "../../models/all/Book.js";
 import { User } from "../../models/models.js";
+import { literal } from "sequelize";
+
+const calcAvgSeq = (prop: string, res: string) => [
+  seq.fn("ROUND", seq.fn("COALESCE", seq.fn("AVG", seq.col(prop)), 0), 2),
+  res,
+];
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
   const bookStore = await getStoreByID(req);
@@ -69,14 +74,14 @@ export const getAllStores = async (
       {
         model: Book,
         as: "books",
-        attributes: ["id"],
+        attributes: ["id", "qty", "price"],
       },
       {
         model: User,
         as: "workers",
         attributes: ["firstName", "lastName"],
         through: {
-          attributes: ["id", "role"],
+          attributes: ["id", "role", "bookStoreID", "userID"],
         },
         where: {},
         required: false,
@@ -85,11 +90,18 @@ export const getAllStores = async (
     // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
     attributes: {
       include: [
+        calcAvgSeq("reviews.rating", "avgRating"),
+        calcAvgSeq("books.price", "avgPrice"),
+        calcAvgSeq("books.qty", "avgQty"),
         [
-          seq.fn("COALESCE", seq.fn("AVG", seq.col("reviews.rating")), 0),
-          "avgRating",
+          seq.literal(
+            `(SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."userID"), 0) 
+             FROM "book_stores_users" 
+             WHERE "book_stores_users"."bookStoreID" = "BookStore"."id")`
+          ),
+          "workersCount",
         ],
-      ],
+      ] as any,
     },
     group: [
       "BookStore.id",
