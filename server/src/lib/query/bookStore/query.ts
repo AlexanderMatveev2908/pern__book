@@ -1,21 +1,15 @@
 import { literal, Op, QueryOptions, WhereOptions } from "sequelize";
-import { ReqApp } from "../../../types/types.js";
+import { ReqApp, UserRole } from "../../../types/types.js";
+
+const makeRoleSql = (
+  role: UserRole,
+  val: number | string
+) => `(SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."userID"), 0)
+             FROM "book_stores_users" WHERE "book_stores_users"."bookStoreID"="BookStore"."id"
+              AND "book_stores_users"."role"= '${role}'
+              ) >= ${val || 0}`;
 
 export const createStoreQ = (req: ReqApp) => {
-  // const {
-  //   ID,
-  //   categories,
-  //   orders,
-  //   delivery,
-  //   avgRating,
-  //   minAvgPrice,
-  //   maxAvgPrice,
-  //   minAvgQty,
-  //   maxAvgQty,
-  //   managers,
-  //   employees,
-  //   workers,
-  // } = req.query;
   const q = req.query;
   const { userID } = req;
 
@@ -35,117 +29,141 @@ export const createStoreQ = (req: ReqApp) => {
     )
       continue;
 
-    if (["name", "country", "state", "city"].includes(k))
-      queryStore[k] = {
-        [Op.iLike]: `%${val}%`,
-      };
+    switch (k) {
+      case "name":
+      case "country":
+      case "state":
+      case "city":
+        queryStore[k] = {
+          [Op.iLike]: `%${val}%`,
+        };
+        break;
 
-    if (k === "ID") queryStore.id = val;
+      case "ID":
+        queryStore.id = val;
+        break;
 
-    if (k === "categories")
-      queryStore.categories = {
-        [Op.overlap]: Array.isArray(val) ? val : [val],
-        // [Op.contains]: Array.isArray(val) ? val : [val],
-      };
+      case "categories":
+        queryStore.categories = {
+          [Op.overlap]: Array.isArray(val) ? val : [val],
+        };
+        break;
 
-    if (k === "delivery") {
-      const cond = [];
+      case "delivery": {
+        const deliveryConditions: WhereOptions = [];
+        if (
+          (Array.isArray(val) && val.includes("free_delivery")) ||
+          val === "free_delivery"
+        )
+          deliveryConditions.push({
+            deliveryPrice: {
+              [Op.lte]: 0,
+            },
+          });
 
-      if (
-        (Array.isArray(val) && val.includes("free_delivery")) ||
-        val === "free_delivery"
-      )
-        cond.push({
-          deliveryPrice: {
-            [Op.lte]: 0,
-          },
-        });
-      if (
-        (Array.isArray(val) && val.includes("delivery_charged")) ||
-        val === "delivery_charged"
-      )
-        cond.push({
-          deliveryPrice: {
-            [Op.gt]: 0,
-          },
-        });
+        if (
+          (Array.isArray(val) && val.includes("delivery_charged")) ||
+          val === "delivery_charged"
+        )
+          deliveryConditions.push({
+            deliveryPrice: {
+              [Op.gt]: 0,
+            },
+          });
 
-      if (cond.length) queryStore[Op.or as any] = cond;
-    }
+        if (deliveryConditions.length)
+          queryStore[Op.or as any] = deliveryConditions;
 
-    if (k === "orders")
-      queryOrders.stage = {
-        [Op.in]: Array.isArray(val) ? val : [val],
-      };
+        break;
+      }
 
-    // ? OR
-    if (k === "avgRating") {
-      const cond: WhereOptions = [];
+      case "orders":
+        queryOrders.stage = {
+          [Op.in]: Array.isArray(val) ? val : [val],
+        };
+        break;
 
-      if (Array.isArray(val) && val.length) {
-        for (const opt of val) {
-          if (typeof opt !== "string") continue;
-          const pair = opt.split("-");
-
-          cond.push(
+      case "avgRating":
+        const ratingConditions = [];
+        if (Array.isArray(val) && val.length) {
+          for (const opt of val) {
+            if (typeof opt !== "string") continue;
+            const pair = opt.split("-");
+            ratingConditions.push(
+              literal(
+                `COALESCE(AVG(reviews.rating), 0) BETWEEN ${pair[0]} AND ${pair[1]}`
+              )
+            );
+          }
+        } else {
+          if (typeof val !== "string") continue;
+          const pair = val.split("-");
+          ratingConditions.push(
             literal(
               `COALESCE(AVG(reviews.rating), 0) BETWEEN ${pair[0]} AND ${pair[1]}`
             )
           );
         }
-      } else {
-        if (typeof val !== "string") continue;
+        if (ratingConditions.length) queryAfterPipe[Op.or] = ratingConditions;
+        break;
 
-        const pair = val.split("-");
+      case "minAvgPrice":
+        queryAfterPipe[Op.and] = [
+          ...(queryAfterPipe?.[Op.and] ?? []),
+          literal(`COALESCE(AVG(books.price), 0) >= ${val}`),
+        ];
+        break;
 
-        cond.push(
+      case "maxAvgPrice":
+        queryAfterPipe[Op.and] = [
+          ...(queryAfterPipe[Op.and] ?? []),
+          literal(`COALESCE(AVG(books.price), 0) <= ${val}`),
+        ];
+        break;
+
+      case "minAvgQty":
+        const minQtyCond = literal(`COALESCE(AVG(books.qty), 0)  >= ${val}`);
+        queryAfterPipe[Op.and] = queryAfterPipe[Op.and]
+          ? [...queryAfterPipe[Op.and], minQtyCond]
+          : [minQtyCond];
+        break;
+
+      case "maxAvgQty":
+        const maxQtyCond = literal(`COALESCE(AVG(books.qty), 0) <= ${val}`);
+        queryAfterPipe[Op.and] = queryAfterPipe[Op.and]
+          ? [...queryAfterPipe[Op.and], maxQtyCond]
+          : [maxQtyCond];
+        break;
+
+      case "workers":
+        queryAfterPipe[Op.and] = [
+          ...(queryAfterPipe?.[Op.and] ?? []),
           literal(
-            `COALESCE(AVG(reviews.rating), 0) BETWEEN ${pair[0]} AND ${pair[1]}`
-          )
-        );
-      }
+            `(
+            SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."userID"), 0)
+            FROM "book_stores_users"
+            WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+            ) >= ${val}`
+          ),
+        ];
+        break;
 
-      if (cond.length) queryAfterPipe[Op.or as any] = cond;
+      case "managers":
+        queryAfterPipe[Op.and] = [
+          ...(queryAfterPipe?.[Op.and] ?? []),
+          literal(makeRoleSql(UserRole.MANAGER, +val!)),
+        ];
+
+      case "employees":
+        queryAfterPipe[Op.and] = [
+          ...(queryAfterPipe?.[Op.and] ?? []),
+          literal(makeRoleSql(UserRole.EMPLOYEE, +val!)),
+        ];
+        break;
+
+      default:
+        break;
     }
-
-    // ? AND
-    if (k === "minAvgPrice")
-      queryAfterPipe[Op.and] = [
-        ...(queryAfterPipe?.[Op.and] ?? []),
-        literal(`COALESCE(AVG(books.price), 0) >= ${val}`),
-      ];
-    if (k === "maxAvgPrice")
-      queryAfterPipe[Op.and] = [
-        ...(queryAfterPipe[Op.and] ?? []),
-        literal(`COALESCE(AVG(books.price), 0) <= ${val}`),
-      ];
-
-    // ? AND
-    if (k === "minAvgQty") {
-      const cond = literal(`COALESCE(AVG(books.qty), 0)  >= ${val}`);
-
-      if (queryAfterPipe[Op.and]?.length) queryAfterPipe[Op.and].push(cond);
-      else queryAfterPipe[Op.and] = [cond];
-    }
-    if (k === "maxAvgQty") {
-      const cond = literal(`COALESCE(AVG(books.qty), 0) <= ${val}`);
-      queryAfterPipe[Op.and] = queryAfterPipe[Op.and]?.length
-        ? [...queryAfterPipe[Op.and], cond]
-        : [cond];
-    }
-
-    // ? AND
-    if (k === "workers")
-      queryAfterPipe[Op.and] = [
-        ...(queryAfterPipe?.[Op.and] ?? []),
-        literal(
-          `(
-          SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."userID"), 0)
-          FROM "book_stores_users"
-          WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
-          ) >= ${val}`
-        ),
-      ];
   }
 
   return { queryStore, queryOrders, queryAfterPipe };
