@@ -16,7 +16,6 @@ import { FC, useEffect, useMemo } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
-import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 
 const BookStores: FC = () => {
   useScroll();
@@ -26,14 +25,13 @@ const BookStores: FC = () => {
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const {
     args,
-    setArgs,
     setIsPending,
     preSubmit: { hasFormErrs, isPopulated },
   } = useSearchCtx();
   const { handleSubmit, setFocus } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
-    args as ReqQueryAPI<SearchStoreFormType>,
+    { ...args } as ReqQueryAPI<SearchStoreFormType>,
     {
       skip: hasFormErrs || !isPopulated,
     }
@@ -44,10 +42,12 @@ const BookStores: FC = () => {
 
   const handleSave = handleSubmit(() => {
     setIsPending({ el: "submit", val: true });
-    setArgs({
-      ...args,
-      _: Date.now(),
-    } as ArgsSearchType);
+    // setArgs({
+    //   ...args,
+    //   _: Date.now(),
+    // } as ArgsSearchType);
+
+    res.refetch();
   });
 
   const spinPage = useMemo(

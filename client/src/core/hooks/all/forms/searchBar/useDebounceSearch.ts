@@ -54,9 +54,9 @@ export const useDebounceSearch = <T>({
 
       // ? IS DIFFERENT FROM BTN_DISABLED CAUSE THE BTN IS UPDATE IS REAL_TIME WITH WATCH TO PROVIDE ACCURATE INFO ABOUT ERRORS KEYS AND MSGS, CAN_MAKE_API IS MORE ABOUT PREVENTING API TO RUN FOR UNNECESSARY REASONS, LIKE IF I ALREADY SET ARGS OR ADD FIELDS TO ARGS BUT THEY ARE EMPTY STRINGS AND WOULD NOT CHANGE THE SQL QUERY TO GET DATA
       if (canMakeAPI && !hasFormErrs) {
-        setArgs({ ...currVals, _: Date.now() });
+        setArgs(currVals);
       } else {
-        setPreSubmit({ el: "canMakeAPI", val: true });
+        if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
       }
 
       clearTimer(timerID);
