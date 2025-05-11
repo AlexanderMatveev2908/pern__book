@@ -9,3 +9,12 @@ export const schemaID = () => ({
     allowNull: false,
   },
 });
+
+export const refSql = (model: string) => ({
+  type: DataTypes.STRING(36),
+  allowNull: false,
+  references: {
+    model: model,
+    key: "id",
+  },
+});

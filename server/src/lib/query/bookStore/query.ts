@@ -1,4 +1,4 @@
-import { literal, Op } from "sequelize";
+import { literal, Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
 
 export const createStoreQ = (req: ReqApp) => {
@@ -19,14 +19,16 @@ export const createStoreQ = (req: ReqApp) => {
   const q = req.query;
   const { userID } = req;
 
-  const query: { [key: string]: unknown } = {
+  const queryStore: WhereOptions = {
     ownerID: userID,
   };
+  const queryOrders: WhereOptions = {};
+  const queryReviews: WhereOptions = {};
 
-  if (!Object.keys(q ?? {}).length) return query;
+  if (!Object.keys(q ?? {}).length) return queryStore;
 
   for (const k in q) {
-    const val = req.query[k];
+    const val = q[k];
     if (
       (typeof val == "string" && !val.trim().length) ||
       (Array.isArray(val) && !val.length)
@@ -34,14 +36,14 @@ export const createStoreQ = (req: ReqApp) => {
       continue;
 
     if (["name", "country", "state", "city"].includes(k))
-      query[k] = {
+      queryStore[k] = {
         [Op.iLike]: `%${val}%`,
       };
 
-    if (k === "ID") query.id = val;
+    if (k === "ID") queryStore.id = val;
 
     if (k === "categories")
-      query.categories = {
+      queryStore.categories = {
         [Op.overlap]: Array.isArray(val) ? val : [val],
         // [Op.contains]: Array.isArray(val) ? val : [val],
       };
@@ -68,9 +70,14 @@ export const createStoreQ = (req: ReqApp) => {
           },
         });
 
-      if (cond.length) query[Op.or as any] = cond;
+      if (cond.length) queryStore[Op.or as any] = cond;
     }
+
+    if (k === "orders")
+      queryOrders.stage = {
+        [Op.in]: Array.isArray(val) ? val : [val],
+      };
   }
 
-  return query;
+  return { queryStore, queryOrders };
 };

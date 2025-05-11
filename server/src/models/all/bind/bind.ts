@@ -9,6 +9,7 @@ import { defineImgBookStore } from "../img&video/ImgBookStore.js";
 import { defineBookStoreUser } from "../BookStoreUser.js";
 import { defineVideoBookStore } from "../img&video/VideoBookStore.js";
 import { defineOrder } from "../Order.js";
+import { defineReview } from "../Review.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);
@@ -19,6 +20,7 @@ export const bindModels = (seq: Sequelize) => {
   const VideoBookStore = defineVideoBookStore(seq);
   const BookStoreUser = defineBookStoreUser(seq);
   const Order = defineOrder(seq);
+  const Review = defineReview(seq);
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
@@ -82,5 +84,21 @@ export const bindModels = (seq: Sequelize) => {
   BookStore.hasMany(Order, {
     foreignKey: "bookStoreID",
     as: "orders",
+  });
+
+  Review.belongsTo(User, {
+    foreignKey: "userID",
+  });
+  User.hasMany(Review, {
+    foreignKey: "userID",
+    as: "reviews",
+  });
+
+  Review.belongsTo(BookStore, {
+    foreignKey: "bookStoreID",
+  });
+  BookStore.hasMany(Review, {
+    foreignKey: "bookStoreID",
+    as: "reviews",
   });
 };
