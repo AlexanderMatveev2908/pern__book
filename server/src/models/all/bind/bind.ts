@@ -10,6 +10,7 @@ import { defineBookStoreUser } from "../BookStoreUser.js";
 import { defineVideoBookStore } from "../img&video/VideoBookStore.js";
 import { defineOrder } from "../Order.js";
 import { defineReview } from "../Review.js";
+import { defineBook } from "../Book.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);
@@ -21,6 +22,7 @@ export const bindModels = (seq: Sequelize) => {
   const BookStoreUser = defineBookStoreUser(seq);
   const Order = defineOrder(seq);
   const Review = defineReview(seq);
+  const Book = defineBook(seq);
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
@@ -63,11 +65,13 @@ export const bindModels = (seq: Sequelize) => {
     through: BookStoreUser,
     foreignKey: "userID",
     otherKey: "bookStoreID",
+    as: "bookStoreUser",
   });
   BookStore.belongsToMany(User, {
     through: BookStoreUser,
     foreignKey: "bookStoreID",
     otherKey: "userID",
+    as: "bookStoreUser",
   });
 
   Order.belongsTo(User, {
@@ -100,5 +104,13 @@ export const bindModels = (seq: Sequelize) => {
   BookStore.hasMany(Review, {
     foreignKey: "bookStoreID",
     as: "reviews",
+  });
+
+  Book.belongsTo(BookStore, {
+    foreignKey: "bookStoreID",
+  });
+  BookStore.hasMany(Book, {
+    foreignKey: "booKStoreID",
+    as: "books",
   });
 };

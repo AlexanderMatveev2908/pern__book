@@ -1,4 +1,4 @@
-import { literal, Op, WhereOptions } from "sequelize";
+import { literal, Op, QueryOptions, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
 
 export const createStoreQ = (req: ReqApp) => {
@@ -23,7 +23,7 @@ export const createStoreQ = (req: ReqApp) => {
     ownerID: userID,
   };
   const queryOrders: WhereOptions = {};
-  const queryReviews: WhereOptions = {};
+  const queryAfterPipe: any = {};
 
   if (!Object.keys(q ?? {}).length) return queryStore;
 
@@ -104,9 +104,33 @@ export const createStoreQ = (req: ReqApp) => {
         );
       }
 
-      if (cond.length) queryReviews[Op.or as any] = cond;
+      if (cond.length) queryAfterPipe[Op.or as any] = cond;
+    }
+
+    if (k === "minAvgPrice")
+      queryAfterPipe[Op.and] = [
+        ...(queryAfterPipe?.[Op.and] ?? []),
+        literal(`COALESCE(AVG(books.price), 0) >= ${val}`),
+      ];
+    if (k === "maxAvgPrice")
+      queryAfterPipe[Op.and] = [
+        ...(queryAfterPipe[Op.and] ?? []),
+        literal(`COALESCE(AVG(books.price), 0) <= ${val}`),
+      ];
+
+    if (k === "minAvgQty") {
+      const cond = literal(`COALESCE(AVG(books.qty), 0)  >= ${val}`);
+
+      if (queryAfterPipe[Op.and]?.length) queryAfterPipe[Op.and].push(cond);
+      else queryAfterPipe[Op.and] = [cond];
+    }
+    if (k === "maxAvgQty") {
+      const cond = literal(`COALESCE(AVG(books.qty), 0) <= ${val}`);
+      queryAfterPipe[Op.and] = queryAfterPipe[Op.and]?.length
+        ? [...queryAfterPipe[Op.and], cond]
+        : [cond];
     }
   }
 
-  return { queryStore, queryOrders, queryReviews };
+  return { queryStore, queryOrders, queryAfterPipe };
 };

@@ -11,6 +11,9 @@ import { createStoreQ } from "../../lib/query/bookStore/query.js";
 import { Order } from "../../models/all/Order.js";
 import { Review } from "../../models/all/Review.js";
 import { col, fn, literal, Op } from "sequelize";
+import { seq } from "../../config/db.js";
+import { Book } from "../../models/all/Book.js";
+import { User } from "../../models/models.js";
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
   const bookStore = await getStoreByID(req);
@@ -44,9 +47,7 @@ export const getAllStores = async (
 
   const { skip, totPages } = calcPagination(req, count);
 
-  const { queryStore, queryOrders, queryReviews } = createStoreQ(req);
-
-  console.log(queryReviews);
+  const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
 
   const bookStores = await BookStore.findAll({
     // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
@@ -71,9 +72,24 @@ export const getAllStores = async (
         as: "reviews",
         attributes: [],
       },
+      {
+        model: Book,
+        as: "books",
+        attributes: [],
+      },
+      {
+        model: User,
+        as: "bookStoreUser",
+      },
     ],
-    group: ["BookStore.id", "images.id", "orders.id"],
-    having: { ...queryReviews },
+    group: [
+      "BookStore.id",
+      "images.id",
+      "orders.id",
+      "bookStoreUser.id",
+      "BookStoreUser.id",
+    ],
+    having: { ...queryAfterPipe },
   });
 
   return res200(res, { msg: "all good", bookStores });
