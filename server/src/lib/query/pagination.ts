@@ -1,13 +1,14 @@
 import { ReqApp } from "../../types/types.js";
 
-export const calcPagination = (req: ReqApp, count: number) => {
-  const { limit, page } = req.query;
+export const calcPagination = (req: ReqApp, nHits: number) => {
+  const { limit = 4, page = 0 } = req.query;
 
-  const totPages = Math.ceil(count / +limit!);
-  const skip = +page! * +limit!;
+  const totPages = Math.ceil(nHits / +limit);
+  const skip = +page * +limit;
 
   return {
     skip,
     totPages,
+    limit,
   };
 };

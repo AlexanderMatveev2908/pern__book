@@ -45,44 +45,7 @@ export const getAllStores = async (
   });
   if (!count) return res204(res);
 
-  const { skip, totPages } = calcPagination(req, count);
-
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
-
-  const nHits = await BookStore.count({
-    where: queryStore,
-    include: [
-      {
-        model: Order,
-        as: "orders",
-        where: queryOrders,
-        required: !!Object.keys(queryOrders).length,
-      },
-      {
-        model: Review,
-        as: "reviews",
-        attributes: [],
-      },
-      {
-        model: Book,
-        as: "books",
-        attributes: [],
-      },
-      {
-        model: User,
-        as: "workers",
-        attributes: ["firstName", "lastName"],
-        through: {
-          attributes: ["id", "role"],
-        },
-        where: {},
-        required: false,
-      },
-    ],
-    distinct: true,
-  });
-
-  console.log(nHits);
 
   const bookStores = await BookStore.findAll({
     where: queryStore,
@@ -101,12 +64,12 @@ export const getAllStores = async (
       {
         model: Review,
         as: "reviews",
-        attributes: [],
+        attributes: ["rating", "id"],
       },
       {
         model: Book,
         as: "books",
-        attributes: [],
+        attributes: ["id"],
       },
       {
         model: User,
@@ -121,17 +84,32 @@ export const getAllStores = async (
     ],
     // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
     attributes: {
-      include: [[literal("COALESCE(AVG(reviews.rating), 0)"), "avgRating"]],
+      include: [
+        [
+          seq.fn("COALESCE", seq.fn("AVG", seq.col("reviews.rating")), 0),
+          "avgRating",
+        ],
+      ],
     },
     group: [
       "BookStore.id",
       "images.id",
+      "books.id",
       "orders.id",
+      "reviews.id",
       "workers.id",
       "workers->BookStoreUser.id",
     ],
     having: queryAfterPipe,
+    // limit: limit as number,
+    // offset: skip,
   });
 
-  return res200(res, { bookStores });
+  const nHits = bookStores.length;
+  if (!nHits) return res204(res);
+
+  const { skip, limit, totPages } = calcPagination(req, nHits);
+  const paginated = bookStores.slice(skip, +skip! + +limit!);
+
+  return res200(res, { bookStores: paginated, nHits, totPages });
 };

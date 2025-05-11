@@ -39,7 +39,8 @@ const BookStores: FC = () => {
     }
   );
   useWrapQueryAPI({ ...res });
-  const { data: { bookStores } = {} } = res ?? {};
+  const { data } = res ?? {};
+  const { bookStores, totPages } = data ?? {};
   useFocus({ key: "name", setFocus });
 
   const handleSave = handleSubmit(() => {
@@ -89,7 +90,7 @@ const BookStores: FC = () => {
           </div>
         </WrapPageAPI>
 
-        <PagesCounter {...{ totPages: 7 }} />
+        <PagesCounter {...{ totPages, getValues: formCtx.getValues }} />
       </div>
     </WrapPageAPI>
   );

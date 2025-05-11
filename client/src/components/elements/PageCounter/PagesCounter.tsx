@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
@@ -14,12 +15,14 @@ import {
 import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { UseFormGetValues } from "react-hook-form";
 
 type PropsType = {
-  totPages: number;
+  totPages?: number;
+  getValues: UseFormGetValues<any>;
 };
 
-const PagesCounter: FC<PropsType> = ({ totPages }) => {
+const PagesCounter: FC<PropsType> = ({ totPages = 0, getValues }) => {
   const {
     setArgs,
     args,
@@ -40,18 +43,34 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
   }, [sizeBLock, page]);
 
   useEffect(() => {
+    if (page >= totPages)
+      setArgs({
+        ...getValues(),
+        limit: setLimitCards(),
+        page: 0,
+      });
+  }, [getValues, page, setArgs, totPages]);
+
+  useEffect(() => {
     const listenResize = () => {
       const maxSizeBtns = getNumBtns();
+      const maxCards = setLimitCards();
+
       if (sizeBLock !== maxSizeBtns) setSizeBlock(maxSizeBtns);
       if (totPages < maxSizeBtns) setCurrBlock(0);
+      if (page >= totPages)
+        setArgs({
+          ...getValues(),
+          page: 0,
+          limit: maxCards,
+        });
 
       const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
       if (maxPossible > currBlock) setCurrBlock(0);
 
-      const maxCards = setLimitCards();
       if (limit !== maxCards)
         setArgs({
-          ...args,
+          ...getValues(),
           page,
           limit: maxCards,
         });
@@ -61,7 +80,7 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
     return () => {
       window.removeEventListener("resize", listenResize);
     };
-  }, [currBlock, limit, setArgs, args, totPages, page, sizeBLock]);
+  }, [currBlock, limit, getValues, setArgs, totPages, page, sizeBLock]);
 
   const handlePrev = useCallback(
     () => (currBlock ? setCurrBlock((prev) => prev - 1) : null),
@@ -111,11 +130,11 @@ const PagesCounter: FC<PropsType> = ({ totPages }) => {
       Array.from(
         { length: getNumBtns() },
         (_, i) => i + currBlock * sizeBLock
-      ).filter((val) => val < totPages + 1),
+      ).filter((val) => val < totPages),
     [currBlock, sizeBLock, totPages]
   );
 
-  return (
+  return !totPages ? null : (
     <div className="w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
       {currBlock ? (
         <button
