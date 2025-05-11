@@ -1,7 +1,7 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
-import { makeDelay, saveStorage } from "@/core/lib/lib";
+import { makeDelay, saveStorage, setLimitCards } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useFormContext } from "react-hook-form";
@@ -19,9 +19,10 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
 
-  const { setFocus } = useFormContext();
+  const { setFocus, getValues } = useFormContext();
 
   const { keyStorageLabels } = useGetSearchKeysStorage();
+  const { activeTxtInputs, setTxtInputs, oldVals, args } = useSearchCtx();
 
   useEffect(() => {
     const listenClick = (e: MouseEvent) => {
@@ -35,8 +36,6 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
       document.removeEventListener("mousedown", listenClick);
     };
   }, []);
-
-  const { activeTxtInputs, setTxtInputs, setPreSubmit } = useSearchCtx();
 
   const arg = useMemo(() => {
     const active = new Set(activeTxtInputs.map((el) => el.field));
@@ -66,7 +65,17 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
         {arg.map((el) => (
           <li
             onClick={async () => {
-              setPreSubmit({ el: "canMakeAPI", val: false });
+              oldVals.current =
+                oldVals.current === null
+                  ? {
+                      ...getValues(),
+                      page: args?.page ?? 0,
+                      limit: args?.limit ?? setLimitCards(),
+                    }
+                  : {
+                      ...oldVals.current,
+                      [el.field]: "",
+                    };
               const updated = [...activeTxtInputs, el];
               setTxtInputs(updated);
               saveStorage({ key: keyStorageLabels, data: updated });

@@ -28,7 +28,7 @@ const BookStores: FC = () => {
     args,
     setIsPending,
     setArgs,
-    preSubmit: { hasFormErrs, isPopulated },
+    preSubmit: { hasFormErrs, isPopulated, isFormStable },
   } = useSearchCtx();
   const { handleSubmit, setFocus, getValues } = formCtx;
 
@@ -54,8 +54,8 @@ const BookStores: FC = () => {
   });
 
   const spinPage = useMemo(
-    () => res?.isLoading || res?.isFetching || !isPopulated,
-    [res?.isLoading, res?.isFetching, isPopulated]
+    () => res?.isLoading || res?.isFetching || !isPopulated || !isFormStable,
+    [res?.isLoading, res?.isFetching, isPopulated, isFormStable]
   );
 
   return (

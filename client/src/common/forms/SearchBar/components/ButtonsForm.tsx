@@ -107,21 +107,18 @@ const ButtonsForm: FC<PropsType> = ({
                 setPreSubmit({ el: "canMakeAPI", val: false });
                 setIsPending({ el: "clear", val: true });
 
-                const def = {
-                  [txtInputs[0].field]: "",
+                const defArgs = {
                   limit: setLimitCards(),
                   page: 0,
                   _: Date.now(),
                 };
 
-                setArgs(def);
-                reset({
-                  [txtInputs[0].field]: "",
-                });
+                setArgs(defArgs);
+                reset({});
                 setTxtInputs([txtInputs[0]]);
 
                 saveStorage({
-                  data: def,
+                  data: defArgs,
                   key: keyStorageVals,
                 });
                 saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });

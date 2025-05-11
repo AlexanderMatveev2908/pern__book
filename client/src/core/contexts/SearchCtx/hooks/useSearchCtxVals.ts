@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from "react";
+import { RefObject, useCallback, useEffect, useRef } from "react";
 import {
   ParamsBar,
   ParamsPending,
@@ -17,6 +17,7 @@ type Params = {
 };
 
 export type SearchCtxValsConsumer = SearchCtxStateType & {
+  oldVals: RefObject<ArgsSearchType | null>;
   setTxtInputs: (val: FormFieldBasic[]) => void;
   setBar: (params: ParamsBar) => void;
   setSearch: (params: ParamsSearch) => void;
@@ -29,6 +30,8 @@ export const useSearchCtxVals = ({
   state,
   dispatch,
 }: Params): SearchCtxValsConsumer => {
+  const oldVals = useRef<ArgsSearchType | null>(null);
+
   useEffect(() => {
     const listenSize = () => {
       dispatch({
@@ -93,6 +96,7 @@ export const useSearchCtxVals = ({
 
   return {
     ...state,
+    oldVals,
     setTxtInputs,
     setBar,
     setSearch,

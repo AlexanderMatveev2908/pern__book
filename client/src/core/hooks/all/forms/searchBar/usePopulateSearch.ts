@@ -39,8 +39,10 @@ export const usePopulateSearch = ({
 
     if (savedVals) {
       const parsed = JSON.parse(savedVals);
+
       for (const key in parsed) {
         const val = parsed[key];
+
         if (
           (typeof val === "string" && val.trim().length) ||
           (Array.isArray(val) && val.length)
@@ -57,6 +59,11 @@ export const usePopulateSearch = ({
       setArgs({
         ...parsed,
         page: parsed?.page ?? 0,
+        limit: setLimitCards(),
+      });
+    } else {
+      setArgs({
+        page: 0,
         limit: setLimitCards(),
       });
     }

@@ -4,12 +4,12 @@ import { FieldValues, UseFormReturn } from "react-hook-form";
 import {
   __cg,
   clearTimer,
+  isObjOk,
   isSameData,
   saveStorage,
   setLimitCards,
 } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
-import { ArgsSearchType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type Params<T> = {
@@ -21,13 +21,13 @@ type Params<T> = {
 export const useDebounceSearch = <T>({
   txtInputs,
   setArgs,
-  preSubmit: { canMakeAPI, isPopulated, hasFormErrs },
+  oldVals,
+  preSubmit: { canMakeAPI, isPopulated, hasFormErrs, isFormStable },
   setPreSubmit,
   args,
   realTimeVals,
   getValues,
 }: Params<T>) => {
-  const oldVals = useRef<ArgsSearchType | null>(null);
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
   const { limit = setLimitCards(), page = 0 } = args ?? {};
@@ -43,6 +43,16 @@ export const useDebounceSearch = <T>({
       __cg("same", isSame);
 
       if (isSame) {
+        if (
+          !isFormStable &&
+          [currVals, oldVals.current].every(
+            (el) =>
+              isObjOk(el) &&
+              typeof el?.[txtInputs[0].field as keyof typeof el] === "string"
+          )
+        )
+          setPreSubmit({ el: "isFormStable", val: true });
+
         clearTimer(timerID);
         return null;
       }
@@ -78,5 +88,7 @@ export const useDebounceSearch = <T>({
     isPopulated,
     page,
     setPreSubmit,
+    isFormStable,
+    oldVals,
   ]);
 };
