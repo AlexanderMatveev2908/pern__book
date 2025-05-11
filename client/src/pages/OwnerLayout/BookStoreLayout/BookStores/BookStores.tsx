@@ -12,10 +12,11 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { FC, useEffect, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
+import { setLimitCards } from "@/core/lib/lib";
 
 const BookStores: FC = () => {
   useScroll();
@@ -26,9 +27,10 @@ const BookStores: FC = () => {
   const {
     args,
     setIsPending,
+    setArgs,
     preSubmit: { hasFormErrs, isPopulated },
   } = useSearchCtx();
-  const { handleSubmit, setFocus } = formCtx;
+  const { handleSubmit, setFocus, getValues } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     { ...args } as ReqQueryAPI<SearchStoreFormType>,
@@ -42,11 +44,12 @@ const BookStores: FC = () => {
 
   const handleSave = handleSubmit(() => {
     setIsPending({ el: "submit", val: true });
-    // setArgs({
-    //   ...args,
-    //   _: Date.now(),
-    // } as ArgsSearchType);
 
+    setArgs({
+      ...getValues(),
+      page: args?.page ?? 0,
+      limit: args?.limit ?? setLimitCards(),
+    });
     res.refetch();
   });
 
@@ -54,8 +57,6 @@ const BookStores: FC = () => {
     () => res?.isLoading || res?.isFetching || !isPopulated,
     [res?.isLoading, res?.isFetching, isPopulated]
   );
-
-  useEffect(() => {}, [hasFormErrs]);
 
   return (
     <WrapPageAPI
