@@ -95,7 +95,8 @@ export const getAllStores = async (
       "workers.id",
       "workers->BookStoreUser.id",
     ],
-    having: { ...queryAfterPipe },
+    having: queryAfterPipe,
+    logging: console.log,
   });
 
   return res200(res, { msg: "all good", bookStores });

@@ -130,6 +130,12 @@ export const createStoreQ = (req: ReqApp) => {
         ? [...queryAfterPipe[Op.and], cond]
         : [cond];
     }
+
+    if (k === "workers")
+      queryAfterPipe[Op.and] = [
+        ...(queryAfterPipe?.[Op.and] ?? []),
+        literal(`COALESCE(COUNT("workers"."id"), 0) >= ${val}`),
+      ];
   }
 
   return { queryStore, queryOrders, queryAfterPipe };
