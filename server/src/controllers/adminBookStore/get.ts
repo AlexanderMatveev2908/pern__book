@@ -49,6 +49,41 @@ export const getAllStores = async (
 
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
 
+  const nHits = await BookStore.count({
+    where: queryStore,
+    include: [
+      {
+        model: Order,
+        as: "orders",
+        where: queryOrders,
+        required: !!Object.keys(queryOrders).length,
+      },
+      {
+        model: Review,
+        as: "reviews",
+        attributes: [],
+      },
+      {
+        model: Book,
+        as: "books",
+        attributes: [],
+      },
+      {
+        model: User,
+        as: "workers",
+        attributes: ["firstName", "lastName"],
+        through: {
+          attributes: ["id", "role"],
+        },
+        where: {},
+        required: false,
+      },
+    ],
+    distinct: true,
+  });
+
+  console.log(nHits);
+
   const bookStores = await BookStore.findAll({
     where: queryStore,
     include: [
@@ -98,5 +133,5 @@ export const getAllStores = async (
     having: queryAfterPipe,
   });
 
-  return res200(res, { msg: "all good", bookStores });
+  return res200(res, { bookStores });
 };
