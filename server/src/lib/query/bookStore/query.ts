@@ -78,6 +78,7 @@ export const createStoreQ = (req: ReqApp) => {
         [Op.in]: Array.isArray(val) ? val : [val],
       };
 
+    // ? OR
     if (k === "avgRating") {
       const cond: WhereOptions = [];
 
@@ -107,6 +108,7 @@ export const createStoreQ = (req: ReqApp) => {
       if (cond.length) queryAfterPipe[Op.or as any] = cond;
     }
 
+    // ? AND
     if (k === "minAvgPrice")
       queryAfterPipe[Op.and] = [
         ...(queryAfterPipe?.[Op.and] ?? []),
@@ -118,6 +120,7 @@ export const createStoreQ = (req: ReqApp) => {
         literal(`COALESCE(AVG(books.price), 0) <= ${val}`),
       ];
 
+    // ? AND
     if (k === "minAvgQty") {
       const cond = literal(`COALESCE(AVG(books.qty), 0)  >= ${val}`);
 
@@ -131,10 +134,17 @@ export const createStoreQ = (req: ReqApp) => {
         : [cond];
     }
 
+    // ? AND
     if (k === "workers")
       queryAfterPipe[Op.and] = [
         ...(queryAfterPipe?.[Op.and] ?? []),
-        literal(`COALESCE(COUNT("workers"."id"), 0) >= ${val}`),
+        literal(
+          `(
+          SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."userID"), 0)
+          FROM "book_stores_users"
+          WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+          ) >= ${val}`
+        ),
       ];
   }
 

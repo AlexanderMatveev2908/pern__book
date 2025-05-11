@@ -50,10 +50,6 @@ export const getAllStores = async (
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
 
   const bookStores = await BookStore.findAll({
-    // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
-    attributes: {
-      include: [[literal("COALESCE(AVG(reviews.rating), 0)"), "avgRating"]],
-    },
     where: queryStore,
     include: [
       {
@@ -80,7 +76,7 @@ export const getAllStores = async (
       {
         model: User,
         as: "workers",
-        attributes: ["email"],
+        attributes: ["firstName", "lastName"],
         through: {
           attributes: ["id", "role"],
         },
@@ -88,6 +84,10 @@ export const getAllStores = async (
         required: false,
       },
     ],
+    // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
+    attributes: {
+      include: [[literal("COALESCE(AVG(reviews.rating), 0)"), "avgRating"]],
+    },
     group: [
       "BookStore.id",
       "images.id",
@@ -96,7 +96,6 @@ export const getAllStores = async (
       "workers->BookStoreUser.id",
     ],
     having: queryAfterPipe,
-    logging: console.log,
   });
 
   return res200(res, { msg: "all good", bookStores });
