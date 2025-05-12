@@ -1,6 +1,6 @@
 import { Response } from "express";
 import { res200, res204 } from "../../lib/responseClient/res.js";
-import { ReqApp } from "../../types/types.js";
+import { ReqApp, UserRole } from "../../types/types.js";
 import { err404 } from "../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { getStoreByID } from "./helpers/storeData.js";
@@ -13,10 +13,38 @@ import { Review } from "../../models/all/Review.js";
 import { seq } from "../../config/db.js";
 import { Book } from "../../models/all/Book.js";
 import { User } from "../../models/models.js";
-import { literal } from "sequelize";
+import { col, fn, literal } from "sequelize";
+import { Fn, Literal } from "sequelize/lib/utils";
+import { OrderStage } from "../../types/all/orders.js";
+import { capChar } from "../../lib/utils/formatters.js";
 
-const calcAvgSeq = (prop: string, res: string) => [
-  seq.fn("ROUND", seq.fn("COALESCE", seq.fn("AVG", seq.col(prop)), 0), 2),
+const calcAvgSeq = (
+  prop: string,
+  res: string,
+  round: number = 2
+): [Fn, string] => [
+  seq.fn("ROUND", seq.fn("COALESCE", seq.fn("AVG", seq.col(prop)), 0), round),
+  res,
+];
+
+const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
+  literal(`(
+    SELECT COALESCE(
+      COUNT(DISTINCT "book_stores_users"."userID"), 0
+    )
+    FROM "book_stores_users"
+    WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+      AND "book_stores_users"."role" = '${role}'
+  )`),
+  res,
+];
+
+const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
+  literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)
+    FROM "orders" 
+    WHERE "orders"."stage" = '${stage}'
+    AND "orders"."bookStoreID" = "BookStore"."id"
+    )`),
   res,
 ];
 
@@ -80,9 +108,9 @@ export const getAllStores = async (
         model: User,
         as: "workers",
         attributes: ["firstName", "lastName"],
-        through: {
-          attributes: ["id", "role", "bookStoreID", "userID"],
-        },
+        // through: {
+        // attributes: ["id", "role", "bookStoreID", "userID"],
+        // },
         where: {},
         required: false,
       },
@@ -92,16 +120,21 @@ export const getAllStores = async (
       include: [
         calcAvgSeq("reviews.rating", "avgRating"),
         calcAvgSeq("books.price", "avgPrice"),
-        calcAvgSeq("books.qty", "avgQty"),
+        calcAvgSeq("books.qty", "avgQty", 0),
+        ...Object.values(OrderStage).map((el) =>
+          countOrdersSql(el, el + capChar("count"))
+        ),
         [
-          seq.literal(
-            `(SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."userID"), 0) 
-             FROM "book_stores_users" 
-             WHERE "book_stores_users"."bookStoreID" = "BookStore"."id")`
-          ),
+          literal(`(
+            SELECT COUNT(DISTINCT "book_stores_users"."userID")
+            FROM "book_stores_users"
+            WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+          )`),
           "workersCount",
         ],
-      ] as any,
+        countWorkSql(UserRole.MANAGER, "managersCount"),
+        countWorkSql(UserRole.EMPLOYEE, "employeesCount"),
+      ],
     },
     group: [
       "BookStore.id",
