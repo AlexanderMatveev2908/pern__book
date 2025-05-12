@@ -35,6 +35,7 @@ export const schemaBookStore = z
     video: z
       .union([z.string(), z.instanceof(FileList)])
       .optional()
+      .nullable()
       .refine(
         (val) => {
           if (!val?.length || typeof val === "string") return true;

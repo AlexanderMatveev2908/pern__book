@@ -3,7 +3,6 @@ import { res200, res204 } from "../../lib/responseClient/res.js";
 import { ReqApp, UserRole } from "../../types/types.js";
 import { err404 } from "../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
-import { getStoreByID } from "./helpers/storeData.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { calcPagination } from "../../lib/query/pagination.js";
@@ -12,8 +11,8 @@ import { Order } from "../../models/all/Order.js";
 import { Review } from "../../models/all/Review.js";
 import { Book } from "../../models/all/Book.js";
 import { User } from "../../models/models.js";
-import { col, fn, literal } from "sequelize";
-import { Fn, Literal } from "sequelize/lib/utils";
+import { literal } from "sequelize";
+import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../types/all/orders.js";
 import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
@@ -39,6 +38,8 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   res,
 ];
 
+const rep = (val: number) => (val + "").replace(".", "_");
+
 const countRevSql = (pair: number[]): [Literal, string] => [
   literal(`(
     SELECT COALESCE(COUNT(DISTINCT "reviews"."id"), 0)
@@ -46,10 +47,7 @@ const countRevSql = (pair: number[]): [Literal, string] => [
     WHERE "reviews"."rating" BETWEEN ${pair[0]} AND ${pair[1]} 
     AND "reviews"."bookStoreID" = "BookStore"."id"
    )`),
-  `reviews__${(pair[0] + "").replace(".", "_")}__${(pair[1] + "").replace(
-    ".",
-    "_"
-  )}`,
+  `reviews__${rep(pair[0])}__${rep(pair[1])}`,
 ];
 
 const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
@@ -173,6 +171,10 @@ export const getAllStores = async (
   if (!count) return res204(res);
 
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
+  const sorters = Object.entries(req.query ?? {})
+    .filter((pair) => pair[0].includes("Sort"))
+    .map((el) => [el[0].replace("Sort", ""), el[1]]) as any;
+  console.log(sorters);
 
   const bookStores = await BookStore.findAll({
     where: queryStore,
@@ -223,8 +225,10 @@ export const getAllStores = async (
       "team->BookStoreUser.id",
     ],
     having: queryAfterPipe,
-    // limit: 1,
-    // offset: 1,
+    // limit: 2,
+    // offset: 3,
+    order: sorters,
+    nest: true,
   });
 
   const nHits = bookStores.length;

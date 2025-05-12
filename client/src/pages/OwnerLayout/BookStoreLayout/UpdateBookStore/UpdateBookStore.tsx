@@ -38,7 +38,7 @@ const processTeam = (team: any[]) =>
     ? team.map((el: any) => ({ email: el.userEmail, role: el.role }))
     : [];
 
-const processVideo = (video: any) => video?.url;
+const processVideo = (video: any) => video?.url ?? null;
 
 const processImages = (images: any[]) => images?.map((el: any) => el.url) ?? [];
 

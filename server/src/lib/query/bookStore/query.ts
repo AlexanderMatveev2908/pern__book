@@ -83,7 +83,7 @@ export const createStoreQ = (req: ReqApp) => {
         };
         break;
 
-      case "avgRating":
+      case "avgRating": {
         const ratingConditions = [];
         if (Array.isArray(val) && val.length) {
           for (const opt of val) {
@@ -106,6 +106,7 @@ export const createStoreQ = (req: ReqApp) => {
         }
         if (ratingConditions.length) queryAfterPipe[Op.or] = ratingConditions;
         break;
+      }
 
       case "minAvgPrice":
         queryAfterPipe[Op.and] = [
@@ -121,19 +122,21 @@ export const createStoreQ = (req: ReqApp) => {
         ];
         break;
 
-      case "minAvgQty":
+      case "minAvgQty": {
         const minQtyCond = literal(`COALESCE(AVG(books.qty), 0)  >= ${val}`);
         queryAfterPipe[Op.and] = queryAfterPipe[Op.and]
           ? [...queryAfterPipe[Op.and], minQtyCond]
           : [minQtyCond];
         break;
+      }
 
-      case "maxAvgQty":
+      case "maxAvgQty": {
         const maxQtyCond = literal(`COALESCE(AVG(books.qty), 0) <= ${val}`);
         queryAfterPipe[Op.and] = queryAfterPipe[Op.and]
           ? [...queryAfterPipe[Op.and], maxQtyCond]
           : [maxQtyCond];
         break;
+      }
 
       case "workers":
         queryAfterPipe[Op.and] = [
