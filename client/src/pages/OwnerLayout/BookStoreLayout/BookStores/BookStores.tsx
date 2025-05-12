@@ -1,5 +1,4 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
-import PagesCounter from "@/components/elements/PageCounter/PagesCounter";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsSearchStore,
@@ -12,11 +11,12 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
 import { setLimitCards } from "@/core/lib/lib";
+import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 
 const BookStores: FC = () => {
   useScroll();
@@ -24,12 +24,13 @@ const BookStores: FC = () => {
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
+  const ctx = useSearchCtx();
   const {
     args,
     setIsPending,
     setArgs,
-    preSubmit: { hasFormErrs, isPopulated, isFormStable },
-  } = useSearchCtx();
+    preSubmit: { hasFormErrs, isPopulated },
+  } = ctx;
   const { handleSubmit, setFocus, getValues } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
@@ -40,7 +41,7 @@ const BookStores: FC = () => {
   );
   useWrapQueryAPI({ ...res });
   const { data } = res ?? {};
-  const { bookStores, totPages } = data ?? {};
+  const { bookStores } = data ?? {};
   useFocus({ key: "name", setFocus });
 
   const handleSave = handleSubmit(() => {
@@ -53,11 +54,6 @@ const BookStores: FC = () => {
     });
     res.refetch();
   });
-
-  const spinPage = useMemo(
-    () => res?.isLoading || res?.isFetching || !isPopulated || !isFormStable,
-    [res?.isLoading, res?.isFetching, isPopulated, isFormStable]
-  );
 
   return (
     <WrapPageAPI
@@ -78,19 +74,13 @@ const BookStores: FC = () => {
           />
         </FormProvider>
 
-        <WrapPageAPI
-          {...{
-            isLoading: spinPage,
-          }}
-        >
+        <WrapperContentAPI {...{ ctx, formCtx, res }}>
           <div className="w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10">
             {Array.isArray(bookStores) &&
               !!bookStores.length &&
               bookStores.map((el) => <BookStoreItem key={el.id} {...{ el }} />)}
           </div>
-        </WrapPageAPI>
-
-        <PagesCounter {...{ totPages, getValues: formCtx.getValues }} />
+        </WrapperContentAPI>
       </div>
     </WrapPageAPI>
   );
