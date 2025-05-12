@@ -71,7 +71,7 @@ export const bindModels = (seq: Sequelize) => {
     through: BookStoreUser,
     foreignKey: "bookStoreID",
     otherKey: "userID",
-    as: "workers",
+    as: "team",
   });
   BookStoreUser.belongsTo(User, {
     foreignKey: "userID",

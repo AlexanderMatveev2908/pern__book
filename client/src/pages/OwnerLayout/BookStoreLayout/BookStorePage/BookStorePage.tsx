@@ -64,7 +64,7 @@ const BookStorePage: FC = () => {
               el: labelTeamStore,
               styleUL:
                 "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
-              fields: statsTeam(bookStore?.team),
+              fields: statsTeam(bookStore),
             }}
           >
             {!!bookStore?.team?.length && (

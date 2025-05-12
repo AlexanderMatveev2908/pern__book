@@ -127,7 +127,7 @@ export const statsTeam = (store?: BookStoreType) =>
   [
     {
       label: "Total Employee",
-      val: store?.workersCount,
+      val: store?.teamCount,
     },
     {
       label: "Managers",

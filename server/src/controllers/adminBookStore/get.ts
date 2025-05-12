@@ -10,13 +10,13 @@ import { calcPagination } from "../../lib/query/pagination.js";
 import { createStoreQ } from "../../lib/query/bookStore/query.js";
 import { Order } from "../../models/all/Order.js";
 import { Review } from "../../models/all/Review.js";
-import { seq } from "../../config/db.js";
 import { Book } from "../../models/all/Book.js";
 import { User } from "../../models/models.js";
 import { col, fn, literal } from "sequelize";
 import { Fn, Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../types/all/orders.js";
 import { capChar } from "../../lib/utils/formatters.js";
+import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 
 const calcAvgSeq = (
   prop: string,
@@ -39,7 +39,7 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   res,
 ];
 
-const countRevSql = (pair: number[], i: number): [Literal, string] => [
+const countRevSql = (pair: number[]): [Literal, string] => [
   literal(`(
     SELECT COALESCE(COUNT(DISTINCT "reviews"."id"), 0)
     FROM "reviews"
@@ -66,8 +66,84 @@ const countItems = (name: string): [Literal, string] => [
   `${name + "Count"}`,
 ];
 
+const rawSql = [
+  countItems("books"),
+  countItems("orders"),
+  countItems("reviews"),
+  calcAvgSeq("reviews.rating", "avgRating"),
+  ...[
+    [0, 1],
+    [1.1, 2],
+    [2.1, 3],
+    [3.1, 4],
+    [4.1, 5],
+  ].map((el, i) => countRevSql(el)),
+  calcAvgSeq("books.price", "avgPrice"),
+  calcAvgSeq("books.qty", "avgQty", 0),
+  ...Object.values(OrderStage).map((el) =>
+    countOrdersSql(el, "orders" + capChar(el) + capChar("count"))
+  ),
+  [
+    literal(`(
+      SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)
+      FROM "book_stores_users"
+      WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+    )`),
+    "teamCount",
+  ],
+  countWorkSql(UserRole.MANAGER, "managersCount"),
+  countWorkSql(UserRole.EMPLOYEE, "employeesCount"),
+];
+
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
-  const bookStore = await getStoreByID(req);
+  const { userID } = req;
+  const { bookStoreID } = req.params;
+
+  const bookStore = await BookStore.findOne({
+    where: {
+      ownerID: userID,
+      id: bookStoreID,
+    },
+    include: [
+      {
+        model: ImgBookStore,
+        as: "images",
+      },
+      {
+        model: VideoBookStore,
+        as: "video",
+      },
+      {
+        model: Order,
+        as: "orders",
+      },
+      {
+        model: Review,
+        as: "reviews",
+      },
+      {
+        model: Book,
+        as: "books",
+      },
+      {
+        model: User,
+        as: "team",
+      },
+    ],
+    group: [
+      "BookStore.id",
+      "images.id",
+      "video.id",
+      "orders.id",
+      "reviews.id",
+      "books.id",
+      "team.id",
+      "team->BookStoreUser.id",
+    ],
+    attributes: {
+      include: rawSql as [[Literal, string]],
+    },
+  });
 
   if (!bookStore) return err404(res, { msg: "Bookstore not found" });
 
@@ -124,7 +200,7 @@ export const getAllStores = async (
       },
       {
         model: User,
-        as: "workers",
+        as: "team",
         attributes: ["firstName", "lastName"],
         // through: {
         // attributes: ["id", "role", "bookStoreID", "userID"],
@@ -135,43 +211,16 @@ export const getAllStores = async (
     ],
     // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
     attributes: {
-      include: [
-        calcAvgSeq("reviews.rating", "avgRating"),
-        ...[
-          [0, 1],
-          [1.1, 2],
-          [2.1, 3],
-          [3.1, 4],
-          [4.1, 5],
-        ].map((el, i) => countRevSql(el, i)),
-        calcAvgSeq("books.price", "avgPrice"),
-        countItems("books"),
-        countItems("orders"),
-        countItems("reviews"),
-        calcAvgSeq("books.qty", "avgQty", 0),
-        ...Object.values(OrderStage).map((el) =>
-          countOrdersSql(el, "orders" + capChar(el) + capChar("count"))
-        ),
-        [
-          literal(`(
-            SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)
-            FROM "book_stores_users"
-            WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
-          )`),
-          "workersCount",
-        ],
-        countWorkSql(UserRole.MANAGER, "managersCount"),
-        countWorkSql(UserRole.EMPLOYEE, "employeesCount"),
-      ],
-    },
+      include: rawSql,
+    } as any,
     group: [
       "BookStore.id",
       "images.id",
       "orders.id",
       "reviews.id",
       "books.id",
-      "workers.id",
-      "workers->BookStoreUser.id",
+      "team.id",
+      "team->BookStoreUser.id",
     ],
     having: queryAfterPipe,
     // limit: limit as number,

@@ -77,7 +77,7 @@ export interface BookStoreType {
   ordersCancelledCount?: string;
   ordersRefundedCount?: string;
 
-  workersCount?: string;
+  teamCount?: string;
   managersCount?: string;
   employeesCount?: string;
 }
