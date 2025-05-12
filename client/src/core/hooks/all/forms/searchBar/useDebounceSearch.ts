@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { FieldValues, UseFormReturn } from "react-hook-form";
 import {
+  __cg,
   clearTimer,
   isObjOk,
   isSameData,
@@ -37,9 +38,9 @@ export const useDebounceSearch = <T>({
       const currVals = { ...getValues(), limit, page };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      // __cg("old", oldVals.current);
-      // __cg("new", currVals);
-      // __cg("same", isSame);
+      __cg("old", oldVals.current);
+      __cg("new", currVals);
+      __cg("same", isSame);
 
       if (isSame) {
         if (
@@ -65,8 +66,8 @@ export const useDebounceSearch = <T>({
       // ? IS DIFFERENT FROM BTN_DISABLED CAUSE THE BTN IS UPDATE IS REAL_TIME WITH WATCH TO PROVIDE ACCURATE INFO ABOUT ERRORS KEYS AND MSGS, CAN_MAKE_API IS MORE ABOUT PREVENTING API TO RUN FOR UNNECESSARY REASONS, LIKE IF I ALREADY SET ARGS OR ADD FIELDS TO ARGS BUT THEY ARE EMPTY STRINGS AND WOULD NOT CHANGE THE SQL QUERY TO GET DATA
       if (canMakeAPI && !hasFormErrs) {
         setArgs(currVals);
-      } else {
-        if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
+      } else if (!canMakeAPI) {
+        setPreSubmit({ el: "canMakeAPI", val: true });
       }
 
       clearTimer(timerID);
