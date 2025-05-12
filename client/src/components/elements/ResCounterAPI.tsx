@@ -15,7 +15,7 @@ const ResCounterAPI: FC<PropsType> = ({ nHits }) => {
           <span className="txt__4 -ml-2">Result{nHits > 1 ? "s" : ""}</span>
         </>
       ) : (
-        <span className="txt__4">No Results available</span>
+        <span className="txt__4">0 Results</span>
       )}
     </div>
   );

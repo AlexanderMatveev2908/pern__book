@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useMemo } from "react";
 import {
   FilterSearch,
@@ -18,9 +19,10 @@ import { usePopulateSearch } from "@/core/hooks/all/forms/searchBar/usePopulateS
 import { useDebounceSearch } from "@/core/hooks/all/forms/searchBar/useDebounceSearch";
 import { useHandleErrSearch } from "@/core/hooks/all/forms/searchBar/useHandleErrSearch";
 import { useFormContext } from "react-hook-form";
+import SortDrop from "./components/SortDrop/SortDrop";
 
 type PropsType = {
-  isFetching: boolean;
+  res: any;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
@@ -32,8 +34,9 @@ const SearchBar: FC<PropsType> = ({
   txtInputs,
   filters,
   numericFilters,
-  isFetching,
+  res,
 }) => {
+  const { isFetching } = res;
   const ctx = useSearchCtx();
   const { isPending, setIsPending } = ctx;
 
@@ -75,22 +78,26 @@ const SearchBar: FC<PropsType> = ({
     <form
       id={searchBarID}
       onSubmit={handleSave}
-      className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4"
+      className="w-full grid grid-cols-1 gap-5"
     >
-      <BgBlack {...{ bars: ctx.bars }} />
-      <FilterBar {...{ ...ctx, filters, numericFilters }} />
+      <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
+        <BgBlack {...{ bars: ctx.bars }} />
+        <FilterBar {...{ ...ctx, filters, numericFilters }} />
 
-      <TxtInputs {...{ ...ctx, ...formCtx, txtInputs }}>
-        <ButtonsForm
-          {...{
-            ...ctx,
-            ...formCtx,
-            txtInputs,
-            isFetching,
-            numericFilters,
-          }}
-        />
-      </TxtInputs>
+        <TxtInputs {...{ ...ctx, ...formCtx, txtInputs }}>
+          <ButtonsForm
+            {...{
+              ...ctx,
+              ...formCtx,
+              txtInputs,
+              isFetching,
+              numericFilters,
+            }}
+          />
+        </TxtInputs>
+      </div>
+
+      <SortDrop {...{ res }} />
     </form>
   );
 };
