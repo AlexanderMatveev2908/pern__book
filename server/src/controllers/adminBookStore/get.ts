@@ -22,8 +22,8 @@ const calcAvgSeq = (
   prop: string,
   res: string,
   round: number = 2
-): [Fn, string] => [
-  seq.fn("ROUND", seq.fn("COALESCE", seq.fn("AVG", seq.col(prop)), 0), round),
+): [Literal, string] => [
+  literal(`ROUND(COALESCE(AVG(${prop}), 0), ${round})`),
   res,
 ];
 
@@ -39,6 +39,19 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   res,
 ];
 
+const countRevSql = (pair: number[], i: number): [Literal, string] => [
+  literal(`(
+    SELECT COALESCE(COUNT(DISTINCT "reviews"."id"), 0)
+    FROM "reviews"
+    WHERE "reviews"."rating" BETWEEN ${pair[0]} AND ${pair[1]} 
+    AND "reviews"."bookStoreID" = "BookStore"."id"
+   )`),
+  `reviews_${(pair[0] + "").replace(".", "_")}__${(pair[1] + "").replace(
+    ".",
+    "_"
+  )}`,
+];
+
 const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
   literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)
     FROM "orders" 
@@ -46,6 +59,11 @@ const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
     AND "orders"."bookStoreID" = "BookStore"."id"
     )`),
   res,
+];
+
+const countItems = (name: string): [Literal, string] => [
+  literal(`COALESCE(COUNT(DISTINCT ${name}.id), 0)`),
+  `${name + "Count"}`,
 ];
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
@@ -97,7 +115,7 @@ export const getAllStores = async (
       {
         model: Review,
         as: "reviews",
-        attributes: ["rating", "id"],
+        attributes: ["rating", "bookStoreID", "id"],
       },
       {
         model: Book,
@@ -119,14 +137,24 @@ export const getAllStores = async (
     attributes: {
       include: [
         calcAvgSeq("reviews.rating", "avgRating"),
+        ...[
+          [0, 1],
+          [1.1, 2],
+          [2.1, 3],
+          [3.1, 4],
+          [4.1, 5],
+        ].map((el, i) => countRevSql(el, i)),
         calcAvgSeq("books.price", "avgPrice"),
+        countItems("books"),
+        countItems("orders"),
+        countItems("reviews"),
         calcAvgSeq("books.qty", "avgQty", 0),
         ...Object.values(OrderStage).map((el) =>
-          countOrdersSql(el, el + capChar("count"))
+          countOrdersSql(el, "orders" + capChar(el) + capChar("count"))
         ),
         [
           literal(`(
-            SELECT COUNT(DISTINCT "book_stores_users"."userID")
+            SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)
             FROM "book_stores_users"
             WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
           )`),
@@ -139,9 +167,9 @@ export const getAllStores = async (
     group: [
       "BookStore.id",
       "images.id",
-      "books.id",
       "orders.id",
       "reviews.id",
+      "books.id",
       "workers.id",
       "workers->BookStoreUser.id",
     ],

@@ -17,7 +17,7 @@ export const bindModels = (seq: Sequelize) => {
   const Token = defineToken(seq);
   const Thumb = defineThumb(seq);
   const BookStore = defineBookStore(seq);
-  const ImgBooStore = defineImgBookStore(seq);
+  const ImgBookStore = defineImgBookStore(seq);
   const VideoBookStore = defineVideoBookStore(seq);
   const BookStoreUser = defineBookStoreUser(seq);
   const Order = defineOrder(seq);
@@ -40,10 +40,10 @@ export const bindModels = (seq: Sequelize) => {
     as: "thumb",
   });
 
-  ImgBooStore.belongsTo(BookStore, {
+  ImgBookStore.belongsTo(BookStore, {
     foreignKey: "bookStoreID",
   });
-  BookStore.hasMany(ImgBooStore, {
+  BookStore.hasMany(ImgBookStore, {
     foreignKey: "bookStoreID",
     as: "images",
   });

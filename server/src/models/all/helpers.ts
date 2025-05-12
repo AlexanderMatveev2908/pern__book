@@ -14,7 +14,7 @@ export const refSql = (model: string) => ({
   type: DataTypes.STRING(36),
   allowNull: false,
   references: {
-    model: model,
+    model,
     key: "id",
   },
 });
