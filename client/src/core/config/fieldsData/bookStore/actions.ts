@@ -8,16 +8,16 @@ import {
   FaWarehouse,
 } from "react-icons/fa";
 import { v4 } from "uuid";
-import { BookStoreType, TeamItem } from "@/types/all/bookStore";
-import { UserRole } from "@/types/types";
+import { BookStoreType } from "@/types/all/bookStore";
 import { IconType } from "react-icons/lib";
 import {
   MdConnectWithoutContact,
   MdOutlineCategory,
   MdReviews,
 } from "react-icons/md";
-import { capt, formatValDel } from "@/core/lib/lib";
+import { capt, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { CiTextAlignJustify } from "react-icons/ci";
+import { OrderStage } from "@/types/all/orders";
 
 // * I USE MAP JUST FOR LEARNING POUPROSE, NORMALLY I WOULD JUST USE ARRAYS TO KEEP VALS
 
@@ -59,34 +59,60 @@ export const actionsBookStoreAdmin = [...labelsBookStore.entries()].map(
   })
 );
 
-export const statsBooks = (valsBooks?: (number | string)[]) =>
+export const statsBooks = (bookStore?: BookStoreType) =>
   [
     {
       label: "Total books",
-      val: valsBooks?.[0],
+      val: bookStore?.booksCount,
+    },
+    {
+      label: "Avg price",
+      val: priceFormatter(bookStore?.avgPrice ?? "0"),
+    },
+    {
+      label: "Avg quantity",
+      val: bookStore?.avgQty,
     },
   ].map((el) => ({
     ...el,
     id: v4(),
   }));
 
-export const statsReviews = (valsReviews?: (number | string)[]) =>
+export const statsReviews = (bookStore?: BookStoreType) =>
   [
     {
       label: "Total Reviews",
-      val: valsReviews?.[0],
+      val: bookStore?.reviewsCount,
     },
+    ...[
+      [0, 1],
+      [1.1, 2],
+      [2.1, 3],
+      [3.1, 4],
+      [4.1, 5],
+    ].map((pair) => ({
+      label: `From ${pair[0]} to ${pair[1]}`,
+      val: bookStore?.[
+        `reviews__${(pair[0] + "")?.replace(".", "_")}__${(
+          pair[1] + ""
+        )?.replace(".", "_")}` as keyof BookStoreType
+      ],
+    })),
   ].map((el) => ({
     ...el,
     id: v4(),
   }));
 
-export const statsOrders = (valsOrders?: (number | string)[]) =>
+export const statsOrders = (store?: BookStoreType) =>
   [
     {
       label: "Total Orders",
-      val: valsOrders?.[0],
+      val: store?.ordersCount,
     },
+    ...Object.values(OrderStage).map((el) => ({
+      label: capt(el),
+      val: store?.[`orders${capt(el)}Count` as keyof BookStoreType],
+    })),
   ].map((el) => ({
     ...el,
     id: v4(),
@@ -97,23 +123,19 @@ export const labelTeamStore = {
   label: "Team",
 };
 
-export const statsTeam = (valsTeam?: TeamItem[]) =>
+export const statsTeam = (store?: BookStoreType) =>
   [
     {
       label: "Total Employee",
-      val: valsTeam?.length + "",
+      val: store?.workersCount,
     },
     {
       label: "Managers",
-      val: valsTeam
-        ? valsTeam.filter((el) => el.role === UserRole.MANAGER).length
-        : 0,
+      val: store?.managersCount,
     },
     {
       label: "Employee",
-      val: valsTeam
-        ? valsTeam.filter((el) => el.role === UserRole.EMPLOYEE).length
-        : 0,
+      val: store?.employeesCount,
     },
   ].map((el) => ({
     ...el,

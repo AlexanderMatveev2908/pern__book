@@ -2,7 +2,12 @@ import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import { statsCardStore } from "@/core/config/fieldsData/bookStore/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC, useState } from "react";
-import InfoBookStoreWorker from "../page/InfoBookStoreWorker";
+import InfoBookStoreWorker from "../../shared/InfoBookStoreWorker";
+import DropStats from "../../shared/DropStats";
+import {
+  labelTeamStore,
+  statsTeam,
+} from "@/core/config/fieldsData/bookStore/actions";
 
 type PropsType = {
   el: BookStoreType;
@@ -24,6 +29,9 @@ const InfoCardStats: FC<PropsType> = ({ el }) => {
         }`}
       >
         <InfoBookStoreWorker {...{ abs: true, bookStore: el }} />
+        <DropStats
+          {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
+        />
       </div>
     </div>
   );

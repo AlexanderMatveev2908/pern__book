@@ -22,14 +22,14 @@ const InfoBookStoreWorker: FC<PropsType> = ({ bookStore, abs }) => {
       <DropStats
         {...{
           el: labelsBookStore.get(KEY_MAP_STORE.BOOKS),
-          fields: statsBooks([0]),
+          fields: statsBooks(bookStore),
           abs,
         }}
       />
       <DropStats
         {...{
           el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
-          fields: statsReviews([0]),
+          fields: statsReviews(bookStore),
           abs,
         }}
       />
@@ -43,7 +43,7 @@ const InfoBookStoreWorker: FC<PropsType> = ({ bookStore, abs }) => {
       <DropStats
         {...{
           el: labelsBookStore.get(KEY_MAP_STORE.ORDERS),
-          fields: statsOrders([0]),
+          fields: statsOrders(bookStore),
           abs,
         }}
       />

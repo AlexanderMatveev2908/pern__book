@@ -46,7 +46,7 @@ const countRevSql = (pair: number[], i: number): [Literal, string] => [
     WHERE "reviews"."rating" BETWEEN ${pair[0]} AND ${pair[1]} 
     AND "reviews"."bookStoreID" = "BookStore"."id"
    )`),
-  `reviews_${(pair[0] + "").replace(".", "_")}__${(pair[1] + "").replace(
+  `reviews__${(pair[0] + "").replace(".", "_")}__${(pair[1] + "").replace(
     ".",
     "_"
   )}`,
