@@ -4,6 +4,7 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
+  SorterSearch,
 } from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
@@ -27,6 +28,7 @@ type PropsType = {
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
+  sorters: SorterSearch[];
   numericFilters?: NumericFilterSearch[];
 };
 
@@ -34,6 +36,7 @@ const SearchBar: FC<PropsType> = ({
   handleSave,
   txtInputs,
   filters,
+  sorters,
   numericFilters,
   res,
 }) => {
@@ -84,7 +87,7 @@ const SearchBar: FC<PropsType> = ({
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
         <FilterBar {...{ ctx, filters, numericFilters }} />
-        <SortPop {...{ ...ctx }} />
+        <SortPop {...{ ctx, sorters }} />
 
         <TxtInputs {...{ ...ctx, ...formCtx, txtInputs }}>
           <ButtonsForm

@@ -126,6 +126,17 @@ export const searchBarStore = z
       .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
         message: "Invalid number employees",
       }),
+
+    ...[
+      "createdAtSort",
+      "updatedAtSort",
+      "avgRatingSort",
+      "avgPriceSort",
+      "avgQtySort",
+    ].reduce((acc, curr) => {
+      acc[curr] = z.string().optional();
+      return acc;
+    }, {} as Record<string, z.ZodTypeAny>),
   })
   .superRefine((data, ctx) => {
     if (isValidNumber(data?.minAvgPrice) && isValidNumber(data?.maxAvgPrice)) {

@@ -1,14 +1,16 @@
 import { capt } from "@/core/lib/lib";
 import { FC, useState } from "react";
 import "./BtnCheckBox.css";
+import { IconType } from "react-icons/lib";
 
 type PropsType = {
   handleClick: () => void;
   isIn: boolean;
-  label: string;
+  label?: string;
+  Icon?: IconType;
 };
 
-const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label }) => {
+const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label, Icon }) => {
   const [isHover, setIsHover] = useState(false);
   const [isRemoved, setRemoved] = useState(false);
 
@@ -25,7 +27,7 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label }) => {
         setIsHover(false);
       }}
       type="button"
-      className={`w-full max-w-[275px] rounded-xl px-5 py-2 flex justify-center 
+      className={`w-full max-w-[275px] rounded-xl px-5 py-2 flex gap-5 justify-center 
      appearance-none outline-0 items-center transition-all duration-300 cursor-pointer btn__checkbox ${
        isIn ? "border-blue-600 text-blue-600" : ""
      }`}
@@ -44,7 +46,8 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label }) => {
         } as React.CSSProperties
       }
     >
-      <span className="txt__2">{capt(label)}</span>
+      {Icon ? <Icon className="icon__md" /> : null}
+      {label ? <span className="txt__2">{capt(label)}</span> : null}
     </button>
   );
 };

@@ -3,6 +3,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsSearchStore,
   numericFiltersStore,
+  sorterStore,
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
@@ -70,6 +71,7 @@ const BookStores: FC = () => {
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
               numericFilters: numericFiltersStore,
+              sorters: sorterStore,
             }}
           />
         </FormProvider>

@@ -56,6 +56,12 @@ export type FilterSearch = {
   fields: FilterSubField[];
 };
 
+export type SorterSearch = Omit<FilterSearch, "fields"> & {
+  fields: (FilterSubField & {
+    icon: IconType;
+  })[];
+};
+
 export type NumericFilterSearch = Omit<FilterSearch, "fields"> & {
   fields: FormFieldBasic[];
 };

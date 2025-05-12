@@ -2,6 +2,7 @@ import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
+  SorterSearch,
 } from "@/types/types";
 import { v4 } from "uuid";
 import {
@@ -12,7 +13,15 @@ import {
   filtersOrders,
   filtersRating,
 } from "./general";
-import { FaUsers } from "react-icons/fa";
+import {
+  FaDatabase,
+  FaRegStar,
+  FaSortAmountDown,
+  FaSortAmountUp,
+  FaUsers,
+} from "react-icons/fa";
+import { TbPigMoney } from "react-icons/tb";
+import { LuAlarmClock } from "react-icons/lu";
 
 export const fieldsSearchStore: FormFieldBasic[] = [
   {
@@ -92,23 +101,39 @@ export const numericFiltersStore: NumericFilterSearch[] = [
   })),
 }));
 
-// export const defValsOwnerStores: SearchStoreFormType = {
-//   name: "",
-//   ID: "",
-//   country: "",
-//   state: "",
-//   city: "",
-
-//   categories: [],
-//   orders: [],
-//   delivery: [],
-//   avgRating: [],
-
-//   minAvgPrice: "",
-//   maxAvgPrice: "",
-//   minAvgQty: "",
-//   maxAvgQty: "",
-//   workers: "",
-//   managers: "",
-//   employees: "",
-// };
+export const sorterStore: SorterSearch[] = [
+  {
+    label: "Created at",
+    field: "createdAtSort",
+    icon: LuAlarmClock,
+  },
+  {
+    label: "Updated at",
+    field: "updatedAtSort",
+    icon: LuAlarmClock,
+  },
+  {
+    label: "Avg rating",
+    field: "avgRatingSort",
+    icon: FaRegStar,
+  },
+  {
+    label: "Avg Price",
+    field: "avgPriceSort",
+    icon: TbPigMoney,
+  },
+  {
+    label: "Avg Quantity",
+    field: "avgQtySort",
+    icon: FaDatabase,
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+  fields: ["ASC", "DESC"].map((el) => ({
+    val: el,
+    label: el,
+    id: v4(),
+    icon: el === "ASC" ? FaSortAmountUp : FaSortAmountDown,
+  })),
+}));
