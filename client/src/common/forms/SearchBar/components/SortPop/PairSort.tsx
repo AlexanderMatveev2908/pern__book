@@ -20,11 +20,7 @@ const PairSort: FC<PropsType> = ({ el }) => {
     (val: string) => {
       const currVal = getValues(el.field);
 
-      setValue(
-        el.field,
-        !currVal?.trim()?.length || currVal !== val ? val : "",
-        { shouldValidate: true }
-      );
+      setValue(el.field, currVal !== val ? val : "", { shouldValidate: true });
     },
     [el.field, getValues, setValue]
   );

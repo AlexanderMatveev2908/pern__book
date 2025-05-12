@@ -33,16 +33,19 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label, Icon }) => {
      }`}
       style={
         {
+          // ? IF JUST REMOVED AVOID MAKING IT SCALE BIGGER SO IS CLEAR THAT USER REMOVED A THING FROM A LIST
           "--scale_btn_check_hover": isRemoved ? 1 : 1.15,
+          // ? SAME AS ABOVE, LEAVE BTN AS DEFAULT IF REMOVED SO IS CLEARED CLICK WORKED AND DID HIS JOB
           "--color_btn_check": isRemoved
             ? "var(--gray__app)"
             : "var(--blue__app)",
-          "--scale_btn_check": !isRemoved && !isHover && isIn ? 1.15 : 1,
-          "--border_btn_check": isRemoved
-            ? "var(--gray__app_500)"
-            : isIn || isHover
-            ? "var(--blue__app)"
-            : "var(--gray__app_500)",
+          // ? JUST A BASIC SCALE
+          "--scale_btn_check": !isRemoved && (isHover || isIn) ? 1.15 : 1,
+
+          "--border_btn_check":
+            !isRemoved && (isIn || isHover)
+              ? "var(--blue__app)"
+              : "var(--gray__app_500)",
         } as React.CSSProperties
       }
     >

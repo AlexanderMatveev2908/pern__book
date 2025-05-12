@@ -50,7 +50,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         res?.bookStores?.length
           ? [
               ...res.bookStores.map((store) => ({
-                type: TagsAPI.BOOK_STORE,
+                type: TagsAPI.BOOK_STORE_LIST,
                 id: store.id,
               })),
               { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
@@ -73,6 +73,20 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         data: formData,
       }),
       invalidatesTags: [TagsAPI.BOOK_STORE, TagsAPI.USER],
+      async onQueryStarted({ bookStoreID }, { queryFulfilled, dispatch }) {
+        await catchErr(async () => {
+          await queryFulfilled;
+
+          dispatch(
+            bookStoreSliceAPI.util.invalidateTags([
+              {
+                type: TagsAPI.BOOK_STORE_LIST,
+                id: bookStoreID,
+              },
+            ])
+          );
+        });
+      },
     }),
 
     delStore: builder.mutation<BaseResAPI<void>, string>({
@@ -95,6 +109,12 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
                 draft.msg = "🥷🏼";
               }
             )
+          );
+          dispatch(
+            bookStoreSliceAPI.util.invalidateTags([
+              { type: TagsAPI.BOOK_STORE_LIST, id },
+              { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
+            ])
           );
         });
       },

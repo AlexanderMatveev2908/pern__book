@@ -64,6 +64,15 @@ export const validateQueryListStores = [
     return true;
   }),
 
+  check().custom((_, { req }) => {
+    for (const pair in Object.entries(req.query ?? {})) {
+      if (pair[0].includes("Sort") && !["ASC", "DESC"].includes(pair[1]))
+        throw new Error("Invalid sort val");
+    }
+
+    return true;
+  }),
+
   ...checkPagination,
 
   handleValidator(422),

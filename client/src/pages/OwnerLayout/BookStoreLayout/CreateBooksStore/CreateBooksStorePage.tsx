@@ -72,7 +72,14 @@ const CreateBooksStore: FC = () => {
 
         if (!res) return;
 
-        reset();
+        reset({
+          items: [
+            {
+              email: "",
+              role: null,
+            },
+          ],
+        });
         nav(`/owner/book-store/${res.bookStoreID}`);
       },
       async (errs) => {

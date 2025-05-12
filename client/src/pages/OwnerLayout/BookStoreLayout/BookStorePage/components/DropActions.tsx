@@ -54,7 +54,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
         txt: `Are You sure to delete ${countW(
           30,
           bookStore?.name
-        )} and all associeted data ?`,
+        )} and all associated data ?`,
         leftBtn: {
           label: "I Change idea",
           act: BtnAct.DO,
@@ -76,7 +76,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
 
             if (!res) return;
 
-            nav("/", { replace: true });
+            nav("/owner/book-store/book-stores", { replace: true });
           },
         },
       })

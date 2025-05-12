@@ -17,7 +17,7 @@ export const statsCardStore = {
 export const linksCardStore = [
   {
     icon: FaLink,
-    label: "Page Store",
+    label: "Store",
     path: "/owner/book-store/",
   },
   {
