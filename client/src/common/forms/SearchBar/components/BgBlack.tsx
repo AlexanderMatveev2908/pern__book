@@ -3,7 +3,7 @@ import { FC, useMemo } from "react";
 type PropsType = {
   bars: {
     filterBar: boolean;
-    sortBar: boolean;
+    sortBar: boolean | null;
   };
 };
 

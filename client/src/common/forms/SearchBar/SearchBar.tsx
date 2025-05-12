@@ -19,7 +19,8 @@ import { usePopulateSearch } from "@/core/hooks/all/forms/searchBar/usePopulateS
 import { useDebounceSearch } from "@/core/hooks/all/forms/searchBar/useDebounceSearch";
 import { useHandleErrSearch } from "@/core/hooks/all/forms/searchBar/useHandleErrSearch";
 import { useFormContext } from "react-hook-form";
-import SortDrop from "./components/SortDrop/SortDrop";
+import SortDrop from "./components/SortPop/SortDrop";
+import SortPop from "./components/SortPop/SortPop";
 
 type PropsType = {
   res: any;
@@ -82,7 +83,8 @@ const SearchBar: FC<PropsType> = ({
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
-        <FilterBar {...{ ...ctx, filters, numericFilters }} />
+        <FilterBar {...{ ctx, filters, numericFilters }} />
+        <SortPop {...{ ...ctx }} />
 
         <TxtInputs {...{ ...ctx, ...formCtx, txtInputs }}>
           <ButtonsForm
@@ -97,7 +99,7 @@ const SearchBar: FC<PropsType> = ({
         </TxtInputs>
       </div>
 
-      <SortDrop {...{ res }} />
+      <SortDrop {...{ res, ...ctx }} />
     </form>
   );
 };

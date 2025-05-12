@@ -20,7 +20,7 @@ export type SearchCtxStateType = {
   };
   bars: {
     filterBar: boolean;
-    sortBar: boolean;
+    sortBar: boolean | null;
   };
   searchers: {
     currFilter: FilterSearch | NumericFilterSearch | null;
@@ -51,7 +51,7 @@ export const initStateSearch: SearchCtxStateType = {
   activeTxtInputs: [],
   bars: {
     filterBar: false,
-    sortBar: false,
+    sortBar: null,
   },
   searchers: {
     currFilter: null,

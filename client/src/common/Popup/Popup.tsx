@@ -1,11 +1,11 @@
-import { X } from "lucide-react";
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { v4 } from "uuid";
 import { closePopup, getPopup } from "../../features/common/Popup/popupSlice";
 import { BtnAct, PopupStateType } from "@/types/types";
-import "./Popup.css";
 import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
+import CloseBtn from "@/components/elements/buttons/CloseBtn";
+import { useAnimatePop } from "@/core/hooks/all/UI/useAnimatePop";
 
 const Popup: FC = () => {
   const [ids] = useState(Array.from({ length: 2 }, () => v4()));
@@ -23,38 +23,10 @@ const Popup: FC = () => {
     [popupState.leftBtn, popupState.rightBtn]
   );
 
-  useEffect(() => {
-    const animateIn = () => {
-      if (!popRef.current || !popupState.isPopup) return;
-
-      popRef.current.classList.remove("popup_in");
-
-      requestAnimationFrame(() => {
-        popRef.current?.classList.add("popup_in");
-      });
-    };
-
-    animateIn();
-  }, [popupState.isPopup]);
-
-  useEffect(() => {
-    const animateOut = () => {
-      if (
-        !popRef.current ||
-        typeof popupState.isPopup === "object" ||
-        popupState.isPopup
-      )
-        return;
-
-      popRef.current.classList.remove("popup_out");
-
-      requestAnimationFrame(() => {
-        popRef.current?.classList.add("popup_out");
-      });
-    };
-
-    animateOut();
-  }, [popupState.isPopup]);
+  useAnimatePop({
+    isPopup: popupState.isPopup,
+    popRef,
+  });
 
   return (
     <>
@@ -69,13 +41,12 @@ const Popup: FC = () => {
           popupState.isPopup ? "pointer-events-auto" : "pointer-events-none"
         } ${typeof popupState.isPopup === "object" ? "opacity-0" : ""} `}
       >
-        <button
-          onClick={clearPop}
-          disabled={arrBtn.some((el) => el.isPending)}
-          className="absolute top-1 right-2 appearance-none outline-0 flex justify-center items-center btn__logic_xl enabled:cursor-pointer"
-        >
-          <X className="min-w-[40px] min-h-[40px] sm:min-w-[45px] sm:min-h-[45px] text-red-600" />
-        </button>
+        <CloseBtn
+          {...{
+            handleClick: clearPop,
+            isDisabled: arrBtn.some((el) => el.isPending),
+          }}
+        />
 
         <div className="w-full flex pt-5">
           <span className="txt__4">{popupState.txt}</span>
