@@ -38,6 +38,7 @@ const BookStores: FC = () => {
     { ...args } as ReqQueryAPI<SearchStoreFormType>,
     {
       skip: hasFormErrs || !isPopulated,
+      refetchOnMountOrArgChange: true,
     }
   );
   useWrapQueryAPI({ ...res });

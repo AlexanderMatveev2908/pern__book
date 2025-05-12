@@ -1,6 +1,6 @@
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
-import { catchErr } from "@/core/lib/lib";
+import { catchErr, setLimitCards } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
 import {
@@ -21,6 +21,28 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         data,
       }),
       invalidatesTags: [TagsAPI.USER],
+      async onQueryStarted(_, { queryFulfilled, dispatch }) {
+        await catchErr(async () => {
+          await queryFulfilled;
+
+          dispatch(
+            bookStoreSliceAPI.util.invalidateTags([
+              {
+                type: TagsAPI.BOOK_STORE_LIST,
+                id: "LIST",
+              },
+            ])
+          );
+          // dispatch(
+          //   bookStoreSliceAPI.endpoints.getAllStores.initiate(
+          //     { page: 0, limit: setLimitCards(), _: Date.now() },
+          //     {
+          //       forceRefetch: true,
+          //     }
+          //   )
+          // );
+        });
+      },
     }),
 
     getBookStore: builder.query<

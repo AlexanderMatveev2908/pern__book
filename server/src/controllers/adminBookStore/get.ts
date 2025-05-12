@@ -66,7 +66,7 @@ const countItems = (name: string): [Literal, string] => [
   `${name + "Count"}`,
 ];
 
-const rawSql = [
+const myCoolSql = [
   countItems("books"),
   countItems("orders"),
   countItems("reviews"),
@@ -141,7 +141,7 @@ export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
       "team->BookStoreUser.id",
     ],
     attributes: {
-      include: rawSql as [[Literal, string]],
+      include: myCoolSql as [[Literal, string]],
     },
   });
 
@@ -211,7 +211,7 @@ export const getAllStores = async (
     ],
     // ? ADDING CUSTOM FIELDS IS LIKE USING $LOOKUP, THEN $UNWIND, THEN $SET( OR $ADD_FIELDS ON OLDER VERSIONS) WITH MONGOOSE(ODM OF MONGO_DB) FOR NO_SQL_LANGUAGE, AT THE END ITEMS TAKEN EACH ONE IN ITS OWN AS OBJ WITH ALL PROPS OF PARENT NEEDS TO BE GROUPED AGAIN AS ITEM OF A LIST(ITEM OF ARRAY AS ELEMENT), TO DO THAT WE NEED GROUP
     attributes: {
-      include: rawSql,
+      include: myCoolSql,
     } as any,
     group: [
       "BookStore.id",
@@ -223,8 +223,8 @@ export const getAllStores = async (
       "team->BookStoreUser.id",
     ],
     having: queryAfterPipe,
-    // limit: limit as number,
-    // offset: skip,
+    // limit: 1,
+    // offset: 1,
   });
 
   const nHits = bookStores.length;
