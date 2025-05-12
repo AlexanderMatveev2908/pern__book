@@ -5,7 +5,6 @@ import {
   __cg,
   clearTimer,
   isObjOk,
-  isSameData,
   saveStorage,
   setLimitCards,
 } from "@/core/lib/lib";
@@ -36,7 +35,9 @@ export const useDebounceSearch = <T>({
   useEffect(() => {
     timerID.current = setTimeout(() => {
       const currVals = { ...getValues(), limit, page };
-      const isSame: boolean = isSameData(oldVals.current, currVals);
+      // const isSame: boolean = isSameData(oldVals.current, currVals);
+      const isSame =
+        JSON.stringify(oldVals.current) === JSON.stringify(currVals);
 
       __cg("old", oldVals.current);
       __cg("new", currVals);

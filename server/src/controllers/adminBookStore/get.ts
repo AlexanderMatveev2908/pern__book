@@ -174,7 +174,6 @@ export const getAllStores = async (
   const sorters = Object.entries(req.query ?? {})
     .filter((pair) => pair[0].includes("Sort"))
     .map((el) => [el[0].replace("Sort", ""), el[1]]) as any;
-  console.log(sorters);
 
   const bookStores = await BookStore.findAll({
     where: queryStore,
@@ -227,15 +226,67 @@ export const getAllStores = async (
     having: queryAfterPipe,
     // limit: 2,
     // offset: 3,
-    order: sorters,
-    nest: true,
+    // order: sorters,
   });
 
   const nHits = bookStores.length;
   if (!nHits) return res204(res);
+
+  if (sorters.length)
+    bookStores.sort((a, b) => {
+      let score = 0;
+
+      for (const [k, v] of sorters) {
+        let valA = a[k as keyof typeof a];
+        let valB = b[k as keyof typeof b];
+
+        if (["createdAt", "updatedAt"].includes(k)) {
+          valA = new Date(valA).getTime();
+          valB = new Date(valB).getTime();
+        } else if (["avgQty", "avgPrice", "avgRating"].includes(k)) {
+          valA = +valA;
+          valB + valB;
+        }
+
+        if (valA === valB) continue;
+
+        const delta = valA > valB ? 1 : -1;
+        score += v === "ASC" ? delta : -delta;
+      }
+
+      return score;
+    });
 
   const { skip, limit, totPages } = calcPagination(req, nHits);
   const paginated = bookStores.slice(skip, +skip! + +limit!);
 
   return res200(res, { bookStores: paginated, nHits, totPages });
 };
+
+/*
+  bookStores.sort((a, b) => {
+    for (const [k, v] of sorters) {
+      const valA = a[k as keyof typeof a];
+      const valB = b[k as keyof typeof b];
+
+      switch (k) {
+        case "createdAt":
+        case "updatedAt": {
+          const formattedA = valA.getTime();
+          const formattedB = valB.getTime();
+
+          if (formattedA === formattedB) return 0;
+
+          if (v === "ASC") return formattedA > formattedB ? 1 : -1;
+          else return formattedA < formattedB ? 1 : -1;
+        }
+      }
+
+      if (valA === valB) continue;
+
+      if (v === "ASC") return valA > valB ? 1 : -1;
+      else return valA < valB ? 1 : -1;
+    }
+    return 0;
+  });
+  */

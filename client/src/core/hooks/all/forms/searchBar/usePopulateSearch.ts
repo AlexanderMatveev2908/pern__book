@@ -58,11 +58,14 @@ export const usePopulateSearch = ({
 
       setArgs({
         ...parsed,
+        [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
         page: parsed?.page ?? 0,
         limit: setLimitCards(),
       });
     } else {
+      setPreSubmit({ el: "canMakeAPI", val: false });
       setArgs({
+        [txtInputs[0].field]: "",
         page: 0,
         limit: setLimitCards(),
       });
