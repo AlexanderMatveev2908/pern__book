@@ -16,6 +16,7 @@ import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../types/all/orders.js";
 import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
+import { sortItems } from "../../lib/query/sort.js";
 
 const calcAvgSeq = (
   prop: string,
@@ -171,9 +172,6 @@ export const getAllStores = async (
   if (!count) return res204(res);
 
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
-  const sorters = Object.entries(req.query ?? {})
-    .filter((pair) => pair[0].includes("Sort"))
-    .map((el) => [el[0].replace("Sort", ""), el[1]]) as any;
 
   const bookStores = await BookStore.findAll({
     where: queryStore,
@@ -232,30 +230,7 @@ export const getAllStores = async (
   const nHits = bookStores.length;
   if (!nHits) return res204(res);
 
-  if (sorters.length)
-    bookStores.sort((a, b) => {
-      let score = 0;
-
-      for (const [k, v] of sorters) {
-        let valA = a[k as keyof typeof a];
-        let valB = b[k as keyof typeof b];
-
-        if (["createdAt", "updatedAt"].includes(k)) {
-          valA = new Date(valA).getTime();
-          valB = new Date(valB).getTime();
-        } else if (["avgQty", "avgPrice", "avgRating"].includes(k)) {
-          valA = +valA;
-          valB + valB;
-        }
-
-        if (valA === valB) continue;
-
-        const delta = valA > valB ? 1 : -1;
-        score += v === "ASC" ? delta : -delta;
-      }
-
-      return score;
-    });
+  sortItems(req, bookStores);
 
   const { skip, limit, totPages } = calcPagination(req, nHits);
   const paginated = bookStores.slice(skip, +skip! + +limit!);
