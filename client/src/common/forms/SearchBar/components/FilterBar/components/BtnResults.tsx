@@ -17,7 +17,7 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
   const ctx = useSearchCtx();
   const {
     isPending,
-    labels: { labelSubmit },
+    labels: { labelSearch },
     preSubmit: { hasFormErrs },
   } = ctx;
   const formCtx = useFormContext();
@@ -30,12 +30,12 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
   return (
     <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
       <div
-        className={`w-full ${labelSubmit ? "max-w-[200px]" : "max-w-[75px]"}`}
+        className={`w-full ${labelSearch ? "max-w-[200px]" : "max-w-[75px]"}`}
       >
         <SearchBtn
           {...{
             isPending: isPending.submit,
-            labelSubmit,
+            labelSize: labelSearch,
             res,
             handleSearch,
             hasFormErrs,
@@ -43,13 +43,13 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
         />
       </div>
       <div
-        className={`w-full ${labelSubmit ? "max-w-[200px]" : "max-w-[75px]"}`}
+        className={`w-full ${labelSearch ? "max-w-[200px]" : "max-w-[75px]"}`}
       >
         <CLearBtn
           {...{
             handleClear,
             isPending: isPending.clear,
-            labelSubmit,
+            labelSize: labelSearch,
             res,
           }}
         />

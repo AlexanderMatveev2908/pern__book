@@ -23,7 +23,7 @@ type PropsType = {
 const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
   const {
     setBar,
-    labels: { labelSubmit, labelSearch },
+    labels: { labelSubmit },
     isPending,
     setSearch,
     preSubmit: { errNumbers, hasFormErrs },
@@ -81,7 +81,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
             {...{
               hasFormErrs,
               isPending: isPending.submit,
-              labelSubmit: labelSubmit,
+              labelSize: labelSubmit,
               res,
               handleSearch,
             }}
@@ -97,7 +97,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
               res,
               handleClear,
               isPending: isPending.clear,
-              labelSubmit: labelSubmit,
+              labelSize: labelSubmit,
             }}
           />
         </div>

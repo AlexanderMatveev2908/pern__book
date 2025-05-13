@@ -7,7 +7,7 @@ import { FaSearch } from "react-icons/fa";
 type PropsType = {
   res: any;
   handleSearch?: () => void;
-  labelSubmit: boolean;
+  labelSize: boolean;
   isPending: boolean;
   hasFormErrs: boolean;
 };
@@ -15,14 +15,14 @@ type PropsType = {
 const SearchBtn: FC<PropsType> = ({
   handleSearch,
   isPending,
-  labelSubmit,
+  labelSize,
   res,
   hasFormErrs,
 }) => {
   return (
     <Button
       {...{
-        label: labelSubmit ? "Search" : null,
+        label: labelSize ? "Search" : null,
         type: "submit",
         act: BtnAct.DO,
         Icon: FaSearch,
