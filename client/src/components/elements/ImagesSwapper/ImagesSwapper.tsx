@@ -20,39 +20,45 @@ const getSize = () =>
     ? 300
     : 200;
 
+// const getShift = () => 2;
+
 const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
   const [wImg, setWImg] = useState(getSize());
   const clickedRef = useRef<boolean>(false);
   const [items, setItems] = useState<(AssetCloudType | HeroImage)[]>([]);
-  // const replaced = useRef<boolean>(true);
+  // const [shitN, setShitN] = useState(getShift());
+  // const replaced = useRef<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
       setWImg(getSize());
+      // setShitN(Math.min(getShift(), images.length));
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  }, [images.length]);
 
   useEffect(() => {
     setItems(images);
   }, [images]);
 
-  // const swapItems = useCallback(() => {
+  // const swapItems = useCallback(async () => {
   //   const newItems = cpyObj(items);
-  //   const movedItems = [...newItems, ...newItems.slice(0, 3)];
+  //   const movedItems = [...newItems.slice(shitN), ...newItems.slice(0, shitN)];
+
+  //   setCurrSlide(0);
   //   setItems(movedItems);
-  // }, [items]);
+  // }, [items, shitN]);
 
   // useEffect(() => {
-  //   if (currSlide && currSlide % 3 === 0 && !replaced.current) {
+  //   if (currSlide % shitN === 0 && !replaced.current) {
   //     replaced.current = true;
   //     swapItems();
   //   }
-  // }, [swapItems, currSlide]);
+  // }, [swapItems, currSlide, shitN, images.length]);
 
   const handleClickRef = () => {
     clickedRef.current = true;
@@ -61,12 +67,12 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      if (prev === items.length - 1) {
-        return 0;
-      } else {
-        // if ((prev + 1) % 3 === 0) replaced.current = false;
-        return prev + 1;
-      }
+      const next = prev + 1;
+
+      if (next >= items.length) return 0;
+      // if (prev % shitN === 0) replaced.current = false;
+
+      return next;
     });
   }, [items.length]);
 
@@ -85,19 +91,14 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   return !items?.length ? null : (
     <div className="w-full flex justify-center">
-      <div
-        className="w-full grid text-[whitesmoke] relative"
-        style={{
-          width: `${wImg + 40}px`,
-        }}
-      >
+      <div className="w-full grid text-[whitesmoke] relative slider">
         <button onClick={decSlide} className={`btn__hero group -left-[20px]`}>
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
         <div className="w-full flex overflow-hidden p-5 el__border_md">
           <div
-            className="flex transition-all duration-500 gap-[40px] w-fit"
+            className="flex transition-all duration-500 gap-[40px] w-fit h-fit items-start"
             style={{
               transform: `translateX(-${currSlide * (wImg + 40)}px)`,
             }}
