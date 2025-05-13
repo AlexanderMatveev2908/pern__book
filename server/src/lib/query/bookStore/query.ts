@@ -45,7 +45,7 @@ export const createStoreQ = (req: ReqApp) => {
 
       case "categories":
         queryStore.categories = {
-          [Op.overlap]: Array.isArray(val) ? val : [val],
+          [Op.contains]: Array.isArray(val) ? val : [val],
         };
         break;
 
