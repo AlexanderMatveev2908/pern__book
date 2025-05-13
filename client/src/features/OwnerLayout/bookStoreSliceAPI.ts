@@ -9,6 +9,7 @@ import {
   ResPaginationAPI,
   TagsAPI,
 } from "@/types/types";
+import { userSliceAPI } from "../UserLayout/userSliceAPI";
 
 const BASE_URL = "/admin-book-store";
 
@@ -32,6 +33,15 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
                 id: "LIST",
               },
             ])
+          );
+          dispatch(
+            userSliceAPI.util.updateQueryData(
+              "getUserProfile",
+              undefined,
+              (draft) => {
+                draft.user.isOwner = true;
+              }
+            )
           );
           // dispatch(
           //   bookStoreSliceAPI.endpoints.getAllStores.initiate(

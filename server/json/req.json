@@ -1,14 +1,29 @@
 {
   "body": {
-    "firstName": "a",
-    "lastName": "m",
-    "email": "matveevalexander470@gmail.com",
-    "password": "+O9+?&5eEY0Lh4h%"
+    "email": "matveevalexander2908@gmail.com",
+    "country": "Netherlands",
+    "state": "South Holland",
+    "city": "Naaldwijk",
+    "street": "Graanveld",
+    "zipCode": "2671 JG",
+    "phone": "+00 000 000",
+    "name": "aa",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
+    "categories": [
+      "classics"
+    ],
+    "deliveryTime": "22",
+    "items": [
+      {
+        "email": "matveevalexander470@gmail.com",
+        "role": "EMPLOYEE"
+      }
+    ]
   },
   "files": {},
   "file": {},
   "query": {},
   "params": {},
-  "auth": {},
-  "refresh": {}
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgwNjIyZDI3LTkyZjAtNGI2ZC05ZDk5LWQ1N2M5NTc0MzJjZCIsImlhdCI6MTc0NzE0MTUxNCwiZXhwIjoxNzQ3MTQxNTc0fQ.IAfM3yWFPefSxw_GI2ia3Xh-A0iNf9DxqjLPl_yJHkg",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.xL4OOM6T5ZHC6dDrLOxKVwv6QdQgWpbedT7l0nH59P5JfnINGU2C12UZimgb0HrjNOqalyilIOpQmX3mK56ixGWpwYpFYwlfQUntl4apGODhs02KdY-2pblvDA6BWWfbX4-IYUCeTiwJzfcA_JnY4cuCamZsu4-KsKkNcmLeDJSORlUZOoBAFBsp6x_zFhnXZAbZhqWuTfS5lRqoSNYSDP6xvFZF6V0NUrEvBKrLBUnEHI5MSyygjKrlO9Teic86LOSA8JHIIUYRG0Aj0H82NlbK7h6cxQVHzkvYo4OavJVxBLHcorUlkI5G0ccCv75U-aczc9XchtJYvraLlzynrA.oLdVWdITlpb2I4aQ.fJ-MVY0zQNpupReaTpVTHT0AXJb1r5eTlOj6oUkSiIG3VQBYr1EkuEXHW8Yh.LBwg6vlG4Zw4VLY2Frq0ZA"
 }

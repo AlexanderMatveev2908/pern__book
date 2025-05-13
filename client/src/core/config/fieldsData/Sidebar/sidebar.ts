@@ -3,12 +3,7 @@ import { FaBook, FaUsers } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
-import {
-  BriefcaseBusiness,
-  MessageSquareMore,
-  MonitorCog,
-  ShieldCheck,
-} from "lucide-react";
+import { BriefcaseBusiness, MonitorCog, ShieldCheck } from "lucide-react";
 import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
@@ -90,11 +85,6 @@ export const sideFieldsWorker: SideFieldType[] = [
     label: "Bookstores",
     icon: HiLibrary,
     path: "/worker/book-stores",
-  },
-  {
-    label: "Invitations",
-    icon: MessageSquareMore,
-    path: "/worker/invitations",
   },
 ].map((el) => ({
   ...el,
