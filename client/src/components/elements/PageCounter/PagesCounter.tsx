@@ -103,7 +103,7 @@ const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
       setArgs({
         ...args,
         page: val,
-        limit: limit ?? 4,
+        limit: setLimitCards(),
       });
       saveStorage({
         key: keyStorageVals,
@@ -123,7 +123,7 @@ const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
         });
       }, 200);
     },
-    [args, setPreSubmit, keyStorageVals, setArgs, limit, searchBarID]
+    [args, setPreSubmit, keyStorageVals, setArgs, searchBarID]
   );
 
   const vals = useMemo(
