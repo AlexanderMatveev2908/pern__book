@@ -31,7 +31,7 @@ const SearchBtn: FC<PropsType> = ({
         isPending,
         isDisabled: isFetching || hasFormErrs,
         handleClick:
-          typeof handleSearch === "function" ? () => handleSearch() : undefined,
+          typeof handleSearch === "function" ? handleSearch : undefined,
       }}
     />
   );

@@ -36,7 +36,7 @@ const WrapperContentAPI: FC<PropsType> = ({ children, res, ctx, formCtx }) => {
       </WrapPageAPI>
 
       {!spinPage && (
-        <PagesCounter {...{ totPages, getValues: formCtx.getValues }} />
+        <PagesCounter {...{ totPages, ctx, getValues: formCtx.getValues }} />
       )}
     </>
   );

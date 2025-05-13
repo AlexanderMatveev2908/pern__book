@@ -17,7 +17,6 @@ import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
-import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
 
 const BookStores: FC = () => {
   useScroll();
@@ -43,13 +42,13 @@ const BookStores: FC = () => {
   const { data } = res ?? {};
   const { bookStores } = data ?? {};
   useFocus({ key: "name", setFocus });
-  const { handleSearch } = useClickSearch({
-    ctx,
-    formCtx,
-    txtInputs: fieldsSearchStore,
-  });
+  // const { handleSearch } = useClickSearch({
+  //   ctx,
+  //   formCtx,
+  //   txtInputs: fieldsSearchStore,
+  // });
 
-  const handleSave = handleSubmit(() => handleSearch());
+  const handleSave = handleSubmit(() => null);
 
   return (
     <WrapPageAPI

@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import { FC, useCallback, useEffect, useMemo, useState } from "react";
 import { v4 } from "uuid";
@@ -7,6 +6,7 @@ import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
   calcBlockBySize,
+  getDefValsPagination,
   getNumBtns,
   makeDelay,
   saveStorage,
@@ -16,19 +16,21 @@ import { useLocation } from "react-router-dom";
 import { getSearchBarID } from "@/core/lib/all/utils/ids";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { UseFormGetValues } from "react-hook-form";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type PropsType = {
   totPages?: number;
   getValues: UseFormGetValues<any>;
+  ctx: SearchCtxValsConsumer;
 };
 
-const PagesCounter: FC<PropsType> = ({ totPages = 0, getValues }) => {
+const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
   const {
     setArgs,
     args,
     setPreSubmit,
     preSubmit: { hasFormErrs },
-  } = useSearchCtx();
+  } = ctx;
   const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
 
@@ -46,8 +48,7 @@ const PagesCounter: FC<PropsType> = ({ totPages = 0, getValues }) => {
     if (page >= totPages)
       setArgs({
         ...getValues(),
-        limit: setLimitCards(),
-        page: 0,
+        ...getDefValsPagination(),
       });
   }, [getValues, page, setArgs, totPages]);
 

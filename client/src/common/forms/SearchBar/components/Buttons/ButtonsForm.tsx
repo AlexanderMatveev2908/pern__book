@@ -50,6 +50,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
                 setBar({ val: true, el: "filterBar" });
                 if (errNumbers !== null) {
                   setSearch({ el: "currFilter", val: errNumbers.currArr });
+
                   makeDelay(() => setFocus(errNumbers.currEl.field), 0);
                 }
               },
