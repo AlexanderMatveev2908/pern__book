@@ -43,7 +43,11 @@ const BookStorePage: FC = () => {
         isError: res?.isError,
       }}
     >
-      <div className="parent__form mb-[-150px]">
+      <div
+        className={`parent__form ${
+          isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
+        }`}
+      >
         <Title {...{ title: bookStore?.name }} />
 
         <DropActions {...{ bookStore }} />

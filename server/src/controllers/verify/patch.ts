@@ -14,6 +14,7 @@ import { setCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { pairTokenSession } from "../../lib/combo/combo.js";
 import { clearTokensById } from "../../lib/clearData/clearData.js";
 import { seq } from "../../config/db.js";
+import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 
 export const verifyAccount = async (
   req: ReqApp,
@@ -76,6 +77,24 @@ export const verifyNewEmail = async (
 
   try {
     await user.verifyNewEmail(t);
+
+    const stores = await BookStoreUser.findAll({
+      where: {
+        userID: user.id,
+      },
+    });
+    if (stores.length)
+      await BookStoreUser.update(
+        {
+          userEmail: user.email,
+        },
+        {
+          where: {
+            userID: user.id,
+          },
+          transaction: t,
+        }
+      );
 
     const { accessToken, refreshToken } = await pairTokenSession(user, t);
 

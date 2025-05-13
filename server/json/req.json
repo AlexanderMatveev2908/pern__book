@@ -1,29 +1,25 @@
 {
   "body": {
     "email": "matveevalexander2908@gmail.com",
-    "country": "Netherlands",
-    "state": "South Holland",
-    "city": "Naaldwijk",
-    "street": "Graanveld",
-    "zipCode": "2671 JG",
-    "phone": "+00 000 000",
-    "name": "aa",
+    "country": "Romania",
+    "state": "Bacău",
+    "city": "Onești",
+    "street": "Strada Aurora",
+    "zipCode": "601105",
+    "phone": "+00 0000 000 000",
+    "name": "Aa",
     "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
     "categories": [
       "classics"
     ],
-    "deliveryTime": "22",
-    "items": [
-      {
-        "email": "matveevalexander470@gmail.com",
-        "role": "EMPLOYEE"
-      }
-    ]
+    "deliveryTime": "22"
   },
   "files": {},
   "file": {},
   "query": {},
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgwNjIyZDI3LTkyZjAtNGI2ZC05ZDk5LWQ1N2M5NTc0MzJjZCIsImlhdCI6MTc0NzE0MTUxNCwiZXhwIjoxNzQ3MTQxNTc0fQ.IAfM3yWFPefSxw_GI2ia3Xh-A0iNf9DxqjLPl_yJHkg",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.xL4OOM6T5ZHC6dDrLOxKVwv6QdQgWpbedT7l0nH59P5JfnINGU2C12UZimgb0HrjNOqalyilIOpQmX3mK56ixGWpwYpFYwlfQUntl4apGODhs02KdY-2pblvDA6BWWfbX4-IYUCeTiwJzfcA_JnY4cuCamZsu4-KsKkNcmLeDJSORlUZOoBAFBsp6x_zFhnXZAbZhqWuTfS5lRqoSNYSDP6xvFZF6V0NUrEvBKrLBUnEHI5MSyygjKrlO9Teic86LOSA8JHIIUYRG0Aj0H82NlbK7h6cxQVHzkvYo4OavJVxBLHcorUlkI5G0ccCv75U-aczc9XchtJYvraLlzynrA.oLdVWdITlpb2I4aQ.fJ-MVY0zQNpupReaTpVTHT0AXJb1r5eTlOj6oUkSiIG3VQBYr1EkuEXHW8Yh.LBwg6vlG4Zw4VLY2Frq0ZA"
+  "params": {
+    "bookStoreID": "7902e21f-cf1f-4928-bcac-c5781486f9ef"
+  },
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNmQ1NWVkLTU3ODMtNDUyNC1hZjlkLTY1OTRiNzgxMWYxNSIsImlhdCI6MTc0NzE0MjE5NywiZXhwIjoxNzQ3MTQyMjU3fQ.MIV03f-BfsK43o9mfrAgCGqWhaV2i-VUw_6g0Ts9xlk",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.iERT6QWQMYbQEg85957Emi0LJlPrTBXFshBAm1Hfwd9Idh0g11MeAhrfkOr0xTTKJD58p11CeOQZ620kWfH2h2wK1w-SXdkGMkVdmYYQTm9xZq306NR7NqZCOkihXBffz0GXL9IE2wqoAFA-yHHo37wdYO9prmi5V1ju_BgQIhW1GPnr7ryOtsGVKsRF2ra1TbLJfNeD-q3OEdwBL5S3eG8W2pfDrOgV51wzDDKbfaaA5GkvKMUWWUXSqYTp-KtpbY9yBVf-O68WWMYjwwtC6WAZR4fBue0dlv8C4kEcSY4JyG8dFj3j50IH0e_VF18BFKejyhij5voB2Ts8OmXwuw.3v7Jli8L9O-eXMeV.9i-6xOqS0CBdYMSRbv7Rtf4-6hteV2uVoXqrDoaBu3Aql9l187X85YYCWvNQ.f5wBGpe4189EkQnOtMbOzg"
 }
