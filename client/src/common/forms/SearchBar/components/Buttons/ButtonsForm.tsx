@@ -1,55 +1,43 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC } from "react";
-import DropInputs from "./TxtInputs/DropInputs";
-import { BtnAct, FormFieldBasic, NumericFilterSearch } from "@/types/types";
+import { FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
 import { UseFormReturn } from "react-hook-form";
-import Button from "@/components/elements/buttons/Button/Button";
-import { MdClear } from "react-icons/md";
-import { FaSearch } from "react-icons/fa";
-import {
-  getSizeSearchbarBtns,
-  makeDelay,
-  saveStorage,
-  setLimitCards,
-} from "@/core/lib/lib";
+import { getSizeSearchbarBtns, makeDelay } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
+import CLearBtn from "./components/CLearBtn";
+import DropInputs from "../TxtInputs/DropInputs";
+import SearchBtn from "./components/SearchBtn";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
-  isFetching: boolean;
   numericFilters?: NumericFilterSearch[];
   ctx: SearchCtxValsConsumer;
   formCtx: UseFormReturn<any>;
+  res: any;
 };
 
-const ButtonsForm: FC<PropsType> = ({
-  txtInputs,
-  isFetching,
-  ctx,
-  formCtx,
-}) => {
-  const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
-
+const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
   const {
     setBar,
-    labels: { labelSubmit },
-    setTxtInputs,
+    labels: { labelSubmit, labelSearch },
     isPending,
-    setIsPending,
     setSearch,
     preSubmit: { errNumbers, hasFormErrs },
-    setArgs,
-    setPreSubmit,
   } = ctx;
   const {
-    reset,
     formState: { errors },
     setFocus,
   } = formCtx;
+
+  const { handleClear, handleSearch } = useClickSearch({
+    ctx,
+    formCtx,
+    txtInputs,
+  });
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
@@ -89,14 +77,13 @@ const ButtonsForm: FC<PropsType> = ({
             labelSubmit
           )}`}
         >
-          <Button
+          <SearchBtn
             {...{
-              label: labelSubmit ? "Search" : null,
-              type: "submit",
-              act: BtnAct.DO,
-              Icon: FaSearch,
+              hasFormErrs,
               isPending: isPending.submit,
-              isDisabled: isFetching || hasFormErrs,
+              labelSubmit: labelSubmit,
+              res,
+              handleSearch,
             }}
           />
         </div>
@@ -105,34 +92,12 @@ const ButtonsForm: FC<PropsType> = ({
             labelSubmit ? "justify-self-center" : "justify-self-end"
           }`}
         >
-          <Button
+          <CLearBtn
             {...{
-              label: labelSubmit ? "Clear" : null,
-              type: "button",
-              act: BtnAct.DEL,
-              Icon: MdClear,
-              handleClick: () => {
-                setPreSubmit({ el: "canMakeAPI", val: false });
-                setIsPending({ el: "clear", val: true });
-
-                const defArgs = {
-                  limit: setLimitCards(),
-                  page: 0,
-                  _: Date.now(),
-                };
-
-                setArgs(defArgs);
-                reset({});
-                setTxtInputs([txtInputs[0]]);
-
-                saveStorage({
-                  data: defArgs,
-                  key: keyStorageVals,
-                });
-                saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
-              },
+              res,
+              handleClear,
               isPending: isPending.clear,
-              isDisabled: isFetching,
+              labelSubmit: labelSubmit,
             }}
           />
         </div>

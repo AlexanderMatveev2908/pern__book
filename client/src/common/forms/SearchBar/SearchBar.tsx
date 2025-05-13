@@ -9,7 +9,6 @@ import {
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
-import ButtonsForm from "./components/ButtonsForm";
 import "./SearchBar.css";
 import SkeletonBar from "./components/SkeletonBar";
 import { useLocation } from "react-router-dom";
@@ -22,6 +21,7 @@ import { useHandleErrSearch } from "@/core/hooks/all/forms/searchBar/useHandleEr
 import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
+import ButtonsForm from "./components/Buttons/ButtonsForm";
 
 type PropsType = {
   res: any;
@@ -91,7 +91,7 @@ const SearchBar: FC<PropsType> = ({
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
-        <FilterBar {...{ ctx, filters, numericFilters, res }} />
+        <FilterBar {...{ ctx, filters, numericFilters, txtInputs, res }} />
         <SortPop {...{ ctx, sorters }} />
 
         <TxtInputs {...{ ctx, formCtx, txtInputs }}>
@@ -102,6 +102,7 @@ const SearchBar: FC<PropsType> = ({
               txtInputs,
               isFetching,
               numericFilters,
+              res,
             }}
           />
         </TxtInputs>

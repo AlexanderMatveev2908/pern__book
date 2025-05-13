@@ -16,8 +16,8 @@ import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import { ReqQueryAPI } from "@/types/types";
-import { setLimitCards } from "@/core/lib/lib";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
+import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
 
 const BookStores: FC = () => {
   useScroll();
@@ -28,11 +28,9 @@ const BookStores: FC = () => {
   const ctx = useSearchCtx();
   const {
     args,
-    setIsPending,
-    setArgs,
     preSubmit: { hasFormErrs, isPopulated },
   } = ctx;
-  const { handleSubmit, setFocus, getValues } = formCtx;
+  const { handleSubmit, setFocus } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
     { ...args } as ReqQueryAPI<SearchStoreFormType>,
@@ -45,18 +43,13 @@ const BookStores: FC = () => {
   const { data } = res ?? {};
   const { bookStores } = data ?? {};
   useFocus({ key: "name", setFocus });
-
-  const handleSave = handleSubmit(() => {
-    setIsPending({ el: "submit", val: true });
-
-    setArgs({
-      ...getValues(),
-      page: args?.page ?? 0,
-      limit: args?.limit ?? setLimitCards(),
-      _: Date.now(),
-    });
-    // res.refetch();
+  const { handleSearch } = useClickSearch({
+    ctx,
+    formCtx,
+    txtInputs: fieldsSearchStore,
   });
+
+  const handleSave = handleSubmit(() => handleSearch());
 
   return (
     <WrapPageAPI

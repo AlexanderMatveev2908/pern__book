@@ -1,38 +1,56 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import Button from "@/components/elements/buttons/Button/Button";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { setLimitCards } from "@/core/lib/lib";
-import { useCallback, type FC } from "react";
+import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
+import { FormFieldBasic } from "@/types/types";
+import { type FC } from "react";
 import { useFormContext } from "react-hook-form";
+import CLearBtn from "../../Buttons/components/CLearBtn";
+import SearchBtn from "../../Buttons/components/SearchBtn";
 
 type PropsType = {
   res: any;
+  txtInputs: FormFieldBasic[];
 };
 
-const BtnResults: FC<PropsType> = ({ res }) => {
-  const { data: { nHits } = {} } = res ?? {};
-  const { isPending, setIsPending, setArgs, args } = useSearchCtx();
-  const { getValues } = useFormContext();
-
-  const handleClick = useCallback(() => {
-    setIsPending({ el: "submit", val: true });
-
-    setArgs({
-      ...getValues(),
-      page: args?.page ?? 0,
-      limit: args?.limit ?? setLimitCards(),
-      _: Date.now(),
-    });
-  }, [args?.limit, args?.page, setArgs, getValues, setIsPending]);
+const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
+  const { data } = res ?? {};
+  const ctx = useSearchCtx();
+  const {
+    isPending,
+    labels: { labelSubmit },
+    preSubmit: { hasFormErrs },
+  } = ctx;
+  const formCtx = useFormContext();
+  const { handleSearch, handleClear } = useClickSearch({
+    ctx,
+    formCtx,
+    txtInputs,
+  });
 
   return (
-    <div className="p-3 border-t-[3px] h-[75px]  border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 flex justify-center items-center">
-      <div className="w-full max-w-[200px]">
-        <Button
+    <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
+      <div
+        className={`w-full ${labelSubmit ? "max-w-[200px]" : "max-w-[75px]"}`}
+      >
+        <SearchBtn
           {...{
-            label: `${nHits ?? 0} Result${!nHits || nHits > 1 ? "s" : ""}`,
             isPending: isPending.submit,
-            handleClick,
+            labelSubmit,
+            res,
+            handleSearch,
+            hasFormErrs,
+          }}
+        />
+      </div>
+      <div
+        className={`w-full ${labelSubmit ? "max-w-[200px]" : "max-w-[75px]"}`}
+      >
+        <CLearBtn
+          {...{
+            handleClear,
+            isPending: isPending.clear,
+            labelSubmit,
+            res,
           }}
         />
       </div>

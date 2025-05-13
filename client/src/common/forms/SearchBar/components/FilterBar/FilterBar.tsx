@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Title from "@/components/elements/Title";
-import { FilterSearch, NumericFilterSearch } from "@/types/types";
+import {
+  FilterSearch,
+  FormFieldBasic,
+  NumericFilterSearch,
+} from "@/types/types";
 import { FC, useEffect, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import LabelsCol from "./components/LabelsCol";
@@ -13,11 +17,18 @@ type PropsType = {
   numericFilters?: NumericFilterSearch[];
   ctx: SearchCtxValsConsumer;
   res: any;
+  txtInputs: FormFieldBasic[];
 };
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES
 
-const FilterBar: FC<PropsType> = ({ filters, numericFilters, ctx, res }) => {
+const FilterBar: FC<PropsType> = ({
+  filters,
+  numericFilters,
+  ctx,
+  txtInputs,
+  res,
+}) => {
   const {
     bars: { filterBar },
     setBar,
@@ -76,7 +87,7 @@ const FilterBar: FC<PropsType> = ({ filters, numericFilters, ctx, res }) => {
           <ValsCol />
         </div>
 
-        <BtnResults {...{ res }} />
+        <BtnResults {...{ res, txtInputs }} />
       </div>
     </div>
   );
