@@ -53,8 +53,9 @@ const BookStores: FC = () => {
       ...getValues(),
       page: args?.page ?? 0,
       limit: args?.limit ?? setLimitCards(),
+      _: Date.now(),
     });
-    res.refetch();
+    // res.refetch();
   });
 
   return (
