@@ -17,7 +17,6 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
   const ctx = useSearchCtx();
   const {
     isPending,
-    labels: { labelSearch },
     preSubmit: { hasFormErrs },
   } = ctx;
   const formCtx = useFormContext();
@@ -28,20 +27,17 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
   });
 
   const labelTxt = useMemo(
-    () =>
-      labelSearch ? `${nHits} Result${!nHits || nHits > 1 ? "s" : ""}` : null,
-    [labelSearch, nHits]
+    () => `${nHits} Result${!nHits || nHits > 1 ? "s" : ""}`,
+    [nHits]
   );
 
   return (
     <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
-      <div
-        className={`w-full ${labelSearch ? "max-w-[200px]" : "max-w-[75px]"}`}
-      >
+      <div className={`w-full btn__search__secondary`}>
         <SearchBtn
           {...{
             isPending: isPending.submit,
-            labelSize: labelSearch,
+            styleTxt: "btn__txt_secondary",
             isFetching: res?.isFetching,
             handleSearch,
             hasFormErrs,
@@ -49,14 +45,12 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
           }}
         />
       </div>
-      <div
-        className={`w-full ${labelSearch ? "max-w-[200px]" : "max-w-[75px]"}`}
-      >
+      <div className={`w-full btn__search__secondary`}>
         <CLearBtn
           {...{
             handleClear,
             isPending: isPending.clear,
-            labelSize: labelSearch,
+            styleTxt: "btn__txt_secondary",
             isFetching: res?.isFetching,
           }}
         />

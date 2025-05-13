@@ -1,9 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import ResCounterAPI from "@/components/elements/ResCounterAPI";
-import { tailwindBreak } from "@/core/config/breakpoints";
 import { ParamsBar } from "@/core/contexts/SearchCtx/reducer/actions";
-import { FC, useEffect, useState } from "react";
+import { FC } from "react";
 import { FaSort } from "react-icons/fa";
 
 type PropsType = {
@@ -12,20 +11,6 @@ type PropsType = {
 };
 
 const SortDrop: FC<PropsType> = ({ res, setBar }) => {
-  const [labelDrop, setLabelDrop] = useState(
-    window.innerWidth > tailwindBreak.sm
-  );
-
-  useEffect(() => {
-    const handleLabel = () =>
-      setLabelDrop(window.innerWidth > tailwindBreak.sm);
-
-    window.addEventListener("resize", handleLabel);
-    return () => {
-      window.removeEventListener("resize", handleLabel);
-    };
-  }, []);
-
   const { data } = res;
   const { nHits } = data ?? {};
 
@@ -38,18 +23,14 @@ const SortDrop: FC<PropsType> = ({ res, setBar }) => {
       )}
 
       <div className="w-full max-w-[250px] relative flex justify-end">
-        <div
-          className="w-full"
-          style={{
-            maxWidth: labelDrop ? "200px" : "75px",
-          }}
-        >
+        <div className="w-full max-w-[75px] sm:max-w-[200px]">
           <ButtonIcon
             {...{
+              styleTxt: "btn__txt_secondary",
               handleClick: () => setBar({ el: "sortBar", val: true }),
               el: {
                 icon: FaSort,
-                label: labelDrop ? "Sort By" : null,
+                label: "Sort By",
               },
             }}
           />

@@ -1,4 +1,4 @@
-import { RefObject, useCallback, useEffect, useRef } from "react";
+import { RefObject, useCallback, useRef } from "react";
 import {
   ParamsBar,
   ParamsPending,
@@ -8,7 +8,6 @@ import {
   SearchCtxActionsType,
 } from "../reducer/actions";
 import { ArgsSearchType, SearchCtxStateType } from "../reducer/initState";
-import { tailwindBreak } from "@/core/config/breakpoints";
 import { FormFieldBasic } from "@/types/types";
 
 type Params = {
@@ -31,30 +30,6 @@ export const useSearchCtxVals = ({
   dispatch,
 }: Params): SearchCtxValsConsumer => {
   const oldVals = useRef<ArgsSearchType | null>(null);
-
-  useEffect(() => {
-    const listenSize = () => {
-      dispatch({
-        type: SearchCtxActions.SET_LABEL,
-        payload: {
-          label: "labelSearch",
-          val: window.innerWidth > tailwindBreak.sm,
-        },
-      });
-      dispatch({
-        type: SearchCtxActions.SET_LABEL,
-        payload: {
-          label: "labelSubmit",
-          val: window.innerWidth > tailwindBreak.lg,
-        },
-      });
-    };
-
-    window.addEventListener("resize", listenSize);
-    return () => {
-      window.removeEventListener("resize", listenSize);
-    };
-  }, [dispatch]);
 
   const setTxtInputs = useCallback(
     (val: FormFieldBasic[]) =>

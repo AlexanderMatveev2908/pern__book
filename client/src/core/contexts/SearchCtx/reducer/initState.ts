@@ -1,4 +1,3 @@
-import { tailwindBreak } from "@/core/config/breakpoints";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -13,11 +12,6 @@ export type ArgsSearchType = ReqQueryAPI<
 
 export type SearchCtxStateType = {
   activeTxtInputs: FormFieldBasic[];
-  // ? LABELS JUST UI NOT APP LOGIC, COULD VOID PUT IN CTX WITH CUSTOM HOOK
-  labels: {
-    labelSubmit: boolean;
-    labelSearch: boolean;
-  };
   bars: {
     filterBar: boolean;
     sortBar: boolean | null;
@@ -44,10 +38,6 @@ export type SearchCtxStateType = {
 };
 
 export const initStateSearch: SearchCtxStateType = {
-  labels: {
-    labelSearch: window.innerWidth > tailwindBreak.sm,
-    labelSubmit: window.innerWidth > tailwindBreak.lg,
-  },
   activeTxtInputs: [],
   bars: {
     filterBar: false,

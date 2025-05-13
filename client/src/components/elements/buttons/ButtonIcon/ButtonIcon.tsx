@@ -9,6 +9,7 @@ type PropsType = {
   handleClick: (arg: any) => void;
   isPending?: boolean;
   isDisabled?: boolean;
+  styleTxt?: string;
 };
 
 const getCol = (act: BtnAct) => {
@@ -37,6 +38,7 @@ const ButtonIcon: FC<PropsType> = ({
   handleClick,
   isPending,
   isDisabled,
+  styleTxt,
 }) => {
   return (
     <button
@@ -48,7 +50,7 @@ const ButtonIcon: FC<PropsType> = ({
     >
       {isPending ? <MiniSpinner /> : <el.icon className="icon__sm" />}
       {el?.label && (
-        <span className="txt__3">
+        <span className={`txt__3 ${styleTxt ?? ""}`}>
           {isPending ? el.pendingLabel ?? el.label : el.label}
         </span>
       )}

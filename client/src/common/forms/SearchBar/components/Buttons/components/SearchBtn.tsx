@@ -6,16 +6,16 @@ import { FaSearch } from "react-icons/fa";
 type PropsType = {
   isFetching: boolean;
   handleSearch?: () => void;
-  labelSize: boolean;
   isPending: boolean;
   hasFormErrs: boolean;
   labelTxt?: null | string;
+  styleTxt?: string;
 };
 
 const SearchBtn: FC<PropsType> = ({
   handleSearch,
   isPending,
-  labelSize,
+  styleTxt,
   isFetching,
   hasFormErrs,
   labelTxt,
@@ -23,7 +23,8 @@ const SearchBtn: FC<PropsType> = ({
   return (
     <Button
       {...{
-        label: labelSize ? labelTxt ?? "Search" : null,
+        label: labelTxt ?? "Search",
+        styleTxt,
         type: "submit",
         act: BtnAct.DO,
         Icon: FaSearch,
@@ -31,7 +32,6 @@ const SearchBtn: FC<PropsType> = ({
         isDisabled: isFetching || hasFormErrs,
         handleClick:
           typeof handleSearch === "function" ? () => handleSearch() : undefined,
-        labelTxt,
       }}
     />
   );

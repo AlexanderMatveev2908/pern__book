@@ -12,10 +12,11 @@ type PropsType = {
   isAging?: boolean;
   isPending?: boolean;
   type?: "button" | "submit";
-  label?: string | null;
+  label?: string;
   Icon?: React.ElementType;
   isDisabled?: boolean;
   act?: BtnAct;
+  styleTxt?: string;
   handleClick?: () => void;
 };
 
@@ -58,6 +59,7 @@ const Button: FC<PropsType> = ({
   isDisabled,
   act = BtnAct.INFO,
   handleClick,
+  styleTxt,
 }) => {
   const [canLoad, setCanLoad] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -165,7 +167,9 @@ const Button: FC<PropsType> = ({
         )}
 
         {label && (
-          <span className="txt__3">{isPending ? "Pending..." : label}</span>
+          <span className={`txt__3 ${styleTxt ?? ""}`}>
+            {isPending ? "Pending..." : label}
+          </span>
         )}
       </div>
     </button>

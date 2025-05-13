@@ -5,21 +5,22 @@ import { MdClear } from "react-icons/md";
 
 type PropsType = {
   handleClear: () => void;
-  labelSize: boolean;
   isPending: boolean;
   isFetching: boolean;
+  styleTxt?: string;
 };
 
 const CLearBtn: FC<PropsType> = ({
   isFetching,
+  styleTxt,
   handleClear,
   isPending,
-  labelSize,
 }) => {
   return (
     <Button
       {...{
-        label: labelSize ? "Clear" : null,
+        label: "Clear",
+        styleTxt,
         type: "button",
         act: BtnAct.DEL,
         Icon: MdClear,

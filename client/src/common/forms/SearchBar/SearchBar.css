@@ -23,3 +23,19 @@
     background-position: -200% 0;
   }
 }
+
+.parent__btn_main {
+  @apply max-w-[75px] lg:max-w-[200px];
+}
+.btn__search_main {
+  @apply hidden sm:static;
+}
+.btn__search__secondary {
+  @apply max-w-[75px] sm:max-w-[200px];
+}
+.btn__txt_main {
+  @apply hidden lg:block;
+}
+.btn__txt_secondary {
+  @apply hidden sm:block;
+}
