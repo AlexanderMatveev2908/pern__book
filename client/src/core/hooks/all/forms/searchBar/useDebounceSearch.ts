@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { FieldValues, UseFormGetValues } from "react-hook-form";
 import {
   __cg,
   clearTimer,
@@ -12,23 +13,28 @@ import {
 import { FormFieldBasic } from "@/types/types";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
-type Params<T> = {
+type Params<T extends FieldValues> = {
   txtInputs: FormFieldBasic[];
   realTimeVals: T;
-} & SearchCtxValsConsumer &
-  UseFormReturn<T & FieldValues>;
+  ctx: SearchCtxValsConsumer;
+  getValues: UseFormGetValues<T>;
+};
 
-export const useDebounceSearch = <T>({
+export const useDebounceSearch = ({
   txtInputs,
-  setArgs,
-  oldVals,
-  preSubmit: { canMakeAPI, isPopulated, hasFormErrs, isFormStable },
-  setPreSubmit,
-  args,
+  ctx,
   realTimeVals,
   getValues,
-}: Params<T>) => {
+}: Params<any>) => {
   const timerID = useRef<NodeJS.Timeout | null>(null);
+
+  const {
+    setArgs,
+    oldVals,
+    preSubmit: { canMakeAPI, isPopulated, hasFormErrs, isFormStable },
+    setPreSubmit,
+    args,
+  } = ctx;
 
   const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();

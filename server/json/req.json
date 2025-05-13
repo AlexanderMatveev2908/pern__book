@@ -1,25 +1,11 @@
 {
-  "body": {
-    "email": "matveevalexander2908@gmail.com",
-    "country": "Romania",
-    "state": "Bacău",
-    "city": "Onești",
-    "street": "Strada Aurora",
-    "zipCode": "601105",
-    "phone": "+00 0000 000 000",
-    "name": "Aa",
-    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
-    "categories": [
-      "classics"
-    ],
-    "deliveryTime": "22"
-  },
   "files": {},
   "file": {},
-  "query": {},
-  "params": {
-    "bookStoreID": "7902e21f-cf1f-4928-bcac-c5781486f9ef"
+  "query": {
+    "limit": "8",
+    "page": "0"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjZiNmQ1NWVkLTU3ODMtNDUyNC1hZjlkLTY1OTRiNzgxMWYxNSIsImlhdCI6MTc0NzE0MjE5NywiZXhwIjoxNzQ3MTQyMjU3fQ.MIV03f-BfsK43o9mfrAgCGqWhaV2i-VUw_6g0Ts9xlk",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.iERT6QWQMYbQEg85957Emi0LJlPrTBXFshBAm1Hfwd9Idh0g11MeAhrfkOr0xTTKJD58p11CeOQZ620kWfH2h2wK1w-SXdkGMkVdmYYQTm9xZq306NR7NqZCOkihXBffz0GXL9IE2wqoAFA-yHHo37wdYO9prmi5V1ju_BgQIhW1GPnr7ryOtsGVKsRF2ra1TbLJfNeD-q3OEdwBL5S3eG8W2pfDrOgV51wzDDKbfaaA5GkvKMUWWUXSqYTp-KtpbY9yBVf-O68WWMYjwwtC6WAZR4fBue0dlv8C4kEcSY4JyG8dFj3j50IH0e_VF18BFKejyhij5voB2Ts8OmXwuw.3v7Jli8L9O-eXMeV.9i-6xOqS0CBdYMSRbv7Rtf4-6hteV2uVoXqrDoaBu3Aql9l187X85YYCWvNQ.f5wBGpe4189EkQnOtMbOzg"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ0ODU2MmFlLWFiMzAtNDg0My1iYWYzLTE0NDE0YzM0ZjRlMiIsImlhdCI6MTc0NzE0NDIwOCwiZXhwIjoxNzQ3MTQ0MjY4fQ.cotc74ql9DbuWvuMW0alwYsO024Gsxe3BVgIbeIxsB8",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.XCXpaE0N1iCxvZe-N369JX7WycPHDbv563rg9B7qdCWM-XlItBxw65OyAFGt2nrd-F0mNrGtdgLEhvtrtxrGkLpVtNkwhzQUZUN5xBL8urbLse36Z2xC9th96wdmw1xBcxD3o-7lTO-fI_YHmWObhrmCiwgxOztJ7HWmYYHBOglEhasykWa2tOLv1CYpBaBD2FsVioe-vcn_-KxAQhSx70fHS3idaxJUWIG8xO_FDqJs-ST9g_sqP5r7R6j5W6aHn7kKvWm2MTN0V6kzMHD4UnQmwtryLwNcilAUJi2ggvUuYeCeKAFYLdMugRioWGRBJaqvjQLVq0VrGFPleQZ1KA.iUwEGNr_-f6tOfEy.fWayi7k5OcpUBfnzlckaMKx4-9AwfuYDEtwTGo9V6vGSo7Ddr-RsCumoSig0.tTLp5YNabveXnlU9tL9zLQ"
 }

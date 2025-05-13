@@ -53,10 +53,15 @@ const SearchBar: FC<PropsType> = ({
   const realTimeVals = watch();
 
   // * POPULATE FORM EXISTING VALS
-  usePopulateSearch({ ...ctx, ...formCtx, filters, txtInputs });
+  usePopulateSearch({ ctx, setValue: formCtx.setValue, filters, txtInputs });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
-  useDebounceSearch({ ...ctx, ...formCtx, realTimeVals, txtInputs });
+  useDebounceSearch({
+    ctx,
+    getValues: formCtx.getValues,
+    realTimeVals,
+    txtInputs,
+  });
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
   useSyncLoading({
@@ -71,7 +76,7 @@ const SearchBar: FC<PropsType> = ({
   });
 
   // * MANAGEMENT ERRORS SEARCH BAR
-  useHandleErrSearch({ ...ctx, ...formCtx, realTimeVals, numericFilters });
+  useHandleErrSearch({ ctx, formCtx, realTimeVals, numericFilters });
 
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
@@ -89,11 +94,11 @@ const SearchBar: FC<PropsType> = ({
         <FilterBar {...{ ctx, filters, numericFilters }} />
         <SortPop {...{ ctx, sorters }} />
 
-        <TxtInputs {...{ ...ctx, ...formCtx, txtInputs }}>
+        <TxtInputs {...{ ctx, formCtx, txtInputs }}>
           <ButtonsForm
             {...{
-              ...ctx,
-              ...formCtx,
+              ctx,
+              formCtx,
               txtInputs,
               isFetching,
               numericFilters,
@@ -102,7 +107,7 @@ const SearchBar: FC<PropsType> = ({
         </TxtInputs>
       </div>
 
-      <SortDrop {...{ res, ...ctx }} />
+      <SortDrop {...{ res, setBar: ctx.setBar }} />
     </form>
   );
 };

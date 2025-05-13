@@ -22,26 +22,34 @@ type PropsType = {
   txtInputs: FormFieldBasic[];
   isFetching: boolean;
   numericFilters?: NumericFilterSearch[];
-} & SearchCtxValsConsumer &
-  UseFormReturn<any>;
+  ctx: SearchCtxValsConsumer;
+  formCtx: UseFormReturn<any>;
+};
 
 const ButtonsForm: FC<PropsType> = ({
   txtInputs,
   isFetching,
-  setBar,
-  labels: { labelSubmit },
-  setTxtInputs,
-  isPending,
-  setIsPending,
-  setSearch,
-  preSubmit: { errNumbers, hasFormErrs },
-  setArgs,
-  setPreSubmit,
-  reset,
-  formState: { errors },
-  setFocus,
+  ctx,
+  formCtx,
 }) => {
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
+
+  const {
+    setBar,
+    labels: { labelSubmit },
+    setTxtInputs,
+    isPending,
+    setIsPending,
+    setSearch,
+    preSubmit: { errNumbers, hasFormErrs },
+    setArgs,
+    setPreSubmit,
+  } = ctx;
+  const {
+    reset,
+    formState: { errors },
+    setFocus,
+  } = formCtx;
 
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">

@@ -10,21 +10,29 @@ import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearch
 type Params<T extends FieldValues> = {
   numericFilters?: NumericFilterSearch[];
   realTimeVals: T;
-} & SearchCtxValsConsumer &
-  UseFormReturn<T>;
+  ctx: SearchCtxValsConsumer;
+  formCtx: UseFormReturn<T>;
+};
 
 export const useHandleErrSearch = ({
   numericFilters,
-  setBar,
-  setSearch,
   realTimeVals,
-  preSubmit: { errNumbers, hasFormErrs, isPopulated },
-  setPreSubmit,
-  formState: { errors, isDirty, dirtyFields },
-  clearErrors,
-  setFocus,
+  ctx,
+  formCtx,
 }: Params<any>) => {
   const hasWarningRun = useRef<boolean>(false);
+
+  const {
+    preSubmit: { errNumbers, hasFormErrs, isPopulated },
+    setPreSubmit,
+    setBar,
+    setSearch,
+  } = ctx;
+  const {
+    formState: { errors, isDirty, dirtyFields },
+    clearErrors,
+    setFocus,
+  } = formCtx;
 
   // * DISABLE BTN ON ERRORS
   // ? YOU COULD LEAVE BTN ENABLED AND OPEN BAR ON CLICK AS SECOND CB IN HANDLE_SUBMIT OF REACT_USE_FORM, IT DEPENDS ON YOUR PREFERENCE, THE IMPORTANT THING IS JUST TO SKIP QUERY ON ERROR TO AVOID SENDING INVALID INPUTS LIKE `<script></script>`

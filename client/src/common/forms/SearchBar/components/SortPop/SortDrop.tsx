@@ -2,13 +2,14 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import ResCounterAPI from "@/components/elements/ResCounterAPI";
 import { tailwindBreak } from "@/core/config/breakpoints";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { ParamsBar } from "@/core/contexts/SearchCtx/reducer/actions";
 import { FC, useEffect, useState } from "react";
 import { FaSort } from "react-icons/fa";
 
 type PropsType = {
   res: any;
-} & SearchCtxValsConsumer;
+  setBar: (vals: ParamsBar) => void;
+};
 
 const SortDrop: FC<PropsType> = ({ res, setBar }) => {
   const [labelDrop, setLabelDrop] = useState(

@@ -11,25 +11,23 @@ import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearch
 
 type PropsType = {
   children: ReactNode;
-} & SearchCtxValsConsumer &
-  UseFormReturn<any>;
+  ctx: SearchCtxValsConsumer;
+  formCtx: UseFormReturn<any>;
+};
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({
-  children,
-  activeTxtInputs,
-  setTxtInputs,
-  setPreSubmit,
-  setArgs,
-  args,
-  register,
-  formState: { errors },
-  setValue,
-}) => {
+const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
+
+  const { activeTxtInputs, setTxtInputs, setPreSubmit, setArgs, args } = ctx;
+  const {
+    register,
+    formState: { errors },
+    setValue,
+  } = formCtx;
 
   return (
     <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">

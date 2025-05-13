@@ -2,26 +2,24 @@
 import { getStorage, saveStorage, setLimitCards } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect } from "react";
-import { FieldValues, Path, UseFormReturn } from "react-hook-form";
+import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type Params<T extends FieldValues> = {
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
-} & SearchCtxValsConsumer &
-  UseFormReturn<T>;
-
+  ctx: SearchCtxValsConsumer;
+  setValue: UseFormSetValue<T>;
+};
 export const usePopulateSearch = ({
   txtInputs,
   filters,
-  setTxtInputs,
-  setArgs,
-  setSearch,
-  setPreSubmit,
+  ctx,
   setValue,
 }: Params<any>) => {
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
+  const { setTxtInputs, setArgs, setSearch, setPreSubmit } = ctx;
 
   useEffect(() => {
     const savedVals = getStorage(keyStorageVals);
