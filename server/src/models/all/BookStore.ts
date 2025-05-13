@@ -4,6 +4,7 @@ import { CatBookStore } from "../../types/all/bookStore.js";
 import { UserRole } from "../../types/types.js";
 import { ImgBookStoreType } from "./img&video/ImgBookStore.js";
 import { VideoBookStoreType } from "./img&video/VideoBookStore.js";
+import { BookStoreUserInstance } from "./BookStoreUser.js";
 
 export interface TeamType {
   email: string;
@@ -33,7 +34,7 @@ export class BookStore extends Model {
   declare freeDeliveryAmount?: number;
   declare deliveryTime: number;
 
-  declare items?: TeamType[];
+  declare team?: BookStoreUserInstance[];
   declare images?: ImgBookStoreType[];
   declare video?: VideoBookStoreType;
 }

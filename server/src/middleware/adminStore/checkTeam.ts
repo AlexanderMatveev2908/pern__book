@@ -35,7 +35,7 @@ export const checkTeam = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
-  const bodyData: Partial<BookStoreInstance> = req.body;
+  const bodyData = req.body;
 
   const team = bodyData?.items;
 

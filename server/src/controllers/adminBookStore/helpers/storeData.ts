@@ -60,7 +60,7 @@ export const addOptKeys = (body: Partial<BookStoreInstance>) =>
     return acc;
   }, {} as BookStoreInstance);
 
-export const makeTeam = async (bodyData: Partial<BookStoreInstance>) => {
+export const makeTeam = async (bodyData: any) => {
   const team = bodyData?.items;
   if (
     !Array.isArray(team) ||
