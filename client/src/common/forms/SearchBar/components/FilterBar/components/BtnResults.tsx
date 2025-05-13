@@ -2,7 +2,7 @@
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
 import { FormFieldBasic } from "@/types/types";
-import { type FC } from "react";
+import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
 import CLearBtn from "../../Buttons/components/CLearBtn";
 import SearchBtn from "../../Buttons/components/SearchBtn";
@@ -13,7 +13,7 @@ type PropsType = {
 };
 
 const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
-  const { data } = res ?? {};
+  const { data: { nHits = 0 } = {} } = res ?? {};
   const ctx = useSearchCtx();
   const {
     isPending,
@@ -27,6 +27,12 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
     txtInputs,
   });
 
+  const labelTxt = useMemo(
+    () =>
+      labelSearch ? `${nHits} Result${!nHits || nHits > 1 ? "s" : ""}` : null,
+    [labelSearch, nHits]
+  );
+
   return (
     <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
       <div
@@ -36,9 +42,10 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
           {...{
             isPending: isPending.submit,
             labelSize: labelSearch,
-            res,
+            isFetching: res?.isFetching,
             handleSearch,
             hasFormErrs,
+            labelTxt,
           }}
         />
       </div>
@@ -50,7 +57,7 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
             handleClear,
             isPending: isPending.clear,
             labelSize: labelSearch,
-            res,
+            isFetching: res?.isFetching,
           }}
         />
       </div>

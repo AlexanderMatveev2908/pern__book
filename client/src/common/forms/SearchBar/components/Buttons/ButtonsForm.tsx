@@ -82,7 +82,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
               hasFormErrs,
               isPending: isPending.submit,
               labelSize: labelSubmit,
-              res,
+              isFetching: res?.isFetching,
               handleSearch,
             }}
           />
@@ -94,7 +94,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
         >
           <CLearBtn
             {...{
-              res,
+              isFetching: res?.isFetching,
               handleClear,
               isPending: isPending.clear,
               labelSize: labelSubmit,
