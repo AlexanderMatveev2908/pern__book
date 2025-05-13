@@ -81,7 +81,6 @@ const UpdateBookStore: FC = () => {
     watch,
     setValue,
     formState: { errors },
-    reset,
   } = formCtx;
   const { setCurrForm } = useFormSwap({
     ...useSwapCtxConsumer(),
@@ -168,14 +167,14 @@ const UpdateBookStore: FC = () => {
 
         if (!res) return;
 
-        reset({
-          items: [
-            {
-              email: "",
-              role: null,
-            },
-          ],
-        });
+        // reset({
+        //   items: [
+        //     {
+        //       email: "",
+        //       role: null,
+        //     },
+        //   ],
+        // });
 
         nav(`/owner/book-store/${bookStoreID}`);
       },

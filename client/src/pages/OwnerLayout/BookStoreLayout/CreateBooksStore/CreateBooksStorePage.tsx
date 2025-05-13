@@ -46,7 +46,6 @@ const CreateBooksStore: FC = () => {
     formState: { errors },
     handleSubmit,
     setFocus,
-    reset,
     setValue,
   } = formCtx;
   const { setCurrForm } = useFormSwap({
@@ -72,14 +71,14 @@ const CreateBooksStore: FC = () => {
 
         if (!res) return;
 
-        reset({
-          items: [
-            {
-              email: "",
-              role: null,
-            },
-          ],
-        });
+        // reset({
+        //   items: [
+        //     {
+        //       email: "",
+        //       role: null,
+        //     },
+        //   ],
+        // });
         nav(`/owner/book-store/${res.bookStoreID}`);
       },
       async (errs) => {

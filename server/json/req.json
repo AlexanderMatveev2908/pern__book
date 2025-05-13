@@ -1,12 +1,77 @@
 {
-  "files": {},
-  "file": {},
-  "query": {
-    "limit": "8",
-    "page": "0",
-    "_": "1747077690391"
+  "body": {
+    "email": "matveevalexander470@gmail.com",
+    "country": "Romania",
+    "state": "Bacău",
+    "city": "Onești",
+    "street": "Strada Sfinții Apostoli",
+    "zipCode": "601073",
+    "phone": "+00 000 000 000",
+    "name": "Store__1",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!",
+    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1747121498/pern__book_videos/btm5y5ys13eia9lltxd7.mp4",
+    "categories": [
+      "philosophy",
+      "history",
+      "manga"
+    ],
+    "deliveryTime": "7",
+    "items": [
+      {
+        "email": "matveev.alexander.29.08.00@gmail.com",
+        "role": "EMPLOYEE"
+      }
+    ]
   },
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NzA3NzY3MiwiZXhwIjoxNzQ3MDc3NzMyfQ.AoUOQ5GJI5X78TDyW2Ph-6QQxXKA-rBxGGvnI3p8C04",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.ur5Z7zXRK9Zu-IbQdCsup8Vn_mw3JoW8XWNvBLAy438Ryc1NAzNWePfytgyckln6zJzQsl067QvlfooSBXjscHOCjeo4jLWJyqM0LYqjxzI8MnJulxjNRGy6vTZUeKRxsT_WJWlCpysMlRs0PK_OmYRp-U85myVkyXbg50eHE3YdPDfYq1SI-V2-_BtOIfXk2nSOolzzyF09n10nM6y8fgKVOERebRVdSaR7bzVD7g3BghOKhXqRUna7oekvwUUTT2KIiaJmh9fXnYFN3GXV6nlF2Fx7cZXCa5CYPEi9WJaJ0wFV6V1aTIusT8t6ZJbVUOGkTRoyx3oulbRMAXaUoQ.ttZcjTLzxDj0G1K5.WxlM4Ye7K2tK1ql0j38COsnRzMMFwVLaPPe-1lQhlnJ5bhawbh3uQA-CYuy8.G1j2JB15LXt06UeXjJn3fA"
+  "files": {
+    "images": [
+      {
+        "fieldname": "images",
+        "originalname": "1.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
+        "filename": "4b9d356e-a016-4cf4-bd9a-b6d61339a23d.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\4b9d356e-a016-4cf4-bd9a-b6d61339a23d.avif",
+        "size": 60234
+      },
+      {
+        "fieldname": "images",
+        "originalname": "3.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
+        "filename": "7124adba-8611-4fba-9feb-ff06876ea046.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\7124adba-8611-4fba-9feb-ff06876ea046.avif",
+        "size": 23299
+      },
+      {
+        "fieldname": "images",
+        "originalname": "4.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
+        "filename": "1216fed5-117a-4918-bc1d-720fb9c33d2e.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\1216fed5-117a-4918-bc1d-720fb9c33d2e.avif",
+        "size": 76991
+      },
+      {
+        "fieldname": "images",
+        "originalname": "6.avif",
+        "encoding": "7bit",
+        "mimetype": "image/avif",
+        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
+        "filename": "416e2ef0-6a56-4439-839e-a20df9b401ab.avif",
+        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\416e2ef0-6a56-4439-839e-a20df9b401ab.avif",
+        "size": 89363
+      }
+    ]
+  },
+  "file": {},
+  "query": {},
+  "params": {
+    "bookStoreID": "0d351227-522b-49d2-a6f1-5e4c26ae1025"
+  },
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjNTZhOTQxLTk4YTktNDUxOC1hMmVkLTkwZTI3ODYzYTA4OCIsImlhdCI6MTc0NzEyNDEzNywiZXhwIjoxNzQ3MTI0MTk3fQ.HttadXQ28GLZMZO3r6vIaK1z9YMF84NluoTB0OzoNM0",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.sxgQUiD0-cdenmbXuzYhLNCuxKcMytQQlWnv8YYJFcUcAkFuxSpCozZ_nJG6q_IRtMO9sn-wMlD4kuef62D_lDhrM2oiFpT0J2Ic72olU-M72622n8RaUCNIfiEp2vde9GzZPANGEhfYh9xYeLlkd0BRv46omSq_ElthfPL3QOakWu1vS-NPjPxQS2YpYyI-vBy5WIQpb_dy6qFaNeYJuGKQZaAEZxpT3a4PNoTZuE3d8xzoh_0gtiCOzNe5W3nVu3UMQeoPkMiNQnOrSUQtdSLWYc6yR4J3iEWmRmG2aw4L0pBJXtitU5uWKO3PqPOLjnEzmOF9cQ9OTp5vPeIknA.vITFPowcNfQRURdH.RYwFUIycXPxUJVzw-Ben_8cNW-TAR2NFpPPFHQxk1M6S4OWOD4H1UpkZt19P.FXJqZq7n3ywNW-lN7isz8g"
 }
