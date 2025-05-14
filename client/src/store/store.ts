@@ -7,6 +7,7 @@ import sidebarSlice from "@/features/common/Header/headerSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import popupSlice from "@/features/common/Popup/popupSlice";
 import bookStoreSlice from "@/features/OwnerLayout/bookStoreSlice";
+import dummySlice from "@/features/dummy/dummySLice";
 
 export const store = configureStore({
   reducer: {
@@ -17,6 +18,7 @@ export const store = configureStore({
     toast: toastSlice.reducer,
     notice: noticeSlice.reducer,
     popup: popupSlice.reducer,
+    dummy: dummySlice.reducer,
 
     bookStores: bookStoreSlice.reducer,
     // [apiSlice.reducerPath]: apiSlice.reducer,

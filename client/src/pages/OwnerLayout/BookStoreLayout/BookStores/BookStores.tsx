@@ -32,6 +32,14 @@ const BookStores: FC = () => {
   useWrapQueryAPI({ ...res });
   const { data: { bookStores } = {} } = res ?? {};
 
+  // const __d = useDispatch();
+
+  // const storesState = useSelector(getBookStoreState);
+  // __cg("stores", storesState);
+  // useEffect(() => {
+  //   if (bookStores?.[0]) __d(addBookStore(bookStores[0]));
+  // }, [__d, bookStores]);
+
   return (
     <WrapPageAPI
       {...{
