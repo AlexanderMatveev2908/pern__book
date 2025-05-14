@@ -1,23 +1,22 @@
 import { RootStateType } from "@/store/store";
-import {
-  createEntityAdapter,
-  createSelector,
-  createSlice,
-} from "@reduxjs/toolkit";
+import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-const bookStoresAdapter = createEntityAdapter();
+export const bookStoresAdapter = createEntityAdapter();
 
-const initState = bookStoresAdapter.getInitialState();
+const initState = {
+  ...bookStoresAdapter.getInitialState(),
+  store: null,
+};
 
 export const bookStoreSlice = createSlice({
   name: "bookStores",
   initialState: initState,
   reducers: {
     setBookStore: bookStoresAdapter.setOne,
+    addBookStore: bookStoresAdapter.addOne,
 
     setBookStores: bookStoresAdapter.setAll,
     removeBookStores: bookStoresAdapter.removeAll,
-    addBookStore: bookStoresAdapter.addOne,
 
     updateBookStore: bookStoresAdapter.updateOne,
     removeBookStore: bookStoresAdapter.removeOne,
@@ -33,12 +32,9 @@ export const {
   removeBookStore,
 } = bookStoreSlice.actions;
 
-const { selectById } = bookStoresAdapter.getSelectors();
-
 export const getBookStoreState = (state: RootStateType) => state.bookStores;
-export const selectBookStoreById = (state: RootStateType, id: string) =>
-  createSelector(getBookStoreState, (bookStoresState) =>
-    selectById(bookStoresState, id)
-  )(state);
+
+export const { selectById, selectAll: getAllStores } =
+  bookStoresAdapter.getSelectors(getBookStoreState);
 
 export default bookStoreSlice;
