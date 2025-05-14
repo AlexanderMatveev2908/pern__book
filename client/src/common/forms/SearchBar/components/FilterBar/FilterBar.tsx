@@ -17,6 +17,7 @@ type PropsType = {
   numericFilters?: NumericFilterSearch[];
   ctx: SearchCtxValsConsumer;
   res: any;
+  trigger: any;
   txtInputs: FormFieldBasic[];
 };
 
@@ -28,6 +29,7 @@ const FilterBar: FC<PropsType> = ({
   ctx,
   txtInputs,
   res,
+  trigger,
 }) => {
   const {
     bars: { filterBar },
@@ -87,7 +89,7 @@ const FilterBar: FC<PropsType> = ({
           <ValsCol />
         </div>
 
-        <BtnResults {...{ res, txtInputs }} />
+        <BtnResults {...{ res, txtInputs, trigger }} />
       </div>
     </div>
   );

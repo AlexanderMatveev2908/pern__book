@@ -22,7 +22,6 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
-import { TypedLazyQueryTrigger } from "@reduxjs/toolkit/query/react";
 
 type PropsType = {
   res: any;
@@ -65,12 +64,13 @@ const SearchBar: FC<PropsType> = ({
   });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
-  // useDebounceSearch({
-  //   ctx,
-  //   getValues: formCtx.getValues,
-  //   realTimeVals,
-  //   txtInputs,
-  // });
+  useDebounceSearch({
+    ctx,
+    getValues: formCtx.getValues,
+    realTimeVals,
+    txtInputs,
+    trigger,
+  });
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
   useSyncLoading({
@@ -85,7 +85,7 @@ const SearchBar: FC<PropsType> = ({
   });
 
   // * MANAGEMENT ERRORS SEARCH BAR
-  // useHandleErrSearch({ ctx, formCtx, realTimeVals, numericFilters });
+  useHandleErrSearch({ ctx, formCtx, realTimeVals, numericFilters });
 
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
@@ -99,9 +99,11 @@ const SearchBar: FC<PropsType> = ({
       className="w-full grid grid-cols-1 gap-5"
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
-        {/* <BgBlack {...{ bars: ctx.bars }} />
-        <FilterBar {...{ ctx, filters, numericFilters, txtInputs, res }} />
-        <SortPop {...{ ctx, sorters }} /> */}
+        <BgBlack {...{ bars: ctx.bars }} />
+        <FilterBar
+          {...{ ctx, trigger, filters, numericFilters, txtInputs, res }}
+        />
+        <SortPop {...{ ctx, sorters }} />
 
         <TxtInputs {...{ ctx, formCtx, txtInputs }}>
           <ButtonsForm
@@ -112,12 +114,13 @@ const SearchBar: FC<PropsType> = ({
               isFetching,
               numericFilters,
               res,
+              trigger,
             }}
           />
         </TxtInputs>
       </div>
 
-      {/* <SortDrop {...{ res, setBar: ctx.setBar }} /> */}
+      <SortDrop {...{ res, setBar: ctx.setBar }} />
     </form>
   );
 };

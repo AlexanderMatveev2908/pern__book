@@ -37,12 +37,6 @@ export const reducerSearch = (
       };
     }
 
-    case SearchCtxActions.SET_ARGS:
-      return {
-        ...state,
-        args: action.payload,
-      };
-
     case SearchCtxActions.SET_IS_PENDING: {
       const { el, val } = action.payload;
 

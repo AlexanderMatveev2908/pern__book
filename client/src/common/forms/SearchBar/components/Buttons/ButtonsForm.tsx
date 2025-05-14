@@ -8,9 +8,9 @@ import { makeDelay } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
-import CLearBtn from "./components/CLearBtn";
 import DropInputs from "../TxtInputs/DropInputs";
 import SearchBtn from "./components/SearchBtn";
+import CLearBtn from "./components/ClearBtn";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
@@ -18,9 +18,16 @@ type PropsType = {
   ctx: SearchCtxValsConsumer;
   formCtx: UseFormReturn<any>;
   res: any;
+  trigger: any;
 };
 
-const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
+const ButtonsForm: FC<PropsType> = ({
+  txtInputs,
+  trigger,
+  ctx,
+  formCtx,
+  res,
+}) => {
   const {
     setBar,
     isPending,
@@ -36,7 +43,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
     ctx,
     formCtx,
     txtInputs,
-    res,
+    trigger,
   });
 
   return (

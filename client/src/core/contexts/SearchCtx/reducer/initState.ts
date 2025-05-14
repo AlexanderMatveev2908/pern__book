@@ -20,7 +20,6 @@ export type SearchCtxStateType = {
     currFilter: FilterSearch | NumericFilterSearch | null;
     currSorter: FilterSearch | null;
   };
-  args: ArgsSearchType;
   isPending: {
     submit: boolean;
     clear: boolean;
@@ -29,7 +28,6 @@ export type SearchCtxStateType = {
     hasFormErrs: boolean;
     isPopulated: boolean;
     canMakeAPI: boolean;
-    // isFormStable: boolean;
     errNumbers: null | {
       currArr: NumericFilterSearch;
       currEl: FormFieldBasic;
@@ -47,7 +45,6 @@ export const initStateSearch: SearchCtxStateType = {
     currFilter: null,
     currSorter: null,
   },
-  args: null,
   isPending: {
     submit: false,
     clear: false,

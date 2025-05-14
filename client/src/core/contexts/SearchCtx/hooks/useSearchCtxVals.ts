@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { RefObject, useCallback, useRef } from "react";
 import {
   ParamsBar,
@@ -19,7 +20,7 @@ type Params = {
 
 type ParamsUpdateNoDebounce = {
   vals: ArgsSearchType;
-  force?: boolean;
+  trigger: any;
 };
 
 export type SearchCtxValsConsumer = SearchCtxStateType & {
@@ -30,7 +31,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setArgs: (vals: ArgsSearchType) => void;
   setIsPending: (vals: ParamsPending) => void;
   setPreSubmit: (vals: ParamsPreSubmit) => void;
-  updateValsNoDebounce: ({ vals, force }: ParamsUpdateNoDebounce) => void;
+  updateValsNoDebounce: (vals: ParamsUpdateNoDebounce) => void;
   madeAPI: RefObject<boolean>;
 };
 
@@ -82,18 +83,17 @@ export const useSearchCtxVals = ({
   );
 
   const updateValsNoDebounce = useCallback(
-    ({ vals, force }: ParamsUpdateNoDebounce) => {
+    ({ vals, trigger }: ParamsUpdateNoDebounce) => {
       setPreSubmit({ el: "canMakeAPI", val: false });
 
-      setArgs({
+      trigger({
         ...(vals as ResPaginationAPI<ArgsSearchType>),
-        ...(force ? { _: Date.now() } : {}),
       });
 
       oldVals.current = vals;
       saveStorage({ data: vals, key: keyStorageVals });
     },
-    [setArgs, keyStorageVals, setPreSubmit]
+    [keyStorageVals, setPreSubmit]
   );
 
   return {

@@ -3,13 +3,11 @@ import {
   FormFieldBasic,
   NumericFilterSearch,
 } from "@/types/types";
-import { ArgsSearchType } from "./initState";
 
 export enum SearchCtxActions {
   SET_TXT_INPUTS = "SET_TXT_INPUTS",
   SET_BAR = "SET_BAR",
   SET_SEARCH = "SET_SEARCH",
-  SET_ARGS = "SET_ARGS",
   SET_IS_PENDING = "SET_IS_PENDING",
   SET_PRE_SUBMIT = "SET_PRE_SUBMIT",
 }
@@ -60,10 +58,6 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_SEARCH;
       payload: ParamsSearch;
-    }
-  | {
-      type: SearchCtxActions.SET_ARGS;
-      payload: ArgsSearchType;
     }
   | {
       type: SearchCtxActions.SET_IS_PENDING;
