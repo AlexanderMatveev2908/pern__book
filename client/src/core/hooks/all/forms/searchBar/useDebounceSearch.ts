@@ -46,6 +46,8 @@ export const useDebounceSearch = ({
       __cg("same", isSame);
 
       if (isSame) {
+        if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
+
         clearTimer(timerID);
         return null;
       }

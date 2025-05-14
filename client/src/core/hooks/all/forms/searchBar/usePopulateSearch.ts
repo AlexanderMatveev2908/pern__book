@@ -20,7 +20,13 @@ export const usePopulateSearch = ({
   setValue,
 }: Params<any>) => {
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
-  const { setTxtInputs, setArgs, setSearch, setPreSubmit } = ctx;
+  const {
+    setTxtInputs,
+    updateValsNoDebounce,
+    setArgs,
+    setSearch,
+    setPreSubmit,
+  } = ctx;
 
   useEffect(() => {
     const savedVals = getStorage(keyStorageVals);
@@ -53,24 +59,27 @@ export const usePopulateSearch = ({
       }
 
       // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
-      setPreSubmit({ el: "canMakeAPI", val: false });
 
-      setArgs({
-        ...parsed,
-        ...getDefValsPagination(parsed),
-        [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
+      updateValsNoDebounce({
+        vals: {
+          ...parsed,
+          ...getDefValsPagination(parsed),
+          [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
+        },
       });
     } else {
-      setPreSubmit({ el: "canMakeAPI", val: false });
-      setArgs({
-        ...getDefValsPagination(),
-        [txtInputs[0].field]: "",
+      updateValsNoDebounce({
+        vals: {
+          ...getDefValsPagination(),
+          [txtInputs[0].field]: "",
+        },
       });
     }
 
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
     setValue,
+    updateValsNoDebounce,
     setPreSubmit,
     keyStorageVals,
     filters,
