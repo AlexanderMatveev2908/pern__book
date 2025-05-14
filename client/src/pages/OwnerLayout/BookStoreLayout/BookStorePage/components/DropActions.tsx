@@ -58,7 +58,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
         leftBtn: {
           label: "I Change idea",
           act: BtnAct.DO,
-          cb: async () => {
+          cb: () => {
             dispatch(closePopup());
           },
         },
@@ -72,10 +72,11 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
               cbAPI: () => mutate(bookStore?.id ?? ""),
             });
 
+            dispatch(closePopup());
+
             if (!res) return;
 
             nav("/owner/book-store/book-stores", { replace: true });
-            dispatch(closePopup());
           },
         },
       })

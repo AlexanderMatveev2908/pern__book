@@ -88,9 +88,14 @@ const App: FC = () => {
                 </SwapCtxProvider>
               }
             />
-            <Route path=":bookStoreID" element={<BookStorePage />} />
+            <Route
+              path=":bookStoreID"
+              key={location.pathname}
+              element={<BookStorePage />}
+            />
             <Route
               path="update/:bookStoreID"
+              key={location.pathname}
               element={
                 <SwapCtxProvider>
                   <UpdateBookStore />
