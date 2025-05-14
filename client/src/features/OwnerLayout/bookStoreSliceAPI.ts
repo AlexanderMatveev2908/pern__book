@@ -119,31 +119,31 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       },
     }),
 
-    delStore: builder.mutation<BaseResAPI<void>, string>({
+    delStore: builder.mutation<BaseResAPI<BookStoreType>, string>({
       query: (bookStoreID) => ({
         url: BASE_URL + "/" + bookStoreID,
         method: "DELETE",
       }),
-      invalidatesTags: [TagsAPI.USER],
+      // invalidatesTags: [TagsAPI.USER],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await catchErr(async () => {
           await queryFulfilled;
 
-          // dispatch(
+          // await dispatch(
           //   bookStoreSliceAPI.util.updateQueryData(
           //     "getBookStore",
           //     id,
           //     (draft) => {
-          //       draft.bookStore = null!;
-          //       draft.status = 418;
-          //       draft.msg = "🥷🏼";
+          //       draft.ninja = "🥷🏼";
           //     }
           //   )
           // );
+
           dispatch(
             bookStoreSliceAPI.util.invalidateTags([
               { type: TagsAPI.BOOK_STORE_LIST, id },
               { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
+              { type: TagsAPI.USER },
             ])
           );
         });
