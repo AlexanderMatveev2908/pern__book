@@ -3,10 +3,11 @@ import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { FieldValues, UseFormGetValues } from "react-hook-form";
 import {
+  __cg,
   clearTimer,
+  getDefValsPagination,
   isSameData,
   saveStorage,
-  setLimitCards,
 } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
@@ -32,20 +33,19 @@ export const useDebounceSearch = ({
     oldVals,
     preSubmit: { canMakeAPI, isPopulated, hasFormErrs },
     setPreSubmit,
-    args,
+    pagination: { limit, page },
   } = ctx;
 
-  const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const currVals = { ...getValues(), limit, page };
+      const currVals = { ...getValues(), ...getDefValsPagination(page, limit) };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      // __cg("old", oldVals.current);
-      // __cg("curr", currVals);
-      // __cg("same", isSame);
+      __cg("old", oldVals.current);
+      __cg("curr", currVals);
+      __cg("same", isSame);
 
       if (isSame) {
         clearTimer(timerID);
@@ -71,15 +71,15 @@ export const useDebounceSearch = ({
   }, [
     txtInputs,
     hasFormErrs,
-    limit,
     getValues,
     keyStorageVals,
     trigger,
     realTimeVals,
     canMakeAPI,
     isPopulated,
-    page,
     setPreSubmit,
     oldVals,
+    page,
+    limit,
   ]);
 };

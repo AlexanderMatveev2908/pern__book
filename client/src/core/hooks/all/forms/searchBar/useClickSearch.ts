@@ -21,7 +21,12 @@ export const useClickSearch = ({
 }: Params) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
-  const { setIsPending, args, updateValsNoDebounce, setTxtInputs } = ctx;
+  const {
+    setIsPending,
+    pagination: { page, limit },
+    updateValsNoDebounce,
+    setTxtInputs,
+  } = ctx;
   const { reset, getValues } = formCtx;
 
   const handleSearch = useCallback(() => {
@@ -29,11 +34,11 @@ export const useClickSearch = ({
 
     const data = {
       ...getValues(),
-      ...getDefValsPagination(args?.page),
+      ...getDefValsPagination(page, limit),
     };
 
     updateValsNoDebounce({ vals: data, trigger });
-  }, [args?.page, getValues, setIsPending, trigger, updateValsNoDebounce]);
+  }, [page, limit, getValues, setIsPending, trigger, updateValsNoDebounce]);
 
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });

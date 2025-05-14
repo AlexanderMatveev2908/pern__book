@@ -10,9 +10,16 @@ type PropsType = {
   res: any;
   formCtx: UseFormReturn<any>;
   ctx: SearchCtxValsConsumer;
+  trigger: any;
 };
 
-const WrapperContentAPI: FC<PropsType> = ({ children, res, ctx, formCtx }) => {
+const WrapperContentAPI: FC<PropsType> = ({
+  children,
+  trigger,
+  res,
+  ctx,
+  formCtx,
+}) => {
   const {
     preSubmit: { isPopulated },
   } = ctx;
@@ -36,7 +43,9 @@ const WrapperContentAPI: FC<PropsType> = ({ children, res, ctx, formCtx }) => {
       </WrapPageAPI>
 
       {!spinPage && (
-        <PagesCounter {...{ totPages, ctx, getValues: formCtx.getValues }} />
+        <PagesCounter
+          {...{ totPages, trigger, ctx, getValues: formCtx.getValues }}
+        />
       )}
     </>
   );

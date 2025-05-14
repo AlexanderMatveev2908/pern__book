@@ -2,6 +2,7 @@
 import { RefObject, useCallback, useRef } from "react";
 import {
   ParamsBar,
+  ParamsPage,
   ParamsPending,
   ParamsPreSubmit,
   ParamsSearch,
@@ -28,11 +29,11 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setTxtInputs: (val: FormFieldBasic[]) => void;
   setBar: (params: ParamsBar) => void;
   setSearch: (params: ParamsSearch) => void;
-  setArgs: (vals: ArgsSearchType) => void;
   setIsPending: (vals: ParamsPending) => void;
   setPreSubmit: (vals: ParamsPreSubmit) => void;
   updateValsNoDebounce: (vals: ParamsUpdateNoDebounce) => void;
   madeAPI: RefObject<boolean>;
+  setPagination: (vals: ParamsPage) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -59,13 +60,6 @@ export const useSearchCtxVals = ({
   const setSearch = useCallback(
     ({ el, val }: ParamsSearch) =>
       dispatch({ type: SearchCtxActions.SET_SEARCH, payload: { el, val } }),
-    [dispatch]
-  );
-
-  const setArgs = useCallback(
-    (vals: ArgsSearchType) => {
-      dispatch({ type: SearchCtxActions.SET_ARGS, payload: vals });
-    },
     [dispatch]
   );
 
@@ -96,13 +90,19 @@ export const useSearchCtxVals = ({
     [keyStorageVals, setPreSubmit]
   );
 
+  const setPagination = useCallback(
+    ({ el, val }: ParamsPage) =>
+      dispatch({ type: SearchCtxActions.SET_PAGINATION, payload: { el, val } }),
+    [dispatch]
+  );
+
   return {
     ...state,
     oldVals,
     setTxtInputs,
     setBar,
     setSearch,
-    setArgs,
+    setPagination,
     setIsPending,
     setPreSubmit,
     updateValsNoDebounce,

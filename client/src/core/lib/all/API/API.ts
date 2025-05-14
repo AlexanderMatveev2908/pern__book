@@ -70,11 +70,12 @@ export const catchErr = async (cb: () => Promise<void>) => {
 };
 
 export const getDefValsPagination = (
-  page: number = 0
+  page: number = 0,
+  limit: number = setLimitCards()
 ): {
   limit: number;
   page: number;
 } => ({
   page,
-  limit: setLimitCards(),
+  limit,
 });

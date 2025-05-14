@@ -6,7 +6,6 @@ import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
   calcBlockBySize,
-  getDefValsPagination,
   getNumBtns,
   makeDelay,
   saveStorage,
@@ -17,21 +16,27 @@ import { getSearchBarID } from "@/core/lib/all/utils/ids";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { UseFormGetValues } from "react-hook-form";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { ParamsPage } from "@/core/contexts/SearchCtx/reducer/actions";
 
 type PropsType = {
   totPages?: number;
   getValues: UseFormGetValues<any>;
   ctx: SearchCtxValsConsumer;
+  trigger: any;
 };
 
-const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
+const PagesCounter: FC<PropsType> = ({
+  ctx,
+  trigger,
+  totPages = 0,
+  getValues,
+}) => {
   const {
-    setArgs,
-    args,
     setPreSubmit,
     preSubmit: { hasFormErrs },
+    pagination: { page, limit },
+    setPagination,
   } = ctx;
-  const { limit = setLimitCards(), page = 0 } = args ?? {};
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
@@ -40,48 +45,66 @@ const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
+  const handlePagination = useCallback(
+    ({ el, val }: ParamsPage) => {
+      setPreSubmit({ el: "canMakeAPI", val: false });
+
+      setPagination({ el, val });
+
+      const data = {
+        ...getValues(),
+        page: val,
+        limit,
+      };
+      trigger(data);
+
+      saveStorage({
+        key: keyStorageVals,
+        data,
+      });
+    },
+    [setPreSubmit, trigger, limit, keyStorageVals, setPagination, getValues]
+  );
+
   useEffect(() => {
     setCurrBlock(calcBlockBySize(page, sizeBLock));
   }, [sizeBLock, page]);
 
   useEffect(() => {
-    if (page >= totPages)
-      setArgs({
-        ...getValues(),
-        ...getDefValsPagination(),
-      });
-  }, [getValues, page, setArgs, totPages]);
+    if (page >= totPages) setPagination({ el: "page", val: 0 });
+  }, [page, setPagination, totPages]);
 
   useEffect(() => {
     const listenResize = () => {
+      // ? BLOCK BUTTONS
       const maxSizeBtns = getNumBtns();
-      const maxCards = setLimitCards();
-
       if (sizeBLock !== maxSizeBtns) setSizeBlock(maxSizeBtns);
       if (totPages < maxSizeBtns) setCurrBlock(0);
-      if (page >= totPages)
-        setArgs({
-          ...getValues(),
-          page: 0,
-          limit: maxCards,
-        });
+
+      const maxCards = setLimitCards();
+
+      if (page >= totPages) setPagination({ el: "page", val: 0 });
 
       const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
       if (maxPossible > currBlock) setCurrBlock(0);
 
-      if (limit !== maxCards)
-        setArgs({
-          ...getValues(),
-          page,
-          limit: maxCards,
-        });
+      if (limit !== maxCards) handlePagination({ el: "limit", val: maxCards });
     };
 
     window.addEventListener("resize", listenResize);
     return () => {
       window.removeEventListener("resize", listenResize);
     };
-  }, [currBlock, limit, getValues, setArgs, totPages, page, sizeBLock]);
+  }, [
+    currBlock,
+    setPagination,
+    limit,
+    getValues,
+    totPages,
+    page,
+    sizeBLock,
+    handlePagination,
+  ]);
 
   const handlePrev = useCallback(
     () => (currBlock ? setCurrBlock((prev) => prev - 1) : null),
@@ -98,20 +121,7 @@ const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
 
   const handlePage = useCallback(
     (val: number) => {
-      setPreSubmit({ el: "canMakeAPI", val: false });
-
-      setArgs({
-        ...args,
-        page: val,
-        limit: setLimitCards(),
-      });
-      saveStorage({
-        key: keyStorageVals,
-        data: {
-          ...args,
-          page: val,
-        },
-      });
+      handlePagination({ el: "page", val });
 
       makeDelay(() => {
         const el = document.getElementById(searchBarID);
@@ -123,7 +133,7 @@ const PagesCounter: FC<PropsType> = ({ ctx, totPages = 0, getValues }) => {
         });
       }, 200);
     },
-    [args, setPreSubmit, keyStorageVals, setArgs, searchBarID]
+    [handlePagination, searchBarID]
   );
 
   const vals = useMemo(

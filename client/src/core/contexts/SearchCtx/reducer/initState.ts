@@ -5,6 +5,7 @@ import {
   ReqQueryAPI,
 } from "@/types/types";
 import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
+import { setLimitCards } from "@/core/lib/lib";
 
 export type ArgsSearchType = ReqQueryAPI<
   SearchStoreFormType | { a: "test" }
@@ -15,6 +16,10 @@ export type SearchCtxStateType = {
   bars: {
     filterBar: boolean;
     sortBar: boolean | null;
+  };
+  pagination: {
+    page: number;
+    limit: number;
   };
   searchers: {
     currFilter: FilterSearch | NumericFilterSearch | null;
@@ -48,6 +53,10 @@ export const initStateSearch: SearchCtxStateType = {
   isPending: {
     submit: false,
     clear: false,
+  },
+  pagination: {
+    page: 0,
+    limit: setLimitCards(),
   },
   preSubmit: {
     hasFormErrs: false,

@@ -10,6 +10,7 @@ export enum SearchCtxActions {
   SET_SEARCH = "SET_SEARCH",
   SET_IS_PENDING = "SET_IS_PENDING",
   SET_PRE_SUBMIT = "SET_PRE_SUBMIT",
+  SET_PAGINATION = "SET_PAGINATION",
 }
 
 export type ParamsBar = {
@@ -46,6 +47,11 @@ export type ParamsPreSubmit = {
       };
 };
 
+export type ParamsPage = {
+  el: "page" | "limit";
+  val: number;
+};
+
 export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_TXT_INPUTS;
@@ -66,4 +72,8 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_PRE_SUBMIT;
       payload: ParamsPreSubmit;
+    }
+  | {
+      type: SearchCtxActions.SET_PAGINATION;
+      payload: ParamsPage;
     };

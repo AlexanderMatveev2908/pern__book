@@ -7,7 +7,7 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { FC } from "react";
@@ -24,10 +24,8 @@ const BookStores: FC = () => {
   const ctx = useSearchCtx();
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit, setFocus } = formCtx;
+  const { handleSubmit } = formCtx;
   const handleSave = handleSubmit(() => {});
-
-  useFocus({ key: "name", setFocus });
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
   const [trigger, res] = hook;
@@ -57,7 +55,7 @@ const BookStores: FC = () => {
           />
         </FormProvider>
 
-        <WrapperContentAPI {...{ ctx, formCtx, res }}>
+        <WrapperContentAPI {...{ ctx, formCtx, res, trigger }}>
           <div className="w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10">
             {Array.isArray(bookStores) &&
               !!bookStores.length &&

@@ -22,6 +22,7 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
+import { useFocus } from "@/core/hooks/hooks";
 
 type PropsType = {
   res: any;
@@ -51,7 +52,9 @@ const SearchBar: FC<PropsType> = ({
   } = ctx;
 
   const formCtx = useFormContext();
-  const { watch } = formCtx;
+  const { watch, setFocus } = formCtx;
+  useFocus({ key: txtInputs[0].field, setFocus });
+
   const realTimeVals = watch();
 
   // * POPULATE FORM EXISTING VALS

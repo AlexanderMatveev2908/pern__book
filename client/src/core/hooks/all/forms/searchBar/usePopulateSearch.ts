@@ -23,7 +23,7 @@ export const usePopulateSearch = ({
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
-  const { setTxtInputs, setSearch, setPreSubmit } = ctx;
+  const { setTxtInputs, setPagination, setSearch, setPreSubmit } = ctx;
 
   useEffect(() => {
     if (hasRun.current) return;
@@ -68,6 +68,7 @@ export const usePopulateSearch = ({
 
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
 
+    setPagination({ el: "page", val: parsed?.page ?? 0 });
     trigger({
       ...parsed,
       ...getDefValsPagination(parsed?.page),
@@ -84,5 +85,6 @@ export const usePopulateSearch = ({
     setTxtInputs,
     txtInputs,
     setPreSubmit,
+    setPagination,
   ]);
 };
