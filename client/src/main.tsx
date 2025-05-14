@@ -9,7 +9,6 @@ import FormsCtxProvider from "./core/contexts/FormsCtx/FormsCtxProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    {/* <SocketCtxProvider> */}
     <Provider {...{ store }}>
       <FormsCtxProvider>
         <BrowserRouter>
@@ -17,6 +16,5 @@ createRoot(document.getElementById("root")!).render(
         </BrowserRouter>
       </FormsCtxProvider>
     </Provider>
-    {/* </SocketCtxProvider> */}
   </StrictMode>
 );

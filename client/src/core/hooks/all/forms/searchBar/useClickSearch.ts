@@ -22,10 +22,10 @@ export const useClickSearch = ({ ctx, txtInputs, formCtx }: Params) => {
 
     const data = {
       ...getValues(),
-      ...getDefValsPagination(args),
+      ...getDefValsPagination(args?.page),
     };
     updateValsNoDebounce({ vals: data, force: true });
-  }, [args, getValues, setIsPending, updateValsNoDebounce]);
+  }, [args?.page, getValues, setIsPending, updateValsNoDebounce]);
 
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });

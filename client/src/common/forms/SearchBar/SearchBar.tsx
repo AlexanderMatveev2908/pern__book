@@ -42,11 +42,11 @@ const SearchBar: FC<PropsType> = ({
 }) => {
   const { isFetching } = res;
   const ctx = useSearchCtx();
-  const { isPending, setIsPending } = ctx;
-
   const {
+    isPending,
+    setIsPending,
     preSubmit: { isPopulated },
-  } = useSearchCtx();
+  } = ctx;
 
   const formCtx = useFormContext();
   const { watch } = formCtx;

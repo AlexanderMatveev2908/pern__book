@@ -43,7 +43,7 @@ const BookStores: FC = () => {
   const { bookStores } = data ?? {};
   useFocus({ key: "name", setFocus });
 
-  const handleSave = handleSubmit(() => null);
+  const handleSave = handleSubmit(() => {});
 
   return (
     <WrapPageAPI

@@ -57,7 +57,7 @@ export const usePopulateSearch = ({
       updateValsNoDebounce({
         vals: {
           ...parsed,
-          ...getDefValsPagination(parsed),
+          ...getDefValsPagination(parsed?.page),
           [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
         },
       });

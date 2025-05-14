@@ -43,7 +43,7 @@ const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
     (el: FormFieldBasic) => {
       const data = {
         ...getValues(),
-        ...getDefValsPagination(args),
+        ...getDefValsPagination(args?.page),
         [el.field]: "",
       };
 
@@ -55,7 +55,7 @@ const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
 
       setValue(el.field, "", { shouldValidate: true });
     },
-    [args, setValue, updateValsNoDebounce, getValues, filterLabels]
+    [args?.page, setValue, updateValsNoDebounce, getValues, filterLabels]
   );
 
   return (
