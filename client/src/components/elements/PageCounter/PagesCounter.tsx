@@ -99,7 +99,9 @@ const PagesCounter: FC<PropsType> = ({
 
       if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
 
-      if (limit !== maxCards) handlePagination({ el: "limit", val: maxCards });
+      if (limit !== maxCards) {
+        setPagPreventFetch({ el: "page", val: 0 });
+      }
     };
 
     window.addEventListener("resize", listenResize);
@@ -114,7 +116,6 @@ const PagesCounter: FC<PropsType> = ({
     totPages,
     page,
     sizeBLock,
-    handlePagination,
   ]);
 
   const handlePrev = useCallback(
