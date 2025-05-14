@@ -33,14 +33,14 @@ export const useDebounceSearch = ({
     oldVals,
     preSubmit: { canMakeAPI, isPopulated, hasFormErrs },
     setPreSubmit,
-    pagination: { limit, page },
+    pagination: { limit },
   } = ctx;
 
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
-      const currVals = { ...getValues(), ...getDefValsPagination(page, limit) };
+      const currVals = { ...getValues(), ...getDefValsPagination(0, limit) };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       __cg("old", oldVals.current);
@@ -48,6 +48,7 @@ export const useDebounceSearch = ({
       __cg("same", isSame);
 
       if (isSame) {
+        if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
         clearTimer(timerID);
         return;
       }
@@ -79,7 +80,6 @@ export const useDebounceSearch = ({
     isPopulated,
     setPreSubmit,
     oldVals,
-    page,
     limit,
   ]);
 };

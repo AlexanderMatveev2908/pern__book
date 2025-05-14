@@ -23,7 +23,7 @@ export const useClickSearch = ({
 
   const {
     setIsPending,
-    pagination: { page, limit },
+    pagination: { limit },
     updateValsNoDebounce,
     setTxtInputs,
     setPagination,
@@ -35,11 +35,11 @@ export const useClickSearch = ({
 
     const data = {
       ...getValues(),
-      ...getDefValsPagination(page, limit),
+      ...getDefValsPagination(0, limit),
     };
 
     updateValsNoDebounce({ vals: data, trigger });
-  }, [page, limit, getValues, setIsPending, trigger, updateValsNoDebounce]);
+  }, [limit, getValues, setIsPending, trigger, updateValsNoDebounce]);
 
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });

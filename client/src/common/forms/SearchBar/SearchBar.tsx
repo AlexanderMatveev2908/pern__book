@@ -108,7 +108,7 @@ const SearchBar: FC<PropsType> = ({
         />
         <SortPop {...{ ctx, sorters }} />
 
-        <TxtInputs {...{ ctx, formCtx, txtInputs }}>
+        <TxtInputs {...{ ctx, trigger, formCtx, txtInputs }}>
           <ButtonsForm
             {...{
               ctx,

@@ -13,16 +13,17 @@ type PropsType = {
   children: ReactNode;
   ctx: SearchCtxValsConsumer;
   formCtx: UseFormReturn<any>;
+  trigger: any;
 };
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
+const TxtInputs: FC<PropsType> = ({ trigger, children, ctx, formCtx }) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
-  const { activeTxtInputs, setTxtInputs, args, updateValsNoDebounce } = ctx;
+  const { activeTxtInputs, updateValsNoDebounce, setTxtInputs } = ctx;
   const {
     register,
     formState: { errors },
@@ -43,7 +44,7 @@ const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
     (el: FormFieldBasic) => {
       const data = {
         ...getValues(),
-        ...getDefValsPagination(args?.page),
+        ...getDefValsPagination(),
         [el.field]: "",
       };
 
@@ -51,11 +52,10 @@ const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
 
       if (!getValues(el.field)?.trim()?.length) return;
 
-      updateValsNoDebounce({ vals: data });
-
+      updateValsNoDebounce({ vals: data, trigger });
       setValue(el.field, "", { shouldValidate: true });
     },
-    [args?.page, setValue, updateValsNoDebounce, getValues, filterLabels]
+    [setValue, updateValsNoDebounce, trigger, getValues, filterLabels]
   );
 
   return (
