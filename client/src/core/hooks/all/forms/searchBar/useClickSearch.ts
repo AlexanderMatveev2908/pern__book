@@ -26,6 +26,7 @@ export const useClickSearch = ({
     pagination: { page, limit },
     updateValsNoDebounce,
     setTxtInputs,
+    setPagination,
   } = ctx;
   const { reset, getValues } = formCtx;
 
@@ -44,6 +45,7 @@ export const useClickSearch = ({
     setIsPending({ el: "clear", val: true });
 
     const defArgs = getDefValsPagination();
+    setPagination({ el: "page", val: 0 });
     updateValsNoDebounce({ vals: defArgs, trigger });
     reset({});
 
@@ -57,6 +59,7 @@ export const useClickSearch = ({
     txtInputs,
     updateValsNoDebounce,
     trigger,
+    setPagination,
   ]);
 
   return {

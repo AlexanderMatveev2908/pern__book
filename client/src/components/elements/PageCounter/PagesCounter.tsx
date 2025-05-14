@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
-import { FC, useCallback, useEffect, useMemo, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { v4 } from "uuid";
 import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
@@ -42,6 +42,7 @@ const PagesCounter: FC<PropsType> = ({
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());
   const [currBlock, setCurrBlock] = useState(0);
+  const hasSetBlock = useRef<boolean>(false);
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
@@ -66,27 +67,37 @@ const PagesCounter: FC<PropsType> = ({
     [setPreSubmit, trigger, limit, keyStorageVals, setPagination, getValues]
   );
 
+  const setPagPreventFetch = useCallback(
+    ({ el, val }: ParamsPage) => {
+      setPreSubmit({ el: "canMakeAPI", val: false });
+
+      setPagination({ el, val });
+    },
+    [setPreSubmit, setPagination]
+  );
+
   useEffect(() => {
+    if (hasSetBlock.current) return;
+    hasSetBlock.current = true;
+
     setCurrBlock(calcBlockBySize(page, sizeBLock));
   }, [sizeBLock, page]);
 
   useEffect(() => {
-    if (page >= totPages) setPagination({ el: "page", val: 0 });
-  }, [page, setPagination, totPages]);
+    if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
+  }, [page, setPagPreventFetch, totPages]);
 
   useEffect(() => {
     const listenResize = () => {
       // ? BLOCK BUTTONS
-      const maxSizeBtns = getNumBtns();
-      if (sizeBLock !== maxSizeBtns) setSizeBlock(maxSizeBtns);
-      if (totPages < maxSizeBtns) setCurrBlock(0);
-
+      const newBlockCount = getNumBtns();
       const maxCards = setLimitCards();
-
-      if (page >= totPages) setPagination({ el: "page", val: 0 });
-
       const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
-      if (maxPossible > currBlock) setCurrBlock(0);
+
+      if (sizeBLock !== newBlockCount) setSizeBlock(newBlockCount);
+      if (totPages < newBlockCount || maxPossible > currBlock) setCurrBlock(0);
+
+      if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
 
       if (limit !== maxCards) handlePagination({ el: "limit", val: maxCards });
     };
@@ -97,7 +108,7 @@ const PagesCounter: FC<PropsType> = ({
     };
   }, [
     currBlock,
-    setPagination,
+    setPagPreventFetch,
     limit,
     getValues,
     totPages,
