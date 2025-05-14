@@ -10,9 +10,10 @@ type Params = {
   ctx: SearchCtxValsConsumer;
   formCtx: UseFormReturn<any>;
   txtInputs: FormFieldBasic[];
+  res?: any;
 };
 
-export const useClickSearch = ({ ctx, txtInputs, formCtx }: Params) => {
+export const useClickSearch = ({ ctx, txtInputs, formCtx, res }: Params) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
   const { setIsPending, args, updateValsNoDebounce, setTxtInputs } = ctx;
@@ -25,7 +26,8 @@ export const useClickSearch = ({ ctx, txtInputs, formCtx }: Params) => {
       ...getValues(),
       ...getDefValsPagination(args?.page),
     };
-    updateValsNoDebounce({ vals: data, force: true });
+
+    // updateValsNoDebounce({ vals: data, force: true });
   }, [args?.page, getValues, setIsPending, updateValsNoDebounce]);
 
   const handleClear = useCallback(() => {

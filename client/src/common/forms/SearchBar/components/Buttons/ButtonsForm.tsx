@@ -36,6 +36,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, ctx, formCtx, res }) => {
     ctx,
     formCtx,
     txtInputs,
+    res,
   });
 
   return (

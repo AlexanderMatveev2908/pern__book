@@ -7,17 +7,20 @@ import { __cg } from "@/core/lib/lib";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { AxiosResponse } from "axios";
 
-type ParamsHookQ = {
-  isSuccess?: boolean;
-  data?: any;
-  isError?: boolean;
-  error?: any;
+type PersonalParams = {
   push?: boolean;
   pushNotice?: [boolean, (() => any)?];
   toast?: boolean;
   customErrCB?: (err: any) => any;
   hideErr?: boolean;
 };
+
+type ParamsHookQ = {
+  isSuccess?: boolean;
+  data?: any;
+  isError?: boolean;
+  error?: any;
+} & PersonalParams;
 
 export const useWrapQueryAPI = (params: ParamsHookQ) => {
   const dispatch = useDispatch();

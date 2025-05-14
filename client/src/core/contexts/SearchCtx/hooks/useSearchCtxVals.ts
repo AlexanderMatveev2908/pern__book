@@ -83,7 +83,7 @@ export const useSearchCtxVals = ({
 
   const updateValsNoDebounce = useCallback(
     ({ vals, force }: ParamsUpdateNoDebounce) => {
-      // setPreSubmit({ el: "canMakeAPI", val: false });
+      setPreSubmit({ el: "canMakeAPI", val: false });
 
       setArgs({
         ...(vals as ResPaginationAPI<ArgsSearchType>),
@@ -93,7 +93,7 @@ export const useSearchCtxVals = ({
       oldVals.current = vals;
       saveStorage({ data: vals, key: keyStorageVals });
     },
-    [setArgs, keyStorageVals]
+    [setArgs, keyStorageVals, setPreSubmit]
   );
 
   return {

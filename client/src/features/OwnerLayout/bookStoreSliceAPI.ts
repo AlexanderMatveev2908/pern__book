@@ -71,10 +71,8 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
       ReqQueryAPI<SearchStoreFormType>
     >({
       query: (vals) => {
-        const params = makeParams(vals);
-
         return {
-          url: `${BASE_URL}?${params + ""}`,
+          url: `${BASE_URL}?${makeParams(vals)}`,
           method: "GET",
         };
       },

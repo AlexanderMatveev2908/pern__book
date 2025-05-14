@@ -7,43 +7,34 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useFocus, useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
-import { ReqQueryAPI } from "@/types/types";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 const BookStores: FC = () => {
   useScroll();
 
   const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
 
-  const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const ctx = useSearchCtx();
-  const {
-    args,
-    preSubmit: { hasFormErrs, isPopulated },
-  } = ctx;
-  const { handleSubmit, setFocus } = formCtx;
 
-  const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
-    args as ReqQueryAPI<SearchStoreFormType>,
-    {
-      skip: hasFormErrs || !isPopulated,
-      // refetchOnMountOrArgChange: true,
-    }
-  );
-  useWrapQueryAPI({ ...res });
-  const { data } = res ?? {};
-  const { bookStores } = data ?? {};
+  const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
+  const { handleSubmit, setFocus } = formCtx;
+  const handleSave = handleSubmit(() => {});
+
   useFocus({ key: "name", setFocus });
 
-  const handleSave = handleSubmit(() => {});
+  const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
+  const [trigger, res] = hook;
+  const { data } = res;
+  useWrapQueryAPI({ ...res });
+
+  const { bookStores } = data ?? {};
 
   return (
     <WrapPageAPI
@@ -57,6 +48,7 @@ const BookStores: FC = () => {
             {...{
               res,
               handleSave,
+              trigger,
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
               numericFilters: numericFiltersStore,

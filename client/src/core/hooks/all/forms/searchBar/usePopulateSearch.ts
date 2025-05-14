@@ -12,20 +12,21 @@ type Params<T extends FieldValues> = {
   filters: FilterSearch[];
   ctx: SearchCtxValsConsumer;
   setValue: UseFormSetValue<T>;
+  trigger: any;
 };
 export const usePopulateSearch = ({
   txtInputs,
   filters,
   ctx,
   setValue,
+  trigger,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
-  const { setTxtInputs, updateValsNoDebounce, setSearch, setPreSubmit } = ctx;
+  const { setTxtInputs, setSearch, setPreSubmit } = ctx;
 
   useEffect(() => {
     if (hasRun.current) return;
-
     hasRun.current = true;
 
     const savedVals = getStorage(keyStorageVals);
@@ -41,50 +42,47 @@ export const usePopulateSearch = ({
 
     setSearch({ el: "currFilter", val: filters[0] });
 
-    if (savedVals) {
-      const parsed = JSON.parse(savedVals);
-
-      for (const key in parsed) {
-        const val = parsed[key];
-
-        if (
-          (typeof val === "string" && val.trim().length) ||
-          (Array.isArray(val) && val.length)
-        )
-          setValue(key as Path<any>, val, {
-            shouldValidate: true,
-            shouldDirty: true,
-          });
-      }
-
-      // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
-
-      updateValsNoDebounce({
-        vals: {
-          ...parsed,
-          ...getDefValsPagination(parsed?.page),
-          [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
-        },
+    if (!savedVals) {
+      trigger({
+        ...getDefValsPagination(),
+        [txtInputs[0].field]: "",
       });
-    } else {
-      updateValsNoDebounce({
-        vals: {
-          ...getDefValsPagination(),
-          [txtInputs[0].field]: "",
-        },
-      });
+      setPreSubmit({ el: "isPopulated", val: true });
+      return;
     }
 
+    const parsed = JSON.parse(savedVals);
+
+    for (const key in parsed) {
+      const val = parsed[key];
+
+      if (
+        (typeof val === "string" && val.trim().length) ||
+        (Array.isArray(val) && val.length)
+      )
+        setValue(key as Path<any>, val, {
+          shouldValidate: true,
+          shouldDirty: true,
+        });
+    }
+
+    // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
+
+    trigger({
+      ...parsed,
+      ...getDefValsPagination(parsed?.page),
+      [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
+    });
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
+    trigger,
     setValue,
-    setPreSubmit,
     keyStorageVals,
     filters,
     keyStorageLabels,
     setSearch,
     setTxtInputs,
     txtInputs,
-    updateValsNoDebounce,
+    setPreSubmit,
   ]);
 };

@@ -22,6 +22,7 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
+import { TypedLazyQueryTrigger } from "@reduxjs/toolkit/query/react";
 
 type PropsType = {
   res: any;
@@ -30,6 +31,7 @@ type PropsType = {
   filters: FilterSearch[];
   sorters: SorterSearch[];
   numericFilters?: NumericFilterSearch[];
+  trigger: any;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -39,6 +41,7 @@ const SearchBar: FC<PropsType> = ({
   sorters,
   numericFilters,
   res,
+  trigger,
 }) => {
   const { isFetching } = res;
   const ctx = useSearchCtx();
@@ -53,7 +56,13 @@ const SearchBar: FC<PropsType> = ({
   const realTimeVals = watch();
 
   // * POPULATE FORM EXISTING VALS
-  usePopulateSearch({ ctx, setValue: formCtx.setValue, filters, txtInputs });
+  usePopulateSearch({
+    ctx,
+    trigger,
+    setValue: formCtx.setValue,
+    filters,
+    txtInputs,
+  });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
   // useDebounceSearch({

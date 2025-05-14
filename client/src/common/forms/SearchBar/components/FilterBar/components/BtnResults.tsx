@@ -4,8 +4,8 @@ import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch"
 import { FormFieldBasic } from "@/types/types";
 import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
-import CLearBtn from "../../Buttons/components/CLearBtn";
 import SearchBtn from "../../Buttons/components/SearchBtn";
+import CLearBtn from "../../Buttons/components/ClearBtn";
 
 type PropsType = {
   res: any;
@@ -37,11 +37,11 @@ const BtnResults: FC<PropsType> = ({ res, txtInputs }) => {
         <SearchBtn
           {...{
             isPending: isPending.submit,
-            styleTxt: "btn__txt_secondary",
-            isFetching: res?.isFetching,
             handleSearch,
             hasFormErrs,
             labelTxt,
+            styleTxt: "btn__txt_secondary",
+            isFetching: res?.isFetching,
           }}
         />
       </div>
