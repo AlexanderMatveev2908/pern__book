@@ -129,17 +129,17 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         await catchErr(async () => {
           await queryFulfilled;
 
-          dispatch(
-            bookStoreSliceAPI.util.updateQueryData(
-              "getBookStore",
-              id,
-              (draft) => {
-                draft.bookStore = null!;
-                draft.status = 418;
-                draft.msg = "🥷🏼";
-              }
-            )
-          );
+          // dispatch(
+          //   bookStoreSliceAPI.util.updateQueryData(
+          //     "getBookStore",
+          //     id,
+          //     (draft) => {
+          //       draft.bookStore = null!;
+          //       draft.status = 418;
+          //       draft.msg = "🥷🏼";
+          //     }
+          //   )
+          // );
           dispatch(
             bookStoreSliceAPI.util.invalidateTags([
               { type: TagsAPI.BOOK_STORE_LIST, id },

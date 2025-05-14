@@ -176,7 +176,7 @@ const UpdateBookStore: FC = () => {
         //   ],
         // });
 
-        nav(`/owner/book-store/${bookStoreID}`);
+        nav(`/owner/book-store/${bookStoreID}`, { replace: true });
       },
       async (errs) => await handleFocusErrStore(setFocus, errs, setCurrForm)
     )(e);

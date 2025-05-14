@@ -36,8 +36,17 @@ const CreateBooksStore: FC = () => {
     mode: "onChange",
     shouldFocusError: false,
     defaultValues: {
-      categories: [],
+      categories: ["classics"],
       description: doLorem(),
+      name: "store__0",
+      email: "matveevalexander470@gmail.com",
+      phone: "+00 000 000 000",
+      country: "Netherlands",
+      state: "South Holland",
+      city: "Naaldwijk",
+      street: "Graanveld",
+      zipCode: "00000",
+      deliveryTime: "5",
     },
   });
 
@@ -79,7 +88,7 @@ const CreateBooksStore: FC = () => {
         //     },
         //   ],
         // });
-        nav(`/owner/book-store/${res.bookStoreID}`);
+        nav(`/owner/book-store/${res.bookStoreID}`, { replace: true });
       },
       async (errs) => {
         await handleFocusErrStore(setFocus, errs, setCurrForm);

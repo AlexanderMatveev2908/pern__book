@@ -12,6 +12,7 @@ import {
   openPopup,
 } from "@/features/common/Popup/popupSlice";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
+import { DispatchType } from "@/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BtnAct, BtnPopupKeys } from "@/types/types";
 import { FC, useEffect, useRef, useState } from "react";
@@ -44,7 +45,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
     return () => document.removeEventListener("mousedown", listenDrop);
   }, []);
 
-  const dispatch = useDispatch();
+  const dispatch: DispatchType = useDispatch();
   const [mutate] = bookStoreSliceAPI.endpoints.delStore.useMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
 
