@@ -8,11 +8,18 @@ import {
   SearchCtxActionsType,
 } from "../reducer/actions";
 import { ArgsSearchType, SearchCtxStateType } from "../reducer/initState";
-import { FormFieldBasic } from "@/types/types";
+import { FormFieldBasic, ResPaginationAPI } from "@/types/types";
+import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { saveStorage } from "@/core/lib/lib";
 
 type Params = {
   state: SearchCtxStateType;
   dispatch: React.ActionDispatch<[action: SearchCtxActionsType]>;
+};
+
+type ParamsUpdateNoDebounce = {
+  vals: ArgsSearchType;
+  force?: boolean;
 };
 
 export type SearchCtxValsConsumer = SearchCtxStateType & {
@@ -23,6 +30,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setArgs: (vals: ArgsSearchType) => void;
   setIsPending: (vals: ParamsPending) => void;
   setPreSubmit: (vals: ParamsPreSubmit) => void;
+  updateValsNoDebounce: ({ vals, force }: ParamsUpdateNoDebounce) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -30,6 +38,8 @@ export const useSearchCtxVals = ({
   dispatch,
 }: Params): SearchCtxValsConsumer => {
   const oldVals = useRef<ArgsSearchType | null>(null);
+
+  const { keyStorageVals } = useGetSearchKeysStorage();
 
   const setTxtInputs = useCallback(
     (val: FormFieldBasic[]) =>
@@ -69,6 +79,21 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
+  const updateValsNoDebounce = useCallback(
+    ({ vals, force }: ParamsUpdateNoDebounce) => {
+      setPreSubmit({ el: "canMakeAPI", val: false });
+
+      oldVals.current = vals;
+      setArgs({
+        ...(vals as ResPaginationAPI<ArgsSearchType>),
+        ...(force ? { _: Date.now() } : {}),
+      });
+
+      saveStorage({ data: vals, key: keyStorageVals });
+    },
+    [setPreSubmit, setArgs, keyStorageVals]
+  );
+
   return {
     ...state,
     oldVals,
@@ -78,5 +103,6 @@ export const useSearchCtxVals = ({
     setArgs,
     setIsPending,
     setPreSubmit,
+    updateValsNoDebounce,
   };
 };

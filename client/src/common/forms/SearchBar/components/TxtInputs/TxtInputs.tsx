@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useCallback } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
-import { BtnAct } from "@/types/types";
+import { BtnAct, FormFieldBasic } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { UseFormReturn } from "react-hook-form";
-import { saveStorage, setLimitCards } from "@/core/lib/lib";
+import { getDefValsPagination, saveStorage } from "@/core/lib/lib";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
@@ -22,12 +22,41 @@ const removeFieldBtn = {
 const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
-  const { activeTxtInputs, setTxtInputs, setPreSubmit, setArgs, args } = ctx;
+  const { activeTxtInputs, setTxtInputs, args, updateValsNoDebounce } = ctx;
   const {
     register,
     formState: { errors },
     setValue,
+    getValues,
   } = formCtx;
+
+  const filterLabels = useCallback(
+    (el: FormFieldBasic) => {
+      const filtered = activeTxtInputs.filter((val) => val.field !== el.field);
+      setTxtInputs(filtered);
+      saveStorage({ key: keyStorageLabels, data: filtered });
+    },
+    [activeTxtInputs, keyStorageLabels, setTxtInputs]
+  );
+
+  const handleRemove = useCallback(
+    (el: FormFieldBasic) => {
+      const data = {
+        ...getValues(),
+        ...getDefValsPagination(args),
+        [el.field]: "",
+      };
+
+      filterLabels(el);
+
+      if (!getValues(el.field)?.trim()?.length) return;
+
+      updateValsNoDebounce({ vals: data });
+
+      setValue(el.field, "", { shouldValidate: true });
+    },
+    [args, setValue, updateValsNoDebounce, getValues, filterLabels]
+  );
 
   return (
     <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
@@ -49,23 +78,7 @@ const TxtInputs: FC<PropsType> = ({ children, ctx, formCtx }) => {
               {...{
                 el: removeFieldBtn,
                 act: BtnAct.DEL,
-                handleClick: () => {
-                  setPreSubmit({ el: "canMakeAPI", val: false });
-
-                  setArgs({
-                    ...args,
-                    page: args?.page ?? 0,
-                    limit: args?.limit ?? setLimitCards(),
-                    [el.field]: "",
-                  });
-
-                  setValue(el.field, "", { shouldValidate: true });
-                  const filtered = activeTxtInputs.filter(
-                    (val) => val.field !== el.field
-                  );
-                  setTxtInputs(filtered);
-                  saveStorage({ key: keyStorageLabels, data: filtered });
-                },
+                handleClick: () => handleRemove(el),
               }}
             />
           </div>

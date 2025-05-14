@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getStorage, saveStorage, setLimitCards } from "@/core/lib/lib";
+import { getStorage, saveStorage } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect } from "react";
 import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { getDefValsPagination } from "@/core/lib/lib";
 
 type Params<T extends FieldValues> = {
   txtInputs: FormFieldBasic[];
@@ -56,16 +57,14 @@ export const usePopulateSearch = ({
 
       setArgs({
         ...parsed,
+        ...getDefValsPagination(parsed),
         [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
-        page: parsed?.page ?? 0,
-        limit: setLimitCards(),
       });
     } else {
       setPreSubmit({ el: "canMakeAPI", val: false });
       setArgs({
+        ...getDefValsPagination(),
         [txtInputs[0].field]: "",
-        page: 0,
-        limit: setLimitCards(),
       });
     }
 

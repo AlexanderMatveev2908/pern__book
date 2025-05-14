@@ -71,5 +71,5 @@ export const catchErr = async (cb: () => Promise<void>) => {
 
 export const getDefValsPagination = (args?: any) => ({
   page: args?.page ?? 0,
-  limit: args?.limit ?? setLimitCards,
+  limit: args?.limit ?? setLimitCards(),
 });

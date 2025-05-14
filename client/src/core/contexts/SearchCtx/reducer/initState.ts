@@ -29,7 +29,7 @@ export type SearchCtxStateType = {
     hasFormErrs: boolean;
     isPopulated: boolean;
     canMakeAPI: boolean;
-    isFormStable: boolean;
+    // isFormStable: boolean;
     errNumbers: null | {
       currArr: NumericFilterSearch;
       currEl: FormFieldBasic;
@@ -55,7 +55,7 @@ export const initStateSearch: SearchCtxStateType = {
   preSubmit: {
     hasFormErrs: false,
     isPopulated: false,
-    isFormStable: false,
+    // isFormStable: false,
     canMakeAPI: true,
     errNumbers: null,
   },

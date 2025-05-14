@@ -5,7 +5,6 @@ import { FieldValues, UseFormGetValues } from "react-hook-form";
 import {
   __cg,
   clearTimer,
-  isObjOk,
   isSameData,
   saveStorage,
   setLimitCards,
@@ -31,7 +30,7 @@ export const useDebounceSearch = ({
   const {
     setArgs,
     oldVals,
-    preSubmit: { canMakeAPI, isPopulated, hasFormErrs, isFormStable },
+    preSubmit: { canMakeAPI, isPopulated, hasFormErrs },
     setPreSubmit,
     args,
   } = ctx;
@@ -43,24 +42,10 @@ export const useDebounceSearch = ({
     timerID.current = setTimeout(() => {
       const currVals = { ...getValues(), limit, page };
       const isSame: boolean = isSameData(oldVals.current, currVals);
-      // const isSame =
-      // JSON.stringify(oldVals.current) === JSON.stringify(currVals);
 
-      __cg("old", oldVals.current);
-      __cg("new", currVals);
       __cg("same", isSame);
 
       if (isSame) {
-        if (
-          !isFormStable &&
-          [currVals, oldVals.current].every(
-            (el) =>
-              isObjOk(el) &&
-              typeof el?.[txtInputs[0].field as keyof typeof el] === "string"
-          )
-        )
-          setPreSubmit({ el: "isFormStable", val: true });
-
         clearTimer(timerID);
         return null;
       }
@@ -72,11 +57,8 @@ export const useDebounceSearch = ({
       });
 
       // ? IS DIFFERENT FROM BTN_DISABLED CAUSE THE BTN IS UPDATE IS REAL_TIME WITH WATCH TO PROVIDE ACCURATE INFO ABOUT ERRORS KEYS AND MSGS, CAN_MAKE_API IS MORE ABOUT PREVENTING API TO RUN FOR UNNECESSARY REASONS, LIKE IF I ALREADY SET ARGS OR ADD FIELDS TO ARGS BUT THEY ARE EMPTY STRINGS AND WOULD NOT CHANGE THE SQL QUERY TO GET DATA
-      if (canMakeAPI && !hasFormErrs) {
-        setArgs(currVals);
-      } else if (!canMakeAPI) {
-        setPreSubmit({ el: "canMakeAPI", val: true });
-      }
+      if (canMakeAPI && !hasFormErrs) setArgs(currVals);
+      else if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
 
       clearTimer(timerID);
     }, 1000);
@@ -96,7 +78,6 @@ export const useDebounceSearch = ({
     isPopulated,
     page,
     setPreSubmit,
-    isFormStable,
     oldVals,
   ]);
 };

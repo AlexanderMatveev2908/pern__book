@@ -12,10 +12,9 @@ type Params = {
 };
 
 export const useClickSearch = ({ ctx, txtInputs, formCtx }: Params) => {
-  const { keyStorageVals, keyStorageLabels } = useGetSearchKeysStorage();
+  const { keyStorageLabels } = useGetSearchKeysStorage();
 
-  const { setPreSubmit, setIsPending, args, setArgs, setTxtInputs, oldVals } =
-    ctx;
+  const { setIsPending, args, updateValsNoDebounce, setTxtInputs } = ctx;
   const { reset, getValues } = formCtx;
 
   const handleSearch = useCallback(() => {
@@ -25,40 +24,25 @@ export const useClickSearch = ({ ctx, txtInputs, formCtx }: Params) => {
       ...getValues(),
       ...getDefValsPagination(args),
     };
-
-    oldVals.current = data;
-    setArgs({
-      ...data,
-      _: Date.now(),
-    });
-  }, [args, getValues, setArgs, setIsPending, oldVals]);
+    updateValsNoDebounce({ vals: data, force: true });
+  }, [args, getValues, setIsPending, updateValsNoDebounce]);
 
   const handleClear = useCallback(() => {
-    setPreSubmit({ el: "canMakeAPI", val: false });
     setIsPending({ el: "clear", val: true });
 
     const defArgs = getDefValsPagination();
-
-    oldVals.current = defArgs;
-    setArgs({ ...defArgs, _: Date.now() });
+    updateValsNoDebounce({ vals: defArgs, force: true });
     reset({});
-    setTxtInputs([txtInputs[0]]);
 
-    saveStorage({
-      data: defArgs,
-      key: keyStorageVals,
-    });
+    setTxtInputs([txtInputs[0]]);
     saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
   }, [
-    keyStorageVals,
     reset,
-    setArgs,
     keyStorageLabels,
     setIsPending,
-    setPreSubmit,
     setTxtInputs,
     txtInputs,
-    oldVals,
+    updateValsNoDebounce,
   ]);
 
   return {

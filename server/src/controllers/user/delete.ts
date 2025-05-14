@@ -88,6 +88,12 @@ export const deleteAccount = async (
     ],
   });
 
+  const junctions = await BookStoreUser.findAll({
+    where: {
+      userID: user.id,
+    },
+  });
+
   const idsCloudImg: string[] = [];
   const idsCloudVideo: string[] = [];
 
@@ -105,6 +111,14 @@ export const deleteAccount = async (
       idsCloudImg.push(user.thumb.publicID);
       await user.thumb.destroy({ transaction: t });
     }
+
+    if (junctions.length)
+      await BookStoreUser.destroy({
+        where: {
+          userID: user.id,
+        },
+        transaction: t,
+      });
 
     if (stores.length) {
       for (const el of stores) {

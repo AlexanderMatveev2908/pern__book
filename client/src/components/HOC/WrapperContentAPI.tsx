@@ -14,14 +14,14 @@ type PropsType = {
 
 const WrapperContentAPI: FC<PropsType> = ({ children, res, ctx, formCtx }) => {
   const {
-    preSubmit: { isPopulated, isFormStable },
+    preSubmit: { isPopulated },
   } = ctx;
   const { data } = res ?? {};
   const { totPages = 0 } = data ?? {};
 
   const spinPage = useMemo(
-    () => res?.isLoading || res?.isFetching || !isPopulated || !isFormStable,
-    [res?.isLoading, res?.isFetching, isPopulated, isFormStable]
+    () => res?.isLoading || res?.isFetching || !isPopulated,
+    [res?.isLoading, res?.isFetching, isPopulated]
   );
   return (
     <>

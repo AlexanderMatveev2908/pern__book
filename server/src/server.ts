@@ -72,6 +72,7 @@ const start = async () => {
 
       //   res();
       // });
+
       server.once("error", rej);
       server.listen(PORT, res);
     }).then(() => console.log(`=> Server running on ${PORT}...`));
