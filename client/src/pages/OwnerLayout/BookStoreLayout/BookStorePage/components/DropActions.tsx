@@ -72,11 +72,10 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
               cbAPI: () => mutate(bookStore?.id ?? ""),
             });
 
-            dispatch(closePopup());
-
             if (!res) return;
 
             nav("/owner/book-store/book-stores", { replace: true });
+            dispatch(closePopup());
           },
         },
       })
@@ -85,10 +84,10 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
   const handlers = new Map(
     Object.values(KEY_MAP_STORE).map((key) => [
       key,
-      () =>
+      async () =>
         key !== KEY_MAP_STORE.DELETE
           ? nav(labelsBookStore.get(key)!.path + bookStore?.id)
-          : handleOpenPop(),
+          : await handleOpenPop(),
     ])
   );
 

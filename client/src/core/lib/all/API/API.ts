@@ -64,8 +64,8 @@ export const canPushUser = (authState: AuthState) =>
 export const catchErr = async (cb: () => Promise<void>) => {
   try {
     await cb();
-  } catch {
-    //
+  } catch (err) {
+    console.log(err);
   }
 };
 
