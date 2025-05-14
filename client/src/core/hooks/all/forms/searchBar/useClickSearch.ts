@@ -4,9 +4,10 @@ import { FormFieldBasic } from "@/types/types";
 import { useCallback } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { UseFormReturn } from "react-hook-form";
+import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type Params = {
-  ctx: any;
+  ctx: SearchCtxValsConsumer;
   formCtx: UseFormReturn<any>;
   txtInputs: FormFieldBasic[];
 };

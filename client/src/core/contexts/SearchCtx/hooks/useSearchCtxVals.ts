@@ -31,6 +31,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   setIsPending: (vals: ParamsPending) => void;
   setPreSubmit: (vals: ParamsPreSubmit) => void;
   updateValsNoDebounce: ({ vals, force }: ParamsUpdateNoDebounce) => void;
+  madeAPI: RefObject<boolean>;
 };
 
 export const useSearchCtxVals = ({
@@ -38,6 +39,7 @@ export const useSearchCtxVals = ({
   dispatch,
 }: Params): SearchCtxValsConsumer => {
   const oldVals = useRef<ArgsSearchType | null>(null);
+  const madeAPI = useRef<boolean>(false);
 
   const { keyStorageVals } = useGetSearchKeysStorage();
 
@@ -81,7 +83,7 @@ export const useSearchCtxVals = ({
 
   const updateValsNoDebounce = useCallback(
     ({ vals, force }: ParamsUpdateNoDebounce) => {
-      setPreSubmit({ el: "canMakeAPI", val: false });
+      // setPreSubmit({ el: "canMakeAPI", val: false });
 
       setArgs({
         ...(vals as ResPaginationAPI<ArgsSearchType>),
@@ -91,7 +93,7 @@ export const useSearchCtxVals = ({
       oldVals.current = vals;
       saveStorage({ data: vals, key: keyStorageVals });
     },
-    [setPreSubmit, setArgs, keyStorageVals]
+    [setArgs, keyStorageVals]
   );
 
   return {
@@ -104,5 +106,6 @@ export const useSearchCtxVals = ({
     setIsPending,
     setPreSubmit,
     updateValsNoDebounce,
+    madeAPI,
   };
 };

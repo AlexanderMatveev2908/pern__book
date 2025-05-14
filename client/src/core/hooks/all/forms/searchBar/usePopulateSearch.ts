@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getStorage, saveStorage } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
@@ -19,10 +19,15 @@ export const usePopulateSearch = ({
   ctx,
   setValue,
 }: Params<any>) => {
+  const hasRun = useRef<boolean>(false);
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
   const { setTxtInputs, updateValsNoDebounce, setSearch, setPreSubmit } = ctx;
 
   useEffect(() => {
+    if (hasRun.current) return;
+
+    hasRun.current = true;
+
     const savedVals = getStorage(keyStorageVals);
 
     // * UPDATE LABELS OF SEARCH BY TEXT
