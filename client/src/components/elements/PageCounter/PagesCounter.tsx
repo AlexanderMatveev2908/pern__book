@@ -47,15 +47,15 @@ const PagesCounter: FC<PropsType> = ({
   const searchBarID = useMemo(() => getSearchBarID(path), [path]);
 
   const handlePagination = useCallback(
-    ({ el, val }: ParamsPage) => {
+    ({ page, limit, val }: { limit?: "limit"; page?: "page"; val: number }) => {
       setPreSubmit({ el: "canMakeAPI", val: false });
 
-      setPagination({ el, val });
+      setPagination({ el: (page ?? limit) as "limit" | "page", val });
 
       const data = {
         ...getValues(),
-        page: val,
-        limit,
+        page: page ? val : 0,
+        limit: limit ? val : setLimitCards(),
       };
       trigger(data);
 
@@ -64,7 +64,7 @@ const PagesCounter: FC<PropsType> = ({
         data,
       });
     },
-    [setPreSubmit, trigger, limit, keyStorageVals, setPagination, getValues]
+    [setPreSubmit, trigger, keyStorageVals, setPagination, getValues]
   );
 
   const setPagPreventFetch = useCallback(
@@ -84,7 +84,16 @@ const PagesCounter: FC<PropsType> = ({
   }, [sizeBLock, page]);
 
   useEffect(() => {
-    if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
+    const updatePage = () => {
+      if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
+    };
+
+    updatePage();
+
+    window.addEventListener("resize", updatePage);
+    return () => {
+      window.removeEventListener("resize", updatePage);
+    };
   }, [page, setPagPreventFetch, totPages]);
 
   useEffect(() => {
@@ -92,16 +101,14 @@ const PagesCounter: FC<PropsType> = ({
       // ? BLOCK BUTTONS
       const newBlockCount = getNumBtns();
       const maxCards = setLimitCards();
-      const maxPossible = Math.max(0, Math.ceil(totPages / sizeBLock));
+      const maxPossibleBlock = Math.max(0, Math.ceil(totPages / sizeBLock));
 
       if (sizeBLock !== newBlockCount) setSizeBlock(newBlockCount);
-      if (totPages < newBlockCount || maxPossible > currBlock) setCurrBlock(0);
+      if (totPages < newBlockCount || maxPossibleBlock > currBlock)
+        setCurrBlock(0);
 
-      if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
-
-      if (limit !== maxCards) {
-        setPagPreventFetch({ el: "page", val: 0 });
-      }
+      if (limit !== maxCards)
+        handlePagination({ limit: "limit", val: maxCards });
     };
 
     window.addEventListener("resize", listenResize);
@@ -116,6 +123,7 @@ const PagesCounter: FC<PropsType> = ({
     totPages,
     page,
     sizeBLock,
+    handlePagination,
   ]);
 
   const handlePrev = useCallback(
@@ -133,7 +141,7 @@ const PagesCounter: FC<PropsType> = ({
 
   const handlePage = useCallback(
     (val: number) => {
-      handlePagination({ el: "page", val });
+      handlePagination({ page: "page", val });
 
       makeDelay(() => {
         const el = document.getElementById(searchBarID);
