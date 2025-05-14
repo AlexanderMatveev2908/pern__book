@@ -32,7 +32,7 @@ const BookStores: FC = () => {
   const { handleSubmit, setFocus } = formCtx;
 
   const res = bookStoreSliceAPI.endpoints.getAllStores.useQuery(
-    { ...args } as ReqQueryAPI<SearchStoreFormType>,
+    args as ReqQueryAPI<SearchStoreFormType>,
     {
       skip: hasFormErrs || !isPopulated,
       refetchOnMountOrArgChange: true,
@@ -42,11 +42,6 @@ const BookStores: FC = () => {
   const { data } = res ?? {};
   const { bookStores } = data ?? {};
   useFocus({ key: "name", setFocus });
-  // const { handleSearch } = useClickSearch({
-  //   ctx,
-  //   formCtx,
-  //   txtInputs: fieldsSearchStore,
-  // });
 
   const handleSave = handleSubmit(() => null);
 

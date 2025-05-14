@@ -3,7 +3,6 @@ import { useEffect, useRef } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { FieldValues, UseFormGetValues } from "react-hook-form";
 import {
-  __cg,
   clearTimer,
   isSameData,
   saveStorage,
@@ -43,7 +42,9 @@ export const useDebounceSearch = ({
       const currVals = { ...getValues(), limit, page };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      __cg("same", isSame);
+      // __cg("old", oldVals.current);
+      // __cg("curr", currVals);
+      // __cg("same", isSame);
 
       if (isSame) {
         if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });

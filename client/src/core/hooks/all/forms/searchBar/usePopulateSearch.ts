@@ -20,13 +20,7 @@ export const usePopulateSearch = ({
   setValue,
 }: Params<any>) => {
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
-  const {
-    setTxtInputs,
-    updateValsNoDebounce,
-    setArgs,
-    setSearch,
-    setPreSubmit,
-  } = ctx;
+  const { setTxtInputs, updateValsNoDebounce, setSearch, setPreSubmit } = ctx;
 
   useEffect(() => {
     const savedVals = getStorage(keyStorageVals);
@@ -79,7 +73,6 @@ export const usePopulateSearch = ({
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
     setValue,
-    updateValsNoDebounce,
     setPreSubmit,
     keyStorageVals,
     filters,
@@ -87,6 +80,6 @@ export const usePopulateSearch = ({
     setSearch,
     setTxtInputs,
     txtInputs,
-    setArgs,
+    updateValsNoDebounce,
   ]);
 };

@@ -6,7 +6,6 @@ import {
 import { ArgsSearchType } from "./initState";
 
 export enum SearchCtxActions {
-  SET_LABEL = "SET_LABEL",
   SET_TXT_INPUTS = "SET_TXT_INPUTS",
   SET_BAR = "SET_BAR",
   SET_SEARCH = "SET_SEARCH",
@@ -50,10 +49,6 @@ export type ParamsPreSubmit = {
 };
 
 export type SearchCtxActionsType =
-  | {
-      type: SearchCtxActions.SET_LABEL;
-      payload: { val: boolean; label: "labelSubmit" | "labelSearch" };
-    }
   | {
       type: SearchCtxActions.SET_TXT_INPUTS;
       payload: FormFieldBasic[];

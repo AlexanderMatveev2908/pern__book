@@ -83,12 +83,12 @@ export const useSearchCtxVals = ({
     ({ vals, force }: ParamsUpdateNoDebounce) => {
       setPreSubmit({ el: "canMakeAPI", val: false });
 
-      oldVals.current = vals;
       setArgs({
         ...(vals as ResPaginationAPI<ArgsSearchType>),
         ...(force ? { _: Date.now() } : {}),
       });
 
+      oldVals.current = vals;
       saveStorage({ data: vals, key: keyStorageVals });
     },
     [setPreSubmit, setArgs, keyStorageVals]
