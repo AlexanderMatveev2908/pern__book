@@ -1,11 +1,12 @@
 import { RootStateType } from "@/store/store";
+import { BookStoreType } from "@/types/all/bookStore";
 import { createEntityAdapter, createSlice } from "@reduxjs/toolkit";
 
-export const bookStoresAdapter = createEntityAdapter();
+export const bookStoresAdapter = createEntityAdapter<BookStoreType>();
 
 const initState = {
   ...bookStoresAdapter.getInitialState(),
-  store: null,
+  bookStore: null,
 };
 
 export const bookStoreSlice = createSlice({

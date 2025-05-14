@@ -29,10 +29,8 @@ const BookStores: FC = () => {
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
   const [trigger, res] = hook;
-  const { data } = res;
   useWrapQueryAPI({ ...res });
-
-  const { bookStores } = data ?? {};
+  const { data: { bookStores } = {} } = res ?? {};
 
   return (
     <WrapPageAPI
