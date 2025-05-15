@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import BookForm from "@/common/forms/BookForm/BookForm";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
@@ -19,14 +20,16 @@ const CreateBook: FC = () => {
     isError: isUserError,
   } = useGetU();
 
-  const { handleSubmit } = formCtx;
+  const { handleSubmit, setFocus } = formCtx;
 
   const handleSave = handleSubmit(
     (formDataHook) => {
       console.log(formDataHook);
     },
     (errs) => {
-      console.log(errs);
+      if (errs?.store?.message) setFocus("store_a" as any);
+
+      return errs;
     }
   );
 
