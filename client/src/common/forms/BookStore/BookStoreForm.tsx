@@ -22,6 +22,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import { useLocation } from "react-router-dom";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
+import OptionalField from "@/components/elements/OptionalField";
 
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;
@@ -59,11 +60,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
 
   return (
     <form onSubmit={handleSave} className="__cont gap-8">
-      <div className="w-full flex justify-end">
-        <span className="txt__1 border-b-[3px] border-blue-600 pb-1">
-          Fields with ~ near name are optional
-        </span>
-      </div>
+      <OptionalField />
 
       <WrapperFormField
         {...{

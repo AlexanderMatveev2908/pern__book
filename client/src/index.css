@@ -197,7 +197,7 @@ body {
   @apply w-full grid justify-items-center gap-6 text-gray-300;
 }
 .__cont {
-  @apply w-full grid justify-items-center;
+  @apply w-full grid grid-cols-1 justify-items-center;
 }
 
 .center_abs {

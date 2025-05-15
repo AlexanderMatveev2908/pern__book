@@ -1,11 +1,13 @@
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
+import WrapperLogged from "@/components/HOC/WrapperLogged";
 import type { FC } from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 const BooksOwnerLayout: FC = () => {
-  const { data: { user } = {} } = useGetUserProfileQuery();
-
-  return user?.isOwner ? <Outlet /> : <Navigate to="/" replace={true} />;
+  return (
+    <WrapperLogged>
+      <Outlet />
+    </WrapperLogged>
+  );
 };
 
 export default BooksOwnerLayout;

@@ -25,7 +25,7 @@ import BookStoreLayout from "./layouts/OwnerLayout/BookStoreLayout";
 import UpdateBookStore from "./pages/OwnerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStore";
 import BookStores from "./pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
 import SearchCtxProvider from "./core/contexts/SearchCtx/SearchCtxProvider";
-import CreateBook from "./pages/OwnerLayout/BooksLayout/CreateBook";
+import CreateBook from "./pages/OwnerLayout/BooksLayout/CreateBook/CreateBook";
 import BooksOwnerLayout from "./layouts/OwnerLayout/BooksOwnerLayout";
 
 const App: FC = () => {
