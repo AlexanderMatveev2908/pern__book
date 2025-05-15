@@ -17,7 +17,11 @@ const HomePage: FC = () => {
     }
   }, [dispatch, authState.loggingOut]);
 
-  return <div className="parent__page"></div>;
+  return (
+    <div className="parent__page">
+      <h1 className="txt_5">Work in progress ⚒️⚒️⚒️</h1>
+    </div>
+  );
 };
 export default HomePage;
 
