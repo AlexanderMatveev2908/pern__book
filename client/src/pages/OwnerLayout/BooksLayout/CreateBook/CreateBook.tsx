@@ -28,6 +28,7 @@ const CreateBook: FC = () => {
     },
     (errs) => {
       if (errs?.store?.message) setFocus("store_a" as any);
+      else if (errs?.images?.message) setFocus("images_a" as any);
 
       return errs;
     }

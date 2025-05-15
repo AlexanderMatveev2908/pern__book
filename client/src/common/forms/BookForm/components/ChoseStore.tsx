@@ -80,10 +80,6 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
                 }}
               >
                 {el.name}
-                Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo
-                enim ab maxime, totam inventore voluptas nobis. Veniam laborum
-                aperiam obcaecati commodi delectus eos optio, aut consectetur a
-                omnis odio neque.
               </span>
             </li>
           ))}

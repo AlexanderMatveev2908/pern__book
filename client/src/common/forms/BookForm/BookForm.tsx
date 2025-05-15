@@ -15,6 +15,8 @@ import type { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import ChoseStore from "./components/ChoseStore";
 import { BookStoreType } from "@/types/all/bookStore";
+import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
+import { subcategories } from "@/types/all/books";
 
 type PropsType = {
   handleSave: () => void;
@@ -28,7 +30,10 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
     register,
     formState: { errors },
     setFocus,
+    watch,
   } = formCtx;
+
+  const store = watch("store");
 
   useFocus({ setFocus, key: "title" });
 
@@ -62,6 +67,23 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
 
       <WrapperFormField {...{ title: "Images ~" }}>
         <ImagesField />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "categories" }}>
+        {store ? (
+          <CheckBoxSwapper
+            {...{
+              keyForm: "categories",
+              maxData: 3,
+              fieldsArg: Object.values(subcategories).flat(),
+            }}
+          />
+        ) : (
+          <span className="txt__1 -mt-2 text-red-600">
+            To generate categories we need to know to which store you will add
+            the book
+          </span>
+        )}
       </WrapperFormField>
 
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">

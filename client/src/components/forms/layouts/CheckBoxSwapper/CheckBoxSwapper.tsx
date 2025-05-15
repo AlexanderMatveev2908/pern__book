@@ -6,7 +6,7 @@ import ErrorFormField from "../../Errors/ErrorFormField";
 import BtnCheckBox from "../../inputs/BtnCheckBox/BtnCheckBox";
 import ButtonsSwapper from "../ButtonsSwapper/ButtonsSwapper";
 import FocusAnchor from "../../FocusAnchor";
-import { capt } from "@/core/lib/lib";
+import { captAll } from "@/core/lib/lib";
 
 type PropsType = {
   fieldsArg: string[];
@@ -41,7 +41,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
     Array.from({ length: fieldsArg.length }, () => v4())
   );
   const [idsParent] = useState(
-    Array.from({ length: Math.ceil(fieldsArg.length / fieldsForSwap) }, () =>
+    Array.from({ length: calcTotSwap(fieldsArg.length, fieldsForSwap) }, () =>
       v4()
     )
   );
@@ -70,6 +70,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
   useEffect(() => {
     const resize = () => {
       setFieldsForSwap(calcByW());
+      setCurrSwap(0);
     };
 
     window.addEventListener("resize", resize);
@@ -127,7 +128,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
                   <BtnCheckBox
                     {...{
                       isIn: isIn(val),
-                      label: capt(val),
+                      label: captAll(val),
                       handleClick: () => handleCatClick(val),
                     }}
                   />

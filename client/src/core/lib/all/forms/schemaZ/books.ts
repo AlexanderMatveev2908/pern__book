@@ -31,7 +31,13 @@ export const schemaBookForm = z.object({
   year: z
     .string()
     .length(4, "Invalid year format")
-    .regex(REG_INT, "Invalid year format"),
+    .regex(REG_INT, "Invalid year format")
+    .refine(
+      (val) => +(val ?? "") >= 1450 && +(val ?? "") <= new Date().getFullYear(),
+      {
+        message: "Year must be between 1450 and the current year",
+      }
+    ),
 
   description: z
     .string()
@@ -66,6 +72,11 @@ export const schemaBookForm = z.object({
     .refine((val) => !val?.length || val.length <= 5, {
       message: "For practical reason max length images is 5",
     }),
+
+  categories: z
+    .array(z.string())
+    .min(1, "You should chose at least one category")
+    .max(3, "We can not accept more than 3 categories"),
 
   qty: z
     .string()

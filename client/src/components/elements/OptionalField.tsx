@@ -1,10 +1,14 @@
 import type { FC } from "react";
 
-const OptionalField: FC = () => {
+type PropsType = {
+  txt?: string;
+};
+
+const OptionalField: FC<PropsType> = ({ txt }) => {
   return (
     <div className="w-full flex justify-end">
       <span className="txt__1 border-b-[3px] border-blue-600 pb-1">
-        Fields with ~ near name are optional
+        {txt ?? "Fields with ~ near name are opti"}onal
       </span>
     </div>
   );
