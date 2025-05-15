@@ -20,7 +20,11 @@ const BookStoreItem: FC<PropsType> = ({ el }) => {
           <ImagesItem {...{ images: el.images }} />
         </div>
 
-        <div className="w-full grid grid-cols-1 sm:h-fit sm:items-start">
+        <div
+          className={`w-full grid grid-cols-1 sm:h-fit sm:items-start ${
+            el.images?.length ? "" : "-mt-5"
+          }`}
+        >
           <InfoCardStore {...{ el }} />
           <InfoCardStats {...{ el }} />
         </div>
