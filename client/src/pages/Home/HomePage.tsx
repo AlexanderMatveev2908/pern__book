@@ -3,8 +3,14 @@ import { useScroll } from "@/core/hooks/hooks";
 import apiSlice from "@/store/apiSlice";
 import { FC, useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { getDummy, getSomeData } from "@/features/dummy/dummySLice";
+import {
+  DummyStateType,
+  getDummy,
+  getSomeData,
+} from "@/features/dummy/dummySLice";
 import { DispatchType } from "@/store/store";
+import { __cg } from "@/core/lib/lib";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
@@ -19,18 +25,22 @@ const HomePage: FC = () => {
     }
   }, [dispatch, authState.loggingOut]);
 
-  const dummyState = useSelector(getDummy);
+  const dummyState: DummyStateType = useSelector(getDummy);
 
   const __d: DispatchType = useDispatch();
   const call = useCallback(() => {
     __d(getSomeData(undefined));
   }, [__d]);
 
-  console.log(dummyState);
   useEffect(() => {
     call();
   }, [call]);
 
-  return <div className="parent__page"></div>;
+  __cg("state", dummyState);
+  return (
+    <WrapPageAPI {...{ isLoading: dummyState.isPending }}>
+      <div className="parent__page"></div>;
+    </WrapPageAPI>
+  );
 };
 export default HomePage;

@@ -6,12 +6,32 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
+  EntityId,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
+interface valsType {
+  val: number;
+  id: string;
+}
+
+export interface DummyStateType {
+  isPending: boolean;
+  isError: boolean;
+  error: any;
+  data: null;
+  ids: EntityId[];
+  entities: Record<
+    EntityId,
+    {
+      id: EntityId;
+    }
+  >;
+}
+
 const entity = createEntityAdapter();
 
-const initState = {
+const initState: DummyStateType = {
   ...entity.getInitialState(),
   isPending: false,
   isError: false,
@@ -19,14 +39,15 @@ const initState = {
   data: null,
 };
 
-export const getSomeData = createAsyncThunk(
+export const getSomeData = createAsyncThunk<{ items: valsType[] }>(
   "dummy/getSomeData",
   async (_, _thunkAPI) => {
     try {
-      const res = await axios.get(backURL + "/dummy");
-      __cg("dummy call", res);
-    } catch (err) {
+      const { data } = await axios.get(backURL + "/dummy");
+      return data;
+    } catch (err: any) {
       console.log(err);
+      return _thunkAPI.rejectWithValue(err?.response?.data);
     }
   }
 );
@@ -45,13 +66,14 @@ const dummySlice = createSlice({
 
     builder.addCase(getSomeData.fulfilled, (state, action) => {
       state.isPending = false;
-      state.data = action.payload as any;
+      console.log(action.payload);
+      entity.setAll(state, action.payload.items);
     });
 
     builder.addCase(getSomeData.rejected, (state, action) => {
       state.isPending = false;
       state.isError = true;
-      state.error = action.error as any;
+      state.error = action.payload || action.error;
     });
   },
 });
