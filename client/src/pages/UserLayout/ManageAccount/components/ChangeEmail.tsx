@@ -3,24 +3,21 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { StorageKeys, UserType } from "@/types/types";
+import { StorageKeys } from "@/types/types";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { useHandleDangerAccount } from "@/core/hooks/all/useHandleDangerAccount";
-import {
-  useGetUserProfileQuery,
-  useUpdateEmailMutation,
-} from "@/features/UserLayout/userSliceAPI";
+import { useUpdateEmailMutation } from "@/features/UserLayout/userSliceAPI";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { newEmailField } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 type PropsType = {
   cond: boolean;
 };
 
 const ChangeEmail: FC<PropsType> = ({ cond }) => {
-  const { data } = useGetUserProfileQuery();
-  const { user } = (data ?? {}) as { user: UserType };
+  const { user } = useGetU();
 
   const schema = useMemo(
     () =>
@@ -28,7 +25,7 @@ const ChangeEmail: FC<PropsType> = ({ cond }) => {
         .object({
           ...schemaEmail(),
         })
-        .refine((data) => data.email !== user.email, {
+        .refine((data) => data.email !== user?.email, {
           message: "new email must be different from old one",
           path: ["email"],
         }),

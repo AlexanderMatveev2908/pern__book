@@ -1,9 +1,7 @@
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import Title from "@/components/elements/Title";
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
-import { UserType } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useEffect } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -19,13 +17,13 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { doLorem } from "@/core/lib/all/utils/place";
 import { useNavigate } from "react-router-dom";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
 const CreateBooksStore: FC = () => {
   const nav = useNavigate();
-  const { data: { user } = {} } = (useGetUserProfileQuery() ??
-    {}) as unknown as { data: { user: UserType } };
+  const { user } = useGetU();
 
   const [createBookStore, { isLoading }] = useCreateBookStoreMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();

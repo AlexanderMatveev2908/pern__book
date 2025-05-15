@@ -4,7 +4,6 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStoreSliceAPI";
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActions from "./components/DropActions";
@@ -17,13 +16,14 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
 import InfoBookStoreWorker from "@/components/elements/cards/shared/InfoBookStoreWorker";
 import { isObjOk } from "@/core/lib/lib";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const BookStorePage: FC = () => {
   useScroll();
 
   const { bookStoreID } = useParams() ?? {};
   const itPass = useMemo(() => REG_ID.test(bookStoreID ?? ""), [bookStoreID]);
-  const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
+  const { user } = useGetU();
   const res = useGetBookStoreQuery(bookStoreID!, {
     skip: !itPass,
   });

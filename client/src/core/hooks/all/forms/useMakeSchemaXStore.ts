@@ -1,11 +1,10 @@
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { useMemo } from "react";
 import { z } from "zod";
+import { useGetU } from "../useGetU";
 
 export const useMakeSchemaXStore = () => {
-  const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
-
+  const { user } = useGetU();
   return useMemo(
     () =>
       schemaBookStore.and(z.object({})).superRefine((data, ctx) => {

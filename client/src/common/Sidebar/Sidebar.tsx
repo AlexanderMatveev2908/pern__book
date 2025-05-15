@@ -8,12 +8,10 @@ import {
 // import UserEmail from "./components/UserEmail";
 import SideLink from "./components/SideLink";
 import { getAuthState } from "../../features/AuthLayout/authSlice";
-import { useGetUserProfileQuery } from "../../features/UserLayout/userSliceAPI";
-import { getData, isObjOk } from "@/core/lib/lib";
+import { isObjOk } from "@/core/lib/lib";
 import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
-import { UserType } from "@/types/types";
 import {
   createStoreField,
   fieldAccountLogged,
@@ -29,6 +27,7 @@ import {
 } from "@/core/config/fieldsData/Sidebar/sidebar";
 import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
 import FakeSideLink from "./components/FakeSideLink";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);
@@ -39,11 +38,10 @@ const Sidebar: FC = () => {
   const dispatch: DispatchType = useDispatch();
   const isSideOpen = useSelector(getSIde).isSideOpen;
 
-  const { data } = useGetUserProfileQuery() ?? {};
-  const user: UserType = getData(data, "user");
+  const { user } = useGetU();
 
   useEffect(() => {
-    if (isObjOk(user)) setEmail(user.email);
+    if (isObjOk(user)) setEmail(user?.email ?? "");
   }, [user]);
 
   useEffect(() => {

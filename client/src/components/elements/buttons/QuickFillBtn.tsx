@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import ButtonIcon from "./ButtonIcon/ButtonIcon";
 import { BtnAct, FormSettersProps, UserType } from "@/types/types";
 import { MdDynamicForm } from "react-icons/md";
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 type PropsType = {
   keysUser: string[];
@@ -14,10 +14,7 @@ const quickFillBtn = {
 };
 
 const QuickFillBtn: FC<PropsType> = ({ setValue, keysUser }) => {
-  const { data: { user } = {} } = (useGetUserProfileQuery() ??
-    {}) as unknown as {
-    data: { user: UserType } | undefined;
-  };
+  const { user } = useGetU();
 
   const handleClick = () => {
     let i = keysUser.length - 1;

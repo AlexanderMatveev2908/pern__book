@@ -5,7 +5,6 @@ import {
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
 import {
-  getData,
   isSameData,
   makeDelay,
   makeObj,
@@ -19,10 +18,7 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { EventApp, UserType } from "@/types/types";
-import {
-  useGetUserProfileQuery,
-  useUpdateProfileMutation,
-} from "@/features/UserLayout/userSliceAPI";
+import { useUpdateProfileMutation } from "@/features/UserLayout/userSliceAPI";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { openToast } from "@/features/common/Toast/toastSlice";
@@ -38,6 +34,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { makeFormDataProfile } from "@/core/lib/all/forms/formatters/userProfile";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -61,8 +58,8 @@ const ProfileSettings = () => {
   } = formCtx;
 
   useCLearTab();
-  const { data, isLoading, error, isError } = useGetUserProfileQuery() ?? {};
-  const user: UserType = getData(data, "user");
+  const { user, isLoading, error, isError } = useGetU() ?? {};
+
   const [updateProfile, { isLoading: isLoadingUpdate }] =
     useUpdateProfileMutation();
 

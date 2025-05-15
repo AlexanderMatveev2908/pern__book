@@ -1,20 +1,18 @@
 import { getStorage, schemaPwd } from "@/core/lib/lib";
 import { FC, useEffect, useMemo } from "react";
 import { z } from "zod";
-import { StorageKeys, UserType } from "@/types/types";
+import { StorageKeys } from "@/types/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReturnShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
 import { useHandleDangerAccount } from "@/core/hooks/all/useHandleDangerAccount";
-import {
-  useGetUserProfileQuery,
-  useUpdatePwdMutation,
-} from "@/features/UserLayout/userSliceAPI";
+import { useUpdatePwdMutation } from "@/features/UserLayout/userSliceAPI";
 import { fieldsNewPwdReset } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 type PropsType = {
   propsPwd: ReturnShowPwd;
@@ -23,9 +21,7 @@ type PropsType = {
 };
 
 const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
-  const { data } = useGetUserProfileQuery();
-  const { user } = (data ?? {}) as { user: UserType };
-
+  const { user } = useGetU();
   const schema = useMemo(
     () =>
       z
@@ -35,7 +31,7 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
             .string()
             .min(1, "You should confirm your new password"),
         })
-        .refine((data) => data.password !== user.email, {
+        .refine((data) => data.password !== user?.email, {
           message: "A password must be different from email",
           path: ["password"],
         })

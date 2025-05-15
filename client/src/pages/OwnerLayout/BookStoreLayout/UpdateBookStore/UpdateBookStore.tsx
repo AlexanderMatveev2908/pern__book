@@ -13,7 +13,6 @@ import {
   useGetBookStoreQuery,
   useUpdateBookStoreMutation,
 } from "@/features/OwnerLayout/bookStoreSliceAPI";
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -32,6 +31,7 @@ import {
 import { BookStoreType } from "@/types/all/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const processTeam = (team: any[]) =>
   team?.length
@@ -56,7 +56,7 @@ const UpdateBookStore: FC = () => {
 
   const nav = useNavigate();
 
-  const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
+  const { user } = useGetU();
   const { bookStoreID } = useParams() ?? {};
   const itPass = useMemo(() => REG_ID.test(bookStoreID ?? ""), [bookStoreID]);
   const res = useGetBookStoreQuery(bookStoreID!, {

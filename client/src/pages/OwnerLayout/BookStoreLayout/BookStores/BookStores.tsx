@@ -9,7 +9,6 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
-import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
@@ -17,12 +16,12 @@ import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
 import { TagsAPI } from "@/types/types";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const BookStores: FC = () => {
   useScroll();
 
-  const { data: { user } = {} } = useGetUserProfileQuery() ?? {};
-
+  const { user } = useGetU();
   const ctx = useSearchCtx();
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
