@@ -3,10 +3,13 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import { useScroll } from "@/core/hooks/hooks";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 
 const CreateBook: FC = () => {
+  useScroll();
+
   const { createBookFormCtx: formCtx } = useFormCtxConsumer();
   const { user, isLoading, error, isError } = useGetU();
 

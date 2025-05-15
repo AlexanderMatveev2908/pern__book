@@ -59,7 +59,7 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
   }, [path]);
 
   return (
-    <form onSubmit={handleSave} className="__cont gap-8">
+    <form onSubmit={handleSave} className="__cont">
       <OptionalField />
 
       <WrapperFormField

@@ -1,7 +1,13 @@
 import OptionalField from "@/components/elements/OptionalField";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
+import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
+import TxtField from "@/components/forms/inputs/TxtField";
 import WrapperFormField from "@/components/HOC/WrapperFormField";
-import { titleBookField } from "@/core/config/fieldsData/books/create";
+import {
+  fieldAuthY,
+  fieldDescBook,
+  titleBookField,
+} from "@/core/config/fieldsData/books/create";
 import { useFocus } from "@/core/hooks/hooks";
 import type { FC } from "react";
 import { useFormContext } from "react-hook-form";
@@ -28,6 +34,24 @@ const BookForm: FC<PropsType> = ({}) => {
         <FormField
           {...{ el: titleBookField, register, errors, showLabel: false }}
         />
+      </WrapperFormField>
+
+      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
+        {fieldAuthY.map((el) => (
+          <FormField {...{ register, errors, el }} />
+        ))}
+      </div>
+
+      <WrapperFormField
+        {...{ title: "Description ~", sizeStyle: "max-w-[500px] lg:max-w-1/2" }}
+      >
+        <TxtField
+          {...{ register, el: fieldDescBook, errors, showLabel: false }}
+        />
+      </WrapperFormField>
+
+      <WrapperFormField {...{ title: "Images ~" }}>
+        <ImagesField />
       </WrapperFormField>
     </div>
   );
