@@ -19,7 +19,7 @@ const HomePage: FC = () => {
 
   return (
     <div className="parent__page">
-      <h1 className="txt_5">Work in progress ⚒️⚒️⚒️</h1>
+      <h1 className="text-4xl leading-[125%]">Work in progress ⚒️⚒️⚒️</h1>
     </div>
   );
 };

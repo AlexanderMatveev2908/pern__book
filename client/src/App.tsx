@@ -25,6 +25,8 @@ import BookStoreLayout from "./layouts/OwnerLayout/BookStoreLayout";
 import UpdateBookStore from "./pages/OwnerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStore";
 import BookStores from "./pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
 import SearchCtxProvider from "./core/contexts/SearchCtx/SearchCtxProvider";
+import CreateBook from "./pages/OwnerLayout/BooksLayout/CreateBook";
+import BooksOwnerLayout from "./layouts/OwnerLayout/BooksOwnerLayout";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -97,6 +99,10 @@ const App: FC = () => {
                 </SwapCtxProvider>
               }
             />
+          </Route>
+
+          <Route path="books" element={<BooksOwnerLayout />}>
+            <Route path="add-book" element={<CreateBook />} />
           </Route>
         </Route>
 

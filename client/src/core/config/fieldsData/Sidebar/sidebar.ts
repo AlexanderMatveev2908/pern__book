@@ -1,5 +1,5 @@
 import { GoHome } from "react-icons/go";
-import { FaBook, FaUsers } from "react-icons/fa";
+import { FaBook, FaPenFancy, FaUsers } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
 import { RiAccountBoxLine } from "react-icons/ri";
@@ -67,11 +67,21 @@ export const sideFieldsAdmin: SideFieldType[] = addArrIDs([
     path: "/owner/book-store/book-stores",
   },
   {
+    label: "Add Book",
+    icon: FaPenFancy,
+    path: "/owner/books/add-book",
+  },
+  {
     label: "My Team",
     icon: FaUsers,
     path: "/owner/team",
   },
 ]);
+
+export const ownerOnlyPaths = [
+  "/owner/book-store/book-stores",
+  "/owner/books/add-book",
+];
 
 export const createStoreField = sideFieldsAdmin[0];
 

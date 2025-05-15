@@ -20,6 +20,7 @@ import {
   fieldAccountNonLogged,
   fieldAdminDrop,
   fieldWorkerDrop,
+  ownerOnlyPaths,
   sideFieldsAdmin,
   sideFieldsAllUsers,
   sideFieldsLogged,
@@ -75,7 +76,7 @@ const Sidebar: FC = () => {
   const fieldsAdmin = useMemo(
     () =>
       sideFieldsAdmin.filter((el) => {
-        if (el.path === "/owner/book-store/book-stores") return user?.isOwner;
+        if (ownerOnlyPaths.includes(el.path)) return user?.isOwner;
         if (el.path === "/owner/team") return user?.hasWorkers;
 
         return true;
