@@ -27,3 +27,4 @@ dist
 *.sw?
 video
 /src/config/assetsDev/video/
+theory
