@@ -6,40 +6,33 @@ import {
   createAsyncThunk,
   createEntityAdapter,
   createSlice,
-  EntityId,
+  EntityState,
 } from "@reduxjs/toolkit";
 import axios from "axios";
 
-interface valsType {
+interface ValItemType {
   val: number;
   id: string;
 }
 
-export interface DummyStateType {
+export interface DummyStateType extends EntityState<ValItemType, string> {
   isPending: boolean;
   isError: boolean;
   error: any;
   data: null;
-  ids: EntityId[];
-  entities: Record<
-    EntityId,
-    {
-      id: EntityId;
-    }
-  >;
 }
 
-const entity = createEntityAdapter();
+export const entityAd = createEntityAdapter<ValItemType>();
 
 const initState: DummyStateType = {
-  ...entity.getInitialState(),
+  ...entityAd.getInitialState(),
   isPending: false,
   isError: false,
   error: null,
   data: null,
 };
 
-export const getSomeData = createAsyncThunk<{ items: valsType[] }>(
+export const getSomeData = createAsyncThunk<{ items: ValItemType[] }>(
   "dummy/getSomeData",
   async (_, _thunkAPI) => {
     try {
@@ -55,7 +48,18 @@ export const getSomeData = createAsyncThunk<{ items: valsType[] }>(
 const dummySlice = createSlice({
   name: "dummy",
   initialState: initState,
-  reducers: {},
+  reducers: {
+    setAllItems: entityAd.setAll,
+    addOne: entityAd.addOne,
+    clearItems: entityAd.removeAll,
+    removeItem: entityAd.removeOne,
+    updateItem: entityAd.updateOne,
+    delItems: entityAd.removeMany,
+
+    setOne: entityAd.setOne,
+
+    updateList: entityAd.updateMany,
+  },
 
   extraReducers: (builder) => {
     builder.addCase(getSomeData.pending, (state) => {
@@ -67,7 +71,7 @@ const dummySlice = createSlice({
     builder.addCase(getSomeData.fulfilled, (state, action) => {
       state.isPending = false;
       console.log(action.payload);
-      entity.setAll(state, action.payload.items);
+      entityAd.setAll(state, action.payload.items);
     });
 
     builder.addCase(getSomeData.rejected, (state, action) => {
@@ -78,6 +82,20 @@ const dummySlice = createSlice({
   },
 });
 
+export const {
+  setAllItems,
+  removeItem,
+  addOne: addItem,
+  clearItems,
+  updateItem,
+  updateList,
+  delItems,
+  setOne,
+} = dummySlice.actions;
+
 export const getDummy = (state: any) => state.dummy;
+
+export const { selectAll: selectAllDummy, selectById: getMyItem } =
+  entityAd.getSelectors(getDummy);
 
 export default dummySlice;

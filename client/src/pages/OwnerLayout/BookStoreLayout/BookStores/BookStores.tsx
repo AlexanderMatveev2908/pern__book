@@ -15,6 +15,8 @@ import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
+import { TagsAPI } from "@/types/types";
 
 const BookStores: FC = () => {
   useScroll();
@@ -32,13 +34,11 @@ const BookStores: FC = () => {
   useWrapQueryAPI({ ...res });
   const { data: { bookStores } = {} } = res ?? {};
 
-  // const __d = useDispatch();
-
-  // const storesState = useSelector(getBookStoreState);
-  // __cg("stores", storesState);
-  // useEffect(() => {
-  //   if (bookStores?.[0]) __d(addBookStore(bookStores[0]));
-  // }, [__d, bookStores]);
+  useClearCacheItem({
+    nameQ: "getBookStore",
+    slice: bookStoreSliceAPI,
+    tag: TagsAPI.BOOK_STORE,
+  });
 
   return (
     <WrapPageAPI

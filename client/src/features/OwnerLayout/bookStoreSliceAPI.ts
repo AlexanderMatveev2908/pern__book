@@ -44,14 +44,6 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
               }
             )
           );
-          // dispatch(
-          //   bookStoreSliceAPI.endpoints.getAllStores.initiate(
-          //     { page: 0, limit: setLimitCards(), _: Date.now() },
-          //     {
-          //       forceRefetch: true,
-          //     }
-          //   )
-          // );
         });
       },
     }),
@@ -137,15 +129,15 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         await catchErr(async () => {
           await queryFulfilled;
 
-          // await dispatch(
-          //   bookStoreSliceAPI.util.updateQueryData(
-          //     "getBookStore",
-          //     id,
-          //     (draft) => {
-          //       draft.ninja = "🥷🏼";
-          //     }
-          //   )
-          // );
+          dispatch(
+            bookStoreSliceAPI.util.updateQueryData(
+              "getBookStore",
+              id,
+              (draft) => {
+                draft.ninja = "🥷🏼";
+              }
+            )
+          );
 
           dispatch(
             bookStoreSliceAPI.util.invalidateTags([
