@@ -11,10 +11,10 @@ import {
   titleBookField,
 } from "@/core/config/fieldsData/books/create";
 import { useFocus } from "@/core/hooks/hooks";
-import type { FC } from "react";
+import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
 import ChoseStore from "./components/ChoseStore";
-import { BookStoreType } from "@/types/all/bookStore";
+import { BookStoreType, CatBookStore } from "@/types/all/bookStore";
 import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
 import { subcategories } from "@/types/all/books";
 
@@ -33,9 +33,20 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
     watch,
   } = formCtx;
 
-  const store = watch("store");
+  const storeID = watch("store");
 
   useFocus({ setFocus, key: "title" });
+
+  const categoriesFields: string[] = useMemo(() => {
+    const filtered = Object.entries(subcategories).filter((pair) => {
+      const currStore = stores?.find((store) => store.id === storeID);
+      if (!currStore) return;
+
+      return currStore?.categories?.includes(pair[0] as CatBookStore);
+    });
+
+    return filtered.flatMap((pair) => pair[1]);
+  }, [storeID, stores]);
 
   return (
     <form onSubmit={handleSave} className="__cont">
@@ -70,12 +81,12 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
       </WrapperFormField>
 
       <WrapperFormField {...{ title: "categories" }}>
-        {store ? (
+        {storeID ? (
           <CheckBoxSwapper
             {...{
               keyForm: "categories",
               maxData: 3,
-              fieldsArg: Object.values(subcategories).flat(),
+              fieldsArg: categoriesFields,
             }}
           />
         ) : (

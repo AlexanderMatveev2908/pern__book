@@ -9,7 +9,7 @@ import FocusAnchor from "../../FocusAnchor";
 import { captAll } from "@/core/lib/lib";
 
 type PropsType = {
-  fieldsArg: string[];
+  fieldsArg: string[] | [];
   keyForm: string;
   maxData?: number;
 };
@@ -76,6 +76,10 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, []);
+
+  useEffect(() => {
+    if (currSwap >= totSwap) setCurrSwap(0);
+  }, [currSwap, fieldsArg, totSwap]);
 
   const handleCatClick = (val: string) =>
     setValue(

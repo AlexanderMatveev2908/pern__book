@@ -37,10 +37,15 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
     watch,
     formState: { errors },
     register,
+    getValues,
   } = useFormContext();
 
-  const handleClick = (val: string) =>
+  const handleClick = (val: string) => {
+    if (getValues("store") !== val)
+      setValue("categories", [], { shouldValidate: true });
+
     setValue("store", val, { shouldValidate: true });
+  };
 
   return !stores?.length ? null : (
     <div className="w-full flex justify-end">

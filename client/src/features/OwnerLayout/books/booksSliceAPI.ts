@@ -1,6 +1,6 @@
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BaseResAPI } from "@/types/types";
+import { BaseResAPI, TagsAPI } from "@/types/types";
 
 const BASE_URL = "/admin-books";
 
@@ -14,6 +14,7 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/stores-info`,
         method: "GET",
       }),
+      providesTags: [TagsAPI.STORES_INFO],
     }),
   }),
 });
