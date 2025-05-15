@@ -27,3 +27,19 @@ export const fieldAuthY = [fieldAuthor, fieldYear].map((el) => ({
   ...el,
   id: v4(),
 }));
+
+export const fieldBookQty = {
+  field: "qty",
+  label: "Quantity",
+  place: "Quantity...",
+};
+export const fieldPrice = {
+  field: "price",
+  label: "Price",
+  place: "Price...",
+};
+
+export const fieldsPriceQty = [fieldBookQty, fieldPrice].map((el) => ({
+  ...el,
+  id: v4(),
+}));

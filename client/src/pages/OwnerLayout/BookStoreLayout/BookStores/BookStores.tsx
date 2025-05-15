@@ -8,7 +8,6 @@ import {
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
@@ -17,6 +16,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
 import { TagsAPI } from "@/types/types";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 
 const BookStores: FC = () => {
   useScroll();

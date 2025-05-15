@@ -7,6 +7,7 @@ import sendMailRouter from "./all/sendEmail.js";
 import { __cr } from "../middleware/general/logger.js";
 import adminExpressRouterStore from "./all/adminBookStore.js";
 import dummyRouter from "./all/dummy.js";
+import adminBookRouter from "./all/adminBookRoute.js";
 
 const routerApp = express.Router();
 
@@ -18,6 +19,7 @@ routerApp.use("/verify", verifyRouter);
 routerApp.use("/send-email", sendMailRouter);
 routerApp.use("/user", profileRouter);
 routerApp.use("/admin-book-store", adminExpressRouterStore);
+routerApp.use("/admin-books", adminBookRouter);
 routerApp.use("/dummy", dummyRouter);
 
 export default routerApp;

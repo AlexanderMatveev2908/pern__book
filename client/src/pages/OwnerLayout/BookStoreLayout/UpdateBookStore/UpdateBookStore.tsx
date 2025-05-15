@@ -9,10 +9,6 @@ import {
   useWrapMutationAPI,
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
-import {
-  useGetBookStoreQuery,
-  useUpdateBookStoreMutation,
-} from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useCallback, useEffect, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -32,6 +28,10 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import {
+  useGetBookStoreQuery,
+  useUpdateBookStoreMutation,
+} from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 
 const processTeam = (team: any[]) =>
   team?.length

@@ -11,7 +11,7 @@ import {
   loadPop,
   openPopup,
 } from "@/features/common/Popup/popupSlice";
-import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStoreSliceAPI";
+import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { DispatchType } from "@/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BtnAct, BtnPopupKeys } from "@/types/types";

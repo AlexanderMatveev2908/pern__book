@@ -2,6 +2,7 @@ import {
   REG_BOOK_TITLE,
   REG_INT,
   REG_NAME,
+  REG_PRICE,
   REG_STORE_DESC,
 } from "@/core/config/regex";
 import { z } from "zod";
@@ -56,5 +57,22 @@ export const schemaBookForm = z.object({
     )
     .refine((val) => !val?.length || val.length <= 5, {
       message: "For practical reason max length images is 5",
+    }),
+
+  qty: z
+    .string()
+    .min(1, "Quantity is required")
+    .max(10, "max length exceeded")
+    .regex(REG_INT, "Invalid quantity format")
+    .refine((val) => +(val ?? "") >= 0, {
+      message: "Quantity must be at least 0",
+    }),
+  price: z
+    .string()
+    .min(1, "Price is required")
+    .max(10, "max length exceeded")
+    .regex(REG_PRICE, "Invalid price format")
+    .refine((val) => +(val ?? "") >= 0.01, {
+      message: "Price must be at least $0.01",
     }),
 });

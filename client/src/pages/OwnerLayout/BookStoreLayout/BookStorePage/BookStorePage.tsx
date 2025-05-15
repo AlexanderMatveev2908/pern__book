@@ -3,7 +3,6 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStoreSliceAPI";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActions from "./components/DropActions";
@@ -17,6 +16,7 @@ import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoSt
 import InfoBookStoreWorker from "@/components/elements/cards/shared/InfoBookStoreWorker";
 import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 
 const BookStorePage: FC = () => {
   useScroll();

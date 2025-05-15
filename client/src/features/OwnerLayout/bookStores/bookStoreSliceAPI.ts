@@ -1,6 +1,7 @@
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
 import { catchErr } from "@/core/lib/lib";
+import { userSliceAPI } from "@/features/UserLayout/userSliceAPI";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
 import {
@@ -9,7 +10,6 @@ import {
   ResPaginationAPI,
   TagsAPI,
 } from "@/types/types";
-import { userSliceAPI } from "../UserLayout/userSliceAPI";
 
 const BASE_URL = "/admin-book-store";
 
