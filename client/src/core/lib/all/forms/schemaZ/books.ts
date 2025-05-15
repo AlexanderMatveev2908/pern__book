@@ -1,5 +1,6 @@
 import {
   REG_BOOK_TITLE,
+  REG_ID,
   REG_INT,
   REG_NAME,
   REG_PRICE,
@@ -8,6 +9,13 @@ import {
 import { z } from "zod";
 
 export const schemaBookForm = z.object({
+  store: z
+    .string({
+      required_error: "Store is required",
+      invalid_type_error: "Error developer 😠",
+    })
+    .nonempty("Store is required")
+    .regex(REG_ID, "Error developer 😠"),
   title: z
     .string()
     .min(1, "Title is required")
