@@ -1,4 +1,4 @@
-import { FaGamepad, FaHotel } from "react-icons/fa";
+import { FaGamepad, FaHotel, FaUsers } from "react-icons/fa";
 import { FiGithub } from "react-icons/fi";
 import { IoRestaurant } from "react-icons/io5";
 import { v4 } from "uuid";
@@ -43,6 +43,11 @@ export const linksRender = [
     label: "REACT Form",
     url: "https://react-form-ytsc.onrender.com",
     icon: FaClipboardQuestion,
+  },
+  {
+    label: "React Team Devs",
+    url: "https://react-team-developers.onrender.com",
+    icon: FaUsers,
   },
 ].map((el) => ({
   ...el,

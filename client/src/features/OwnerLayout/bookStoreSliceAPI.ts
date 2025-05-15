@@ -10,7 +10,6 @@ import {
   TagsAPI,
 } from "@/types/types";
 import { userSliceAPI } from "../UserLayout/userSliceAPI";
-import bookStoreSlice from "./bookStoreSlice";
 
 const BASE_URL = "/admin-book-store";
 
@@ -84,13 +83,14 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
                 id: "LIST",
               },
             ],
-      async onQueryStarted(_, { dispatch, queryFulfilled }) {
-        await catchErr(async () => {
-          const res = await queryFulfilled;
+      // async onQueryStarted(_, { dispatch, queryFulfilled }) {
+      //   await catchErr(async () => {
+      //     const { data } = await queryFulfilled;
 
-          dispatch(bookStoreSlice.actions.setBookStores(res.data.bookStores));
-        });
-      },
+      //     if (data?.bookStores?.length)
+      //       dispatch(bookStoreSlice.actions.setBookStores(data.bookStores));
+      //   });
+      // },
     }),
 
     updateBookStore: builder.mutation<

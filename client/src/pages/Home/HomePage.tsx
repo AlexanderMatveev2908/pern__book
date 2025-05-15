@@ -17,27 +17,28 @@ const HomePage: FC = () => {
     }
   }, [dispatch, authState.loggingOut]);
 
-  // dummySliceAPI.endpoints.getDummyData.useQuery();
-  // const dummyState: DummyStateType = useSelector(getDummy);
-  // const items = useSelector(selectAllDummy);
-  // const __d = useDispatch();
-
-  // const myCoolItem = useSelector((state) => getMyItem(state, "000"));
-
-  // useEffect(() => {
-  //   if (items.length && !items.find((el) => el.id === "000"))
-  //     __d(
-  //       setOne({
-  //         id: "000",
-  //         val: 99,
-  //       })
-  //     );
-  // }, [__d, items]);
-
-  // const { isPending, error, isError } = dummyState;
   return <div className="parent__page"></div>;
 };
 export default HomePage;
+
+// dummySliceAPI.endpoints.getDummyData.useQuery();
+// const dummyState: DummyStateType = useSelector(getDummy);
+// const items = useSelector(selectAllDummy);
+// const __d = useDispatch();
+
+// const myCoolItem = useSelector((state) => getMyItem(state, "000"));
+
+// useEffect(() => {
+//   if (items.length && !items.find((el) => el.id === "000"))
+//     __d(
+//       setOne({
+//         id: "000",
+//         val: 99,
+//       })
+//     );
+// }, [__d, items]);
+
+// const { isPending, error, isError } = dummyState;
 
 // <WrapPageAPI {...{ isLoading: isPending, isError, error }}>
 //   <div className="parent__page">
