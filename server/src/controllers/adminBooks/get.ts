@@ -4,6 +4,7 @@ import { BookStore } from "../../models/all/BookStore.js";
 import { err404 } from "../../lib/responseClient/err.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Book } from "../../models/all/Book.js";
+import { calcPagination } from "../../lib/query/pagination.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -71,7 +72,10 @@ export const getBooksList = async (
     ],
   });
 
-  if (!books.length) return res204(res);
+  const nHits = books.length;
+  if (!nHits) return res204(res);
+
+  const { skip, totPages, limit } = calcPagination(req, nHits);
 
   return res200(res, { books });
 };

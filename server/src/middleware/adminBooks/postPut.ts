@@ -18,7 +18,10 @@ import { validateIDs } from "../sharedValidators/ids.js";
 const fromBytesToMb = (bytes: number) => bytes / 1024 ** 2;
 
 export const validatePostPutBooks = [
-  ...validateIDs,
+  check("bookStoreID")
+    .matches(REG_ID)
+    .withMessage("Invalid bookStoreID format"),
+
   check("title")
     .isLength({ min: 1 })
     .withMessage("Title is required")

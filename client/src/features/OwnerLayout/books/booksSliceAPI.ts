@@ -1,4 +1,5 @@
 import { SearchBooksOwnerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
+import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import { catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookType } from "@/types/all/books";
@@ -77,9 +78,9 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
       BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>,
       ReqQueryAPI<SearchBooksOwnerType>
     >({
-      query: () => {
+      query: (vals) => {
         return {
-          url: BASE_URL + "?",
+          url: BASE_URL + `?${makeParams(vals)}`,
           method: "GET",
         };
       },

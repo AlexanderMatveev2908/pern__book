@@ -1,5 +1,5 @@
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
-import { makeParams } from "@/core/lib/all/forms/formatters/bookStore";
+import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import { catchErr } from "@/core/lib/lib";
 import { userSliceAPI } from "@/features/UserLayout/userSliceAPI";
 import apiSlice from "@/store/apiSlice";
