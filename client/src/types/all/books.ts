@@ -2,6 +2,8 @@
 // ? 3 subcategories for each category
 // ? 21 * 3 = 63
 
+import { AssetCloudType } from "./images";
+
 export const subcategories = {
   classics: ["greek & roman", "victorian", "modernist"],
   philosophy: ["ethics", "metaphysics", "existentialism"],
@@ -27,4 +29,17 @@ export const subcategories = {
   cooking: ["baking", "vegetarian", "international cuisine"],
   travel: ["europe", "backpacking", "cultural guides"],
   romance: ["contemporary", "historical", "paranormal"],
+};
+
+export type BookType = {
+  id: string;
+  bookStoreID: string;
+  title: string;
+  author: string;
+  year: number;
+  categories: string[];
+  images: AssetCloudType[] | null;
+  description: string | null;
+  qty: number;
+  price: number;
 };

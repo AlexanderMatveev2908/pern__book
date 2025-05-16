@@ -1,7 +1,7 @@
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
-import { useGetU } from "../useGetU";
+import { useGetU } from "../../useGetU";
 import { useMemo } from "react";
-import { useWrapQueryAPI } from "../wrappers/useWrapQueryAPI";
+import { useWrapQueryAPI } from "../../wrappers/useWrapQueryAPI";
 
 export const useMergeInfoBookForm = () => {
   const {

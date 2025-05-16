@@ -1,4 +1,5 @@
 import apiSlice from "@/store/apiSlice";
+import { BookType } from "@/types/all/books";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BaseResAPI, TagsAPI } from "@/types/types";
 
@@ -22,6 +23,13 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: BASE_URL,
         method: "POST",
         data,
+      }),
+    }),
+
+    getInfoBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
+      query: (bookID: string) => ({
+        url: `${BASE_URL}/info/${bookID}`,
+        method: "GET",
       }),
     }),
   }),

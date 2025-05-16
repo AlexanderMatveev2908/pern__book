@@ -17,6 +17,7 @@ import ChoseStore from "./components/ChoseStore";
 import { BookStoreType, CatBookStore } from "@/types/all/bookStore";
 import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
 import { subcategories } from "@/types/all/books";
+import { useLocation } from "react-router-dom";
 
 type PropsType = {
   handleSave: () => void;
@@ -48,6 +49,8 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
     return filtered.flatMap((pair) => pair[1]);
   }, [storeID, stores]);
 
+  const path = useLocation()?.pathname;
+
   return (
     <form onSubmit={handleSave} className="__cont">
       <OptionalField />
@@ -62,11 +65,13 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
         />
       </WrapperFormField>
 
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
-        {fieldAuthY.map((el) => (
-          <FormField {...{ register, errors, el }} />
-        ))}
-      </div>
+      <WrapperFormField {...{ title: "author & year" }}>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
+          {fieldAuthY.map((el) => (
+            <FormField {...{ register, errors, el }} />
+          ))}
+        </div>
+      </WrapperFormField>
 
       <WrapperFormField
         {...{ title: "Description ~", sizeStyle: "max-w-[500px] lg:max-w-1/2" }}
@@ -97,14 +102,22 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
         )}
       </WrapperFormField>
 
-      <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
-        {fieldsPriceQty.map((el) => (
-          <FormField {...{ register, errors, el }} />
-        ))}
-      </div>
+      <WrapperFormField {...{ title: "quantity & price" }}>
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
+          {fieldsPriceQty.map((el) => (
+            <FormField {...{ register, errors, el }} />
+          ))}
+        </div>
+      </WrapperFormField>
 
-      <div className="w-full max-w-[200px] mt-10">
-        <Button {...{ label: "Create", isPending, type: "submit" }} />
+      <div className="w-full max-w-[225px] mt-10">
+        <Button
+          {...{
+            label: path?.includes("add") ? "Create" : "Update",
+            isPending,
+            type: "submit",
+          }}
+        />
       </div>
     </form>
   );

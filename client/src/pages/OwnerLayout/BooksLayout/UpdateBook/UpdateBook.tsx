@@ -1,28 +1,53 @@
+import BookForm from "@/common/forms/BookForm/BookForm";
+import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { REG_ID } from "@/core/config/regex";
-import { useMergeInfoBookForm } from "@/core/hooks/all/forms/useMergeInfoBookForm";
+import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
+import { useMergeInfoExistingBook } from "@/core/hooks/all/forms/books/useMergeInfoExistingBook";
 import { useScroll } from "@/core/hooks/hooks";
-import type { FC } from "react";
-import { useParams } from "react-router-dom";
+import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { type FC } from "react";
+import { FormProvider, useForm } from "react-hook-form";
 
 const UpdateBook: FC = () => {
   useScroll();
 
-  const { user, stores, isSomeErr, someErr, someonePending } =
-    useMergeInfoBookForm();
+  const { user, stores, isValidID, isPending, isErr, error, book } =
+    useMergeInfoExistingBook();
 
-  const { bookID } = useParams() ?? {};
-  const isValidID = REG_ID.test(bookID ?? "");
+  const formCtx = useForm<BookFormType>({
+    resolver: zodResolver(schemaBookForm),
+    mode: "onChange",
+  });
+  const { handleSubmit } = formCtx;
+  const handleSave = handleSubmit(
+    async (formDataHook) => {
+      console.log(formDataHook);
+    },
+    (errs) => {
+      console.log(errs);
+    }
+  );
 
   return (
     <WrapPageAPI
       {...{
         canStay: user?.isOwner && isValidID,
-        isLoading: someonePending,
-        isError: isSomeErr,
-        error: someErr,
+        isLoading: isPending,
+        isError: isErr,
+        error,
       }}
-    ></WrapPageAPI>
+    >
+      <div className="parent__page">
+        <Title {...{ title: "update book" }} />
+
+        <div className="w-full grid justify-items-center gap-6">
+          <FormProvider {...formCtx}>
+            <BookForm {...{ handleSave, isPending: false, stores }} />
+          </FormProvider>
+        </div>
+      </div>
+    </WrapPageAPI>
   );
 };
 

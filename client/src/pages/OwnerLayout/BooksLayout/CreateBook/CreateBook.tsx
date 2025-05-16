@@ -3,7 +3,7 @@ import BookForm from "@/common/forms/BookForm/BookForm";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useMergeInfoBookForm } from "@/core/hooks/all/forms/useMergeInfoBookForm";
+import { useMergeInfoBookForm } from "@/core/hooks/all/forms/books/useMergeInfoBookForm";
 import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";

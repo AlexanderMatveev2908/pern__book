@@ -1,7 +1,7 @@
 import express from "express";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
 import { wrapApp } from "../../middleware/general/wrapApp.js";
-import { getStoreInfo } from "../../controllers/adminBooks/get.js";
+import { getInfoBook, getStoreInfo } from "../../controllers/adminBooks/get.js";
 import { logJSON } from "../../lib/utils/log.js";
 import { createBook } from "../../controllers/adminBooks/post.js";
 import { multerMemoryStorage } from "../../middleware/multer/memoryStorage.js";
@@ -24,5 +24,11 @@ adminBookRouter
     validatePostPutBooks,
     wrapApp(createBook)
   );
+
+adminBookRouter.get(
+  "/info/:bookID",
+  verifyAccessToken({ isVerified: true }),
+  wrapApp(getInfoBook)
+);
 
 export default adminBookRouter;
