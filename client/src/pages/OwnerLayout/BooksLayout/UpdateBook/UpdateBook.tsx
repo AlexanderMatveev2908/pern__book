@@ -4,9 +4,12 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useMergeInfoExistingBook } from "@/core/hooks/all/forms/books/useMergeInfoExistingBook";
-import { useScroll } from "@/core/hooks/hooks";
+import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
+import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
-import { __cg, isSameData } from "@/core/lib/lib";
+import { isSameData } from "@/core/lib/lib";
+import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -28,14 +31,14 @@ const UpdateBook: FC = () => {
 
   const [isSame, setIsSame] = useState(false);
 
-  const { user, stores, isValidID, isPending, isErr, error, book } =
+  const { user, stores, bookID, isValidID, isPending, isErr, error, book } =
     useMergeInfoExistingBook();
 
   const formCtx = useForm<BookFormType>({
     resolver: zodResolver(schemaBookForm),
     mode: "onChange",
   });
-  const { handleSubmit, watch, setValue } = formCtx;
+  const { handleSubmit, setFocus, watch, setValue } = formCtx;
 
   useEffect(() => {
     const populate = () => {
@@ -99,21 +102,30 @@ const UpdateBook: FC = () => {
 
       const areSameVals = isSameData(original, updated);
 
-      __cg("old", original);
-      __cg("new", updated);
-      __cg("same", isSame);
+      // __cg("old", original);
+      // __cg("new", updated);
+      // __cg("same", isSame);
       if (areSameVals !== isSame) setIsSame(areSameVals);
     };
 
     checkEquality();
   }, [book, vals, isSame]);
 
+  const [mutate, { isLoading: isUpdateLoading }] =
+    booksSLiceAPI.useUpdateBookMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
   const handleSave = handleSubmit(
     async (formDataHook) => {
-      console.log(formDataHook);
+      const formData = makeBooksFormData(formDataHook);
+      const res = await wrapMutationAPI({
+        cbAPI: () => mutate({ formData, bookID: bookID as string }),
+      });
+
+      if (!res) return;
     },
     (errs) => {
-      console.log(errs);
+      handleErrsBooks(errs, setFocus);
     }
   );
 
@@ -134,7 +146,7 @@ const UpdateBook: FC = () => {
             <BookForm
               {...{
                 handleSave,
-                isPending: false,
+                isPending: isUpdateLoading,
                 stores,
                 isDisabled: isSame,
               }}

@@ -1,6 +1,7 @@
 import { check } from "express-validator";
 import {
   REG_BOOK_TITLE,
+  REG_CLOUD,
   REG_ID,
   REG_INT,
   REG_NAME,
@@ -41,7 +42,7 @@ export const validatePostPutBooks = [
     if (!val?.trim().length) return true;
 
     if (val.length > 12000) throw new Error("Description too long");
-    if (REG_STORE_DESC.test(val)) throw new Error("Invalid description chars");
+    if (!REG_STORE_DESC.test(val)) throw new Error("Invalid description chars");
 
     return true;
   }),
@@ -57,6 +58,13 @@ export const validatePostPutBooks = [
 
     if (images.some((file) => !file.mimetype.startsWith("image")))
       throw new Error("File must be an image");
+
+    const urlsImages = req.body?.images;
+
+    if (Array.isArray(urlsImages))
+      if (urlsImages.length > 5) throw new Error("Too many images");
+      else if (urlsImages.some((url) => !REG_CLOUD.test(url)))
+        throw new Error("invalid url");
 
     return true;
   }),

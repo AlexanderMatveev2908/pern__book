@@ -31,6 +31,19 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/info/${bookID}`,
         method: "GET",
       }),
+      providesTags: [TagsAPI.BOOK_OWNER],
+    }),
+
+    updateBook: builder.mutation<
+      BaseResAPI<void>,
+      { formData: FormData; bookID: string }
+    >({
+      query: ({ formData, bookID }) => ({
+        url: `${BASE_URL}/${bookID}`,
+        method: "PUT",
+        data: formData,
+      }),
+      invalidatesTags: [TagsAPI.BOOK_OWNER],
     }),
   }),
 });

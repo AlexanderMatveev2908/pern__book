@@ -5,6 +5,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useMergeInfoBookForm } from "@/core/hooks/all/forms/books/useMergeInfoBookForm";
 import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
@@ -40,9 +41,7 @@ const CreateBook: FC = () => {
       nav("/owner/books/list");
     },
     (errs) => {
-      if (errs?.bookStoreID?.message) setFocus("bookStoreID_a" as any);
-      else if (errs?.images?.message) setFocus("images_a" as any);
-      else if (errs?.categories?.message) setFocus("categories_a" as any);
+      handleErrsBooks(errs, setFocus);
 
       return errs;
     }
