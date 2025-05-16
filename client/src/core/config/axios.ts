@@ -11,8 +11,9 @@ appInstance.interceptors.request.use(
     const token = sessionStorage.getItem("accessToken");
     if (token) req.headers["Authorization"] = `Bearer ${token}`;
 
-    req.headers["Content-Type"] =
-      req.data instanceof FormData ? "" : "application/json";
+    if (!(req.data instanceof FormData))
+      req.headers["Content-Type"] = "application/json";
+
     return req;
   },
   (err) => Promise.reject(err)

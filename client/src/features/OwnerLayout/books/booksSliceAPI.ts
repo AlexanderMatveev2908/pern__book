@@ -16,5 +16,13 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
       }),
       providesTags: [TagsAPI.STORES_INFO],
     }),
+
+    createBook: builder.mutation<BaseResAPI<void>, FormData>({
+      query: (data: FormData) => ({
+        url: BASE_URL,
+        method: "POST",
+        data,
+      }),
+    }),
   }),
 });

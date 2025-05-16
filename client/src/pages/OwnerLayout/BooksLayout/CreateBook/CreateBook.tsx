@@ -4,7 +4,8 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/useGetU";
-import { useScroll } from "@/core/hooks/hooks";
+import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { useMemo, type FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -21,14 +22,24 @@ const CreateBook: FC = () => {
   } = useGetU();
 
   const { handleSubmit, setFocus } = formCtx;
+  const [mutate, { isLoading: isCreateLoading }] =
+    booksSLiceAPI.endpoints.createBook.useMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
 
   const handleSave = handleSubmit(
-    (formDataHook) => {
-      console.log(formDataHook);
+    async (formDataHook) => {
+      const formData = makeBooksFormData(formDataHook);
+
+      const res = await wrapMutationAPI({
+        cbAPI: () => mutate(formData),
+      });
+
+      if (!res) return;
     },
     (errs) => {
       if (errs?.store?.message) setFocus("store_a" as any);
       else if (errs?.images?.message) setFocus("images_a" as any);
+      else if (errs?.categories?.message) setFocus("categories_a" as any);
 
       return errs;
     }
@@ -68,7 +79,7 @@ const CreateBook: FC = () => {
 
         <div className="w-full grid justify-items-center gap-6">
           <FormProvider {...formCtx}>
-            <BookForm {...{ handleSave, isPending: false, stores }} />
+            <BookForm {...{ handleSave, isPending: isCreateLoading, stores }} />
           </FormProvider>
         </div>
       </div>

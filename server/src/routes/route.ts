@@ -7,7 +7,7 @@ import sendMailRouter from "./all/sendEmail.js";
 import { __cr } from "../middleware/general/logger.js";
 import adminExpressRouterStore from "./all/adminBookStore.js";
 import dummyRouter from "./all/dummy.js";
-import adminBookRouter from "./all/adminBookRoute.js";
+import adminBookRouter from "./all/adminBooks.js";
 
 const routerApp = express.Router();
 
