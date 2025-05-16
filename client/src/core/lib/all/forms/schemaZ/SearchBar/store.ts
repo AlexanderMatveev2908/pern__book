@@ -2,9 +2,6 @@ import { ratingRanges } from "@/core/config/fieldsData/SearchBar/general";
 import {
   REG_CITY,
   REG_COUNTRY,
-  REG_ID,
-  REG_INT,
-  REG_PRICE,
   REG_STATE,
   REG_STORE_NAME,
 } from "@/core/config/regex";
@@ -12,6 +9,7 @@ import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";
 import { isValidNumber } from "../../../utils/dataStructures";
+import { schemaPrice, schemaInt, schemaID } from "./general";
 
 export const msgsFormStore = {
   price: {
@@ -37,13 +35,7 @@ export const searchBarStore = z
       .refine((val) => !val?.trim()?.length || REG_STORE_NAME.test(val), {
         message: "Invalid name format",
       }),
-    ID: z
-      .string()
-      .max(36, "Invalid id length")
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_ID.test(val), {
-        message: "Invalid id",
-      }),
+    ID: schemaID(),
     country: z
       .string()
       .max(50, "Max length Country exceeded")
@@ -79,53 +71,14 @@ export const searchBarStore = z
       .array(z.enum(ratingRanges as [string, ...string[]]))
       .optional(),
 
-    minAvgPrice: z
-      .string()
-      .max(10, "Max length exceeded")
-      .optional()
-      .refine((val) => !val?.trim().length || REG_PRICE.test(val), {
-        message: "Invalid format min price",
-      }),
-    maxAvgPrice: z
-      .string()
-      .max(10, "Max length exceeded")
-      .optional()
-      .refine((val) => !val?.trim().length || REG_PRICE.test(val), {
-        message: "Invalid format max price",
-      }),
-    minAvgQty: z
-      .string()
-      .max(10, "Max length exceeded")
-      .optional()
-      .refine((val) => !val?.trim().length || REG_INT.test(val), {
-        message: "Invalid chars min qty",
-      }),
-    maxAvgQty: z
-      .string()
-      .max(10, "Max length exceeded")
-      .optional()
-      .refine((val) => !val?.trim().length || REG_INT.test(val), {
-        message: "Invalid chars max qty",
-      }),
+    minAvgPrice: schemaPrice(),
+    maxAvgPrice: schemaPrice(),
+    minAvgQty: schemaInt(),
+    maxAvgQty: schemaInt(),
 
-    workers: z
-      .string()
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
-        message: "Invalid number workers",
-      }),
-    managers: z
-      .string()
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
-        message: "Invalid number managers",
-      }),
-    employees: z
-      .string()
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_INT.test(val), {
-        message: "Invalid number employees",
-      }),
+    workers: schemaInt(),
+    managers: schemaInt(),
+    employees: schemaInt(),
 
     ...[
       "createdAtSort",

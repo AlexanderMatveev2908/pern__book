@@ -1,27 +1,16 @@
 import {
   REG_BOOK_TITLE,
-  REG_ID,
   REG_INT,
   REG_NAME,
-  REG_PRICE,
   REG_STORE_NAME,
 } from "@/core/config/regex";
 import { notStr } from "@/core/lib/lib";
 import { z } from "zod";
+import { schemaID, schemaPrice, schemaInt } from "./general";
 
 export const schemaSearchBooks = z.object({
-  ID: z
-    .string()
-    .optional()
-    .refine((val) => notStr(val) || REG_ID.test(val ?? ""), {
-      message: "Invalid id",
-    }),
-  bookStoreID: z
-    .string()
-    .optional()
-    .refine((val) => notStr(val) || REG_ID.test(val ?? ""), {
-      message: "Invalid id",
-    }),
+  ID: schemaID(),
+  bookStoreID: schemaID(),
   bookStoreName: z
     .string()
     .optional()
@@ -61,48 +50,11 @@ export const schemaSearchBooks = z.object({
       }
     ),
 
-  qty: z
-    .string()
-    .optional()
-    .refine((val) => notStr(val) || REG_INT.test(val ?? ""), {
-      message: "Invalid quantity",
-    }),
-  price: z
-    .string()
-    .optional()
-    .refine((val) => notStr(val) || REG_PRICE.test(val ?? ""), {
-      message: "Invalid price",
-    }),
-
   categories: z.array(z.string()).optional(),
 
-  minQty: z
-    .string()
-    .max(10, "Max length exceeded")
-    .optional()
-    .refine((val) => notStr(val) || REG_INT.test(val ?? ""), {
-      message: "Invalid chars min qty",
-    }),
-  maxQty: z
-    .string()
-    .max(10, "Max length exceeded")
-    .optional()
-    .refine((val) => notStr(val) || REG_INT.test(val ?? ""), {
-      message: "Invalid chars max qty",
-    }),
+  minQty: schemaInt(),
+  maxQty: schemaInt(),
 
-  minPrice: z
-    .string()
-    .max(10, "Max length exceeded")
-    .optional()
-    .refine((val) => notStr(val) || REG_PRICE.test(val ?? ""), {
-      message: "Invalid format min price",
-    }),
-  maxPrice: z
-    .string()
-    .max(10, "Max length exceeded")
-    .optional()
-    .refine((val) => notStr(val) || REG_PRICE.test(val ?? ""), {
-      message: "Invalid format max price",
-    }),
+  minPrice: schemaPrice(),
+  maxPrice: schemaPrice(),
 });
