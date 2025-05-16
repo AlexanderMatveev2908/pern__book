@@ -7,6 +7,8 @@ import { createBook } from "../../controllers/adminBooks/post.js";
 import { multerMemoryStorage } from "../../middleware/multer/memoryStorage.js";
 import { validatePostPutBooks } from "../../middleware/adminBooks/postPut.js";
 import { updateBook } from "../../controllers/adminBooks/put.js";
+import { deleteStore } from "../../controllers/adminBookStore/delete.js";
+import { deleteBook } from "../../controllers/adminBooks/delete.js";
 
 const adminBookRouter = express.Router();
 
@@ -32,13 +34,19 @@ adminBookRouter.get(
   wrapApp(getInfoBook)
 );
 
-adminBookRouter.put(
-  "/:bookID",
-  verifyAccessToken({ isVerified: true }),
-  multerMemoryStorage,
-  wrapApp(logJSON),
-  validatePostPutBooks,
-  wrapApp(updateBook)
-);
+adminBookRouter
+  .route("/:bookID")
+  .put(
+    verifyAccessToken({ isVerified: true }),
+    multerMemoryStorage,
+    wrapApp(logJSON),
+    validatePostPutBooks,
+    wrapApp(updateBook)
+  )
+  .delete(
+    verifyAccessToken({ isVerified: true }),
+    wrapApp(logJSON),
+    wrapApp(deleteBook)
+  );
 
 export default adminBookRouter;

@@ -1,3 +1,4 @@
+import { catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookType } from "@/types/all/books";
 import { BookStoreType } from "@/types/all/bookStore";
@@ -44,6 +45,24 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         data: formData,
       }),
       invalidatesTags: [TagsAPI.BOOK_OWNER],
+    }),
+
+    deleteBook: builder.mutation<BaseResAPI<void>, string>({
+      query: (bookID) => ({
+        url: `${BASE_URL}/${bookID}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(id, { dispatch, queryFulfilled }) {
+        await catchErr(async () => {
+          await queryFulfilled;
+
+          dispatch(
+            booksSLiceAPI.util.updateQueryData("getInfoBook", id, (draft) => {
+              draft.ninja = "🥷🏼";
+            })
+          );
+        });
+      },
     }),
   }),
 });

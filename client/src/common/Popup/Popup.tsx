@@ -67,7 +67,7 @@ const Popup: FC = () => {
                 disabled={
                   (!i && arrBtn[1]?.isPending) || (!!i && arrBtn[0]?.isPending)
                 }
-                onClick={() => arrBtn[i]?.cb?.()}
+                onClick={async () => await arrBtn[i]?.cb?.()}
                 key={id}
                 className={`min-w-[200px] sm:min-w-[250px] appearance-none border-2 rounded-xl enabled:cursor-pointer py-2 px-3 h-fit enabled:hover:text-gray-300 btn__logic_md ${
                   arrBtn[i]?.act === BtnAct.DO
