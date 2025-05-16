@@ -23,9 +23,15 @@ type PropsType = {
   handleSave: () => void;
   isPending: boolean;
   stores?: Partial<BookStoreType>[];
+  isDisabled?: boolean;
 };
 
-const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
+const BookForm: FC<PropsType> = ({
+  handleSave,
+  isPending,
+  stores,
+  isDisabled,
+}) => {
   const formCtx = useFormContext();
   const {
     register,
@@ -116,6 +122,7 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
             label: path?.includes("add") ? "Create" : "Update",
             isPending,
             type: "submit",
+            isDisabled,
           }}
         />
       </div>

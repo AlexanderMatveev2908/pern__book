@@ -10,13 +10,14 @@ import {
 import { subCat } from "../../types/all/books.js";
 import { toInt } from "validator";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { validateIDs } from "../sharedValidators/ids.js";
 
 // ? 1 Kb = 1024 bytes
 //  ? 1 Mb = 1024 Kb
 const fromBytesToMb = (bytes: number) => bytes / 1024 ** 2;
 
 export const validatePostPutBooks = [
-  check("store").matches(REG_ID).withMessage("Invalid store"),
+  ...validateIDs,
   check("title")
     .isLength({ min: 1 })
     .withMessage("Title is required")

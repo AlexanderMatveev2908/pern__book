@@ -42,6 +42,10 @@ export const defineBook = (seq: Sequelize) =>
         type: DataTypes.JSONB,
         allowNull: true,
       },
+      categories: {
+        type: DataTypes.ARRAY(DataTypes.STRING),
+        allowNull: false,
+      },
       qty: {
         type: DataTypes.INTEGER,
         allowNull: false,

@@ -1,14 +1,16 @@
 {
   "body": {
-    "store": "b7ec039a-ad78-45e4-875b-ee5a2a8edeba",
-    "title": "Addio all armi",
+    "bookStoreID": "3b089a48-cc12-41c4-bcf0-12c6a42f4d26",
+    "title": "Il sole sorge ancora",
     "author": "Hemingway",
     "year": "1900",
     "categories": [
-      "existentialism"
+      "greek & roman",
+      "victorian",
+      "ethics"
     ],
-    "qty": "10",
-    "price": "5"
+    "qty": "5",
+    "price": "12"
   },
   "files": [
     {
@@ -11517,6 +11519,6 @@
   "file": {},
   "query": {},
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjFjNGQ1NTE1LTk1OGQtNDY5Yi05M2RmLWY2YTlkNTJjYTk1MyIsImlhdCI6MTc0NzM4MzA2MSwiZXhwIjoxNzQ3MzgzMTIxfQ.u_rGQbmSUF5CkW-Hl2yvXpyPqjvoDmZk3DGWNVDAaEk",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.aHl1k5_H15g7J16c-1hVPDyfL4Iuxb6XHRwZPF4iW0BvNpiFlL2KOmRg3_HOSNOdoHGRImsJ2CjcARFEsbgfmMM3i5F5XqDA1PTIBRLUpM55yy1pAV9iJIAfpDwGZ5B1ZdQCUtNR2H-tfskiI_N0vpMNzSADq-G0V7iOqFCf9Y_J1DuW9NmFYSTbQZgd53fz297gMojpLWOMqW7dOpSsYl_IILvzQFzcIFraEbIxZS9kBDIY2YU_rpDeZirAino2vN6vF5D4FeOoi52mUONyL0zms43QIPHMAU_gEqOMPSO7Zx4lUKKIjQedt5f9O5KIfcB7kFVpBxsc79AWq2IDiA.AS0seHJG0Ng_MF5H.CKmxrsJgttJSVF8Yyj660e4e8j55863jPXvWKe-3Pmfo0PXxEiLZKKS050Ua.e8PvIYMRfN_o1hw9MuMkKA"
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjgwM2QzMTE1LTU0MGUtNGRiNy05OWRmLWI3YzMwNjRlNWRkYSIsImlhdCI6MTc0NzM5MDAwNywiZXhwIjoxNzQ3MzkwMDY3fQ.exgjtLo0cx7kw40LFr3cKAGCG_royrz7l9TsfMOntw0",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.T4mDXIjflnyqewA2EgMRW_nH7Tfg6KdFbxhqmQRFVNperEdbvycvHs-o2dK-yCR45Lwj08qS-mxgZHedK1sUVprPWCpp9opXN1vknSXVDBtQsEEsk2RdbZXJgl4d7xU4mTA_qaBpweL1EVFDpR2ydmUYWk_adVWGkJXI-nFYYjhGdSahj4-KJbC8-yC9PyHKnoEEenceSn9cblg11Zcrdu3a9-v-HCNnSjKtjelzizPQtQdYXUd79wsLT96P2uw3qNwETeph6ZRSJgWK5tFU1YLrwZ9B1KsUV3hQeeI7WfmySh-2mc78bGZdziLzq3eGJK5gn27E_Li6ueS8T4KQTw.qnO6NFSuLELqeoqp.yDxdf4hjbMbGCmi-3ZfoNojufNW7JjIucFTCPoq0gza_UEjPf6w8aWzs47ar.BPCDg9IjOYePQIqIbVBeaQ"
 }

@@ -15,7 +15,7 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
 
   const store = await BookStore.findOne({
     where: {
-      id: body.store,
+      id: body.bookStoreID,
     },
   });
   if (!store) return err404(res, { msg: "Store not found" });
