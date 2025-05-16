@@ -8,6 +8,7 @@ import { __cr } from "../middleware/general/logger.js";
 import adminExpressRouterStore from "./all/adminBookStore.js";
 import dummyRouter from "./all/dummy.js";
 import adminBookRouter from "./all/adminBooks.js";
+import { verifyAccessToken } from "../middleware/protected/verifyAccessToken.js";
 
 const routerApp = express.Router();
 
@@ -18,8 +19,16 @@ routerApp.use("/refresh", routerRefresh);
 routerApp.use("/verify", verifyRouter);
 routerApp.use("/send-email", sendMailRouter);
 routerApp.use("/user", profileRouter);
-routerApp.use("/admin-book-store", adminExpressRouterStore);
-routerApp.use("/admin-books", adminBookRouter);
+routerApp.use(
+  "/admin-book-store",
+  verifyAccessToken({ isVerified: true }),
+  adminExpressRouterStore
+);
+routerApp.use(
+  "/admin-books",
+  verifyAccessToken({ isVerified: true }),
+  adminBookRouter
+);
 routerApp.use("/dummy", dummyRouter);
 
 export default routerApp;

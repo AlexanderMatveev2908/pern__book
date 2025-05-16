@@ -2,7 +2,7 @@ import { GoHome } from "react-icons/go";
 import { FaBook, FaPenFancy } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
 import { v4 } from "uuid";
-import { RiAccountBoxLine } from "react-icons/ri";
+import { RiAccountBoxLine, RiBookShelfFill } from "react-icons/ri";
 import { BriefcaseBusiness, MonitorCog, ShieldCheck } from "lucide-react";
 import {
   fieldsActionsAuth,
@@ -65,6 +65,11 @@ export const sideFieldsAdmin: SideFieldType[] = addArrIDs([
     label: "My Bookstores",
     icon: HiLibrary,
     path: "/owner/book-store/book-stores",
+  },
+  {
+    label: "My Books",
+    icon: RiBookShelfFill,
+    path: "/owner/books/list",
   },
   {
     label: "Add Book",

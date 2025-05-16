@@ -1,7 +1,11 @@
 import express from "express";
 import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
 import { wrapApp } from "../../middleware/general/wrapApp.js";
-import { getInfoBook, getStoreInfo } from "../../controllers/adminBooks/get.js";
+import {
+  getBooksList,
+  getInfoBook,
+  getStoreInfo,
+} from "../../controllers/adminBooks/get.js";
 import { logJSON } from "../../lib/utils/log.js";
 import { createBook } from "../../controllers/adminBooks/post.js";
 import { multerMemoryStorage } from "../../middleware/multer/memoryStorage.js";
@@ -12,41 +16,28 @@ import { deleteBook } from "../../controllers/adminBooks/delete.js";
 
 const adminBookRouter = express.Router();
 
-adminBookRouter.get(
-  "/stores-info",
-  verifyAccessToken({ isVerified: true }),
-  wrapApp(getStoreInfo)
-);
+adminBookRouter.get("/stores-info", wrapApp(getStoreInfo));
 
 adminBookRouter
   .route("/")
   .post(
-    verifyAccessToken({ isVerified: true }),
     multerMemoryStorage,
     wrapApp(logJSON),
     validatePostPutBooks,
     wrapApp(createBook)
-  );
+  )
+  .get(wrapApp(logJSON), wrapApp(getBooksList));
 
-adminBookRouter.get(
-  "/info/:bookID",
-  verifyAccessToken({ isVerified: true }),
-  wrapApp(getInfoBook)
-);
+adminBookRouter.get("/info/:bookID", wrapApp(getInfoBook));
 
 adminBookRouter
   .route("/:bookID")
   .put(
-    verifyAccessToken({ isVerified: true }),
     multerMemoryStorage,
     wrapApp(logJSON),
     validatePostPutBooks,
     wrapApp(updateBook)
   )
-  .delete(
-    verifyAccessToken({ isVerified: true }),
-    wrapApp(logJSON),
-    wrapApp(deleteBook)
-  );
+  .delete(wrapApp(logJSON), wrapApp(deleteBook));
 
 export default adminBookRouter;

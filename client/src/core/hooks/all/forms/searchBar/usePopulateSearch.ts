@@ -8,8 +8,8 @@ import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearch
 import { getDefValsPagination } from "@/core/lib/lib";
 
 type Params<T extends FieldValues> = {
-  txtInputs: FormFieldBasic[];
-  filters: FilterSearch[];
+  txtInputs?: FormFieldBasic[];
+  filters?: FilterSearch[];
   ctx: SearchCtxValsConsumer;
   setValue: UseFormSetValue<T>;
   trigger: any;
@@ -26,6 +26,8 @@ export const usePopulateSearch = ({
   const { setTxtInputs, setPagination, setSearch, setPreSubmit } = ctx;
 
   useEffect(() => {
+    if (!txtInputs?.length || !filters?.length) return;
+
     if (hasRun.current) return;
     hasRun.current = true;
 

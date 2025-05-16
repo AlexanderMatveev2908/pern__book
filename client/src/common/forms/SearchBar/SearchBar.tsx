@@ -22,16 +22,15 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
-import { useFocus } from "@/core/hooks/hooks";
+import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 
 type PropsType = {
-  res: any;
+  hook: any;
   handleSave: () => void;
   txtInputs: FormFieldBasic[];
   filters: FilterSearch[];
   sorters: SorterSearch[];
   numericFilters?: NumericFilterSearch[];
-  trigger: any;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -40,9 +39,12 @@ const SearchBar: FC<PropsType> = ({
   filters,
   sorters,
   numericFilters,
-  res,
-  trigger,
+  hook,
 }) => {
+  const [trigger, res] = hook;
+
+  useWrapQueryAPI({ ...res });
+
   const { isFetching } = res;
   const ctx = useSearchCtx();
   const {

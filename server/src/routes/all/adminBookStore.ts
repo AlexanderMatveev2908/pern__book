@@ -21,29 +21,18 @@ const adminExpressRouterStore = express.Router();
 adminExpressRouterStore
   .route("/")
   .post(
-    verifyAccessToken({ isVerified: true }),
     multerDiskStorage,
     wrapApp(logJSON),
     validateStore,
     checkTeam,
     wrapApp(createBookStore)
   )
-  .get(
-    verifyAccessToken({ isVerified: true }),
-    wrapApp(logJSON),
-    validateQueryListStores,
-    wrapApp(getAllStores)
-  );
+  .get(wrapApp(logJSON), validateQueryListStores, wrapApp(getAllStores));
 
 adminExpressRouterStore
   .route("/:bookStoreID")
-  .get(
-    verifyAccessToken({ isVerified: true }),
-    [...validateIDs, handleValidator(422)],
-    wrapApp(getMyStore)
-  )
+  .get([...validateIDs, handleValidator(422)], wrapApp(getMyStore))
   .put(
-    verifyAccessToken({ isVerified: true }),
     [...validateIDs, handleValidator(422)],
     multerDiskStorage,
     wrapApp(logJSON),
@@ -51,10 +40,6 @@ adminExpressRouterStore
     checkTeam,
     wrapApp(updateBookStore)
   )
-  .delete(
-    verifyAccessToken({ isVerified: true }),
-    [...validateIDs, handleValidator(422)],
-    wrapApp(deleteStore)
-  );
+  .delete([...validateIDs, handleValidator(422)], wrapApp(deleteStore));
 
 export default adminExpressRouterStore;

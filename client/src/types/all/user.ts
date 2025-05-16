@@ -32,6 +32,7 @@ export interface UserType {
   isOwner: boolean;
   isWorker: boolean;
   hasWorkers: boolean;
+  hasBooks: boolean;
 }
 
 export interface AuthState {

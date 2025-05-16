@@ -106,8 +106,15 @@ const App: FC = () => {
 
           <Route path="books" element={<BooksOwnerLayout />}>
             <Route path="add-book" element={<CreateBook />} />
-            <Route path="list" element={<BooksList />} />
             <Route path="update/:bookID" element={<UpdateBook />} />
+            <Route
+              path="list"
+              element={
+                <SearchCtxProvider>
+                  <BooksList />
+                </SearchCtxProvider>
+              }
+            />
           </Route>
         </Route>
 

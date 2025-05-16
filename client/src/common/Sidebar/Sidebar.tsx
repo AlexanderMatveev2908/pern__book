@@ -76,10 +76,11 @@ const Sidebar: FC = () => {
       sideFieldsAdmin.filter((el) => {
         if (ownerOnlyPaths.includes(el.path)) return user?.isOwner;
         if (el.path === "/owner/team") return user?.hasWorkers;
+        if (el.path === "/owner/books/list") return user?.hasBooks;
 
         return true;
       }),
-    [user?.isOwner, user?.hasWorkers]
+    [user]
   );
 
   return (

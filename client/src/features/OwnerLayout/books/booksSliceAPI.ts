@@ -1,8 +1,14 @@
+import { SearchBooksOwnerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { catchErr } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BookType } from "@/types/all/books";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BaseResAPI, TagsAPI } from "@/types/types";
+import {
+  BaseResAPI,
+  ReqQueryAPI,
+  ResPaginationAPI,
+  TagsAPI,
+} from "@/types/types";
 
 const BASE_URL = "/admin-books";
 
@@ -25,6 +31,7 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         method: "POST",
         data,
       }),
+      invalidatesTags: [TagsAPI.USER],
     }),
 
     getInfoBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
@@ -52,6 +59,7 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/${bookID}`,
         method: "DELETE",
       }),
+      invalidatesTags: [TagsAPI.USER],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await catchErr(async () => {
           await queryFulfilled;
@@ -62,6 +70,18 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
             })
           );
         });
+      },
+    }),
+
+    getAllBooks: builder.query<
+      BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>,
+      ReqQueryAPI<SearchBooksOwnerType>
+    >({
+      query: () => {
+        return {
+          url: BASE_URL + "?",
+          method: "GET",
+        };
       },
     }),
   }),

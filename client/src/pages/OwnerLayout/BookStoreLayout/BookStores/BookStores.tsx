@@ -7,7 +7,7 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useScroll } from "@/core/hooks/hooks";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
@@ -30,7 +30,6 @@ const BookStores: FC = () => {
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
   const [trigger, res] = hook;
-  useWrapQueryAPI({ ...res });
   const { data: { bookStores } = {} } = res ?? {};
 
   useClearCacheItem({
@@ -49,9 +48,8 @@ const BookStores: FC = () => {
         <FormProvider {...formCtx}>
           <SearchBar
             {...{
-              res,
+              hook,
               handleSave,
-              trigger,
               txtInputs: fieldsSearchStore,
               filters: storeFilters,
               numericFilters: numericFiltersStore,

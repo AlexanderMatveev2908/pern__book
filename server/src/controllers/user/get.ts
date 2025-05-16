@@ -6,6 +6,7 @@ import { Thumb } from "../../models/all/img&video/Thumb.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Op } from "sequelize";
+import { Book } from "../../models/all/Book.js";
 
 export const getUserProfile = async (
   req: ReqApp,
@@ -53,6 +54,14 @@ export const getUserProfile = async (
     },
   });
   const hasWorkers = !!teams.length;
+  const books = await Book.count({
+    where: {
+      bookStoreID: {
+        [Op.in]: bookStores.map((bookStore) => bookStore.id),
+      },
+    },
+  });
+  const hasBooks = !!books;
 
   // const user = userInstance?.get({ plain: true });
   // return err401(res, { msg: MsgErrSession.ACCESS_INVALID });
@@ -63,6 +72,7 @@ export const getUserProfile = async (
       isOwner,
       isWorker,
       hasWorkers,
+      hasBooks,
     },
   });
 };
