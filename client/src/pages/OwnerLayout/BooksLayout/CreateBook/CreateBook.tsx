@@ -3,11 +3,11 @@ import BookForm from "@/common/forms/BookForm/BookForm";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useMergeInfoBookForm } from "@/core/hooks/all/forms/useMergeInfoBookForm";
 import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
-import { useMemo, type FC } from "react";
+import { type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
@@ -17,12 +17,9 @@ const CreateBook: FC = () => {
   const nav = useNavigate();
 
   const { createBookFormCtx: formCtx } = useFormCtxConsumer();
-  const {
-    user,
-    isLoading: isUserLoading,
-    error: userError,
-    isError: isUserError,
-  } = useGetU();
+
+  const { user, stores, isSomeErr, someErr, someonePending } =
+    useMergeInfoBookForm();
 
   const { handleSubmit, setFocus, reset } = formCtx;
   const [mutate, { isLoading: isCreateLoading }] =
@@ -49,26 +46,6 @@ const CreateBook: FC = () => {
 
       return errs;
     }
-  );
-
-  const {
-    data: { stores } = {},
-    isLoading: isStoresLoading,
-    isError: isStoresError,
-    error: storesError,
-  } = booksSLiceAPI.endpoints.getStoresInfo.useQuery() ?? {};
-
-  const isSomeErr = useMemo(
-    () => isUserError || isStoresError,
-    [isUserError, isStoresError]
-  );
-  const someErr = useMemo(
-    () => userError || storesError,
-    [userError, storesError]
-  );
-  const someonePending = useMemo(
-    () => isUserLoading || isStoresLoading,
-    [isUserLoading, isStoresLoading]
   );
 
   return (
