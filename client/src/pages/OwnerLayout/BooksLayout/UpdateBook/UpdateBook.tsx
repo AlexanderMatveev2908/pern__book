@@ -123,6 +123,11 @@ const UpdateBook: FC = () => {
       });
 
       if (!res) return;
+
+      window.scroll({
+        top: 0,
+        behavior: "smooth",
+      });
     },
     (errs) => {
       handleErrsBooks(errs, setFocus);

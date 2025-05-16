@@ -8,6 +8,7 @@ import { CloudImg } from "../../types/all/cloud.js";
 import { uploadCloudMemory } from "../../lib/cloud/imagesMemory.js";
 import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book, BookInstance } from "../../models/all/Book.js";
+import { captAll } from "../../lib/utils/formatters.js";
 
 export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { body } = req;
@@ -34,6 +35,9 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
     const newBook = {} as Partial<BookInstance>;
 
     for (const key in body) {
+      if (["title", "author"].includes(key))
+        (newBook as any)[key] = captAll(body[key]);
+
       if (key === "description") {
         newBook[key] = body?.[key] ?? null;
       } else {
@@ -56,7 +60,9 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
     if (images.length) {
       try {
         await Promise.all(
-          images.map(async (el) => delCloud(el.publicID, ResourceType.IMG))
+          images.map(
+            async (el) => await delCloud(el.publicID, ResourceType.IMG)
+          )
         );
       } catch (error) {
         console.log(err);

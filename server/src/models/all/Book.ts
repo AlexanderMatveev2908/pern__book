@@ -9,7 +9,7 @@ export class Book extends Model {
   declare author: string;
   declare year: number;
   declare categories: string[];
-  declare images: CloudImg[];
+  declare images: CloudImg[] | null;
   declare description: string | null;
   declare qty: number;
   declare price: number;

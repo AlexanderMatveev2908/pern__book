@@ -16,6 +16,7 @@ import http from "http";
 import { handleSocket } from "./controllers/socket/test.js";
 import { logJSON } from "./lib/utils/log.js";
 import { clearDB, delStores } from "./stuff/clear.js";
+import { getCloudID } from "./lib/utils/ids.js";
 
 const app = express();
 const PORT = +process.env.PORT!;
