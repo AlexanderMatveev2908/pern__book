@@ -9,9 +9,12 @@ import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { useMemo, type FC } from "react";
 import { FormProvider } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const CreateBook: FC = () => {
   useScroll();
+
+  const nav = useNavigate();
 
   const { createBookFormCtx: formCtx } = useFormCtxConsumer();
   const {
@@ -21,7 +24,7 @@ const CreateBook: FC = () => {
     isError: isUserError,
   } = useGetU();
 
-  const { handleSubmit, setFocus } = formCtx;
+  const { handleSubmit, setFocus, reset } = formCtx;
   const [mutate, { isLoading: isCreateLoading }] =
     booksSLiceAPI.endpoints.createBook.useMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
@@ -35,6 +38,9 @@ const CreateBook: FC = () => {
       });
 
       if (!res) return;
+
+      reset({});
+      nav("/owner/books/list");
     },
     (errs) => {
       if (errs?.store?.message) setFocus("store_a" as any);
