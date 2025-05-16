@@ -1,5 +1,6 @@
 import { delCloud, ResourceType } from "../lib/cloud/delete.js";
 import { calcTimeRun } from "../lib/utils/utils.js";
+import { Book } from "../models/all/Book.js";
 import { BookStore, BookStoreInstance } from "../models/all/BookStore.js";
 import { BookStoreUser } from "../models/all/BookStoreUser.js";
 import { KeyCbcHmac } from "../models/all/KeyCbcHmac.js";
@@ -32,6 +33,16 @@ export const clearDB = async () => {
   });
   await Promise.all(thumbs.map(async (t) => await delCloud(t.publicID)));
   await Thumb.destroy({ where: {} });
+
+  const books = await Book.findAll({ where: {} });
+  if (books.length) {
+    for (const b of books) {
+      if (b.images?.length)
+        await Promise.all(b.images.map(async (el) => delCloud(el.publicID)));
+
+      await b.destroy();
+    }
+  }
 
   await BookStore.destroy({ where: {} });
   await Token.destroy({ where: {} });

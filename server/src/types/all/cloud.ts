@@ -5,3 +5,5 @@ export type CloudAsset = {
   publicID: string;
   url: string;
 };
+
+export type CloudImg = Omit<CloudAsset, "id">;

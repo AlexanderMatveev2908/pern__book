@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaID } from "./helpers.js";
+import { CloudImg } from "../../types/all/cloud.js";
 
 export class Book extends Model {
   declare id: string;
@@ -8,7 +9,7 @@ export class Book extends Model {
   declare author: string;
   declare year: number;
   declare categories: string[];
-  declare images: any;
+  declare images: CloudImg[];
   declare description: string | null;
   declare qty: number;
   declare price: number;
