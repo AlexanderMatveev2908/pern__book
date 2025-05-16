@@ -61,7 +61,7 @@ const MySelect: FC<PropsType> = ({
           ref={btnRef}
           type="button"
           onClick={() => setIsOpen(!isOpen)}
-          className="w-full flex justify-between appearance-none outline-0 cursor-pointer border-2 border-blue-600 rounded-xl px-4 py-2 items-center hover:text-blue-600 el__flow"
+          className="w-full flex justify-between appearance-none outline-0 cursor-pointer el__border_sm px-4 py-2 items-center hover:text-blue-600 el__flow"
         >
           <span className="txt__3">
             {typeof currVal === "object" ? el.label : capt(currVal ?? "")}

@@ -26,7 +26,7 @@ const PairSort: FC<PropsType> = ({ el }) => {
   );
 
   return (
-    <div className="w-[80%] justify-self-center grid grid-cols-1 h-fit items-start border-2 border-blue-600 rounded-xl px-4 pt-3 pb-5 gap-5">
+    <div className="w-[80%] justify-self-center grid grid-cols-1 h-fit items-start el__border_sm px-4 pt-3 pb-5 gap-5">
       <div className="w-full flex justify-center items-center gap-5">
         <el.icon className="icon__md" />
         <span className="txt__3">{el.label}</span>

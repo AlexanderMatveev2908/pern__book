@@ -52,7 +52,7 @@ const CheckRegPwd: FC<PropsType> = ({ pwd, focus }) => {
 
   return (
     <div
-      className={`w-full grid sm:grid-cols-[1fr_100px] gap-y-5 absolute border-2 border-blue-600 z-60 bg-[#000] p-3 rounded-xl left-0 top-[120%] pointer-events-none transition-all duration-500 ${
+      className={`w-full grid sm:grid-cols-[1fr_100px] gap-y-5 absolute el__border_sm z-60 bg-[#000] p-3  left-0 top-[120%] pointer-events-none transition-all duration-500 ${
         focus && !isValid ? "" : "translate-y-full opacity-0"
       }`}
     >

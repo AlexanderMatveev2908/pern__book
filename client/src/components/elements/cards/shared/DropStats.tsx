@@ -50,7 +50,7 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
       <ul
         className={`w-full grid transition-all duration-[0.4s] gap-3 ${
           abs
-            ? "absolute top-0 left-0 bg-neutral-950 z-50 border-2 border-blue-600 p-3 rounded-xl"
+            ? "absolute top-0 left-0 bg-neutral-950 z-50 el__border_sm p-3"
             : ""
         } ${
           abs

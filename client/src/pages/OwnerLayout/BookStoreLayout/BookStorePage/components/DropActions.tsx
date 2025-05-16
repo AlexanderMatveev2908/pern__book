@@ -97,12 +97,12 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
     <div className="w-full flex justify-end">
       <div
         ref={dropRef}
-        className={`w-[250px] border-2 border-blue-600 rounded-xl py-2 px-5 right-0 top-0 bg-neutral-950 relative`}
+        className={`w-[250px] el__border_sm py-2 px-5 right-0 top-0 bg-neutral-950 relative`}
       >
         <DropHandler {...{ el: dropLabel, isDropOpen, setIsDropOpen }} />
 
         <ul
-          className={`grid absolute bg-neutral-950  border-2 border-blue-600 py-2 max-h-[150px] w-full left-0 top-[65px] rounded-xl px-3  scrollbar__app  scrollbar__y overflow-y-scroll z-60 transition-all duration-300 ${
+          className={`grid absolute bg-neutral-950 py-2 max-h-[150px] w-full left-0 top-[65px] el__border_sm px-3  scrollbar__app  scrollbar__y overflow-y-scroll z-60 transition-all duration-300 ${
             isDropOpen
               ? "pointer-events-auto -translate-y-[0] opacity-100"
               : "pointer-events-none -translate-y-[100px] opacity-0"

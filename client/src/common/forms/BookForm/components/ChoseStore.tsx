@@ -53,7 +53,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
     <div className="w-full flex justify-end">
       <div
         ref={dropRef}
-        className="w-full max-w-[300px] border-2 border-blue-600 rounded-xl py-2 px-4 relative"
+        className="w-full max-w-[300px] el__border_sm py-2 px-4 relative"
       >
         <DropHandler {...{ isDropOpen, setIsDropOpen, el: choseStoreEl }} />
 
@@ -61,7 +61,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
         <ErrorFormField {...{ el: { field: "bookStoreID" }, errors }} />
 
         <ul
-          className={`w-full left-0 absolute z-50 bg-neutral-950 border-2 border-blue-600 rounded-xl max-h-[200px] scrollbar__app scrollbar__y  overflow-y-auto transition-all duration-[0.4s] pr-1 ${
+          className={`w-full left-0 absolute z-50 bg-neutral-950 el__border_sm max-h-[200px] scrollbar__app scrollbar__y  overflow-y-auto transition-all duration-[0.4s] pr-1 ${
             isDropOpen
               ? "opacity-100"
               : "opacity-0 pointer-events-none translate-y-[50px]"
