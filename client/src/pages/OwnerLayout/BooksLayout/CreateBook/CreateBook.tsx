@@ -40,7 +40,7 @@ const CreateBook: FC = () => {
       nav("/owner/books/list");
     },
     (errs) => {
-      if (errs?.store?.message) setFocus("store_a" as any);
+      if (errs?.bookStoreID?.message) setFocus("bookStoreID_a" as any);
       else if (errs?.images?.message) setFocus("images_a" as any);
       else if (errs?.categories?.message) setFocus("categories_a" as any);
 

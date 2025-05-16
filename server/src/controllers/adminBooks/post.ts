@@ -36,8 +36,6 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
     for (const key in body) {
       if (key === "description") {
         newBook[key] = body?.[key] ?? null;
-      } else if (key === "store") {
-        newBook.bookStoreID = body.store;
       } else {
         newBook[key as keyof BookInstance] = body[key];
       }

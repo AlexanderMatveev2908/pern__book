@@ -34,7 +34,7 @@ const BookForm: FC<PropsType> = ({ handleSave, isPending, stores }) => {
     watch,
   } = formCtx;
 
-  const storeID = watch("store");
+  const storeID = watch("bookStoreID");
 
   useFocus({ setFocus, key: "title" });
 

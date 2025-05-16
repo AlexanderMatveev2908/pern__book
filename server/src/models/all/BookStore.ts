@@ -5,6 +5,7 @@ import { UserRole } from "../../types/types.js";
 import { ImgBookStoreType } from "./img&video/ImgBookStore.js";
 import { VideoBookStoreType } from "./img&video/VideoBookStore.js";
 import { BookStoreUserInstance } from "./BookStoreUser.js";
+import { BookInstance } from "./Book.js";
 
 export interface TeamType {
   email: string;
@@ -37,6 +38,8 @@ export class BookStore extends Model {
   declare team?: BookStoreUserInstance[];
   declare images?: ImgBookStoreType[];
   declare video?: VideoBookStoreType;
+
+  books?: BookInstance[];
 }
 
 export type BookStoreInstance = InstanceType<typeof BookStore>;

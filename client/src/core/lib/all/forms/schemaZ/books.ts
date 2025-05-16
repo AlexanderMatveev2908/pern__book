@@ -9,7 +9,7 @@ import {
 import { z } from "zod";
 
 export const schemaBookForm = z.object({
-  store: z
+  bookStoreID: z
     .string({
       required_error: "Store is required",
       invalid_type_error: "Error developer 😠",

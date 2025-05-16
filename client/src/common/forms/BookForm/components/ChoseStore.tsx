@@ -41,10 +41,10 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
   } = useFormContext();
 
   const handleClick = (val: string) => {
-    if (getValues("store") !== val)
+    if (getValues("bookStoreID") !== val)
       setValue("categories", [], { shouldValidate: true });
 
-    setValue("store", val, { shouldValidate: true });
+    setValue("bookStoreID", val, { shouldValidate: true });
   };
 
   useEffect(() => {}, []);
@@ -57,8 +57,8 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
       >
         <DropHandler {...{ isDropOpen, setIsDropOpen, el: choseStoreEl }} />
 
-        <FocusAnchor {...{ register, fieldKey: "store" }} />
-        <ErrorFormField {...{ el: { field: "store" }, errors }} />
+        <FocusAnchor {...{ register, fieldKey: "bookStoreID" }} />
+        <ErrorFormField {...{ el: { field: "bookStoreID" }, errors }} />
 
         <ul
           className={`w-full left-0 absolute z-50 bg-neutral-950 border-2 border-blue-600 rounded-xl max-h-[200px] scrollbar__app scrollbar__y  overflow-y-auto transition-all duration-[0.4s] pr-1 ${
@@ -74,7 +74,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
             <li
               key={el.id}
               className={`w-full py-3 px-4 cursor-pointer hover:text-blue-600 el__flow border-b-2 border-blue-600 last:border-0 ${
-                watch("store") === el.id ? "text-blue-600" : ""
+                watch("bookStoreID") === el.id ? "text-blue-600" : ""
               }`}
               onClick={() => {
                 handleClick(el.id!);

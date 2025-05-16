@@ -116,6 +116,7 @@ export const bindModels = (seq: Sequelize) => {
 
   Book.belongsTo(BookStore, {
     foreignKey: "bookStoreID",
+    as: "store",
   });
   BookStore.hasMany(Book, {
     foreignKey: "bookStoreID",

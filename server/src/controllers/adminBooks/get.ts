@@ -27,7 +27,7 @@ export const getInfoBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
   const { bookID } = req.params;
 
-  const book = await BookStore.findOne({
+  const stores = await BookStore.findAll({
     where: {
       ownerID: userID,
     },
@@ -35,14 +35,17 @@ export const getInfoBook = async (req: ReqApp, res: Response): Promise<any> => {
       {
         model: Book,
         as: "books",
-        where: {
-          id: bookID,
-        },
+        where: {},
+        required: true,
       },
     ],
+    nest: true,
   });
 
-  if (!book) return err404(res, { msg: "Book not found" });
+  const objs = stores.map((el) => el.toJSON());
 
-  return res200(res, { book });
+  if (!objs.length) return err404(res, { msg: "user does not have stores" });
+  if (!objs?.[0]?.books?.length) return err404(res, { msg: "book not found" });
+
+  return res200(res, { book: objs[0].books[0] });
 };
