@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getErrFooterBar } from "@/core/lib/all/forms/errors/searchBar";
-import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
-import { isSameData, makeDelay, makeNum } from "@/core/lib/lib";
+import { isSameData, makeDelay } from "@/core/lib/lib";
 import { NumericFilterSearch } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { FieldValues, UseFormReturn } from "react-hook-form";
@@ -30,7 +29,6 @@ export const useHandleErrSearch = ({
   } = ctx;
   const {
     formState: { errors, isDirty, dirtyFields },
-    clearErrors,
     setFocus,
   } = formCtx;
 
@@ -96,57 +94,4 @@ export const useHandleErrSearch = ({
 
     handleNumberErr();
   }, [errNumbers, errors, numericFilters, realTimeVals, setPreSubmit]);
-
-  // * CLEAR OLD ERRORS NUMBERS, IT COULD BE USEFUL TO SHARE THIS ERROR IN ALL COMPONENTS, LIKE A THING COULD BE SHOW IT ABOVE LABEL OF FILTER IN THE COL OF FOOTER_BAR SPLITTED
-  useEffect(() => {
-    const handleErrors = () => {
-      if (
-        errors?.minAvgPrice?.message === msgsFormStore.price.min ||
-        errors?.maxAvgPrice?.message === msgsFormStore.price.max
-      ) {
-        if (
-          makeNum("min", realTimeVals?.minAvgPrice) <
-          makeNum("max", realTimeVals?.maxAvgPrice)
-        ) {
-          clearErrors("minAvgPrice");
-          clearErrors("maxAvgPrice");
-        }
-      }
-      if (
-        errors?.minAvgQty?.message === msgsFormStore.qty.min ||
-        errors?.maxAvgQty?.message === msgsFormStore.qty.max
-      ) {
-        if (
-          makeNum("min", realTimeVals?.minAvgQty) <
-          makeNum("max", realTimeVals?.maxAvgQty)
-        ) {
-          clearErrors("minAvgQty");
-          clearErrors("maxAvgQty");
-        }
-      }
-      if (
-        errors?.managers?.message === msgsFormStore.work.managers ||
-        errors?.employees?.message === msgsFormStore.work.employees
-      ) {
-        if (
-          makeNum("min", realTimeVals?.managers) <
-          makeNum("max", realTimeVals?.workers)
-        )
-          clearErrors("managers");
-        if (
-          makeNum("min", realTimeVals?.employees) <
-          makeNum("max", realTimeVals?.e)
-        )
-          clearErrors("employees");
-      }
-    };
-
-    handleErrors();
-  }, [
-    realTimeVals,
-    clearErrors,
-    errors?.minAvgPrice,
-    errors?.maxAvgPrice,
-    errors,
-  ]);
 };

@@ -75,4 +75,34 @@ export const schemaSearchBooks = z.object({
     }),
 
   categories: z.array(z.string()).optional(),
+
+  minQty: z
+    .string()
+    .max(10, "Max length exceeded")
+    .optional()
+    .refine((val) => notStr(val) || REG_INT.test(val ?? ""), {
+      message: "Invalid chars min qty",
+    }),
+  maxQty: z
+    .string()
+    .max(10, "Max length exceeded")
+    .optional()
+    .refine((val) => notStr(val) || REG_INT.test(val ?? ""), {
+      message: "Invalid chars max qty",
+    }),
+
+  minPrice: z
+    .string()
+    .max(10, "Max length exceeded")
+    .optional()
+    .refine((val) => notStr(val) || REG_PRICE.test(val ?? ""), {
+      message: "Invalid format min price",
+    }),
+  maxPrice: z
+    .string()
+    .max(10, "Max length exceeded")
+    .optional()
+    .refine((val) => notStr(val) || REG_PRICE.test(val ?? ""), {
+      message: "Invalid format max price",
+    }),
 });

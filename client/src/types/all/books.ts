@@ -31,6 +31,8 @@ export const subcategories = {
   romance: ["contemporary", "historical", "paranormal"],
 };
 
+export const categoriesBooks: string[] = Object.values(subcategories).flat();
+
 export type BookType = {
   id: string;
   bookStoreID: string;

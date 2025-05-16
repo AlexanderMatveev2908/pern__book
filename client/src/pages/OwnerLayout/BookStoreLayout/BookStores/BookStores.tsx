@@ -8,7 +8,7 @@ import {
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useScroll } from "@/core/hooks/hooks";
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
@@ -17,6 +17,8 @@ import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
 import { TagsAPI } from "@/types/types";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
+import { makeNum } from "@/core/lib/lib";
 
 const BookStores: FC = () => {
   useScroll();
@@ -25,7 +27,13 @@ const BookStores: FC = () => {
   const ctx = useSearchCtx();
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit } = formCtx;
+  const {
+    handleSubmit,
+    watch,
+    clearErrors,
+    formState: { errors },
+  } = formCtx;
+  const realTimeVals = watch();
   const handleSave = handleSubmit(() => {});
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
@@ -37,6 +45,58 @@ const BookStores: FC = () => {
     slice: bookStoreSliceAPI,
     tag: TagsAPI.BOOK_STORE,
   });
+
+  useEffect(() => {
+    const handleErrors = () => {
+      if (
+        errors?.minAvgPrice?.message === msgsFormStore.price.min ||
+        errors?.maxAvgPrice?.message === msgsFormStore.price.max
+      ) {
+        if (
+          makeNum("min", realTimeVals?.minAvgPrice) <
+          makeNum("max", realTimeVals?.maxAvgPrice)
+        ) {
+          clearErrors("minAvgPrice");
+          clearErrors("maxAvgPrice");
+        }
+      }
+      if (
+        errors?.minAvgQty?.message === msgsFormStore.qty.min ||
+        errors?.maxAvgQty?.message === msgsFormStore.qty.max
+      ) {
+        if (
+          makeNum("min", realTimeVals?.minAvgQty) <
+          makeNum("max", realTimeVals?.maxAvgQty)
+        ) {
+          clearErrors("minAvgQty");
+          clearErrors("maxAvgQty");
+        }
+      }
+      if (
+        errors?.managers?.message === msgsFormStore.work.managers ||
+        errors?.employees?.message === msgsFormStore.work.employees
+      ) {
+        if (
+          makeNum("min", realTimeVals?.managers) <
+          makeNum("max", realTimeVals?.workers)
+        )
+          clearErrors("managers");
+        if (
+          makeNum("min", realTimeVals?.employees) <
+          makeNum("max", realTimeVals?.workers)
+        )
+          clearErrors("employees");
+      }
+    };
+
+    handleErrors();
+  }, [
+    realTimeVals,
+    clearErrors,
+    errors?.minAvgPrice,
+    errors?.maxAvgPrice,
+    errors,
+  ]);
 
   return (
     <WrapPageAPI

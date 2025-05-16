@@ -3,9 +3,15 @@ import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaDatabase, FaRegStar } from "react-icons/fa";
+import {
+  FaDatabase,
+  FaRegStar,
+  FaSortAmountDown,
+  FaSortAmountUp,
+} from "react-icons/fa";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
+import { v4 } from "uuid";
 
 export const filtersCat: Omit<FilterSearch, "id"> = {
   label: "Categories",
@@ -86,3 +92,11 @@ export const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
     place: el.label + "...",
   })),
 };
+
+export const addSortFields = () =>
+  ["ASC", "DESC"].map((el) => ({
+    val: el,
+    label: el,
+    id: v4(),
+    icon: el === "ASC" ? FaSortAmountUp : FaSortAmountDown,
+  }));

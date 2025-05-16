@@ -62,7 +62,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
       />
 
       <ul
-        className={`absolute z-60 bg-neutral-950 border-2 border-blue-600 w-[200%] -left-full rounded-xl top-12 transition-all duration-[0.4s] ${
+        className={`absolute z-60 bg-neutral-950 border-2 border-blue-600 w-[250%] -left-[150%] rounded-xl top-14 transition-all duration-[0.4s] ${
           isDropOpen
             ? "opacity-100 translate-y-0"
             : "translate-y-[75px] opacity-0 pointer-events-none"
@@ -87,7 +87,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
             key={el.id}
             className="w-full hover:text-blue-600 el__flow cursor-pointer border-b-2 border-blue-600 p-2 last:border-b-0 el__flow"
           >
-            <span className="txt__3">{el.field}</span>
+            <span className="txt__3">{el.label}</span>
           </li>
         ))}
       </ul>

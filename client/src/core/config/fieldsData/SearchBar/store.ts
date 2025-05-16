@@ -6,6 +6,7 @@ import {
 } from "@/types/types";
 import { v4 } from "uuid";
 import {
+  addSortFields,
   avgPriceFilter,
   avgQtyFilter,
   filtersCat,
@@ -13,13 +14,7 @@ import {
   filtersOrders,
   filtersRating,
 } from "./general";
-import {
-  FaDatabase,
-  FaRegStar,
-  FaSortAmountDown,
-  FaSortAmountUp,
-  FaUsers,
-} from "react-icons/fa";
+import { FaDatabase, FaRegStar, FaUsers } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
 import { LuAlarmClock } from "react-icons/lu";
 
@@ -130,10 +125,5 @@ export const sorterStore: SorterSearch[] = [
 ].map((el) => ({
   ...el,
   id: v4(),
-  fields: ["ASC", "DESC"].map((el) => ({
-    val: el,
-    label: el,
-    id: v4(),
-    icon: el === "ASC" ? FaSortAmountUp : FaSortAmountDown,
-  })),
+  fields: addSortFields(),
 }));
