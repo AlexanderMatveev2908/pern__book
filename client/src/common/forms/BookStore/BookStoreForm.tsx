@@ -12,7 +12,7 @@ import {
   fieldDescStore,
   fieldNameStore,
   fieldsSwapStore,
-} from "@/core/config/fieldsData/OwnerLayout/post";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import TxtField from "@/components/forms/inputs/TxtField";
 import VideoField from "@/components/forms/inputs/VideoField";

@@ -1,5 +1,5 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
-import { statsCardStore } from "@/core/config/fieldsData/bookStore/card";
+import { statsCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC, useState } from "react";
 import InfoBookStoreWorker from "../../shared/InfoBookStoreWorker";
@@ -7,7 +7,7 @@ import DropStats from "../../shared/DropStats";
 import {
   labelTeamStore,
   statsTeam,
-} from "@/core/config/fieldsData/bookStore/actions";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 
 type PropsType = {
   el: BookStoreType;

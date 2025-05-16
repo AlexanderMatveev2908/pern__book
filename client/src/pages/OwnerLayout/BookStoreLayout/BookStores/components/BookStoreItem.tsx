@@ -2,7 +2,7 @@ import InfoCardStats from "@/components/elements/cards/bookstore/itemList/InfoCa
 import InfoCardStore from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStore";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
-import { linksCardStore } from "@/core/config/fieldsData/bookStore/card";
+import { linksCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import { Link } from "react-router-dom";

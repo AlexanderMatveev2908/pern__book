@@ -3,7 +3,7 @@ import {
   fieldsContact,
   fieldsDelivery,
   fieldsSwapStore,
-} from "@/core/config/fieldsData/OwnerLayout/post";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import { FieldErrors, UseFormSetFocus } from "react-hook-form";
 import { makeDelay } from "../../API/API";

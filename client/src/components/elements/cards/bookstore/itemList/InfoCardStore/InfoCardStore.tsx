@@ -5,8 +5,8 @@ import {
   labelFieldAddressStore,
   labelFieldContact,
   statsAddress,
-} from "@/core/config/fieldsData/bookStore/actions";
-import { labelCardStore } from "@/core/config/fieldsData/bookStore/card";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
+import { labelCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/card";
 import DropStats from "@/components/elements/cards/shared/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC, useState } from "react";

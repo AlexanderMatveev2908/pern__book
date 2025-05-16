@@ -3,7 +3,7 @@ import {
   actionsBookStoreAdmin,
   KEY_MAP_STORE,
   labelsBookStore,
-} from "@/core/config/fieldsData/bookStore/actions";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { countW } from "@/core/lib/lib";
 import {

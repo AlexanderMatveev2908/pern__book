@@ -8,7 +8,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/post";
+import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";

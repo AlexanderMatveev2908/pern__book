@@ -5,7 +5,7 @@ import {
   labelFieldAddressStore,
   labelFieldContact,
   statsAddress,
-} from "@/core/config/fieldsData/bookStore/actions";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import DropStats from "@/components/elements/cards/shared/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";

@@ -23,7 +23,7 @@ import {
   fieldsSwapStore,
   mandatoryKeysStore,
   optKeysStore,
-} from "@/core/config/fieldsData/OwnerLayout/post";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import { BookStoreType } from "@/types/all/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";

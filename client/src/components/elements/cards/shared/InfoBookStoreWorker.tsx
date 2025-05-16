@@ -6,7 +6,7 @@ import {
   statsDelivery,
   statsOrders,
   statsReviews,
-} from "@/core/config/fieldsData/bookStore/actions";
+} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import DropStats from "@/components/elements/cards/shared/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
