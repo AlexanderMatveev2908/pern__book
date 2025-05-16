@@ -41,6 +41,10 @@ export const getKeysSearchBar = (path: string) => {
       keyStorageVals: StorageKeys.STORES_OWNER_VALS,
       keyStorageLabels: StorageKeys.STORES_OWNER_LABELS,
     },
+    ownerBooksList: {
+      keyStorageVals: StorageKeys.BOOKS_OWNER_VALS,
+      keyStorageLabels: StorageKeys.BOOKS_OWNER_LABELS,
+    },
   };
 
   const formatted = formatP(path);

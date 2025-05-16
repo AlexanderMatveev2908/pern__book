@@ -83,6 +83,24 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      providesTags: (res) =>
+        res?.books?.length
+          ? [
+              ...res.books.map((el) => ({
+                type: TagsAPI.BOOKS_OWNER_LIST,
+                id: el.id,
+              })),
+              {
+                type: TagsAPI.BOOKS_OWNER_LIST,
+                id: "LIST",
+              },
+            ]
+          : [
+              {
+                type: TagsAPI.BOOKS_OWNER_LIST,
+                id: "LIST",
+              },
+            ],
     }),
   }),
 });

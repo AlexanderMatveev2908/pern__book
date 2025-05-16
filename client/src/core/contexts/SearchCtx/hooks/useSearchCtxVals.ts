@@ -82,6 +82,8 @@ export const useSearchCtxVals = ({
 
       trigger({
         ...(vals as ResPaginationAPI<ArgsSearchType>),
+        // ? JUST A BRUTE FORCE FETCH IF U WANT
+        // _: Date.now(),
       });
 
       oldVals.current = vals;
