@@ -9,7 +9,7 @@ import {
   fieldDescBook,
   fieldsPriceQty,
   titleBookField,
-} from "@/core/config/fieldsData/books/create";
+} from "@/core/config/fieldsData/OwnerLayout/books/create";
 import { useFocus } from "@/core/hooks/hooks";
 import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
