@@ -11,7 +11,7 @@ import {
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";
-import { isValidNumber } from "../../../dataStructures";
+import { isValidNumber } from "../../../utils/dataStructures";
 
 export const msgsFormStore = {
   price: {

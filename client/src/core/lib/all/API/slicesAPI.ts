@@ -2,9 +2,9 @@
 import authSlice from "@/features/AuthLayout/authSlice";
 import apiSlice from "@/store/apiSlice";
 import { StorageKeys, TagsAPI } from "@/types/types";
-import { saveStorage } from "../storage";
 import { catchErr } from "./API";
 import { appInstance } from "@/core/config/axios";
+import { saveStorage } from "../utils/storage";
 
 export const handleAsyncQuery = async ({
   queryFulfilled,

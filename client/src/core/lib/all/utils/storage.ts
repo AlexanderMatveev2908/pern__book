@@ -1,5 +1,5 @@
 import { StorageKeys } from "@/types/types";
-import { capt } from "../lib";
+import { capt } from "./formatters";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const saveStorage = ({ data, key }: { data: any; key: StorageKeys }) => {
@@ -21,6 +21,7 @@ export const removeStorage = () => {
   sessionStorage.clear();
 };
 
+// ? to avoid props calc name on path
 export const formatP = (p: string) =>
   p
     .split("/")
@@ -28,9 +29,11 @@ export const formatP = (p: string) =>
     .map((el, i) =>
       el
         .split("-")
-        .map((el, j) => (!i && !j ? el : capt(el)))
+        .map((part, j) => (!i && !j ? part : capt(part)))
+        .filter((el) => !!el)
         .join("")
     )
+    .filter((el) => !!el)
     .join("");
 
 export const getKeysSearchBar = (path: string) => {

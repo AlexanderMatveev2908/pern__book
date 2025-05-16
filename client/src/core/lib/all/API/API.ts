@@ -6,7 +6,7 @@ import {
   MsgErrAccess,
 } from "@/types/types";
 import { formatMsgCode } from "../utils/formatters";
-import { setLimitCards } from "../styleHandlers";
+import { setLimitCards } from "../utils/styleHandlers";
 
 export const isAccessExpired = (msg: string) =>
   [...Object.values(MsgErrAccess)].includes(msg as MsgErrAccess);

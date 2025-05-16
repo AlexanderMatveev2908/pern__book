@@ -15,6 +15,7 @@ export const getSearchBarID = (path: string) =>
     .map((el) =>
       el
         .split("-")
+        .filter((el) => !!el)
         .map((part) => capt(part))
         .join("")
     )
