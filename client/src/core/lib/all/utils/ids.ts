@@ -20,3 +20,17 @@ export const getSearchBarID = (path: string) =>
         .join("")
     )
     .join("");
+
+export const calcSearchbarID = (path: string) =>
+  "searchBar" +
+  path
+    .split("/")
+    .filter((el) => !!el)
+    .map((el) =>
+      el
+        .split("-")
+        .filter((el) => !!el)
+        .map((el) => capt(el))
+        .join("")
+    )
+    .join("");

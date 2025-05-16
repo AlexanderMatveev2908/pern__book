@@ -95,3 +95,5 @@ export const clearTimer = (timerID: React.RefObject<NodeJS.Timeout | null>) => {
     timerID.current = null;
   }
 };
+
+export const notStr = (str?: string) => !str?.trim()?.length;

@@ -25,15 +25,14 @@ export const removeStorage = () => {
 export const formatP = (p: string) =>
   p
     .split("/")
-    .slice(1)
+    .filter((el) => !!el)
     .map((el, i) =>
       el
         .split("-")
-        .map((part, j) => (!i && !j ? part : capt(part)))
         .filter((el) => !!el)
+        .map((part, j) => (!i && !j ? part : capt(part)))
         .join("")
     )
-    .filter((el) => !!el)
     .join("");
 
 export const getKeysSearchBar = (path: string) => {

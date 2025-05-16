@@ -12,7 +12,7 @@ import {
   setLimitCards,
 } from "@/core/lib/lib";
 import { useLocation } from "react-router-dom";
-import { getSearchBarID } from "@/core/lib/all/utils/ids";
+import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { UseFormGetValues } from "react-hook-form";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
@@ -44,7 +44,7 @@ const PagesCounter: FC<PropsType> = ({
   const [currBlock, setCurrBlock] = useState(0);
   const hasSetBlock = useRef<boolean>(false);
   const path = useLocation().pathname;
-  const searchBarID = useMemo(() => getSearchBarID(path), [path]);
+  const searchBarID = useMemo(() => calcSearchbarID(path), [path]);
 
   const handlePagination = useCallback(
     ({ page, limit, val }: { limit?: "limit"; page?: "page"; val: number }) => {

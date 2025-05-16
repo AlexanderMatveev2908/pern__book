@@ -12,7 +12,7 @@ import FilterBar from "./components/FilterBar/FilterBar";
 import "./SearchBar.css";
 import SkeletonBar from "./components/SkeletonBar";
 import { useLocation } from "react-router-dom";
-import { getSearchBarID } from "@/core/lib/all/utils/ids";
+import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
 import { usePopulateSearch } from "@/core/hooks/all/forms/searchBar/usePopulateSearch";
@@ -91,7 +91,7 @@ const SearchBar: FC<PropsType> = ({
   useHandleErrSearch({ ctx, formCtx, realTimeVals, numericFilters });
 
   const path = useLocation().pathname;
-  const searchBarID = useMemo(() => getSearchBarID(path), [path]);
+  const searchBarID = useMemo(() => calcSearchbarID(path), [path]);
 
   return !isPopulated ? (
     <SkeletonBar />
