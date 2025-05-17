@@ -7,6 +7,8 @@ import {
 import { isStr } from "@/core/lib/lib";
 import { z } from "zod";
 import { schemaID, schemaPrice, schemaInt } from "./general";
+import { CatBookStore } from "@/types/all/bookStore";
+import { categoriesBooks } from "@/types/all/books";
 
 export const schemaSearchBooks = z.object({
   ID: schemaID(),
@@ -50,7 +52,12 @@ export const schemaSearchBooks = z.object({
       }
     ),
 
-  categories: z.array(z.string()).optional(),
+  mainCategories: z.array(
+    z.enum(Object.values(CatBookStore) as [string, ...string[]]).optional()
+  ),
+  subCategories: z
+    .array(z.enum(categoriesBooks as [string, ...string[]]))
+    .optional(),
 
   minQty: schemaInt(),
   maxQty: schemaInt(),

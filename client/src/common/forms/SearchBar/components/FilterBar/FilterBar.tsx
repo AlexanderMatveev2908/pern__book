@@ -15,9 +15,9 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 type PropsType = {
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
-  res: any;
-  trigger: any;
+  hook: any;
   txtInputs: FormFieldBasic[];
+  innerJoinCat?: boolean;
 };
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES
@@ -26,9 +26,10 @@ const FilterBar: FC<PropsType> = ({
   filters,
   numericFilters,
   txtInputs,
-  res,
-  trigger,
+  hook,
+  innerJoinCat,
 }) => {
+  const [trigger, res] = hook;
   const {
     bars: { filterBar },
     setBar,
@@ -84,7 +85,7 @@ const FilterBar: FC<PropsType> = ({
             <div className="min-h-screen bg-blue-600 w-[3px] overflow-hidden"></div>
           </div>
 
-          <ValsCol />
+          <ValsCol {...{ innerJoinCat }} />
         </div>
 
         <BtnResults {...{ res, txtInputs, trigger }} />

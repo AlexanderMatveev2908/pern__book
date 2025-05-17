@@ -11,6 +11,11 @@ export type ArgsSearchType = ReqQueryAPI<
   SearchStoreFormType | { a: "test" }
 > | null;
 
+export type FieldJoinCatType = {
+  val: string;
+  label: string;
+};
+
 export type SearchCtxStateType = {
   activeTxtInputs: FormFieldBasic[];
   bars: {
@@ -25,6 +30,7 @@ export type SearchCtxStateType = {
     currFilter: FilterSearch | NumericFilterSearch | null;
     currSorter: FilterSearch | null;
   };
+  innerJoinedCat: FieldJoinCatType[];
   isPending: {
     submit: boolean;
     clear: boolean;
@@ -50,6 +56,7 @@ export const initStateSearch: SearchCtxStateType = {
     currFilter: null,
     currSorter: null,
   },
+  innerJoinedCat: [],
   isPending: {
     submit: false,
     clear: false,

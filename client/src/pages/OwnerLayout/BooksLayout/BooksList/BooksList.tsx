@@ -43,6 +43,7 @@ const BooksList: FC = () => {
               numericFilters: ownerBooksNumericFilters,
               handleSave,
               sorters: ownerBooksSorters,
+              innerJoinCat: true,
             }}
           />
         </FormProvider>

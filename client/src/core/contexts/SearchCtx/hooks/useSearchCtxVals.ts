@@ -9,7 +9,11 @@ import {
   SearchCtxActions,
   SearchCtxActionsType,
 } from "../reducer/actions";
-import { ArgsSearchType, SearchCtxStateType } from "../reducer/initState";
+import {
+  ArgsSearchType,
+  FieldJoinCatType,
+  SearchCtxStateType,
+} from "../reducer/initState";
 import { FormFieldBasic, ResPaginationAPI } from "@/types/types";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { saveStorage } from "@/core/lib/lib";
@@ -34,6 +38,7 @@ export type SearchCtxValsConsumer = SearchCtxStateType & {
   updateValsNoDebounce: (vals: ParamsUpdateNoDebounce) => void;
   madeAPI: RefObject<boolean>;
   setPagination: (vals: ParamsPage) => void;
+  setInnerJoinedCat: (val: FieldJoinCatType[]) => void;
 };
 
 export const useSearchCtxVals = ({
@@ -98,6 +103,13 @@ export const useSearchCtxVals = ({
     [dispatch]
   );
 
+  const setInnerJoinedCat = useCallback(
+    (val: FieldJoinCatType[]) => {
+      dispatch({ type: SearchCtxActions.SET_INNER_JOINED_CAT, payload: val });
+    },
+    [dispatch]
+  );
+
   return {
     ...state,
     oldVals,
@@ -109,5 +121,6 @@ export const useSearchCtxVals = ({
     setPreSubmit,
     updateValsNoDebounce,
     madeAPI,
+    setInnerJoinedCat,
   };
 };

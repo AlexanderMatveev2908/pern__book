@@ -73,6 +73,12 @@ export const reducerSearch = (
       };
     }
 
+    case SearchCtxActions.SET_INNER_JOINED_CAT:
+      return {
+        ...state,
+        innerJoinedCat: action.payload,
+      };
+
     default:
       throw new Error("Invalid action " + (action as any)?.type);
   }

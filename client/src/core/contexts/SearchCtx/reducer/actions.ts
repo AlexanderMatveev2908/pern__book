@@ -3,6 +3,7 @@ import {
   FormFieldBasic,
   NumericFilterSearch,
 } from "@/types/types";
+import { FieldJoinCatType } from "./initState";
 
 export enum SearchCtxActions {
   SET_TXT_INPUTS = "SET_TXT_INPUTS",
@@ -11,6 +12,7 @@ export enum SearchCtxActions {
   SET_IS_PENDING = "SET_IS_PENDING",
   SET_PRE_SUBMIT = "SET_PRE_SUBMIT",
   SET_PAGINATION = "SET_PAGINATION",
+  SET_INNER_JOINED_CAT = "SET_INNER_JOINED_CAT",
 }
 
 export type ParamsBar = {
@@ -76,4 +78,8 @@ export type SearchCtxActionsType =
   | {
       type: SearchCtxActions.SET_PAGINATION;
       payload: ParamsPage;
+    }
+  | {
+      type: SearchCtxActions.SET_INNER_JOINED_CAT;
+      payload: FieldJoinCatType[];
     };

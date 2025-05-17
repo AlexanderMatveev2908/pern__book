@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 import { addSortFields, ratingRanges } from "./general";
 import { TbPigMoney } from "react-icons/tb";
 import { LuAlarmClock } from "react-icons/lu";
+import { CatBookStore } from "@/types/all/bookStore";
 
 export const fieldsInputsBooks = [
   {
@@ -45,8 +46,17 @@ export const fieldsInputsBooks = [
 }));
 
 const filtersCat: Omit<FilterSearch, "id"> = {
-  label: "Categories",
-  field: "categories",
+  label: "Main categories",
+  field: "mainCategories",
+  icon: MdOutlineCategory,
+  fields: Object.values(CatBookStore).map((el) => ({
+    val: el,
+    label: captAll(el),
+  })),
+};
+const filtersSubCat: Omit<FilterSearch, "id"> = {
+  label: "Sub categories",
+  field: "subCategories",
   icon: MdOutlineCategory,
   fields: categoriesBooks.map((el) => ({
     val: el,
@@ -64,14 +74,16 @@ const filtersRating = {
   })),
 };
 
-export const ownerBooksFilters = [filtersCat, filtersRating].map((el) => ({
-  ...el,
-  id: v4(),
-  fields: el.fields.map((el) => ({
+export const ownerBooksFilters = [filtersCat, filtersSubCat, filtersRating].map(
+  (el) => ({
     ...el,
     id: v4(),
-  })),
-}));
+    fields: el.fields.map((el) => ({
+      ...el,
+      id: v4(),
+    })),
+  })
+);
 
 const priceFilters: Omit<NumericFilterSearch, "id"> = {
   label: "Price",
@@ -137,6 +149,16 @@ export const ownerBooksSorters = [
     label: "Rating",
     field: "ratingSort",
     icon: FaRegStar,
+  },
+  {
+    label: "Price",
+    field: "priceSort",
+    icon: TbPigMoney,
+  },
+  {
+    label: "Quantity",
+    field: "qtySort",
+    icon: FaDatabase,
   },
 ].map((el) => ({
   ...el,

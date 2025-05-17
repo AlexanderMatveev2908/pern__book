@@ -24,6 +24,8 @@ import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 
+// ? I LIKE THINKING OF WHAT I HAVE IN MIND LIKE A METAPHORIC INNER JOIN BUT ON FRONTEND CATEGORIES ITEMS AS STRINGS, IF U CHOSE THE MAIN CATEGORY AUTOMATICALLY WILL SEE THE SUB CATEGORIES
+
 type PropsType = {
   hook: any;
   handleSave: () => void;
@@ -31,6 +33,7 @@ type PropsType = {
   filters: FilterSearch[];
   sorters: SorterSearch[];
   numericFilters?: NumericFilterSearch[];
+  innerJoinCat?: boolean;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -40,6 +43,7 @@ const SearchBar: FC<PropsType> = ({
   sorters,
   numericFilters,
   hook,
+  innerJoinCat,
 }) => {
   const [trigger, res] = hook;
 
@@ -105,7 +109,15 @@ const SearchBar: FC<PropsType> = ({
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
-        <FilterBar {...{ trigger, filters, numericFilters, txtInputs, res }} />
+        <FilterBar
+          {...{
+            hook,
+            filters,
+            innerJoinCat,
+            numericFilters,
+            txtInputs,
+          }}
+        />
         <SortPop {...{ sorters }} />
 
         <TxtInputs {...{ trigger, txtInputs }}>

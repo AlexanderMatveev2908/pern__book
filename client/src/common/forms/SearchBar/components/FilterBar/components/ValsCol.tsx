@@ -1,11 +1,18 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
+import { captAll } from "@/core/lib/lib";
+import { subcategories } from "@/types/all/books";
 import { FilterSubField, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
-const ValsCol: FC = () => {
+type PropsType = {
+  innerJoinCat?: boolean;
+};
+
+const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
   const {
     watch,
     setValue,
@@ -14,13 +21,37 @@ const ValsCol: FC = () => {
   } = useFormContext();
   const {
     searchers: { currFilter },
+    setInnerJoinedCat,
   } = useSearchCtx();
 
   const handleClickVal = useCallback(
     (el: FilterSubField) => {
       const key = currFilter?.field;
       if (!key) return;
+
       const value = watch(key);
+
+      if (key === "mainCategories" && innerJoinCat) {
+        const updatedVal = (value ?? ([] as string[])).includes(el.val)
+          ? value.filter((str: string) => str !== el.val)
+          : [...(value ?? []), el.val];
+
+        const updatedJoined: FieldJoinCatType[] = [];
+
+        for (const [k, v] of Object.entries(subcategories)) {
+          if ((updatedVal ?? ([] as string[])).includes(k))
+            updatedJoined.push(
+              ...v.map((sub) => ({
+                val: sub,
+                label: captAll(sub),
+              }))
+            );
+        }
+
+        console.log(updatedJoined);
+
+        setInnerJoinedCat(updatedJoined);
+      }
 
       if (!Array.isArray(value)) {
         setValue(key, [el.val]);
@@ -34,7 +65,7 @@ const ValsCol: FC = () => {
           : [...value, el.val]
       );
     },
-    [currFilter, setValue, watch]
+    [currFilter, setValue, watch, innerJoinCat, setInnerJoinedCat]
   );
 
   const getIsIn = useCallback(
