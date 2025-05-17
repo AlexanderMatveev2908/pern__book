@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 import { genValsRating } from "../general";
 import { GrUpdate } from "react-icons/gr";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
+import { CiTextAlignJustify } from "react-icons/ci";
 
 export const labelBookCard = (title: string) => ({
   label: title,
@@ -99,3 +100,8 @@ export const infoStoreFromBook = (book: BookType) =>
       val: book.bookStoreID,
     },
   ].map((el) => ({ ...el, id: v4() }));
+
+export const labelDescriptionBook = {
+  label: "About Book",
+  icon: CiTextAlignJustify,
+};
