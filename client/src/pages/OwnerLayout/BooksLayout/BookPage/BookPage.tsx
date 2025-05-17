@@ -7,19 +7,35 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
+import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
+import { useMixVars } from "@/core/hooks/all/useMixVars";
 
 const BookPage: FC = () => {
   useScroll();
   const { bookID = "" } = useParams();
   const itPass = REG_ID.test(bookID);
 
-  const { user } = useGetU();
+  const {
+    user,
+    isLoading: isUserLoading,
+    isError: isUserError,
+    error: userError,
+  } = useGetU();
 
   const res = booksSLiceAPI.endpoints.getSingleBook.useQuery(bookID, {
     skip: !itPass,
   });
-  const { data: { book } = {}, isLoading, isError, error } = res;
+  const {
+    data: { book } = {},
+    isLoading: isBookLoading,
+    isError: isBookError,
+    error: bookError,
+  } = res;
   useWrapQueryAPI({ ...res });
+
+  const isLoading = useMixVars({ varA: isUserLoading, varB: isBookLoading });
+  const isError = useMixVars({ varA: isUserError, varB: isBookError });
+  const error = useMixVars({ varA: userError, varB: bookError });
 
   return !book ? null : (
     <WrapPageAPI
@@ -29,6 +45,8 @@ const BookPage: FC = () => {
         <Title {...{ title: book?.title }} />
 
         <DropActionsBook {...{ book }} />
+
+        <ImagesScroll {...{ images: book.images }} />
       </div>
     </WrapPageAPI>
   );

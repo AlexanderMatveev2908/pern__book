@@ -38,7 +38,7 @@ const CreateBook: FC = () => {
       if (!res) return;
 
       reset({});
-      nav("/owner/books/list");
+      nav(`/owner/books/${res.ID}`, { replace: true });
     },
     (errs) => {
       handleErrsBooks(errs, setFocus);

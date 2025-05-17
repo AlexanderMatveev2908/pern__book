@@ -47,11 +47,11 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
 
     if (images) newBook.images = images;
 
-    await Book.create(newBook, { transaction: t });
+    const bookCreated = await Book.create(newBook, { transaction: t });
 
     await t.commit();
 
-    return res201(res, { msg: "Book created" });
+    return res201(res, { msg: "Book created", ID: bookCreated.id });
   } catch (err: any) {
     console.log(err);
 
