@@ -3,6 +3,7 @@ import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
+import InfoStatsBookCard from "@/components/elements/cards/books/ItemList/InfoStatsBookCard";
 
 type PropsType = {
   el: BookType;
@@ -24,6 +25,7 @@ const BookItem: FC<PropsType> = ({ el }) => {
           }`}
         >
           <InfoBookCard {...{ el }} />
+          <InfoStatsBookCard {...{ el }} />
         </div>
       </div>
     </div>

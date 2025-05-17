@@ -68,6 +68,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      keepUnusedDataFor: Infinity,
       providesTags: (res) =>
         res?.bookStores?.length
           ? [
