@@ -30,7 +30,7 @@ const BooksList: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        canStay: user?.isOwner,
+        canStay: user?.hasBooks,
       }}
     >
       <div className="parent__page -mb-[175px]">

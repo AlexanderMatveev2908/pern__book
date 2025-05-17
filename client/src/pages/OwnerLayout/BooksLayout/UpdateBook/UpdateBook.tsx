@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import BookForm from "@/common/forms/BookForm/BookForm";
-import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
@@ -10,19 +9,10 @@ import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
 import { isSameData } from "@/core/lib/lib";
-import {
-  closePopup,
-  loadPop,
-  openPopup,
-} from "@/features/common/Popup/popupSlice";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
-import { BtnAct, BtnPopupKeys } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { FaRegTrashAlt } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const keysForm = [
   "bookStoreID",
@@ -36,15 +26,8 @@ const keysForm = [
   "price",
 ];
 
-const btnDelete = {
-  label: "Delete Book",
-  icon: FaRegTrashAlt,
-};
-
 const UpdateBook: FC = () => {
   useScroll();
-
-  const nav = useNavigate();
 
   const [isSame, setIsSame] = useState(false);
 
@@ -151,38 +134,6 @@ const UpdateBook: FC = () => {
     }
   );
 
-  const dispatch = useDispatch();
-  const [mutateDelete] = booksSLiceAPI.useDeleteBookMutation();
-
-  const handleOpenPopup = () =>
-    dispatch(
-      openPopup({
-        txt: "Are You sure about deleting this book ?",
-        leftBtn: {
-          label: "Delete",
-          act: BtnAct.DEL,
-          cb: async () => {
-            dispatch(loadPop(BtnPopupKeys.LEFT));
-
-            const res = await wrapMutationAPI({
-              cbAPI: () => mutateDelete(bookID as string),
-            });
-
-            dispatch(closePopup());
-
-            if (!res) return;
-
-            nav("/owner/books/list", { replace: true });
-          },
-        },
-        rightBtn: {
-          label: "Cancel",
-          act: BtnAct.DO,
-          cb: () => dispatch(closePopup()),
-        },
-      })
-    );
-
   return (
     <WrapPageAPI
       {...{
@@ -206,18 +157,6 @@ const UpdateBook: FC = () => {
               }}
             />
           </FormProvider>
-        </div>
-
-        <div className="w-full flex justify-end">
-          <div className="w-full max-w-[250px]">
-            <ButtonIcon
-              {...{
-                el: btnDelete,
-                act: BtnAct.DEL,
-                handleClick: handleOpenPopup,
-              }}
-            />
-          </div>
         </div>
       </div>
     </WrapPageAPI>

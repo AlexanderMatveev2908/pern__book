@@ -29,6 +29,7 @@ import CreateBook from "./pages/OwnerLayout/BooksLayout/CreateBook/CreateBook";
 import BooksOwnerLayout from "./layouts/OwnerLayout/BooksOwnerLayout";
 import BooksList from "./pages/OwnerLayout/BooksLayout/BooksList/BooksList";
 import UpdateBook from "./pages/OwnerLayout/BooksLayout/UpdateBook/UpdateBook";
+import BookPage from "./pages/OwnerLayout/BooksLayout/BookPage/BookPage";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -115,6 +116,7 @@ const App: FC = () => {
                 </SearchCtxProvider>
               }
             />
+            <Route path=":bookID" element={<BookPage />} />
           </Route>
         </Route>
 

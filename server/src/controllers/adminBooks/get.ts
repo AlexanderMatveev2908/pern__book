@@ -10,6 +10,24 @@ import { Review } from "../../models/all/Review.js";
 import { replacePoint } from "../../lib/validateDataStructure.js";
 import { Literal } from "sequelize/lib/utils";
 
+const calcRatingSql = (): [Literal, string][] => [
+  [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
+  [literal(`ROUND(COALESCE(AVG("reviews"."rating"), 0), 1)`), "avgRating"],
+  ...([
+    [0, 1],
+    [1.1, 2],
+    [2.1, 3],
+    [3.1, 4],
+    [4.1, 5],
+  ].map((pair) => [
+    literal(`(SELECT COALESCE(COUNT(DISTINCT r.id) , 0)
+                FROM "reviews" AS r
+                WHERE r.rating BETWEEN ${pair[0]} AND ${pair[1]}
+              )`),
+    `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+  ]) as [Literal, string][]),
+];
+
 export const getStoreInfo = async (
   req: ReqApp,
   res: Response
@@ -55,6 +73,38 @@ export const getInfoBook = async (req: ReqApp, res: Response): Promise<any> => {
   return res200(res, { book: objs[0].books[0] });
 };
 
+export const getMyBook = async (req: ReqApp, res: Response): Promise<any> => {
+  const { userID } = req;
+  const { bookID } = req.params;
+
+  const book = await Book.findOne({
+    where: {
+      id: bookID,
+    },
+    include: [
+      {
+        model: BookStore,
+        as: "store",
+        required: true,
+        where: { ownerID: userID },
+      },
+      {
+        model: Review,
+        as: "reviews",
+      },
+    ],
+    attributes: {
+      include: [
+        [literal(`"store"."categories"`), "mainCategories"],
+        ...calcRatingSql(),
+      ],
+    },
+    group: ["Book.id", "store.id", "reviews.id"],
+  });
+
+  return res200(res, { book });
+};
+
 export const getBooksList = async (
   req: ReqApp,
   res: Response
@@ -82,27 +132,8 @@ export const getBooksList = async (
     attributes: {
       include: [
         [literal(`"store"."categories"`), "mainCategories"],
-        [
-          literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`),
-          "reviewsCount",
-        ],
-        [
-          literal(`ROUND(COALESCE(AVG("reviews"."rating"), 0), 1)`),
-          "avgRating",
-        ],
-        ...([
-          [0, 1],
-          [1.1, 2],
-          [2.1, 3],
-          [3.1, 4],
-          [4.1, 5],
-        ].map((pair) => [
-          literal(`(SELECT COALESCE(COUNT(DISTINCT r.id) , 0)
-                FROM "reviews" AS r
-                WHERE r.rating BETWEEN ${pair[0]} AND ${pair[1]}
-              )`),
-          `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-        ]) as [Literal, string][]),
+
+        ...calcRatingSql(),
       ],
     },
   });

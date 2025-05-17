@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import { tailwindBreak } from "@/core/config/breakpoints";
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { IconType } from "react-icons/lib";
 
@@ -11,7 +12,6 @@ type PropsType = {
   };
   fields?:
     | {
-        id: string;
         val?: any;
         label: string;
       }[]
@@ -36,6 +36,8 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
   }, [abs, isDropOpen]);
+
+  const ids = useCreateIds({ lengths: [fields?.length ?? 0] });
 
   return !el ? null : (
     <div className="w-full relative h-fit ">
@@ -66,9 +68,9 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
         }}
       >
         {Array.isArray(fields) &&
-          fields?.map((el) => (
+          fields?.map((el, i) => (
             <li
-              key={el.id}
+              key={ids?.[0]?.[i]}
               className="w-full flex justify-between items-center pr-4 gap-3"
             >
               <div

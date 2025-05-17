@@ -114,9 +114,9 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
                 type: TagsAPI.BOOK_STORE_LIST,
                 id: bookStoreID,
               },
-              {
-                type: TagsAPI.STORES_INFO,
-              },
+              // {
+              //   type: TagsAPI.STORES_INFO,
+              // },
             ])
           );
         });
@@ -148,7 +148,7 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
               { type: TagsAPI.BOOK_STORE_LIST, id },
               { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
               { type: TagsAPI.USER },
-              { type: TagsAPI.STORES_INFO },
+              // { type: TagsAPI.STORES_INFO },
             ])
           );
         });

@@ -4,6 +4,7 @@ import { wrapApp } from "../../middleware/general/wrapApp.js";
 import {
   getBooksList,
   getInfoBook,
+  getMyBook,
   getStoreInfo,
 } from "../../controllers/adminBooks/get.js";
 import { logJSON } from "../../lib/utils/log.js";
@@ -38,6 +39,7 @@ adminBookRouter
     validatePostPutBooks,
     wrapApp(updateBook)
   )
-  .delete(wrapApp(logJSON), wrapApp(deleteBook));
+  .delete(wrapApp(logJSON), wrapApp(deleteBook))
+  .get(wrapApp(getMyBook));
 
 export default adminBookRouter;

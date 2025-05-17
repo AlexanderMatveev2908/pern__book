@@ -5,9 +5,10 @@ type Params = {
   lengths?: (number | undefined)[];
 };
 
-export const useCreateIds = ({ lengths }: Params) => {
+export const useCreateIds = ({ lengths }: Params): string[][] => {
   const idsArr = useMemo(
-    () => lengths?.map((el) => Array.from({ length: el ?? 0 }, () => v4())),
+    () =>
+      (lengths ?? [])?.map((el) => Array.from({ length: el ?? 0 }, () => v4())),
     [lengths]
   );
 

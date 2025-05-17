@@ -23,7 +23,7 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/stores-info`,
         method: "GET",
       }),
-      providesTags: [TagsAPI.STORES_INFO],
+      // providesTags: [TagsAPI.STORES_INFO],
     }),
 
     createBook: builder.mutation<BaseResAPI<void>, FormData>({
@@ -53,6 +53,14 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         data: formData,
       }),
       invalidatesTags: [TagsAPI.BOOK_OWNER],
+    }),
+
+    getSingleBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
+      query: (bookID) => ({
+        url: `${BASE_URL}/${bookID}`,
+        method: "GET",
+      }),
+      providesTags: [TagsAPI.BOOK_OWNER],
     }),
 
     deleteBook: builder.mutation<BaseResAPI<void>, string>({
