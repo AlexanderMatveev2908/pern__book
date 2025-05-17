@@ -18,6 +18,7 @@ import {
 import { capt, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { OrderStage } from "@/types/all/orders";
+import { genValsRating } from "../general";
 
 // * I USE MAP JUST FOR LEARNING POUPROSE, NORMALLY I WOULD JUST USE ARRAYS TO KEEP VALS
 
@@ -79,30 +80,7 @@ export const statsBooks = (bookStore?: BookStoreType) =>
   }));
 
 export const statsReviews = (bookStore?: BookStoreType) =>
-  [
-    {
-      label: "Total Reviews",
-      val: bookStore?.reviewsCount,
-    },
-    {
-      label: "Avg rating",
-      val: bookStore?.avgRating,
-    },
-    ...[
-      [0, 1],
-      [1.1, 2],
-      [2.1, 3],
-      [3.1, 4],
-      [4.1, 5],
-    ].map((pair) => ({
-      label: `From ${pair[0]} to ${pair[1]}`,
-      val: bookStore?.[
-        `reviews__${(pair[0] + "")?.replace(".", "_")}__${(
-          pair[1] + ""
-        )?.replace(".", "_")}` as keyof BookStoreType
-      ],
-    })),
-  ].map((el) => ({
+  [...genValsRating(bookStore)].map((el) => ({
     ...el,
     id: v4(),
   }));

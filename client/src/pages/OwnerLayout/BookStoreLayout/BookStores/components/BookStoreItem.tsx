@@ -2,10 +2,10 @@ import InfoCardStats from "@/components/elements/cards/bookstore/itemList/InfoCa
 import InfoCardStore from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStore";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
+import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
-import { Link } from "react-router-dom";
 
 type PropsType = {
   el: BookStoreType;
@@ -30,19 +30,7 @@ const BookStoreItem: FC<PropsType> = ({ el }) => {
         </div>
       </div>
 
-      <div className="w-full grid grid-cols-2 justify-items-center -mt-3">
-        {linksCardStore.map((lin) => (
-          <Link
-            key={lin.id}
-            to={lin.path + el.id}
-            className="px-4 py-1 flex justify-center gap-5 items-center el__flow hover:text-blue-600 el__after_below"
-          >
-            <lin.icon className="icon__md" />
-
-            <span className="txt__2">{lin.label}</span>
-          </Link>
-        ))}
-      </div>
+      <LinksCard {...{ ID: el.id, links: linksCardStore }} />
     </div>
   );
 };

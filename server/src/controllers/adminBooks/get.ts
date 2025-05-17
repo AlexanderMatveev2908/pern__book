@@ -7,6 +7,8 @@ import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
 import { literal } from "sequelize";
 import { Review } from "../../models/all/Review.js";
+import { replacePoint } from "../../lib/validateDataStructure.js";
+import { Literal } from "sequelize/lib/utils";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -84,6 +86,23 @@ export const getBooksList = async (
           literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`),
           "reviewsCount",
         ],
+        [
+          literal(`ROUND(COALESCE(AVG("reviews"."rating"), 0), 1)`),
+          "avgRating",
+        ],
+        ...([
+          [0, 1],
+          [1.1, 2],
+          [2.1, 3],
+          [3.1, 4],
+          [4.1, 5],
+        ].map((pair) => [
+          literal(`(SELECT COALESCE(COUNT(DISTINCT r.id) , 0)
+                FROM "reviews" AS r
+                WHERE r.rating BETWEEN ${pair[0]} AND ${pair[1]}
+              )`),
+          `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+        ]) as [Literal, string][]),
       ],
     },
   });

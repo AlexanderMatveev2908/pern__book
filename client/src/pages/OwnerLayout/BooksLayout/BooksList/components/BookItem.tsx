@@ -4,6 +4,8 @@ import ItemID from "@/components/elements/cards/shared/ItemID";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import InfoStatsBookCard from "@/components/elements/cards/books/ItemList/InfoStatsBookCard";
+import LinksCard from "@/components/elements/cards/shared/LinksCard";
+import { linksBookCard } from "@/core/config/fieldsData/OwnerLayout/books/read";
 
 type PropsType = {
   el: BookType;
@@ -28,6 +30,8 @@ const BookItem: FC<PropsType> = ({ el }) => {
           <InfoStatsBookCard {...{ el }} />
         </div>
       </div>
+
+      <LinksCard {...{ ID: el.id, links: linksBookCard }} />
     </div>
   );
 };

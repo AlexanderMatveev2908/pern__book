@@ -17,6 +17,7 @@ import { OrderStage } from "../../types/all/orders.js";
 import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
+import { replacePoint } from "../../lib/validateDataStructure.js";
 
 const calcAvgSeq = (
   prop: string,
@@ -38,18 +39,6 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   )`),
   res,
 ];
-
-const replacePoint = (val: number) => (val + "").replace(".", "_");
-
-// const countRevSql = (pair: number[]): [Literal, string] => [
-//   literal(`(
-//     SELECT COALESCE(COUNT(DISTINCT "reviews"."id"), 0)
-//     FROM "reviews"
-//     WHERE "reviews"."rating" BETWEEN ${pair[0]} AND ${pair[1]}
-//     AND "reviews"."bookID" = "book"."id"
-//    )`),
-//   `reviews__${rep(pair[0])}__${rep(pair[1])}`,
-// ];
 
 const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
   literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)

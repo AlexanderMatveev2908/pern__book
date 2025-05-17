@@ -9,3 +9,5 @@ export const validateNull = (str: string) => str === "_";
 
 export const allOrNothingStr = (reg: RegExp, str?: string) =>
   !str?.trim().length || reg.test(str ?? "");
+
+export const replacePoint = (val: number) => (val + "").replace(".", "_");
