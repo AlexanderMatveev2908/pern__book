@@ -6,6 +6,7 @@ import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
 import { literal } from "sequelize";
+import { Review } from "../../models/all/Review.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -70,10 +71,20 @@ export const getBooksList = async (
         attributes: ["id"],
         required: true,
       },
+      {
+        model: Review,
+        as: "reviews",
+      },
     ],
-    group: ["Book.id", "store.id"],
+    group: ["Book.id", "store.id", "reviews.id"],
     attributes: {
-      include: [[literal(`"store"."categories"`), "mainCategories"]],
+      include: [
+        [literal(`"store"."categories"`), "mainCategories"],
+        [
+          literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`),
+          "reviewsCount",
+        ],
+      ],
     },
   });
 

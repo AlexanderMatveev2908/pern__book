@@ -39,17 +39,17 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   res,
 ];
 
-const rep = (val: number) => (val + "").replace(".", "_");
+const replacePoint = (val: number) => (val + "").replace(".", "_");
 
-const countRevSql = (pair: number[]): [Literal, string] => [
-  literal(`(
-    SELECT COALESCE(COUNT(DISTINCT "reviews"."id"), 0)
-    FROM "reviews"
-    WHERE "reviews"."rating" BETWEEN ${pair[0]} AND ${pair[1]} 
-    AND "reviews"."bookStoreID" = "BookStore"."id"
-   )`),
-  `reviews__${rep(pair[0])}__${rep(pair[1])}`,
-];
+// const countRevSql = (pair: number[]): [Literal, string] => [
+//   literal(`(
+//     SELECT COALESCE(COUNT(DISTINCT "reviews"."id"), 0)
+//     FROM "reviews"
+//     WHERE "reviews"."rating" BETWEEN ${pair[0]} AND ${pair[1]}
+//     AND "reviews"."bookID" = "book"."id"
+//    )`),
+//   `reviews__${rep(pair[0])}__${rep(pair[1])}`,
+// ];
 
 const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
   literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)
@@ -68,15 +68,40 @@ const countItems = (name: string): [Literal, string] => [
 const myCoolSql = [
   countItems("books"),
   countItems("orders"),
-  countItems("reviews"),
-  calcAvgSeq("reviews.rating", "avgRating"),
+  [
+    literal(`(
+      SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+      FROM "books" AS b
+      INNER JOIN "reviews" AS r ON b.id = r."bookID"
+      WHERE b."bookStoreID" = "BookStore"."id"
+    )`),
+    "reviewsCount",
+  ],
+  [
+    literal(`
+  (SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+  FROM "books" AS b
+  INNER JOIN "reviews" AS r ON b.id = r."bookID"
+  WHERE b."bookStoreID" = "BookStore"."id")
+`),
+    "avgRating",
+  ],
   ...[
     [0, 1],
     [1.1, 2],
     [2.1, 3],
     [3.1, 4],
     [4.1, 5],
-  ].map((el, i) => countRevSql(el)),
+  ].map((el, i) => [
+    literal(`
+  (SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+  FROM "books" AS b
+  INNER JOIN "reviews" AS r ON b.id = r."bookID"
+  WHERE b."bookStoreID" = "BookStore"."id"
+    AND r.rating BETWEEN ${el[0]} AND ${el[1]})
+`),
+    `reviews__${replacePoint(el[0])}__${replacePoint(el[1])}`,
+  ]),
   calcAvgSeq("books.price", "avgPrice"),
   calcAvgSeq("books.qty", "avgQty", 0),
   ...Object.values(OrderStage).map((el) =>
@@ -117,12 +142,15 @@ export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
         as: "orders",
       },
       {
-        model: Review,
-        as: "reviews",
-      },
-      {
         model: Book,
         as: "books",
+        include: [
+          {
+            model: Review,
+            as: "reviews",
+            attributes: ["rating", "bookID", "id"],
+          },
+        ],
       },
       {
         model: User,
@@ -134,7 +162,7 @@ export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
       "images.id",
       "video.id",
       "orders.id",
-      "reviews.id",
+      "books->reviews.id",
       "books.id",
       "team.id",
       "team->BookStoreUser.id",
@@ -187,15 +215,18 @@ export const getAllStores = async (
         // ? WITHOUT REQUIRED IT WOULD BE A LEFT JOIN WHERE WE GET ALL DATA EVEN INNER MODELS DOES NOT MATCH OPT, WITH REQUIRED IT IS AN INNER JOIN AND INNER DATA MUST MATCH AND RESPECT PARAMS PROVIDED
         required: !!Object.keys(queryOrders).length,
       },
-      {
-        model: Review,
-        as: "reviews",
-        attributes: ["rating", "bookStoreID", "id"],
-      },
+
       {
         model: Book,
         as: "books",
         attributes: ["id", "qty", "price"],
+        include: [
+          {
+            model: Review,
+            as: "reviews",
+            attributes: ["rating", "bookID", "id"],
+          },
+        ],
       },
       {
         model: User,
@@ -216,7 +247,7 @@ export const getAllStores = async (
       "BookStore.id",
       "images.id",
       "orders.id",
-      "reviews.id",
+      "books->reviews.id",
       "books.id",
       "team.id",
       "team->BookStoreUser.id",

@@ -24,7 +24,9 @@ export const clearDB = async () => {
   });
   const videoStores = await VideoBookStore.findAll({ where: {} });
   if (videoStores.length) {
-    await Promise.all(videoStores.map(async (v) => await delCloud(v.publicID)));
+    await Promise.all(
+      videoStores.map(async (v) => await delCloud(v.publicID, ResourceType.VID))
+    );
     await VideoBookStore.destroy({ where: {} });
   }
 

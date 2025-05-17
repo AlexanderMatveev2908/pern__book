@@ -13,7 +13,6 @@ import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { doLorem } from "@/core/lib/all/utils/place";
 import { useNavigate } from "react-router-dom";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
 import { useGetU } from "@/core/hooks/all/useGetU";
@@ -33,19 +32,6 @@ const CreateBooksStore: FC = () => {
     resolver: zodResolver(schemaX),
     mode: "onChange",
     shouldFocusError: false,
-    defaultValues: {
-      categories: ["classics"],
-      description: doLorem(),
-      name: "store__0",
-      email: "matveevalexander470@gmail.com",
-      phone: "+00 000 000 000",
-      country: "Netherlands",
-      state: "South Holland",
-      city: "Naaldwijk",
-      street: "Graanveld",
-      zipCode: "00000",
-      deliveryTime: "5",
-    },
   });
 
   const {

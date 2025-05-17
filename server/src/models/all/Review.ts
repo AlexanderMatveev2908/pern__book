@@ -18,7 +18,7 @@ export const defineReview = (seq: Sequelize) =>
     {
       ...schemaID(),
       userID: refSql("users"),
-      bookStoreID: refSql("book_stores"),
+      bookID: refSql("books"),
       title: {
         type: DataTypes.STRING,
         allowNull: false,

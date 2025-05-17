@@ -61,6 +61,7 @@ export interface BookStoreType {
   avgQty?: string;
 
   reviewsCount?: string;
+  avgRating: string;
   reviews__0__1?: string;
   reviews__1_1__2?: string;
   reviews__2_1__3?: string;

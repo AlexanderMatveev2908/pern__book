@@ -84,6 +84,10 @@ export const statsReviews = (bookStore?: BookStoreType) =>
       label: "Total Reviews",
       val: bookStore?.reviewsCount,
     },
+    {
+      label: "Avg rating",
+      val: bookStore?.avgRating,
+    },
     ...[
       [0, 1],
       [1.1, 2],

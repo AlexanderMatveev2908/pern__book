@@ -14,8 +14,11 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItem from "./components/BookItem";
+import { useScroll } from "@/core/hooks/hooks";
 
 const BooksList: FC = () => {
+  useScroll();
+
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit } = formCtx;

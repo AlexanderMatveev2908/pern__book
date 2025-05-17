@@ -106,11 +106,12 @@ export const bindModels = (seq: Sequelize) => {
     as: "reviews",
   });
 
-  Review.belongsTo(BookStore, {
-    foreignKey: "bookStoreID",
+  Review.belongsTo(Book, {
+    foreignKey: "bookID",
+    as: "book",
   });
-  BookStore.hasMany(Review, {
-    foreignKey: "bookStoreID",
+  Book.hasMany(Review, {
+    foreignKey: "bookID",
     as: "reviews",
   });
 

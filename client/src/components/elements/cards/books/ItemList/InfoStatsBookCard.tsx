@@ -1,7 +1,11 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import DropStatsStatic from "../../shared/DropStatsStatic";
-import { labelGeneralStatsBook } from "@/core/config/fieldsData/OwnerLayout/books/read";
+import {
+  labelBookRating,
+  labelGeneralStatsBook,
+} from "@/core/config/fieldsData/OwnerLayout/books/read";
+import DropStats from "../../shared/DropStats";
 
 type PropsType = {
   el: BookType;
@@ -10,7 +14,7 @@ type PropsType = {
 const InfoStatsBookCard: FC<PropsType> = ({ el }) => {
   return (
     <DropStatsStatic {...{ el: labelGeneralStatsBook, border: true }}>
-      a
+      <DropStats {...{ el: labelBookRating, abs: true }} />
     </DropStatsStatic>
   );
 };
