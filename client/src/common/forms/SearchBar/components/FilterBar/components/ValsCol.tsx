@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
@@ -7,6 +8,7 @@ import { subcategories } from "@/types/all/books";
 import { FilterSubField, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import { v4 } from "uuid";
 
 type PropsType = {
   innerJoinCat?: boolean;
@@ -18,10 +20,12 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     setValue,
     register,
     formState: { errors },
+    getValues,
   } = useFormContext();
   const {
     searchers: { currFilter },
     setInnerJoinedCat,
+    innerJoinedCat,
   } = useSearchCtx();
 
   const handleClickVal = useCallback(
@@ -32,25 +36,35 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
       const value = watch(key);
 
       if (key === "mainCategories" && innerJoinCat) {
-        const updatedVal = (value ?? ([] as string[])).includes(el.val)
-          ? value.filter((str: string) => str !== el.val)
-          : [...(value ?? []), el.val];
+        const currentMainCat = value ?? [];
+        const updatedMainCat: string[] = currentMainCat.includes(el.val)
+          ? currentMainCat.filter((str: string) => str !== el.val)
+          : [...currentMainCat, el.val];
 
-        const updatedJoined: FieldJoinCatType[] = [];
+        const updatedJoinedFields: FieldJoinCatType[] = Object.entries(
+          subcategories
+        )
+          .filter(([k]) => updatedMainCat.includes(k))
+          // eslint-disable-next-line
+          .flatMap(([_, v]) =>
+            v.map((sub) => ({
+              id: v4(),
+              val: sub,
+              label: captAll(sub),
+            }))
+          );
 
-        for (const [k, v] of Object.entries(subcategories)) {
-          if ((updatedVal ?? ([] as string[])).includes(k))
-            updatedJoined.push(
-              ...v.map((sub) => ({
-                val: sub,
-                label: captAll(sub),
-              }))
-            );
-        }
+        const currSubCategories = getValues("subCategories");
+        const updatedSubCatVals = new Set(
+          updatedJoinedFields.map((el) => el.val)
+        );
+        const newValsSubCat = currSubCategories.filter((el: string) =>
+          updatedSubCatVals.has(el)
+        );
+        if (newValsSubCat.length !== currSubCategories.length)
+          setValue("subCategories", newValsSubCat);
 
-        console.log(updatedJoined);
-
-        setInnerJoinedCat(updatedJoined);
+        setInnerJoinedCat(updatedJoinedFields);
       }
 
       if (!Array.isArray(value)) {
@@ -77,6 +91,8 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     [watch]
   );
 
+  // ? A NORMAL FIELD IS LIKE JUST A BTN TO CLICK, NOT A WHOLE INPUT TO TYPE WITH ERR ECC...
+
   const isNormalField = useMemo(() => {
     if (!Array.isArray(currFilter?.fields)) return false;
 
@@ -84,6 +100,16 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
       (el) => "val" in el && typeof el.val === "string"
     );
   }, [currFilter]);
+
+  const argNormalField = useMemo(
+    () =>
+      currFilter?.field === "subCategories" &&
+      innerJoinCat &&
+      innerJoinedCat.length
+        ? { label: "subCategories", fields: innerJoinedCat }
+        : currFilter,
+    [currFilter, innerJoinCat, innerJoinedCat]
+  );
 
   return (
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
@@ -96,12 +122,8 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
       >
         {!Array.isArray(currFilter?.fields)
           ? null
-          : currFilter.fields.every(
-              (el) =>
-                !!(el as FilterSubField)?.val &&
-                typeof (el as FilterSubField)?.val === "string"
-            )
-          ? currFilter.fields.map((el) => (
+          : isNormalField
+          ? (argNormalField as any)?.fields.map((el: FilterSubField) => (
               <div
                 key={el.id}
                 className="w-full max-w-[200px] justify-self-center h-fit items-start"
