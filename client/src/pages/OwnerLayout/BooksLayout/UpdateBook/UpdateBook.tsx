@@ -13,6 +13,7 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 
 const keysForm = [
   "bookStoreID",
@@ -28,6 +29,8 @@ const keysForm = [
 
 const UpdateBook: FC = () => {
   useScroll();
+
+  const nav = useNavigate();
 
   const [isSame, setIsSame] = useState(false);
 
@@ -124,10 +127,7 @@ const UpdateBook: FC = () => {
 
       if (!res) return;
 
-      window.scroll({
-        top: 0,
-        behavior: "smooth",
-      });
+      nav(`/owner/books/${book?.id ?? ""}`, { replace: true });
     },
     (errs) => {
       handleErrsBooks(errs, setFocus);
