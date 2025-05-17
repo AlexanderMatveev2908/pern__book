@@ -2,12 +2,13 @@ import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import {
   labelBookCard,
   labelBookInfo,
+  labelCategoriesBook,
   statsBookInfo,
 } from "@/core/config/fieldsData/OwnerLayout/books/read";
 import { BookType } from "@/types/all/books";
 import { useState, type FC } from "react";
-import CategoriesParentDrop from "./CategoriesParentDrop";
 import DropStats from "../../shared/DropStats";
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 
 type PropsType = {
   el: BookType;
@@ -15,6 +16,10 @@ type PropsType = {
 
 const InfoBookCard: FC<PropsType> = ({ el }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
+
+  const ids = useCreateIds({
+    lengths: [el?.categories?.length],
+  });
 
   return !el ? null : (
     <div className="w-full grid grid-cols-1 gap-4">
@@ -30,7 +35,13 @@ const InfoBookCard: FC<PropsType> = ({ el }) => {
             : "opacity-0 pointer-events-none max-h-0"
         }`}
       >
-        <CategoriesParentDrop {...{ el }} />
+        <DropStats {...{ el: labelCategoriesBook, fields: null, abs: true }}>
+          {el.categories?.map((el, i) => (
+            <li key={ids![0][i]} className="w-full flex justify-start">
+              <span className="txt__2">{el}</span>
+            </li>
+          ))}
+        </DropStats>
 
         <DropStats
           {...{ el: labelBookInfo, fields: statsBookInfo(el), abs: true }}

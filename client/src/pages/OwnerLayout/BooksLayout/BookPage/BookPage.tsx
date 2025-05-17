@@ -37,17 +37,19 @@ const BookPage: FC = () => {
   const isError = useMixVars({ varA: isUserError, varB: isBookError });
   const error = useMixVars({ varA: userError, varB: bookError });
 
-  return !book ? null : (
+  return (
     <WrapPageAPI
       {...{ canStay: user?.hasBooks && itPass, isError, error, isLoading }}
     >
-      <div className="parent__form ">
-        <Title {...{ title: book?.title }} />
+      {!book ? null : (
+        <div className="parent__form ">
+          <Title {...{ title: book?.title }} />
 
-        <DropActionsBook {...{ book }} />
+          <DropActionsBook {...{ book }} />
 
-        <ImagesScroll {...{ images: book.images }} />
-      </div>
+          <ImagesScroll {...{ images: book.images }} />
+        </div>
+      )}
     </WrapPageAPI>
   );
 };

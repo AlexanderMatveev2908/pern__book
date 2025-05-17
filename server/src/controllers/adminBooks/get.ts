@@ -120,7 +120,7 @@ export const getBooksList = async (
         where: {
           ownerID: userID,
         },
-        attributes: ["id"],
+        attributes: ["id", "name", "categories"],
         required: true,
       },
       {

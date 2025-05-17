@@ -12,13 +12,13 @@ const ImgLoaderHandler: FC<PropsType> = ({ url }) => {
     <div className="el__skeleton_img min-w-full min-h-full relative">
       <img
         src={url}
-        alt="✌🏼"
+        alt="🥷🏼"
         className="opacity-0 absolute max-w-0 max-h-0"
         onLoad={() => setIsLoaded(true)}
       />
     </div>
   ) : (
-    <img src={url} alt="" className="object-cover w-full h-full" />
+    <img src={url} alt="✌🏼" className="object-cover w-full h-full" />
   );
 };
 

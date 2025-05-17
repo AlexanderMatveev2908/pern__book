@@ -4,9 +4,10 @@ import "./TooltipCpy.css";
 type PropsType = {
   txt: string;
   bd?: boolean;
+  align?: string;
 };
 
-const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
+const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const toolRef = useRef<HTMLDivElement | null>(null);
 
@@ -42,14 +43,17 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
       disabled={!txt}
       type="button"
       ref={btnRef}
-      className="relative w-full flex justify-start appearance-none outline-0 max-w-full h-full"
+      className="relative w-full flex appearance-none outline-0  max-w-full h-full"
     >
       {txt && (
         <div
           className={`py-1 cursor-pointer flex w-fit max-w-full overflow-x-auto ${
             bd
               ? "el__border_sm el__cpy_txt justify-center px-4"
-              : "hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scrollbar__x scrollbar__app min-h-full top-0 left-0"
+              : `hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scrollbar__x scrollbar__app min-h-full top-0 ${
+                  align ?? "left-0"
+                }`
+          }
           }`}
         >
           <span
@@ -68,7 +72,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
 
       <div
         ref={toolRef}
-        className="absolute el__border_sm -top-[120%] py-1 px-5 z-60 bg-[#000] left-0 min-w-[200px] flex justify-center tooltip pointer-events-none"
+        className="absolute el__border_sm -top-[40px] py-1 px-5 z-60 bg-[#000] right-0 min-w-[200px] flex justify-center tooltip pointer-events-none"
         style={{
           opacity: "0",
           transform: "scale(0)",
