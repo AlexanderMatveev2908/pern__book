@@ -2,15 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "mainCategories[]": [
-      "classics",
-      "psychology"
-    ],
-    "subCategories[]": "greek & roman",
     "page": "0",
     "limit": "8"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkZTM3M2M2LTE5MTItNGYwOS04MGNkLWViOWMwOTZiODdmOCIsImlhdCI6MTc0NzUwODU0MCwiZXhwIjoxNzQ3NTA4NjAwfQ.hX9GQDKlo6Ke2BjUYvFA44pNkJUA2DiuV-YYt5iUCN4",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkZTM3M2M2LTE5MTItNGYwOS04MGNkLWViOWMwOTZiODdmOCIsImlhdCI6MTc0NzUxMDEzNSwiZXhwIjoxNzQ3NTEwMTk1fQ.43O0hjpC2tsrjvlbzT2kkyF_IlwJVw_p3pTqIOK3VJM",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.dnLxABd5n77K6uNuZ5YTyCs3uLtqwItMPTkBX3iF92d30G33IWgf-Kd_sBgzLgBlQ8seF_W0u3hrzrAG8nb_rotgiIa1mHYs148Mk1sAdqF9B4DlDrVrBFQTWGPag9rzI9-xM2AyP3JIspHPjlLHKG1TO_Derj93g3Pl6yIXUmm2C3dk5MG1eadNGFSZ3fhsYS2L-dEON3umMwN-TAYsWY324thLOHsEn5BPtuSFoYEj22y-bkKgbkJh7mjN2Wzp7-bz3yGHWPXonRVq3XGtzo1GdXzyAJtvbbTCfDlsbfAL6EuYHNTfquRtVGR6ABFbvv_UNG4Ny6BNFwI344PWbA._X8j_KTqqztBVOm5.ayvlc1GsdtDADXbfBHwhbOHPwqJo9Lpy90t1xn-cWJcl0d8yqdcetOe0aauj.KrJjRDPU3ZowzkR8oPZLOg"
 }

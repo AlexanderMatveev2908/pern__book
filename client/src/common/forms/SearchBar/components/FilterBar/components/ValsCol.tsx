@@ -79,7 +79,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
           : [...value, el.val]
       );
     },
-    [currFilter, setValue, watch, innerJoinCat, setInnerJoinedCat]
+    [currFilter, setValue, watch, innerJoinCat, setInnerJoinedCat, getValues]
   );
 
   const getIsIn = useCallback(

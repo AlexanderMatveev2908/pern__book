@@ -1,8 +1,5 @@
-export const makeParams = <
-  T extends Record<string, string | number | string[]>
->(
-  formDataHook: T
-) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const makeParams = <T extends Record<string, any>>(formDataHook: T) => {
   const params = new URLSearchParams();
 
   for (const key in formDataHook) {
