@@ -50,7 +50,7 @@ export const usePopulateSearch = ({
         [txtInputs[0].field]: "",
       };
       oldVals.current = defVals;
-      trigger();
+      trigger(defVals);
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
@@ -78,7 +78,7 @@ export const usePopulateSearch = ({
       ...getDefValsPagination(parsed?.page),
     };
     oldVals.current = vals;
-    trigger(savedVals);
+    trigger(vals);
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
     trigger,

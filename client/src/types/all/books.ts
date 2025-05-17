@@ -2,6 +2,7 @@
 // ? 3 subcategories for each category
 // ? 21 * 3 = 63
 
+import { CatBookStore } from "./bookStore";
 import { AssetCloudType } from "./images";
 
 export const subcategories = {
@@ -44,4 +45,6 @@ export type BookType = {
   description: string | null;
   qty: number;
   price: number;
+
+  mainCategories?: CatBookStore[];
 };

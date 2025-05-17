@@ -2,7 +2,7 @@ import { AssetCloudType } from "@/types/types";
 import { FC } from "react";
 
 type PropsType = {
-  images?: AssetCloudType[];
+  images?: AssetCloudType[] | null;
 };
 
 const ImagesItem: FC<PropsType> = ({ images }) => {

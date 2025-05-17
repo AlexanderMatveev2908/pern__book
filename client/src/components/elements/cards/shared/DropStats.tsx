@@ -7,7 +7,7 @@ import { IconType } from "react-icons/lib";
 type PropsType = {
   el?: {
     label: string;
-    icon: IconType;
+    icon?: IconType;
   };
   fields?:
     | {

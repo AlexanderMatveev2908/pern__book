@@ -47,7 +47,7 @@ const BooksList: FC = () => {
         <WrapperContentAPI {...{ formCtx, hook }}>
           <div className="parent__cards">
             {isArr(books) &&
-              books!.map((el) => <BookItem key={el.id} {...{ book: el }} />)}
+              books!.map((el) => <BookItem key={el.id} {...{ el }} />)}
           </div>
         </WrapperContentAPI>
       </div>

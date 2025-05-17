@@ -5,6 +5,7 @@ import { err404 } from "../../lib/responseClient/err.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
+import { literal } from "sequelize";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -70,6 +71,10 @@ export const getBooksList = async (
         required: true,
       },
     ],
+    group: ["Book.id", "store.id"],
+    attributes: {
+      include: [[literal(`"store"."categories"`), "mainCategories"]],
+    },
   });
 
   const nHits = books.length;
