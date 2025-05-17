@@ -4,7 +4,7 @@ import {
   REG_NAME,
   REG_STORE_NAME,
 } from "@/core/config/regex";
-import { notStr } from "@/core/lib/lib";
+import { isStr } from "@/core/lib/lib";
 import { z } from "zod";
 import { schemaID, schemaPrice, schemaInt } from "./general";
 
@@ -14,32 +14,32 @@ export const schemaSearchBooks = z.object({
   bookStoreName: z
     .string()
     .optional()
-    .refine((val) => notStr(val) || REG_STORE_NAME.test(val ?? ""), {
+    .refine((val) => !isStr(val) || REG_STORE_NAME.test(val ?? ""), {
       message: "Invalid name format",
     }),
   title: z
     .string()
     .max(50, "Invalid length")
     .optional()
-    .refine((val) => notStr(val) || REG_BOOK_TITLE.test(val ?? ""), {
+    .refine((val) => !isStr(val) || REG_BOOK_TITLE.test(val ?? ""), {
       message: "Invalid title",
     }),
   author: z
     .string()
     .max(50, "Invalid length")
     .optional()
-    .refine((val) => notStr(val) || REG_NAME.test(val ?? ""), {
+    .refine((val) => !isStr(val) || REG_NAME.test(val ?? ""), {
       message: "Invalid author",
     }),
   year: z
     .string()
     .optional()
-    .refine((val) => notStr(val) || REG_INT.test(val ?? ""), {
+    .refine((val) => !isStr(val) || REG_INT.test(val ?? ""), {
       message: "Invalid year",
     })
     .refine(
       (val) => {
-        if (notStr(val)) return true;
+        if (!isStr(val)) return true;
 
         const num = +(val ?? "");
 

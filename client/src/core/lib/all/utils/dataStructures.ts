@@ -96,4 +96,6 @@ export const clearTimer = (timerID: React.RefObject<NodeJS.Timeout | null>) => {
   }
 };
 
-export const notStr = (str?: string) => !str?.trim()?.length;
+export const isStr = (str?: string) => str?.trim()?.length;
+
+export const isArr = <T>(arr?: T[]) => Array.isArray(arr) && !!arr?.length;

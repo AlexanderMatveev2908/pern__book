@@ -23,7 +23,7 @@ export const usePopulateSearch = ({
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
-  const { setTxtInputs, setPagination, setSearch, setPreSubmit } = ctx;
+  const { setTxtInputs, setPagination, setSearch, oldVals, setPreSubmit } = ctx;
 
   useEffect(() => {
     if (!txtInputs?.length || !filters?.length) return;
@@ -45,10 +45,12 @@ export const usePopulateSearch = ({
     setSearch({ el: "currFilter", val: filters[0] });
 
     if (!savedVals) {
-      trigger({
+      const defVals = {
         ...getDefValsPagination(),
         [txtInputs[0].field]: "",
-      });
+      };
+      oldVals.current = defVals;
+      trigger();
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
@@ -71,11 +73,12 @@ export const usePopulateSearch = ({
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
 
     setPagination({ el: "page", val: parsed?.page ?? 0 });
-    trigger({
+    const vals = {
       ...parsed,
       ...getDefValsPagination(parsed?.page),
-      [txtInputs[0].field]: parsed[txtInputs[0].field] ?? "",
-    });
+    };
+    oldVals.current = vals;
+    trigger(savedVals);
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
     trigger,
@@ -88,5 +91,6 @@ export const usePopulateSearch = ({
     txtInputs,
     setPreSubmit,
     setPagination,
+    oldVals,
   ]);
 };

@@ -12,19 +12,17 @@ import { FC, useEffect } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
-import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
 import { TagsAPI } from "@/types/types";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { msgsFormStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
-import { makeNum } from "@/core/lib/lib";
+import { isArr, makeNum } from "@/core/lib/lib";
 
 const BookStores: FC = () => {
   useScroll();
 
   const { user } = useGetU();
-  const ctx = useSearchCtx();
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const {
@@ -119,11 +117,12 @@ const BookStores: FC = () => {
           />
         </FormProvider>
 
-        <WrapperContentAPI {...{ ctx, formCtx, hook }}>
+        <WrapperContentAPI {...{ formCtx, hook }}>
           <div className="parent__cards">
-            {Array.isArray(bookStores) &&
-              !!bookStores.length &&
-              bookStores.map((el) => <BookStoreItem key={el.id} {...{ el }} />)}
+            {isArr(bookStores) &&
+              bookStores!.map((el) => (
+                <BookStoreItem key={el.id} {...{ el }} />
+              ))}
           </div>
         </WrapperContentAPI>
       </div>

@@ -15,28 +15,22 @@ import { useLocation } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { UseFormGetValues } from "react-hook-form";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { ParamsPage } from "@/core/contexts/SearchCtx/reducer/actions";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
   totPages?: number;
   getValues: UseFormGetValues<any>;
-  ctx: SearchCtxValsConsumer;
   trigger: any;
 };
 
-const PagesCounter: FC<PropsType> = ({
-  ctx,
-  trigger,
-  totPages = 0,
-  getValues,
-}) => {
+const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
   const {
     setPreSubmit,
     preSubmit: { hasFormErrs },
     pagination: { page, limit },
     setPagination,
-  } = ctx;
+  } = useSearchCtx();
   const { keyStorageVals } = useGetSearchKeysStorage();
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
