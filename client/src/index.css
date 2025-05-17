@@ -199,6 +199,9 @@ body {
 .__cont {
   @apply w-full grid grid-cols-1 justify-items-center gap-8;
 }
+.parent__cards {
+  @apply w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10;
+}
 
 .center_abs {
   @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;

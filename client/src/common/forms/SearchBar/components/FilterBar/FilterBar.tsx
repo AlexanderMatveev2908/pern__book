@@ -9,13 +9,12 @@ import { FC, useEffect, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import LabelsCol from "./components/LabelsCol";
 import ValsCol from "./components/ValsCol";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import BtnResults from "./components/BtnResults";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
   filters: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
-  ctx: SearchCtxValsConsumer;
   res: any;
   trigger: any;
   txtInputs: FormFieldBasic[];
@@ -26,7 +25,6 @@ type PropsType = {
 const FilterBar: FC<PropsType> = ({
   filters,
   numericFilters,
-  ctx,
   txtInputs,
   res,
   trigger,
@@ -34,7 +32,7 @@ const FilterBar: FC<PropsType> = ({
   const {
     bars: { filterBar },
     setBar,
-  } = ctx;
+  } = useSearchCtx();
   const barRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {

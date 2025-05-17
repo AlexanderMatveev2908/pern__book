@@ -1,12 +1,10 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { SorterSearch } from "@/types/types";
 import { useCallback, type FC } from "react";
 import { useFormContext } from "react-hook-form";
 
 type PropsType = {
   el: SorterSearch;
-  ctx: SearchCtxValsConsumer;
 };
 
 const PairSort: FC<PropsType> = ({ el }) => {

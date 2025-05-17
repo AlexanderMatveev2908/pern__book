@@ -3,37 +3,31 @@ import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC } from "react";
 import { FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
-import { UseFormReturn } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { makeDelay } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
 import DropInputs from "../TxtInputs/DropInputs";
 import SearchBtn from "./components/SearchBtn";
 import CLearBtn from "./components/ClearBtn";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
   txtInputs: FormFieldBasic[];
   numericFilters?: NumericFilterSearch[];
-  ctx: SearchCtxValsConsumer;
-  formCtx: UseFormReturn<any>;
   res: any;
   trigger: any;
 };
 
-const ButtonsForm: FC<PropsType> = ({
-  txtInputs,
-  trigger,
-  ctx,
-  formCtx,
-  res,
-}) => {
+const ButtonsForm: FC<PropsType> = ({ txtInputs, trigger, res }) => {
+  const ctx = useSearchCtx();
   const {
     setBar,
     isPending,
     setSearch,
     preSubmit: { errNumbers, hasFormErrs },
   } = ctx;
+  const formCtx = useFormContext();
   const {
     formState: { errors },
     setFocus,

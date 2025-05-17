@@ -1,22 +1,21 @@
 import CloseBtn from "@/components/elements/buttons/CloseBtn";
 import Title from "@/components/elements/Title";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { useAnimatePop } from "@/core/hooks/all/UI/useAnimatePop";
 import { SorterSearch } from "@/types/types";
 import { useRef, type FC } from "react";
 import PairSort from "./PairSort";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
   sorters: SorterSearch[];
-  ctx: SearchCtxValsConsumer;
 };
 
-const SortPop: FC<PropsType> = ({ sorters, ctx }) => {
+const SortPop: FC<PropsType> = ({ sorters }) => {
   const popRef = useRef<HTMLDivElement | null>(null);
   const {
     setBar,
     bars: { sortBar },
-  } = ctx;
+  } = useSearchCtx();
 
   useAnimatePop({
     isPopup: sortBar,
@@ -40,7 +39,7 @@ const SortPop: FC<PropsType> = ({ sorters, ctx }) => {
 
       <div className="overflow-y-auto scrollbar__y scrollbar__app  w-full h-fit max-h-full flex-1 grid grid-cols-1 py-4 pb-8 items-start gap-5">
         {sorters.map((el) => (
-          <PairSort key={el.id} {...{ ctx, el }} />
+          <PairSort key={el.id} {...{ el }} />
         ))}
       </div>
     </div>

@@ -77,5 +77,7 @@ export const getBooksList = async (
 
   const { skip, totPages, limit } = calcPagination(req, nHits);
 
-  return res200(res, { books });
+  const paginated = books.slice(skip, skip + limit);
+
+  return res200(res, { books: paginated, nHits, totPages });
 };

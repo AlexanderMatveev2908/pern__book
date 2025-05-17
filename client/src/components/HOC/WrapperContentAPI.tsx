@@ -7,19 +7,13 @@ import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearch
 
 type PropsType = {
   children: ReactNode;
-  res: any;
   formCtx: UseFormReturn<any>;
   ctx: SearchCtxValsConsumer;
-  trigger: any;
+  hook: any;
 };
 
-const WrapperContentAPI: FC<PropsType> = ({
-  children,
-  trigger,
-  res,
-  ctx,
-  formCtx,
-}) => {
+const WrapperContentAPI: FC<PropsType> = ({ children, hook, ctx, formCtx }) => {
+  const [trigger, res] = hook;
   const {
     preSubmit: { isPopulated },
   } = ctx;

@@ -234,7 +234,7 @@ export const getAllStores = async (
 
   const { skip, limit, totPages } = calcPagination(req, nHits);
 
-  const paginated = bookStores.slice(skip, +skip! + +limit!);
+  const paginated = bookStores.slice(skip, skip + limit);
 
   return res200(res, { bookStores: paginated, nHits, totPages });
 };

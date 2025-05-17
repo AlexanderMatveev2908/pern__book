@@ -4,15 +4,13 @@ import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import { UseFormReturn } from "react-hook-form";
 import { getDefValsPagination, saveStorage } from "@/core/lib/lib";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
-import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { useFormContext } from "react-hook-form";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
   children: ReactNode;
-  ctx: SearchCtxValsConsumer;
-  formCtx: UseFormReturn<any>;
   trigger: any;
 };
 
@@ -20,16 +18,17 @@ const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ trigger, children, ctx, formCtx }) => {
+const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
   const { keyStorageLabels } = useGetSearchKeysStorage();
 
-  const { activeTxtInputs, updateValsNoDebounce, setTxtInputs } = ctx;
+  const { activeTxtInputs, updateValsNoDebounce, setTxtInputs } =
+    useSearchCtx();
   const {
     register,
     formState: { errors },
     setValue,
     getValues,
-  } = formCtx;
+  } = useFormContext();
 
   const filterLabels = useCallback(
     (el: FormFieldBasic) => {

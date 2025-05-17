@@ -37,7 +37,8 @@ const BookStores: FC = () => {
   const handleSave = handleSubmit(() => {});
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
-  const [trigger, res] = hook;
+  // eslint-disable-next-line
+  const [_, res] = hook;
   const { data: { bookStores } = {} } = res ?? {};
 
   useClearCacheItem({
@@ -118,8 +119,8 @@ const BookStores: FC = () => {
           />
         </FormProvider>
 
-        <WrapperContentAPI {...{ ctx, formCtx, res, trigger }}>
-          <div className="w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10">
+        <WrapperContentAPI {...{ ctx, formCtx, hook }}>
+          <div className="parent__cards">
             {Array.isArray(bookStores) &&
               !!bookStores.length &&
               bookStores.map((el) => <BookStoreItem key={el.id} {...{ el }} />)}

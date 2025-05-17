@@ -105,16 +105,12 @@ const SearchBar: FC<PropsType> = ({
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
-        <FilterBar
-          {...{ ctx, trigger, filters, numericFilters, txtInputs, res }}
-        />
-        <SortPop {...{ ctx, sorters }} />
+        <FilterBar {...{ trigger, filters, numericFilters, txtInputs, res }} />
+        <SortPop {...{ sorters }} />
 
-        <TxtInputs {...{ ctx, trigger, formCtx, txtInputs }}>
+        <TxtInputs {...{ trigger, txtInputs }}>
           <ButtonsForm
             {...{
-              ctx,
-              formCtx,
               txtInputs,
               isFetching,
               numericFilters,
