@@ -5,7 +5,6 @@ import { IoIosStats } from "react-icons/io";
 import { MdOutlineCategory, MdReviews } from "react-icons/md";
 import { v4 } from "uuid";
 import { genValsRating } from "../general";
-import { TbPigMoney } from "react-icons/tb";
 import { GrUpdate } from "react-icons/gr";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 
@@ -55,22 +54,21 @@ export const fieldsStatsRatingBook = (book: BookType) =>
     id: v4(),
   }));
 
-export const showGeneralStatsBook = (book: BookType) =>
-  [
-    {
-      label: "Price",
-      val: priceFormatter(book.price + ""),
-      icon: TbPigMoney,
-    },
-    {
-      label: "Quantity",
-      val: book.qty,
-      icon: FaDatabase,
-    },
-  ].map((el) => ({
-    ...el,
-    id: v4(),
-  }));
+export const labelDataBook = {
+  label: "Data",
+  icon: FaDatabase,
+};
+
+export const showGeneralStatsBook = (book: BookType) => [
+  {
+    label: "Price",
+    val: priceFormatter(book.price + ""),
+  },
+  {
+    label: "Quantity",
+    val: book.qty,
+  },
+];
 
 export const linksBookCard = [
   {

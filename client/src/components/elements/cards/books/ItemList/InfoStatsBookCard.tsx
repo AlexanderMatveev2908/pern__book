@@ -4,6 +4,7 @@ import DropStatsStatic from "../../shared/DropStatsStatic";
 import {
   fieldsStatsRatingBook,
   labelBookRating,
+  labelDataBook,
   labelGeneralStatsBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/OwnerLayout/books/read";
@@ -24,17 +25,9 @@ const InfoStatsBookCard: FC<PropsType> = ({ el }) => {
         }}
       />
 
-      {showGeneralStatsBook(el).map((el) => (
-        <div className="w-full flex justify-center items-center gap-5 pb-4">
-          <div className="w-full flex items-center gap-5 justify-start">
-            <el.icon className="icon__md" />
-
-            <span className="txt__3">{el.label}</span>
-          </div>
-
-          <span className="txt__3">{el.val}</span>
-        </div>
-      ))}
+      <DropStats
+        {...{ el: labelDataBook, abs: true, fields: showGeneralStatsBook(el) }}
+      />
     </DropStatsStatic>
   );
 };
