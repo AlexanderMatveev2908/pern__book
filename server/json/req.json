@@ -2,10 +2,13 @@
   "files": {},
   "file": {},
   "query": {
+    "minQty": "50111111",
+    "minPrice": "5555",
+    "maxPrice": "21",
     "page": "0",
     "limit": "8"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkZTM3M2M2LTE5MTItNGYwOS04MGNkLWViOWMwOTZiODdmOCIsImlhdCI6MTc0NzU0NjA4NCwiZXhwIjoxNzQ3NTQ2MTQ0fQ.KJGQVNF7f--Y_iMJ_NiM2DyKF26qvE1t-oaMpQxWxl0",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkZTM3M2M2LTE5MTItNGYwOS04MGNkLWViOWMwOTZiODdmOCIsImlhdCI6MTc0NzU1MjA2MywiZXhwIjoxNzQ3NTUyMTIzfQ.DSguoQG8N4RACgYRIMxACVeKKyppng5Nv5EJDZwxcM0",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.XLqMWi6SY_MokEyyoc03oIvQtiIS_2NNVfuYTeHUIbgHMdlsL1HgRrl-dyViwXLXrjsPKhF6HdjZA73uO9V-FL3f5l1gYWLG13ZjpqcjPw1sL-OcrYXvTbhL9afyMLkadwKRuVQgIdS3l_zDAiDn4W6m82GtNiwLfEEOlfeIIR1Rtqgg9cFcaP3v8jN3Xguryw7nJnTxgLMvr3phEnziyC4lg_g3x9YYF266TFfrxKf4zsKrMxrMammrD-tE3ScxLuz2KlcABxChxORUTzCWdQHeOtDe4fYs2-yOBN_IlNe-3yDUSFLNDxZFZ_qRxo7suSdrJ5tvINmacs0CxB-HJg.2V4UqaPrAgb3bH9J.G0UfPLUIFrcKAqBNwHzpOecduh4AkVSzvDnKHnOTmBUHpDsXchywuF8iN4FT.US2dlFAmg1ulcvqp11mbsA"
 }

@@ -76,6 +76,7 @@ export const usePopulateSearch = ({
     const vals = {
       ...parsed,
       ...getDefValsPagination(parsed?.page),
+      [txtInputs[0].field]: parsed?.[txtInputs[0].field] ?? "",
     };
     oldVals.current = vals;
     trigger(vals);

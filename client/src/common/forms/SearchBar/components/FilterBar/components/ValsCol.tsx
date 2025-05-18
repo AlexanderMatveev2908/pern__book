@@ -6,7 +6,7 @@ import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { captAll } from "@/core/lib/lib";
 import { subcategories } from "@/types/all/books";
 import { FilterSubField, FormFieldBasic } from "@/types/types";
-import { FC, useCallback, useEffect, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { v4 } from "uuid";
 
@@ -112,29 +112,6 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
         : currFilter,
     [currFilter, mainCatRealTime, innerJoinCat, innerJoinedCat]
   );
-
-  useEffect(() => {
-    if (!innerJoinCat) return;
-
-    const mainCat = mainCatRealTime ?? [];
-
-    if (mainCat.length && !innerJoinedCat.length) {
-      const updatedJoinedFields: FieldJoinCatType[] = Object.entries(
-        subcategories
-      )
-        .filter(([k]) => mainCat.includes(k))
-        // eslint-disable-next-line
-        .flatMap(([_, v]) =>
-          v.map((sub) => ({
-            id: v4(),
-            val: sub,
-            label: captAll(sub),
-          }))
-        );
-
-      setInnerJoinedCat(updatedJoinedFields);
-    }
-  }, [innerJoinCat, mainCatRealTime, innerJoinedCat, setInnerJoinedCat]);
 
   return (
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">

@@ -9,23 +9,69 @@ import {
 } from "@/core/config/fieldsData/SearchBar/books";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/useGetU";
-import { isArr } from "@/core/lib/lib";
+import { captAll, isArr } from "@/core/lib/lib";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItem from "./components/BookItem";
 import { useScroll } from "@/core/hooks/hooks";
+import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
+import { subcategories } from "@/types/all/books";
+import { v4 } from "uuid";
+import { msgsErrsBookSearchForm } from "@/core/lib/all/forms/schemaZ/SearchBar/books";
+import { useClearManualError } from "@/core/hooks/all/forms/useClearManualError";
 
 const BooksList: FC = () => {
   useScroll();
 
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit } = formCtx;
+  const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
+  const {
+    handleSubmit,
+    watch,
+    formState: { errors },
+    trigger: triggerForm,
+  } = formCtx;
+  const mainCatRealTime = watch("mainCategories");
+  const realTimeVals = watch();
   const handleSave = handleSubmit(() => {});
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
   const { data: { books } = {} } = hook[1];
+
+  useEffect(() => {
+    const mainCat = mainCatRealTime ?? [];
+
+    if (mainCat.length && !innerJoinedCat.length) {
+      const updatedJoinedFields: FieldJoinCatType[] = Object.entries(
+        subcategories
+      )
+        .filter(([k]) => mainCat.includes(k))
+        // eslint-disable-next-line
+        .flatMap(([_, v]) =>
+          v.map((sub) => ({
+            id: v4(),
+            val: sub,
+            label: captAll(sub),
+          }))
+        );
+
+      setInnerJoinedCat(updatedJoinedFields);
+    }
+  }, [mainCatRealTime, innerJoinedCat, setInnerJoinedCat]);
+
+  useClearManualError({
+    triggerForm,
+    errors,
+    realTimeVals,
+    msgsArr: Object.values(msgsErrsBookSearchForm.qty),
+    cond: {
+      keyMin: "minQty",
+      keyMax: "maxQty",
+    },
+  });
 
   return (
     <WrapPageAPI

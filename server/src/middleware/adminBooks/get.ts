@@ -76,6 +76,9 @@ export const validateGetBooksList = [
         }
       }
 
+      if (k.includes("Sort") && !["ASC", "DESC"].includes(v))
+        throw new Error("Invalid sort");
+
       return true;
     }
   }),
