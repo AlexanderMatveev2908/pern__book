@@ -113,24 +113,23 @@ export const schemaBookStore = z
         message: "A price must be less than 10 chars",
       }),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
-    items: z.array(
-      z.object({
-        email: z
-          .string()
-          .optional()
-          .refine(
-            (val) =>
-              !val?.trim().length || z.string().email().safeParse(val).success,
-            {
-              message: "Invalid email format",
-            }
-          ),
-        role: z
-          .enum(allowedRoles as [string, ...string[]])
-          .optional()
-          .nullable(),
-      })
-    ),
+    items: z
+      .array(
+        z.object({
+          email: z
+            .string()
+            .refine(
+              (val) =>
+                !val?.trim().length ||
+                z.string().email().safeParse(val).success,
+              {
+                message: "Invalid email format",
+              }
+            ),
+          role: z.enum(allowedRoles as [string, ...string[]]).nullable(),
+        })
+      )
+      .optional(),
   })
   .refine(
     (data) => {
@@ -149,7 +148,7 @@ export const schemaBookStore = z
   )
   .superRefine((data, ctx) => {
     // * USER ROLE
-    const len = data.items?.length;
+    const len = data.items?.length ?? 0;
     let i = 0;
     // while (i < len) {
     //   const curr = data.items[i];
@@ -173,7 +172,7 @@ export const schemaBookStore = z
     // }
 
     // * DUPLICATES
-    const workers = len ? data.items.map((el) => el.email) : [];
+    const workers = len ? (data?.items ?? []).map((el) => el?.email) : [];
     i = 0;
 
     // const checkArr: string[] = [];

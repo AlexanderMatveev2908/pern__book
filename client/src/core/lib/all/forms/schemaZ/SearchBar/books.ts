@@ -94,4 +94,21 @@ export const schemaSearchBooks = z
           message: msgsErrsBookSearchForm.qty.max,
         });
     }
+
+    if ([data?.minPrice, data?.maxPrice].every(isValidNumber)) {
+      const min = +data.minPrice!;
+      const max = +data.maxPrice!;
+      if (min > max)
+        ctx.addIssue({
+          code: "custom",
+          path: ["minPrice"],
+          message: msgsErrsBookSearchForm.price.min,
+        });
+      if (max < min)
+        ctx.addIssue({
+          code: "custom",
+          path: ["maxPrice"],
+          message: msgsErrsBookSearchForm.price.max,
+        });
+    }
   });

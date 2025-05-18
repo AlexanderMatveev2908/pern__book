@@ -72,6 +72,16 @@ const BooksList: FC = () => {
       keyMax: "maxQty",
     },
   });
+  useClearManualError({
+    triggerForm,
+    errors,
+    realTimeVals,
+    msgsArr: Object.values(msgsErrsBookSearchForm.price),
+    cond: {
+      keyMin: "minPrice",
+      keyMax: "maxPrice",
+    },
+  });
 
   return (
     <WrapPageAPI
