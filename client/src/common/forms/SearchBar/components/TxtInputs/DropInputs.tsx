@@ -21,7 +21,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
 
   const { setFocus, getValues } = useFormContext();
 
-  const { keyStorageLabels } = useGetSearchKeysStorage();
+  const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
   const {
     activeTxtInputs,
     pagination: { page, limit },
@@ -68,18 +68,23 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
             : "translate-y-[75px] opacity-0 pointer-events-none"
         }`}
       >
+        {/* ? IF U DO NOT ADD VALS TO STORAGE RIGHT NOW ON MOUNT U WILL HAVE A DOUBLE FETCH ONE ON POPULATE , ON ON DEBOUNCE WHEN CURRENT VALS WILL CHANGE CAUSE THE LABEL ADDED SAVED IN LABELS WILL AUTOMATICALLY PART OF THE DOM AND SO REGISTERED TO USE_FORM_HOOK AND THIS WILL PROVOKE A CHANGE IN THE COMPARISON BETWEEN OLD AND NEW VALS TRIGGERING A REFETCH JUST FOR AN EMPTY STRING BUT THAT INCREASE THE LENGTH OF KEYS ON NEW OBJ IN THE RECURSIVE FUNCTION THAT CHECK EQUALITY BETWEEN REFERENCE AND VALS OF USE_FORM MERGED WITH PAGINATION VALS OF REUSABLE CONTEXT THAT WRAP THE PAGE IN PAGE.TSX */}
         {arg.map((el) => (
           <li
             onClick={async () => {
               setPreSubmit({ el: "canMakeAPI", val: false });
-              oldVals.current = {
+
+              const updatedVals = {
                 ...getValues(),
                 ...getDefValsPagination(page, limit),
                 [el.field]: "",
               };
-              const updated = [...activeTxtInputs, el];
-              setTxtInputs(updated);
-              saveStorage({ key: keyStorageLabels, data: updated });
+              oldVals.current = updatedVals;
+              saveStorage({ key: keyStorageVals, data: updatedVals });
+
+              const updatedFields = [...activeTxtInputs, el];
+              setTxtInputs(updatedFields);
+              saveStorage({ key: keyStorageLabels, data: updatedFields });
 
               setIsDropOpen(false);
               makeDelay(() => setFocus(el.field), 0);

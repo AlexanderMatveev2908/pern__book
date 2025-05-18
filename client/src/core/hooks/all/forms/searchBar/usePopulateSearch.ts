@@ -60,14 +60,14 @@ export const usePopulateSearch = ({
     for (const key in parsed) {
       const val = parsed[key];
 
-      if (
-        (typeof val === "string" && val.trim().length) ||
-        (Array.isArray(val) && val.length)
-      )
-        setValue(key as Path<any>, val, {
-          shouldValidate: true,
-          shouldDirty: true,
-        });
+      // if (
+      //   (typeof val === "string" && val.trim().length) ||
+      //   (Array.isArray(val) && val.length)
+      // )
+      setValue(key as Path<any>, val, {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
     }
 
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE

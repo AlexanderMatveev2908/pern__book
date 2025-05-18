@@ -2,11 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "minPrice": "111111",
     "page": "0",
     "limit": "8"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkZTM3M2M2LTE5MTItNGYwOS04MGNkLWViOWMwOTZiODdmOCIsImlhdCI6MTc0NzU1NDQ2OCwiZXhwIjoxNzQ3NTU0NTI4fQ.z0NOghjYs2rs9ey2v8hPotGh-r0zAnjr9e1WI42_MdQ",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImVkZTM3M2M2LTE5MTItNGYwOS04MGNkLWViOWMwOTZiODdmOCIsImlhdCI6MTc0NzU1NDk4NywiZXhwIjoxNzQ3NTU1MDQ3fQ.6A_ZKDYP3hK6flkGw-Mt8y-qwp28oZoOIzE1rbFExUY",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.XLqMWi6SY_MokEyyoc03oIvQtiIS_2NNVfuYTeHUIbgHMdlsL1HgRrl-dyViwXLXrjsPKhF6HdjZA73uO9V-FL3f5l1gYWLG13ZjpqcjPw1sL-OcrYXvTbhL9afyMLkadwKRuVQgIdS3l_zDAiDn4W6m82GtNiwLfEEOlfeIIR1Rtqgg9cFcaP3v8jN3Xguryw7nJnTxgLMvr3phEnziyC4lg_g3x9YYF266TFfrxKf4zsKrMxrMammrD-tE3ScxLuz2KlcABxChxORUTzCWdQHeOtDe4fYs2-yOBN_IlNe-3yDUSFLNDxZFZ_qRxo7suSdrJ5tvINmacs0CxB-HJg.2V4UqaPrAgb3bH9J.G0UfPLUIFrcKAqBNwHzpOecduh4AkVSzvDnKHnOTmBUHpDsXchywuF8iN4FT.US2dlFAmg1ulcvqp11mbsA"
 }
