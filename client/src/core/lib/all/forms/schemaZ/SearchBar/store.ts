@@ -10,7 +10,12 @@ import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";
 import { isValidNumber } from "../../../utils/dataStructures";
-import { schemaPrice, schemaInt } from "./general";
+import {
+  schemaPrice,
+  schemaInt,
+  itemsSchema,
+  handleRefineItem,
+} from "./general";
 
 export const msgsFormStore = {
   price: {
@@ -27,54 +32,35 @@ export const msgsFormStore = {
   },
 };
 
-const allowedKeys = ["name", "ID", "country", "state", "city"] as const;
-type AllowedKey = (typeof allowedKeys)[number];
+const allowedKeys = ["name", "ID", "country", "state", "city"];
 
-const regexMap: Record<AllowedKey, RegExp> = {
-  name: REG_STORE_NAME,
-  ID: REG_ID,
-  country: REG_COUNTRY,
-  state: REG_STATE,
-  city: REG_CITY,
-};
-
-const maxLengthMap: Record<AllowedKey, number> = {
-  ID: 36,
-  name: 50,
-  country: 50,
-  state: 50,
-  city: 50,
+const optItem = {
+  name: {
+    reg: REG_STORE_NAME,
+    maxLen: 50,
+  },
+  ID: {
+    reg: REG_ID,
+    maxLen: 36,
+  },
+  country: {
+    reg: REG_COUNTRY,
+    maxLen: 50,
+  },
+  state: {
+    reg: REG_STATE,
+    maxLen: 50,
+  },
+  city: {
+    reg: REG_CITY,
+    maxLen: 50,
+  },
 };
 
 const itemSchema = z
-  .object({
-    field: z.enum(allowedKeys),
-    val: z.string().optional(),
-    id: z.string(),
-    label: z.string(),
-  })
+  .object(itemsSchema(allowedKeys))
   .superRefine((item, ctx) => {
-    const { field, val } = item;
-    const regex = regexMap[field];
-    const maxLength = maxLengthMap[field];
-
-    if (!val?.trim()?.length) return;
-
-    if (val.length > maxLength) {
-      ctx.addIssue({
-        code: "custom",
-        path: [`val`],
-        message: `Max length for ${field} is ${maxLength}`,
-      });
-    }
-
-    if (!regex.test(val)) {
-      ctx.addIssue({
-        code: "custom",
-        path: [`val`],
-        message: `Invalid ${field} format`,
-      });
-    }
+    handleRefineItem({ item, optItem, ctx });
   });
 
 export const searchBarStore = z

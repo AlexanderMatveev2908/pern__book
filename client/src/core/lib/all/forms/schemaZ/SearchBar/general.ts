@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { REG_ID, REG_INT, REG_PRICE } from "@/core/config/regex";
 import { isStr } from "@/core/lib/lib";
+import { FormFieldBasic } from "@/types/types";
 import { z } from "zod";
 
 export const schemaID = () =>
@@ -28,3 +30,49 @@ export const schemaPrice = () =>
     .refine((val) => !isStr(val) || REG_PRICE.test(val ?? ""), {
       message: "Invalid format price",
     });
+
+export const itemsSchema = (allowedKeys: string[]) => ({
+  field: z.enum(allowedKeys as [string, ...string[]]),
+  val: z.string().optional(),
+  id: z.string(),
+  label: z.string(),
+});
+
+export const handleRefineItem = ({
+  item,
+  optItem,
+  ctx,
+}: {
+  item: FormFieldBasic & { val?: string };
+  optItem: { [key: string]: { reg: RegExp; minLen?: number; maxLen?: number } };
+  ctx: any;
+}) => {
+  const { field, val } = item;
+  const regex = optItem[field as keyof typeof optItem].reg;
+  const minLen =
+    (optItem[field as keyof typeof optItem] as any)?.minLen ?? -Infinity;
+  const maxLen = optItem[field as keyof typeof optItem]?.maxLen ?? Infinity;
+
+  if (!val?.trim()?.length) return;
+
+  if (val.length < minLen)
+    ctx.addIssue({
+      code: "custom",
+      path: [`val`],
+      message: `Min length for ${field} is ${minLen}`,
+    });
+
+  if (val.length > maxLen)
+    ctx.addIssue({
+      code: "custom",
+      path: [`val`],
+      message: `Max length for ${field} is ${maxLen}`,
+    });
+
+  if (!regex.test(val))
+    ctx.addIssue({
+      code: "custom",
+      path: [`val`],
+      message: `Invalid ${field} format`,
+    });
+};

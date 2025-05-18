@@ -1,12 +1,18 @@
 import {
   REG_BOOK_TITLE,
+  REG_ID,
   REG_INT,
   REG_NAME,
   REG_STORE_NAME,
 } from "@/core/config/regex";
-import { isStr, isValidNumber } from "@/core/lib/lib";
+import { isValidNumber } from "@/core/lib/lib";
 import { z } from "zod";
-import { schemaID, schemaPrice, schemaInt } from "./general";
+import {
+  schemaPrice,
+  schemaInt,
+  itemsSchema,
+  handleRefineItem,
+} from "./general";
 import { CatBookStore } from "@/types/all/bookStore";
 import { categoriesBooks } from "@/types/all/books";
 
@@ -21,48 +27,70 @@ export const msgsErrsBookSearchForm = {
   },
 };
 
+const allowedKeys = [
+  "ID",
+  "bookStoreID",
+  "bookStoreName",
+  "title",
+  "author",
+  "year",
+];
+
+const optItem = {
+  ID: {
+    reg: REG_ID,
+    minLen: 0,
+    maxLen: 36,
+  },
+  bookStoreID: {
+    reg: REG_ID,
+    minLen: 0,
+    maxLen: 36,
+  },
+  bookStoreName: {
+    reg: REG_STORE_NAME,
+    minLen: 0,
+    maxLen: 50,
+  },
+  title: {
+    reg: REG_BOOK_TITLE,
+    minLen: 0,
+    maxLen: 50,
+  },
+  author: {
+    reg: REG_NAME,
+    minLen: 0,
+    maxLen: 50,
+  },
+  year: {
+    reg: REG_INT,
+    // minLen: 4,
+    maxLen: 4,
+  },
+};
+
+const itemSchema = z
+  .object(itemsSchema(allowedKeys))
+  .superRefine((item, ctx) => {
+    const { field, val } = item;
+
+    handleRefineItem({ item, optItem, ctx });
+
+    if (
+      field === "year" &&
+      isValidNumber(val) &&
+      (+val! < 1450 || +val! > new Date().getFullYear())
+    )
+      ctx.addIssue({
+        code: "custom",
+        path: [`val`],
+        message: `Year must be between 1450 and ${new Date().getFullYear()}`,
+      });
+  });
+
 export const schemaSearchBooks = z
   .object({
-    ID: schemaID(),
-    bookStoreID: schemaID(),
-    bookStoreName: z
-      .string()
-      .optional()
-      .refine((val) => !isStr(val) || REG_STORE_NAME.test(val ?? ""), {
-        message: "Invalid name format",
-      }),
-    title: z
-      .string()
-      .max(50, "Invalid length")
-      .optional()
-      .refine((val) => !isStr(val) || REG_BOOK_TITLE.test(val ?? ""), {
-        message: "Invalid title",
-      }),
-    author: z
-      .string()
-      .max(50, "Invalid length")
-      .optional()
-      .refine((val) => !isStr(val) || REG_NAME.test(val ?? ""), {
-        message: "Invalid author",
-      }),
-    year: z
-      .string()
-      .optional()
-      .refine((val) => !isStr(val) || REG_INT.test(val ?? ""), {
-        message: "Invalid year",
-      })
-      .refine(
-        (val) => {
-          if (!isStr(val)) return true;
-
-          const num = +(val ?? "");
-
-          return num >= 1450 || num < new Date().getFullYear();
-        },
-        {
-          message: `Year must be between 1450 and ${new Date().getFullYear()}`,
-        }
-      ),
+    items: z.array(itemSchema).optional(),
 
     mainCategories: z
       .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))
