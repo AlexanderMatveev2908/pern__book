@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { isObjErrOk } from ".././validateDataStructure.js";
+import { isObjErrOk } from "../dataStructures.js";
 import { MsgErrSession } from "../../types/types.js";
 
 export const errApp = (res: Response, status: number, data?: any) =>

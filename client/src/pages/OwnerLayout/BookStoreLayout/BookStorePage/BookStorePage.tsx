@@ -50,7 +50,7 @@ const BookStorePage: FC = () => {
       >
         <Title {...{ title: bookStore?.name }} />
 
-        <DropActions {...{ bookStore }} />
+        <DropActions {...{ bookStore, user }} />
 
         <ImagesSwapper
           {...{

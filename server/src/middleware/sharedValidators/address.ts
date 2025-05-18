@@ -7,7 +7,7 @@ import {
   REG_STREET,
   REG_ZIP,
 } from "../../config/regex.js";
-import { validateNull } from "../../lib/validateDataStructure.js";
+import { validateNull } from "../../lib/dataStructures.js";
 
 export const validateAddress = (opt: boolean = false) => [
   check("country")

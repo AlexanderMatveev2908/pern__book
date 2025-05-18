@@ -11,3 +11,6 @@ export const allOrNothingStr = (reg: RegExp, str?: string) =>
   !str?.trim().length || reg.test(str ?? "");
 
 export const replacePoint = (val: number) => (val + "").replace(".", "_");
+
+export const parseArrFromStr = (val: string | string[]): string[] =>
+  Array.isArray(val) ? val : [val];

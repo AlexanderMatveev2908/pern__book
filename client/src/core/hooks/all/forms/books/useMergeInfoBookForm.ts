@@ -11,7 +11,10 @@ export const useMergeInfoBookForm = () => {
     isError: isUserError,
   } = useGetU();
 
-  const res = booksSLiceAPI.endpoints.getStoresInfo.useQuery() ?? {};
+  const res =
+    booksSLiceAPI.endpoints.getStoresInfo.useQuery(undefined, {
+      refetchOnMountOrArgChange: true,
+    }) ?? {};
   const {
     data: { stores } = {},
     isLoading: isStoresLoading,

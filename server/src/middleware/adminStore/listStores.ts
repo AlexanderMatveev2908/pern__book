@@ -1,5 +1,5 @@
 import { check } from "express-validator";
-import { allOrNothingStr } from "../../lib/validateDataStructure.js";
+import { allOrNothingStr } from "../../lib/dataStructures.js";
 import {
   REG_CITY,
   REG_COUNTRY,

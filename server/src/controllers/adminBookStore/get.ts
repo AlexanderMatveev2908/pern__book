@@ -17,7 +17,7 @@ import { OrderStage } from "../../types/all/orders.js";
 import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
-import { replacePoint } from "../../lib/validateDataStructure.js";
+import { replacePoint } from "../../lib/dataStructures.js";
 
 const calcAvgSeq = (
   prop: string,

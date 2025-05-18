@@ -14,19 +14,22 @@ import {
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { DispatchType } from "@/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BtnAct, BtnPopupKeys } from "@/types/types";
-import { FC, useState } from "react";
+import { BtnAct, BtnPopupKeys, UserType } from "@/types/types";
+import { FC, useMemo, useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { manageDropLabelGeneral } from "./../../../../../core/config/fieldsData/general/labels";
+import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 
 type PropsType = {
   bookStore?: BookStoreType;
+  user: UserType;
 };
 
 const DropActions: FC<PropsType> = ({ bookStore }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
 
+  const { createBookFormCtx } = useFormCtxConsumer();
   const nav = useNavigate();
 
   const dispatch: DispatchType = useDispatch();
@@ -70,11 +73,47 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
   const handlers = new Map(
     Object.values(KEY_MAP_STORE).map((key) => [
       key,
-      async () =>
-        key !== KEY_MAP_STORE.DELETE
-          ? nav(labelsBookStore.get(key)!.path + bookStore?.id)
-          : await handleOpenPop(),
+      async () => {
+        switch (key) {
+          case KEY_MAP_STORE.DELETE:
+            return await handleOpenPop();
+
+          case KEY_MAP_STORE.ADD_BOOK:
+            createBookFormCtx.setValue("bookStoreID", bookStore?.id ?? "");
+            return nav("/owner/books/add-book");
+
+          case KEY_MAP_STORE.BOOKS:
+            return nav("/owner/books/list");
+
+          default:
+            return nav(labelsBookStore.get(key)!.path + bookStore?.id);
+        }
+      },
     ])
+  );
+
+  const filteredActionsAdmin = useMemo(
+    () =>
+      actionsBookStoreAdmin.filter((el) => {
+        switch (el.originalKey) {
+          case KEY_MAP_STORE.BOOKS:
+            return +(bookStore?.booksCount ?? 0);
+
+          case KEY_MAP_STORE.ORDERS:
+            return +(bookStore?.ordersCount ?? 0);
+
+          case KEY_MAP_STORE.REVIEWS:
+            return +(bookStore?.reviewsCount ?? 0);
+
+          case KEY_MAP_STORE.TEAM:
+            return +(bookStore?.team?.length ?? 0);
+
+          default:
+            return el;
+        }
+      }),
+
+    [bookStore]
   );
 
   return (
@@ -82,7 +121,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
       <DropActionsAbs
         {...{ isDropOpen, setIsDropOpen, dropLabel: manageDropLabelGeneral }}
       >
-        {actionsBookStoreAdmin.map((el) => (
+        {filteredActionsAdmin.map((el) => (
           <div
             key={el.id}
             className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}

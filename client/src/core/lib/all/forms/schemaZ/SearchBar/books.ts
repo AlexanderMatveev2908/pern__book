@@ -57,7 +57,7 @@ export const schemaSearchBooks = z
 
           const num = +(val ?? "");
 
-          return num < 1450 || num > new Date().getFullYear();
+          return num >= 1450 || num < new Date().getFullYear();
         },
         {
           message: `Year must be between 1450 and ${new Date().getFullYear()}`,

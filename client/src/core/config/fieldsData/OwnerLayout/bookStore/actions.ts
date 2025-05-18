@@ -39,7 +39,10 @@ export type LabelStoreType = {
 };
 
 export const labelsBookStore: Map<KEY_MAP_STORE, LabelStoreType> = new Map([
-  [KEY_MAP_STORE.ADD_BOOK, { icon: FaPenFancy, path: "/", label: "Add Book" }],
+  [
+    KEY_MAP_STORE.ADD_BOOK,
+    { icon: FaPenFancy, path: "/owner/books/add-book", label: "Add Book" },
+  ],
   [KEY_MAP_STORE.BOOKS, { icon: RiBookShelfFill, path: "/", label: "Books" }],
   [KEY_MAP_STORE.ORDERS, { icon: TbTruckDelivery, path: "/", label: "Orders" }],
   [KEY_MAP_STORE.REVIEWS, { icon: MdReviews, path: "/", label: "Reviews" }],

@@ -7,8 +7,9 @@ import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
 import { literal } from "sequelize";
 import { Review } from "../../models/all/Review.js";
-import { replacePoint } from "../../lib/validateDataStructure.js";
+import { replacePoint } from "../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
+import { makeBooksQ } from "../../lib/query/books/query.js";
 
 const calcRatingSql = (): [Literal, string][] => [
   [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
@@ -110,6 +111,8 @@ export const getBooksList = async (
   res: Response
 ): Promise<any> => {
   const { userID } = req;
+
+  const { queryBooks } = makeBooksQ(req);
 
   const books = await Book.findAll({
     where: {},

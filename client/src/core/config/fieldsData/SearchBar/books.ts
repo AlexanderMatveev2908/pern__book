@@ -31,7 +31,7 @@ export const fieldsInputsBooks = [
     place: "Book ID...",
   },
   {
-    field: "bookstoreID",
+    field: "bookStoreID",
     label: "Bookstore ID",
     place: "Bookstore ID...",
   },

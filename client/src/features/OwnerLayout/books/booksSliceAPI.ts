@@ -1,6 +1,8 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SearchBooksOwnerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import { catchErr } from "@/core/lib/lib";
+import { userSliceAPI } from "@/features/UserLayout/userSliceAPI";
 import apiSlice from "@/store/apiSlice";
 import { BookType } from "@/types/all/books";
 import { BookStoreType } from "@/types/all/bookStore";
@@ -32,7 +34,20 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         method: "POST",
         data,
       }),
-      invalidatesTags: [TagsAPI.USER],
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await catchErr(async () => {
+          await queryFulfilled;
+          dispatch(
+            userSliceAPI.util.updateQueryData(
+              "getUserProfile",
+              undefined,
+              (draft) => {
+                draft.user.hasBooks = true;
+              }
+            )
+          );
+        });
+      },
     }),
 
     getInfoBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
@@ -74,10 +89,18 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
           await queryFulfilled;
 
           dispatch(
-            booksSLiceAPI.util.updateQueryData("getInfoBook", id, (draft) => {
+            booksSLiceAPI.util.updateQueryData("getSingleBook", id, (draft) => {
+              draft.book = {
+                id: draft.book.id,
+              } as any;
               draft.ninja = "🥷🏼";
             })
           );
+          // dispatch(
+          //   booksSLiceAPI.util.updateQueryData("getInfoBook", id, (draft) => {
+          //     draft.ninja = "🥷🏼";
+          //   })
+          // );
         });
       },
     }),
