@@ -11,7 +11,6 @@ import {
   fieldEmailWorker,
   fieldSelectWorkerRole,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
-import { z } from "zod";
 
 const btnRemoveWorker = {
   icon: AiOutlineUserDelete,
@@ -31,8 +30,6 @@ const TeamForm: FC = () => {
     getValues,
     formState: { errors },
     watch,
-    setError,
-    clearErrors,
   } = useFormContext();
   const { fields, append, remove } = useFieldArray({
     control,
@@ -93,54 +90,6 @@ const TeamForm: FC = () => {
     return vals.length && vals?.every((val) => typeof val === "string");
   }, [fieldsData]);
 
-  const vals = watch();
-
-  useEffect(() => {
-    const handleTeam = () => {
-      const team = vals?.items;
-      if (!team?.length) return;
-
-      let i = 0;
-      while (i < team.length) {
-        const curr = team[i];
-
-        if (
-          curr.email.trim().length &&
-          !curr.role &&
-          !(errors as any)?.items?.[i]?.role
-        )
-          setError(`items.${i}.role`, { message: "Worker need a role" });
-        else if (
-          ((curr.role && curr.email.trim().length) ||
-            !curr.email.trim().length) &&
-          (errors as any)?.items?.[i]?.role &&
-          (errors as any)?.items?.[i]?.role?.type !== "custom"
-        )
-          clearErrors(`items.${i}.role`);
-
-        if (
-          curr.role &&
-          !curr.email.trim()?.length &&
-          !(errors as any)?.items?.[i]?.email
-        )
-          setError(`items.${i}.email`, {
-            message: `This ${curr.role} need an email`,
-          });
-        else if (
-          ((curr.role && z.string().email().safeParse(curr.email).success) ||
-            !curr.role) &&
-          (errors as any)?.items?.[i]?.email &&
-          (errors as any)?.items?.[i]?.email?.type !== "custom"
-        )
-          clearErrors(`items.${i}.email`);
-
-        i++;
-      }
-    };
-
-    handleTeam();
-  }, [vals, setError, errors, clearErrors]);
-
   return (
     <div
       ref={parentRef}
@@ -165,6 +114,11 @@ const TeamForm: FC = () => {
                 index: i,
                 el: fieldEmailWorker,
                 customStyle: "input__lg",
+                customCB: () =>
+                  setValue(`items.${i}.role`, getValues(`items.${i}.role`), {
+                    shouldValidate: true,
+                    shouldDirty: true,
+                  }),
               }}
             />
 

@@ -19,8 +19,6 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { subcategories } from "@/types/all/books";
 import { v4 } from "uuid";
-import { msgsErrsBookSearchForm } from "@/core/lib/all/forms/schemaZ/SearchBar/books";
-import { useClearManualError } from "@/core/hooks/all/forms/useClearManualError";
 
 const BooksList: FC = () => {
   useScroll();
@@ -28,14 +26,8 @@ const BooksList: FC = () => {
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
   const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
-  const {
-    handleSubmit,
-    watch,
-    formState: { errors },
-    trigger: triggerForm,
-  } = formCtx;
+  const { handleSubmit, watch } = formCtx;
   const mainCatRealTime = watch("mainCategories");
-  const realTimeVals = watch();
   const handleSave = handleSubmit(() => {});
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
@@ -61,27 +53,6 @@ const BooksList: FC = () => {
       setInnerJoinedCat(updatedJoinedFields);
     }
   }, [mainCatRealTime, innerJoinedCat, setInnerJoinedCat]);
-
-  useClearManualError({
-    triggerForm,
-    errors,
-    realTimeVals,
-    msgsArr: Object.values(msgsErrsBookSearchForm.qty),
-    cond: {
-      keyMin: "minQty",
-      keyMax: "maxQty",
-    },
-  });
-  useClearManualError({
-    triggerForm,
-    errors,
-    realTimeVals,
-    msgsArr: Object.values(msgsErrsBookSearchForm.price),
-    cond: {
-      keyMin: "minPrice",
-      keyMax: "maxPrice",
-    },
-  });
 
   return (
     <WrapPageAPI

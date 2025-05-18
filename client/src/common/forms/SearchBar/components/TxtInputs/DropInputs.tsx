@@ -97,11 +97,11 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
               };
               append(newField, { shouldFocus: true });
 
-              const updatedVals = {
+              const updatedVals = cpyObj({
                 ...getValues(),
                 items: [...(fields ?? []), newField],
                 ...getDefValsPagination(page, limit),
-              };
+              });
 
               oldVals.current = cpyObj(updatedVals) as any;
               saveStorage({ key: keyStorageVals, data: updatedVals });

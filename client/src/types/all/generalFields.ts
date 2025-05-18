@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { IconType } from "react-icons/lib";
 
 export type LabelDropType = {
@@ -11,6 +12,7 @@ export type FormFieldBasic = {
   label?: string;
   place?: string;
   type?: string;
+  customCB?: (val: any) => void;
 };
 
 export type PwdCheckerType = {

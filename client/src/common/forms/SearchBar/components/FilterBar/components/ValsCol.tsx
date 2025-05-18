@@ -21,6 +21,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     register,
     formState: { errors },
     getValues,
+    trigger,
   } = useFormContext();
   const {
     searchers: { currFilter },
@@ -142,16 +143,26 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
                 />
               </div>
             ))
-          : currFilter.fields.map((el) => (
+          : currFilter.fields.map((el: any) => (
               <FormField
                 key={el.id}
                 {...{
-                  el: el as FormFieldBasic,
+                  el: el,
                   register,
                   errors,
                   styleContErr: {
                     top: "-100%",
                     right: "0%",
+                  },
+                  customCB: () => {
+                    const obj = {
+                      min: "max",
+                      max: "min",
+                    };
+
+                    const str = el.field.includes("min") ? "min" : "max";
+
+                    trigger(el.field.replace(str, obj[str]));
                   },
                 }}
               >

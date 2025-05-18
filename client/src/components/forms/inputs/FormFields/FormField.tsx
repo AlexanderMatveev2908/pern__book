@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode } from "react";
 import { canNestedPass, capt } from "@/core/lib/lib.ts";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
@@ -17,6 +18,7 @@ type PropsType = {
   };
   nestedIndex?: NestedIndexProp;
   children?: ReactNode;
+  customCB?: ((val: any) => void) | null;
 } & FormBaseProps;
 
 const FormField: FC<PropsType> = ({
@@ -29,6 +31,7 @@ const FormField: FC<PropsType> = ({
   styleContErr,
   children,
   nestedIndex,
+  customCB,
 }) => {
   const registerParamHook =
     typeof index === "number"
@@ -36,6 +39,8 @@ const FormField: FC<PropsType> = ({
       : canNestedPass(nestedIndex)
       ? `items.${nestedIndex!.index}.${nestedIndex!.key}`
       : el.field;
+
+  const { onChange, ...rest } = register(registerParamHook);
 
   return (
     <div className="w-full grid">
@@ -50,7 +55,13 @@ const FormField: FC<PropsType> = ({
             step={el.type === "number" ? "any" : undefined}
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
             className={`${customStyle ?? "input__base"} txt__2`}
-            {...register(registerParamHook)}
+            {...rest}
+            onChange={(e) => {
+              onChange(e);
+
+              if (typeof customCB === "function") customCB(e.target.value);
+            }}
+            // {...register(registerParamHook)}
           />
           {children ?? (
             <ErrorFormField

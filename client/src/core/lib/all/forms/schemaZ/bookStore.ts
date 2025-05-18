@@ -9,8 +9,44 @@ import {
   REG_STORE_NAME,
 } from "@/core/config/regex";
 import { CatBookStore } from "@/types/all/bookStore";
+import { isStr } from "../../utils/dataStructures";
 
 const allowedRoles = [UserRole.EMPLOYEE, UserRole.MANAGER];
+
+export const schemaItemUser = z
+  .object({
+    email: z
+      .string()
+      .optional()
+      .refine(
+        (val) =>
+          !val?.trim().length || z.string().email().safeParse(val).success,
+        {
+          message: "Invalid email format",
+        }
+      ),
+    role: z
+      .enum(allowedRoles as [string, ...string[]])
+      .nullable()
+      .optional(),
+  })
+  .superRefine((item, ctx) => {
+    const { email, role } = item;
+
+    if (isStr(email) && !role)
+      ctx.addIssue({
+        message: "Worker need a role",
+        code: "custom",
+        path: ["role"],
+      });
+
+    if (role && !isStr(email))
+      ctx.addIssue({
+        message: "Worker need a email",
+        code: "custom",
+        path: ["email"],
+      });
+  });
 
 export const schemaBookStore = z
   .object({
@@ -113,24 +149,9 @@ export const schemaBookStore = z
         message: "A price must be less than 10 chars",
       }),
     deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
-    items: z
-      .array(
-        z.object({
-          email: z
-            .string()
-            .refine(
-              (val) =>
-                !val?.trim().length ||
-                z.string().email().safeParse(val).success,
-              {
-                message: "Invalid email format",
-              }
-            ),
-          role: z.enum(allowedRoles as [string, ...string[]]).nullable(),
-        })
-      )
-      .optional(),
+    items: z.array(schemaItemUser).optional(),
   })
+
   .refine(
     (data) => {
       const isPriceReal =
@@ -150,48 +171,18 @@ export const schemaBookStore = z
     // * USER ROLE
     const len = data.items?.length ?? 0;
     let i = 0;
-    // while (i < len) {
-    //   const curr = data.items[i];
-    //   if (curr.email?.trim().length && !curr.role) {
-    //     ctx.addIssue({
-    //       message: "Worker need a role",
-    //       code: "custom",
-    //       path: [`items.${i}.role`],
-    //     });
-    //     break;
-    //   }
-    //   if (curr.role && !curr.email?.trim().length) {
-    //     ctx.addIssue({
-    //       message: `This ${curr.role} need an email`,
-    //       code: "custom",
-    //       path: [`items.${i}.email`],
-    //     });
-    //     break;
-    //   }
-    //   i++;
-    // }
 
-    // * DUPLICATES
     const workers = len ? (data?.items ?? []).map((el) => el?.email) : [];
-    i = 0;
-
-    // const checkArr: string[] = [];
     const checkArr = new Set<string>();
     let indexDuplicate: number | null = null;
     if (len > 1) {
       do {
         const curr = workers[i];
-        // if (checkArr.some((el) => el === curr))
         if (checkArr.has(curr as string)) {
-          // ctx.addIssue({
-          //   message: `You can not hire twice ${curr}`,
-          //   code: "custom",
-          //   path: [`items.${i}.email`],
-          // });
           indexDuplicate = i;
+          break;
         }
 
-        // checkArr.push(curr as string);
         checkArr.add(curr as string);
         i++;
       } while (i < len);

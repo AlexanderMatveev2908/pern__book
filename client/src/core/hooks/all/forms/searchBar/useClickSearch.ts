@@ -33,10 +33,10 @@ export const useClickSearch = ({
   const handleSearch = useCallback(() => {
     setIsPending({ el: "submit", val: true });
 
-    const data = {
+    const data = cpyObj({
       ...getValues(),
       ...getDefValsPagination(0, limit),
-    };
+    });
 
     updateValsNoDebounce({ vals: data, trigger });
   }, [limit, getValues, setIsPending, trigger, updateValsNoDebounce]);

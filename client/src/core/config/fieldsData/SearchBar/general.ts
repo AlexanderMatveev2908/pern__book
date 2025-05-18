@@ -1,16 +1,11 @@
 import { capt } from "@/core/lib/lib";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
-import { FilterSearch, NumericFilterSearch } from "@/types/types";
+import { FilterSearch } from "@/types/types";
 import { CiDeliveryTruck } from "react-icons/ci";
-import {
-  FaDatabase,
-  FaRegStar,
-  FaSortAmountDown,
-  FaSortAmountUp,
-} from "react-icons/fa";
+import { FaRegStar, FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
 import { MdOutlineCategory } from "react-icons/md";
-import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
+import { TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
 
 export const filtersCat: Omit<FilterSearch, "id"> = {
@@ -52,44 +47,6 @@ export const filtersRating: Omit<FilterSearch, "id"> = {
   fields: ratingRanges.map((el) => ({
     val: el,
     label: el,
-  })),
-};
-
-export const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
-  label: "Avg Price",
-  field: "avgPrice",
-  icon: TbPigMoney,
-  fields: [
-    {
-      label: "Min avg price",
-      field: "minAvgPrice",
-    },
-    {
-      label: "Max avg price",
-      field: "maxAvgPrice",
-    },
-  ].map((el) => ({
-    ...el,
-    place: el.label + "...",
-  })),
-};
-
-export const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
-  label: "Avg quantity",
-  icon: FaDatabase,
-  field: "avgQty",
-  fields: [
-    {
-      field: "minAvgQty",
-      label: "Min avg quantity",
-    },
-    {
-      field: "maxAvgQty",
-      label: "Max avg quantity",
-    },
-  ].map((el) => ({
-    ...el,
-    place: el.label + "...",
   })),
 };
 

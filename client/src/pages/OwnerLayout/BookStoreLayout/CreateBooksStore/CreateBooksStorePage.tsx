@@ -32,6 +32,18 @@ const CreateBooksStore: FC = () => {
     resolver: zodResolver(schemaX),
     mode: "onChange",
     shouldFocusError: false,
+    defaultValues: {
+      email: "",
+      country: "",
+      state: "",
+      city: "",
+      street: "",
+      zipCode: "",
+      phone: "",
+      name: "",
+      categories: [],
+      deliveryTime: "",
+    },
   });
 
   const {

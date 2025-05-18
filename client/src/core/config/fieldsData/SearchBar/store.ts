@@ -7,8 +7,6 @@ import {
 import { v4 } from "uuid";
 import {
   addSortFields,
-  avgPriceFilter,
-  avgQtyFilter,
   filtersCat,
   filtersDelivery,
   filtersOrders,
@@ -78,6 +76,44 @@ const noOfWorkers = {
   ].map((el) => ({
     ...el,
     id: v4(),
+    place: el.label + "...",
+  })),
+};
+
+export const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
+  label: "Avg Price",
+  field: "avgPrice",
+  icon: TbPigMoney,
+  fields: [
+    {
+      label: "Min avg price",
+      field: "minAvgPrice",
+    },
+    {
+      label: "Max avg price",
+      field: "maxAvgPrice",
+    },
+  ].map((el) => ({
+    ...el,
+    place: el.label + "...",
+  })),
+};
+
+export const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
+  label: "Avg quantity",
+  icon: FaDatabase,
+  field: "avgQty",
+  fields: [
+    {
+      field: "minAvgQty",
+      label: "Min avg quantity",
+    },
+    {
+      field: "maxAvgQty",
+      label: "Max avg quantity",
+    },
+  ].map((el) => ({
+    ...el,
     place: el.label + "...",
   })),
 };
