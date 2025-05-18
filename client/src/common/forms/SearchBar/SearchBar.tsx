@@ -58,7 +58,11 @@ const SearchBar: FC<PropsType> = ({
   } = ctx;
 
   const formCtx = useFormContext();
-  const { watch, setFocus } = formCtx;
+  const {
+    watch,
+    setFocus,
+    formState: { errors },
+  } = formCtx;
   useFocus({ key: txtInputs[0].field, setFocus });
 
   const realTimeVals = watch();
@@ -99,6 +103,7 @@ const SearchBar: FC<PropsType> = ({
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => calcSearchbarID(path), [path]);
 
+  console.log(errors);
   return !isPopulated ? (
     <SkeletonBar />
   ) : (

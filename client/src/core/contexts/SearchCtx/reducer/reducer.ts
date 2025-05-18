@@ -7,12 +7,6 @@ export const reducerSearch = (
   action: SearchCtxActionsType
 ): SearchCtxStateType => {
   switch (action.type) {
-    case SearchCtxActions.SET_TXT_INPUTS:
-      return {
-        ...state,
-        activeTxtInputs: action.payload,
-      };
-
     case SearchCtxActions.SET_BAR: {
       const { el, val } = action.payload;
 

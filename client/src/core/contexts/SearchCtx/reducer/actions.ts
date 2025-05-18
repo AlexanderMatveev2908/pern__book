@@ -6,7 +6,6 @@ import {
 import { FieldJoinCatType } from "./initState";
 
 export enum SearchCtxActions {
-  SET_TXT_INPUTS = "SET_TXT_INPUTS",
   SET_BAR = "SET_BAR",
   SET_SEARCH = "SET_SEARCH",
   SET_IS_PENDING = "SET_IS_PENDING",
@@ -55,10 +54,6 @@ export type ParamsPage = {
 };
 
 export type SearchCtxActionsType =
-  | {
-      type: SearchCtxActions.SET_TXT_INPUTS;
-      payload: FormFieldBasic[];
-    }
   | {
       type: SearchCtxActions.SET_BAR;
       payload: ParamsBar;

@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSavePrevErr } from "@/core/hooks/hooks";
-import { FormFieldBasic } from "@/types/types";
+import { canNestedPass } from "@/core/lib/lib";
+import { FormFieldBasic, NestedIndexProp } from "@/types/types";
 import { FC, useMemo } from "react";
 import { FieldErrors } from "react-hook-form";
 
@@ -11,14 +12,30 @@ type PropsType = {
     [key: string]: string;
   };
   index?: number;
+  nestedIndex?: NestedIndexProp;
 };
 
-const ErrorFormField: FC<PropsType> = ({ errors, el, styleCont, index }) => {
+const ErrorFormField: FC<PropsType> = ({
+  errors,
+  el,
+  nestedIndex,
+  styleCont,
+  index,
+}) => {
   const msg =
     typeof index === "number"
       ? ((errors?.items as any)?.[index]?.[el?.field ?? ""]?.message as string)
+      : canNestedPass(nestedIndex)
+      ? (errors?.items as any)?.[nestedIndex!.index as number]?.[
+          nestedIndex!.key
+        ]?.message
       : errors?.[el?.field ?? ""]?.message;
-  const { prevErr } = useSavePrevErr({ errors, key: el?.field ?? "", index });
+  const { prevErr } = useSavePrevErr({
+    errors,
+    key: el?.field ?? "",
+    index,
+    nestedIndex,
+  });
 
   const defStyle = useMemo(
     () => ({

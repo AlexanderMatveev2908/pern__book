@@ -2,6 +2,7 @@ import { ratingRanges } from "@/core/config/fieldsData/SearchBar/general";
 import {
   REG_CITY,
   REG_COUNTRY,
+  REG_ID,
   REG_STATE,
   REG_STORE_NAME,
 } from "@/core/config/regex";
@@ -9,7 +10,7 @@ import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";
 import { isValidNumber } from "../../../utils/dataStructures";
-import { schemaPrice, schemaInt, schemaID } from "./general";
+import { schemaPrice, schemaInt } from "./general";
 
 export const msgsFormStore = {
   price: {
@@ -26,37 +27,58 @@ export const msgsFormStore = {
   },
 };
 
+const allowedKeys = ["name", "ID", "country", "state", "city"] as const;
+type AllowedKey = (typeof allowedKeys)[number];
+
+const regexMap: Record<AllowedKey, RegExp> = {
+  name: REG_STORE_NAME,
+  ID: REG_ID,
+  country: REG_COUNTRY,
+  state: REG_STATE,
+  city: REG_CITY,
+};
+
+const maxLengthMap: Record<AllowedKey, number> = {
+  ID: 36,
+  name: 50,
+  country: 50,
+  state: 50,
+  city: 50,
+};
+
+const itemSchema = z
+  .object({
+    field: z.enum(allowedKeys),
+    val: z.string().optional(),
+    id: z.string(),
+  })
+  .superRefine((item, ctx) => {
+    const { field, val } = item;
+    const regex = regexMap[field];
+    const maxLength = maxLengthMap[field];
+
+    if (!val?.trim()?.length) return;
+
+    if (val.length > maxLength) {
+      ctx.addIssue({
+        code: "custom",
+        path: [`val`],
+        message: `Max length for ${field} is ${maxLength}`,
+      });
+    }
+
+    if (!regex.test(val)) {
+      ctx.addIssue({
+        code: "custom",
+        path: [`val`],
+        message: `Invalid ${field} format`,
+      });
+    }
+  });
+
 export const searchBarStore = z
   .object({
-    name: z
-      .string()
-      .max(50, "Max length exceeded")
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_STORE_NAME.test(val), {
-        message: "Invalid name format",
-      }),
-    ID: schemaID(),
-    country: z
-      .string()
-      .max(50, "Max length Country exceeded")
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_COUNTRY.test(val), {
-        message: "Invalid Country",
-      }),
-    state: z
-      .string()
-      .max(50, "Max length State exceeded")
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_STATE.test(val), {
-        message: "INvalid state",
-      }),
-    city: z
-      .string()
-      .max(50, "Max length City exceeded")
-      .optional()
-      .refine((val) => !val?.trim()?.length || REG_CITY.test(val), {
-        message: "INvalid state",
-      }),
+    items: z.array(itemSchema).optional(),
 
     categories: z
       .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))

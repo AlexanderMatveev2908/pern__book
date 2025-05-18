@@ -41,7 +41,6 @@ export const fieldsSearchStore: FormFieldBasic[] = [
   },
 ].map((el) => ({
   ...el,
-  id: v4(),
   place: `${el.label} Store...`,
 }));
 

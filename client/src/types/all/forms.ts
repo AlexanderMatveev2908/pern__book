@@ -22,3 +22,8 @@ export type SwapFormPropsType = {
   isNextDisabled: boolean;
   setNextDisabled: (val: boolean) => void;
 };
+
+export type NestedIndexProp = {
+  index: number;
+  key: string;
+};

@@ -17,7 +17,7 @@ export type FieldJoinCatType = {
 };
 
 export type SearchCtxStateType = {
-  activeTxtInputs: FormFieldBasic[];
+  // activeTxtInputs: FormFieldBasic[];
   bars: {
     filterBar: boolean;
     sortBar: boolean | null;
@@ -47,7 +47,7 @@ export type SearchCtxStateType = {
 };
 
 export const initStateSearch: SearchCtxStateType = {
-  activeTxtInputs: [],
+  // activeTxtInputs: [],
   bars: {
     filterBar: false,
     sortBar: null,

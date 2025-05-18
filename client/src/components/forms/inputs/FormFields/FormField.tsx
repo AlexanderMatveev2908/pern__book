@@ -1,7 +1,11 @@
 import { FC, ReactNode } from "react";
-import { capt } from "@/core/lib/lib.ts";
+import { canNestedPass, capt } from "@/core/lib/lib.ts";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
-import { FormBaseProps, FormFieldBasic } from "@/types/types.ts";
+import {
+  FormBaseProps,
+  FormFieldBasic,
+  NestedIndexProp,
+} from "@/types/types.ts";
 
 type PropsType = {
   el: FormFieldBasic;
@@ -11,6 +15,7 @@ type PropsType = {
   styleContErr?: {
     [key: string]: string;
   };
+  nestedIndex?: NestedIndexProp;
   children?: ReactNode;
 } & FormBaseProps;
 
@@ -23,9 +28,14 @@ const FormField: FC<PropsType> = ({
   index,
   styleContErr,
   children,
+  nestedIndex,
 }) => {
   const registerParamHook =
-    typeof index === "number" ? `items.${index}.${el.field}` : el.field;
+    typeof index === "number"
+      ? `items.${index}.${el.field}`
+      : canNestedPass(nestedIndex)
+      ? `items.${nestedIndex!.index}.${nestedIndex!.key}`
+      : el.field;
 
   return (
     <div className="w-full grid">
@@ -44,7 +54,7 @@ const FormField: FC<PropsType> = ({
           />
           {children ?? (
             <ErrorFormField
-              {...{ errors, el, index, styleCont: styleContErr }}
+              {...{ errors, el, nestedIndex, index, styleCont: styleContErr }}
             />
           )}
         </div>

@@ -14,7 +14,7 @@ import {
   FieldJoinCatType,
   SearchCtxStateType,
 } from "../reducer/initState";
-import { FormFieldBasic, ResPaginationAPI } from "@/types/types";
+import { ResPaginationAPI } from "@/types/types";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { saveStorage } from "@/core/lib/lib";
 
@@ -30,7 +30,6 @@ type ParamsUpdateNoDebounce = {
 
 export type SearchCtxValsConsumer = SearchCtxStateType & {
   oldVals: RefObject<ArgsSearchType | null>;
-  setTxtInputs: (val: FormFieldBasic[]) => void;
   setBar: (params: ParamsBar) => void;
   setSearch: (params: ParamsSearch) => void;
   setIsPending: (vals: ParamsPending) => void;
@@ -49,12 +48,6 @@ export const useSearchCtxVals = ({
   const madeAPI = useRef<boolean>(false);
 
   const { keyStorageVals } = useGetSearchKeysStorage();
-
-  const setTxtInputs = useCallback(
-    (val: FormFieldBasic[]) =>
-      dispatch({ type: SearchCtxActions.SET_TXT_INPUTS, payload: val }),
-    [dispatch]
-  );
 
   const setBar = useCallback(
     ({ el, val }: ParamsBar) =>
@@ -113,7 +106,6 @@ export const useSearchCtxVals = ({
   return {
     ...state,
     oldVals,
-    setTxtInputs,
     setBar,
     setSearch,
     setPagination,

@@ -1,6 +1,6 @@
 import { REG_ID, REG_TOK } from "@/core/config/regex";
 import { ParamsVerifyCB } from "@/features/VerifyCb/verifyCbSliceAPI";
-import { TokenEventType } from "@/types/types";
+import { NestedIndexProp, TokenEventType } from "@/types/types";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const isObjOk = (obj: any, valsCb?: (val: any) => boolean) =>
@@ -101,3 +101,9 @@ export const isStr = (str?: string) => str?.trim()?.length;
 export const isArr = <T>(arr?: T[]) => Array.isArray(arr) && !!arr?.length;
 
 export const replacePoint = (val: number) => (val + "").replace(".", "_");
+
+export const canNestedPass = (nestedIndex?: NestedIndexProp) =>
+  typeof nestedIndex === "object" &&
+  nestedIndex !== null &&
+  "index" in nestedIndex &&
+  "key" in nestedIndex;
