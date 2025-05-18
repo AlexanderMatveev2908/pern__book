@@ -5,6 +5,7 @@ import { FieldValues, UseFormGetValues } from "react-hook-form";
 import {
   __cg,
   clearTimer,
+  cpyObj,
   getDefValsPagination,
   isSameData,
   saveStorage,
@@ -42,7 +43,17 @@ export const useDebounceSearch = ({
     timerID.current = setTimeout(() => {
       if (!isPopulated) return;
 
-      const currVals = { ...getValues(), ...getDefValsPagination(0, limit) };
+      // ⚠️ DO NOT CREATE JUST A SHALLOW COPY — GET_VALUES RETURN A NESTED OBJ
+      // A SHALLOW SPREAD LIKE `{ ...GET_VALUES() }` WON’T BREAK INTERNAL REFERENCES TO REACT-HOOK-FORM’S PROXIES.
+      // YOU'LL GET THIS ERROR IF YOU TRY TO MUTATE LATER:
+      // ❌ TYPEERROR: CANNOT ASSIGN TO READ ONLY PROPERTY '0' OF OBJECT '[OBJECT ARRAY]'
+      //    AT SET.TS:35
+      // REACT-HOOK-FORM (AND REACT IN GENERAL) PROTECTS INTERNAL STATE BY FREEZING OR PROXYING IT.
+
+      const currVals = {
+        ...cpyObj(getValues()),
+        ...getDefValsPagination(0, limit),
+      };
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       __cg("comparison", oldVals.current, currVals, isSame);

@@ -23,6 +23,7 @@ import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { cpyObj } from "@/core/lib/lib";
 
 // ? I LIKE THINKING OF WHAT I HAVE IN MIND LIKE A METAPHORIC INNER JOIN BUT ON FRONTEND CATEGORIES ITEMS AS STRINGS, IF U CHOSE THE MAIN CATEGORY AUTOMATICALLY WILL SEE THE SUB CATEGORIES
 
@@ -58,11 +59,7 @@ const SearchBar: FC<PropsType> = ({
   } = ctx;
 
   const formCtx = useFormContext();
-  const {
-    watch,
-    setFocus,
-    formState: { errors },
-  } = formCtx;
+  const { watch, setFocus } = formCtx;
   useFocus({ key: txtInputs[0].field, setFocus });
 
   const realTimeVals = watch();
@@ -98,12 +95,11 @@ const SearchBar: FC<PropsType> = ({
   });
 
   // * MANAGEMENT ERRORS SEARCH BAR
-  useHandleErrSearch({ ctx, formCtx, realTimeVals, numericFilters });
+  // useHandleErrSearch({ ctx, formCtx, realTimeVals, numericFilters });
 
   const path = useLocation().pathname;
   const searchBarID = useMemo(() => calcSearchbarID(path), [path]);
 
-  console.log(errors);
   return !isPopulated ? (
     <SkeletonBar />
   ) : (
@@ -114,7 +110,7 @@ const SearchBar: FC<PropsType> = ({
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
-        <FilterBar
+        {/* <FilterBar
           {...{
             hook,
             filters,
@@ -123,7 +119,7 @@ const SearchBar: FC<PropsType> = ({
             txtInputs,
           }}
         />
-        <SortPop {...{ sorters }} />
+        <SortPop {...{ sorters }} /> */}
 
         <TxtInputs {...{ trigger, txtInputs }}>
           <ButtonsForm
@@ -138,7 +134,7 @@ const SearchBar: FC<PropsType> = ({
         </TxtInputs>
       </div>
 
-      <SortDrop {...{ res, setBar: ctx.setBar }} />
+      {/* <SortDrop {...{ res, setBar: ctx.setBar }} /> */}
     </form>
   );
 };

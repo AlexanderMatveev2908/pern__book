@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getStorage } from "@/core/lib/lib";
+import { cpyObj, getStorage } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
@@ -35,7 +35,7 @@ export const usePopulateSearch = ({
     setSearch({ el: "currFilter", val: filters[0] });
 
     const savedVals = getStorage(keyStorageVals);
-    const fallBackItems = { ...txtInputs[0], val: "", id: v4() };
+    const fallBackItems = { ...cpyObj(txtInputs[0]), val: "", id: v4() };
 
     if (!savedVals) {
       const defVals = {
@@ -43,13 +43,14 @@ export const usePopulateSearch = ({
         ...getDefValsPagination(),
       };
       setValue("items", [fallBackItems], { shouldValidate: true });
-      oldVals.current = defVals as any;
+      oldVals.current = cpyObj(defVals) as any;
       trigger(defVals);
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
 
     const parsed = JSON.parse(savedVals);
+    if (!parsed?.items?.length) parsed.items = [fallBackItems];
 
     for (const key in parsed) {
       const val = parsed[key];
@@ -59,18 +60,19 @@ export const usePopulateSearch = ({
         shouldDirty: true,
       });
     }
-    if (!parsed?.items?.length)
-      setValue("items", [fallBackItems], { shouldValidate: true });
 
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
 
     setPagination({ el: "page", val: parsed?.page ?? 0 });
+
     const merged = {
       ...parsed,
       ...getDefValsPagination(parsed?.page),
     };
+
     oldVals.current = merged;
     trigger(merged);
+
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
     trigger,

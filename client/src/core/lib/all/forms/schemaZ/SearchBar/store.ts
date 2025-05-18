@@ -51,6 +51,7 @@ const itemSchema = z
     field: z.enum(allowedKeys),
     val: z.string().optional(),
     id: z.string(),
+    label: z.string(),
   })
   .superRefine((item, ctx) => {
     const { field, val } = item;

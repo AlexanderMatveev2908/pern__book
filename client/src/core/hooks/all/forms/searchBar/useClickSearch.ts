@@ -1,10 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getDefValsPagination, saveStorage } from "@/core/lib/lib";
+import { cpyObj, getDefValsPagination, saveStorage } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { useCallback } from "react";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { UseFormReturn } from "react-hook-form";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { v4 } from "uuid";
 
 type Params = {
   ctx: SearchCtxValsConsumer;
@@ -19,13 +20,12 @@ export const useClickSearch = ({
   formCtx,
   trigger,
 }: Params) => {
-  const { keyStorageLabels } = useGetSearchKeysStorage();
+  const { keyStorageVals } = useGetSearchKeysStorage();
 
   const {
     setIsPending,
     pagination: { limit },
     updateValsNoDebounce,
-    setTxtInputs,
     setPagination,
   } = ctx;
   const { reset, getValues } = formCtx;
@@ -44,18 +44,25 @@ export const useClickSearch = ({
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });
 
-    const defArgs = getDefValsPagination();
-    setPagination({ el: "page", val: 0 });
-    updateValsNoDebounce({ vals: defArgs, trigger });
-    reset({});
+    const defVals = {
+      items: [{ ...cpyObj(txtInputs[0]), id: v4(), val: "" }],
+    };
+    const merged = {
+      ...defVals,
+      ...getDefValsPagination(0),
+    };
 
-    setTxtInputs([txtInputs[0]]);
-    saveStorage({ data: [txtInputs[0]], key: keyStorageLabels });
+    setPagination({ el: "page", val: 0 });
+
+    updateValsNoDebounce({ vals: merged as any, trigger });
+
+    reset(defVals);
+
+    saveStorage({ data: merged, key: keyStorageVals });
   }, [
     reset,
-    keyStorageLabels,
+    keyStorageVals,
     setIsPending,
-    setTxtInputs,
     txtInputs,
     updateValsNoDebounce,
     trigger,

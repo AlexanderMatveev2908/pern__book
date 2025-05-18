@@ -2,7 +2,7 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
-import { getDefValsPagination, makeDelay, saveStorage } from "@/core/lib/lib";
+import { cpyObj, getDefValsPagination, saveStorage } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -21,12 +21,12 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   const dropRef = useRef<HTMLDivElement | null>(null);
 
-  const { setFocus, watch, getValues, control } = useFormContext();
+  const { watch, getValues, control } = useFormContext();
   const { append } = useFieldArray({
     control,
     name: "items",
   });
-  const fields = useMemo(() => watch("items") ?? [], [watch]);
+  const fields = watch("items");
 
   const { keyStorageVals } = useGetSearchKeysStorage();
   const {
@@ -49,14 +49,16 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
   }, []);
 
   const arg = useMemo(() => {
-    const active = new Set(fields.map((el: any) => el?.field));
+    const itemsFb = fields ?? [];
+
+    const active = new Set(itemsFb.map((el: FormFieldBasic) => el?.field));
     const filtered = txtInputs.filter((el) => !active.has(el.field));
     return filtered;
   }, [fields, txtInputs]);
 
   const showNothing = useMemo(() => {
     if (
-      txtInputs.length === fields.length &&
+      txtInputs.length === fields?.length &&
       [txtInputs.length, fields.length].every((el) => !!el)
     )
       return true;
@@ -82,36 +84,29 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
         }`}
       >
         {/* ? IF U DO NOT ADD VALS TO STORAGE RIGHT NOW ON MOUNT U WILL HAVE A DOUBLE FETCH ONE ON POPULATE , ON ON DEBOUNCE WHEN CURRENT VALS WILL CHANGE CAUSE THE LABEL ADDED SAVED IN LABELS WILL AUTOMATICALLY PART OF THE DOM AND SO REGISTERED TO USE_FORM_HOOK AND THIS WILL PROVOKE A CHANGE IN THE COMPARISON BETWEEN OLD AND NEW VALS TRIGGERING A REFETCH JUST FOR AN EMPTY STRING BUT THAT INCREASE THE LENGTH OF KEYS ON NEW OBJ IN THE RECURSIVE FUNCTION THAT CHECK EQUALITY BETWEEN REFERENCE AND VALS OF USE_FORM MERGED WITH PAGINATION VALS OF REUSABLE CONTEXT THAT WRAP THE PAGE IN PAGE.TSX */}
-        {arg.map((el, i) => (
+        {arg.map((el) => (
           <li
             key={el.id}
             onClick={async () => {
               setPreSubmit({ el: "canMakeAPI", val: false });
 
-              append(
-                {
-                  ...el,
-                  val: "",
-                  id: v4(),
-                },
-                { shouldFocus: true }
-              );
-              // const updatedVals = {
-              //   ...getValues(),
-              //   items: [
-              //     ...(fields ?? []),
-              //     {
-              //       ...el,
-              //       val: "",
-              //     },
-              //   ],
-              //   ...getDefValsPagination(page, limit),
-              // };
-              // oldVals.current = updatedVals as any;
-              // saveStorage({ key: keyStorageVals, data: updatedVals });
+              const newField = {
+                ...el,
+                val: "",
+                id: v4(),
+              };
+              append(newField, { shouldFocus: true });
+
+              const updatedVals = {
+                ...getValues(),
+                items: [...(fields ?? []), newField],
+                ...getDefValsPagination(page, limit),
+              };
+
+              oldVals.current = cpyObj(updatedVals) as any;
+              saveStorage({ key: keyStorageVals, data: updatedVals });
 
               setIsDropOpen(false);
-              makeDelay(() => setFocus(`items.${i}.field`), 0);
             }}
             className="w-full hover:text-blue-600 el__flow cursor-pointer border-b-2 border-blue-600 p-2 last:border-b-0 el__flow"
           >

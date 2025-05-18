@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, ReactNode, useCallback, useEffect, useMemo } from "react";
+import { FC, ReactNode, useCallback } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
-import { BtnAct, FormFieldBasic, ItemFieldsArrType } from "@/types/types";
+import { BtnAct, FormFieldBasic } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { getDefValsPagination } from "@/core/lib/lib";
 import { useFieldArray, useFormContext } from "react-hook-form";
@@ -18,8 +18,8 @@ const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ trigger, children, txtInputs }) => {
-  const { updateValsNoDebounce } = useSearchCtx();
+const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
+  const { updateValsNoDebounce, setPreSubmit } = useSearchCtx();
   const {
     register,
     formState: { errors },
@@ -33,27 +33,32 @@ const TxtInputs: FC<PropsType> = ({ trigger, children, txtInputs }) => {
     name: "items",
   });
 
-  const arg = watch("items") ?? [];
+  const fields = watch("items");
 
   const handleRemove = useCallback(
-    (el: ItemFieldsArrType, i: number) => {
-      // const data = {
-      //   ...getValues(),
-      //   items: fields.filter((f) => f.id !== el.id),
-      //   ...getDefValsPagination(),
-      // };
+    (el: FormFieldBasic, i: number) => {
+      const argFb = fields ?? [];
+      const currVals = getValues();
+
+      const hasSenseFetch = currVals.items?.[i]?.val?.trim()?.length;
+      if (!hasSenseFetch) setPreSubmit({ el: "canMakeAPI", val: false });
+
       remove(i);
 
-      // if (!getValues(el.field)?.trim()?.length) return;
+      const data = {
+        ...currVals,
+        items: argFb.filter((f: FormFieldBasic) => f.id !== el.id),
+        ...getDefValsPagination(),
+      };
 
-      // updateValsNoDebounce({ vals: data, trigger });
+      if (hasSenseFetch) updateValsNoDebounce({ vals: data, trigger });
     },
-    [remove]
+    [remove, fields, getValues, trigger, updateValsNoDebounce, setPreSubmit]
   );
 
   return (
     <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
-      {arg.map((el: ItemFieldsArrType, i: number) => (
+      {(fields ?? []).map((el: FormFieldBasic, i: number) => (
         <div key={el?.id} className="w-full flex gap-5 sm:gap-10">
           <FormField
             {...({

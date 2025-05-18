@@ -10,8 +10,11 @@ export const makeParams = <T extends Record<string, any>>(formDataHook: T) => {
     } else if (typeof val === "number") {
       params.append(key, val + "");
     } else if (Array.isArray(val) && val.length) {
-      for (const el of val as string[]) {
-        params.append(key, el);
+      for (const el of val as Iterable<any>) {
+        if (typeof val === "string") params.append(key, el);
+        else if (typeof val === "object") {
+          params.append(el.field, el.val);
+        }
       }
     }
   }
