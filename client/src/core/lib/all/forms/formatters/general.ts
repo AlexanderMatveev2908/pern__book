@@ -11,7 +11,7 @@ export const makeParams = <T extends Record<string, any>>(formDataHook: T) => {
       params.append(key, val + "");
     } else if (Array.isArray(val) && val.length) {
       for (const el of val as string[]) {
-        params.append(`${key}[]`, el);
+        params.append(key, el);
       }
     }
   }

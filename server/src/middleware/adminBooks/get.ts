@@ -10,11 +10,20 @@ import {
 } from "../../config/regex.js";
 import { allOrNothingStr } from "../../lib/validateDataStructure.js";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { CatBookStore } from "../../types/all/bookStore.js";
+import { subcategories } from "../../types/all/books.js";
 
 export const validateGetBooksList = [
   ...checkPagination,
   check().custom((_, { req }) => {
-    for (const pair in Object.entries(req?.query ?? {})) {
+    const q = req?.query ?? {};
+    const params = Object.entries(q);
+
+    const currentMainCat = (
+      Array.isArray(q?.mainCategories) ? q?.mainCategories : [q?.mainCategories]
+    ).filter((el) => !!el);
+
+    for (const pair of params) {
       const k = pair[0];
       const v = pair[1];
 
@@ -43,9 +52,32 @@ export const validateGetBooksList = [
 
       if (k === "author" && !allOrNothingStr(REG_NAME, v))
         throw new Error("Invalid author");
-    }
 
-    return true;
+      if (k === "mainCategories") {
+        for (const cat of currentMainCat) {
+          if (!Object.values(CatBookStore).includes(cat as CatBookStore))
+            throw new Error("Invalid category");
+        }
+      }
+
+      if (k === "subCategories") {
+        if (!currentMainCat?.length) continue;
+
+        const currentSubCats = (Array.isArray(v) ? v : [v]).filter(
+          (el) => !!el
+        );
+
+        const acceptedCat = Object.entries(subcategories)
+          .filter(([k]) => currentMainCat?.includes(k))
+          .flatMap(([_, v]) => v.map((sub) => sub));
+        for (const sub of currentSubCats) {
+          if (!acceptedCat.includes(sub))
+            throw new Error("Invalid subcategory");
+        }
+      }
+
+      return true;
+    }
   }),
 
   handleValidator(422),

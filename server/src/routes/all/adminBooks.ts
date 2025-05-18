@@ -14,6 +14,7 @@ import { validatePostPutBooks } from "../../middleware/adminBooks/postPut.js";
 import { updateBook } from "../../controllers/adminBooks/put.js";
 import { deleteStore } from "../../controllers/adminBookStore/delete.js";
 import { deleteBook } from "../../controllers/adminBooks/delete.js";
+import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
 
 const adminBookRouter = express.Router();
 
@@ -27,7 +28,7 @@ adminBookRouter
     validatePostPutBooks,
     wrapApp(createBook)
   )
-  .get(wrapApp(logJSON), wrapApp(getBooksList));
+  .get(wrapApp(logJSON), validateGetBooksList, wrapApp(getBooksList));
 
 adminBookRouter.get("/info/:bookID", wrapApp(getInfoBook));
 
