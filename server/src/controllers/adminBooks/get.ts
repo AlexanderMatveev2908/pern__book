@@ -185,16 +185,16 @@ export const getPdf = async (req: ReqApp, res: Response): Promise<any> => {
     doc.moveDown(1.25);
 
     for (const s of stores) {
+      if (!s?.books?.length) continue;
+
       doc.fontSize(18).text(s.name, { align: "center" });
 
       doc.moveDown(0.5);
 
-      if (s.books?.length) {
-        for (const b of s.books) {
-          doc.fontSize(14).text(`${b.title} -- ${b.author} -- ${b.year}`, {
-            align: "center",
-          });
-        }
+      for (const b of s.books) {
+        doc.fontSize(14).text(`${b.title} -- ${b.author} -- ${b.year}`, {
+          align: "center",
+        });
       }
 
       doc.moveDown(1);
