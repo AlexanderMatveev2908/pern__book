@@ -19,6 +19,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { subcategories } from "@/types/all/books";
 import { v4 } from "uuid";
+import PdfBtn from "./components/PdfBtn";
 
 const BooksList: FC = () => {
   useScroll();
@@ -76,6 +77,8 @@ const BooksList: FC = () => {
             }}
           />
         </FormProvider>
+
+        <PdfBtn />
 
         <WrapperContentAPI {...{ formCtx, hook }}>
           <div className="parent__cards">
