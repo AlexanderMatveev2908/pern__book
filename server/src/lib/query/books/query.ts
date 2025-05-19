@@ -25,6 +25,16 @@ export const makeBooksQ = (req: ReqApp) => {
         queryBooks.id = q[key];
         break;
 
+      case "year":
+        queryBooks.year = q[key];
+
+      case "title":
+      case "author":
+        queryBooks[key] = {
+          [Op.iLike]: `%${q[key]}%`,
+        };
+        break;
+
       default:
         break;
     }

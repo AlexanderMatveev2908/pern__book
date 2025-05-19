@@ -50,10 +50,10 @@ export const useDebounceSearch = ({
       //    AT SET.TS:35
       // REACT-HOOK-FORM (AND REACT IN GENERAL) PROTECTS INTERNAL STATE BY FREEZING OR PROXYING IT.
 
-      const currVals = {
-        ...cpyObj(getValues()),
+      const currVals = cpyObj({
+        ...getValues(),
         ...getDefValsPagination(0, limit),
-      };
+      });
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       __cg("comparison", oldVals.current, currVals, isSame);
