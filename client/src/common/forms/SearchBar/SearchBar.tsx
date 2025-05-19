@@ -63,12 +63,12 @@ const SearchBar: FC<PropsType> = ({
   useFocus({ key: txtInputs[0].field, setFocus });
 
   useEffect(() => {
-    if (!res?.data && !res?.isFetching)
+    if (!res?.data && !res?.isLoading && !res?.isFetching)
       trigger({
         ...getValues(),
         ...getDefValsPagination(),
       });
-  }, [res?.data, res?.isFetching, getValues, trigger]);
+  }, [res?.data, res?.isLoading, res?.isFetching, getValues, trigger]);
 
   const realTimeVals = watch();
 

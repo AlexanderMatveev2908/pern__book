@@ -146,7 +146,7 @@ export const ownerBooksSorters = [
     icon: LuAlarmClock,
   },
   {
-    label: "Rating",
+    label: "Avg rating",
     field: "ratingSort",
     icon: FaRegStar,
   },

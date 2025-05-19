@@ -10,6 +10,7 @@ import { Review } from "../../models/all/Review.js";
 import { replacePoint } from "../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { makeBooksQ } from "../../lib/query/books/query.js";
+import { sortItems } from "../../lib/query/sort.js";
 
 const calcRatingSql = (): [Literal, string][] => [
   [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
@@ -142,6 +143,8 @@ export const getBooksList = async (
 
   const nHits = books.length;
   if (!nHits) return res204(res);
+
+  sortItems(req, books);
 
   const { skip, totPages, limit } = calcPagination(req, nHits);
 

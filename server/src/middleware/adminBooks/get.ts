@@ -30,10 +30,13 @@ export const validateGetBooksList = [
       if (k.includes("ID") && !allOrNothingStr(REG_ID, v))
         throw new Error("Invalid ID");
 
-      if (k.includes("qty") && !allOrNothingStr(REG_INT, v))
+      if (["minQty", "maxQty"].includes(k) && !allOrNothingStr(REG_INT, v))
         throw new Error("Invalid quantity");
 
-      if (k.includes("price") && !allOrNothingStr(REG_PRICE, v))
+      if (
+        ["minPrice", "maxPrice"].includes(k) &&
+        !allOrNothingStr(REG_PRICE, v)
+      )
         throw new Error("Invalid price");
 
       if (
