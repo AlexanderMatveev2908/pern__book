@@ -37,7 +37,6 @@ export const useClickSearch = ({
       ...getValues(),
       ...getDefValsPagination(0, limit),
     });
-    console.log(data);
 
     updateValsNoDebounce({ vals: data, trigger });
   }, [limit, getValues, setIsPending, trigger, updateValsNoDebounce]);
