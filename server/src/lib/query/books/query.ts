@@ -73,8 +73,32 @@ export const makeBooksQ = (req: ReqApp) => {
         break;
       }
 
-      case "price":
+      case "minPrice":
+        queryBooks.price = {
+          ...(queryBooks.price ?? {}),
+          [Op.gte]: v,
+        };
         break;
+      case "maxPrice":
+        queryBooks.price = {
+          ...(queryBooks.price ?? {}),
+          [Op.lte]: v,
+        };
+        break;
+
+      case "minQty":
+        queryBooks.qty = {
+          ...(queryBooks.qty ?? {}),
+          [Op.gte]: v,
+        };
+        break;
+      case "maxQty":
+        queryBooks.qty = {
+          ...(queryBooks.qty ?? {}),
+          [Op.lte]: v,
+        };
+        break;
+
       default:
         break;
     }
