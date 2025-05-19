@@ -112,17 +112,15 @@ export const getBooksList = async (
 ): Promise<any> => {
   const { userID } = req;
 
-  const { queryBooks } = makeBooksQ(req);
+  const { queryBooks, queryStores } = makeBooksQ(req);
 
   const books = await Book.findAll({
-    where: {},
+    where: queryBooks,
     include: [
       {
         model: BookStore,
         as: "store",
-        where: {
-          ownerID: userID,
-        },
+        where: queryStores,
         attributes: ["id", "name", "categories"],
         required: true,
       },

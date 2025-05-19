@@ -42,14 +42,14 @@ export const usePopulateSearch = ({
     setSearch({ el: "currFilter", val: filters[0] });
 
     const savedVals = getStorage(keyStorageVals);
-    const existingItems = cpyObj(getValues("items")) ?? [];
+    const existingItems = getValues("items") ?? [];
     const fallBackItems = [{ ...txtInputs[0], val: "", id: v4() }];
 
     if (!savedVals) {
-      const defVals = {
+      const defVals = cpyObj({
         items: existingItems.length ? existingItems : fallBackItems,
         ...getDefValsPagination(),
-      };
+      });
       setValue("items", defVals.items, { shouldValidate: true });
       oldVals.current = defVals;
       trigger(defVals);
@@ -57,8 +57,10 @@ export const usePopulateSearch = ({
       return;
     }
 
-    const parsed = JSON.parse(savedVals);
-    parsed.items = existingItems.length ? existingItems : fallBackItems;
+    const parsed = cpyObj({
+      ...JSON.parse(savedVals),
+      items: existingItems.length ? existingItems : fallBackItems,
+    });
 
     for (const key in parsed) {
       const val = parsed[key];

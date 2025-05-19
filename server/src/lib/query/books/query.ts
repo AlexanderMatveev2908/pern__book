@@ -17,6 +17,14 @@ export const makeBooksQ = (req: ReqApp) => {
         };
         break;
 
+      case "bookStoreID":
+        queryStores.id = q[key];
+        break;
+
+      case "ID":
+        queryBooks.id = q[key];
+        break;
+
       default:
         break;
     }
@@ -24,5 +32,6 @@ export const makeBooksQ = (req: ReqApp) => {
 
   return {
     queryBooks,
+    queryStores,
   };
 };

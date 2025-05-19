@@ -45,12 +45,12 @@ export const useClickSearch = ({
     setIsPending({ el: "clear", val: true });
 
     const defVals = {
-      items: [{ ...cpyObj(txtInputs[0]), id: v4(), val: "" }],
+      items: [{ ...txtInputs[0], id: v4(), val: "" }],
     };
-    const merged = {
+    const merged = cpyObj({
       ...defVals,
       ...getDefValsPagination(0),
-    };
+    });
 
     setPagination({ el: "page", val: 0 });
 

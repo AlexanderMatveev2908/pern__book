@@ -19,7 +19,7 @@ const removeFieldBtn = {
 };
 
 const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
-  const { updateValsNoDebounce, setPreSubmit } = useSearchCtx();
+  const { preSubmit, updateValsNoDebounce, setPreSubmit } = useSearchCtx();
   const {
     register,
     formState: { errors },
@@ -71,6 +71,10 @@ const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
               nestedIndex: {
                 index: i,
                 key: "val",
+              },
+              customCB: () => {
+                if (!preSubmit.canMakeAPI)
+                  setPreSubmit({ el: "canMakeAPI", val: true });
               },
             } as any)}
           />
