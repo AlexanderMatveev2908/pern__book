@@ -70,6 +70,7 @@ const SearchBar: FC<PropsType> = ({
     setValue: formCtx.setValue,
     filters,
     txtInputs,
+    getValues: formCtx.getValues,
   });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms

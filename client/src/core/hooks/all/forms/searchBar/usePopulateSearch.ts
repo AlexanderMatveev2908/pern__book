@@ -2,7 +2,12 @@
 import { cpyObj, getStorage } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect, useRef } from "react";
-import { FieldValues, Path, UseFormSetValue } from "react-hook-form";
+import {
+  FieldValues,
+  Path,
+  UseFormGetValues,
+  UseFormSetValue,
+} from "react-hook-form";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { getDefValsPagination } from "@/core/lib/lib";
@@ -14,12 +19,14 @@ type Params<T extends FieldValues> = {
   ctx: SearchCtxValsConsumer;
   setValue: UseFormSetValue<T>;
   trigger: any;
+  getValues: UseFormGetValues<T>;
 };
 export const usePopulateSearch = ({
   txtInputs,
   filters,
   ctx,
   setValue,
+  getValues,
   trigger,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
@@ -35,22 +42,23 @@ export const usePopulateSearch = ({
     setSearch({ el: "currFilter", val: filters[0] });
 
     const savedVals = getStorage(keyStorageVals);
-    const fallBackItems = { ...cpyObj(txtInputs[0]), val: "", id: v4() };
+    const existingItems = cpyObj(getValues("items")) ?? [];
+    const fallBackItems = [{ ...txtInputs[0], val: "", id: v4() }];
 
     if (!savedVals) {
       const defVals = {
-        items: [fallBackItems],
+        items: existingItems.length ? existingItems : fallBackItems,
         ...getDefValsPagination(),
       };
-      setValue("items", [fallBackItems], { shouldValidate: true });
-      oldVals.current = cpyObj(defVals) as any;
+      setValue("items", defVals.items, { shouldValidate: true });
+      oldVals.current = defVals;
       trigger(defVals);
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
 
     const parsed = JSON.parse(savedVals);
-    if (!parsed?.items?.length) parsed.items = [fallBackItems];
+    parsed.items = existingItems.length ? existingItems : fallBackItems;
 
     for (const key in parsed) {
       const val = parsed[key];
@@ -76,6 +84,7 @@ export const usePopulateSearch = ({
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
     trigger,
+    getValues,
     setValue,
     keyStorageVals,
     filters,

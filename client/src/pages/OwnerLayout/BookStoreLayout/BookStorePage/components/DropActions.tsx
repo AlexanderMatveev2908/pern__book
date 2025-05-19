@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import DropActionsAbs from "@/components/elements/cards/shared/DropActionsAbs";
 import {
   actionsBookStoreAdmin,
@@ -5,7 +6,7 @@ import {
   labelsBookStore,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
-import { countW } from "@/core/lib/lib";
+import { countW, cpyObj } from "@/core/lib/lib";
 import {
   closePopup,
   loadPop,
@@ -20,6 +21,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { manageDropLabelGeneral } from "./../../../../../core/config/fieldsData/general/labels";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
+import { fieldsInputsBooks } from "@/core/config/fieldsData/SearchBar/books";
+import { v4 } from "uuid";
 
 type PropsType = {
   bookStore?: BookStoreType;
@@ -29,7 +32,7 @@ type PropsType = {
 const DropActions: FC<PropsType> = ({ bookStore }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
 
-  const { createBookFormCtx } = useFormCtxConsumer();
+  const { createBookFormCtx, formOwnerBooksCtx } = useFormCtxConsumer();
   const nav = useNavigate();
 
   const dispatch: DispatchType = useDispatch();
@@ -82,9 +85,22 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
             createBookFormCtx.setValue("bookStoreID", bookStore?.id ?? "");
             return nav("/owner/books/add-book");
 
-          case KEY_MAP_STORE.BOOKS:
-            return nav("/owner/books/list");
+          case KEY_MAP_STORE.BOOKS: {
+            const { getValues, setValue } = formOwnerBooksCtx;
+            setValue("items", [
+              ...cpyObj(getValues("items") ?? []),
 
+              {
+                ...((fieldsInputsBooks.find(
+                  (el) => el.field === "bookStoreID"
+                ) ?? {}) as any),
+                id: v4(),
+                val: bookStore?.id ?? "",
+              },
+            ]);
+
+            return nav("/owner/books/list");
+          }
           default:
             return nav(labelsBookStore.get(key)!.path + bookStore?.id);
         }
