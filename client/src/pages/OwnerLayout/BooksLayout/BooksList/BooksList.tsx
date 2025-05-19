@@ -71,6 +71,7 @@ const BooksList: FC = () => {
               numericFilters: ownerBooksNumericFilters,
               handleSave,
               sorters: ownerBooksSorters,
+              // ? JUST A METAPHOR
               innerJoinCat: true,
             }}
           />
