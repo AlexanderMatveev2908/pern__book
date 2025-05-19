@@ -17,6 +17,9 @@ import InfoBookStoreWorker from "@/components/elements/cards/shared/InfoBookStor
 import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
+import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { TagsAPI } from "@/types/types";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -32,6 +35,12 @@ const BookStorePage: FC = () => {
 
   const ids = useCreateIds({
     lengths: [bookStore?.team?.length],
+  });
+
+  useClearCacheItem({
+    nameQ: "getSingleBook",
+    slice: booksSLiceAPI,
+    tag: TagsAPI.BOOK_OWNER,
   });
 
   return (

@@ -67,7 +67,7 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
 
             if (!res) return;
 
-            nav("/owner/book-store/book-stores", { replace: true });
+            nav("/", { replace: true });
           },
         },
       })

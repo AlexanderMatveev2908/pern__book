@@ -50,13 +50,13 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
       },
     }),
 
-    getInfoBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
-      query: (bookID: string) => ({
-        url: `${BASE_URL}/info/${bookID}`,
-        method: "GET",
-      }),
-      providesTags: [TagsAPI.BOOK_OWNER],
-    }),
+    // getInfoBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
+    //   query: (bookID: string) => ({
+    //     url: `${BASE_URL}/info/${bookID}`,
+    //     method: "GET",
+    //   }),
+    //   providesTags: [TagsAPI.BOOK_OWNER],
+    // }),
 
     updateBook: builder.mutation<
       BaseResAPI<void>,
@@ -90,9 +90,9 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
 
           dispatch(
             booksSLiceAPI.util.updateQueryData("getSingleBook", id, (draft) => {
-              draft.book = {
-                id: draft.book.id,
-              } as any;
+              // draft.book = {
+              //   id: draft.book.id,
+              // } as any;
               draft.ninja = "🥷🏼";
             })
           );

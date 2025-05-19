@@ -45,7 +45,7 @@ const DropActionsBook: FC<PropsType> = ({ book }) => {
 
               if (!res) return;
 
-              nav("/owner/books/list", { replace: true });
+              nav(`/owner/book-store/${book.bookStoreID}`, { replace: true });
             },
           },
           rightBtn: {

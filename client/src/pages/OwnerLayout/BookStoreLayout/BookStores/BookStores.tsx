@@ -12,8 +12,6 @@ import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
-import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
-import { TagsAPI } from "@/types/types";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { isArr } from "@/core/lib/lib";
@@ -31,12 +29,6 @@ const BookStores: FC = () => {
   // eslint-disable-next-line
   const [_, res] = hook;
   const { data: { bookStores } = {} } = res ?? {};
-
-  useClearCacheItem({
-    nameQ: "getBookStore",
-    slice: bookStoreSliceAPI,
-    tag: TagsAPI.BOOK_STORE,
-  });
 
   return (
     <WrapPageAPI

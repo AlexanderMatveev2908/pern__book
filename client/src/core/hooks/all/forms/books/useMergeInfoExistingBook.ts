@@ -12,7 +12,7 @@ export const useMergeInfoExistingBook = () => {
   const { user, stores, isSomeErr, someErr, someonePending } =
     useMergeInfoBookForm();
 
-  const res = booksSLiceAPI.endpoints.getInfoBook.useQuery(bookID!, {
+  const res = booksSLiceAPI.endpoints.getSingleBook.useQuery(bookID!, {
     skip: !isValidID,
   });
   const {

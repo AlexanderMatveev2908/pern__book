@@ -8,7 +8,7 @@ import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
-import { isSameData } from "@/core/lib/lib";
+import { __cg, isSameData } from "@/core/lib/lib";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useState, type FC } from "react";
@@ -98,16 +98,18 @@ const UpdateBook: FC = () => {
       const updated = keysForm.reduce((acc: any, curr) => {
         const val = vals[curr as keyof BookFormType];
 
-        acc[curr] = Array.isArray(val) ? val || null : val || null;
+        acc[curr] = Array.isArray(val)
+          ? val.length
+            ? val
+            : null
+          : val || null;
 
         return acc;
       }, {});
 
       const areSameVals = isSameData(original, updated);
 
-      // __cg("old", original);
-      // __cg("new", updated);
-      // __cg("same", isSame);
+      __cg("comparison", original, updated, isSame);
       if (areSameVals !== isSame) setIsSame(areSameVals);
     };
 
@@ -137,7 +139,7 @@ const UpdateBook: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        canStay: user?.isOwner && isValidID,
+        canStay: user?.hasBooks && isValidID,
         isLoading: isPending,
         isError: isErr,
         error,
