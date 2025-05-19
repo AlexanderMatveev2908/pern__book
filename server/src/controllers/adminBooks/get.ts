@@ -5,7 +5,7 @@ import { err404 } from "../../lib/responseClient/err.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
-import { literal } from "sequelize";
+import { literal, Op } from "sequelize";
 import { Review } from "../../models/all/Review.js";
 import { replacePoint } from "../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
@@ -112,7 +112,7 @@ export const getBooksList = async (
 ): Promise<any> => {
   const { userID } = req;
 
-  const { queryBooks, queryStores } = makeBooksQ(req);
+  const { queryBooks, queryStores, queryAfterPipe } = makeBooksQ(req);
 
   const books = await Book.findAll({
     where: queryBooks,
@@ -137,6 +137,7 @@ export const getBooksList = async (
         ...calcRatingSql(),
       ],
     },
+    having: queryAfterPipe,
   });
 
   const nHits = books.length;

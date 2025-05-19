@@ -38,7 +38,8 @@ export const useHandleErrSearch = ({
     const handleMainBtn = () => {
       const hasErr =
         !!Object.keys(errors ?? {}).length &&
-        Object.values(errors).every((el) => el?.message);
+        (Object.values(errors).every((el) => el?.message) ||
+          Object.values(errors?.items ?? []).every((el) => el?.val?.message));
 
       if (hasErr === hasFormErrs) return;
 

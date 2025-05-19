@@ -103,7 +103,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
                 ...getDefValsPagination(page, limit),
               });
 
-              oldVals.current = cpyObj(updatedVals) as any;
+              oldVals.current = updatedVals;
               saveStorage({ key: keyStorageVals, data: updatedVals });
 
               setIsDropOpen(false);

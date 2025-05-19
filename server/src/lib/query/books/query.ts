@@ -1,4 +1,4 @@
-import { Op, WhereOptions } from "sequelize";
+import { literal, Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
 import { isStr, parseArrFromStr } from "../../dataStructures.js";
 
@@ -9,6 +9,8 @@ export const makeBooksQ = (req: ReqApp) => {
     ownerID: userID,
   };
   const queryBooks: WhereOptions = {};
+  const queryRatings: WhereOptions = {};
+  const queryAfterPipe: any = {};
 
   for (const key in q) {
     const v = q[key];
@@ -52,6 +54,25 @@ export const makeBooksQ = (req: ReqApp) => {
         };
         break;
 
+      case "avgRating": {
+        const cond: any[] = [];
+        for (const opt of parseArrFromStr(v as string | string[])) {
+          const [min, max] = opt.split("-").map((el) => +el);
+
+          cond.push(
+            literal(`(SELECT COALESCE(AVG(r.rating), 0)
+                FROM "reviews" as r
+                WHERE r."bookID" = "Book"."id" 
+              ) BETWEEN ${min} AND ${max}`)
+          );
+        }
+        queryAfterPipe[Op.or] = [
+          ...(queryAfterPipe?.[Op.or]?.length ?? []),
+          ...cond,
+        ];
+        break;
+      }
+
       default:
         break;
     }
@@ -60,5 +81,6 @@ export const makeBooksQ = (req: ReqApp) => {
   return {
     queryBooks,
     queryStores,
+    queryAfterPipe,
   };
 };

@@ -4,7 +4,7 @@ import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import { getDefValsPagination } from "@/core/lib/lib";
+import { cpyObj, getDefValsPagination } from "@/core/lib/lib";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
@@ -45,11 +45,11 @@ const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
 
       remove(i);
 
-      const data = {
+      const data = cpyObj({
         ...currVals,
         items: argFb.filter((f: FormFieldBasic) => f.id !== el.id),
         ...getDefValsPagination(),
-      };
+      });
 
       if (hasSenseFetch) updateValsNoDebounce({ vals: data, trigger });
     },
