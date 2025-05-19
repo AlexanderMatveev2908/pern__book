@@ -54,6 +54,7 @@ export const useDebounceSearch = ({
         ...getValues(),
         ...getDefValsPagination(0, limit),
       });
+
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       __cg("comparison", oldVals.current, currVals, isSame);

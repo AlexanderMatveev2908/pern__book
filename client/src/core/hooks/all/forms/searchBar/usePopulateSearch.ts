@@ -57,9 +57,14 @@ export const usePopulateSearch = ({
       return;
     }
 
+    const storageData = JSON.parse(savedVals);
     const parsed = cpyObj({
-      ...JSON.parse(savedVals),
-      items: existingItems.length ? existingItems : fallBackItems,
+      ...storageData,
+      items: existingItems.length
+        ? existingItems
+        : storageData?.items?.length
+        ? storageData.items
+        : fallBackItems,
     });
 
     for (const key in parsed) {

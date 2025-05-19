@@ -14,7 +14,7 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItem from "./components/BookItem";
-import { useScroll } from "@/core/hooks/hooks";
+import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { subcategories } from "@/types/all/books";
@@ -31,7 +31,10 @@ const BooksList: FC = () => {
   const handleSave = handleSubmit(() => {});
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
-  const { data: { books } = {} } = hook[1];
+  const res = hook[1];
+  const { data: { books } = {} } = res;
+
+  useWrapQueryAPI({ ...res });
 
   useEffect(() => {
     const mainCat = mainCatRealTime ?? [];

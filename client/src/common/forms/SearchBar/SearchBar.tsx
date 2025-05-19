@@ -22,7 +22,7 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
-import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useFocus } from "@/core/hooks/hooks";
 
 // ? I LIKE THINKING OF WHAT I HAVE IN MIND LIKE A METAPHORIC INNER JOIN BUT ON FRONTEND CATEGORIES ITEMS AS STRINGS, IF U CHOSE THE MAIN CATEGORY AUTOMATICALLY WILL SEE THE SUB CATEGORIES
 
@@ -46,8 +46,6 @@ const SearchBar: FC<PropsType> = ({
   innerJoinCat,
 }) => {
   const [trigger, res] = hook;
-
-  useWrapQueryAPI({ ...res });
 
   const { isFetching } = res;
   const ctx = useSearchCtx();
