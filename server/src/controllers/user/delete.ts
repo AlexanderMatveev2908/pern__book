@@ -15,6 +15,7 @@ import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Thumb } from "../../models/all/img&video/Thumb.js";
 import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
+import { Book } from "../../models/all/Book.js";
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -85,6 +86,10 @@ export const deleteAccount = async (
         model: User,
         as: "team",
       },
+      {
+        model: Book,
+        as: "books",
+      },
     ],
   });
 
@@ -131,6 +136,13 @@ export const deleteAccount = async (
         if (typeof el.video === "object" && el.video !== null) {
           idsCloudVideo.push(el.video.publicID);
           await el.video.destroy({ transaction: t });
+        }
+        if (el.books?.length) {
+          for (const b of el.books) {
+            if (b.images?.length)
+              idsCloudImg.push(...b.images.map((img) => img.publicID));
+            await b.destroy({ transaction: t });
+          }
         }
         if (el.team?.length) {
           for (const jun of el.team) {
