@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useMemo } from "react";
+import { FC, useEffect, useMemo } from "react";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -22,7 +22,8 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
-import { useFocus } from "@/core/hooks/hooks";
+import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { getDefValsPagination } from "@/core/lib/lib";
 
 // ? I LIKE THINKING OF WHAT I HAVE IN MIND LIKE A METAPHORIC INNER JOIN BUT ON FRONTEND CATEGORIES ITEMS AS STRINGS, IF U CHOSE THE MAIN CATEGORY AUTOMATICALLY WILL SEE THE SUB CATEGORIES
 
@@ -47,6 +48,8 @@ const SearchBar: FC<PropsType> = ({
 }) => {
   const [trigger, res] = hook;
 
+  useWrapQueryAPI({ ...res });
+
   const { isFetching } = res;
   const ctx = useSearchCtx();
   const {
@@ -56,8 +59,16 @@ const SearchBar: FC<PropsType> = ({
   } = ctx;
 
   const formCtx = useFormContext();
-  const { watch, setFocus } = formCtx;
+  const { watch, setFocus, getValues } = formCtx;
   useFocus({ key: txtInputs[0].field, setFocus });
+
+  useEffect(() => {
+    if (!res?.data && !res?.isFetching)
+      trigger({
+        ...getValues(),
+        ...getDefValsPagination(),
+      });
+  }, [res?.data, res?.isFetching, getValues, trigger]);
 
   const realTimeVals = watch();
 

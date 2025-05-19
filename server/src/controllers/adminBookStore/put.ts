@@ -16,17 +16,30 @@ import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Op } from "sequelize";
 import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
+import { Book } from "../../models/all/Book.js";
+import { subcategories } from "../../types/all/books.js";
+
+const choseRandom = () => Math.floor(Math.random() * 3);
 
 export const updateBookStore = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
+  const { userID } = req;
   const { bookStoreID } = req.params;
   const bodyData: Partial<BookStoreInstance> = req.body;
 
   const { videoData, imagesData } = (await handleAssetsCloud(req)) ?? {};
 
-  const bookStore = await getStoreByID(req);
+  const bookStore = await BookStore.findOne({
+    where: { ownerID: userID, id: bookStoreID },
+    include: [
+      { model: ImgBookStore, as: "images" },
+      { model: VideoBookStore, as: "video" },
+      { model: Book, as: "books" },
+    ],
+    nest: true,
+  });
 
   if (!bookStore) {
     await clearUnnecessary(videoData!, imagesData!);
@@ -57,6 +70,31 @@ export const updateBookStore = async (
         transaction: t,
       }
     );
+
+    if (bookStore.books?.length) {
+      const newMainCategories = mandatoryObj.categories;
+
+      for (const b of bookStore.books) {
+        const newSubCategoriesChildren: string[] = [];
+
+        for (const cat of newMainCategories as string[]) {
+          newSubCategoriesChildren.push(
+            subcategories[cat as keyof typeof subcategories][choseRandom()]
+          );
+        }
+
+        await Book.update(
+          {
+            categories: newSubCategoriesChildren,
+          },
+          {
+            where: {
+              id: b.id,
+            },
+          }
+        );
+      }
+    }
 
     const newTeam = await makeTeam(bodyData);
     const oldEmails = new Set(oldTeam.map((member) => member.userEmail));

@@ -7,7 +7,7 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useScroll } from "@/core/hooks/hooks";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItem from "./components/BookStoreItem";
@@ -31,8 +31,6 @@ const BookStores: FC = () => {
   // eslint-disable-next-line
   const [_, res] = hook;
   const { data: { bookStores } = {} } = res ?? {};
-
-  useWrapQueryAPI({ ...res });
 
   useClearCacheItem({
     nameQ: "getBookStore",
