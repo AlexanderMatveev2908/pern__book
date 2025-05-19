@@ -9,16 +9,40 @@ import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { Op } from "sequelize";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
+import { BookStore } from "../../models/all/BookStore.js";
+import { Book } from "../../models/all/Book.js";
+import { User } from "../../models/models.js";
 
 export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
-  const bookStore = await getStoreByID(req);
+  const { userID } = req;
+  const { bookStoreID } = req.params;
+
+  const bookStore = await BookStore.findOne({
+    where: {
+      ownerID: userID,
+      id: bookStoreID,
+    },
+    include: [
+      {
+        model: ImgBookStore,
+        as: "images",
+      },
+      {
+        model: VideoBookStore,
+        as: "video",
+      },
+      {
+        model: User,
+        as: "team",
+      },
+      {
+        model: Book,
+        as: "books",
+      },
+    ],
+  });
 
   if (!bookStore) return err404(res, { msg: "bookstore not found" });
-  const team = await BookStoreUser.findAll({
-    where: {
-      bookStoreID: bookStore.id,
-    },
-  });
 
   const t = await seq.transaction();
 
@@ -37,12 +61,20 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
         },
         transaction: t,
       });
-    if (team.length)
+    if (bookStore?.team?.length)
       await BookStoreUser.destroy({
         where: {
           bookStoreID: bookStore.id,
         },
         transaction: t,
+      });
+    if (bookStore?.books?.length)
+      await Book.destroy({
+        where: {
+          id: {
+            [Op.in]: bookStore.books.map((el) => el.id),
+          },
+        },
       });
 
     await bookStore.destroy({ transaction: t });
@@ -55,6 +87,14 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
       if (bookStore?.images?.length)
         await Promise.all(
           bookStore.images.map(async (el) => await delCloud(el.publicID))
+        );
+      if (bookStore?.books?.length)
+        await Promise.all(
+          bookStore.books.flatMap((book) =>
+            book.images?.length
+              ? book.images.flatMap(async (img) => await delCloud(img.publicID))
+              : []
+          )
         );
     } catch (err) {
       console.log(err);
