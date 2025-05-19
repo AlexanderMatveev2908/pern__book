@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
 import { BookStore } from "../../models/all/BookStore.js";
-import { err404 } from "../../lib/responseClient/err.js";
+import { err404, err500 } from "../../lib/responseClient/err.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
@@ -11,6 +11,7 @@ import { replacePoint } from "../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { makeBooksQ } from "../../lib/query/books/query.js";
 import { sortItems } from "../../lib/query/sort.js";
+import PDFDocument from "pdfkit";
 
 const calcRatingSql = (): [Literal, string][] => [
   [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
@@ -151,4 +152,54 @@ export const getBooksList = async (
   const paginated = books.slice(skip, skip + limit);
 
   return res200(res, { books: paginated, nHits, totPages });
+};
+
+export const getPdf = async (req: ReqApp, res: Response): Promise<any> => {
+  const { userID } = req;
+
+  const stores = await BookStore.findAll({
+    where: {
+      ownerID: userID,
+    },
+    include: [
+      {
+        model: Book,
+        as: "books",
+      },
+    ],
+  });
+
+  if (!stores.length) return res204(res);
+
+  const doc = new PDFDocument({
+    autoFirstPage: true,
+  });
+
+  try {
+    res.setHeader("Content-Type", "application/pdf");
+    res.setHeader("Content-Disposition", `inline; filename="books.pdf"`);
+    doc.pipe(res);
+
+    doc.fontSize(24).text("List of books", { align: "center" });
+
+    for (const s of stores) {
+      doc.fontSize(18).text(s.name, { align: "center" });
+
+      if (s.books?.length) {
+        for (const b of s.books) {
+          doc
+            .fontSize(14)
+            .text(`${b.title} -- ${b.author} -- ${b.year}`, {
+              align: "center",
+            });
+        }
+      }
+    }
+
+    doc.end();
+  } catch (err) {
+    console.log(err);
+
+    return err500(res);
+  }
 };

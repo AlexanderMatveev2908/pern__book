@@ -5,6 +5,7 @@ import {
   getBooksList,
   getInfoBook,
   getMyBook,
+  getPdf,
   getStoreInfo,
 } from "../../controllers/adminBooks/get.js";
 import { logJSON } from "../../lib/utils/log.js";
@@ -19,6 +20,8 @@ import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
 const adminBookRouter = express.Router();
 
 adminBookRouter.get("/stores-info", wrapApp(getStoreInfo));
+
+adminBookRouter.get("/pdf", wrapApp(getPdf));
 
 adminBookRouter
   .route("/")
