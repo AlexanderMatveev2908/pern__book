@@ -1,5 +1,6 @@
 import { Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
+import { isStr, parseArrFromStr } from "../../dataStructures.js";
 
 export const makeBooksQ = (req: ReqApp) => {
   const { userID } = req;
@@ -10,28 +11,44 @@ export const makeBooksQ = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};
 
   for (const key in q) {
+    const v = q[key];
+    if ((typeof v === "string" && !isStr(v)) || (Array.isArray(v) && !v.length))
+      continue;
+
     switch (key) {
       case "bookStoreName":
         queryStores.name = {
-          [Op.iLike]: `%${q[key]}%`,
+          [Op.iLike]: `%${v}%`,
         };
         break;
 
       case "bookStoreID":
-        queryStores.id = q[key];
+        queryStores.id = v;
         break;
 
       case "ID":
-        queryBooks.id = q[key];
+        queryBooks.id = v;
         break;
 
       case "year":
-        queryBooks.year = q[key];
+        queryBooks.year = v;
 
       case "title":
       case "author":
         queryBooks[key] = {
-          [Op.iLike]: `%${q[key]}%`,
+          [Op.iLike]: `%${v}%`,
+        };
+        break;
+
+      case "mainCategories":
+        queryStores.categories = {
+          [Op.contains]: parseArrFromStr(v as string | string[]),
+        };
+        break;
+
+      case "subCategories":
+        queryBooks.categories = {
+          [Op.contains]: parseArrFromStr(v as string | string[]),
         };
         break;
 
