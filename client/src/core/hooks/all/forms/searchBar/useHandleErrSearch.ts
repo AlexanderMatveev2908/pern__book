@@ -51,24 +51,31 @@ export const useHandleErrSearch = ({
 
   // * OPEN BAR ON ERROR INSIDE IT
   useEffect(() => {
-    if (isDirty && numericFilters?.length) {
-      const { currArr, currEl } =
-        getErrFooterBar({
+    if (hasWarningRun.current || !isPopulated) return;
+
+    const timerID = setTimeout(() => {
+      if (isDirty && numericFilters?.length) {
+        const res = getErrFooterBar({
           errs: errors,
           numericFilters,
-        }) ?? {};
+        });
 
-      if (!isPopulated || !currArr || hasWarningRun.current) return;
+        if (typeof res === "object") hasWarningRun.current = true;
 
-      hasWarningRun.current = true;
+        const { currArr, currEl } = res ?? {};
 
-      setBar({ el: "filterBar", val: true });
-      setSearch({ el: "currFilter", val: currArr });
-      if (currEl)
-        makeDelay(() => {
-          setFocus(currEl.field);
-        }, 400);
-    }
+        if (!currArr) return;
+
+        setBar({ el: "filterBar", val: true });
+        setSearch({ el: "currFilter", val: currArr });
+        if (currEl)
+          makeDelay(() => {
+            setFocus(currEl.field);
+          }, 400);
+      }
+    }, 1000);
+
+    return () => clearTimeout(timerID);
   }, [
     isPopulated,
     isDirty,

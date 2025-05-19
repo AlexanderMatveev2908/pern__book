@@ -8,16 +8,17 @@ export const getErrFooterBar = ({
   errs: FieldErrors;
   numericFilters?: NumericFilterSearch[];
 }) => {
-  if (!numericFilters) return null;
-
   const keysErr = Object.keys(errs);
   let i = 0;
+
+  if (!numericFilters?.length || !keysErr.length) return null;
 
   do {
     const currArr = numericFilters[i];
     let j = 0;
     do {
       const currEl = currArr.fields[j];
+
       if (keysErr.includes(currEl.field) && errs[currEl.field]?.message)
         return {
           currArr,

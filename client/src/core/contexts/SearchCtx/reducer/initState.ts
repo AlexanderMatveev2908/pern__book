@@ -1,11 +1,7 @@
-import {
-  FilterSearch,
-  FormFieldBasic,
-  NumericFilterSearch,
-  ReqQueryAPI,
-} from "@/types/types";
+import { FilterSearch, NumericFilterSearch, ReqQueryAPI } from "@/types/types";
 import { SearchStoreFormType } from "../../FormsCtx/hooks/useFormsCtxProvider";
 import { setLimitCards } from "@/core/lib/lib";
+import { ParamsErrNumber } from "./actions";
 
 export type ArgsSearchType = ReqQueryAPI<
   SearchStoreFormType | { a: "test" }
@@ -39,10 +35,7 @@ export type SearchCtxStateType = {
     hasFormErrs: boolean;
     isPopulated: boolean;
     canMakeAPI: boolean;
-    errNumbers: null | {
-      currArr: NumericFilterSearch;
-      currEl: FormFieldBasic;
-    };
+    errNumbers: ParamsErrNumber;
   };
 };
 

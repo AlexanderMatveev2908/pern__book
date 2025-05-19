@@ -73,6 +73,8 @@ export const makeBooksQ = (req: ReqApp) => {
         break;
       }
 
+      case "price":
+        break;
       default:
         break;
     }
