@@ -62,13 +62,19 @@ const SearchBar: FC<PropsType> = ({
   const { watch, setFocus, getValues } = formCtx;
   useFocus({ key: txtInputs[0].field, setFocus });
 
+  const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {
-    if (!res?.data && !res?.isLoading && !res?.isFetching)
+    if (
+      [isLoading, isReloading, isError, Object.keys(data ?? {}).length].every(
+        (val) => !val
+      ) &&
+      isPopulated
+    )
       trigger({
         ...getValues(),
         ...getDefValsPagination(),
       });
-  }, [res?.data, res?.isLoading, res?.isFetching, getValues, trigger]);
+  }, [isLoading, isReloading, data, isError, getValues, trigger, isPopulated]);
 
   const realTimeVals = watch();
 

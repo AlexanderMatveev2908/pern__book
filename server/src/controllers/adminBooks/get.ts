@@ -112,8 +112,6 @@ export const getBooksList = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  const { userID } = req;
-
   const { queryBooks, queryStores, queryAfterPipe } = makeBooksQ(req);
 
   const books = await Book.findAll({
