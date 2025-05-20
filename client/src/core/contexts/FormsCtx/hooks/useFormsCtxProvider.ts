@@ -1,9 +1,9 @@
 import { useForm } from "react-hook-form";
-import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/store";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
-import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/books";
+import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/store";
+import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 
 export type SearchStoreFormType = z.infer<typeof searchBarStore>;
 export type BookFormType = z.infer<typeof schemaBookForm>;
@@ -24,6 +24,11 @@ export const useFormsCtxProvider = () => {
     resolver: zodResolver(schemaSearchBooks),
     mode: "onChange",
   });
+
+  // const formWorkerBookStores = useForm<>({
+  //   resolver: zodResolver(),
+  //   mode: "onChange",
+  // });
 
   return {
     formOwnerStoresCtx,

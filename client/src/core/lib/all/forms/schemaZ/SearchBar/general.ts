@@ -1,8 +1,35 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { REG_ID, REG_INT, REG_PRICE } from "@/core/config/regex";
+import {
+  REG_CITY,
+  REG_COUNTRY,
+  REG_ID,
+  REG_INT,
+  REG_PRICE,
+  REG_STATE,
+  REG_STORE_NAME,
+} from "@/core/config/regex";
 import { isStr } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { z } from "zod";
+
+export const baseOptItemSchemaStore = {
+  name: {
+    reg: REG_STORE_NAME,
+    maxLen: 50,
+  },
+  country: {
+    reg: REG_COUNTRY,
+    maxLen: 50,
+  },
+  state: {
+    reg: REG_STATE,
+    maxLen: 50,
+  },
+  city: {
+    reg: REG_CITY,
+    maxLen: 50,
+  },
+};
 
 export const schemaID = () =>
   z

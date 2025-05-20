@@ -12,7 +12,7 @@ import {
   schemaInt,
   itemsSchema,
   handleRefineItem,
-} from "./general";
+} from "../general.ts";
 import { CatBookStore } from "@/types/all/bookStore";
 import { categoriesBooks } from "@/types/all/books";
 

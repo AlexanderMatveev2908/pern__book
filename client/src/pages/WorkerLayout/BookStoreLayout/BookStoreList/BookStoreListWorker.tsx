@@ -10,7 +10,11 @@ const BookStoreListWorker: FC = () => {
 
   useWrapQueryAPI({ ...res });
 
-  return <WrapPageAPI {...{ isLoading: res?.isLoading }}></WrapPageAPI>;
+  return (
+    <WrapPageAPI {...{ isLoading: res?.isLoading }}>
+      <div className="parent__page -mb-[175px]"></div>
+    </WrapPageAPI>
+  );
 };
 
 export default BookStoreListWorker;

@@ -1,21 +1,16 @@
 import { ratingRanges } from "@/core/config/fieldsData/SearchBar/general";
-import {
-  REG_CITY,
-  REG_COUNTRY,
-  REG_ID,
-  REG_STATE,
-  REG_STORE_NAME,
-} from "@/core/config/regex";
+import { REG_ID } from "@/core/config/regex";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";
-import { isValidNumber } from "../../../utils/dataStructures";
 import {
   schemaPrice,
   schemaInt,
   itemsSchema,
   handleRefineItem,
-} from "./general";
+  baseOptItemSchemaStore,
+} from "../general.ts";
+import { isValidNumber } from "@/core/lib/lib.ts";
 
 export const msgsFormStore = {
   price: {
@@ -35,25 +30,10 @@ export const msgsFormStore = {
 const allowedKeys = ["name", "ID", "country", "state", "city"];
 
 const optItem = {
-  name: {
-    reg: REG_STORE_NAME,
-    maxLen: 50,
-  },
+  ...baseOptItemSchemaStore,
   ID: {
     reg: REG_ID,
     maxLen: 36,
-  },
-  country: {
-    reg: REG_COUNTRY,
-    maxLen: 50,
-  },
-  state: {
-    reg: REG_STATE,
-    maxLen: 50,
-  },
-  city: {
-    reg: REG_CITY,
-    maxLen: 50,
   },
 };
 
