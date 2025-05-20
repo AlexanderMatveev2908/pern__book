@@ -1,6 +1,6 @@
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BaseResAPI } from "@/types/types";
+import { BaseResAPI, ResPaginationAPI } from "@/types/types";
 
 const BASE_URL = "/worker/book-stores";
 
@@ -9,7 +9,7 @@ const BASE_URL = "/worker/book-stores";
 export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllStoresWorker: builder.query<
-      BaseResAPI<{ bookStores: BookStoreType[] }>,
+      BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreType[] }>>,
       void
     >({
       query: () => ({

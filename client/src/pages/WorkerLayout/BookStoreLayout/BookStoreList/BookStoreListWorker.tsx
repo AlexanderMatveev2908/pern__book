@@ -1,5 +1,6 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
   fieldsSearchStoreWorker,
   numericFiltersStoreWorker,
@@ -8,7 +9,7 @@ import {
 } from "@/core/config/fieldsData/SearchBar/worker/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useScroll } from "@/core/hooks/hooks";
-import { __cg } from "@/core/lib/lib";
+import { __cg, isArr } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -28,6 +29,7 @@ const BookStoreListWorker: FC = () => {
     bookStoresWorkerSliceAPI.endpoints.getAllStoresWorker.useLazyQuery();
   // eslint-disable-next-line
   const [_, res] = hook;
+  const { data: { bookStores } = {} } = res ?? {};
 
   return (
     <WrapPageAPI {...{ isLoading: res?.isLoading }}>
@@ -44,6 +46,10 @@ const BookStoreListWorker: FC = () => {
             }}
           />
         </FormProvider>
+
+        <WrapperContentAPI {...{ formCtx, hook }}>
+          <div className="parent__cards"></div>
+        </WrapperContentAPI>
       </div>
     </WrapPageAPI>
   );
