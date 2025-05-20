@@ -30,6 +30,7 @@ import BooksOwnerLayout from "./layouts/OwnerLayout/BooksOwnerLayout";
 import BooksList from "./pages/OwnerLayout/BooksLayout/BooksList/BooksList";
 import UpdateBook from "./pages/OwnerLayout/BooksLayout/UpdateBook/UpdateBook";
 import BookPage from "./pages/OwnerLayout/BooksLayout/BookPage/BookPage";
+import { doA, TestA } from "@shared/a";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -39,6 +40,13 @@ const App: FC = () => {
   }, [navigate]);
 
   useNinjaToken();
+
+  const b: TestA = {
+    a: null,
+  };
+  console.log(b);
+
+  console.log(doA());
 
   return (
     <Routes>
