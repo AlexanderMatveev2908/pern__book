@@ -91,7 +91,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   return !items?.length ? null : (
     <div className="w-full flex justify-center">
-      <div className="w-full grid text-[whitesmoke] relative slider">
+      <div className="w-full grid text-[whitesmoke] relative">
         <button onClick={decSlide} className={`btn__hero group -left-[20px]`}>
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>

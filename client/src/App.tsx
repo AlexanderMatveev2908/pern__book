@@ -31,6 +31,8 @@ import BooksList from "./pages/OwnerLayout/BooksLayout/BooksList/BooksList";
 import UpdateBook from "./pages/OwnerLayout/BooksLayout/UpdateBook/UpdateBook";
 import BookPage from "./pages/OwnerLayout/BooksLayout/BookPage/BookPage";
 import WorkerLayout from "./layouts/WorkerLayout/WorkerLayout";
+import BookStoresLayoutWorker from "./layouts/WorkerLayout/BookStoresLayoutWorker";
+import BookStoreListWorker from "./pages/WorkerLayout/BookStoreLayout/BookStoreList/BookStoreListWorker";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -121,7 +123,11 @@ const App: FC = () => {
           </Route>
         </Route>
 
-        <Route path="worker" element={<WorkerLayout />}></Route>
+        <Route path="worker" element={<WorkerLayout />}>
+          <Route path="book-stores" element={<BookStoresLayoutWorker />}>
+            <Route path="list" element={<BookStoreListWorker />} />
+          </Route>
+        </Route>
 
         <Route path="notice" element={<Notice />} />
         <Route path="verify-cb" element={<VerifyCb />} />
