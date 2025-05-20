@@ -34,6 +34,7 @@ export const makeBooksQ = (req: ReqApp) => {
 
       case "year":
         queryBooks.year = v;
+        break;
 
       case "title":
       case "author":

@@ -6,6 +6,7 @@ import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
   calcBlockBySize,
+  cpyObj,
   getNumBtns,
   makeDelay,
   saveStorage,
@@ -30,6 +31,7 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
     preSubmit: { hasFormErrs },
     pagination: { page, limit },
     setPagination,
+    oldVals,
   } = useSearchCtx();
   const { keyStorageVals } = useGetSearchKeysStorage();
 
@@ -46,11 +48,12 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
 
       setPagination({ el: (page ?? limit) as "limit" | "page", val });
 
-      const data = {
+      const data = cpyObj({
         ...getValues(),
         page: page ? val : 0,
         limit: limit ? val : setLimitCards(),
-      };
+      });
+      oldVals.current = data;
       trigger(data);
 
       saveStorage({
@@ -58,7 +61,7 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
         data,
       });
     },
-    [setPreSubmit, trigger, keyStorageVals, setPagination, getValues]
+    [setPreSubmit, trigger, keyStorageVals, oldVals, setPagination, getValues]
   );
 
   const setPagPreventFetch = useCallback(
