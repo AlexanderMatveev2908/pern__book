@@ -30,6 +30,7 @@ import BooksOwnerLayout from "./layouts/OwnerLayout/BooksOwnerLayout";
 import BooksList from "./pages/OwnerLayout/BooksLayout/BooksList/BooksList";
 import UpdateBook from "./pages/OwnerLayout/BooksLayout/UpdateBook/UpdateBook";
 import BookPage from "./pages/OwnerLayout/BooksLayout/BookPage/BookPage";
+import WorkerLayout from "./layouts/WorkerLayout/WorkerLayout";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -119,6 +120,8 @@ const App: FC = () => {
             <Route path=":bookID" element={<BookPage />} />
           </Route>
         </Route>
+
+        <Route path="worker" element={<WorkerLayout />}></Route>
 
         <Route path="notice" element={<Notice />} />
         <Route path="verify-cb" element={<VerifyCb />} />

@@ -99,7 +99,7 @@ export const sideFieldsWorker: SideFieldType[] = [
   {
     label: "Bookstores",
     icon: HiLibrary,
-    path: "/worker/book-stores",
+    path: "/worker/book-stores/list",
   },
 ].map((el) => ({
   ...el,
