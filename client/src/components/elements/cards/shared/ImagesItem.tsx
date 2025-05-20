@@ -1,5 +1,6 @@
 import { AssetCloudType } from "@/types/types";
 import { FC } from "react";
+import ImgLoaderHandler from "./ImgLoaderHandler/ImgLoaderHandler";
 
 type PropsType = {
   images?: AssetCloudType[] | null;
@@ -14,7 +15,7 @@ const ImagesItem: FC<PropsType> = ({ images }) => {
             key={el.publicID}
             className="w-full min-w-[150px] max-w-[150px] max-h-[150px] rounded-xl overflow-hidden border-2 border-neutral-800 snap-center sm:min-w-[200px] sm:max-w-[200px] sm:max-h-[200px] sm:min-h-[200px]"
           >
-            <img src={el.url} alt="" className="w-full h-full object-cover" />
+            <ImgLoaderHandler {...{ url: el.url }} />
           </div>
         ))}
       </div>

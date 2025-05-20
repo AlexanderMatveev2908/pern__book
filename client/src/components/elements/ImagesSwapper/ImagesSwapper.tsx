@@ -3,6 +3,7 @@ import { AssetCloudType } from "@/types/types";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import "./ImagesSwapper.css";
+import ImgLoaderHandler from "../cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 
 type HeroImage = {
   id: string;
@@ -107,16 +108,17 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
             }}
           >
             <>
-              {items.map((el, i) => (
+              {items.map((el) => (
                 <div
                   key={el.id}
                   className="rounded-xl overflow-hidden"
                   style={{ width: wImg, height: wImg }}
                 >
-                  <img
-                    src={(el as AssetCloudType)?.url ?? (el as HeroImage).src}
-                    alt={`img__${i}`}
-                    className="w-full h-full object-cover"
+                  <ImgLoaderHandler
+                    {...{
+                      url:
+                        (el as AssetCloudType)?.url ?? (el as HeroImage)?.src,
+                    }}
                   />
                 </div>
               ))}
