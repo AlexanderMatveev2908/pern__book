@@ -14,7 +14,7 @@ import { FormFieldBasic } from "@/types/types";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 
 type Params<T extends FieldValues> = {
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
   realTimeVals: T;
   ctx: SearchCtxValsConsumer;
   getValues: UseFormGetValues<T>;

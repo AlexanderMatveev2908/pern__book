@@ -13,10 +13,10 @@ import BtnResults from "./components/BtnResults";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
-  filters: FilterSearch[];
+  filters?: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
   hook: any;
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
   innerJoinCat?: boolean;
 };
 

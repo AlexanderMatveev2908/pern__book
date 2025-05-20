@@ -5,7 +5,7 @@ import {
   numericFiltersStore,
   sorterStore,
   storeFilters,
-} from "@/core/config/fieldsData/SearchBar/store";
+} from "@/core/config/fieldsData/SearchBar/owner/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useScroll } from "@/core/hooks/hooks";
 import { FC } from "react";

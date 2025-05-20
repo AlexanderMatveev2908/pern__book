@@ -9,7 +9,7 @@ import CLearBtn from "../../Buttons/components/ClearBtn";
 
 type PropsType = {
   res: any;
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
   trigger: any;
 };
 

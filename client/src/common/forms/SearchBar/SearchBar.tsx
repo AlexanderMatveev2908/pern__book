@@ -30,9 +30,9 @@ import { getDefValsPagination } from "@/core/lib/lib";
 type PropsType = {
   hook: any;
   handleSave: () => void;
-  txtInputs: FormFieldBasic[];
-  filters: FilterSearch[];
-  sorters: SorterSearch[];
+  txtInputs?: FormFieldBasic[];
+  filters?: FilterSearch[];
+  sorters?: SorterSearch[];
   numericFilters?: NumericFilterSearch[];
   innerJoinCat?: boolean;
 };
@@ -60,7 +60,7 @@ const SearchBar: FC<PropsType> = ({
 
   const formCtx = useFormContext();
   const { watch, setFocus, getValues } = formCtx;
-  useFocus({ key: txtInputs[0].field, setFocus });
+  useFocus({ key: txtInputs?.[0].field, setFocus });
 
   const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {

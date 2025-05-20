@@ -3,6 +3,7 @@ import {
   baseOptItemSchemaStore,
   generalFiltersStoreSchema,
   handleRefineItem,
+  handleValidationAvgValsStore,
   itemsSchema,
 } from "../general";
 
@@ -14,6 +15,10 @@ const itemSchema = z
     handleRefineItem({ item, optItem: { ...baseOptItemSchemaStore }, ctx });
   });
 
-export const schemaWorkerStores = generalFiltersStoreSchema.extend({
-  items: z.array(itemSchema).optional(),
-});
+export const schemaWorkerStores = generalFiltersStoreSchema
+  .extend({
+    items: z.array(itemSchema).optional(),
+  })
+  .superRefine((data, ctx) => {
+    handleValidationAvgValsStore({ data, ctx });
+  });

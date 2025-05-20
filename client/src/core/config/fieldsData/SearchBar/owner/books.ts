@@ -4,10 +4,10 @@ import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { FaDatabase, FaRegStar } from "react-icons/fa";
 import { MdOutlineCategory } from "react-icons/md";
 import { v4 } from "uuid";
-import { addSortFields, ratingRanges } from "./general";
 import { TbPigMoney } from "react-icons/tb";
 import { LuAlarmClock } from "react-icons/lu";
 import { CatBookStore } from "@/types/all/bookStore";
+import { addSortFields, ratingRanges } from "../general";
 
 export const fieldsInputsBooks = [
   {

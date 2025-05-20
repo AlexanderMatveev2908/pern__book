@@ -11,7 +11,7 @@ import {
   filtersDelivery,
   filtersOrders,
   filtersRating,
-} from "./general";
+} from "../general";
 import { FaDatabase, FaRegStar, FaUsers } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
 import { LuAlarmClock } from "react-icons/lu";

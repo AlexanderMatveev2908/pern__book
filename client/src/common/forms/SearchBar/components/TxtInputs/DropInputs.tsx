@@ -10,7 +10,7 @@ import { FaSearchPlus } from "react-icons/fa";
 import { v4 } from "uuid";
 
 type PropsType = {
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
 };
 
 const addFieldBtn = {
@@ -52,14 +52,14 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
     const itemsFb = fields ?? [];
 
     const active = new Set(itemsFb.map((el: FormFieldBasic) => el?.field));
-    const filtered = txtInputs.filter((el) => !active.has(el.field));
+    const filtered = (txtInputs ?? []).filter((el) => !active.has(el.field));
     return filtered;
   }, [fields, txtInputs]);
 
   const showNothing = useMemo(() => {
     if (
-      txtInputs.length === fields?.length &&
-      [txtInputs.length, fields.length].every((el) => !!el)
+      txtInputs?.length === fields?.length &&
+      [txtInputs?.length, fields.length].every((el) => !!el)
     )
       return true;
   }, [txtInputs, fields]);

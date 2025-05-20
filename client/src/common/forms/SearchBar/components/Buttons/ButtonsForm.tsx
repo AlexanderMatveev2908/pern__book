@@ -13,7 +13,7 @@ import CLearBtn from "./components/ClearBtn";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
   numericFilters?: NumericFilterSearch[];
   res: any;
   trigger: any;

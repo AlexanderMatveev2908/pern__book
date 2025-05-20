@@ -1,12 +1,6 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
-import {
-  fieldsInputsBooks,
-  ownerBooksFilters,
-  ownerBooksNumericFilters,
-  ownerBooksSorters,
-} from "@/core/config/fieldsData/SearchBar/books";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { __cg, captAll, isArr } from "@/core/lib/lib";
@@ -20,6 +14,12 @@ import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { subcategories } from "@/types/all/books";
 import { v4 } from "uuid";
 import PdfBtn from "./components/PdfBtn";
+import {
+  fieldsInputsBooks,
+  ownerBooksFilters,
+  ownerBooksNumericFilters,
+  ownerBooksSorters,
+} from "@/core/config/fieldsData/SearchBar/owner/books";
 
 const BooksList: FC = () => {
   useScroll();

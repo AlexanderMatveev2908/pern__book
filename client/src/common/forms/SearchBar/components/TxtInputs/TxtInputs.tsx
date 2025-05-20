@@ -11,7 +11,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 type PropsType = {
   children: ReactNode;
   trigger: any;
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
 };
 
 const removeFieldBtn = {

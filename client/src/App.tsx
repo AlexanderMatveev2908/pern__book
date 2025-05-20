@@ -125,7 +125,14 @@ const App: FC = () => {
 
         <Route path="worker" element={<WorkerLayout />}>
           <Route path="book-stores" element={<BookStoresLayoutWorker />}>
-            <Route path="list" element={<BookStoreListWorker />} />
+            <Route
+              path="list"
+              element={
+                <SearchCtxProvider>
+                  <BookStoreListWorker />
+                </SearchCtxProvider>
+              }
+            />
           </Route>
         </Route>
 

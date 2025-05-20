@@ -7,7 +7,7 @@ import PairSort from "./PairSort";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
-  sorters: SorterSearch[];
+  sorters?: SorterSearch[];
 };
 
 const SortPop: FC<PropsType> = ({ sorters }) => {
@@ -38,7 +38,7 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
       </div>
 
       <div className="overflow-y-auto scrollbar__y scrollbar__app  w-full h-fit max-h-full flex-1 grid grid-cols-1 py-4 pb-8 items-start gap-5">
-        {sorters.map((el) => (
+        {(sorters ?? []).map((el) => (
           <PairSort key={el.id} {...{ el }} />
         ))}
       </div>

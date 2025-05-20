@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { UseFormSetFocus } from "react-hook-form";
 
 type Params = {
-  key: string;
+  key?: string;
   setFocus: UseFormSetFocus<any>;
   delay?: number;
 };
@@ -12,7 +12,7 @@ type Params = {
 export const useFocus = ({ key, setFocus, delay }: Params) => {
   useEffect(() => {
     makeDelay(() => {
-      setFocus(key);
+      if (key) setFocus(key);
     }, delay ?? 0);
   }, [setFocus, key, delay]);
 };

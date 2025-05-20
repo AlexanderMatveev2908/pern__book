@@ -10,7 +10,7 @@ import { v4 } from "uuid";
 type Params = {
   ctx: SearchCtxValsConsumer;
   formCtx: UseFormReturn<any>;
-  txtInputs: FormFieldBasic[];
+  txtInputs?: FormFieldBasic[];
   trigger: any;
 };
 
@@ -45,7 +45,7 @@ export const useClickSearch = ({
     setIsPending({ el: "clear", val: true });
 
     const defVals = {
-      items: [{ ...txtInputs[0], id: v4(), val: "" }],
+      items: [{ ...(txtInputs?.[0] ?? {}), id: v4(), val: "" }],
     };
     const merged = cpyObj({
       ...defVals,

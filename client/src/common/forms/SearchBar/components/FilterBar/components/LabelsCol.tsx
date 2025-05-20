@@ -4,7 +4,7 @@ import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { FC, useCallback, useEffect, useState } from "react";
 
 type PropsType = {
-  filters: FilterSearch[];
+  filters?: FilterSearch[];
   numericFilters?: NumericFilterSearch[];
 };
 
@@ -36,7 +36,7 @@ const LabelsCol: FC<PropsType> = ({ filters, numericFilters }) => {
     <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4 py-3">
       <div className="w-full max-w-full grid grid-cols-1 gap-y-3">
         {[
-          ...filters,
+          ...(filters ?? []),
           ...(Array.isArray(numericFilters) ? numericFilters : []),
         ].map((el) => (
           <button

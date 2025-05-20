@@ -21,8 +21,8 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { manageDropLabelGeneral } from "./../../../../../core/config/fieldsData/general/labels";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { fieldsInputsBooks } from "@/core/config/fieldsData/SearchBar/books";
 import { v4 } from "uuid";
+import { fieldsInputsBooks } from "@/core/config/fieldsData/SearchBar/owner/books";
 
 type PropsType = {
   bookStore?: BookStoreType;
