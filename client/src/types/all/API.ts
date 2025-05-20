@@ -20,6 +20,7 @@ export enum TagsAPI {
   // STORES_INFO = "STORES_INFO",
   BOOK_OWNER = "BOOK_OWNER",
   BOOKS_OWNER_LIST = "BOOKS_OWNER_LIST",
+  JUNCTIONS_BOOK_STORE_USER_LIST = "JUNCTION_BOOK_STORE_USER",
 }
 
 export interface ResApp extends AxiosResponse {

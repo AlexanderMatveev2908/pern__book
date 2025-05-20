@@ -1,6 +1,6 @@
 import apiSlice from "@/store/apiSlice";
-import { BookStoreType } from "@/types/all/bookStore";
-import { BaseResAPI, ResPaginationAPI } from "@/types/types";
+import { BookStoreUserType } from "@/types/all/JunctionStoreUser";
+import { BaseResAPI, ResPaginationAPI, TagsAPI } from "@/types/types";
 
 const BASE_URL = "/worker/book-stores";
 
@@ -9,13 +9,25 @@ const BASE_URL = "/worker/book-stores";
 export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllStoresWorker: builder.query<
-      BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreType[] }>>,
+      BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreUserType[] }>>,
       void
     >({
       query: () => ({
         url: BASE_URL,
         method: "GET",
       }),
+      providesTags: (res) => [
+        ...(!res?.bookStores?.length
+          ? []
+          : res.bookStores.map((el) => ({
+              type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST,
+              id: el.id,
+            }))),
+        {
+          type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST,
+          id: "LIST",
+        },
+      ],
     }),
   }),
 });

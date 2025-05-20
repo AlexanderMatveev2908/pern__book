@@ -16,7 +16,7 @@ type PropsType = {
   el: BookStoreType;
 };
 
-const InfoCardStore: FC<PropsType> = ({ el }) => {
+const InfoCardStoreAllUsers: FC<PropsType> = ({ el }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
 
   const ids = useCreateIds({ lengths: [el.categories.length] });
@@ -62,4 +62,4 @@ const InfoCardStore: FC<PropsType> = ({ el }) => {
   );
 };
 
-export default InfoCardStore;
+export default InfoCardStoreAllUsers;
