@@ -92,7 +92,10 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
   return !items?.length ? null : (
     <div className="w-full flex justify-center">
       <div className="w-full grid text-[whitesmoke] relative">
-        <button onClick={decSlide} className={`btn__hero group -left-[20px]`}>
+        <button
+          onClick={decSlide}
+          className={`images_swapper_btn__hero group -left-[20px]`}
+        >
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
@@ -126,7 +129,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
             handleClickRef();
             incSlide();
           }}
-          className={`btn__hero -right-[20px] group`}
+          className={`images_swapper_btn__hero -right-[20px] group`}
         >
           <FaChevronRight className="icon__md icon__with_txt" />
         </button>

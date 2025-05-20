@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
-.btn__pwd {
+.pwd_field__btn__pwd {
   @apply cursor-pointer;
   transition: 0.3s;
 }
-.btn__pwd:hover {
+.pwd_field__btn__pwd:hover {
   @apply text-blue-600 scale-130;
 }
-.btn__pwd:active {
+.pwd_field__btn__pwd:active {
   transition: 0.1s;
   transform: scale(0.8);
 }

@@ -9,7 +9,6 @@ import {
 import { Pencil, PenOff } from "lucide-react";
 import { FC, useEffect, useState } from "react";
 import { UseFormClearErrors, UseFormSetFocus } from "react-hook-form";
-import "./FormFieldBtn.css";
 import ErrorFormField from "../../Errors/ErrorFormField";
 
 type PropsType = {

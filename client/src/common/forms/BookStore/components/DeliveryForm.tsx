@@ -10,7 +10,7 @@ const DeliveryForm: FC = () => {
   } = useFormContext();
 
   return (
-    <div className="book_store_sub_form">
+    <div className="book_store_form__sub_form">
       {fieldsDelivery.map((el) => (
         <FormField key={el.id} {...{ el, register, errors }} />
       ))}

@@ -26,7 +26,7 @@ const SortDrop: FC<PropsType> = ({ res, setBar }) => {
         <div className="w-full max-w-[75px] sm:max-w-[200px]">
           <ButtonIcon
             {...{
-              styleTxt: "btn__txt_secondary",
+              styleTxt: "search_bar__btn__txt_secondary",
               handleClick: () => setBar({ el: "sortBar", val: true }),
               el: {
                 icon: FaSort,

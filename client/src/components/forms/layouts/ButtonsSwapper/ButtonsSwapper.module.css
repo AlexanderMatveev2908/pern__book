@@ -1,13 +1,13 @@
 @import "tailwindcss";
 
-.btn__swapper {
+.button_swapper__btn__swapper {
   @apply border-2 border-blue-600 rounded-xl p-2 flex justify-center items-center enabled:cursor-pointer transition-all duration-300 disabled:opacity-50;
 }
-.btn__swapper:enabled:hover {
+.button_swapper__btn__swapper:enabled:hover {
   transition: 0.3s;
   transform: scale(1.1);
 }
-.btn__swapper:enabled:active {
+.button_swapper__btn__swapper:enabled:active {
   transition: 0.1s;
   transform: scale(0.9);
 }

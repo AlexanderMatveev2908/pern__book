@@ -14,16 +14,20 @@ import BookStoreItem from "./components/BookStoreItem";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
-import { isArr } from "@/core/lib/lib";
+import { __cg, isArr } from "@/core/lib/lib";
 
 const BookStores: FC = () => {
   useScroll();
 
   const { user } = useGetU();
 
+  // ? I DECIDED TO HANDLE THE REQUEST OF DATA INSIDE BUTTONS OF SEARCH__BAR TO ENCAPSULATE LOGIC AND AVOID REPEATING SAME CODE WITH ALMOST NONE DIFFERENCES
+
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit } = formCtx;
-  const handleSave = handleSubmit(() => {});
+  const handleSave = handleSubmit(() => {
+    __cg("submitted ✌🏼");
+  });
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
   // eslint-disable-next-line

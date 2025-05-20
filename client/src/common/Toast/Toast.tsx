@@ -56,11 +56,13 @@ const Toast: FC = () => {
 
   const animateIn = useCallback(() => {
     (toastRef.current as HTMLDivElement).classList.remove("toast__out");
-    (counterRef.current as HTMLDivElement).classList.remove("el__timer_toast");
+    (counterRef.current as HTMLDivElement).classList.remove(
+      "toast__el__timer_toast"
+    );
 
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add("toast__in");
-      counterRef?.current?.classList.add("el__timer_toast");
+      counterRef?.current?.classList.add("toast__el__timer_toast");
     });
 
     timerRef.current = setTimeout(() => {
@@ -74,7 +76,9 @@ const Toast: FC = () => {
   const animateOut = useCallback(() => {
     clickRef.current = false;
     toastRef?.current?.classList.remove("toast__in");
-    (counterRef.current as HTMLDivElement).classList.remove("el__timer_toast");
+    (counterRef.current as HTMLDivElement).classList.remove(
+      "toast__el__timer_toast"
+    );
     clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
 
@@ -148,7 +152,7 @@ const Toast: FC = () => {
         {/* CLOSE BTN */}
         <button
           onClick={handleClick}
-          className="appearance-none top-[4px] right-[4px] absolute btn__toast"
+          className="appearance-none top-[4px] right-[4px] absolute toast__btn"
         >
           <IoClose className="icon__md text-red-600" />
         </button>

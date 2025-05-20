@@ -18,9 +18,9 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
         toolRef.current &&
         btnRef.current.contains(e.target as Node)
       ) {
-        toolRef.current.classList.remove("el__tooltip");
+        toolRef.current.classList.remove("tooltip_cpy__el__tooltip");
         requestAnimationFrame(() =>
-          toolRef?.current?.classList.add("el__tooltip")
+          toolRef?.current?.classList.add("tooltip_cpy__el__tooltip")
         );
       }
     };
@@ -49,7 +49,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
         <div
           className={`py-1 cursor-pointer flex w-fit max-w-full overflow-x-auto ${
             bd
-              ? "el__border_sm el__cpy_txt justify-center px-4"
+              ? "el__border_sm tooltip_cpy__el__cpy_txt justify-center px-4"
               : `hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scrollbar__x scrollbar__app min-h-full top-0 ${
                   align ?? "left-0"
                 }`

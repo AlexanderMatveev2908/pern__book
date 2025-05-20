@@ -11,7 +11,6 @@ import DropStats from "@/components/elements/cards/shared/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC, useState } from "react";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import "./InfoCardStore.css";
 
 type PropsType = {
   el: BookStoreType;

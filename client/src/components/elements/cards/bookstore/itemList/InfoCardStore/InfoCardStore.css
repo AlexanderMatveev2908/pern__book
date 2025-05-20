@@ -1,9 +1,0 @@
-@import "tailwindcss";
-
-.el__near::after {
-  @apply content-[""] absolute -left-2 top-0 w-[3px] bg-blue-600 transition-all duration-[0.4s];
-}
-.el__near::after {
-  opacity: var(--opacity__near);
-  height: var(--h__near);
-}

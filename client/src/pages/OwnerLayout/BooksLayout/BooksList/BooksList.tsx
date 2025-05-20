@@ -9,7 +9,7 @@ import {
 } from "@/core/config/fieldsData/SearchBar/books";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/useGetU";
-import { captAll, isArr } from "@/core/lib/lib";
+import { __cg, captAll, isArr } from "@/core/lib/lib";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -29,7 +29,9 @@ const BooksList: FC = () => {
   const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
   const { handleSubmit, watch } = formCtx;
   const mainCatRealTime = watch("mainCategories");
-  const handleSave = handleSubmit(() => {});
+  const handleSave = handleSubmit(() => {
+    __cg("submitted ✌🏼");
+  });
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
   const res = hook[1];

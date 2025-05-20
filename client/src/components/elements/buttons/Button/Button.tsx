@@ -79,8 +79,8 @@ const Button: FC<PropsType> = ({
             continue;
           }
 
-          curr.classList.remove("el__bubble");
-          requestAnimationFrame(() => curr.classList.add("el__bubble"));
+          curr.classList.remove("button__el__bubble");
+          requestAnimationFrame(() => curr.classList.add("button__el__bubble"));
           i++;
         } while (i < ids.length);
       }
@@ -127,7 +127,7 @@ const Button: FC<PropsType> = ({
       type={type}
       ref={btnRef}
       disabled={isDisabled || isPending}
-      className={`appearance-none w-full border-2 rounded-xl py-2 px-5 flex justify-center items-center disabled:opacity-50 btn__container ${
+      className={`appearance-none w-full border-2 rounded-xl py-2 px-5 flex justify-center items-center disabled:opacity-50 button__btn__container ${
         style.get(act)?.border
       } ${style.get(act)?.text}`}
       style={

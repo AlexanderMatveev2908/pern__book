@@ -41,7 +41,7 @@ const PwdField: FC<PropsType> = ({
           <button
             onClick={handleClick}
             type="button"
-            className="absolute top-1/2 -translate-y-1/2 right-[20px] btn__pwd"
+            className="absolute top-1/2 -translate-y-1/2 right-[20px] pwd_field__btn__pwd"
           >
             {isPwd ? (
               <IoMdEyeOff className="icon__sm" />

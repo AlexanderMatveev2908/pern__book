@@ -1,12 +1,12 @@
 @import "tailwindcss";
 
-.btn__toast {
+.toast__btn {
   transition: 0.3s;
 }
-.btn__toast:hover {
+.toast__btn:hover {
   @apply cursor-pointer scale-130;
 }
-.btn__toast:active {
+.toast__btn:active {
   transition: 0.1s;
   transform: scale(0.8);
 }
@@ -69,6 +69,6 @@
   animation: toast__close 0.3s ease-in forwards;
 }
 
-.el__timer_toast {
+.toast__el__timer_toast {
   animation: count 3s linear forwards;
 }

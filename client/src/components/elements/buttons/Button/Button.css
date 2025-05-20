@@ -1,19 +1,19 @@
 @import "tailwindcss";
 
-.btn__container {
+.button__btn__container {
   @apply relative;
   transition: 0.3s;
 }
-.btn__container:enabled:hover {
+.button__btn__container:enabled:hover {
   transform: scale(1.1);
   background-color: var(--main__btn_bg);
   cursor: pointer;
 }
-.btn__container:enabled:active {
+.button__btn__container:enabled:active {
   transition: 0.1s;
   transform: scale(0.9);
 }
-.el__bubble {
+.button__el__bubble {
   animation: explode 0.5s ease-in-out forwards;
 }
 

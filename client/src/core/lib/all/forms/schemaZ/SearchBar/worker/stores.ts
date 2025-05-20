@@ -1,6 +1,7 @@
 import { z } from "zod";
 import {
   baseOptItemSchemaStore,
+  generalFiltersStoreSchema,
   handleRefineItem,
   itemsSchema,
 } from "../general";
@@ -13,4 +14,6 @@ const itemSchema = z
     handleRefineItem({ item, optItem: { ...baseOptItemSchemaStore }, ctx });
   });
 
-export const schemaWorkerStores = {};
+export const schemaWorkerStores = generalFiltersStoreSchema.extend({
+  items: z.array(itemSchema).optional(),
+});
