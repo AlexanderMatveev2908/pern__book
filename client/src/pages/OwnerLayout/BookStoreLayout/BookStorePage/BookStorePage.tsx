@@ -1,4 +1,3 @@
-import ImagesSwapper from "@/components/elements/ImagesSwapper/ImagesSwapper";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
@@ -20,6 +19,7 @@ import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStor
 import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
+import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 
 const BookStorePage: FC = () => {
   useScroll();
@@ -61,7 +61,7 @@ const BookStorePage: FC = () => {
 
         <DropActions {...{ bookStore, user }} />
 
-        <ImagesSwapper
+        <ImagesScroll
           {...{
             images: bookStore?.images,
           }}

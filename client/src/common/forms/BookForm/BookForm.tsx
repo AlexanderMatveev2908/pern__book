@@ -120,7 +120,7 @@ const BookForm: FC<PropsType> = ({
         <Button
           {...{
             label: path?.includes("add") ? "Create" : "Update",
-            isPending,
+            isAging: isPending,
             type: "submit",
             isDisabled,
           }}

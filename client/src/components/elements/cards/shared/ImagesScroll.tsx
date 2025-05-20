@@ -3,7 +3,7 @@ import { useRef, type FC } from "react";
 import ImgLoaderHandler from "./ImgLoaderHandler/ImgLoaderHandler";
 
 type PropsType = {
-  images: AssetCloudType[] | null;
+  images?: AssetCloudType[] | null;
 };
 
 const ImagesScroll: FC<PropsType> = ({ images }) => {

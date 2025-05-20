@@ -72,7 +72,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
 
       <div
         ref={toolRef}
-        className="absolute el__border_sm -top-[40px] py-1 px-5 z-60 bg-[#000] right-0 min-w-[200px] flex justify-center tooltip pointer-events-none"
+        className="absolute el__border_sm -top-[40px] py-1 px-5 z-60 bg-[#000] right-0 min-w-[250px] flex justify-center tooltip pointer-events-none"
         style={{
           opacity: "0",
           transform: "scale(0)",
