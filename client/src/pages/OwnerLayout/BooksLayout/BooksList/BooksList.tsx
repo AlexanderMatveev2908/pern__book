@@ -33,7 +33,7 @@ const BooksList: FC = () => {
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
   const res = hook[1];
-  const { data: { books } = {} } = res;
+  const { data: { books } = {}, isLoading, isFetching } = res;
 
   useEffect(() => {
     const mainCat = mainCatRealTime ?? [];
@@ -78,7 +78,7 @@ const BooksList: FC = () => {
           />
         </FormProvider>
 
-        <PdfBtn />
+        {!isLoading && !isFetching && books?.length && <PdfBtn />}
 
         <WrapperContentAPI {...{ formCtx, hook }}>
           <div className="parent__cards">
