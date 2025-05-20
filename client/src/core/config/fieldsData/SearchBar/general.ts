@@ -1,11 +1,18 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt } from "@/core/lib/lib";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { FilterSearch } from "@/types/types";
 import { CiDeliveryTruck } from "react-icons/ci";
-import { FaRegStar, FaSortAmountDown, FaSortAmountUp } from "react-icons/fa";
+import {
+  FaDatabase,
+  FaRegStar,
+  FaSortAmountDown,
+  FaSortAmountUp,
+} from "react-icons/fa";
+import { LuAlarmClock } from "react-icons/lu";
 import { MdOutlineCategory } from "react-icons/md";
-import { TbTruckDelivery } from "react-icons/tb";
+import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
 
 export const filtersCat: Omit<FilterSearch, "id"> = {
@@ -57,3 +64,60 @@ export const addSortFields = () =>
     id: v4(),
     icon: el === "ASC" ? FaSortAmountUp : FaSortAmountDown,
   }));
+
+export const populateIdsSearchbarFields = <T>(arr: T[]): T[] =>
+  arr.map((el) => ({
+    ...el,
+    id: v4(),
+    fields: (el as any).fields.map((sub: any) => ({
+      ...sub,
+      id: v4(),
+    })),
+  }));
+
+export const commonFieldsTxtInputsStore = [
+  {
+    field: "name",
+    label: "Name",
+  },
+  {
+    field: "country",
+    label: "Country",
+  },
+  {
+    field: "state",
+    label: "State",
+  },
+  {
+    field: "city",
+    label: "City",
+  },
+];
+
+export const commonSortersStore = [
+  {
+    label: "Created at",
+    field: "createdAtSort",
+    icon: LuAlarmClock,
+  },
+  {
+    label: "Updated at",
+    field: "updatedAtSort",
+    icon: LuAlarmClock,
+  },
+  {
+    label: "Avg rating",
+    field: "avgRatingSort",
+    icon: FaRegStar,
+  },
+  {
+    label: "Avg Price",
+    field: "avgPriceSort",
+    icon: TbPigMoney,
+  },
+  {
+    label: "Avg Quantity",
+    field: "avgQtySort",
+    icon: FaDatabase,
+  },
+];

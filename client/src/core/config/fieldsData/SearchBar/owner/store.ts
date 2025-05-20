@@ -7,35 +7,22 @@ import {
 import { v4 } from "uuid";
 import {
   addSortFields,
+  commonFieldsTxtInputsStore,
+  commonSortersStore,
   filtersCat,
   filtersDelivery,
   filtersOrders,
   filtersRating,
+  populateIdsSearchbarFields,
 } from "../general";
-import { FaDatabase, FaRegStar, FaUsers } from "react-icons/fa";
+import { FaDatabase, FaUsers } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
-import { LuAlarmClock } from "react-icons/lu";
 
 export const fieldsSearchStore: FormFieldBasic[] = [
-  {
-    field: "name",
-    label: "Name",
-  },
+  ...commonFieldsTxtInputsStore,
   {
     field: "ID",
     label: "ID",
-  },
-  {
-    field: "country",
-    label: "Country",
-  },
-  {
-    field: "state",
-    label: "State",
-  },
-  {
-    field: "city",
-    label: "City",
   },
 ].map((el) => ({
   ...el,
@@ -50,7 +37,7 @@ export const storeFilters: FilterSearch[] = [
 ].map((el) => ({
   ...el,
   id: v4(),
-  fields: el.fields?.map((el) => ({
+  fields: el.fields.map((el) => ({
     ...el,
     id: v4(),
   })),
@@ -118,46 +105,13 @@ export const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
   })),
 };
 
-export const numericFiltersStore: NumericFilterSearch[] = [
+export const numericFiltersStore = populateIdsSearchbarFields([
   avgPriceFilter,
   avgQtyFilter,
   noOfWorkers,
-].map((el) => ({
-  ...el,
-  id: v4(),
-  fields: el.fields?.map((el) => ({
-    ...el,
-    id: v4(),
-  })),
-}));
+]) as NumericFilterSearch[];
 
-export const sorterStore: SorterSearch[] = [
-  {
-    label: "Created at",
-    field: "createdAtSort",
-    icon: LuAlarmClock,
-  },
-  {
-    label: "Updated at",
-    field: "updatedAtSort",
-    icon: LuAlarmClock,
-  },
-  {
-    label: "Avg rating",
-    field: "avgRatingSort",
-    icon: FaRegStar,
-  },
-  {
-    label: "Avg Price",
-    field: "avgPriceSort",
-    icon: TbPigMoney,
-  },
-  {
-    label: "Avg Quantity",
-    field: "avgQtySort",
-    icon: FaDatabase,
-  },
-].map((el) => ({
+export const sorterStore: SorterSearch[] = commonSortersStore.map((el) => ({
   ...el,
   id: v4(),
   fields: addSortFields(),
