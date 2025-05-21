@@ -27,6 +27,7 @@ export const fieldsSearchStore: FormFieldBasic[] = [
 ].map((el) => ({
   ...el,
   place: `${el.label} Store...`,
+  id: v4(),
 }));
 
 export const storeFilters: FilterSearch[] = [

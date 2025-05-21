@@ -107,3 +107,5 @@ export const canNestedPass = (nestedIndex?: NestedIndexProp) =>
   nestedIndex !== null &&
   "index" in nestedIndex &&
   "key" in nestedIndex;
+
+export const serializeObjRtk = () => {};

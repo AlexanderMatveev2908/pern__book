@@ -188,6 +188,8 @@ export const getAllStores = async (
   });
   if (!count) return res204(res);
 
+  throw new Error("");
+
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
 
   const bookStores = await BookStore.findAll({

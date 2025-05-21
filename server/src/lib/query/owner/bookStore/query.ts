@@ -1,5 +1,6 @@
 import { literal, Op, QueryOptions, WhereOptions } from "sequelize";
 import { ReqApp, UserRole } from "../../../../types/types.js";
+import { handleQueryDelivery } from "../../general.js";
 
 const makeRoleSql = (
   role: UserRole,
@@ -50,26 +51,9 @@ export const createStoreQ = (req: ReqApp) => {
         break;
 
       case "delivery": {
-        const deliveryConditions: WhereOptions = [];
-        if (
-          (Array.isArray(val) && val.includes("free_delivery")) ||
-          val === "free_delivery"
-        )
-          deliveryConditions.push({
-            deliveryPrice: {
-              [Op.lte]: 0,
-            },
-          });
-
-        if (
-          (Array.isArray(val) && val.includes("delivery_charged")) ||
-          val === "delivery_charged"
-        )
-          deliveryConditions.push({
-            deliveryPrice: {
-              [Op.gt]: 0,
-            },
-          });
+        const { deliveryConditions } = handleQueryDelivery(
+          val as string | string[]
+        );
 
         if (deliveryConditions.length)
           queryStore[Op.or as any] = deliveryConditions;

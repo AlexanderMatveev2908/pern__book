@@ -49,6 +49,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
   }, []);
 
   const arg = useMemo(() => {
+    // ? fb = with fallback
     const itemsFb = fields ?? [];
 
     const active = new Set(itemsFb.map((el: FormFieldBasic) => el?.field));

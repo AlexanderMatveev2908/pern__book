@@ -10,3 +10,6 @@ export const captAll = (txt: string) =>
     .join(" ")
     .trim()
     .replace(/[\s\s]{2,}/g, " ");
+
+export const findVal = (val: string | string[], key: string) =>
+  (Array.isArray(val) && val.includes(key)) || val === key ? key : null;
