@@ -5,6 +5,9 @@ import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
+import { Order } from "../../../models/all/Order.js";
+import { Book } from "../../../models/all/Book.js";
+import { Review } from "../../../models/all/Review.js";
 
 export const getAllStoresWorker = async (
   req: ReqApp,
@@ -28,6 +31,20 @@ export const getAllStoresWorker = async (
           {
             model: VideoBookStore,
             as: "video",
+          },
+          {
+            model: Order,
+            as: "orders",
+          },
+          {
+            model: Book,
+            as: "books",
+            include: [
+              {
+                model: Review,
+                as: "reviews",
+              },
+            ],
           },
         ],
       },
