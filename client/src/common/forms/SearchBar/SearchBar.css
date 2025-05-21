@@ -1,0 +1,39 @@
+@import "tailwindcss";
+
+@media (min-width: 500px) {
+  .search_bar__btns {
+    @apply grid-cols-2;
+  }
+  .search_bar_btns_right {
+    @apply order-2;
+  }
+}
+
+.search_bar__skeleton {
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+  background-size: 200% 100%;
+  animation: skeleton_search 1.5s infinite linear;
+}
+
+@keyframes skeleton_search {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+.search_bar__parent__btn_main {
+  @apply max-w-[75px] lg:max-w-[200px];
+}
+
+.search_bar__btn__search__secondary {
+  @apply max-w-[75px] sm:max-w-[200px];
+}
+.search_bar__btn__txt_main {
+  @apply hidden lg:block;
+}
+.search_bar__btn__txt_secondary {
+  @apply hidden sm:block;
+}

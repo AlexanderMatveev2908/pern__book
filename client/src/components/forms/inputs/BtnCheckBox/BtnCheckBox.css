@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+.btn_checkbox {
+  transition: 0.3s;
+}
+.btn_checkbox:enabled:hover {
+  transform: scale(var(--scale_btn_check_hover));
+  color: var(--color_btn_check);
+  border: 2px solid var(--border_btn_check);
+}
+.btn_checkbox {
+  border: 2px solid var(--border_btn_check);
+  transform: scale(var(--scale_btn_check));
+}
+.btn_checkbox:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
