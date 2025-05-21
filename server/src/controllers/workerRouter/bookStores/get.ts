@@ -9,6 +9,7 @@ import { Order } from "../../../models/all/Order.js";
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
+import { calcPagination } from "../../../lib/query/pagination.js";
 
 export const getAllStoresWorker = async (
   req: ReqApp,
@@ -57,6 +58,12 @@ export const getAllStoresWorker = async (
 
   const nHits = bookStores.length;
   if (!nHits) return res204(res);
+
+  const { paginated, totPages } = calcPagination({
+    req,
+    nHits,
+    els: bookStores,
+  });
 
   return res200(res, { msg: "✌🏼", nHits, bookStores });
 };

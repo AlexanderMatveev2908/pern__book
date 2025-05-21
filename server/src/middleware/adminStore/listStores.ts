@@ -11,22 +11,10 @@ import {
 } from "../../config/regex.js";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
 import { checkPagination } from "../sharedValidators/pagination.js";
+import { generalValidatorGetStores } from "../sharedValidators/searchQuery/stores/getStores.js";
 
 export const validateQueryListStores = [
-  check("name").custom((val) =>
-    allOrNothingStr(REG_STORE_NAME, val)
-      ? true
-      : Promise.reject("Invalid store name")
-  ),
-  check("country").custom((val) =>
-    allOrNothingStr(REG_COUNTRY, val) ? true : Promise.reject("Invalid country")
-  ),
-  check("country").custom((val) =>
-    allOrNothingStr(REG_STATE, val) ? true : Promise.reject("Invalid country")
-  ),
-  check("city").custom((val) =>
-    allOrNothingStr(REG_CITY, val) ? true : Promise.reject("Invalid city")
-  ),
+  ...generalValidatorGetStores,
   check("ID").custom((val) =>
     allOrNothingStr(REG_ID, val) ? true : Promise.reject("Invalid ID")
   ),
