@@ -39,11 +39,12 @@ export const getKeysSearchBar = (path: string) => {
   const keys = {
     ownerBookStoreBookStores: {
       keyStorageVals: StorageKeys.STORES_OWNER_VALS,
-      keyStorageLabels: StorageKeys.STORES_OWNER_LABELS,
     },
     ownerBooksList: {
       keyStorageVals: StorageKeys.BOOKS_OWNER_VALS,
-      keyStorageLabels: StorageKeys.BOOKS_OWNER_LABELS,
+    },
+    workerBookStoresList: {
+      keyStorageVals: StorageKeys.STORES_WORKER_VALS,
     },
   };
 

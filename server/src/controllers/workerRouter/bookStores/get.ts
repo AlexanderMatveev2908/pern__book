@@ -65,5 +65,5 @@ export const getAllStoresWorker = async (
     els: bookStores,
   });
 
-  return res200(res, { msg: "✌🏼", nHits, bookStores });
+  return res200(res, { msg: "✌🏼", nHits, bookStores: paginated, totPages });
 };

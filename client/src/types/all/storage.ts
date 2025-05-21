@@ -4,8 +4,8 @@ export enum StorageKeys {
   INIT = "init",
   SECURITY = "manageAccountToken",
   STORES_OWNER_VALS = "searchValsOwnerStores",
-  STORES_OWNER_LABELS = "searchLabelsOwnerStores",
   BOOKS_OWNER_VALS = "searchValsOwnerBooks",
-  BOOKS_OWNER_LABELS = "searchLabelsOwnerBooks",
+  STORES_WORKER_VALS = "searchValsWorkerStores",
+
   // FORGOT_PWD = "forgotPwdToken",
 }
