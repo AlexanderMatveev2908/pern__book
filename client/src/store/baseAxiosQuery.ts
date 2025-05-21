@@ -6,6 +6,7 @@ import {
   isLoggingOut,
   isRefreshing,
   saveStorage,
+  serializeObjRtk,
 } from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
@@ -47,12 +48,14 @@ export const axiosBaseQuery = async ({
 
     if (loggingOut || removeSession) clearAuthAxios();
 
+    const serializable = serializeObjRtk(err);
+
     if (skipRefresh)
       return {
         error: {
-          ...err?.response,
+          ...serializable?.response,
           data: {
-            ...err?.response?.data,
+            ...serializable?.response?.data,
             loggingOut,
           },
         } as AxiosResponse,
@@ -89,9 +92,11 @@ export const axiosBaseQuery = async ({
 
       clearAuthAxios();
 
+      const serializable = serializeObjRtk(err);
+
       return {
         error: {
-          ...err?.response,
+          ...serializable?.response,
         } as AxiosResponse,
       };
     }

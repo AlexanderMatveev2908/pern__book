@@ -1,6 +1,7 @@
 import { REG_ID, REG_TOK } from "@/core/config/regex";
 import { ParamsVerifyCB } from "@/features/VerifyCb/verifyCbSliceAPI";
 import { NestedIndexProp, TokenEventType } from "@/types/types";
+import { AxiosError } from "axios";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const isObjOk = (obj: any, valsCb?: (val: any) => boolean) =>
@@ -108,4 +109,23 @@ export const canNestedPass = (nestedIndex?: NestedIndexProp) =>
   "index" in nestedIndex &&
   "key" in nestedIndex;
 
-export const serializeObjRtk = () => {};
+export const serializeObjRtk = (err: AxiosError<any, any>) => {
+  const { response } = err;
+  const { data, status, config } = response ?? {};
+
+  return {
+    response: {
+      config: {
+        url: config?.url,
+        method: config?.method,
+        baseURL: config?.baseURL,
+        headers: {
+          "Content-Type": config?.headers?.["Content-Type"],
+          Authorization: config?.headers?.Authorization,
+        },
+      },
+      data: data,
+      status: status,
+    },
+  };
+};
