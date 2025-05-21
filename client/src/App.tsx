@@ -36,7 +36,6 @@ import BookStoreListWorker from "./pages/WorkerLayout/BookStoreLayout/BookStoreL
 
 const App: FC = () => {
   const navigate = useNavigate();
-  // ddddddddddddddd
 
   useEffect(() => {
     setNavigator(navigate);

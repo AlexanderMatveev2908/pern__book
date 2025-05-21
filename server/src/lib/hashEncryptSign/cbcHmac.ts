@@ -21,6 +21,8 @@ export interface AppPayloadCBC {
   id: string;
 }
 
+// jjj
+
 const makeHEX = (data: Buffer) => data.toString("hex");
 const makeBuff = (data: string) => Buffer.from(data, "hex");
 

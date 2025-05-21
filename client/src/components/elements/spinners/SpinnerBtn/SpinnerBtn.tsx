@@ -9,7 +9,7 @@ const SpinnerBtn: FC = () => {
     <div className="flex  gap-[15px] items-center">
       {ids.map((id, i) => (
         <div
-          id={id}
+          key={id}
           className="min-w-[35px] min-h-[35px] bg-blue-600 rounded-full el__spinner_btn"
           style={
             {
