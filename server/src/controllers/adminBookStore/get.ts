@@ -6,7 +6,6 @@ import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { calcPagination } from "../../lib/query/pagination.js";
-import { createStoreQ } from "../../lib/query/bookStore/query.js";
 import { Order } from "../../models/all/Order.js";
 import { Review } from "../../models/all/Review.js";
 import { Book } from "../../models/all/Book.js";
@@ -18,6 +17,7 @@ import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
 import { replacePoint } from "../../lib/dataStructures.js";
+import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
 
 const calcAvgSeq = (
   prop: string,

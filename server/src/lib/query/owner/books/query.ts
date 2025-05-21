@@ -1,6 +1,6 @@
 import { literal, Op, WhereOptions } from "sequelize";
-import { ReqApp } from "../../../types/types.js";
-import { isStr, parseArrFromStr } from "../../dataStructures.js";
+import { isStr, parseArrFromStr } from "../../../dataStructures.js";
+import { ReqApp } from "../../../../types/types.js";
 
 export const makeBooksQ = (req: ReqApp) => {
   const { userID } = req;

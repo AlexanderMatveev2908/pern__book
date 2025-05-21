@@ -1,5 +1,5 @@
 import { literal, Op, QueryOptions, WhereOptions } from "sequelize";
-import { ReqApp, UserRole } from "../../../types/types.js";
+import { ReqApp, UserRole } from "../../../../types/types.js";
 
 const makeRoleSql = (
   role: UserRole,

@@ -9,9 +9,9 @@ import { literal, Op } from "sequelize";
 import { Review } from "../../models/all/Review.js";
 import { replacePoint } from "../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
-import { makeBooksQ } from "../../lib/query/books/query.js";
 import { sortItems } from "../../lib/query/sort.js";
 import PDFDocument from "pdfkit";
+import { makeBooksQ } from "../../lib/query/owner/books/query.js";
 
 const calcRatingSql = (): [Literal, string][] => [
   [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
