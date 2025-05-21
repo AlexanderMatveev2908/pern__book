@@ -8,12 +8,15 @@ import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js"
 import { Order } from "../../../models/all/Order.js";
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
+import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
 
 export const getAllStoresWorker = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
   const { userID } = req;
+
+  const { queryStores } = queryStoresWorker(req);
 
   const bookStores = await BookStoreUser.findAll({
     where: {
@@ -23,6 +26,7 @@ export const getAllStoresWorker = async (
       {
         model: BookStore,
         as: "bookStore",
+        where: queryStores,
         include: [
           {
             model: ImgBookStore,
