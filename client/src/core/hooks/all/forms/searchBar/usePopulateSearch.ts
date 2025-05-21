@@ -30,7 +30,7 @@ export const usePopulateSearch = ({
   trigger,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
-  const { keyStorageLabels, keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorageVals } = useGetSearchKeysStorage();
   const { setPagination, setSearch, oldVals, setPreSubmit } = ctx;
 
   useEffect(() => {
@@ -95,7 +95,6 @@ export const usePopulateSearch = ({
     setValue,
     keyStorageVals,
     filters,
-    keyStorageLabels,
     setSearch,
     txtInputs,
     setPreSubmit,
