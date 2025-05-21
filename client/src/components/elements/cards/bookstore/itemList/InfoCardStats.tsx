@@ -11,15 +11,18 @@ import DropStatsStatic from "../../shared/DropStatsStatic";
 
 type PropsType = {
   el: BookStoreType;
+  isOwner?: boolean;
 };
 
-const InfoCardStats: FC<PropsType> = ({ el }) => {
+const InfoCardStats: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <DropStatsStatic {...{ el: statsCardStore, border: true }}>
       <InfoBookStoreWorker {...{ abs: true, bookStore: el }} />
-      <DropStats
-        {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
-      />
+      {isOwner && (
+        <DropStats
+          {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
+        />
+      )}
     </DropStatsStatic>
   );
 };

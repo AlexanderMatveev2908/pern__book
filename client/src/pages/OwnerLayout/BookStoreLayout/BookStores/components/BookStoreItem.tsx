@@ -11,7 +11,7 @@ type PropsType = {
   el: BookStoreType;
 };
 
-const BookStoreItem: FC<PropsType> = ({ el }) => {
+const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
   return (
     <div className="child__card">
       <ItemID {...{ ID: el.id }} />
@@ -26,7 +26,7 @@ const BookStoreItem: FC<PropsType> = ({ el }) => {
           }`}
         >
           <InfoCardStoreAllUsers {...{ el }} />
-          <InfoCardStats {...{ el }} />
+          <InfoCardStats {...{ el, isOwner: true }} />
         </div>
       </div>
 
@@ -35,4 +35,4 @@ const BookStoreItem: FC<PropsType> = ({ el }) => {
   );
 };
 
-export default BookStoreItem;
+export default BookStoreItemOwner;
