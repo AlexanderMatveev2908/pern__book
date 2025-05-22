@@ -1,3 +1,9 @@
+# install yarn global linux
+
+`corepack enable
+corepack prepare yarn@4.9.1 --activate
+yarn -v`
+
 # build
 
 `corepack enable && cd client && yarn install && yarn build && cd ../server && yarn install && yarn build`
