@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { ReqApp } from "../../../types/types.js";
+import { ReqApp, UserRole } from "../../../types/types.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
 import { BookStore } from "../../../models/all/BookStore.js";
@@ -16,6 +16,8 @@ import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../../types/all/orders.js";
 import { capChar } from "../../../lib/utils/formatters.js";
+import { User } from "../../../models/models.js";
+import { err403, err404 } from "../../../lib/responseClient/err.js";
 
 // ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
 
@@ -102,6 +104,61 @@ const myCoolSql: FindAttributeOptions = {
       "orders" + capChar(stage) + "Count",
     ]) as [Literal, string][]),
   ],
+};
+
+export const getBookStoreWorker = async (
+  req: ReqApp,
+  res: Response
+): Promise<any> => {
+  const { userID } = req;
+  const { bookStoreID } = req.params;
+
+  const bookStore = await BookStore.findOne({
+    where: {
+      id: bookStoreID,
+    },
+    include: [
+      {
+        model: User,
+        as: "team",
+        required: true,
+        attributes: ["id"],
+        through: {
+          where: {
+            userID,
+            role: UserRole.MANAGER,
+          },
+          attributes: ["id"],
+        },
+      },
+      {
+        model: ImgBookStore,
+        as: "images",
+      },
+      {
+        model: VideoBookStore,
+        as: "video",
+      },
+      {
+        model: Book,
+        as: "books",
+        include: [
+          {
+            model: Review,
+            as: "reviews",
+          },
+        ],
+      },
+      {
+        model: Order,
+        as: "orders",
+      },
+    ],
+  });
+
+  if (!bookStore) return err404(res, { msg: "book store not found" });
+
+  return res200(res, { bookStore });
 };
 
 export const getAllStoresWorker = async (

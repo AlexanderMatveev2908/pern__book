@@ -15,6 +15,17 @@ const BASE_URL = "/worker/book-stores";
 
 export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
+    getSingleStoreWorker: builder.query<
+      BaseResAPI<{ bookStore: BookStoreUserType }>,
+      string
+    >({
+      query: (bookStoreID) => ({
+        url: `${BASE_URL}/${bookStoreID}`,
+        method: "GET",
+      }),
+      providesTags: [TagsAPI.JUNCTION_BOOK_STORE_USER],
+    }),
+
     getAllStoresWorker: builder.query<
       BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreUserType[] }>>,
       ReqQueryAPI<SearchStoreFormType>

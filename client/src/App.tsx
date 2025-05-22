@@ -33,6 +33,7 @@ import BookPage from "./pages/OwnerLayout/BooksLayout/BookPage/BookPage";
 import WorkerLayout from "./layouts/WorkerLayout/WorkerLayout";
 import BookStoresLayoutWorker from "./layouts/WorkerLayout/BookStoresLayoutWorker";
 import BookStoreListWorker from "./pages/WorkerLayout/BookStoreLayout/BookStoreList/BookStoreListWorker";
+import UpdateBookStoreManager from "./pages/WorkerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStoreManager";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -131,6 +132,14 @@ const App: FC = () => {
                 <SearchCtxProvider>
                   <BookStoreListWorker />
                 </SearchCtxProvider>
+              }
+            />
+            <Route
+              path="update/:bookStoreID"
+              element={
+                <SwapCtxProvider>
+                  <UpdateBookStoreManager />
+                </SwapCtxProvider>
               }
             />
           </Route>
