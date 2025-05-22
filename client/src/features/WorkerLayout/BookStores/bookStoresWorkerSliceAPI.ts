@@ -27,6 +27,18 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
       providesTags: [TagsAPI.JUNCTION_BOOK_STORE_USER],
     }),
 
+    updateBookStoreWorker: builder.mutation<
+      BaseResAPI<void>,
+      { formData: FormData; bookStoreID: string }
+    >({
+      query: ({ bookStoreID, formData }) => ({
+        url: `${BASE_URL}/${bookStoreID}`,
+        method: "PUT",
+        data: formData,
+      }),
+      invalidatesTags: [TagsAPI.JUNCTION_BOOK_STORE_USER],
+    }),
+
     getAllStoresWorker: builder.query<
       BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreUserType[] }>>,
       ReqQueryAPI<SearchStoreFormType>
