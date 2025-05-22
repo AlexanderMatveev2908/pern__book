@@ -22,7 +22,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
   const handleUploadBtnClick = (e: React.MouseEvent) =>
     (e.currentTarget?.previousElementSibling as HTMLInputElement)?.click();
   const handleRemoveBtnClick = () =>
-    setValue("video", "", { shouldValidate: true });
+    setValue("video", null, { shouldValidate: true });
 
   const elBtn = useMemo(
     () => ({

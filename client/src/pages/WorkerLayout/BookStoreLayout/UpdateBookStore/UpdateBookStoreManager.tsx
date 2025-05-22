@@ -12,7 +12,7 @@ import {
 } from "@/core/hooks/hooks";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
-import { isObjOk, isSameData } from "@/core/lib/lib";
+import { isObjOk, isSameData, makeDelay } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, type FC } from "react";
@@ -61,6 +61,8 @@ const UpdateBookStoreManager: FC = () => {
       });
 
       if (!res) return;
+
+      makeDelay(() => window.scrollTo({ top: 0, behavior: "smooth" }), 200);
     },
     (errs) => {
       if (errs?.video?.message) setFocus("video_a" as any);

@@ -18,6 +18,11 @@ import { Op } from "sequelize";
 import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book } from "../../models/all/Book.js";
 import { subcategories } from "../../types/all/books.js";
+import {
+  deleteOldAssetsStore,
+  handleGetDeletedAssetsStore,
+  handleStoreAssetsPut,
+} from "../../lib/assetsHandlers/store.js";
 
 const choseRandom = () => Math.floor(Math.random() * 3);
 
@@ -142,79 +147,29 @@ export const updateBookStore = async (
       }
     }
 
-    if (bookStore.video && (videoData || !bodyData?.video)) {
-      await VideoBookStore.destroy({
-        where: {
-          bookStoreID,
-        },
-        transaction: t,
-      });
-    }
+    await handleStoreAssetsPut({
+      t,
+      req,
+      bookStore,
+      imagesData,
+      videoData,
+    });
 
-    if (videoData)
-      await VideoBookStore.create(
-        {
-          ...videoData,
-          bookStoreID,
-        },
-        { transaction: t }
-      );
-
-    if (imagesData?.length) {
-      if (bookStore?.images?.length)
-        await ImgBookStore.destroy({
-          where: {
-            bookStoreID,
-          },
-          transaction: t,
-        });
-
-      await ImgBookStore.bulkCreate(
-        imagesData.map((img) => ({
-          ...img,
-          bookStoreID,
-        })),
-        { transaction: t }
-      );
-    }
-
-    const newIds = new Set(
-      bodyData.images?.length
-        ? bodyData.images.map(
-            (el: any) =>
-              el.split("/").at(-2) + "/" + el.split("/").pop().split(".")[0]
-          )
-        : []
-    ) as unknown as Set<string>;
-    const deleteIds = bookStore.images?.length
-      ? bookStore.images
-          .filter((img) => !newIds.has(img.publicID))
-          .map((el) => el.publicID)
-      : [];
-
-    await ImgBookStore.destroy({
-      where: {
-        publicID: {
-          [Op.in]: deleteIds,
-        },
-      },
-      transaction: t,
+    const { deleteIds } = await handleGetDeletedAssetsStore({
+      bookStore,
+      bodyData,
+      t,
     });
 
     await t.commit();
 
-    try {
-      if (bookStore.video && (videoData || !bodyData?.video))
-        await delCloud(bookStore.video.publicID, ResourceType?.VID);
-
-      if (imagesData?.length && bookStore?.images?.length)
-        await Promise.all(
-          bookStore.images.map((img) => delCloud(img.publicID))
-        );
-      if (deleteIds) await Promise.all(deleteIds.map((id) => delCloud(id)));
-    } catch (err) {
-      console.log(err);
-    }
+    await deleteOldAssetsStore({
+      bookStore,
+      bodyData,
+      videoData,
+      imagesData,
+      deleteIds,
+    });
 
     return res200(res, { msg: "BookStore updated" });
   } catch (err: any) {

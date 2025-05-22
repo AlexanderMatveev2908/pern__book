@@ -33,7 +33,7 @@ export const usePopulateStoreForm = ({ bookStore, setValue }: Params) => {
         } else if (optKeysStore.includes(key)) {
           if (typeof val === "object") {
             if (key === "video") {
-              setValue(key as keyof FormBookStoreType, val?.url ?? "", {
+              setValue(key as keyof FormBookStoreType, val?.url ?? null, {
                 shouldValidate: true,
               });
             } else if (Array.isArray(val)) {
