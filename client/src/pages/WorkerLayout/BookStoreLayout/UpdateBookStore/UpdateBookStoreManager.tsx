@@ -12,7 +12,7 @@ import {
 } from "@/core/hooks/hooks";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
-import { __cg, isObjOk, isSameData } from "@/core/lib/lib";
+import { isObjOk, isSameData } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, type FC } from "react";
@@ -124,9 +124,6 @@ const UpdateBookStoreManager: FC = () => {
             break;
         }
       }
-
-      __cg("old", original);
-      __cg("new", currVals);
 
       return !isSameData(original, currVals);
     },

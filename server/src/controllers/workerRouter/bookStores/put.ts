@@ -6,8 +6,9 @@ export const updateStoreManager = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  const { userID } = req;
+  const { userID, body } = req;
   const { bookStoreID } = req.params;
+  const files = req.files as Express.Multer.File[];
 
   return res200(res, { msg: "bookstore updated" });
 };

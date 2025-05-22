@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { __cg } from "@/core/lib/lib";
 import { useEffect, useState } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
 
@@ -23,8 +22,6 @@ export const useListenFormOk = ({
       const len = !!Object.keys(errors).length;
       const makeMakeAPI =
         typeof customValidateCB === "function" ? customValidateCB(vals) : true;
-
-      __cg("make api", makeMakeAPI);
 
       if ((len || !makeMakeAPI) && isFormOk) setIsFormOk(false);
       else if (!len && makeMakeAPI && !isFormOk) setIsFormOk(true);
