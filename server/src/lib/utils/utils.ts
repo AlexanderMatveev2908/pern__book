@@ -20,3 +20,6 @@ export const getDir = () =>
 export const getDirClient = () => path.join(getDir(), "../../client/dist");
 
 export const getCaDir = () => path.join(getDir(), "certs/ca.pem");
+
+export const countTo_5 = (): number[][] =>
+  Array.from({ length: 5 }, (_, i) => (!i ? [i, i + 1] : [i + 0.1, i + 1]));

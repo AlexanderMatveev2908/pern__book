@@ -11,6 +11,9 @@ import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
 import { calcPagination } from "../../../lib/query/pagination.js";
 import { literal } from "sequelize";
+import { countTo_5 } from "../../../lib/utils/utils.js";
+import { replacePoint } from "../../../lib/dataStructures.js";
+import { Literal } from "sequelize/lib/utils";
 
 export const getAllStoresWorker = async (
   req: ReqApp,
@@ -70,6 +73,28 @@ export const getAllStoresWorker = async (
                 )`),
               "reviewsCount",
             ],
+            [
+              literal(`(
+              SELECT ROUND(COALESCE(AVG(r.rating),0),1)
+              FROM "book_stores" as bs
+              INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+              INNER JOIN "reviews" as r ON b.id = r."bookID"
+              WHERE bs."id" = "BookStoreUser"."bookStoreID"
+              )`),
+              "avgRating",
+            ],
+
+            ...(countTo_5().map((pair) => [
+              literal(`(
+                SELECT ROUND(COALESCE(AVG(r.rating),0),1)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                INNER JOIN "reviews" as r ON b.id = r."bookID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
+              )`),
+              `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+            ]) as [Literal, string][]),
           ],
         },
         include: [

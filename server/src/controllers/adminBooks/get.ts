@@ -12,17 +12,12 @@ import { Literal } from "sequelize/lib/utils";
 import { sortItems } from "../../lib/query/sort.js";
 import PDFDocument from "pdfkit";
 import { makeBooksQ } from "../../lib/query/owner/books/query.js";
+import { countTo_5 } from "../../lib/utils/utils.js";
 
 const calcRatingSql = (): [Literal, string][] => [
   [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
   [literal(`ROUND(COALESCE(AVG("reviews"."rating"), 0), 1)`), "avgRating"],
-  ...([
-    [0, 1],
-    [1.1, 2],
-    [2.1, 3],
-    [3.1, 4],
-    [4.1, 5],
-  ].map((pair) => [
+  ...(countTo_5().map((pair) => [
     literal(`(SELECT COALESCE(COUNT(DISTINCT r.id) , 0)
                 FROM "reviews" AS r
                 WHERE r.rating BETWEEN ${pair[0]} AND ${pair[1]}

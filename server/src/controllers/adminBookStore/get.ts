@@ -18,6 +18,7 @@ import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
 import { replacePoint } from "../../lib/dataStructures.js";
 import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
+import { countTo_5 } from "../../lib/utils/utils.js";
 
 const calcAvgSeq = (
   prop: string,
@@ -75,13 +76,7 @@ const myCoolSql = [
 `),
     "avgRating",
   ],
-  ...[
-    [0, 1],
-    [1.1, 2],
-    [2.1, 3],
-    [3.1, 4],
-    [4.1, 5],
-  ].map((el, i) => [
+  ...countTo_5().map((el, i) => [
     literal(`
   (SELECT COALESCE(COUNT(DISTINCT r.id), 0)
   FROM "books" AS b
