@@ -14,6 +14,8 @@ import { literal } from "sequelize";
 import { countTo_5 } from "../../../lib/utils/utils.js";
 import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
+import { OrderStage } from "../../../types/all/orders.js";
+import { capChar } from "../../../lib/utils/formatters.js";
 
 export const getAllStoresWorker = async (
   req: ReqApp,
@@ -94,6 +96,27 @@ export const getAllStoresWorker = async (
                 AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
               )`),
               `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+            ]) as [Literal, string][]),
+
+            [
+              literal(`(
+                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+                FROM "book_stores" as bs
+                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+              "ordersCount",
+            ],
+
+            ...(Object.values(OrderStage).map((stage) => [
+              literal(`(
+                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+                FROM "book_stores" as bs
+                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                AND o."stage" = '${stage}'
+                )`),
+              "orders" + capChar(stage) + "Count",
             ]) as [Literal, string][]),
           ],
         },
