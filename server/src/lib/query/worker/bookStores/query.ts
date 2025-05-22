@@ -1,10 +1,12 @@
-import { Op, WhereOptions } from "sequelize";
+import { FindOptions, literal, Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../../types/types.js";
 import { parseArrFromStr } from "../../../dataStructures.js";
 import { handleQueryDelivery } from "../../general.js";
 
 export const queryStoresWorker = (req: ReqApp) => {
   const queryStores: WhereOptions = {};
+  const queryAfterPipe: any = {};
+  const queryOrders: WhereOptions = {};
 
   for (const pair of Object.entries(req.query ?? {})) {
     const [k, v] = pair;
@@ -39,6 +41,39 @@ export const queryStoresWorker = (req: ReqApp) => {
         break;
       }
 
+      case "orders":
+        queryOrders.stage = {
+          [Op.in]: parseArrFromStr(v as string | string[]),
+        };
+        break;
+
+      case "avgRating": {
+        const cond: WhereOptions = [];
+        for (const pair of parseArrFromStr(v as string | string[])) {
+          const [from, to] = pair.split("-");
+
+          cond.push(
+            literal(`( 
+            SELECT ROUND(COALESCE(AVG(r.rating),0),1)
+            FROM "book_stores" as bs
+            INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+            INNER JOIN "reviews" as r ON b.id = r."bookID"
+            WHERE bs."id" = "BookStoreUser"."bookStoreID"
+            )
+              BETWEEN ${from} AND ${to}
+              `)
+          );
+        }
+
+        if (cond.length)
+          queryAfterPipe[Op.or as any] = [
+            ...(queryAfterPipe[Op.or as any] ?? []),
+            ...cond,
+          ];
+
+        break;
+      }
+
       default:
         break;
     }
@@ -46,5 +81,7 @@ export const queryStoresWorker = (req: ReqApp) => {
 
   return {
     queryStores,
+    queryAfterPipe,
+    queryOrders,
   };
 };

@@ -10,12 +10,97 @@ import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
 import { calcPagination } from "../../../lib/query/pagination.js";
-import { literal } from "sequelize";
+import { FindAttributeOptions, literal } from "sequelize";
 import { countTo_5 } from "../../../lib/utils/utils.js";
 import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../../types/all/orders.js";
 import { capChar } from "../../../lib/utils/formatters.js";
+
+const myCoolSql: FindAttributeOptions = {
+  include: [
+    [
+      literal(`(
+            SELECT COALESCE(COUNT(DISTINCT b.id),0)
+            FROM "book_stores" as bs
+            INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+            WHERE bs."id" = "BookStoreUser"."bookStoreID"
+            )`),
+      "booksCount",
+    ],
+    [
+      literal(`(
+                SELECT ROUND(COALESCE(AVG(b.qty),0),0)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+      "avgQty",
+    ],
+    [
+      literal(`(
+                SELECT ROUND(COALESCE(AVG( b.price)),2)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+      "avgPrice",
+    ],
+    [
+      literal(`(
+                SELECT COALESCE(COUNT(DISTINCT r.id),0)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                INNER JOIN "reviews" as r ON b.id = r."bookID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+      "reviewsCount",
+    ],
+    [
+      literal(`(
+              SELECT ROUND(COALESCE(AVG(r.rating),0),1)
+              FROM "book_stores" as bs
+              INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+              INNER JOIN "reviews" as r ON b.id = r."bookID"
+              WHERE bs."id" = "BookStoreUser"."bookStoreID"
+              )`),
+      "avgRating",
+    ],
+
+    ...(countTo_5().map((pair) => [
+      literal(`(
+                SELECT ROUND(COALESCE(AVG(r.rating),0),1)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                INNER JOIN "reviews" as r ON b.id = r."bookID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
+              )`),
+      `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+    ]) as [Literal, string][]),
+
+    [
+      literal(`(
+                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+                FROM "book_stores" as bs
+                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+      "ordersCount",
+    ],
+
+    ...(Object.values(OrderStage).map((stage) => [
+      literal(`(
+                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+                FROM "book_stores" as bs
+                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                AND o."stage" = '${stage}'
+                )`),
+      "orders" + capChar(stage) + "Count",
+    ]) as [Literal, string][]),
+  ],
+};
 
 export const getAllStoresWorker = async (
   req: ReqApp,
@@ -23,7 +108,7 @@ export const getAllStoresWorker = async (
 ): Promise<any> => {
   const { userID } = req;
 
-  const { queryStores } = queryStoresWorker(req);
+  const { queryStores, queryAfterPipe, queryOrders } = queryStoresWorker(req);
 
   const bookStores = await BookStoreUser.findAll({
     where: {
@@ -36,90 +121,7 @@ export const getAllStoresWorker = async (
         where: queryStores,
         // ? actually is implicit fact it is required cause have a junction with no models related is not possible cause  sever would crash trying to delete an item not respecting sql priority of constraints
         // required: true,
-        attributes: {
-          include: [
-            [
-              literal(`(
-            SELECT COALESCE(COUNT(DISTINCT b.id),0)
-            FROM "book_stores" as bs
-            INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-            WHERE bs."id" = "BookStoreUser"."bookStoreID"
-            )`),
-              "booksCount",
-            ],
-            [
-              literal(`(
-                SELECT ROUND(COALESCE(AVG(b.qty),0),0)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
-              "avgQty",
-            ],
-            [
-              literal(`(
-                SELECT ROUND(COALESCE(AVG( b.price)),2)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
-              "avgPrice",
-            ],
-            [
-              literal(`(
-                SELECT COALESCE(COUNT(DISTINCT r.id),0)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                INNER JOIN "reviews" as r ON b.id = r."bookID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
-              "reviewsCount",
-            ],
-            [
-              literal(`(
-              SELECT ROUND(COALESCE(AVG(r.rating),0),1)
-              FROM "book_stores" as bs
-              INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-              INNER JOIN "reviews" as r ON b.id = r."bookID"
-              WHERE bs."id" = "BookStoreUser"."bookStoreID"
-              )`),
-              "avgRating",
-            ],
-
-            ...(countTo_5().map((pair) => [
-              literal(`(
-                SELECT ROUND(COALESCE(AVG(r.rating),0),1)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                INNER JOIN "reviews" as r ON b.id = r."bookID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
-              )`),
-              `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-            ]) as [Literal, string][]),
-
-            [
-              literal(`(
-                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-                FROM "book_stores" as bs
-                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
-              "ordersCount",
-            ],
-
-            ...(Object.values(OrderStage).map((stage) => [
-              literal(`(
-                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-                FROM "book_stores" as bs
-                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                AND o."stage" = '${stage}'
-                )`),
-              "orders" + capChar(stage) + "Count",
-            ]) as [Literal, string][]),
-          ],
-        },
+        attributes: myCoolSql,
         include: [
           {
             model: ImgBookStore,
@@ -132,6 +134,8 @@ export const getAllStoresWorker = async (
           {
             model: Order,
             as: "orders",
+            where: queryOrders,
+            required: !!Object.keys(queryOrders).length,
           },
           {
             model: Book,
@@ -155,6 +159,7 @@ export const getAllStoresWorker = async (
       "bookStore->books.id",
       "bookStore->books->reviews.id",
     ],
+    having: queryAfterPipe,
   });
 
   const nHits = bookStores.length;
