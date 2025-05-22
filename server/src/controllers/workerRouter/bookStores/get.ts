@@ -17,6 +17,8 @@ import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../../types/all/orders.js";
 import { capChar } from "../../../lib/utils/formatters.js";
 
+// ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
+
 const myCoolSql: FindAttributeOptions = {
   include: [
     [

@@ -74,6 +74,30 @@ export const queryStoresWorker = (req: ReqApp) => {
         break;
       }
 
+      case "minAvgPrice":
+        queryAfterPipe[Op.or as any] = [
+          ...(queryAfterPipe[Op.or as any] ?? []),
+          literal(`(
+            SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
+            FROM "book_stores" as bs 
+            INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+            WHERE bs."id" = "BookStoreUser"."bookStoreID"
+            ) >= ${v}`),
+        ];
+        break;
+
+      case "maxAvgPrice":
+        queryAfterPipe[Op.or as any] = [
+          ...(queryAfterPipe[Op.or as any] ?? []),
+          literal(`(
+              SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
+              FROM "book_stores" as bs 
+              INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+              WHERE bs."id" = "BookStoreUser"."bookStoreID"
+              ) <= ${v}`),
+        ];
+        break;
+
       default:
         break;
     }
