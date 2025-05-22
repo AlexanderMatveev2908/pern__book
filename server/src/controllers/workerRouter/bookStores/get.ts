@@ -10,6 +10,7 @@ import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
 import { calcPagination } from "../../../lib/query/pagination.js";
+import { literal } from "sequelize";
 
 export const getAllStoresWorker = async (
   req: ReqApp,
@@ -28,6 +29,30 @@ export const getAllStoresWorker = async (
         model: BookStore,
         as: "bookStore",
         where: queryStores,
+        // ? actually is implicit fact it is required cause have a junction with no models related is not possible cause  sever would crash trying to delete an item not respecting sql priority of constraints
+        // required: true,
+        attributes: {
+          include: [
+            [
+              literal(`(
+            SELECT COALESCE(COUNT(DISTINCT b.id),0)
+            FROM "book_stores" as bs
+            INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+            WHERE bs."id" = "BookStoreUser"."bookStoreID"
+            )`),
+              "booksCount",
+            ],
+            [
+              literal(`(
+                SELECT ROUND(COALESCE(AVG(b.qty),0),0)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+              "avgQty",
+            ],
+          ],
+        },
         include: [
           {
             model: ImgBookStore,
@@ -53,6 +78,15 @@ export const getAllStoresWorker = async (
           },
         ],
       },
+    ],
+    group: [
+      "BookStoreUser.id",
+      "bookStore.id",
+      "bookStore->images.id",
+      "bookStore->video.id",
+      "bookStore->orders.id",
+      "bookStore->books.id",
+      "bookStore->books->reviews.id",
     ],
   });
 
