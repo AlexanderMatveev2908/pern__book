@@ -1,75 +1,11 @@
 {
-  "body": {
-    "email": "matveevalexander2908@gmail.com",
-    "country": "United States",
-    "state": "Florida",
-    "city": "Tallahassee",
-    "street": "Apalachee Parkway",
-    "zipCode": "32301",
-    "phone": "+00 000 000",
-    "name": "wwwwwww",
-    "categories": [
-      "languages",
-      "math",
-      "science"
-    ],
-    "deliveryTime": "555",
-    "items": [
-      {
-        "email": "matveev.alexander.29.08.00@gmail.com",
-        "role": "MANAGER"
-      }
-    ]
-  },
-  "files": {
-    "video": [
-      {
-        "fieldname": "video",
-        "originalname": "3.mp4",
-        "encoding": "7bit",
-        "mimetype": "video/mp4",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "ec47cf82-5dc7-474d-8d3e-9a9d8fbd4705.mp4",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\ec47cf82-5dc7-474d-8d3e-9a9d8fbd4705.mp4",
-        "size": 383216
-      }
-    ],
-    "images": [
-      {
-        "fieldname": "images",
-        "originalname": "8.jpg",
-        "encoding": "7bit",
-        "mimetype": "image/jpeg",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "9b9ef737-b3e4-46fc-98cb-cd3aca14f913.jpg",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\9b9ef737-b3e4-46fc-98cb-cd3aca14f913.jpg",
-        "size": 167629
-      },
-      {
-        "fieldname": "images",
-        "originalname": "9.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "75ed893b-f662-49a5-a3ac-db4f6c506473.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\75ed893b-f662-49a5-a3ac-db4f6c506473.avif",
-        "size": 164866
-      },
-      {
-        "fieldname": "images",
-        "originalname": "10.avif",
-        "encoding": "7bit",
-        "mimetype": "image/avif",
-        "destination": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads",
-        "filename": "66c52bf4-df8c-4e7f-8d77-3e0446c42d54.avif",
-        "path": "C:\\Users\\user\\OneDrive\\Documenti\\PROJECTS\\PERN__BOOK\\server\\uploads\\66c52bf4-df8c-4e7f-8d77-3e0446c42d54.avif",
-        "size": 16820
-      }
-    ]
-  },
+  "files": {},
   "file": {},
-  "query": {},
+  "query": {
+    "page": "0",
+    "limit": "8"
+  },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjU2MjZhZmE0LWQ2NzMtNDg0MC1iOWYzLTk4MDg4NmJiZDlhMCIsImlhdCI6MTc0Nzc2NjY1OSwiZXhwIjoxNzQ3NzY2NzE5fQ.b1XKpz4gandrS16CnHp2g08Ay35BnUak8-vba7QdCjo",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.bAmFQO0LVdCFULZTioOQbWA87-LMBy0sRn5ShPnB8WXwF4DlyuUTJU9FqA-_upH8P-hnfDgmWR1_BqTz4ES8bcqjXBo7zNvMXqzKZjf-O08aWybgm3kOCqYx0S2UNYSk2f3zcpNdh30npvyxRvE3d3Sg78Wn1ppZl5YrssEowRCTo7I7y91ULOon6L3MmDZuTAhcFdWS1JNqUBOv27_1fZyndfGrVn2NL9zzg157dFaLb3fs1IJuObLEkiRceQnIOZDpJX2Lbc8Ra-UJjfup3-fA9vQ6WjxlAqZ0wS2xQn1V6ME3bQ_gkqpVtxbD9q5drktnrmsMo5n9jHQPdH5S_g.vaea8a3WgLNRssHI.dU6OMrUKwwNvbsifHFJrvii6ypOqeEBG10xc7_QooepAxflNGHFXY6xZG0Om.n2KJ0OU1Zn_M2yqfk2uC1Q"
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjQ5YWRiNThhLWZkNjQtNDI1OS1iZjFmLWUyMmU0NWU3MmY4YyIsImlhdCI6MTc0Nzc3MjU0OSwiZXhwIjoxNzQ3NzcyNjA5fQ.0kPIyR5lSquiEaQIcFCYWq9kt26ifA-WACeXxn7QUKg",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.AA1Ipxja4ipZ9GR_vnV7kh2cXC4oLNooU8V2hg-Q75A2GpRY68DO7w1lLqpYlfnWV53xJ_EhQWfwA-t-9ALZnBsGRK9jZ016M3Ht84ZYcmjicy4CMqeC_dCPCuE035j9PMFK_-JHWDgC1OpidxXFxubW3g6z1GNpCWjGDlJ74bopnAFM34JI0KHhS45MrSkjJBd4RAkOezzpUZAuZH9sWRmKeTQtDWKok50mv7xdcPwtiNNcmAEGxIhgjCCS_LoqxD4OMgP3anCe-LNqaVBO_eth9MSffJblp7IyBjiHFo2Fg6bouT8-oXhPo9S3BCDS9HeTNeSM3VSeuusxoOfYwA.LUXK6a_D2BuUTEWI.muEHuPaLkIygfsnViLyjOnJOaLRCl9nGXiF6hGZf_qPbr9sCrHCaI6AMdWF_.XY7_j9IO9v2jghrH7CKHCQ"
 }
