@@ -38,6 +38,7 @@ import UpdateBookStoreManager from "./pages/WorkerLayout/BookStoreLayout/UpdateB
 const App: FC = () => {
   const navigate = useNavigate();
 
+  // aa
   useEffect(() => {
     setNavigator(navigate);
   }, [navigate]);
