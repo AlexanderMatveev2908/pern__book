@@ -1,4 +1,4 @@
-# install yarn global linux
+# install yarn global
 
 `corepack enable
 corepack prepare yarn@4.9.1 --activate
