@@ -51,6 +51,25 @@ export const getAllStoresWorker = async (
                 )`),
               "avgQty",
             ],
+            [
+              literal(`(
+                SELECT ROUND(COALESCE(AVG( b.price)),2)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+              "avgPrice",
+            ],
+            [
+              literal(`(
+                SELECT COALESCE(COUNT(DISTINCT r.id),0)
+                FROM "book_stores" as bs
+                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
+                INNER JOIN "reviews" as r ON b.id = r."bookID"
+                WHERE bs."id" = "BookStoreUser"."bookStoreID"
+                )`),
+              "reviewsCount",
+            ],
           ],
         },
         include: [
