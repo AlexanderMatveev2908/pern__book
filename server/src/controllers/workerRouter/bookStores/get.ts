@@ -21,7 +21,7 @@ import { err403, err404 } from "../../../lib/responseClient/err.js";
 
 // ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
 
-const myCoolSql: FindAttributeOptions = {
+const myCoolNestedSql: FindAttributeOptions = {
   include: [
     [
       literal(`(
@@ -106,6 +106,80 @@ const myCoolSql: FindAttributeOptions = {
   ],
 };
 
+const myCollFlatSql: FindAttributeOptions = {
+  include: [
+    [
+      literal(`(
+          SELECT COALESCE(COUNT(DISTINCT b.id), 0)
+          FROM books as b
+          WHERE b."bookStoreID" = "BookStore"."id"
+          )`),
+      "booksCount",
+    ],
+    [
+      literal(`(
+            SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
+            FROM books as b
+            WHERE b."bookStoreID" = "BookStore"."id"
+            )`),
+      "avgQty",
+    ],
+    [
+      literal(`(
+            SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
+            FROM books as b
+            WHERE b."bookStoreID" = "BookStore"."id"
+            )`),
+      "avgPrice",
+    ],
+    [
+      literal(`(
+          SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+          FROM orders as o
+          WHERE o."bookStoreID" = "BookStore"."id"
+          )`),
+      "ordersCount",
+    ],
+    [
+      literal(`(
+            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+            FROM reviews as r
+            WHERE r."bookID" IN (
+              SELECT b.id
+              FROM books as b
+              WHERE b."bookStoreID" = "BookStore"."id"
+            )
+            )`),
+      "reviewsCount",
+    ],
+    ...(countTo_5().map((pair) => [
+      literal(`(
+            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+            FROM reviews as r
+            WHERE r."bookID" IN (
+              SELECT b.id
+              FROM books as b
+              WHERE b."bookStoreID" = "BookStore"."id"
+            )
+            AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
+            )`),
+      `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+    ]) as [Literal, string][]),
+
+    ...(Object.values(OrderStage).map((stage) => [
+      literal(
+        `(
+        SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+        FROM orders AS o
+        WHERE o."bookStoreID" = "BookStore"."id"
+        AND o."stage" = '${stage}'
+        )`
+      ),
+      "orders" + capChar(stage) + "Count",
+    ]) as [Literal, string][]),
+  ],
+};
+
 export const getBookStoreWorker = async (
   req: ReqApp,
   res: Response
@@ -117,6 +191,7 @@ export const getBookStoreWorker = async (
     where: {
       id: bookStoreID,
     },
+    attributes: myCollFlatSql,
     include: [
       {
         model: User,
@@ -180,7 +255,7 @@ export const getAllStoresWorker = async (
         where: queryStores,
         // ? actually is implicit fact it is required cause have a junction with no models related is not possible cause  sever would crash trying to delete an item not respecting sql priority of constraints
         // required: true,
-        attributes: myCoolSql,
+        attributes: myCoolNestedSql,
         include: [
           {
             model: ImgBookStore,
