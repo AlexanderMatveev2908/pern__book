@@ -28,9 +28,15 @@ type PropsType = {
   handleSave: (e: React.FormEvent) => void;
   isFormOk: boolean;
   isLoading: boolean;
+  isManager?: boolean;
 };
 
-const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
+const BookStoreForm: FC<PropsType> = ({
+  handleSave,
+  isFormOk,
+  isLoading,
+  isManager,
+}) => {
   const ctx = useFormContext();
   const path = useLocation().pathname;
   const {
@@ -66,10 +72,17 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
         {...{
           title: "bookstore name",
           sizeStyle: "max-w-[500px] lg:max-w-1/2",
+          isDisabled: isManager,
         }}
       >
         <FormField
-          {...{ register, errors, el: fieldNameStore, showLabel: false }}
+          {...{
+            register,
+            errors,
+            el: fieldNameStore,
+            showLabel: false,
+            isDisabled: isManager,
+          }}
         />
       </WrapperFormField>
 
@@ -89,26 +102,30 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
         <ImagesField />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Categories (max-3)" }}>
+      <WrapperFormField
+        {...{ title: "Categories (max-3)", isDisabled: isManager }}
+      >
         <CheckBoxSwapper
           {...{
             keyForm: "categories",
             maxData: 3,
             fieldsArg: Object.values(CatBookStore),
+            isDisabled: isManager,
           }}
         />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Contact" }}>
-        <ContactForm />
+      <WrapperFormField {...{ title: "Contact", isDisabled: isManager }}>
+        <ContactForm {...{ isDisabled: isManager }} />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Address" }}>
+      <WrapperFormField {...{ title: "Address", isDisabled: isManager }}>
         <AddressForm
           {...{
             swapID,
             btnProfile: true,
             arrAddressSwap: fieldsSwapStore,
+            isDisabled: isManager,
           }}
         />
       </WrapperFormField>
@@ -117,11 +134,13 @@ const BookStoreForm: FC<PropsType> = ({ handleSave, isFormOk, isLoading }) => {
         <DeliveryForm />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Team ~" }}>
-        <TeamForm />
-      </WrapperFormField>
+      {!isManager && (
+        <WrapperFormField {...{ title: "Team ~" }}>
+          <TeamForm />
+        </WrapperFormField>
+      )}
 
-      <div className="w-full max-w-[300px]">
+      <div className="w-full max-w-[300px] mt-8">
         <Button
           {...{
             type: "submit",

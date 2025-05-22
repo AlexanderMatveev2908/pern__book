@@ -8,9 +8,16 @@ type PropsType = {
   isIn: boolean;
   label?: string;
   Icon?: IconType;
+  isDisabled?: boolean;
 };
 
-const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label, Icon }) => {
+const BtnCheckBox: FC<PropsType> = ({
+  handleClick,
+  isDisabled,
+  isIn,
+  label,
+  Icon,
+}) => {
   const [isHover, setIsHover] = useState(false);
   const [isRemoved, setRemoved] = useState(false);
 
@@ -27,8 +34,9 @@ const BtnCheckBox: FC<PropsType> = ({ handleClick, isIn, label, Icon }) => {
         setIsHover(false);
       }}
       type="button"
+      disabled={isDisabled}
       className={`w-full max-w-[275px] rounded-xl px-5 py-2 flex gap-5 justify-center 
-     appearance-none outline-0 items-center transition-all duration-300 cursor-pointer btn_checkbox ${
+     appearance-none outline-0 items-center transition-all duration-300 enabled:cursor-pointer btn_checkbox ${
        isIn ? "border-blue-600 text-blue-600" : ""
      }`}
       style={

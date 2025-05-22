@@ -4,7 +4,11 @@ import { fieldsContact } from "@/core/config/fieldsData/OwnerLayout/bookStore/po
 import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 
-const ContactForm: FC = () => {
+type PropsType = {
+  isDisabled?: boolean;
+};
+
+const ContactForm: FC<PropsType> = ({ isDisabled }) => {
   const {
     register,
     formState: { errors },
@@ -16,12 +20,14 @@ const ContactForm: FC = () => {
   return (
     <div className="book_store_form__sub_form">
       {fieldsContact.map((el) => (
-        <FormField key={el.id} {...{ el, register, errors }} />
+        <FormField key={el.id} {...{ el, register, errors, isDisabled }} />
       ))}
 
-      <div className="w-full flex justify-center h-full items-end max-w-[300px] justify-self-center mt-3 sm:mt-0">
-        <QuickFillBtn {...{ keysUser, setValue }} />
-      </div>
+      {!isDisabled && (
+        <div className="w-full flex justify-center h-full items-end max-w-[300px] justify-self-center mt-3 sm:mt-0">
+          <QuickFillBtn {...{ keysUser, setValue }} />
+        </div>
+      )}
     </div>
   );
 };

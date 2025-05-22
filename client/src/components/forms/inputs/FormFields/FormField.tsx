@@ -19,6 +19,7 @@ type PropsType = {
   nestedIndex?: NestedIndexProp;
   children?: ReactNode;
   customCB?: ((val: any) => void) | null;
+  isDisabled?: boolean;
 } & FormBaseProps;
 
 const FormField: FC<PropsType> = ({
@@ -32,6 +33,7 @@ const FormField: FC<PropsType> = ({
   children,
   nestedIndex,
   customCB,
+  isDisabled,
 }) => {
   const registerParamHook =
     typeof index === "number"
@@ -56,6 +58,7 @@ const FormField: FC<PropsType> = ({
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
             className={`${customStyle ?? "input__base"} txt__2`}
             {...rest}
+            disabled={isDisabled}
             onChange={(e) => {
               onChange(e);
 

@@ -12,6 +12,7 @@ type PropsType = {
   fieldsArg: string[] | [];
   keyForm: string;
   maxData?: number;
+  isDisabled?: boolean;
 };
 
 const calcByW = () =>
@@ -26,9 +27,14 @@ const calcByW = () =>
 const calcTotSwap = (len: number, fieldsForSwap: number) =>
   Math.ceil(len / fieldsForSwap);
 
-// @ts-expect-error as any 🥴
-// eslint-disable-next-line
-const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
+const CheckBoxSwapper: FC<PropsType> = ({
+  // @ts-expect-error as any 🥴
+  // eslint-disable-next-line
+  maxData,
+  isDisabled,
+  keyForm,
+  fieldsArg,
+}) => {
   const {
     setValue,
     formState: { errors },
@@ -134,6 +140,7 @@ const CheckBoxSwapper: FC<PropsType> = ({ maxData, keyForm, fieldsArg }) => {
                       isIn: isIn(val),
                       label: captAll(val),
                       handleClick: () => handleCatClick(val),
+                      isDisabled,
                     }}
                   />
                 </div>

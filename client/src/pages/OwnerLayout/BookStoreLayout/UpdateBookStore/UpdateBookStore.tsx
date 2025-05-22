@@ -10,12 +10,12 @@ import {
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useEffect, useMemo } from "react";
+import { FC, useCallback, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormBookStoreType } from "../CreateBooksStore/CreateBooksStorePage";
-import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
-import { __cg, isObjOk, isSameData } from "@/core/lib/lib";
+import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
+import { __cg, isSameData } from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
@@ -32,6 +32,7 @@ import {
   useGetBookStoreQuery,
   useUpdateBookStoreMutation,
 } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
 
 const processTeam = (team: any[]) =>
   team?.length
@@ -89,70 +90,10 @@ const UpdateBookStore: FC = () => {
     fields: fieldsSwapStore,
   });
 
-  useEffect(() => {
-    const handleFill = () => {
-      if (isObjOk(bookStore)) {
-        for (const key in bookStore) {
-          const val = (bookStore as any)[key as keyof BookStoreType];
-
-          if (mandatoryKeysStore.includes(key)) {
-            setValue(
-              key as keyof FormBookStoreType,
-              typeof val === "number" ? +val + "" : val,
-              {
-                shouldValidate: true,
-              }
-            );
-          } else if (optKeysStore.includes(key)) {
-            if (typeof val === "object") {
-              if (Array.isArray(val)) {
-                setValue(
-                  key as keyof FormBookStoreType,
-                  val.map((el) => el.url),
-                  {
-                    shouldValidate: true,
-                  }
-                );
-              } else {
-                setValue(key as keyof FormBookStoreType, val?.url ?? "", {
-                  shouldValidate: true,
-                });
-              }
-            } else {
-              setValue(
-                key as keyof FormBookStoreType,
-                isNaN(val) ? val : +val ? val : "",
-                {
-                  shouldValidate: true,
-                }
-              );
-            }
-          } else if (key === "team") {
-            const hasData =
-              Array.isArray(val) &&
-              val.length &&
-              val.every((member) => isObjOk(member));
-            setValue(
-              "items",
-              hasData
-                ? val.map((el) => ({
-                    email: el.userEmail,
-                    role: el.role,
-                  }))
-                : [
-                    {
-                      email: "",
-                      role: null,
-                    },
-                  ]
-            );
-          }
-        }
-      }
-    };
-
-    handleFill();
-  }, [bookStore, setValue]);
+  usePopulateStoreForm({
+    bookStore,
+    setValue,
+  });
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();

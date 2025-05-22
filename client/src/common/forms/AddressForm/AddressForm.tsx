@@ -19,9 +19,15 @@ type PropsType = {
   swapID: string;
   btnProfile?: boolean;
   arrAddressSwap: FormFieldBasic[][];
+  isDisabled?: boolean;
 };
 
-const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
+const AddressForm: FC<PropsType> = ({
+  swapID,
+  btnProfile,
+  isDisabled,
+  arrAddressSwap,
+}) => {
   const {
     register,
     formState: { errors },
@@ -84,7 +90,10 @@ const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
               }`}
             >
               {arrAddressSwap[0].map((el) => (
-                <FormField key={el.id} {...{ el, register, errors }} />
+                <FormField
+                  key={el.id}
+                  {...{ el, register, errors, isDisabled }}
+                />
               ))}
             </div>
 
@@ -94,7 +103,10 @@ const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
               }`}
             >
               {arrAddressSwap[1].map((el) => (
-                <FormField key={el.id} {...{ el, register, errors }} />
+                <FormField
+                  key={el.id}
+                  {...{ el, register, errors, isDisabled }}
+                />
               ))}
             </div>
           </div>
@@ -103,33 +115,37 @@ const AddressForm: FC<PropsType> = ({ swapID, btnProfile, arrAddressSwap }) => {
               currForm,
               setCurrForm,
               totLen: 2,
-              // isNextDisabled: false,
-              isNextDisabled,
+              isNextDisabled: isDisabled ? false : isNextDisabled,
+              // isNextDisabled,
             }}
           >
-            <div className="w-[200px] justify-self-center">
-              <ButtonIcon
-                {...{
-                  el: clearBtnField,
-                  act: BtnAct.DEL,
-                  handleClick: handleClear,
-                }}
-              />
-            </div>
+            {!isDisabled && (
+              <div className="w-[200px] justify-self-center">
+                <ButtonIcon
+                  {...{
+                    el: clearBtnField,
+                    act: BtnAct.DEL,
+                    handleClick: handleClear,
+                  }}
+                />
+              </div>
+            )}
           </ButtonsSwapper>
         </div>
       </div>
 
-      <div className="form__size w-full justify-self-center grid grid-cols-1 sm:grid-cols-2 gap-5 justify-items-center">
-        <div className="w-[275px]">
-          <MapsBtn {...{ setValue }} />
-        </div>
-        {btnProfile && (
+      {!isDisabled && (
+        <div className="form__size w-full justify-self-center grid grid-cols-1 sm:grid-cols-2 gap-5 justify-items-center">
           <div className="w-[275px]">
-            <QuickFillBtn {...{ setValue, keysUser }} />
+            <MapsBtn {...{ setValue }} />
           </div>
-        )}
-      </div>
+          {btnProfile && (
+            <div className="w-[275px]">
+              <QuickFillBtn {...{ setValue, keysUser }} />
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 };

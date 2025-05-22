@@ -1,6 +1,7 @@
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import apiSlice from "@/store/apiSlice";
+import { BookStoreType } from "@/types/all/bookStore";
 import { BookStoreUserType } from "@/types/all/JunctionStoreUser";
 import {
   BaseResAPI,
@@ -16,7 +17,7 @@ const BASE_URL = "/worker/book-stores";
 export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSingleStoreWorker: builder.query<
-      BaseResAPI<{ bookStore: BookStoreUserType }>,
+      BaseResAPI<{ bookStore: BookStoreType }>,
       string
     >({
       query: (bookStoreID) => ({

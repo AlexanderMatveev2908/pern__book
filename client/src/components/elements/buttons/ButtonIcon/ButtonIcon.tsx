@@ -45,7 +45,7 @@ const ButtonIcon: FC<PropsType> = ({
       onClick={handleClick}
       disabled={isDisabled || isPending}
       type="button"
-      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer  flex items-center gap-5 justify-center group z-20 bg-neutral-950 disabled:opacity-50  btn__logic_md
+      className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer  flex items-center gap-5 justify-center group z-20 bg-neutral-950 disabled:opacity-50  btn__logic_md h-fit 
         transition-colors duration-300 ${getCol(act ?? BtnAct.INFO)} `}
     >
       {isPending ? <MiniSpinner /> : <el.icon className="icon__sm" />}

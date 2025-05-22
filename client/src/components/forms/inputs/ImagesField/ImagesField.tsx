@@ -112,7 +112,7 @@ const ImagesField: FC = () => {
       <ShowImagesData {...{ isVal, images, isUploadFiles, handleRemoveOne }} />
 
       <div
-        className={`w-full max-w-[600px] grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10 ${
+        className={`w-full max-w-[650px] grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10 ${
           isVal ? "justify-items-center mt-5" : "justify-items-start mt-0"
         }`}
       >
@@ -140,7 +140,7 @@ const ImagesField: FC = () => {
             }}
           />
 
-          <div className="w-full max-w-[300px]">
+          <div className="w-full max-w-[350px]">
             <ButtonIcon
               {...{ el: elBtnLabel, handleClick: handleUploadBtnClick }}
             />

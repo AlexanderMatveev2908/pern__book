@@ -14,7 +14,7 @@ import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useNavigate } from "react-router-dom";
-import { useMakeSchemaXStore } from "@/core/hooks/all/forms/useMakeSchemaXStore";
+import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 
