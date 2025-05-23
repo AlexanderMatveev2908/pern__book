@@ -5,7 +5,6 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import {
   useFocus,
-  useScroll,
   useWrapMutationAPI,
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
@@ -53,8 +52,6 @@ const processNumberToString = (value: number) => {
 };
 
 const UpdateBookStore: FC = () => {
-  useScroll();
-
   const nav = useNavigate();
 
   const { user } = useGetU();

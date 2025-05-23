@@ -1,6 +1,6 @@
 import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
-import { useScroll, useShowPwd } from "@/core/hooks/hooks";
+import { useShowPwd } from "@/core/hooks/hooks";
 import { makeDelay } from "@/core/lib/lib";
 import { AllowedFromApp } from "@/types/types";
 import { FC, useCallback, useState } from "react";
@@ -19,8 +19,6 @@ import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwa
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 
 const ManageAccount: FC = () => {
-  useScroll();
-
   // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap
   const [currForm, setCurrForm] = useState(0);
   const [currSwapState, setSwapState] = useState<SwapModeType | null>(null);

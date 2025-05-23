@@ -1,5 +1,4 @@
 import { getNoticeState } from "@/features/Notice/noticeSlice";
-import { useScroll } from "@/core/hooks/hooks";
 import { canStayNotice } from "@/core/lib/lib";
 import { EventApp } from "@/types/types";
 import { FC, useEffect, useRef } from "react";
@@ -9,8 +8,6 @@ import { Navigate, useLocation } from "react-router-dom";
 import ErrIcon from "@/components/elements/ErrIcon";
 
 const Notice: FC = () => {
-  useScroll();
-
   const from = useLocation().state?.from;
 
   const runRef = useRef<boolean>(false);

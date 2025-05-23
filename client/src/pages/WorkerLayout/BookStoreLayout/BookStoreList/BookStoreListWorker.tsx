@@ -8,7 +8,6 @@ import {
   storeFiltersWorker,
 } from "@/core/config/fieldsData/SearchBar/worker/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useScroll } from "@/core/hooks/hooks";
 import { __cg, isArr } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
@@ -16,8 +15,6 @@ import { FormProvider } from "react-hook-form";
 import BookStoreItemWorker from "./components/BookStoreItemWorker";
 
 const BookStoreListWorker: FC = () => {
-  useScroll();
-
   const { formWorkerBookStores: formCtx } = useFormCtxConsumer();
 
   const { handleSubmit } = formCtx;

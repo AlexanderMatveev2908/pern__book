@@ -1,10 +1,5 @@
 import { useChoseNewPwdMutation } from "@/features/AuthLayout/authSliceAPI";
-import {
-  useFocus,
-  useNotice,
-  useScroll,
-  useWrapMutationAPI,
-} from "@/core/hooks/hooks";
+import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import {
   __cg,
   checkQueryAuth,
@@ -35,8 +30,6 @@ const schema = z
 type NewPwdFormType = z.infer<typeof schema>;
 
 const ChoseNewPwd: FC = () => {
-  useScroll();
-
   const [searchParams] = useSearchParams();
   const location = useLocation();
 

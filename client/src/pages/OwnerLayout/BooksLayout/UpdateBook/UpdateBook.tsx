@@ -4,7 +4,7 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useMergeInfoExistingBook } from "@/core/hooks/all/forms/books/useMergeInfoExistingBook";
-import { useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
@@ -28,8 +28,6 @@ const keysForm = [
 ];
 
 const UpdateBook: FC = () => {
-  useScroll();
-
   const nav = useNavigate();
 
   const [isSame, setIsSame] = useState(false);

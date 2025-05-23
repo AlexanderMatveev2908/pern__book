@@ -1,7 +1,6 @@
 import {
   useFocus,
   usePopulateProfile,
-  useScroll,
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
 import {
@@ -39,8 +38,6 @@ import { useGetU } from "@/core/hooks/all/useGetU";
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
 const ProfileSettings = () => {
-  useScroll();
-
   const [eventClose, setEventClose] = useState(false);
 
   const dispatch = useDispatch();

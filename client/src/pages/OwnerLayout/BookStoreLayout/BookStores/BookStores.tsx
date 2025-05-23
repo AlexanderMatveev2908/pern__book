@@ -7,7 +7,6 @@ import {
   storeFilters,
 } from "@/core/config/fieldsData/SearchBar/owner/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useScroll } from "@/core/hooks/hooks";
 import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
@@ -17,8 +16,6 @@ import { __cg, isArr } from "@/core/lib/lib";
 import BookStoreItemOwner from "./components/BookStoreItem";
 
 const BookStores: FC = () => {
-  useScroll();
-
   const { user } = useGetU();
 
   // ? I DECIDED TO HANDLE THE REQUEST OF DATA INSIDE BUTTONS OF SEARCH__BAR TO ENCAPSULATE LOGIC AND AVOID REPEATING SAME CODE WITH ALMOST NONE DIFFERENCES

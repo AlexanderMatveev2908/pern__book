@@ -5,7 +5,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import HomePage from "./pages/Home/HomePage";
 import { setNavigator } from "@/core/lib/lib";
 import UserLayout from "./layouts/UserLayout";
-import { useNinjaToken } from "@/core/hooks/hooks";
+import { useNinjaToken, useScroll } from "@/core/hooks/hooks";
 import OwnerLayout from "./layouts/OwnerLayout/OwnerLayout";
 import CreateBooksStorePage from "./pages/OwnerLayout/BookStoreLayout/CreateBooksStore/CreateBooksStorePage";
 import Register from "./pages/AuthLayout/Register/Register";
@@ -42,6 +42,8 @@ import CreateBookWorker from "./pages/WorkerLayout/BooksLayout/CreateBookWorker/
 import UpdateBookWorker from "./pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
 
 const App: FC = () => {
+  useScroll();
+
   const navigate = useNavigate();
 
   useEffect(() => {

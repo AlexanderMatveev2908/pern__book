@@ -8,7 +8,6 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItem from "./components/BookItem";
-import { useScroll } from "@/core/hooks/hooks";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
 import { subcategories } from "@/types/all/books";
@@ -22,8 +21,6 @@ import {
 } from "@/core/config/fieldsData/SearchBar/owner/books";
 
 const BooksList: FC = () => {
-  useScroll();
-
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
   const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();

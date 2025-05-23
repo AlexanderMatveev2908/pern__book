@@ -1,6 +1,6 @@
 import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
 import { useMakeFormEmail } from "@/core/hooks/all/forms/useMakeFormEmail";
-import { useNotice, useScroll, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { makeNoticeTxt } from "@/core/lib/lib";
 import { SendMailEnd } from "@/types/types";
 import { FC } from "react";
@@ -8,7 +8,6 @@ import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import EmailForm from "@/common/forms/EmailForm/EmailForm";
 
 const ForgotPwd: FC = () => {
-  useScroll();
   const form = useMakeFormEmail();
   const { handleSubmit, reset } = form;
 

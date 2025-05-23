@@ -1,11 +1,6 @@
 import { setCanManageAccount } from "@/features/AuthLayout/authSlice";
 import { useGetRightManageAccountMutation } from "@/features/UserLayout/userSliceAPI";
-import {
-  useFocus,
-  useScroll,
-  useShowPwd,
-  useWrapMutationAPI,
-} from "@/core/hooks/hooks";
+import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
 import { saveStorage, schemaPwd } from "@/core/lib/lib";
 import { AllowedFromApp, StorageKeys } from "@/types/types";
@@ -29,8 +24,6 @@ const schema = z.object({
 export type PwdSecurityForm = z.infer<typeof schema>;
 
 const SecurityPwd: FC = () => {
-  useScroll();
-
   const { state } = useLocation();
   const { from } = state ?? {};
   const nav = useNavigate();

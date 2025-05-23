@@ -2,7 +2,7 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useGetU } from "@/core/hooks/all/useGetU";
-import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { useParams } from "react-router-dom";
@@ -26,7 +26,6 @@ import { FaDatabase } from "react-icons/fa";
 import DropStatsStatic from "@/components/elements/cards/shared/Drop/DropStatsStatic";
 
 const BookPage: FC = () => {
-  useScroll();
   const { bookID = "" } = useParams();
   const itPass = REG_ID.test(bookID);
 

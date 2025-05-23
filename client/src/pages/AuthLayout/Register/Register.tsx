@@ -9,7 +9,6 @@ import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import {
   useFocus,
   useNotice,
-  useScroll,
   useShowPwd,
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
@@ -38,8 +37,6 @@ import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
 type RegisterFormType = z.infer<typeof schemaRegister>;
 
 const Register: FC = () => {
-  useScroll();
-
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();

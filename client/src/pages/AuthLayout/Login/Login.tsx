@@ -2,12 +2,7 @@ import { FC, useEffect, useMemo } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import {
-  useFocus,
-  useScroll,
-  useShowPwd,
-  useWrapMutationAPI,
-} from "@/core/hooks/hooks";
+import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import apiSlice from "@/store/apiSlice";
@@ -47,8 +42,6 @@ const schema = z
 export type LoginFormType = z.infer<typeof schema>;
 
 const Login: FC = () => {
-  useScroll();
-
   const navigate = useNavigate();
 
   const { wrapMutationAPI } = useWrapMutationAPI();

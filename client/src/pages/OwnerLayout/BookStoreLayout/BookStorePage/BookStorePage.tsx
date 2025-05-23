@@ -1,7 +1,7 @@
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
-import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsOwner from "./components/DropActionsOwner";
@@ -22,8 +22,6 @@ import { TagsAPI } from "@/types/types";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 
 const BookStorePage: FC = () => {
-  useScroll();
-
   const { bookStoreID } = useParams() ?? {};
   const itPass = useMemo(() => REG_ID.test(bookStoreID ?? ""), [bookStoreID]);
   const { user } = useGetU();

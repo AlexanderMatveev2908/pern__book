@@ -5,11 +5,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
-import {
-  useScroll,
-  useWrapMutationAPI,
-  useWrapQueryAPI,
-} from "@/core/hooks/hooks";
+import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { isObjOk, isSameData } from "@/core/lib/lib";
@@ -24,8 +20,6 @@ import { z } from "zod";
 type UpdateStoreManagerFormType = z.infer<typeof schemaBookStore>;
 
 const UpdateBookStoreManager: FC = () => {
-  useScroll();
-
   const nav = useNavigate();
 
   const bookStoreID = useParams()?.bookStoreID;
