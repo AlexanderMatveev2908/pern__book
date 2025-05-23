@@ -1,14 +1,17 @@
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import WrapperLogged from "@/components/HOC/WrapperLogged";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import type { FC } from "react";
 import { Outlet } from "react-router-dom";
 
 const WorkerLayout: FC = () => {
-  const { isLoading, user } = useGetU();
+  const { user, isLoading } = useGetU();
 
   return (
-    <WrapPageAPI {...{ canStay: user?.isWorker, isLoading, fakeLoading: true }}>
-      <Outlet />
+    <WrapPageAPI {...{ isLoading, canStay: user?.isWorker }}>
+      <WrapperLogged>
+        <Outlet />
+      </WrapperLogged>
     </WrapPageAPI>
   );
 };
