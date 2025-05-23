@@ -9,7 +9,8 @@ COPY client/package.json client/yarn.lock ./
 
 RUN yarn install
 
-COPY client .
+COPY client/ ./
+
 
 RUN yarn build
 
