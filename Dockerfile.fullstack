@@ -1,38 +1,33 @@
-# Client build stage
+# => Client build 
 FROM node:20 AS client-build
 
 WORKDIR /app/client
 
 RUN corepack enable && corepack prepare yarn@4.9.1 --activate
 
-COPY client/package.json client/yarn.lock ./
+COPY client/ ./
 
 RUN echo "nodeLinker: node-modules" > .yarnrc.yml
 
 RUN yarn install
 
-COPY client/ ./
-
 RUN yarn build
 
-# Server build and final stage
+# => Server build 
 FROM node:20
 
 WORKDIR /app/server
 
 RUN corepack enable && corepack prepare yarn@4.9.1 --activate
 
-COPY server/package.json server/yarn.lock ./
+COPY server/ ./
 
 RUN echo "nodeLinker: node-modules" > .yarnrc.yml
 
 RUN yarn install
 
-COPY server/ ./
-
 RUN yarn build
 
-# Copy client dist from previous build stage
 COPY --from=client-build /app/client/dist /app/client/dist
 
 CMD ["yarn", "start"]
