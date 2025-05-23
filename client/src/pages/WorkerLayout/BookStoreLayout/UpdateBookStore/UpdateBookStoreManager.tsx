@@ -12,18 +12,20 @@ import {
 } from "@/core/hooks/hooks";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
-import { isObjOk, isSameData, makeDelay } from "@/core/lib/lib";
+import { isObjOk, isSameData } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { z } from "zod";
 
 type UpdateStoreManagerFormType = z.infer<typeof schemaBookStore>;
 
 const UpdateBookStoreManager: FC = () => {
   useScroll();
+
+  const nav = useNavigate();
 
   const bookStoreID = useParams()?.bookStoreID;
   const validID = REG_ID.test(bookStoreID!);
@@ -62,7 +64,7 @@ const UpdateBookStoreManager: FC = () => {
 
       if (!res) return;
 
-      makeDelay(() => window.scrollTo({ top: 0, behavior: "smooth" }), 200);
+      nav(`/worker/book-stores/${bookStoreID}`);
     },
     (errs) => {
       if (errs?.video?.message) setFocus("video_a" as any);

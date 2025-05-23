@@ -1,33 +1,11 @@
 {
-  "body": {
-    "email": "matveevalexander470@gmail.com",
-    "country": "Netherlands",
-    "state": "South Holland",
-    "city": "Naaldwijk",
-    "street": "Graanveld",
-    "zipCode": "2671 JG",
-    "phone": "+00 012 345 678",
-    "name": "Store__aaa",
-    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1747972836/pern__book_videos/eubo7ytazofsnyw9pwzg.mp4",
-    "images": [
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1747942287/pern__book_stores/toemnphsxex51nkgdcvx.avif",
-      "https://res.cloudinary.com/dzusujmak/image/upload/v1747942291/pern__book_stores/vdjvn0rynurims4iizm4.avif"
-    ],
-    "categories": [
-      "classics",
-      "psychology",
-      "comics"
-    ],
-    "website": "https://pern-book.onrender.com",
-    "deliveryPrice": "111.1",
-    "deliveryTime": "5"
-  },
   "files": {},
   "file": {},
-  "query": {},
-  "params": {
-    "bookStoreID": "25df4285-fdbe-4248-b868-c4c92a1e46b7"
+  "query": {
+    "page": "0",
+    "limit": "8"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiNDRlOWRhLTQyY2YtNDdhNy05OTQwLTM5YTg0MzVkNjk2NSIsImlhdCI6MTc0Nzk3MzM2OSwiZXhwIjoxNzQ3OTczNDI5fQ.M1COsBXFNyf3ZxhkP8zo40zj33Hf14KE56cJKzGBWEs",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.KFEKuF3DgBNQWQy20buHC0WLs_F6lL0rKNs99YhXvtrRgPkKskCroy1t29SPwQiDnaUTQtZMSeLGucUAt7NvbWN3UDfrfQitixs4BFlkb8tdWo8YnBLmjSrIZ6rncs5X_AoonVzir3x53R5RQj-KvoTLC91mqf2kzE5l_DdalH2WDcTBlJCyYgQGuCe1LpFDBFRvAl1eOiCjBIUd4-u_S93rZFlaXVG4sF8xAnEugVYEgxeQ7e40aSBC2-Zyxww-y4uMLi4rGrmsi607iC7-ELu3XYx67xWJmaYF76EE9-ugQY6x9pFvmZi_3YYwCCyknLH_dGkLiCKdLIZX-RxRQA.HQKBp7MtNczaLuus.Zljph3-3aCiDLYdI2Y7RYG-tSlFIcxBqriaVGNnkbiwVwxMNh1PO-_zKGMpM.qriKPWlUL8GUHDX-pUi2Zw"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiNDRlOWRhLTQyY2YtNDdhNy05OTQwLTM5YTg0MzVkNjk2NSIsImlhdCI6MTc0Nzk5MjQ3NCwiZXhwIjoxNzQ3OTkyNTM0fQ.b-ImQ46do1tpN6drH9ecIaM-GDBJ7O4IimE2V0ZiH_8",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.IH8HeILmsekQF8LlS9oquvoSUBjlb6XOdewIdTVcM8JbpxN0h-Z06txK4CHJJPSTyquF1bwXXemRDFPHpEjDnuUy1Hf3QoVVbwxsW6ZpeSDObdoKl8kwDScNIImICoWeqVFVnA5PnViBOEsowhZnB8X3Sed-pXnQ1YxVrrLbCq_HwjOIIvjbOpFHvH_Rp_eK5cXENXKTUj-Qq3Q7wWkmKeYheQvuW9xOfH_j5E5tqh7hK5VRNLizDxWoypBaqi5SoDvySDOCPUZNzH0zNnIVmdc1M0OkSXX0fq6m_7x8bSUikCj4B2R4-UnnQ3-eJxnjSxJ4sJSRhPzB-7Phem3O8Q.GzCZLlotSCBQx36g.ucuCBF4rsFltuD2Ffo4gfIBvSw6XudfS_4yZ2blVurfBnV55N8STqLFBy_g0.l_GRh_NEF48cpSlHyceNGw"
 }
