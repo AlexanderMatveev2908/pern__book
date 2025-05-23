@@ -19,7 +19,7 @@ const BookStorePageWorker: FC = () => {
   const bookStoreID = useParams()?.bookStoreID;
   const itPass = REG_ID.test(bookStoreID ?? "");
   const res = bookStoresWorkerSliceAPI.useGetSingleStoreWorkerQuery(
-    bookStoreID!,
+    { bookStoreID: bookStoreID! },
     {
       skip: !itPass,
     }

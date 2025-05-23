@@ -14,6 +14,7 @@ import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { isObjOk, isSameData } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
+import { UserRole } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -31,7 +32,7 @@ const UpdateBookStoreManager: FC = () => {
   const validID = REG_ID.test(bookStoreID!);
 
   const res = bookStoresWorkerSliceAPI.useGetSingleStoreWorkerQuery(
-    bookStoreID!,
+    { bookStoreID: bookStoreID!, roles: [UserRole.MANAGER] },
     {
       skip: !validID,
     }

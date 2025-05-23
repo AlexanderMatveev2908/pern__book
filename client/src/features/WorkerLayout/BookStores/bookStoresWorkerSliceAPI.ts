@@ -8,6 +8,7 @@ import {
   ReqQueryAPI,
   ResPaginationAPI,
   TagsAPI,
+  UserRole,
 } from "@/types/types";
 
 const BASE_URL = "/worker/book-stores";
@@ -18,10 +19,13 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getSingleStoreWorker: builder.query<
       BaseResAPI<{ bookStore: BookStoreType }>,
-      string
+      { bookStoreID: string; roles?: UserRole[] }
     >({
-      query: (bookStoreID) => ({
-        url: `${BASE_URL}/${bookStoreID}`,
+      query: ({
+        bookStoreID,
+        roles = [UserRole.EMPLOYEE, UserRole.MANAGER],
+      }) => ({
+        url: `${BASE_URL}/${bookStoreID}?roles=${roles.join(",")}`,
         method: "GET",
       }),
       providesTags: [TagsAPI.JUNCTION_BOOK_STORE_USER],

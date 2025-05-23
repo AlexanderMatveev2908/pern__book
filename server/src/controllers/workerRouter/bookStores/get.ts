@@ -10,7 +10,7 @@ import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
 import { calcPagination } from "../../../lib/query/pagination.js";
-import { FindAttributeOptions, literal } from "sequelize";
+import { FindAttributeOptions, literal, Op } from "sequelize";
 import { countTo_5 } from "../../../lib/utils/utils.js";
 import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
@@ -186,6 +186,7 @@ export const getBookStoreWorker = async (
 ): Promise<any> => {
   const { userID } = req;
   const { bookStoreID } = req.params;
+  const { roles = "" } = req.query ?? {};
 
   const bookStore = await BookStore.findOne({
     where: {
@@ -201,7 +202,9 @@ export const getBookStoreWorker = async (
         through: {
           where: {
             userID,
-            role: UserRole.MANAGER,
+            role: {
+              [Op.or]: (roles as string).split(",") as string[],
+            },
           },
           as: "bookStoreUser",
           attributes: ["id", "role"],

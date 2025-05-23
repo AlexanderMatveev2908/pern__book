@@ -43,7 +43,7 @@ const ActionsWorker: FC<PropsType> = ({ bookStore }) => {
     Object.values(KEY_MAP_STORE).map((k) => [k, () => console.log(k)])
   );
 
-  return (
+  return !filteredArg.length ? null : (
     <div className="w-full flex justify-end">
       <DropActionsMapObj
         {...{
