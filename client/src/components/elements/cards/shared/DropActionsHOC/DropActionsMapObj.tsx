@@ -14,17 +14,19 @@ const DropActionsMapObj: FC<PropsType> = ({ fields, dropLabel, handlers }) => {
 
   return (
     <DropActionsAbs {...{ isDropOpen, setIsDropOpen, dropLabel }}>
-      {fields.map((el) => (
-        <div
-          key={el.id}
-          className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}
-          onClick={handlers.get(el.originalKey)}
-        >
-          <el.icon className="icon__sm" />
+      {!fields?.length
+        ? null
+        : fields.map((el) => (
+            <div
+              key={el.id}
+              className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}
+              onClick={handlers.get(el.originalKey)}
+            >
+              <el.icon className="icon__sm" />
 
-          <span className="txt__2">{el.label}</span>
-        </div>
-      ))}
+              <span className="txt__2">{el.label}</span>
+            </div>
+          ))}
     </DropActionsAbs>
   );
 };

@@ -12,7 +12,7 @@ import {
 import DropStats from "../../../../components/elements/cards/shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
-import InfoBookStoreWorker from "@/components/elements/cards/shared/InfoBookStoreWorker";
+import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
 import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";

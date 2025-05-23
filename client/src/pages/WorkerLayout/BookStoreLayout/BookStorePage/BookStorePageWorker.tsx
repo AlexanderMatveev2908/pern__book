@@ -6,6 +6,7 @@ import { isObjOk } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
+import ActionsWorker from "./components/ActionsWorker";
 
 const BookStorePageWorker: FC = () => {
   useScroll();
@@ -36,6 +37,8 @@ const BookStorePageWorker: FC = () => {
         }`}
       >
         <Title {...{ title: bookStore?.name }} />
+
+        <ActionsWorker {...{ bookStore }} />
       </div>
     </WrapPageAPI>
   );

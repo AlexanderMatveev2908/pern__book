@@ -203,7 +203,8 @@ export const getBookStoreWorker = async (
             userID,
             role: UserRole.MANAGER,
           },
-          attributes: ["id"],
+          as: "bookStoreUser",
+          attributes: ["id", "role"],
         },
       },
       {

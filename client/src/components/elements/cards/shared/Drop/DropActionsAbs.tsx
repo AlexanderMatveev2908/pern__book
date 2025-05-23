@@ -34,7 +34,7 @@ const DropActionsAbs: FC<PropsType> = ({
   return (
     <div
       ref={dropRef}
-      className={`w-[250px] el__border_sm py-2 px-5 right-0 top-0 bg-neutral-950 relative`}
+      className={`w-[250px] el__border_sm py-2 px-5 right-0 top-0 bg-neutral-950 relative h-fit`}
     >
       <DropHandler {...{ el: dropLabel, isDropOpen, setIsDropOpen }} />
 

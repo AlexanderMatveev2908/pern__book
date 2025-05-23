@@ -1,7 +1,7 @@
 import { statsCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
-import InfoBookStoreWorker from "../../shared/InfoBookStoreWorker";
+import InfoBookStoreWorker from "../../shared/HOC/InfoBookStoreWorker";
 import DropStats from "../../shared/Drop/DropStats";
 import {
   labelTeamStore,
