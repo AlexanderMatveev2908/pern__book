@@ -5,7 +5,7 @@ import {
   clearUnnecessary,
   handleAssetsCloud,
 } from "../../adminBookStore/helpers/cloudUpload.js";
-import { BookStore } from "../../../models/all/BookStore.js";
+import { BookStore, BookStoreInstance } from "../../../models/all/BookStore.js";
 import { User } from "../../../models/models.js";
 import { err404, err500 } from "../../../lib/responseClient/err.js";
 import { seq } from "../../../config/db.js";
@@ -63,6 +63,26 @@ export const updateStoreManager = async (
   const t = await seq.transaction();
 
   try {
+    const managersKeysPut = [
+      "description",
+      "deliveryPrice",
+      "deliveryTime",
+      "freeDeliveryAmount",
+    ];
+
+    const updatedData: Partial<BookStoreInstance> = {};
+
+    for (const k of managersKeysPut) {
+      updatedData[k as keyof BookStoreInstance] = bodyData[k] || null;
+    }
+
+    await BookStore.update(updatedData, {
+      where: {
+        id: bookStoreID,
+      },
+      transaction: t,
+    });
+
     await handleStoreAssetsPut({
       t,
       req,

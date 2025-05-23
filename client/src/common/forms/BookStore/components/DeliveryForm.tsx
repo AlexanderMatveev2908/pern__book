@@ -7,12 +7,24 @@ const DeliveryForm: FC = () => {
   const {
     register,
     formState: { errors },
+    trigger,
   } = useFormContext();
 
   return (
     <div className="book_store_form__sub_form">
       {fieldsDelivery.map((el) => (
-        <FormField key={el.id} {...{ el, register, errors }} />
+        <FormField
+          key={el.id}
+          {...{
+            el,
+            register,
+            errors,
+            customCB:
+              el.field === "deliveryPrice"
+                ? () => trigger("freeDeliveryAmount")
+                : null,
+          }}
+        />
       ))}
     </div>
   );
