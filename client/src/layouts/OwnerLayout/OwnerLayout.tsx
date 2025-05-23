@@ -7,11 +7,11 @@ const OwnerLayout = () => {
   const { user, isLoading } = useGetU();
 
   return (
-    <WrapPageAPI {...{ isLoading, canStay: user?.isOwner }}>
-      <WrapperLogged>
+    <WrapperLogged>
+      <WrapPageAPI {...{ isLoading, canStay: user?.isOwner }}>
         <Outlet />
-      </WrapperLogged>
-    </WrapPageAPI>
+      </WrapPageAPI>
+    </WrapperLogged>
   );
 };
 export default OwnerLayout;
