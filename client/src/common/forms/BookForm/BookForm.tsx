@@ -74,7 +74,7 @@ const BookForm: FC<PropsType> = ({
       <WrapperFormField {...{ title: "author & year" }}>
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           {fieldAuthY.map((el) => (
-            <FormField {...{ register, errors, el }} />
+            <FormField key={el.id} {...{ register, errors, el }} />
           ))}
         </div>
       </WrapperFormField>
@@ -111,7 +111,7 @@ const BookForm: FC<PropsType> = ({
       <WrapperFormField {...{ title: "quantity & price" }}>
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           {fieldsPriceQty.map((el) => (
-            <FormField {...{ register, errors, el }} />
+            <FormField key={el.id} {...{ register, errors, el }} />
           ))}
         </div>
       </WrapperFormField>

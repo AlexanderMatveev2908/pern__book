@@ -16,7 +16,7 @@ export const getInfoStore = async (
     where: {
       id: bookStoreID,
     },
-    attributes: ["categories"],
+    attributes: ["categories", "id", "name"],
     include: [
       {
         model: User,
@@ -24,7 +24,8 @@ export const getInfoStore = async (
         attributes: ["id"],
         required: true,
         through: {
-          attributes: ["id"],
+          attributes: ["id", "role"],
+          as: "bookStoreUser",
           where: {
             userID,
             role: UserRole.MANAGER,

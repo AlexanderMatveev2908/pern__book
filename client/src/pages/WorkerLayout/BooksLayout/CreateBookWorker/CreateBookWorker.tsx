@@ -1,28 +1,79 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import BookForm from "@/common/forms/BookForm/BookForm";
+import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
+import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
+import { isObjOk } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
-import type { FC } from "react";
-import { useParams } from "react-router-dom";
+import { BookStoreType } from "@/types/all/bookStore";
+import { UserRole } from "@/types/types";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useEffect, type FC } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { useNavigate, useParams } from "react-router-dom";
+
+type BookFormType = z.infer<typeof schemaBookForm>;
 
 const CreateBookWorker: FC = () => {
   const storeID = useParams()?.bookStoreID;
   const isIdOk = REG_ID.test(storeID ?? "");
 
+  const nav = useNavigate();
+
+  const formCtx = useForm<BookFormType>({
+    mode: "onChange",
+    resolver: zodResolver(schemaBookForm),
+  });
+  const { handleSubmit, setValue, setFocus } = formCtx;
+
+  const handleSave = handleSubmit(
+    async (formDataHook) => {},
+    (errs) => {
+      handleErrsBooks(errs, setFocus);
+      return errs;
+    }
+  );
+
   const res = booksSliceWorkerAPI.useGetInfoStoreWorkerQuery(storeID!, {
     skip: !isIdOk,
   });
   useWrapQueryAPI({ ...res });
+  const { data: { bookStore } = {} } = res ?? {};
+  const [{ bookStoreUser: { role } = {} } = {}] =
+    bookStore?.team ?? ([] as any);
 
+  useEffect(() => {
+    if (isObjOk(bookStore))
+      setValue("bookStoreID", bookStore?.id, { shouldValidate: true });
+  }, [bookStore, setValue]);
   return (
     <WrapPageAPI
       {...{
-        canStay: isIdOk,
+        canStay: isIdOk && role === UserRole.MANAGER,
         isLoading: res?.isLoading,
         error: res?.error,
         isError: res?.isError,
       }}
-    ></WrapPageAPI>
+    >
+      <div className="parent__page">
+        <Title {...{ title: "add book" }} />
+
+        <div className="w-full grid justify-items-center gap-6">
+          <FormProvider {...formCtx}>
+            <BookForm
+              {...{
+                handleSave,
+                isPending: false,
+                stores: [bookStore as Partial<BookStoreType>],
+              }}
+            />
+          </FormProvider>
+        </div>
+      </div>
+    </WrapPageAPI>
   );
 };
 
