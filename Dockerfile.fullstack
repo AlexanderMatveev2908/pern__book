@@ -25,7 +25,7 @@ COPY server/package.json server/yarn.lock ./
 
 RUN yarn install
 
-COPY server .
+COPY server/ ./
 
 RUN yarn build
 
