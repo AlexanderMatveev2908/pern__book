@@ -35,6 +35,11 @@ import BookStoresLayoutWorker from "./layouts/WorkerLayout/BookStoresLayoutWorke
 import BookStoreListWorker from "./pages/WorkerLayout/BookStoreLayout/BookStoreList/BookStoreListWorker";
 import UpdateBookStoreManager from "./pages/WorkerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStoreManager";
 import BookStorePageWorker from "./pages/WorkerLayout/BookStoreLayout/BookStorePage/BookStorePageWorker";
+import BooksLayoutWorker from "./layouts/WorkerLayout/BooksLayoutWorker";
+import BookListWorker from "./pages/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
+import BookPageWorker from "./pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
+import CreateBookWorker from "./pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
+import UpdateBookWorker from "./pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
 
 const App: FC = () => {
   const navigate = useNavigate();
@@ -144,6 +149,16 @@ const App: FC = () => {
               }
             />
             <Route path=":bookStoreID" element={<BookStorePageWorker />} />
+          </Route>
+
+          <Route path="books" element={<BooksLayoutWorker />}>
+            <Route path="list" element={<BookListWorker />} />
+
+            <Route path=":bookID" element={<BookPageWorker />} />
+
+            <Route path="post" element={<CreateBookWorker />} />
+
+            <Route path="put" element={<UpdateBookWorker />} />
           </Route>
         </Route>
 
