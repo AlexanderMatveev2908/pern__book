@@ -8,6 +8,7 @@ import { actionsBookStoreWorker } from "@/core/config/fieldsData/WorkerLayout/bo
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {
   bookStore?: BookStoreType;
@@ -16,6 +17,8 @@ type PropsType = {
 const ActionsWorker: FC<PropsType> = ({ bookStore }) => {
   const [{ bookStoreUser: { role } = {} } = {}] =
     bookStore?.team ?? ([] as any);
+
+  const nav = useNavigate();
 
   const filteredArg = useMemo(
     () =>
@@ -40,7 +43,21 @@ const ActionsWorker: FC<PropsType> = ({ bookStore }) => {
   );
 
   const handlers = new Map(
-    Object.values(KEY_MAP_STORE).map((k) => [k, () => console.log(k)])
+    Object.values(KEY_MAP_STORE).map((k) => [
+      k,
+      () => {
+        const curr = filteredArg.find((el) => el.originalKey === k);
+        if (!curr) return null;
+
+        switch (k) {
+          case KEY_MAP_STORE.ADD_BOOK:
+            return nav(curr.path);
+
+          default:
+            return null;
+        }
+      },
+    ])
   );
 
   return !filteredArg.length ? null : (

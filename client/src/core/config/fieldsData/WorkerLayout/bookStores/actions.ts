@@ -11,7 +11,7 @@ export const actionsBookStoreWorker = [
     originalKey: KEY_MAP_STORE.ADD_BOOK,
     label: "Add Book",
     icon: FaPenFancy,
-    path: "/owner/books/add-book",
+    path: "/worker/books/post",
   },
   {
     originalKey: KEY_MAP_STORE.BOOKS,

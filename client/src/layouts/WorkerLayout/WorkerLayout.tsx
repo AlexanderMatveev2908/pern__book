@@ -7,7 +7,7 @@ const WorkerLayout: FC = () => {
   const { isLoading, user } = useGetU();
 
   return (
-    <WrapPageAPI {...{ canStay: user?.isWorker, isLoading }}>
+    <WrapPageAPI {...{ canStay: user?.isWorker, isLoading, fakeLoading: true }}>
       <Outlet />
     </WrapPageAPI>
   );

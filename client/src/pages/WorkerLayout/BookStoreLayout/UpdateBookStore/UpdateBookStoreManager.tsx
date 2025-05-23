@@ -40,6 +40,9 @@ const UpdateBookStoreManager: FC = () => {
   const { data: { bookStore } = {} } = res;
   useWrapQueryAPI({ ...res });
 
+  const [{ bookStoreUser: { role } = {} } = {}] =
+    bookStore?.team ?? ([] as any);
+
   const [mutate, { isLoading }] =
     bookStoresWorkerSliceAPI.useUpdateBookStoreWorkerMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
@@ -144,7 +147,7 @@ const UpdateBookStoreManager: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        canStay: validID,
+        canStay: validID && role === UserRole.MANAGER,
         isLoading: res.isLoading,
         isError: res.isError,
         error: res.error,

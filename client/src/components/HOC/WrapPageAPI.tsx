@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useEffect, useRef, useState } from "react";
 import { Navigate } from "react-router-dom";
-import { getMsgErr } from "@/core/lib/lib";
+import { clearTimer, getMsgErr } from "@/core/lib/lib";
 import SpinnerPage from "../elements/spinners/SpinnerPage/SpinnerPage";
 import ErrIcon from "../elements/ErrIcon";
 
@@ -12,6 +12,7 @@ type PropsType = {
   push?: boolean;
   error?: any;
   children?: ReactNode | null;
+  fakeLoading?: boolean;
 };
 
 const WrapPageAPI: FC<PropsType> = ({
@@ -21,15 +22,35 @@ const WrapPageAPI: FC<PropsType> = ({
   push = false,
   error = null,
   children = null,
+  fakeLoading,
 }) => {
   const { data, status } = error ?? {};
 
-  return !canStay ? (
-    <Navigate to="/" replace={true} />
-  ) : isLoading ? (
+  const [fakePending, setFakePending] = useState(false);
+  const timerID = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    if (!fakeLoading) return;
+
+    if (isLoading) {
+      clearTimer(timerID);
+      setFakePending(true);
+    }
+
+    timerID.current = setTimeout(() => {
+      if (isLoading) return;
+
+      setFakePending(false);
+      clearTimer(timerID);
+    }, 1000);
+  }, [isLoading, fakeLoading]);
+
+  return isLoading ? (
     <div className="min-h-[100vh] relative -mt-[50px]">
       <SpinnerPage />
     </div>
+  ) : !canStay ? (
+    <Navigate to="/" replace={true} />
   ) : isError ? (
     push ? (
       <Navigate to="/" replace={true} />
@@ -47,7 +68,16 @@ const WrapPageAPI: FC<PropsType> = ({
       </div>
     )
   ) : (
-    children
+    <>
+      {fakePending && (
+        <div className="min-h-[100vh] relative -mt-[50px]">
+          <SpinnerPage />
+        </div>
+      )}
+      <div className={`${fakePending ? "opacity-0 absolute" : ""}`}>
+        {children}
+      </div>
+    </>
   );
 };
 export default WrapPageAPI;
