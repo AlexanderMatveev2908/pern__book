@@ -4,12 +4,12 @@ import { REG_ID } from "@/core/config/regex";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
-import DropActions from "./components/DropActions";
+import DropActionsOwner from "./components/DropActionsOwner";
 import {
   labelTeamStore,
   statsTeam,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
-import DropStats from "../../../../components/elements/cards/shared/DropStats";
+import DropStats from "../../../../components/elements/cards/shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
 import InfoBookStoreWorker from "@/components/elements/cards/shared/InfoBookStoreWorker";
@@ -59,7 +59,7 @@ const BookStorePage: FC = () => {
       >
         <Title {...{ title: bookStore?.name }} />
 
-        <DropActions {...{ bookStore, user }} />
+        <DropActionsOwner {...{ bookStore, user }} />
 
         <ImagesScroll
           {...{

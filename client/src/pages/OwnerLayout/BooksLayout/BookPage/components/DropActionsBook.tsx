@@ -1,4 +1,4 @@
-import DropActionsAbs from "@/components/elements/cards/shared/DropActionsAbs";
+import DropActionsObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsObj";
 import { manageDropLabelGeneral } from "@/core/config/fieldsData/general/labels";
 import { actionsBookPage } from "@/core/config/fieldsData/OwnerLayout/books/actions";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
@@ -10,7 +10,7 @@ import {
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { BookType } from "@/types/all/books";
 import { BtnAct, BtnPopupKeys } from "@/types/types";
-import { useCallback, useMemo, useState, type FC } from "react";
+import { useCallback, useMemo, type FC } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -19,7 +19,6 @@ type PropsType = {
 };
 
 const DropActionsBook: FC<PropsType> = ({ book }) => {
-  const [isDropOpen, setIsDropOpen] = useState(false);
   const nav = useNavigate();
 
   const dispatch = useDispatch();
@@ -68,25 +67,13 @@ const DropActionsBook: FC<PropsType> = ({ book }) => {
 
   return (
     <div className="w-full flex justify-end">
-      <DropActionsAbs
+      <DropActionsObj
         {...{
           dropLabel: manageDropLabelGeneral,
-          isDropOpen,
-          setIsDropOpen,
+          fields: actionsBookPage,
+          handlers,
         }}
-      >
-        {Object.entries(actionsBookPage).map(([k, v]) => (
-          <div
-            onClick={() => handlers[k as keyof typeof handlers]()}
-            key={v.id}
-            className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}
-          >
-            <v.icon className="icon__sm" />
-
-            <span className="txt__2">{v.label}</span>
-          </div>
-        ))}
-      </DropActionsAbs>
+      />
     </div>
   );
 };

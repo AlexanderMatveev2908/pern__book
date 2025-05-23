@@ -1,5 +1,5 @@
 import { ReactNode, useEffect, useRef, type FC } from "react";
-import DropHandler from "../../DropHandler/DropHandler";
+import DropHandler from "../../../DropHandler/DropHandler";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {

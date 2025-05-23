@@ -1,5 +1,4 @@
 import {
-  KEY_MAP_STORE,
   labelDelivery,
   labelsBookStore,
   statsBooks,
@@ -7,9 +6,10 @@ import {
   statsOrders,
   statsReviews,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
-import DropStats from "@/components/elements/cards/shared/DropStats";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
+import { KEY_MAP_STORE } from "@/core/config/fieldsData/general/labels";
 
 type PropsType = {
   bookStore?: BookStoreType;

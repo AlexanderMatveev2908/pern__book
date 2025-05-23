@@ -19,18 +19,9 @@ import { capt, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { OrderStage } from "@/types/all/orders";
 import { genValsRating } from "../general";
+import { KEY_MAP_STORE } from "../../general/labels";
 
 // * I USE MAP JUST FOR LEARNING POUPROSE, NORMALLY I WOULD JUST USE ARRAYS TO KEEP VALS
-
-export enum KEY_MAP_STORE {
-  BOOKS = "BOOKS",
-  ADD_BOOK = "ADD_BOOK",
-  TEAM = "TEAM",
-  REVIEWS = "REVIEWS",
-  ORDERS = "ORDERS",
-  UPDATE = "UPDATE",
-  DELETE = "DELETE",
-}
 
 export type LabelStoreType = {
   icon: IconType;

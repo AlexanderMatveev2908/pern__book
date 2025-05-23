@@ -1,6 +1,8 @@
+import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useScroll, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { isObjOk } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
@@ -17,6 +19,7 @@ const BookStorePageWorker: FC = () => {
     }
   );
   useWrapQueryAPI({ ...res });
+  const { data: { bookStore } = {} } = res;
 
   return (
     <WrapPageAPI
@@ -26,7 +29,15 @@ const BookStorePageWorker: FC = () => {
         error: res?.error,
         isError: res?.isError,
       }}
-    ></WrapPageAPI>
+    >
+      <div
+        className={`parent__form ${
+          isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
+        }`}
+      >
+        <Title {...{ title: bookStore?.name }} />
+      </div>
+    </WrapPageAPI>
   );
 };
 

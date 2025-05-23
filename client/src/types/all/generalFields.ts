@@ -6,6 +6,11 @@ export type LabelDropType = {
   icon: IconType;
 };
 
+export type LabelActionType = LabelDropType & {
+  path: string;
+  id: string;
+};
+
 export type FormFieldBasic = {
   id?: string;
   field: string;

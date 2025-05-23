@@ -1,6 +1,5 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import DropStatsStatic from "../../shared/DropStatsStatic";
 import {
   fieldsStatsRatingBook,
   labelBookRating,
@@ -8,7 +7,8 @@ import {
   labelGeneralStatsBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/OwnerLayout/books/read";
-import DropStats from "../../shared/DropStats";
+import DropStats from "../../shared/Drop/DropStats";
+import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 
 type PropsType = {
   el: BookType;

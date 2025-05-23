@@ -6,9 +6,9 @@ import {
 } from "@/core/config/fieldsData/OwnerLayout/books/read";
 import { BookType } from "@/types/all/books";
 import { type FC } from "react";
-import DropStats from "../../shared/DropStats";
+import DropStats from "../../shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStatsStatic from "../../shared/DropStatsStatic";
+import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 
 type PropsType = {
   el: BookType;

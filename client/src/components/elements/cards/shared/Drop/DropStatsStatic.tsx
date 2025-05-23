@@ -1,5 +1,5 @@
+import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import { ReactNode, useState, type FC } from "react";
-import DropHandler from "../../DropHandler/DropHandler";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {

@@ -7,7 +7,7 @@ import {
   statsAddress,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStats from "@/components/elements/cards/shared/DropStats";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 

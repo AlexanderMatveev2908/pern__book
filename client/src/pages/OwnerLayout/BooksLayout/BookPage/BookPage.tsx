@@ -9,7 +9,7 @@ import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import { useMixVars } from "@/core/hooks/all/useMixVars";
-import DropStats from "@/components/elements/cards/shared/DropStats";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import {
   fieldsStatsRatingBook,
   labelBookInfo,
@@ -22,8 +22,8 @@ import {
   statsBookInfo,
 } from "@/core/config/fieldsData/OwnerLayout/books/read";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStatsStatic from "@/components/elements/cards/shared/DropStatsStatic";
 import { FaDatabase } from "react-icons/fa";
+import DropStatsStatic from "@/components/elements/cards/shared/Drop/DropStatsStatic";
 
 const BookPage: FC = () => {
   useScroll();

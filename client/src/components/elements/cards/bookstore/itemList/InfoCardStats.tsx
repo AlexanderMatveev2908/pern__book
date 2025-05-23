@@ -2,12 +2,12 @@ import { statsCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/c
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import InfoBookStoreWorker from "../../shared/InfoBookStoreWorker";
-import DropStats from "../../shared/DropStats";
+import DropStats from "../../shared/Drop/DropStats";
 import {
   labelTeamStore,
   statsTeam,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
-import DropStatsStatic from "../../shared/DropStatsStatic";
+import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 
 type PropsType = {
   el: BookStoreType;

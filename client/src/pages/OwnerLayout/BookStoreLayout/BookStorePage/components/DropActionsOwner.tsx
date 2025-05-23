@@ -1,8 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import DropActionsAbs from "@/components/elements/cards/shared/DropActionsAbs";
 import {
   actionsBookStoreAdmin,
-  KEY_MAP_STORE,
   labelsBookStore,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
@@ -16,22 +14,24 @@ import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSl
 import { DispatchType } from "@/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BtnAct, BtnPopupKeys, UserType } from "@/types/types";
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { manageDropLabelGeneral } from "./../../../../../core/config/fieldsData/general/labels";
+import {
+  KEY_MAP_STORE,
+  manageDropLabelGeneral,
+} from "../../../../../core/config/fieldsData/general/labels";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { v4 } from "uuid";
 import { fieldsInputsBooks } from "@/core/config/fieldsData/SearchBar/owner/books";
+import DropActionsMapObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsMapObj";
 
 type PropsType = {
   bookStore?: BookStoreType;
   user: UserType;
 };
 
-const DropActions: FC<PropsType> = ({ bookStore }) => {
-  const [isDropOpen, setIsDropOpen] = useState(false);
-
+const DropActionsOwner: FC<PropsType> = ({ bookStore }) => {
   const { createBookFormCtx, formOwnerBooksCtx } = useFormCtxConsumer();
   const nav = useNavigate();
 
@@ -134,23 +134,15 @@ const DropActions: FC<PropsType> = ({ bookStore }) => {
 
   return (
     <div className="w-full flex justify-end">
-      <DropActionsAbs
-        {...{ isDropOpen, setIsDropOpen, dropLabel: manageDropLabelGeneral }}
-      >
-        {filteredActionsAdmin.map((el) => (
-          <div
-            key={el.id}
-            className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}
-            onClick={handlers.get(el.originalKey)}
-          >
-            <el.icon className="icon__sm" />
-
-            <span className="txt__2">{el.label}</span>
-          </div>
-        ))}
-      </DropActionsAbs>
+      <DropActionsMapObj
+        {...{
+          dropLabel: manageDropLabelGeneral,
+          fields: filteredActionsAdmin,
+          handlers,
+        }}
+      />
     </div>
   );
 };
 
-export default DropActions;
+export default DropActionsOwner;
