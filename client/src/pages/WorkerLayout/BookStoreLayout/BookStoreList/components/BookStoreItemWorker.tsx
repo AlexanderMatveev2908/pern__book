@@ -1,4 +1,4 @@
-import InfoCardStats from "@/components/elements/cards/bookstore/itemList/InfoCardStats";
+import InfoCardStatsStore from "@/components/elements/cards/bookstore/itemList/InfoCardStatsStore";
 import InfoCardStoreAllUsers from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStoreAllUsers";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
@@ -35,7 +35,9 @@ const BookStoreItemWorker: FC<PropsType> = ({ junction }) => {
           }`}
         >
           <InfoCardStoreAllUsers {...{ el }} />
-          <InfoCardStats {...{ el }} />
+          {junction.role === UserRole.MANAGER && (
+            <InfoCardStatsStore {...{ el }} />
+          )}
         </div>
       </div>
 

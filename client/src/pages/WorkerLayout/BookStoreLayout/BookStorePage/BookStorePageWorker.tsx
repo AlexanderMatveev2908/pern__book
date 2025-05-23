@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
@@ -7,6 +8,10 @@ import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/boo
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
+import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
+import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
+import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
+import { UserRole } from "@/types/types";
 
 const BookStorePageWorker: FC = () => {
   useScroll();
@@ -21,6 +26,8 @@ const BookStorePageWorker: FC = () => {
   );
   useWrapQueryAPI({ ...res });
   const { data: { bookStore } = {} } = res;
+  const [{ bookStoreUser: { role } = {} } = {}] =
+    bookStore?.team ?? ([] as any);
 
   return (
     <WrapPageAPI
@@ -39,6 +46,34 @@ const BookStorePageWorker: FC = () => {
         <Title {...{ title: bookStore?.name }} />
 
         <ActionsWorker {...{ bookStore }} />
+
+        <ImagesScroll
+          {...{
+            images: bookStore?.images,
+          }}
+        />
+
+        <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
+          <InfoStoreAllUsers {...{ bookStore }} />
+
+          {role === UserRole.MANAGER && (
+            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
+              <InfoBookStoreWorker {...{ bookStore }} />
+            </div>
+          )}
+        </div>
+
+        {isObjOk(bookStore?.video) && (
+          <div className="w-full flex justify-center mt-[150px]">
+            <video
+              autoPlay
+              muted
+              controls
+              src={bookStore?.video?.url}
+              className="aspect-video w-full object-cover max-w-[800px]"
+            ></video>
+          </div>
+        )}
       </div>
     </WrapPageAPI>
   );
