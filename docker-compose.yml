@@ -3,6 +3,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile.fullstack
+    args:
+      VITE_BACK_URL: ${VITE_BACK_URL}
     env_file:
       - ./server/.env
-      - ./client/.env
