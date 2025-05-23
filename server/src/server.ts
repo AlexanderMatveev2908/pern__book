@@ -40,11 +40,13 @@ app.use(corsMid());
 
 app.use("/api/v1", routerApp);
 
-app.use(express.static(getDirClient()));
+if (!isDev) {
+  app.use(express.static(getDirClient()));
 
-app.get("/*dummy_express", (_, res) => {
-  res.sendFile(path.resolve(getDirClient(), "index.html"));
-});
+  app.get("/*dummy_express", (_, res) => {
+    res.sendFile(path.resolve(getDirClient(), "index.html"));
+  });
+}
 app.use(errMiddleware);
 // getDataDB();
 // clearDB();

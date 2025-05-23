@@ -1,5 +1,14 @@
 import express from "express";
+import { checkStoreID } from "../../../../middleware/adminStore/checkStoreID.js";
+import { wrapApp } from "../../../../middleware/general/wrapApp.js";
+import { getInfoStore } from "../../../../controllers/workerRouter/books/get.js";
 
-const workerRouter = express.Router();
+const workerBooksRouter = express.Router();
 
-export default workerRouter;
+workerBooksRouter.get(
+  "/info-store/:bookStoreID",
+  checkStoreID,
+  wrapApp(getInfoStore)
+);
+
+export default workerBooksRouter;

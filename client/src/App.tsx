@@ -158,9 +158,9 @@ const App: FC = () => {
 
             <Route path=":bookID" element={<BookPageWorker />} />
 
-            <Route path="post" element={<CreateBookWorker />} />
+            <Route path="post/:bookStoreID" element={<CreateBookWorker />} />
 
-            <Route path="put" element={<UpdateBookWorker />} />
+            <Route path="put/:bookID" element={<UpdateBookWorker />} />
           </Route>
         </Route>
 
