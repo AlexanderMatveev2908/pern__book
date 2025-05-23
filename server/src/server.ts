@@ -19,7 +19,7 @@ import { clearDB, delStores } from "./stuff/clear.js";
 import { getCloudID } from "./lib/utils/ids.js";
 
 const app = express();
-const PORT = +process.env.PORT!;
+const PORT = +process.env.PORT! || 3000;
 
 // trust myDir proxy
 //  hop
