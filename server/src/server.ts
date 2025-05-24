@@ -60,6 +60,8 @@ const DROP = async () => {
   });
 };
 
+console.log(frontURL);
+
 const start = async () => {
   try {
     await connectCloud();
