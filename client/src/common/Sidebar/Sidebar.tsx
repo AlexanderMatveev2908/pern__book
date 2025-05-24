@@ -121,8 +121,7 @@ const Sidebar: FC = () => {
                 {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}
               />
             )}
-
-            <SideLogout />
+            {authState.isLogged && <SideLogout />}
           </div>
         </div>
       </div>
