@@ -54,6 +54,8 @@ app.use(errMiddleware);
 // io.on("connection", handleSocket);
 // delStores();
 
+console.log(frontURL);
+
 const DROP = async () => {
   await seq.drop({
     cascade: true,
