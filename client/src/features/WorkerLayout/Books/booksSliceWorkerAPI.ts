@@ -15,5 +15,15 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
     }),
+    addBookWorker: builder.mutation<
+      BaseResAPI<void>,
+      { data: FormData; bookStoreID: string }
+    >({
+      query: ({ data, bookStoreID }) => ({
+        url: `${B_URL}/${bookStoreID}`,
+        method: "POST",
+        data,
+      }),
+    }),
   }),
 });

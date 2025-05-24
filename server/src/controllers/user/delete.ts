@@ -14,7 +14,7 @@ import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Thumb } from "../../models/all/img&video/Thumb.js";
-import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
+import { delArrCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book } from "../../models/all/Book.js";
 
 export const clearManageToken = async (
@@ -158,20 +158,8 @@ export const deleteAccount = async (
 
     await t.commit();
 
-    try {
-      if (idsCloudImg.length)
-        await Promise.allSettled(
-          idsCloudImg.map(async (str) => await delCloud(str))
-        );
-      if (idsCloudVideo)
-        await Promise.allSettled(
-          idsCloudVideo.map(
-            async (str) => await delCloud(str, ResourceType.VID)
-          )
-        );
-    } catch (err) {
-      console.log("fail cloud delete => ", err);
-    }
+    if (idsCloudImg.length) await delArrCloud(idsCloudImg);
+    if (idsCloudVideo) await delArrCloud(idsCloudVideo, ResourceType.VID);
 
     clearCookie(res);
 

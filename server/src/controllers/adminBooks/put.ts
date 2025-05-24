@@ -6,10 +6,10 @@ import { Book, BookInstance } from "../../models/all/Book.js";
 import { err404, err500 } from "../../lib/responseClient/err.js";
 import { CloudImg } from "../../types/all/cloud.js";
 import { seq } from "../../config/db.js";
-import { delCloud } from "../../lib/cloud/delete.js";
 import { uploadCloudMemory } from "../../lib/cloud/imagesMemory.js";
 import { getCloudID } from "../../lib/utils/ids.js";
 import { captAll } from "../../lib/utils/formatters.js";
+import { delArrCloud } from "../../lib/cloud/delete.js";
 
 export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID, body } = req;
@@ -88,12 +88,7 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
 
     await t.commit();
 
-    try {
-      if (toDeleteIds.length)
-        await Promise.all(toDeleteIds.map(async (id) => await delCloud(id)));
-    } catch (err) {
-      console.log(err);
-    }
+    await delArrCloud(toDeleteIds);
 
     return res200(res, { msg: "Book updated" });
   } catch (err) {
@@ -102,13 +97,7 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
     console.log(err);
 
     if (uploadedNow.length)
-      try {
-        await Promise.all(
-          uploadedNow.map(async (img) => await delCloud(img.publicID))
-        );
-      } catch (err) {
-        console.log(err);
-      }
+      await delArrCloud(uploadedNow.map((img) => img.publicID));
 
     return err500(res);
   }

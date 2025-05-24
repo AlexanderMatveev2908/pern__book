@@ -13,7 +13,7 @@ import {
   deleteOldAssetsStore,
   handleGetDeletedAssetsStore,
   handleStoreAssetsPut,
-} from "../../../lib/assetsHandlers/store.js";
+} from "../../../lib/sharedHandlers/assetsHandlers/store.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
 

@@ -1,4 +1,4 @@
-import { v2 as cloud } from "cloudinary";
+import { cloud } from "../../config/cloud.js";
 
 export const uploadThumb = async (file: Express.Multer.File) => {
   if (!file?.buffer || !file?.mimetype.startsWith("image"))

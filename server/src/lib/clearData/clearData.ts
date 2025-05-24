@@ -3,9 +3,9 @@ import { Token, UserInstance } from "../../models/models.js";
 import { TokenEventType } from "../../types/types.js";
 import { decodeExpJWT } from "../hashEncryptSign/JWT.js";
 import { REG_ID } from "../../config/regex.js";
-import { delCloud } from "../cloud/delete.js";
 import { Thumb, ThumbInstance } from "../../models/all/img&video/Thumb.js";
 import { __cg } from "../utils/log.js";
+import { delArrCloud } from "../cloud/delete.js";
 
 export const clearTokensById = async (id: string, args: TokenEventType[]) => {
   await Token.destroy({
@@ -47,16 +47,5 @@ export const clearThumb = async (user: UserInstance): Promise<void> => {
       userID: user.id,
     },
   });
-  if (thumbs?.length) {
-    try {
-      await Promise.all(
-        thumbs.map(async (el) => {
-          await delCloud(el.publicID);
-          await el.destroy();
-        })
-      );
-    } catch (err) {
-      __cg("err cloud", err);
-    }
-  }
+  if (thumbs?.length) await delArrCloud(thumbs.map((thumb) => thumb.publicID));
 };

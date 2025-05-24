@@ -3,8 +3,9 @@ import BookForm from "@/common/forms/BookForm/BookForm";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
-import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
+import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
 import { isObjOk } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
@@ -30,10 +31,23 @@ const CreateBookWorker: FC = () => {
   });
   const { handleSubmit, setValue, setFocus } = formCtx;
 
+  const [mutate, { isLoading }] =
+    booksSliceWorkerAPI.endpoints.addBookWorker.useMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
   const handleSave = handleSubmit(
     async (formDataHook) => {
-      nav("");
-      console.log(formDataHook);
+      const formData = makeBooksFormData(formDataHook);
+
+      const res = await wrapMutationAPI({
+        cbAPI: () =>
+          mutate({
+            data: formData,
+            bookStoreID: storeID!,
+          }),
+      });
+
+      if (!res) return;
     },
     (errs) => {
       handleErrsBooks(errs, setFocus);
@@ -70,7 +84,7 @@ const CreateBookWorker: FC = () => {
             <BookForm
               {...{
                 handleSave,
-                isPending: false,
+                isPending: isLoading,
                 stores: [bookStore as Partial<BookStoreType>],
               }}
             />

@@ -1,4 +1,4 @@
-import { v2 } from "cloudinary";
+import { cloud } from "../../config/cloud.js";
 
 export const uploadImdDisk = async (
   file: Express.Multer.File,
@@ -6,7 +6,7 @@ export const uploadImdDisk = async (
 ) => {
   if (!file) throw new Error("No file provided");
 
-  const res = await v2.uploader.upload(file.path, {
+  const res = await cloud.uploader.upload(file.path, {
     resource_type: "image",
     folder,
   });

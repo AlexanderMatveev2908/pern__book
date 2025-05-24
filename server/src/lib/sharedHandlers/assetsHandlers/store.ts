@@ -1,10 +1,10 @@
 import { Op, Transaction } from "sequelize";
-import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
-import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
-import { CloudAsset } from "../../types/all/cloud.js";
-import { ReqApp } from "../../types/types.js";
-import { BookStoreInstance } from "../../models/all/BookStore.js";
-import { delCloud, ResourceType } from "../cloud/delete.js";
+import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
+import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
+import { CloudAsset } from "../../../types/all/cloud.js";
+import { ReqApp } from "../../../types/types.js";
+import { BookStoreInstance } from "../../../models/all/BookStore.js";
+import { delArrCloud, delCloud, ResourceType } from "../../cloud/delete.js";
 
 export const handleGetDeletedAssetsStore = async ({
   bookStore,
@@ -108,15 +108,11 @@ export const deleteOldAssetsStore = async ({
   imagesData: Partial<CloudAsset>[];
   deleteIds: string[];
 }) => {
-  try {
-    if (bookStore.video && (videoData || !bodyData?.video))
-      await delCloud(bookStore.video.publicID, ResourceType?.VID);
+  if (bookStore.video && (videoData || !bodyData?.video))
+    await delCloud(bookStore.video.publicID, ResourceType?.VID);
 
-    if (imagesData?.length && bookStore?.images?.length)
-      await Promise.all(bookStore.images.map((img) => delCloud(img.publicID)));
-    if (deleteIds.length)
-      await Promise.all(deleteIds.map((id) => delCloud(id)));
-  } catch (err) {
-    console.log(err);
-  }
+  if (imagesData?.length && bookStore?.images?.length)
+    await delArrCloud(bookStore.images.map((img) => img.publicID));
+
+  if (deleteIds.length) await delArrCloud(deleteIds);
 };

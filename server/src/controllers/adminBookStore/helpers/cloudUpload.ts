@@ -1,4 +1,8 @@
-import { delCloud, ResourceType } from "../../../lib/cloud/delete.js";
+import {
+  delArrCloud,
+  delCloud,
+  ResourceType,
+} from "../../../lib/cloud/delete.js";
 import { uploadImdDisk } from "../../../lib/cloud/imagesDisk.js";
 import { uploadVideoCloud } from "../../../lib/cloud/video.js";
 import { ImgBookStoreType } from "../../../models/all/img&video/ImgBookStore.js";
@@ -10,15 +14,9 @@ export const clearUnnecessary = async (
   videoData: Partial<VideoBookStoreType> | null,
   imagesData: Partial<ImgBookStoreType>[]
 ) => {
-  try {
-    if (videoData) await delCloud(videoData.publicID!, ResourceType.VID);
-    if (imagesData.length)
-      await Promise.all(
-        imagesData.map(async (img) => await delCloud(img.publicID!))
-      );
-  } catch (err) {
-    console.log(err);
-  }
+  if (videoData) await delCloud(videoData.publicID!, ResourceType.VID);
+  if (imagesData.length)
+    await delArrCloud(imagesData.map((img) => img.publicID!));
 };
 
 export const handleAssetsCloud = async (req: ReqApp) => {

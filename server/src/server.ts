@@ -10,12 +10,11 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import { decryptCert } from "./lib/hashEncryptSign/cbcHmac.js";
-import { connectCloud } from "./config/cloud.js";
 import { Server } from "socket.io";
 import http from "http";
 import { handleSocket } from "./controllers/socket/test.js";
 import { logJSON } from "./lib/utils/log.js";
-import { clearDB, delStores } from "./stuff/clear.js";
+import { clearDB } from "./stuff/clear.js";
 import { getCloudID } from "./lib/utils/ids.js";
 
 const app = express();
@@ -52,22 +51,11 @@ app.use(errMiddleware);
 // clearDB();
 
 // io.on("connection", handleSocket);
-// delStores();
-
-const DROP = async () => {
-  await seq.drop({
-    cascade: true,
-  });
-};
-
-console.log(frontURL);
 
 const start = async () => {
   try {
-    await connectCloud();
     await connectDB();
     // await syncDB();
-    // await DROP();
 
     await new Promise<void>((res, rej) => {
       // app.listen(PORT, (err) => {

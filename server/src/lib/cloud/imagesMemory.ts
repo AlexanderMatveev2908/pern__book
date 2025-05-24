@@ -1,4 +1,4 @@
-import { v2 } from "cloudinary";
+import { cloud } from "../../config/cloud.js";
 
 export const uploadCloudMemory = async (
   file: Express.Multer.File,
@@ -9,7 +9,7 @@ export const uploadCloudMemory = async (
   const b64 = file.buffer.toString("base64");
   const data = `data:${file.mimetype};base64,${b64}`;
 
-  const res = await v2.uploader.upload(data, {
+  const res = await cloud.uploader.upload(data, {
     resource_type: "image",
     folder: `pern__book_${folder}`,
   });

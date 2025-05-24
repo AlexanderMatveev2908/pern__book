@@ -15,14 +15,13 @@ import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Op } from "sequelize";
-import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book } from "../../models/all/Book.js";
 import { subcategories } from "../../types/all/books.js";
 import {
   deleteOldAssetsStore,
   handleGetDeletedAssetsStore,
   handleStoreAssetsPut,
-} from "../../lib/assetsHandlers/store.js";
+} from "../../lib/sharedHandlers/assetsHandlers/store.js";
 
 const choseRandom = () => Math.floor(Math.random() * 3);
 

@@ -6,9 +6,10 @@ import { err404, err500 } from "../../lib/responseClient/err.js";
 import { seq } from "../../config/db.js";
 import { CloudImg } from "../../types/all/cloud.js";
 import { uploadCloudMemory } from "../../lib/cloud/imagesMemory.js";
-import { delCloud, ResourceType } from "../../lib/cloud/delete.js";
+import { delArrCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book, BookInstance } from "../../models/all/Book.js";
 import { captAll } from "../../lib/utils/formatters.js";
+import { handleAddBook } from "../../lib/sharedHandlers/books/addBook.js";
 
 export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { body } = req;
@@ -25,29 +26,11 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
   const images: CloudImg[] = [];
 
   try {
-    if (files?.length) {
-      for (const f of files) {
-        const img = await uploadCloudMemory(f, "books");
-        images.push(img);
-      }
-    }
-
-    const newBook = {} as Partial<BookInstance>;
-
-    for (const key in body) {
-      if (["title", "author"].includes(key))
-        (newBook as any)[key] = captAll(body[key]);
-
-      if (key === "description") {
-        newBook[key] = body?.[key] ?? null;
-      } else {
-        newBook[key as keyof BookInstance] = body[key];
-      }
-    }
-
-    if (images) newBook.images = images;
-
-    const bookCreated = await Book.create(newBook, { transaction: t });
+    const { bookCreated } = await handleAddBook({
+      images,
+      req,
+      t,
+    });
 
     await t.commit();
 
@@ -57,17 +40,7 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
 
     await t.rollback();
 
-    if (images.length) {
-      try {
-        await Promise.all(
-          images.map(
-            async (el) => await delCloud(el.publicID, ResourceType.IMG)
-          )
-        );
-      } catch (error) {
-        console.log(err);
-      }
-    }
+    if (images.length) await delArrCloud(images.map((el) => el.publicID));
 
     return err500(res);
   }

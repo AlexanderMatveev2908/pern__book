@@ -1,21 +1,35 @@
 {
   "body": {
-    "bookStoreID": "25df4285-fdbe-4248-b868-c4c92a1e46b7",
-    "title": "aa",
-    "author": "aa",
-    "year": "1555",
-    "categories": [
-      "greek & roman"
+    "email": "matveevalexander470@gmail.com",
+    "country": "Netherlands",
+    "state": "South Holland",
+    "city": "Naaldwijk",
+    "street": "Graanveld",
+    "zipCode": "2671 JG",
+    "phone": "+00 012 345 678",
+    "name": "Store__aaa",
+    "description": "aaaaaaaaaaaa",
+    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1747972836/pern__book_videos/eubo7ytazofsnyw9pwzg.mp4",
+    "images": [
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748009483/pern__book_stores/is5ljdvlxcpuateizqc3.avif",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748009484/pern__book_stores/pfxvefq0v9oplxspcvbs.avif"
     ],
-    "qty": "0",
-    "price": "11"
+    "categories": [
+      "classics",
+      "psychology",
+      "comics"
+    ],
+    "website": "https://pern-book.onrender.com",
+    "deliveryPrice": "33.98",
+    "freeDeliveryAmount": "1.00",
+    "deliveryTime": "5"
   },
-  "files": [],
+  "files": {},
   "file": {},
   "query": {},
   "params": {
     "bookStoreID": "25df4285-fdbe-4248-b868-c4c92a1e46b7"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiNDRlOWRhLTQyY2YtNDdhNy05OTQwLTM5YTg0MzVkNjk2NSIsImlhdCI6MTc0ODA3NTA0OSwiZXhwIjoxNzQ4MDc1MTA5fQ.qysGBOZHPOe187FjEP4EnK3Ra6PY0ByM6jNwulQlnds",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiNDRlOWRhLTQyY2YtNDdhNy05OTQwLTM5YTg0MzVkNjk2NSIsImlhdCI6MTc0ODA3OTA4NywiZXhwIjoxNzQ4MDc5MTQ3fQ.bDPOAt1YP6I3SSjhQJZC5pk03-5xeSya5Rrvp5qHchM",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.naUBP9y3yvL7w4OurvFyrHg_VmCTEYl15wLve4UJzYsVNh9tYlzfn5jzrzSBRyD8SRCf0kCr7ktok7ct5Drz2r7ShKigs_WcV7IxAisQlOhNizTiRcynzRIEgDvJjKSJXbBi1wHim-Ru-7Jk4HaPkhOvbFUsbw4XYAFNtXRNv7ZKM3oxne3AZukHtyxhe761IiJCJwn2cmQOcsET9CO10548-WqMGqeHuzdApr5xnySLb4robohLBmjkgrAmuKf31uoiCNHPdYTE3QpubVB_FSHb5lrlr9-FSv-_j_la-TEbB0w4R1CeRP-1ol_HKu3XtIIRAZJxT9YhGIkNQ5OwvQ.X9Hha2Ald-yNeb2R.wNG1wLVonKvXIA97tpOJd9nToiO92ZrbboH-hSvuo8c33FUKZDBiVCjvvHHP.haujWz7zBtGiGFRChzst8g"
 }

@@ -5,7 +5,7 @@ import { BookStore } from "../../models/all/BookStore.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import { err404, err500 } from "../../lib/responseClient/err.js";
 import { seq } from "../../config/db.js";
-import { delCloud } from "../../lib/cloud/delete.js";
+import { delArrCloud } from "../../lib/cloud/delete.js";
 
 export const deleteBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
@@ -32,14 +32,8 @@ export const deleteBook = async (req: ReqApp, res: Response): Promise<any> => {
 
   await book.destroy();
 
-  try {
-    if (book.images?.length)
-      await Promise.all(
-        book.images.map(async (img) => await delCloud(img.publicID))
-      );
-  } catch (err) {
-    console.log(err);
-  }
+  if (book.images?.length)
+    await delArrCloud(book.images.map((img) => img.publicID));
 
   return res200(res, { book });
 };
