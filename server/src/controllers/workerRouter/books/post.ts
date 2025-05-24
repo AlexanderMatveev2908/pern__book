@@ -7,6 +7,7 @@ import { err403, err500 } from "../../../lib/responseClient/err.js";
 import { seq } from "../../../config/db.js";
 import { CloudImg } from "../../../types/all/cloud.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
+import { handleAddBook } from "../../../lib/sharedHandlers/books/addBook.js";
 
 export const addBookWorker = async (
   req: ReqApp,
@@ -41,6 +42,15 @@ export const addBookWorker = async (
   const images: CloudImg[] = [];
 
   try {
+    const { bookCreated } = await handleAddBook({
+      images,
+      req,
+      t,
+    });
+
+    await t.commit();
+
+    return res201(res, { msg: "Book created", ID: bookCreated.id });
   } catch (err) {
     await t.rollback();
 
