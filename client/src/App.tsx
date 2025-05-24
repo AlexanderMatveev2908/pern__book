@@ -40,6 +40,7 @@ import BookListWorker from "./pages/WorkerLayout/BooksLayout/BookListWorker/Book
 import BookPageWorker from "./pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
 import CreateBookWorker from "./pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
 import UpdateBookWorker from "./pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
+import { backURL } from "./core/config/env";
 
 const App: FC = () => {
   useScroll();
@@ -51,6 +52,8 @@ const App: FC = () => {
   }, [navigate]);
 
   useNinjaToken();
+
+  console.log(backURL);
 
   return (
     <Routes>
