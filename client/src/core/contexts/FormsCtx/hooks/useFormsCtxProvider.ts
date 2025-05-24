@@ -32,10 +32,16 @@ export const useFormsCtxProvider = () => {
     mode: "onChange",
   });
 
+  const createBookFormWorkerCtx = useForm<BookFormType>({
+    resolver: zodResolver(schemaBookForm),
+    mode: "onChange",
+  });
+
   return {
     formOwnerStoresCtx,
     createBookFormCtx,
     formOwnerBooksCtx,
     formWorkerBookStores,
+    createBookFormWorkerCtx,
   };
 };

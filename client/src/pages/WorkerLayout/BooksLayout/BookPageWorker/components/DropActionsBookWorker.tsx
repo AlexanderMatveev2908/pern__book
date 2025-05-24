@@ -5,12 +5,15 @@ import { actionsBookPageWorker } from "@/core/config/fieldsData/WorkerLayout/boo
 import { BookType } from "@/types/all/books";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {
   book?: BookType;
 };
 
 const DropActionsBookWorker: FC<PropsType> = ({ book }) => {
+  const nav = useNavigate();
+
   const filteredActions = useMemo(
     () =>
       Object.fromEntries(
@@ -33,10 +36,10 @@ const DropActionsBookWorker: FC<PropsType> = ({ book }) => {
 
   const handlers = useMemo(
     () => ({
-      update: () => console.log("update"),
+      update: () => nav(`/worker/books/put/${book?.id}`),
       delete: () => console.log("delete"),
     }),
-    []
+    [book?.id, nav]
   );
 
   return (

@@ -95,3 +95,15 @@ export const schemaBookForm = z.object({
       message: "Price must be at least $0.01",
     }),
 });
+
+export const keysFormBook = [
+  "bookStoreID",
+  "title",
+  "author",
+  "year",
+  "description",
+  "categories",
+  "images",
+  "qty",
+  "price",
+];

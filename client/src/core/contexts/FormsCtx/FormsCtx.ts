@@ -12,6 +12,7 @@ export type FormsCtxType = {
   createBookFormCtx: UseFormReturn<BookFormType>;
   formOwnerBooksCtx: UseFormReturn<SearchBooksOwnerType>;
   formWorkerBookStores: UseFormReturn<SearchBookStoreWorkerFormType>;
+  createBookFormWorkerCtx: UseFormReturn<BookFormType>;
 };
 
 export const FormsCtx = createContext<null | FormsCtxType>(null);
