@@ -21,7 +21,10 @@ const DropActionsObj: FC<PropsType> = ({ dropLabel, fields, handlers }) => {
     >
       {Object.entries(fields).map(([k, v]) => (
         <div
-          onClick={() => handlers[k as keyof typeof handlers]()}
+          onClick={() => {
+            handlers[k as keyof typeof handlers]();
+            setIsDropOpen(false);
+          }}
           key={v.id}
           className={` w-full flex justify-start items-center gap-5 py-2 el__flow  hover:text-blue-600 cursor-pointer`}
         >

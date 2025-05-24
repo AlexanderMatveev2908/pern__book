@@ -96,11 +96,13 @@ export const getBookWorker = async (
       {
         model: BookStore,
         as: "store",
+        attributes: ["id", "categories", "name"],
         required: true,
         include: [
           {
             model: User,
             as: "team",
+            attributes: ["id"],
             required: true,
             through: {
               as: "bookStoreUser",

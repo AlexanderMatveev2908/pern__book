@@ -100,6 +100,8 @@ export const getMyBook = async (req: ReqApp, res: Response): Promise<any> => {
     group: ["Book.id", "store.id", "reviews.id"],
   });
 
+  if (!book) return err404(res, { msg: "book not found" });
+
   return res200(res, { book });
 };
 
