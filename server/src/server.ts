@@ -60,8 +60,6 @@ const DROP = async () => {
   });
 };
 
-console.log(PORT);
-
 const start = async () => {
   try {
     await connectCloud();
