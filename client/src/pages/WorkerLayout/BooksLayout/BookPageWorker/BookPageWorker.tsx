@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
@@ -6,6 +7,8 @@ import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWor
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBookWorker from "./components/DropActionsBookWorker";
+import InfoBookPage from "@/components/elements/cards/shared/HOC/InfoBookPage";
+import { UserRole } from "@/types/types";
 
 const BookPageWorker: FC = () => {
   const bookID = useParams()?.bookID;
@@ -15,6 +18,8 @@ const BookPageWorker: FC = () => {
   useWrapQueryAPI({ ...res });
 
   const { data: { book } = {} } = res ?? {};
+  const [{ bookStoreUser: { role } = {} } = {}] =
+    book?.store?.team ?? ([] as any);
 
   return (
     <WrapPageAPI
@@ -27,7 +32,10 @@ const BookPageWorker: FC = () => {
     >
       <div className="parent__form ">
         <Title {...{ title: book?.title }} />
+
         <DropActionsBookWorker {...{ book }} />
+
+        <InfoBookPage {...{ book: book!, hide: role !== UserRole.MANAGER }} />
       </div>
     </WrapPageAPI>
   );

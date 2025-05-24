@@ -27,10 +27,9 @@ export const handleAddBook = async ({
   const newBook = {} as Partial<BookInstance>;
 
   for (const key in body) {
-    if (["title", "author"].includes(key))
+    if (["title", "author"].includes(key)) {
       (newBook as any)[key] = captAll(body[key]);
-
-    if (key === "description") {
+    } else if (key === "description") {
       newBook[key] = body?.[key] || null;
     } else {
       newBook[key as keyof BookInstance] = body[key];

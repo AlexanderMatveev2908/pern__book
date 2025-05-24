@@ -41,7 +41,7 @@ const ShowImagesData: FC<PropsType> = ({
                   : (images?.[i] as string)
               }
               alt="_"
-              className="w-full h-full object-cover"
+              className="w-full h-full object-contain"
             />
             <RemoveImgLayer {...{ handleClick: () => handleRemoveOne(i) }} />
           </div>
