@@ -11,7 +11,7 @@ import {
 import { subCat } from "../../types/all/books.js";
 import { toInt } from "validator";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
-import { validateIDs } from "../sharedValidators/ids.js";
+import { validateIDs } from "./ids.js";
 
 // ? 1 Kb = 1024 bytes
 //  ? 1 Mb = 1024 Kb

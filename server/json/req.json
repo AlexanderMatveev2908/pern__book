@@ -1,11 +1,21 @@
 {
-  "files": {},
-  "file": {},
-  "query": {
-    "page": "0",
-    "limit": "8"
+  "body": {
+    "bookStoreID": "25df4285-fdbe-4248-b868-c4c92a1e46b7",
+    "title": "aa",
+    "author": "aa",
+    "year": "1555",
+    "categories": [
+      "greek & roman"
+    ],
+    "qty": "0",
+    "price": "11"
   },
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiNDRlOWRhLTQyY2YtNDdhNy05OTQwLTM5YTg0MzVkNjk2NSIsImlhdCI6MTc0ODAyMzYxNCwiZXhwIjoxNzQ4MDIzNjc0fQ.Eo-DGxvuIgS-K-jEgmQ7FhyyiQFS5P7PMdgXTWItod0",
+  "files": [],
+  "file": {},
+  "query": {},
+  "params": {
+    "bookStoreID": "25df4285-fdbe-4248-b868-c4c92a1e46b7"
+  },
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImJiNDRlOWRhLTQyY2YtNDdhNy05OTQwLTM5YTg0MzVkNjk2NSIsImlhdCI6MTc0ODA3NTA0OSwiZXhwIjoxNzQ4MDc1MTA5fQ.qysGBOZHPOe187FjEP4EnK3Ra6PY0ByM6jNwulQlnds",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.naUBP9y3yvL7w4OurvFyrHg_VmCTEYl15wLve4UJzYsVNh9tYlzfn5jzrzSBRyD8SRCf0kCr7ktok7ct5Drz2r7ShKigs_WcV7IxAisQlOhNizTiRcynzRIEgDvJjKSJXbBi1wHim-Ru-7Jk4HaPkhOvbFUsbw4XYAFNtXRNv7ZKM3oxne3AZukHtyxhe761IiJCJwn2cmQOcsET9CO10548-WqMGqeHuzdApr5xnySLb4robohLBmjkgrAmuKf31uoiCNHPdYTE3QpubVB_FSHb5lrlr9-FSv-_j_la-TEbB0w4R1CeRP-1ol_HKu3XtIIRAZJxT9YhGIkNQ5OwvQ.X9Hha2Ald-yNeb2R.wNG1wLVonKvXIA97tpOJd9nToiO92ZrbboH-hSvuo8c33FUKZDBiVCjvvHHP.haujWz7zBtGiGFRChzst8g"
 }
