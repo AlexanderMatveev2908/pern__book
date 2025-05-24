@@ -5,19 +5,13 @@ import { seq } from "../config/db.js";
 export const clearDB = async () => {
   calcTimeRun(async () => {
     try {
-      const res = await cloud.api.sub_folders("");
+      await cloud.api.delete_resources_by_prefix("pern__", {
+        resource_type: "image",
+      });
 
-      const toDel = res.folders
-        .filter((f: any) => (f.name as string).startsWith("pern__"))
-        .map((f: any) => f.path);
-
-      await Promise.all(
-        toDel.map(async (p: string) =>
-          cloud.api.delete_folder(p, {
-            resource_type: p.includes("video") ? "video" : "image",
-          })
-        )
-      );
+      await cloud.api.delete_resources_by_prefix("pern__", {
+        resource_type: "video",
+      });
 
       await seq.drop({ cascade: true });
     } catch (err) {

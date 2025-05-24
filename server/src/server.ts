@@ -16,6 +16,7 @@ import { handleSocket } from "./controllers/socket/test.js";
 import { logJSON } from "./lib/utils/log.js";
 import { clearDB } from "./stuff/clear.js";
 import { getCloudID } from "./lib/utils/ids.js";
+import { createUserSDA } from "./stuff/sda.js";
 
 const app = express();
 const PORT = +process.env.PORT! || 3000;
@@ -49,6 +50,8 @@ if (!isDev) {
 app.use(errMiddleware);
 // getDataDB();
 // clearDB();
+
+// createUserSDA();
 
 // io.on("connection", handleSocket);
 
