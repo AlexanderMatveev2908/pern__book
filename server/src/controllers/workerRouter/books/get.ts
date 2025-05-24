@@ -4,6 +4,11 @@ import { BookStore } from "../../../models/all/BookStore.js";
 import { User } from "../../../models/models.js";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { res200 } from "../../../lib/responseClient/res.js";
+import { Book } from "../../../models/all/Book.js";
+import { literal, Op } from "sequelize";
+import { countTo_5 } from "../../../lib/utils/utils.js";
+import { replacePoint } from "../../../lib/dataStructures.js";
+import { Literal } from "sequelize/lib/utils";
 
 export const getInfoStore = async (
   req: ReqApp,
@@ -39,3 +44,85 @@ export const getInfoStore = async (
 
   return res200(res, { bookStore: store });
 };
+
+export const getBookWorker = async (
+  req: ReqApp,
+  res: Response
+): Promise<any> => {
+  const { userID } = req;
+  const { bookID } = req.params;
+  const { roles } = req.query;
+
+  const book = await Book.findOne({
+    where: {
+      id: bookID,
+    },
+    attributes: {
+      include: [
+        [
+          literal(`(
+            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+            FROM reviews AS r
+            WHERE r."bookID" = "Book".id
+            )`),
+          "reviewsCount",
+        ],
+        [
+          literal(`(
+            SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+            FROM reviews AS r
+            WHERE r."bookID" = "Book".id
+            )`),
+          "avgRating",
+        ],
+        ...(countTo_5().map((pair) => [
+          literal(`(
+            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+            FROM reviews AS r
+            WHERE r."bookID" = "Book".id
+            AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}  
+            )`),
+          `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+        ]) as [Literal, string][]),
+      ],
+    },
+    group: [
+      "Book.id",
+      "store.id",
+      "store->team.id",
+      "store->team->bookStoreUser.id",
+    ],
+    include: [
+      {
+        model: BookStore,
+        as: "store",
+        required: true,
+        include: [
+          {
+            model: User,
+            as: "team",
+            required: true,
+            through: {
+              as: "bookStoreUser",
+              where: {
+                userID,
+                role: {
+                  [Op.in]: ((roles as string) ?? "").split(","),
+                },
+              },
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!book) return err404(res, { msg: "book not found" });
+
+  return res200(res, { msg: "book", book });
+};
+
+export const getBookListWorker = async (
+  req: ReqApp,
+  res: Response
+): Promise<any> => {};

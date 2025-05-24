@@ -29,7 +29,7 @@ const CreateBookWorker: FC = () => {
     mode: "onChange",
     resolver: zodResolver(schemaBookForm),
   });
-  const { handleSubmit, setValue, setFocus } = formCtx;
+  const { handleSubmit, setValue, reset, setFocus } = formCtx;
 
   const [mutate, { isLoading }] =
     booksSliceWorkerAPI.endpoints.addBookWorker.useMutation();
@@ -48,6 +48,9 @@ const CreateBookWorker: FC = () => {
       });
 
       if (!res) return;
+
+      reset({});
+      nav(`/worker/books/${res?.ID}`, { replace: true });
     },
     (errs) => {
       handleErrsBooks(errs, setFocus);

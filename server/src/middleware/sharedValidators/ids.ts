@@ -1,5 +1,6 @@
 import { check } from "express-validator";
 import { REG_ID } from "../../config/regex.js";
+import { handleValidator } from "../../lib/middleware/handleValidator.js";
 
 export const validateIDs = [
   check().custom((_, { req }) => {
@@ -18,4 +19,10 @@ export const validateIDs = [
 
     return true;
   }),
+];
+
+export const checkBookID = [
+  check("bookID").matches(REG_ID).withMessage("Invalid book ID format"),
+
+  handleValidator(422),
 ];

@@ -16,6 +16,7 @@ import { updateBook } from "../../controllers/adminBooks/put.js";
 import { deleteStore } from "../../controllers/adminBookStore/delete.js";
 import { deleteBook } from "../../controllers/adminBooks/delete.js";
 import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
+import { checkBookID } from "../../middleware/sharedValidators/ids.js";
 
 const adminBookRouter = express.Router();
 
@@ -37,6 +38,7 @@ adminBookRouter.get("/info/:bookID", wrapApp(getInfoBook));
 
 adminBookRouter
   .route("/:bookID")
+  .all(checkBookID)
   .put(
     multerMemoryStorage,
     wrapApp(logJSON),

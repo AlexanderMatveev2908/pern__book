@@ -18,7 +18,7 @@ const ImgLoaderHandler: FC<PropsType> = ({ url }) => {
       />
     </div>
   ) : (
-    <img src={url} alt="✌🏼" className="object-cover w-full h-full" />
+    <img src={url} alt="✌🏼" className="object-contain w-full h-full" />
   );
 };
 
