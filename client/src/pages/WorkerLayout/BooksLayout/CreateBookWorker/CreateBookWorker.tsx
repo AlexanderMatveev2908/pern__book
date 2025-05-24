@@ -14,6 +14,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import { z } from "zod";
 
 type BookFormType = z.infer<typeof schemaBookForm>;
 
@@ -30,7 +31,10 @@ const CreateBookWorker: FC = () => {
   const { handleSubmit, setValue, setFocus } = formCtx;
 
   const handleSave = handleSubmit(
-    async (formDataHook) => {},
+    async (formDataHook) => {
+      nav("");
+      console.log(formDataHook);
+    },
     (errs) => {
       handleErrsBooks(errs, setFocus);
       return errs;
@@ -47,7 +51,7 @@ const CreateBookWorker: FC = () => {
 
   useEffect(() => {
     if (isObjOk(bookStore))
-      setValue("bookStoreID", bookStore?.id, { shouldValidate: true });
+      setValue("bookStoreID", bookStore?.id ?? "", { shouldValidate: true });
   }, [bookStore, setValue]);
   return (
     <WrapPageAPI
