@@ -18,6 +18,7 @@ import { clearDB } from "./stuff/clear.js";
 import { getCloudID } from "./lib/utils/ids.js";
 import { createUserSDA } from "./stuff/sda.js";
 import { Book } from "./models/all/Book.js";
+import { delItem, makeItem } from "./stuff/test.js";
 
 const app = express();
 const PORT = +process.env.PORT! || 3000;
@@ -51,6 +52,9 @@ if (!isDev) {
 app.use(errMiddleware);
 // getDataDB();
 // clearDB();
+
+// makeItem();
+// delItem();
 
 // createUserSDA();
 

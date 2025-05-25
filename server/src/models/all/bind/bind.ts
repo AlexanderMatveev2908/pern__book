@@ -11,6 +11,7 @@ import { defineVideoBookStore } from "../img&video/VideoBookStore.js";
 import { defineOrder } from "../Order.js";
 import { defineReview } from "../Review.js";
 import { defineBook } from "../Book.js";
+import { defineTestClass } from "../Test.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);
@@ -26,6 +27,7 @@ export const bindModels = (seq: Sequelize) => {
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
+  defineTestClass(seq);
 
   Token.belongsTo(User, { foreignKey: "userID", onDelete: "CASCADE" });
   User.hasMany(Token, {

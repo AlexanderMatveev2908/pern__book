@@ -15,11 +15,13 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateBookWorker: FC = () => {
   const bookID = useParams()?.bookID;
   const isValidID = REG_ID.test(bookID ?? "");
+
+  const nav = useNavigate();
 
   const { createBookFormWorkerCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit, setFocus, watch, setValue } = formCtx;
@@ -53,7 +55,7 @@ const UpdateBookWorker: FC = () => {
 
       if (!res) return;
 
-      // nav(`/worker/books/${bookID!}`, { replace: true });
+      nav(`/worker/books/${bookID!}`, { replace: true });
     },
     (errs) => {
       handleErrsBooks(errs, setFocus);

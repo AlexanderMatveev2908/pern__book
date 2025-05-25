@@ -41,6 +41,12 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         TagsAPI.BOOK_WORKER,
       ],
     }),
+    deleteBookWorker: builder.mutation<BaseResAPI<void>, string>({
+      query: (bookID) => ({
+        url: `${B_URL}/${bookID}`,
+        method: "DELETE",
+      }),
+    }),
     getBookWorker: builder.query<
       BaseResAPI<{ book: BookType }>,
       { bookID: string; roles?: UserRole[] }

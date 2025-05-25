@@ -34,13 +34,26 @@ const DropActionsBookWorker: FC<PropsType> = ({ book }) => {
     [book]
   );
 
-  const handlers = useMemo(
-    () => ({
-      update: () => nav(`/worker/books/put/${book?.id}`),
-      delete: () => console.log("delete"),
-    }),
-    [book?.id, nav]
+  const handlers = Object.fromEntries(
+    Object.entries(filteredActions).map(([k, v]) => {
+      switch (k) {
+        case "store":
+          return [k, () => nav(`${v.path}${book?.store?.id}`)];
+
+        default:
+          return [[k], () => nav(`${v.path}${book?.id}`)];
+      }
+    })
   );
+
+  // const handlers = useMemo(
+  //   () => ({
+  //     update: () => nav(`${filteredActions?.update?.path}${book?.id}`),
+  //     delete: () => console.log("delete"),
+  //     store: () => nav(filteredActions?.store?.path + book?.bookStoreID),
+  //   }),
+  //   [book, filteredActions, nav]
+  // );
 
   return (
     <div className="w-full flex justify-end">
