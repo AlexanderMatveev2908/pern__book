@@ -140,9 +140,9 @@ export const getBooksList = async (
   const nHits = books.length;
   if (!nHits) return res204(res);
 
-  sortItems(req, books);
+  const { sorted } = sortItems(req, books);
 
-  const { totPages, paginated } = calcPagination({ req, nHits, els: books });
+  const { totPages, paginated } = calcPagination({ req, nHits, els: sorted });
 
   return res200(res, { books: paginated, nHits, totPages });
 };
