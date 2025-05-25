@@ -2,6 +2,7 @@ import express from "express";
 import { checkStoreID } from "../../../../middleware/adminStore/checkStoreID.js";
 import { wrapApp } from "../../../../middleware/general/wrapApp.js";
 import {
+  getBookListWorker,
   getBookWorker,
   getInfoStore,
 } from "../../../../controllers/workerRouter/books/get.js";
@@ -14,6 +15,8 @@ import { updateBookWorker } from "../../../../controllers/workerRouter/books/put
 import { deleteBookWorker } from "../../../../controllers/workerRouter/books/delete.js";
 
 const workerBooksRouter = express.Router();
+
+workerBooksRouter.get("/", wrapApp(logJSON), wrapApp(getBookListWorker));
 
 workerBooksRouter.get(
   "/info-store/:bookStoreID",

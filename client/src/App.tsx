@@ -154,7 +154,14 @@ const App: FC = () => {
           </Route>
 
           <Route path="books" element={<BooksLayoutWorker />}>
-            <Route path="list" element={<BookListWorker />} />
+            <Route
+              path="list"
+              element={
+                <SearchCtxProvider>
+                  <BookListWorker />
+                </SearchCtxProvider>
+              }
+            />
 
             <Route path=":bookID" element={<BookPageWorker />} />
 

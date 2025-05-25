@@ -1,12 +1,14 @@
 import { REG_ID } from "@/core/config/regex";
-import { z } from "zod";
-import { itemsSchema, handleRefineItem } from "../general/general.ts";
 import {
   commonHandleRefineBooks,
   generalFieldsSearchBooksSchema,
   generalOptSearchBookItem,
   handleYearRefine,
-} from "../general/books.ts";
+} from "../general/books";
+import { handleRefineItem, itemsSchema } from "../general/general";
+import { z } from "zod";
+
+// ? ACTUALLY RIGHT NOW IS JUST SAME IDENTICAL SCHEMA OF OWNER BUT COULD CHANGE AND I WNA T TO BE PREPARED FOR THAT SO WILL BE MORE SCALABLE
 
 const allowedKeys = [
   "ID",
@@ -38,7 +40,7 @@ const itemSchema = z
     handleYearRefine({ item, ctx });
   });
 
-export const schemaSearchBooks = generalFieldsSearchBooksSchema
+export const searchBooksWorkerSchema = generalFieldsSearchBooksSchema
   .extend({
     items: z.array(itemSchema).optional(),
   })

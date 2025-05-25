@@ -5,11 +5,13 @@ import {
   itemsSchema,
   handleRefineItem,
   baseOptItemSchemaStore,
+} from "../general/general.ts";
+import { isValidNumber } from "@/core/lib/lib.ts";
+import {
   generalFiltersStoreSchema,
   handleValidationAvgValsStore,
   msgsFormStore,
-} from "../general.ts";
-import { isValidNumber } from "@/core/lib/lib.ts";
+} from "../general/store.ts";
 
 const allowedKeys = ["name", "ID", "country", "state", "city"];
 

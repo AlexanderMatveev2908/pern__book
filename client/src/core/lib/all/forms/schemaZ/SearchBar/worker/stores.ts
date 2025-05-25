@@ -1,11 +1,13 @@
 import { z } from "zod";
 import {
   baseOptItemSchemaStore,
-  generalFiltersStoreSchema,
   handleRefineItem,
-  handleValidationAvgValsStore,
   itemsSchema,
-} from "../general";
+} from "../general/general";
+import {
+  generalFiltersStoreSchema,
+  handleValidationAvgValsStore,
+} from "../general/store";
 
 const allowedKeys = ["name", "country", "state", "city"];
 

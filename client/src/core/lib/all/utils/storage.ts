@@ -46,6 +46,9 @@ export const getKeysSearchBar = (path: string) => {
     workerBookStoresList: {
       keyStorageVals: StorageKeys.STORES_WORKER_VALS,
     },
+    workerBooksList: {
+      keyStorageVals: StorageKeys.BOOKS_WORKER_VALS,
+    },
   };
 
   const formatted = formatP(path);

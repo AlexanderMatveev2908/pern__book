@@ -1,7 +1,15 @@
 import apiSlice from "@/store/apiSlice";
 import { BookType } from "@/types/all/books";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BaseResAPI, TagsAPI, UserRole } from "@/types/types";
+import {
+  BaseResAPI,
+  ReqQueryAPI,
+  ResPaginationAPI,
+  TagsAPI,
+  UserRole,
+} from "@/types/types";
+import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
+import { makeParams } from "@/core/lib/all/forms/formatters/general";
 
 const B_URL = "/worker/books";
 
@@ -56,6 +64,28 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: [TagsAPI.BOOK_WORKER],
+    }),
+
+    getAllBooksWorker: builder.query<
+      BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>, // Response type
+      ReqQueryAPI<SearchStoreFormType> // Query params type
+    >({
+      query: (vals) => ({
+        url: `${B_URL}?${makeParams(vals)}`,
+        method: "GET",
+      }),
+      providesTags: (res) => [
+        ...(res?.books?.length
+          ? res.books.map((el) => ({
+              type: TagsAPI.BOOKS_WORKER_LIST,
+              id: el.id,
+            }))
+          : []),
+        {
+          type: TagsAPI.BOOKS_WORKER_LIST,
+          id: "LIST",
+        },
+      ],
     }),
   }),
 });

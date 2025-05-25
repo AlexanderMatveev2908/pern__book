@@ -127,4 +127,6 @@ export const getBookWorker = async (
 export const getBookListWorker = async (
   req: ReqApp,
   res: Response
-): Promise<any> => {};
+): Promise<any> => {
+  return res200(res, { msg: "book list worker" });
+};
