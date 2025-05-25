@@ -245,12 +245,12 @@ export const getAllStores = async (
   const nHits = bookStores.length;
   if (!nHits) return res204(res);
 
-  sortItems(req, bookStores);
+  const { sorted } = sortItems(req, bookStores);
 
   const { paginated, totPages } = calcPagination({
     req,
     nHits,
-    els: bookStores,
+    els: sorted,
   });
 
   return res200(res, { bookStores: paginated, nHits, totPages });

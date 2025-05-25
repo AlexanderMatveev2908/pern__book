@@ -33,39 +33,44 @@ import { ReqApp } from "../../types/types.js";
 //   return v === "ASC" ? delta : -delta;
 // };
 
-export const sortItems = (req: ReqApp, items: any[]): void => {
+export const sortItems = (req: ReqApp, items: any[]): any => {
   const sorters = Object.entries(req.query ?? {})
     .filter((pair) => pair[0].includes("Sort"))
     .map((el) => [el[0].replace("Sort", ""), el[1]]) as any;
 
-  if (sorters.length)
-    items.sort((a, b) => {
-      let score = 0;
+  if (!sorters.length) return items;
 
-      for (const [k, v] of sorters) {
-        let val_a = a[k as keyof typeof a];
-        let val_b = b[k as keyof typeof b];
+  const sorted = items.sort((a, b) => {
+    let score = 0;
 
-        switch (k) {
-          case "createdAt":
-          case "updatedAt": {
-            val_a = new Date(val_a).getTime();
-            val_b = new Date(val_b).getTime();
-            break;
-          }
+    for (const [k, v] of sorters) {
+      let val_a = a[k as keyof typeof a];
+      let val_b = b[k as keyof typeof b];
 
-          default: {
-            val_a = +val_a;
-            val_b = +val_b;
-          }
+      switch (k) {
+        case "createdAt":
+        case "updatedAt": {
+          val_a = new Date(val_a).getTime();
+          val_b = new Date(val_b).getTime();
+          break;
         }
 
-        if (val_a === val_b) continue;
-
-        const delta = val_a > val_b ? 1 : -1;
-        score += v === "ASC" ? delta : -delta;
+        default: {
+          val_a = +val_a;
+          val_b = +val_b;
+        }
       }
 
-      return score;
-    });
+      if (val_a === val_b) continue;
+
+      const delta = val_a > val_b ? 1 : -1;
+      score += v === "ASC" ? delta : -delta;
+    }
+
+    return score;
+  });
+
+  return {
+    sorted,
+  };
 };
