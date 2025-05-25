@@ -28,8 +28,8 @@ const BookListWorker: FC = () => {
   });
 
   const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
-  const res = hook[1];
-  const { data: { books } = {} } = res ?? {};
+  // const res = hook[1];
+  // const { data: { books } = {} } = res ?? {};
 
   return (
     <WrapPageAPI>
