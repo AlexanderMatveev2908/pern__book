@@ -1,3 +1,5 @@
-node_modules
-dist
 .env
+dist
+.yarn/cache
+node_modules
+.vscode
