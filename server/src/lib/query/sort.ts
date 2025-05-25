@@ -38,7 +38,7 @@ export const sortItems = (req: ReqApp, items: any[]): any => {
     .filter((pair) => pair[0].includes("Sort"))
     .map((el) => [el[0].replace("Sort", ""), el[1]]) as any;
 
-  if (!sorters.length) return items;
+  if (!sorters.length) return { sorted: items };
 
   const sorted = items.sort((a, b) => {
     let score = 0;

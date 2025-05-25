@@ -1,25 +1,26 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import InfoCardStatsStore from "@/components/elements/cards/bookstore/itemList/InfoCardStatsStore";
 import InfoCardStoreAllUsers from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStoreAllUsers";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStoreWorker } from "@/core/config/fieldsData/WorkerLayout/bookStores/card";
-import { BookStoreUserType } from "@/types/all/JunctionStoreUser";
+import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
 
 type PropsType = {
-  junction: BookStoreUserType;
+  el: BookStoreType;
 };
 
-const BookStoreItemWorker: FC<PropsType> = ({ junction }) => {
-  const { bookStore: el } = junction;
+const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
+  const [{ bookStoreUser: { role } = {} } = {}] = el?.team ?? ([] as any);
 
   const filtered = useMemo(
     () =>
-      linksCardStoreWorker.filter((el) =>
-        el.label === "Update" ? junction.role === UserRole.MANAGER : el
+      linksCardStoreWorker.filter((lin) =>
+        lin.label === "Update" ? role === UserRole.MANAGER : lin
       ),
-    [junction]
+    [role]
   );
 
   return (
@@ -35,9 +36,7 @@ const BookStoreItemWorker: FC<PropsType> = ({ junction }) => {
           }`}
         >
           <InfoCardStoreAllUsers {...{ el }} />
-          {junction.role === UserRole.MANAGER && (
-            <InfoCardStatsStore {...{ el }} />
-          )}
+          {role === UserRole.MANAGER && <InfoCardStatsStore {...{ el }} />}
         </div>
       </div>
 
