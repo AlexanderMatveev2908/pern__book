@@ -7,7 +7,7 @@ export const calcPagination = <T>({
 }: {
   req: ReqApp;
   nHits: number;
-  els: T[];
+  els?: T[];
 }) => {
   const { limit = 4, page = 0 } = req.query;
 
@@ -17,7 +17,7 @@ export const calcPagination = <T>({
   const totPages: number = Math.ceil(nHits / numLimit);
   const skip: number = Math.min(nHits, numPage * numLimit);
 
-  const paginated = els.slice(skip, skip + numLimit);
+  const paginated = (els ?? []).slice(skip, skip + numLimit);
 
   return {
     totPages,

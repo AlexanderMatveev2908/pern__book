@@ -26,83 +26,75 @@ const myCoolNestedSql: FindAttributeOptions = {
   include: [
     [
       literal(`(
-            SELECT COALESCE(COUNT(DISTINCT b.id),0)
-            FROM "book_stores" as bs
-            INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-            WHERE bs."id" = "BookStoreUser"."bookStoreID"
-            )`),
+      SELECT COALESCE(COUNT(DISTINCT b.id), 0)
+      FROM books AS b
+      WHERE b."bookStoreID" = "BookStore"."id"
+    )`),
       "booksCount",
     ],
     [
       literal(`(
-                SELECT ROUND(COALESCE(AVG(b.qty),0),0)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
+    SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
+    FROM books AS b
+    WHERE b."bookStoreID" = "BookStore"."id"
+  )`),
       "avgQty",
     ],
     [
       literal(`(
-                SELECT ROUND(COALESCE(AVG( b.price)),2)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
+    SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
+    FROM books AS b
+    WHERE b."bookStoreID" = "BookStore"."id"
+  )`),
       "avgPrice",
     ],
     [
       literal(`(
-                SELECT COALESCE(COUNT(DISTINCT r.id),0)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                INNER JOIN "reviews" as r ON b.id = r."bookID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
+    SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+    FROM books AS b
+    INNER JOIN reviews AS r ON b.id = r."bookID"
+    WHERE b."bookStoreID" = "BookStore"."id"
+  )`),
       "reviewsCount",
     ],
     [
       literal(`(
-              SELECT ROUND(COALESCE(AVG(r.rating),0),1)
-              FROM "book_stores" as bs
-              INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-              INNER JOIN "reviews" as r ON b.id = r."bookID"
-              WHERE bs."id" = "BookStoreUser"."bookStoreID"
-              )`),
+    SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+    FROM books AS b
+    INNER JOIN reviews AS r ON b.id = r."bookID"
+    WHERE b."bookStoreID" = "BookStore"."id"
+  )`),
       "avgRating",
     ],
 
     ...(countTo_5().map((pair) => [
       literal(`(
-                SELECT ROUND(COALESCE(AVG(r.rating),0),1)
-                FROM "book_stores" as bs
-                INNER JOIN "books" as b ON bs.id = b."bookStoreID"
-                INNER JOIN "reviews" as r ON b.id = r."bookID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
-              )`),
+    SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+    FROM books AS b
+    INNER JOIN reviews AS r ON b.id = r."bookID"
+    WHERE b."bookStoreID" = "BookStore"."id"
+      AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
+  )`),
       `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
     ]) as [Literal, string][]),
 
     [
       literal(`(
-                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-                FROM "book_stores" as bs
-                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                )`),
+    SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+    FROM orders AS o
+    WHERE o."bookStoreID" = "BookStore"."id"
+  )`),
       "ordersCount",
     ],
 
     ...(Object.values(OrderStage).map((stage) => [
       literal(`(
-                SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-                FROM "book_stores" as bs
-                INNER JOIN "orders" as o ON bs.id = o."bookStoreID"
-                WHERE bs."id" = "BookStoreUser"."bookStoreID"
-                AND o."stage" = '${stage}'
-                )`),
-      "orders" + capChar(stage) + "Count",
+    SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+    FROM orders AS o
+    WHERE o."bookStoreID" = "BookStore"."id"
+      AND o."stage" = '${stage}'
+  )`),
+      `orders${capChar(stage)}Count`,
     ]) as [Literal, string][]),
   ],
 };
@@ -249,54 +241,57 @@ export const getAllStoresWorker = async (
 
   const { queryStores, queryAfterPipe, queryOrders } = queryStoresWorker(req);
 
-  const bookStores = await BookStoreUser.findAll({
-    where: {
-      userID,
-    },
+  const bookStores = await BookStore.findAll({
+    where: queryStores,
     include: [
       {
-        model: BookStore,
-        as: "bookStore",
-        where: queryStores,
-        // ? actually is implicit fact it is required cause have a junction with no models related is not possible cause  sever would crash trying to delete an item not respecting sql priority of constraints
-        // required: true,
-        attributes: myCoolNestedSql,
+        model: User,
+        as: "team",
+        attributes: ["id"],
+        required: true,
+        through: {
+          where: {
+            userID,
+          },
+          as: "bookStoreUser",
+          attributes: ["id", "role"],
+        },
+      },
+      {
+        model: ImgBookStore,
+        as: "images",
+      },
+      {
+        model: VideoBookStore,
+        as: "video",
+      },
+      {
+        model: Order,
+        as: "orders",
+        where: queryOrders,
+        required: !!Object.keys(queryOrders).length,
+      },
+      {
+        model: Book,
+        as: "books",
         include: [
           {
-            model: ImgBookStore,
-            as: "images",
-          },
-          {
-            model: VideoBookStore,
-            as: "video",
-          },
-          {
-            model: Order,
-            as: "orders",
-            where: queryOrders,
-            required: !!Object.keys(queryOrders).length,
-          },
-          {
-            model: Book,
-            as: "books",
-            include: [
-              {
-                model: Review,
-                as: "reviews",
-              },
-            ],
+            model: Review,
+            as: "reviews",
           },
         ],
       },
     ],
+    attributes: myCoolNestedSql,
     group: [
-      "BookStoreUser.id",
-      "bookStore.id",
-      "bookStore->images.id",
-      "bookStore->video.id",
-      "bookStore->orders.id",
-      "bookStore->books.id",
-      "bookStore->books->reviews.id",
+      "BookStore.id",
+      "team.id",
+      "team->bookStoreUser.id",
+      "images.id",
+      "video.id",
+      "orders.id",
+      "books.id",
+      "books->reviews.id",
     ],
     having: queryAfterPipe,
   });

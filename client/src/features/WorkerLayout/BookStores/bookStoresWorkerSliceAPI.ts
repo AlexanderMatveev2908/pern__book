@@ -2,7 +2,6 @@ import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxP
 import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import apiSlice from "@/store/apiSlice";
 import { BookStoreType } from "@/types/all/bookStore";
-import { BookStoreUserType } from "@/types/all/JunctionStoreUser";
 import {
   BaseResAPI,
   ReqQueryAPI,
@@ -44,7 +43,7 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
     }),
 
     getAllStoresWorker: builder.query<
-      BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreUserType[] }>>,
+      BaseResAPI<ResPaginationAPI<{ bookStores: BookStoreType[] }>>,
       ReqQueryAPI<SearchStoreFormType>
     >({
       query: (vals) => ({

@@ -49,7 +49,7 @@ const BookStoreListWorker: FC = () => {
           <div className="parent__cards">
             {isArr(bookStores) &&
               bookStores!.map((el) => (
-                <BookStoreItemWorker key={el.id} {...{ junction: el }} />
+                <BookStoreItemWorker key={el.id} {...{ el }} />
               ))}
           </div>
         </WrapperContentAPI>
