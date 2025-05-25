@@ -42,7 +42,6 @@ export default HomePage;
 // const { isPending, error, isError } = dummyState;
 
 // <WrapPageAPI {...{ isLoading: isPending, isError, error }}>
-//   <div className="parent__page">
 //     <div className="w-full grid grid-cols-3 gap-10 items-center">
 //       {items.map((el) => (
 //         <button

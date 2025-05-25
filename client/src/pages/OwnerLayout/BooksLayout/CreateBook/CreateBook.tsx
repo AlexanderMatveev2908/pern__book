@@ -53,14 +53,12 @@ const CreateBook: FC = () => {
         isLoading: someonePending,
       }}
     >
-      <div className="parent__page">
-        <Title {...{ title: "add book" }} />
+      <Title {...{ title: "add book" }} />
 
-        <div className="w-full grid justify-items-center gap-6">
-          <FormProvider {...formCtx}>
-            <BookForm {...{ handleSave, isPending: isCreateLoading, stores }} />
-          </FormProvider>
-        </div>
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookForm {...{ handleSave, isPending: isCreateLoading, stores }} />
+        </FormProvider>
       </div>
     </WrapPageAPI>
   );

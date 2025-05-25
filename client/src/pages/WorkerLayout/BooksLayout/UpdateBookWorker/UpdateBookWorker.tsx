@@ -87,22 +87,20 @@ const UpdateBookWorker: FC = () => {
         error,
       }}
     >
-      <div className="parent__page">
-        <Title {...{ title: "update book" }} />
+      <Title {...{ title: "update book" }} />
 
-        <div className="w-full grid justify-items-center gap-6">
-          <FormProvider {...formCtx}>
-            <BookForm
-              {...{
-                handleSave,
-                isPending: isMutateLoading,
-                stores: [store as Partial<BookStoreType>],
-                isDisabled: isSame,
-                isEmployee: role !== UserRole.MANAGER,
-              }}
-            />
-          </FormProvider>
-        </div>
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookForm
+            {...{
+              handleSave,
+              isPending: isMutateLoading,
+              stores: [store as Partial<BookStoreType>],
+              isDisabled: isSame,
+              isEmployee: role !== UserRole.MANAGER,
+            }}
+          />
+        </FormProvider>
       </div>
     </WrapPageAPI>
   );

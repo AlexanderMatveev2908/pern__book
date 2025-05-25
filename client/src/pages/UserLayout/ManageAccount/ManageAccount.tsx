@@ -45,67 +45,65 @@ const ManageAccount: FC = () => {
   );
 
   return (
-    <div className="parent__page">
+    <WrapPageAPI {...{ canStay }}>
       <Title {...{ title: "My account" }} />
-      <WrapPageAPI {...{ canStay }}>
-        <div className="form__content">
-          <div className="w-full overflow-hidden p-6">
-            <div
-              className={`w-[300%] h-fit flex transition-all duration-500 ${
-                !currForm
-                  ? "max-h-[200px] "
-                  : currForm === 1
-                  ? "max-h-[425px] "
-                  : "max-h-[225px] "
-              }`}
-              style={{
-                transform: `translateX(-${(currForm * 100) / 3}%)`,
-              }}
-            >
-              {titlesFormsManage.map((el, i) => (
-                <WrapperManageAccount
-                  key={el.id}
-                  {...{ isIn: currForm === i, title: el.title }}
-                >
-                  {el.title === ActionsManageAccount.CHANGE_EMAIL ? (
-                    <ChangeEmail
-                      {...{
-                        cond:
-                          currForm === i &&
-                          currSwapState === SwapModeType.SWAPPED,
-                      }}
-                    />
-                  ) : el.title === ActionsManageAccount.RESET_PASSWORD ? (
-                    <ResetPwd
-                      {...{
-                        propsPwd: { ...propsPair, closeAllPwd },
-                        cond:
-                          currForm === i &&
-                          currSwapState === SwapModeType.SWAPPED,
-                        setSwapState,
-                      }}
-                    />
-                  ) : (
-                    <DeleteAccount />
-                  )}
-                </WrapperManageAccount>
-              ))}
-            </div>
+      <div className="form__content">
+        <div className="w-full overflow-hidden p-6">
+          <div
+            className={`w-[300%] h-fit flex transition-all duration-500 ${
+              !currForm
+                ? "max-h-[200px] "
+                : currForm === 1
+                ? "max-h-[425px] "
+                : "max-h-[225px] "
+            }`}
+            style={{
+              transform: `translateX(-${(currForm * 100) / 3}%)`,
+            }}
+          >
+            {titlesFormsManage.map((el, i) => (
+              <WrapperManageAccount
+                key={el.id}
+                {...{ isIn: currForm === i, title: el.title }}
+              >
+                {el.title === ActionsManageAccount.CHANGE_EMAIL ? (
+                  <ChangeEmail
+                    {...{
+                      cond:
+                        currForm === i &&
+                        currSwapState === SwapModeType.SWAPPED,
+                    }}
+                  />
+                ) : el.title === ActionsManageAccount.RESET_PASSWORD ? (
+                  <ResetPwd
+                    {...{
+                      propsPwd: { ...propsPair, closeAllPwd },
+                      cond:
+                        currForm === i &&
+                        currSwapState === SwapModeType.SWAPPED,
+                      setSwapState,
+                    }}
+                  />
+                ) : (
+                  <DeleteAccount />
+                )}
+              </WrapperManageAccount>
+            ))}
+          </div>
 
-            <div className="mt-5 w-full">
-              <ButtonsSwapper
-                {...{
-                  currForm,
-                  setCurrForm: setCurrFormMemo,
-                  totLen: 3,
-                  isNextDisabled: false,
-                }}
-              />
-            </div>
+          <div className="mt-5 w-full">
+            <ButtonsSwapper
+              {...{
+                currForm,
+                setCurrForm: setCurrFormMemo,
+                totLen: 3,
+                isNextDisabled: false,
+              }}
+            />
           </div>
         </div>
-      </WrapPageAPI>
-    </div>
+      </div>
+    </WrapPageAPI>
   );
 };
 export default ManageAccount;
