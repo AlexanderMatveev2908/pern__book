@@ -10,6 +10,7 @@ import { logJSON } from "../../../../lib/utils/log.js";
 import { addBookWorker } from "../../../../controllers/workerRouter/books/post.js";
 import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
 import { checkBookID } from "../../../../middleware/sharedValidators/ids.js";
+import { updateBookWorker } from "../../../../controllers/workerRouter/books/put.js";
 
 const workerBooksRouter = express.Router();
 
@@ -30,6 +31,12 @@ workerBooksRouter
 workerBooksRouter
   .route("/:bookID")
   .all(checkBookID)
-  .get(wrapApp(getBookWorker));
+  .get(wrapApp(getBookWorker))
+  .put(
+    multerMemoryStorage,
+    wrapApp(logJSON),
+    validatePostPutBooks,
+    wrapApp(updateBookWorker)
+  );
 
 export default workerBooksRouter;

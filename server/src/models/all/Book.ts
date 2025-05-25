@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaID } from "./helpers.js";
 import { CloudImg } from "../../types/all/cloud.js";
+import { BookStoreInstance } from "./BookStore.js";
 
 export class Book extends Model {
   declare id: string;
@@ -13,6 +14,8 @@ export class Book extends Model {
   declare description: string | null;
   declare qty: number;
   declare price: number;
+
+  declare store?: BookStoreInstance;
 }
 
 export type BookInstance = InstanceType<typeof Book>;
