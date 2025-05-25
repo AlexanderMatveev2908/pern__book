@@ -1,28 +1,22 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import BookForm from "@/common/forms/BookForm/BookForm";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
+import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
 import { useMergeInfoExistingBook } from "@/core/hooks/all/forms/books/useMergeInfoExistingBook";
 import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
-import {
-  keysFormBook,
-  schemaBookForm,
-} from "@/core/lib/all/forms/schemaZ/books";
-import { __cg, isSameData } from "@/core/lib/lib";
+import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState, type FC } from "react";
+import { type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 const UpdateBook: FC = () => {
   const nav = useNavigate();
-
-  const [isSame, setIsSame] = useState(false);
 
   const { user, stores, bookID, isValidID, isPending, isErr, error, book } =
     useMergeInfoExistingBook();
@@ -38,50 +32,10 @@ const UpdateBook: FC = () => {
     book,
   });
 
-  const vals = watch();
-
-  useEffect(() => {
-    const checkEquality = () => {
-      if (!book) return;
-
-      const original = keysFormBook.reduce((acc: any, curr) => {
-        const val = (book as any)[curr];
-
-        switch (curr) {
-          case "images":
-            acc[curr] = book?.images?.length
-              ? book.images.map((el) => el.url)
-              : null;
-            break;
-
-          default:
-            acc[curr] = typeof val === "number" ? val + "" : val || null;
-            break;
-        }
-
-        return acc;
-      }, {});
-
-      const updated = keysFormBook.reduce((acc: any, curr) => {
-        const val = vals[curr as keyof BookFormType];
-
-        acc[curr] = Array.isArray(val)
-          ? val.length
-            ? val
-            : null
-          : val || null;
-
-        return acc;
-      }, {});
-
-      const areSameVals = isSameData(original, updated);
-
-      __cg("comparison", original, updated, isSame);
-      if (areSameVals !== isSame) setIsSame(areSameVals);
-    };
-
-    checkEquality();
-  }, [book, vals, isSame]);
+  const { isSame } = useCheckEqDataBook({
+    watch,
+    book,
+  });
 
   const [mutate, { isLoading: isUpdateLoading }] =
     booksSLiceAPI.useUpdateBookMutation();

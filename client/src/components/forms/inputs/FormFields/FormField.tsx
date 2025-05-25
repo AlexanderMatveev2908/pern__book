@@ -45,7 +45,7 @@ const FormField: FC<PropsType> = ({
   const { onChange, ...rest } = register(registerParamHook);
 
   return (
-    <div className="w-full grid">
+    <div className={`w-full grid ${isDisabled ? "opacity-50" : ""}`}>
       <label className="grid w-full gap-2 relative">
         {showLabel && (
           <span className="txt__2">{el?.label ?? capt(el.field)}</span>

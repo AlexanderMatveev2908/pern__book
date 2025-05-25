@@ -24,6 +24,7 @@ type PropsType = {
   isPending: boolean;
   stores?: Partial<BookStoreType>[];
   isDisabled?: boolean;
+  isEmployee?: boolean;
 };
 
 const BookForm: FC<PropsType> = ({
@@ -31,6 +32,7 @@ const BookForm: FC<PropsType> = ({
   isPending,
   stores,
   isDisabled,
+  isEmployee,
 }) => {
   const formCtx = useFormContext();
   const {
@@ -64,17 +66,30 @@ const BookForm: FC<PropsType> = ({
       <ChoseStore {...{ stores }} />
 
       <WrapperFormField
-        {...{ title: "title", sizeStyle: "max-w-[500px] lg:max-w-1/" }}
+        {...{
+          title: "title",
+          sizeStyle: "max-w-[500px] lg:max-w-1/",
+          isDisabled: isEmployee,
+        }}
       >
         <FormField
-          {...{ el: titleBookField, register, errors, showLabel: false }}
+          {...{
+            el: titleBookField,
+            register,
+            errors,
+            showLabel: false,
+            isDisabled: isEmployee,
+          }}
         />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "author & year" }}>
+      <WrapperFormField {...{ title: "author & year", isDisabled: isEmployee }}>
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           {fieldAuthY.map((el) => (
-            <FormField key={el.id} {...{ register, errors, el }} />
+            <FormField
+              key={el.id}
+              {...{ register, errors, el, isDisabled: isEmployee }}
+            />
           ))}
         </div>
       </WrapperFormField>
@@ -91,13 +106,14 @@ const BookForm: FC<PropsType> = ({
         <ImagesField />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "categories" }}>
+      <WrapperFormField {...{ title: "categories", isDisabled: isEmployee }}>
         {storeID ? (
           <CheckBoxSwapper
             {...{
               keyForm: "categories",
               maxData: 3,
               fieldsArg: categoriesFields,
+              isDisabled: isEmployee,
             }}
           />
         ) : (
@@ -111,7 +127,15 @@ const BookForm: FC<PropsType> = ({
       <WrapperFormField {...{ title: "quantity & price" }}>
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           {fieldsPriceQty.map((el) => (
-            <FormField key={el.id} {...{ register, errors, el }} />
+            <FormField
+              key={el.id}
+              {...{
+                register,
+                errors,
+                el,
+                isDisabled: el.field === "price" && isEmployee,
+              }}
+            />
           ))}
         </div>
       </WrapperFormField>

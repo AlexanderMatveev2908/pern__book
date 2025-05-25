@@ -4,10 +4,13 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
+import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
 import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { isObjOk } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
+import { BookStoreType } from "@/types/all/bookStore";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";
@@ -17,7 +20,7 @@ const UpdateBookWorker: FC = () => {
   const isValidID = REG_ID.test(bookID ?? "");
 
   const { createBookFormWorkerCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit, setValue } = formCtx;
+  const { handleSubmit, setFocus, watch, setValue } = formCtx;
 
   const res = booksSliceWorkerAPI.useGetBookWorkerQuery(
     { bookID: bookID! },
@@ -31,7 +34,10 @@ const UpdateBookWorker: FC = () => {
 
   const handleSave = handleSubmit(
     (dataHook) => {},
-    (errs) => {}
+    (errs) => {
+      handleErrsBooks(errs, setFocus);
+      return errs;
+    }
   );
 
   useEffect(() => {
@@ -41,6 +47,11 @@ const UpdateBookWorker: FC = () => {
 
   usePopulateBookForm({
     setValue,
+    book,
+  });
+
+  const { isSame } = useCheckEqDataBook({
+    watch,
     book,
   });
 
@@ -58,7 +69,15 @@ const UpdateBookWorker: FC = () => {
 
         <div className="w-full grid justify-items-center gap-6">
           <FormProvider {...formCtx}>
-            <BookForm {...{ handleSave, isPending: false, stores: [store] }} />
+            <BookForm
+              {...{
+                handleSave,
+                isPending: false,
+                stores: [store as Partial<BookStoreType>],
+                isDisabled: isSame,
+                isEmployee: true,
+              }}
+            />
           </FormProvider>
         </div>
       </div>
