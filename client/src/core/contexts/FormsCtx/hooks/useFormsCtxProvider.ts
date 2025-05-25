@@ -5,11 +5,13 @@ import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
 import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/store";
 import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 import { schemaWorkerStores } from "@/core/lib/all/forms/schemaZ/SearchBar/worker/stores";
+import { searchBooksWorkerSchema } from "@/core/lib/all/forms/schemaZ/SearchBar/worker/books";
 
 export type SearchStoreFormType = z.infer<typeof searchBarStore>;
 export type BookFormType = z.infer<typeof schemaBookForm>;
 export type SearchBooksOwnerType = z.infer<typeof schemaSearchBooks>;
 export type SearchBookStoreWorkerFormType = z.infer<typeof schemaWorkerStores>;
+export type SearchBooksWorkerType = z.infer<typeof searchBooksWorkerSchema>;
 
 export const useFormsCtxProvider = () => {
   const formOwnerStoresCtx = useForm<SearchStoreFormType>({
@@ -37,11 +39,17 @@ export const useFormsCtxProvider = () => {
     mode: "onChange",
   });
 
+  const formSearchBooksWorkerCtx = useForm<SearchBooksWorkerType>({
+    resolver: zodResolver(schemaSearchBooks),
+    mode: "onChange",
+  });
+
   return {
     formOwnerStoresCtx,
     createBookFormCtx,
     formOwnerBooksCtx,
     formWorkerBookStores,
     createBookFormWorkerCtx,
+    formSearchBooksWorkerCtx,
   };
 };
