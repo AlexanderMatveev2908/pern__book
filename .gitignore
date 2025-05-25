@@ -1,2 +1,5 @@
-.vscode
 .env
+dist
+.yarn/cache
+node_modules
+.vscode
