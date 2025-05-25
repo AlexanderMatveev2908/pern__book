@@ -4,13 +4,16 @@
     "title": "Ulisse",
     "author": "Joyce",
     "year": "1914",
+    "images": [
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748169331/pern__book_books/cks0gxumjxpiq3b98g62.jpg"
+    ],
     "categories": [
       "ancient",
       "japanese",
       "spanish"
     ],
-    "qty": "44",
-    "price": "55.00"
+    "qty": "10",
+    "price": "15"
   },
   "files": [],
   "file": {},
@@ -18,6 +21,6 @@
   "params": {
     "bookID": "8c374ff1-a37c-4b0f-802c-2feb1a614382"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODE2Mjc4MywiZXhwIjoxNzQ4MTYyODQzfQ.ttwIfMF86fVV7gJoPg6YsWWU-f6D6c-_FyVwAz2h_QQ",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODE2OTUxMiwiZXhwIjoxNzQ4MTY5NTcyfQ.m8srKzuAKP19EZ_N5-4dEFiCJ0_iUgT99BvCCzwkAKM",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.Mj1V0sheFi1hCMPLglRm5mPynexuJ5QItIfa7I4YBOVQpXRJR4uN1yuLmf-9HdOKnBs8x0Y5f1XTMMEeyuU-mmW475feSWgUQ9-Aoh8_pH1OvO5FN5eQO55CPjM7tigJWXhWM1rhQIcmt7Bojdoqq6EYt_ExzHtB875LjQDXdro5QEVJSZ8eR7UTGw7z_D5eJJypvl0KeUuHiyiUjEID7yLv20Pybbb1863V9dzMUINrWySRI375AwP0J3J2dyYENK32QzpQfk_-m52qCi5VKaxnMH1DlXLRUIaeyKSjGLt5MkPbGjh1L2Mrk1PpDI2jQVHNtURU_8u_spTcK8FTiQ.lRztlVfLVFVWNhTK.-SMw3H1PHcYEgz3SN9q8pSwvelaxYg6wTynoWDtrmG0OQkInbD5TwaQTVcna.VyNmZJhfj17fcv4tqYP9Qw"
 }

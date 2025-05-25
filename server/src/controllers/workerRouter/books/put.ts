@@ -57,7 +57,7 @@ export const updateBookWorker = async (
     if (key === "images") continue;
 
     const valBook = bookObj[key as keyof BookInstance];
-    const valBody = bookObj[key];
+    const valBody = body[key];
 
     if (["title", "author", "year", "categories", "price"].includes(key)) {
       switch (key) {
@@ -71,6 +71,7 @@ export const updateBookWorker = async (
         case "price":
           if (+valBody !== +valBook && role !== UserRole.MANAGER)
             return err403(res, { msg: "user not allowed" });
+          console.log(valBody);
           bookObj[key] = +valBody;
           break;
 
@@ -99,8 +100,6 @@ export const updateBookWorker = async (
       uploadedNow,
       toDeleteIds,
     });
-
-    console.log(bookObj.images);
 
     await Book.update(bookObj, {
       where: { id: bookID },
