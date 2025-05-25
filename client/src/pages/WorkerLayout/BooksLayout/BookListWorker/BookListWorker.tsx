@@ -2,7 +2,8 @@ import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsInputsBooksWorker,
-  workerBooksFilters,
+  workerBooksFiltersBooks,
+  workerSortersBooks,
 } from "@/core/config/fieldsData/SearchBar/worker/books";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
@@ -40,7 +41,8 @@ const BookListWorker: FC = () => {
               handleSave,
               hook,
               txtInputs: fieldsInputsBooksWorker,
-              filters: workerBooksFilters,
+              filters: workerBooksFiltersBooks,
+              sorters: workerSortersBooks,
             }}
           />
         </FormProvider>
