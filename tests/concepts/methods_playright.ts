@@ -1,40 +1,87 @@
-// import { Page, expect } from "@playwright/test";
+// Here's a categorized cheat sheet with commonly used methods grouped by purpose — including some useful .getByRole queries, assertions, interactions, and waiting.
 
-// // Check if an element is visible
-// export async function expectVisible(page: Page, selector: string) {
-//   await expect(page.locator(selector)).toBeVisible();
+// 🧭 ELEMENT LOCATORS
+// ts
+// Copy
+// Edit
+// page.locator('css=selector')       // Generic CSS
+// page.locator('//xpath')            // XPath
+// page.getByRole('button')           // ARIA role
+// page.getByLabel('Email')           // <label for="">
+// page.getByPlaceholder('Email')     // Placeholder text
+// page.getByText('Welcome')          // Exact text match
+// page.getByTitle('tooltip text')    // Title attribute
+// page.getByAltText('image alt')     // alt attribute
+// ✅ Tip: Use page.getByRole when possible — it matches how screen readers understand the DOM.
+
+// 🎯 ASSERTIONS (expect())
+// ts
+// Copy
+// Edit
+// expect(locator).toBeVisible()
+// expect(locator).toBeHidden()
+// expect(locator).toBeEnabled()
+// expect(locator).toBeDisabled()
+// expect(locator).toHaveText("Hi")
+// expect(locator).toContainText("Hi")
+// expect(locator).toHaveAttribute("type", "email")
+// expect(locator).toHaveValue("test@example.com")
+// expect(locator).toHaveCount(3)
+// expect(locator).toBeChecked()
+// expect(locator).toHaveClass(/active/)
+// ⌨️ INPUTS / INTERACTIONS
+// ts
+// Copy
+// Edit
+// await page.fill('#email', 'test@mail.com')
+// await page.type('#email', 't') // types char by char
+// await page.press('#email', 'Enter')
+// await page.click('#submit')
+// await page.dblclick('#button')
+// await page.check('#agree')
+// await page.uncheck('#agree')
+// await page.selectOption('#select', 'value')
+// 🔄 NAVIGATION / WAITING
+// ts
+// Copy
+// Edit
+// await page.goto('http://localhost:3000')
+// await page.waitForNavigation()
+// await page.waitForURL('**/dashboard')
+// await page.waitForSelector('#sidebar')
+// await page.waitForTimeout(500)  // not recommended unless needed
+// await page.reload()
+// 📷 SCREENSHOTS / DEBUGGING
+// ts
+// Copy
+// Edit
+// await page.screenshot({ path: 'screenshot.png' })
+// await page.pause()               // interactive debugger
+// await page.locator('#id').screenshot()
+// 📋 GET DATA FROM ELEMENTS
+// ts
+// Copy
+// Edit
+// const text = await page.textContent('#welcome')
+// const html = await page.innerHTML('#container')
+// const inputVal = await page.inputValue('#email')
+// const attr = await page.getAttribute('#btn', 'data-id')
+// const count = await page.locator('.item').count()
+// 🛠️ ADVANCED UTILS
+// ts
+// Copy
+// Edit
+// await page.evaluate(() => window.scrollTo(0, 0))   // run code in browser
+// await page.setViewportSize({ width: 1280, height: 720 })
+// await page.context().clearCookies()
+// await page.context().storageState({ path: 'state.json' })  // for login sessions
+// 🔀 MULTIPLE ELEMENTS
+// ts
+// Copy
+// Edit
+// const items = page.locator('.item')
+// await expect(items).toHaveCount(5)
+
+// for (let i = 0; i < await items.count(); i++) {
+//   console.log(await items.nth(i).textContent())
 // }
-
-// // Check if an element is hidden
-// export async function expectHidden(page: Page, selector: string) {
-//   await expect(page.locator(selector)).toBeHidden();
-// }
-
-// // Fill input field by selector
-// export async function fillInput(page: Page, selector: string, value: string) {
-//   await page.fill(selector, value);
-// }
-
-// // Click and wait for navigation (e.g. after form submit or redirect)
-// export async function clickAndWait(page: Page, selector: string) {
-//   await Promise.all([page.waitForNavigation(), page.click(selector)]);
-// }
-
-// // Wait for sidebar (or any panel) to be open
-// export async function waitForSidebar(page: Page, sidebarSelector = "#sidebar") {
-//   await expect(page.locator(sidebarSelector)).toBeVisible();
-// }
-
-// // Click an item only if it's present and enabled
-// export async function safeClick(page: Page, selector: string) {
-//   const el = page.locator(selector);
-//   if ((await el.isVisible()) && (await el.isEnabled())) {
-//     await el.click();
-//   }
-// }
-
-// await page.getByRole("button", { name: "Submit" }).click();
-
-// await page.getByRole("textbox", { name: "Email" }).fill("me@mail.com");
-
-// await page.getByRole("heading", { level: 1 }).textContent();
