@@ -12,6 +12,7 @@ import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { isObjOk } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
 import { BookStoreType } from "@/types/all/bookStore";
+import { UserRole } from "@/types/types";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
@@ -34,6 +35,7 @@ const UpdateBookWorker: FC = () => {
   useWrapQueryAPI({ ...res });
   const { isLoading, isError, error, data: { book } = {} } = res ?? {};
   const { store } = book ?? {};
+  const [{ bookStoreUser: { role } = {} } = {}] = (store?.team as any) ?? [];
 
   const [mutate, { isLoading: isMutateLoading }] =
     booksSliceWorkerAPI.useUpdateBookWorkerMutation();
@@ -96,7 +98,7 @@ const UpdateBookWorker: FC = () => {
                 isPending: isMutateLoading,
                 stores: [store as Partial<BookStoreType>],
                 isDisabled: isSame,
-                isEmployee: true,
+                isEmployee: role !== UserRole.MANAGER,
               }}
             />
           </FormProvider>

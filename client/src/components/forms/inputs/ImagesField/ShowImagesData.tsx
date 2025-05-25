@@ -1,6 +1,7 @@
 import { FC, useMemo } from "react";
 import RemoveImgLayer from "./RemoveImgLayer";
 import { v4 } from "uuid";
+import ImgLoaderHandler from "@/components/elements/cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 
 type PropsType = {
   isVal: boolean;
@@ -34,15 +35,14 @@ const ShowImagesData: FC<PropsType> = ({
             key={(Array.isArray(ids) && ids?.[i]) || i}
             className="min-w-[150px] max-w-[150px] min-h-[150px] max-h-[150px] sm:min-w-[200px] sm:max-w-[200px] sm:min-h-[200px] sm:max-h-[200px] md:max-w-[250px] md:min-w-[250px] md:max-h-[250px] md:min-h-[250px] lg:max-w-[300px] lg:min-w-[300px] lg:max-h-[300px] lg:min-h-[300px] relative rounded-xl overflow-hidden"
           >
-            <img
-              src={
-                isUploadFiles
+            <ImgLoaderHandler
+              {...{
+                url: isUploadFiles
                   ? URL.createObjectURL(images?.[i] as File)
-                  : (images?.[i] as string)
-              }
-              alt="_"
-              className="w-full h-full object-contain"
+                  : (images?.[i] as string),
+              }}
             />
+
             <RemoveImgLayer {...{ handleClick: () => handleRemoveOne(i) }} />
           </div>
         ))}
