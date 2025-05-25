@@ -79,20 +79,18 @@ const CreateBookWorker: FC = () => {
         isError: res?.isError,
       }}
     >
-      <div className="parent__page">
-        <Title {...{ title: "add book" }} />
+      <Title {...{ title: "add book" }} />
 
-        <div className="w-full grid justify-items-center gap-6">
-          <FormProvider {...formCtx}>
-            <BookForm
-              {...{
-                handleSave,
-                isPending: isLoading,
-                stores: [bookStore as Partial<BookStoreType>],
-              }}
-            />
-          </FormProvider>
-        </div>
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookForm
+            {...{
+              handleSave,
+              isPending: isLoading,
+              stores: [bookStore as Partial<BookStoreType>],
+            }}
+          />
+        </FormProvider>
       </div>
     </WrapPageAPI>
   );

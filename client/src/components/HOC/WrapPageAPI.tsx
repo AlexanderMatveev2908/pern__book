@@ -66,7 +66,7 @@ const WrapPageAPI: FC<PropsType> = ({
       </div>
     )
   ) : (
-    children
+    <div className="parent__page">{children}</div>
   );
 };
 export default WrapPageAPI;

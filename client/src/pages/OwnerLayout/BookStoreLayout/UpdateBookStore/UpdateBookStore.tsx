@@ -188,14 +188,12 @@ const UpdateBookStore: FC = () => {
         error: res?.error,
       }}
     >
-      <div className="parent__page">
-        <Title {...{ title: "update bookstore" }} />
+      <Title {...{ title: "update bookstore" }} />
 
-        <div className="w-full grid justify-items-center gap-6">
-          <FormProvider {...formCtx}>
-            <BookStoreForm {...{ isLoading, handleSave, isFormOk }} />
-          </FormProvider>
-        </div>
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookStoreForm {...{ isLoading, handleSave, isFormOk }} />
+        </FormProvider>
       </div>
     </WrapPageAPI>
   );

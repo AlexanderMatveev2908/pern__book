@@ -108,13 +108,11 @@ const CreateBooksStore: FC = () => {
   }, [setValue]);
   return (
     <WrapPageAPI {...{ canStay: user?.isVerified }}>
-      <div className="parent__page">
-        <Title {...{ title: "create a bookstore" }} />
-        <div className="w-full grid justify-items-center gap-6">
-          <FormProvider {...formCtx}>
-            <BookStoreForm {...{ handleSave, isFormOk: true, isLoading }} />
-          </FormProvider>
-        </div>
+      <Title {...{ title: "create a bookstore" }} />
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookStoreForm {...{ handleSave, isFormOk: true, isLoading }} />
+        </FormProvider>
       </div>
     </WrapPageAPI>
   );

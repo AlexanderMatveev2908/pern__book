@@ -66,21 +66,19 @@ const UpdateBook: FC = () => {
         error,
       }}
     >
-      <div className="parent__page">
-        <Title {...{ title: "update book" }} />
+      <Title {...{ title: "update book" }} />
 
-        <div className="w-full grid justify-items-center gap-6">
-          <FormProvider {...formCtx}>
-            <BookForm
-              {...{
-                handleSave,
-                isPending: isUpdateLoading,
-                stores,
-                isDisabled: isSame,
-              }}
-            />
-          </FormProvider>
-        </div>
+      <div className="w-full grid justify-items-center gap-6">
+        <FormProvider {...formCtx}>
+          <BookForm
+            {...{
+              handleSave,
+              isPending: isUpdateLoading,
+              stores,
+              isDisabled: isSame,
+            }}
+          />
+        </FormProvider>
       </div>
     </WrapPageAPI>
   );

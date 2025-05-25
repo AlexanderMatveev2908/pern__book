@@ -150,31 +150,29 @@ const ProfileSettings = () => {
 
   return (
     // <ProfileCtxProvider>
-    <div className="parent__page ">
+    <WrapPageAPI {...{ isLoading, isError, error }}>
       <Title {...{ title: "my profile" }} />
-      <WrapPageAPI {...{ isLoading, isError, error }}>
-        <FormProvider {...formCtx}>
-          <form onSubmit={handleSave} className="w-full grid">
-            <HeaderUserProfile
-              {...{ user, eventCloseInput: eventClose, setEventClose }}
+      <FormProvider {...formCtx}>
+        <form onSubmit={handleSave} className="w-full grid">
+          <HeaderUserProfile
+            {...{ user, eventCloseInput: eventClose, setEventClose }}
+          />
+
+          <BodyUserProfile />
+
+          <div className="w-full max-w-[250px] justify-self-center mt-14">
+            <Button
+              {...{
+                type: "submit",
+                label: "Save Changes",
+                isDisabled: !isFormOk,
+                isAging: isLoadingUpdate,
+              }}
             />
-
-            <BodyUserProfile />
-
-            <div className="w-full max-w-[250px] justify-self-center mt-14">
-              <Button
-                {...{
-                  type: "submit",
-                  label: "Save Changes",
-                  isDisabled: !isFormOk,
-                  isAging: isLoadingUpdate,
-                }}
-              />
-            </div>
-          </form>
-        </FormProvider>
-      </WrapPageAPI>
-    </div>
+          </div>
+        </form>
+      </FormProvider>
+    </WrapPageAPI>
     // </ProfileCtxProvider>
   );
 };

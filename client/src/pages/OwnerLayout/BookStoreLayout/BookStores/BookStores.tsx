@@ -37,29 +37,27 @@ const BookStores: FC = () => {
         canStay: user?.isOwner,
       }}
     >
-      <div className="parent__page -mb-[175px]">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...{
-              hook,
-              handleSave,
-              txtInputs: fieldsSearchStore,
-              filters: storeFilters,
-              numericFilters: numericFiltersStore,
-              sorters: sorterStore,
-            }}
-          />
-        </FormProvider>
+      <FormProvider {...formCtx}>
+        <SearchBar
+          {...{
+            hook,
+            handleSave,
+            txtInputs: fieldsSearchStore,
+            filters: storeFilters,
+            numericFilters: numericFiltersStore,
+            sorters: sorterStore,
+          }}
+        />
+      </FormProvider>
 
-        <WrapperContentAPI {...{ formCtx, hook }}>
-          <div className="parent__cards">
-            {isArr(bookStores) &&
-              bookStores!.map((el) => (
-                <BookStoreItemOwner key={el.id} {...{ el }} />
-              ))}
-          </div>
-        </WrapperContentAPI>
-      </div>
+      <WrapperContentAPI {...{ formCtx, hook }}>
+        <div className="parent__cards">
+          {isArr(bookStores) &&
+            bookStores!.map((el) => (
+              <BookStoreItemOwner key={el.id} {...{ el }} />
+            ))}
+        </div>
+      </WrapperContentAPI>
     </WrapPageAPI>
   );
 };
