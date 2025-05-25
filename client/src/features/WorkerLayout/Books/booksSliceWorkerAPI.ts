@@ -27,6 +27,20 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST],
     }),
+    updateBookWorker: builder.mutation<
+      BaseResAPI<void>,
+      { formData: FormData; bookID: string }
+    >({
+      query: ({ formData, bookID }) => ({
+        url: `${B_URL}/${bookID}`,
+        method: "PUT",
+        data: formData,
+      }),
+      invalidatesTags: [
+        TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST,
+        TagsAPI.BOOK_WORKER,
+      ],
+    }),
     getBookWorker: builder.query<
       BaseResAPI<{ book: BookType }>,
       { bookID: string; roles?: UserRole[] }
