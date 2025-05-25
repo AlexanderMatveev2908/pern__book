@@ -12,6 +12,7 @@ import { CloudImg } from "../../../types/all/cloud.js";
 import { uploadCloudMemory } from "../../../lib/cloud/imagesMemory.js";
 import { handleAssetsBooksPut } from "../../../lib/sharedHandlers/assetsHandlers/books.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
+import { captAll } from "../../../lib/utils/formatters.js";
 
 export const updateBookWorker = async (
   req: ReqApp,
@@ -78,7 +79,7 @@ export const updateBookWorker = async (
         default:
           if (valBody !== valBook && role !== UserRole.MANAGER)
             return err403(res, { msg: "user not allowed" });
-          (bookObj as any)[key] = valBody;
+          (bookObj as any)[key] = captAll(valBody);
           break;
       }
     } else {
