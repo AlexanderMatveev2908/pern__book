@@ -10,6 +10,7 @@ import { uploadCloudMemory } from "../../lib/cloud/imagesMemory.js";
 import { getCloudID } from "../../lib/utils/ids.js";
 import { captAll } from "../../lib/utils/formatters.js";
 import { delArrCloud } from "../../lib/cloud/delete.js";
+import { handleAssetsBooksPut } from "../../lib/sharedHandlers/assetsHandlers/books.js";
 
 export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID, body } = req;
@@ -34,43 +35,21 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   if (!stores.length) return err404(res, { msg: "user does not have stores" });
 
   const storeObj: BookStoreInstance = stores[0].toJSON();
-  const bookObj: BookInstance | undefined = storeObj?.books?.[0];
+  const bookObj: BookInstance | undefined = storeObj?.books?.[0]?.toJSON();
   if (!bookObj) return err404(res, { msg: "book not found" });
 
-  const existingImages = bookObj.images ?? [];
   let uploadedNow: CloudImg[] = [];
   const toDeleteIds: string[] = [];
 
   const t = await seq.transaction();
 
   try {
-    if (files.length)
-      uploadedNow = await Promise.all(
-        files.map(async (f) => await uploadCloudMemory(f, "books"))
-      );
-
-    if (uploadedNow.length) {
-      toDeleteIds.push(...existingImages.map((el) => el.publicID));
-      bookObj.images = uploadedNow;
-    }
-
-    if (!uploadedNow.length && existingImages?.length) {
-      const newIds = !body.images?.length
-        ? null
-        : new Set(body.images.map((url: string) => getCloudID(url)));
-
-      if (newIds instanceof Set) {
-        for (const img of existingImages) {
-          if (!newIds.has(img.publicID)) toDeleteIds.push(img.publicID);
-        }
-      } else {
-        toDeleteIds.push(...existingImages.map((el) => el.publicID));
-      }
-
-      bookObj.images = existingImages.filter(
-        (img) => !toDeleteIds.includes(img.publicID)
-      );
-    }
+    await handleAssetsBooksPut({
+      bookObj,
+      req,
+      uploadedNow,
+      toDeleteIds,
+    });
 
     for (const key in body) {
       if (key === "images") continue;

@@ -18,10 +18,10 @@ export const usePopulateBookForm = ({ setValue, book }: Params) => {
       for (const k of keysFormBook) {
         const val = (book as any)[k];
 
-        if (k === "images" && val?.length) {
+        if (k === "images") {
           setValue(
             "images",
-            val.map((img: any) => img.url),
+            val?.length ? val.map((img: any) => img.url) : null,
             { shouldValidate: true }
           );
         } else {

@@ -22,6 +22,8 @@ export const delArrCloud = async (
   publicIDs: string[],
   resource?: ResourceType
 ) => {
+  if (!publicIDs?.length) return;
+
   try {
     const res = await cloud.api.delete_resources(publicIDs, {
       resource_type: resource ?? "image",

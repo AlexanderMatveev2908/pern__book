@@ -53,6 +53,7 @@ export const schemaBookForm = z.object({
   images: z
     .union([z.array(z.string()), z.array(z.instanceof(File))])
     .optional()
+    .nullable()
     .refine(
       (val) => {
         const userUpload =
