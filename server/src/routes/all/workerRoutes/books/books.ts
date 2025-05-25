@@ -11,6 +11,7 @@ import { addBookWorker } from "../../../../controllers/workerRouter/books/post.j
 import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
 import { checkBookID } from "../../../../middleware/sharedValidators/ids.js";
 import { updateBookWorker } from "../../../../controllers/workerRouter/books/put.js";
+import { deleteBookWorker } from "../../../../controllers/workerRouter/books/delete.js";
 
 const workerBooksRouter = express.Router();
 
@@ -37,6 +38,7 @@ workerBooksRouter
     wrapApp(logJSON),
     validatePostPutBooks,
     wrapApp(updateBookWorker)
-  );
+  )
+  .delete(wrapApp(deleteBookWorker));
 
 export default workerBooksRouter;
