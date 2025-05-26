@@ -1,11 +1,33 @@
 {
+  "body": {
+    "email": "matveevalexander470@gmail.com",
+    "country": "Romania",
+    "state": "Bacău",
+    "city": "Onești",
+    "street": "Strada Aurora",
+    "zipCode": "601105",
+    "phone": "+00 000 000",
+    "name": "Store__ccc",
+    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1748091287/pern__book_videos/gyjqwwm4ezzzis02zsca.mp4",
+    "images": [
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748091291/pern__book_stores/yjerrlloqszplqyqtlek.jpg",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748091289/pern__book_stores/twbt3sq0qob8rv43ocde.jpg",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748091290/pern__book_stores/ouquingxpw2xejseea2q.jpg",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748091291/pern__book_stores/swgr58k4e4ikdfmuwbwm.jpg"
+    ],
+    "categories": [
+      "travel",
+      "fantasy",
+      "cooking"
+    ],
+    "deliveryTime": "2"
+  },
   "files": {},
   "file": {},
-  "query": {
-    "page": "0",
-    "limit": "8"
+  "query": {},
+  "params": {
+    "bookStoreID": "34f7921d-d742-44b9-88c6-2e81c52b84c3"
   },
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODI0MzIwNSwiZXhwIjoxNzQ4MjQzMjY1fQ.Mz_Sn9lWLocikaHY6LN97yjTvcCC28bHgzeif1u2fHA",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODI0NTI2NSwiZXhwIjoxNzQ4MjQ1MzI1fQ.nz4GTXSE5UtLffbzX2-Q8a0BzC_n_WxiPXW80KpezAs",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.IFiuy2-x4nB8vPKrzlgYbaAvHqaNj45JMse_2pF4J0ptvZD4De3jh9xbZElX0lsAPoCMirKySeelh-x-1r9Zr0FWGEy9EvV5pprQf8b6Thdj_aQZ8GwZlJ96DD5QLv3ndJdgPcufycQ2Kq2ZO7Qi-EYKmKzxSSOXb6nyaW-C5vLUHtvjG3H69keUgujWu0Is-K04W0QKRmloXaOcT6oxvDD8SoGV0kfPcYHLmuyO2_SJEEuU7q6RbvHETJrZwJo8RlpHroix9wWLKf5btMLu6Gq2VraU85IZnIVx5KgaZB-1e9Kq6OnWqP020MZIiyeHxpz-kIaoXNbJ9626yvBXEQ.q0eVZsKfhXSlRpWK.9HdzKzVHScfFpqLlYe-rllme4Npg_AgwlMG2kgD49YM45GuE7L4fLmoSQ1pK.nUfoSWGZ1eDEmqUlofXz6g"
 }
