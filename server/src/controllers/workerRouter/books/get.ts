@@ -3,13 +3,14 @@ import { ReqApp, UserRole } from "../../../types/types.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { User } from "../../../models/models.js";
 import { err404 } from "../../../lib/responseClient/err.js";
-import { res200 } from "../../../lib/responseClient/res.js";
+import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { Book } from "../../../models/all/Book.js";
 import { literal, Op } from "sequelize";
 import { countTo_5 } from "../../../lib/utils/utils.js";
 import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { calcPagination } from "../../../lib/query/pagination.js";
+import { makeQueryBooksWorker } from "../../../lib/query/worker/books/query.js";
 
 export const getInfoStore = async (
   req: ReqApp,
@@ -132,7 +133,10 @@ export const getBookListWorker = async (
   const { userID } = req;
   const { bookStoreID } = req.params;
 
+  const { queryBooks } = makeQueryBooksWorker(req);
+
   const books = await Book.findAll({
+    where: queryBooks,
     include: [
       {
         model: BookStore,
@@ -191,7 +195,7 @@ export const getBookListWorker = async (
 
   const nHits = books.length;
 
-  if (!nHits) return err404(res, { msg: "books not found" });
+  if (!nHits) return res204(res);
 
   const { paginated, totPages } = calcPagination({
     req,

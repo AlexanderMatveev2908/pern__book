@@ -660,7 +660,6 @@ body {
   --gray__app_500: #6b7280;
 }
 
-/* UTILS */
 .p_page {
   @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
 }
