@@ -21,10 +21,14 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 type PropsType = {
   totPages?: number;
   getValues: UseFormGetValues<any>;
-  trigger: any;
+  triggerRtk: any;
 };
 
-const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
+const PagesCounter: FC<PropsType> = ({
+  triggerRtk,
+  totPages = 0,
+  getValues,
+}) => {
   const {
     setPreSubmit,
     preSubmit: { hasFormErrs },
@@ -53,14 +57,14 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
         limit: limit ? val : setLimitCards(),
       });
       oldVals.current = data;
-      trigger(data);
+      triggerRtk({ vals: data });
 
       saveStorage({
         key: keyStorage as any,
         data,
       });
     },
-    [setPreSubmit, trigger, keyStorage, oldVals, setPagination, getValues]
+    [setPreSubmit, triggerRtk, keyStorage, oldVals, setPagination, getValues]
   );
 
   const setPagPreventFetch = useCallback(

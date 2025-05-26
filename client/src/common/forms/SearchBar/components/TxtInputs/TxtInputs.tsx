@@ -10,7 +10,7 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
   children: ReactNode;
-  trigger: any;
+  triggerRtk: any;
   txtInputs?: FormFieldBasic[];
 };
 
@@ -18,7 +18,7 @@ const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
+const TxtInputs: FC<PropsType> = ({ triggerRtk, children }) => {
   const { preSubmit, updateValsNoDebounce, setPreSubmit } = useSearchCtx();
   const {
     register,
@@ -51,9 +51,9 @@ const TxtInputs: FC<PropsType> = ({ trigger, children }) => {
         ...getDefValsPagination(),
       });
 
-      if (hasSenseFetch) updateValsNoDebounce({ vals: data, trigger });
+      if (hasSenseFetch) updateValsNoDebounce({ vals: data, triggerRtk });
     },
-    [remove, fields, getValues, trigger, updateValsNoDebounce, setPreSubmit]
+    [remove, fields, getValues, triggerRtk, updateValsNoDebounce, setPreSubmit]
   );
 
   return (

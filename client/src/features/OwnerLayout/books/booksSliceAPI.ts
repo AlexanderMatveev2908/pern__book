@@ -107,9 +107,9 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
 
     getAllBooks: builder.query<
       BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>,
-      ReqQueryAPI<SearchBooksOwnerType>
+      ReqQueryAPI<{ vals: SearchBooksOwnerType }>
     >({
-      query: (vals) => {
+      query: ({ vals }) => {
         return {
           url: BASE_URL + `?${makeParams(vals)}`,
           method: "GET",

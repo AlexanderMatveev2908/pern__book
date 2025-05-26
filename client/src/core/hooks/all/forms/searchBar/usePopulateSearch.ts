@@ -18,7 +18,7 @@ type Params<T extends FieldValues> = {
   filters?: FilterSearch[];
   ctx: SearchCtxValsConsumer;
   setValue: UseFormSetValue<T>;
-  trigger: any;
+  triggerRtk: any;
   getValues: UseFormGetValues<T>;
 };
 export const usePopulateSearch = ({
@@ -27,7 +27,7 @@ export const usePopulateSearch = ({
   ctx,
   setValue,
   getValues,
-  trigger,
+  triggerRtk,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorage } = useGetSearchKeysStorage();
@@ -52,7 +52,7 @@ export const usePopulateSearch = ({
       });
       setValue("items", defVals.items, { shouldValidate: true });
       oldVals.current = defVals;
-      trigger(defVals);
+      triggerRtk({ vals: defVals });
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
@@ -86,11 +86,11 @@ export const usePopulateSearch = ({
     };
 
     oldVals.current = merged;
-    trigger(merged);
+    triggerRtk({ vals: merged });
 
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
-    trigger,
+    triggerRtk,
     getValues,
     setValue,
     keyStorage,

@@ -45,7 +45,7 @@ const SearchBar: FC<PropsType> = ({
   hook,
   innerJoinCat,
 }) => {
-  const [trigger, res] = hook;
+  const [triggerRtk, res] = hook;
 
   useWrapQueryAPI({ ...res });
 
@@ -69,18 +69,25 @@ const SearchBar: FC<PropsType> = ({
       ) &&
       isPopulated
     )
-      trigger({
-        ...getValues(),
-        ...getDefValsPagination(),
+      triggerRtk({
+        vals: { ...getValues(), ...getDefValsPagination() },
       });
-  }, [isLoading, isReloading, data, isError, getValues, trigger, isPopulated]);
+  }, [
+    isLoading,
+    isReloading,
+    data,
+    isError,
+    getValues,
+    triggerRtk,
+    isPopulated,
+  ]);
 
   const realTimeVals = watch();
 
   // * POPULATE FORM EXISTING VALS
   usePopulateSearch({
     ctx,
-    trigger,
+    triggerRtk,
     setValue: formCtx.setValue,
     filters,
     txtInputs,
@@ -93,7 +100,7 @@ const SearchBar: FC<PropsType> = ({
     getValues: formCtx.getValues,
     realTimeVals,
     txtInputs,
-    trigger,
+    triggerRtk,
   });
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
@@ -135,14 +142,14 @@ const SearchBar: FC<PropsType> = ({
         />
         <SortPop {...{ sorters }} />
 
-        <TxtInputs {...{ trigger, txtInputs }}>
+        <TxtInputs {...{ triggerRtk, txtInputs }}>
           <ButtonsForm
             {...{
               txtInputs,
               isFetching,
               numericFilters,
               res,
-              trigger,
+              triggerRtk,
             }}
           />
         </TxtInputs>
