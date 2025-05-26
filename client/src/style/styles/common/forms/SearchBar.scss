@@ -5,6 +5,18 @@
     animation: skeleton_search 1.5s infinite linear;
   }
 
+  .left_btns {
+    @media (min-width: 500px) {
+      @apply grid-cols-2;
+    }
+  }
+
+  .right_btns {
+    @media (min-width: 500px) {
+      @apply order-2;
+    }
+  }
+
   .btn_main {
     @apply max-w-[75px] lg:max-w-[200px];
     .txt {
@@ -16,15 +28,6 @@
     .txt {
       @apply hidden sm:block;
     }
-  }
-}
-
-@media (min-width: 500px) {
-  .search_bar__btns {
-    @apply grid-cols-2;
-  }
-  .search_bar_btns_right {
-    @apply order-2;
   }
 }
 
