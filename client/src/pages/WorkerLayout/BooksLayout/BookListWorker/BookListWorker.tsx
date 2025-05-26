@@ -16,6 +16,7 @@ import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWor
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";
+import BookItemWorker from "./components/BookItemWorker";
 
 const BookListWorker: FC = () => {
   const { formSearchBooksWorkerCtx: formCtx } = useFormCtxConsumer();
@@ -61,9 +62,10 @@ const BookListWorker: FC = () => {
           />
         </FormProvider>
 
-        <WrapperContentAPI {...{ formCtx, hook }}>
+        <WrapperContentAPI {...{ formCtx, hook, paramID: "bookStoreID" }}>
           <div className="p_cards">
-            {isArr(books) && books!.map(() => null)}
+            {isArr(books) &&
+              books!.map((el) => <BookItemWorker key={el.id} {...{ el }} />)}
           </div>
         </WrapperContentAPI>
       </div>
