@@ -1,5 +1,6 @@
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
   fieldsInputsBooksWorker,
   workerBooksFiltersBooks,
@@ -10,7 +11,7 @@ import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
-import { __cg } from "@/core/lib/lib";
+import { __cg, isArr } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -35,8 +36,8 @@ const BookListWorker: FC = () => {
   });
 
   const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
-  // const res = hook[1];
-  // const { data: { books } = {} } = res ?? {};
+  const res = hook[1];
+  const { data: { books } = {} } = res ?? {};
 
   return (
     <WrapPageAPI
@@ -59,6 +60,12 @@ const BookListWorker: FC = () => {
             }}
           />
         </FormProvider>
+
+        <WrapperContentAPI {...{ formCtx, hook }}>
+          <div className="p_cards">
+            {isArr(books) && books!.map(() => null)}
+          </div>
+        </WrapperContentAPI>
       </div>
     </WrapPageAPI>
   );

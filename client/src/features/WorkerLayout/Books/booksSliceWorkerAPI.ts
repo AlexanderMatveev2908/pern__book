@@ -71,7 +71,7 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
       ReqQueryAPI<{ vals: SearchStoreFormType; routeID: string }> // Query params type
     >({
       query: ({ vals, routeID }) => ({
-        url: `${B_URL}/${routeID}?${makeParams(vals)}`,
+        url: `${B_URL}/list/${routeID}?${makeParams(vals)}`,
         method: "GET",
       }),
       providesTags: (res) => [

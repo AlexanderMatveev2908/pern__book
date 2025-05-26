@@ -18,7 +18,7 @@ import { checkSearchBooksWorker } from "../../../../middleware/workerRouter/book
 const workerBooksRouter = express.Router();
 
 workerBooksRouter.get(
-  "/:bookStoreID",
+  "/list/:bookStoreID",
   checkStoreID,
   checkSearchBooksWorker,
   wrapApp(logJSON),

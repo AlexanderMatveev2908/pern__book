@@ -9,6 +9,7 @@ import { literal, Op } from "sequelize";
 import { countTo_5 } from "../../../lib/utils/utils.js";
 import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
+import { calcPagination } from "../../../lib/query/pagination.js";
 
 export const getInfoStore = async (
   req: ReqApp,
@@ -128,5 +129,45 @@ export const getBookListWorker = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  return res200(res, { msg: "book list worker" });
+  const { userID } = req;
+  const { bookStoreID } = req.params;
+
+  const books = await Book.findAll({
+    include: [
+      {
+        model: BookStore,
+        as: "store",
+        required: true,
+        where: {
+          id: bookStoreID,
+        },
+        include: [
+          {
+            model: User,
+            as: "team",
+            attributes: ["id"],
+            required: true,
+            through: {
+              as: "bookStoreUser",
+              where: {
+                userID,
+              },
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  const nHits = books.length;
+
+  if (!nHits) return err404(res, { msg: "books not found" });
+
+  const { paginated, totPages } = calcPagination({
+    req,
+    nHits,
+    els: books,
+  });
+
+  return res200(res, { books: paginated, totPages, nHits });
 };
