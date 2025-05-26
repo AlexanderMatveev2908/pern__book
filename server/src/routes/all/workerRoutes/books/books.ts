@@ -13,10 +13,17 @@ import { validatePostPutBooks } from "../../../../middleware/sharedValidators/po
 import { checkBookID } from "../../../../middleware/sharedValidators/ids.js";
 import { updateBookWorker } from "../../../../controllers/workerRouter/books/put.js";
 import { deleteBookWorker } from "../../../../controllers/workerRouter/books/delete.js";
+import { checkSearchBooksWorker } from "../../../../middleware/workerRouter/books/checkSearchBooksWorker.js";
 
 const workerBooksRouter = express.Router();
 
-workerBooksRouter.get("/", wrapApp(logJSON), wrapApp(getBookListWorker));
+workerBooksRouter.get(
+  "/:bookStoreID",
+  checkStoreID,
+  checkSearchBooksWorker,
+  wrapApp(logJSON),
+  wrapApp(getBookListWorker)
+);
 
 workerBooksRouter.get(
   "/info-store/:bookStoreID",
