@@ -11,7 +11,7 @@ export const linksBookCardWorker = [
   {
     icon: GrUpdate,
     label: "Update",
-    path: "/worker/books/update/",
+    path: "/worker/books/put/",
   },
 ].map((el) => ({
   ...el,

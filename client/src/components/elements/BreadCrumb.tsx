@@ -1,27 +1,24 @@
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { capt, isObjOk } from "@/core/lib/lib";
-import { FC, ReactNode, useMemo } from "react";
+import { FC, ReactNode } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
-import { v4 } from "uuid";
 
 type PropsType = {
   els?: {
     label: string;
     path: string;
   }[];
+  lastLabel?: string;
 };
 
-const BreadCrumb: FC<PropsType> = ({ els }) => {
-  const ids = useMemo(
-    () =>
-      Array.from({ length: 2 }, () =>
-        Array.from({ length: els?.length ?? 0 }, () => v4())
-      ),
-    [els?.length]
-  );
+const BreadCrumb: FC<PropsType> = ({ els, lastLabel }) => {
+  const ids = useCreateIds({
+    lengths: Array.from({ length: 3 }, () => els?.length ?? 0),
+  });
 
   return (
-    <div className="w-full flex items-center gap-x-[75px] gap-y-5 flex-wrap pointer-events-auto">
+    <div className="w-full flex items-center gap-x-[50px] gap-y-5 flex-wrap pointer-events-auto">
       {(() => {
         const nodes: ReactNode[] = [];
 
@@ -45,14 +42,22 @@ const BreadCrumb: FC<PropsType> = ({ els }) => {
                   lineClamp: 1,
                 }}
               >
-                {capt(curr.label)}
+                {capt(
+                  i === (els?.length ?? 0) - 1
+                    ? lastLabel ?? curr.label
+                    : curr.label
+                )}
               </span>
             </Link>
           );
 
           if (isObjOk(els?.[i + 1]))
             nodes.push(
-              <FaChevronRight key={ids[1][i + 1]} className="icon__md" />
+              <div className="flex items-center" key={ids[1][i]}>
+                {Array.from({ length: 2 }).map((_, i) => (
+                  <FaChevronRight key={ids[2][i]} className="icon__md" />
+                ))}
+              </div>
             );
 
           i++;
