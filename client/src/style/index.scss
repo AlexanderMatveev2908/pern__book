@@ -1,7 +1,9 @@
 @use "./styles/utils/txt.scss";
-@use "./styles/common/popup.scss";
 @use "./styles/utils/z.scss";
+@use "./styles/utils/icons.scss";
+@use "./styles/utils/buttons.scss";
 
+@use "./styles/common/popup.scs s";
 @use "./styles/common/forms/BookStoreForm.scss";
 @use "./styles/common/forms/SearchBar.scss";
 @use "./styles/common/toast/Toast.scss";
@@ -136,43 +138,6 @@ body {
 }
 
 /* BUTTONS */
-
-button {
-  @apply appearance-none;
-}
-button:disabled {
-  @apply opacity-50;
-}
-
-.btn__logic_sm:enabled,
-.btn__logic_md:enabled,
-.btn__logic_lg:enabled,
-.btn__logic_xl:enabled {
-  transition: 0.3s;
-  cursor: pointer;
-}
-.btn__logic_xl:enabled:hover {
-  transform: scale(1.3);
-}
-.btn__logic_lg:enabled:hover {
-  transform: scale(1.2);
-}
-.btn__logic_md:enabled:hover {
-  transform: scale(1.13);
-}
-.btn__logic_sm:enabled:hover {
-  transform: scale(1.2);
-}
-.btn__logic_sm:enabled:active,
-.btn__logic_lg:enabled:active,
-.btn__logic_xl:enabled:active {
-  transition: 0.1s;
-  transform: scale(0.8);
-}
-.btn__logic_md:enabled:active {
-  transition: 0.1s;
-  transform: scale(0.9);
-}
 
 /* GENERAL */
 
