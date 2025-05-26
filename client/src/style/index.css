@@ -39,6 +39,12 @@
     background-position: -200% 0;
   }
 }
+.toast.in {
+  animation: open__toast 0.6s ease-out forwards;
+}
+.toast.out {
+  animation: toast__close 0.6s ease-in forwards;
+}
 .toast .btn {
   transition: 0.3s;
 }
@@ -48,6 +54,9 @@
 .toast .btn:active {
   transition: 0.1s;
   transform: scale(0.8);
+}
+.toast .timer {
+  animation: count 3s linear forwards;
 }
 
 @keyframes open__toast {
@@ -97,18 +106,6 @@
     width: 0;
   }
 }
-.toast__in {
-  animation: open__toast 0.6s ease-out forwards;
-}
-
-.toast__out {
-  animation: toast__close 0.3s ease-in forwards;
-}
-
-.toast__el__timer_toast {
-  animation: count 3s linear forwards;
-}
-
 .button {
   @apply relative;
   transition: 0.3s;
