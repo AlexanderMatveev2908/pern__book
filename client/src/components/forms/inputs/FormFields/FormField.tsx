@@ -42,7 +42,7 @@ const FormField: FC<PropsType> = ({
       ? `items.${nestedIndex!.index}.${nestedIndex!.key}`
       : el.field;
 
-  const { onChange, ...rest } = register(registerParamHook);
+  const registerProp = register(registerParamHook);
 
   return (
     <div className={`w-full grid ${isDisabled ? "opacity-50" : ""}`}>
@@ -57,10 +57,10 @@ const FormField: FC<PropsType> = ({
             step={el.type === "number" ? "any" : undefined}
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
             className={`${customStyle ?? "input__sm"} txt__2`}
-            {...rest}
             disabled={isDisabled}
+            {...registerProp}
             onChange={(e) => {
-              onChange(e);
+              registerProp.onChange(e);
 
               if (typeof customCB === "function") customCB(e.target.value);
             }}

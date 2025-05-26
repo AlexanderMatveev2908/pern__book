@@ -39,7 +39,7 @@ const BreadCrumb: FC<PropsType> = ({ els }) => {
               className="el__after_below el__flow hover:text-blue-600"
             >
               <span
-                className="txt__5 clamp_txt"
+                className="txt__4 clamp_txt"
                 style={{
                   WebkitLineClamp: 1,
                   lineClamp: 1,
