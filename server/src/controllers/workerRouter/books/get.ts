@@ -11,6 +11,7 @@ import { replacePoint } from "../../../lib/dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { calcPagination } from "../../../lib/query/pagination.js";
 import { makeQueryBooksWorker } from "../../../lib/query/worker/books/query.js";
+import { sortItems } from "../../../lib/query/sort.js";
 
 export const getInfoStore = async (
   req: ReqApp,
@@ -198,10 +199,12 @@ export const getBookListWorker = async (
 
   if (!nHits) return res204(res);
 
+  const { sorted } = sortItems(req, books);
+
   const { paginated, totPages } = calcPagination({
     req,
     nHits,
-    els: books,
+    els: sorted,
   });
 
   return res200(res, { books: paginated, totPages, nHits });
