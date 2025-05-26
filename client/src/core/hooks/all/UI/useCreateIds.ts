@@ -6,10 +6,13 @@ type Params = {
 };
 
 export const useCreateIds = ({ lengths }: Params): string[][] => {
+  const maxLen = JSON.stringify(lengths ?? []).length;
+
   const idsArr = useMemo(
     () =>
       (lengths ?? [])?.map((el) => Array.from({ length: el ?? 0 }, () => v4())),
-    [lengths]
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [maxLen]
   );
 
   return idsArr;
