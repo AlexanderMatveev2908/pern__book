@@ -162,7 +162,7 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
   );
 
   return !totPages ? null : (
-    <div className="w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
+    <div className="page_counter w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
       {currBlock ? (
         <button
           disabled={!currBlock || hasFormErrs}
