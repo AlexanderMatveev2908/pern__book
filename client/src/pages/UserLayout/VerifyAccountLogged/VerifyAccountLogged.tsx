@@ -10,7 +10,7 @@ const VerifyAccountLogged: FC = () => {
   );
 
   return (
-    <div className="parent__page">
+    <div className="p_page">
       <Title {...{ title: "Verify account" }} />
       <EmailForm {...{ ...form, handleSave, isLoading }} />
     </div>

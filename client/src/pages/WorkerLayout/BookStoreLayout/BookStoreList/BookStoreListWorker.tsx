@@ -31,7 +31,7 @@ const BookStoreListWorker: FC = () => {
 
   return (
     <WrapPageAPI {...{ isLoading: res?.isLoading }}>
-      <div className="parent__page -mb-[175px]">
+      <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar
             {...{
@@ -46,7 +46,7 @@ const BookStoreListWorker: FC = () => {
         </FormProvider>
 
         <WrapperContentAPI {...{ formCtx, hook }}>
-          <div className="parent__cards">
+          <div className="p_cards">
             {isArr(bookStores) &&
               bookStores!.map((el) => (
                 <BookStoreItemWorker key={el.id} {...{ el }} />

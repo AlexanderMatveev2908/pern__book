@@ -60,7 +60,7 @@ const BookForm: FC<PropsType> = ({
   const path = useLocation()?.pathname;
 
   return (
-    <form onSubmit={handleSave} className="__cont">
+    <form onSubmit={handleSave} className="p_form__0">
       <OptionalField />
 
       <ChoseStore {...{ stores }} />

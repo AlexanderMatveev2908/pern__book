@@ -64,7 +64,7 @@ const BookStoreForm: FC<PropsType> = ({
   }, [path]);
 
   return (
-    <form onSubmit={handleSave} className="__cont book_store_form">
+    <form onSubmit={handleSave} className="p_form__0 book_store_form">
       <OptionalField />
 
       <WrapperFormField

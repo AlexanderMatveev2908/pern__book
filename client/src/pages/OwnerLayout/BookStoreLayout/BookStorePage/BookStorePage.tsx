@@ -51,7 +51,7 @@ const BookStorePage: FC = () => {
       }}
     >
       <div
-        className={`parent__form ${
+        className={`p_form__1 ${
           isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
         }`}
       >
@@ -73,8 +73,7 @@ const BookStorePage: FC = () => {
           <DropStats
             {...{
               el: labelTeamStore,
-              styleUL:
-                "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
+              styleUL: "max-h-[500px] scroll_app scrollbar__y overflow-y-auto",
               fields: statsTeam(bookStore),
             }}
           >

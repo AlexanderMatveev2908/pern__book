@@ -120,10 +120,10 @@ const Register: FC = () => {
 
   return (
     <WrapperAuthPage {...{ title: "REGISTER" }}>
-      <div className="parent__form">
+      <div className="p_form__1">
         <BreadCrumbForm {...{ currForm, totLen: 2 }} />
 
-        <div className="form__content">
+        <div className="p_form__2">
           <form
             onSubmit={(e) =>
               preventBrowser(e, async () => {

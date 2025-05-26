@@ -70,7 +70,7 @@ const AddressForm: FC<PropsType> = ({
 
   return (
     <div className="w-full grid gap-8">
-      <div id={swapID} className="form__content justify-self-center">
+      <div id={swapID} className="p_form__2 justify-self-center">
         <div className="w-full overflow-hidden p-6">
           <div
             className={`w-[200%] flex transition-all duration-500 ${

@@ -12,7 +12,7 @@ const ImagesScroll: FC<PropsType> = ({ images }) => {
   return !images?.length ? null : (
     <div
       ref={snapperRef}
-      className="w-full flex border-[3px] border-blue-600 rounded-xl p-4 overflow-x-auto scrollbar__x scrollbar__app gap-5 snap-x snap-mandatory"
+      className="w-full flex border-[3px] border-blue-600 rounded-xl p-4 overflow-x-auto scrollbar__x scroll_app gap-5 snap-x snap-mandatory"
     >
       {images.map((el) => (
         <div

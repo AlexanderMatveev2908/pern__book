@@ -51,7 +51,7 @@ const BookStores: FC = () => {
       </FormProvider>
 
       <WrapperContentAPI {...{ formCtx, hook }}>
-        <div className="parent__cards">
+        <div className="p_cards">
           {isArr(bookStores) &&
             bookStores!.map((el) => (
               <BookStoreItemOwner key={el.id} {...{ el }} />

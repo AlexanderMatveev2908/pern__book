@@ -29,8 +29,8 @@ const EmailForm: FC<PropsType> = ({
   }, [errors, vals, setIsFormOk]);
 
   return (
-    <div className="parent__form">
-      <form onSubmit={handleSave} className="form__content">
+    <div className="p_form__1">
+      <form onSubmit={handleSave} className="p_form__2">
         <div className="w-full grid gap-5 p-6">
           <FormField {...{ register, errors, el: emailField }} />
 

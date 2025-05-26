@@ -13,7 +13,7 @@ type PropsType = {
 
 const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
   return (
-    <div className="child__card">
+    <div className="c_card">
       <ItemID {...{ ID: el.id }} />
       <div className="w-full grid grid-cols-1 gap-x-5 gap-y-5">
         <div className="w-full grid grid-cols-1 h-fit items-start">

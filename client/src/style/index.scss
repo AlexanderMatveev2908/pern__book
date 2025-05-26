@@ -55,43 +55,51 @@ body {
 
 /* UTILS */
 
-.parent__page {
-  @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
-}
-.__cont {
-  @apply w-full grid grid-cols-1 justify-items-center gap-8;
-}
-.parent__cards {
-  @apply w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10;
-}
-.child__card {
-  @apply w-full grid grid-cols-1 h-fit items-start border-[3px] gap-y-5 border-blue-600 p-3 pb-5 rounded-xl  justify-self-center;
-}
+// ? p === parent
+// ? c === child
 
-.parent__form {
-  @apply w-full grid justify-items-center gap-6 text-gray-300;
-}
-.form__content {
-  @apply w-full flex flex-col items-center max-w-[500px] sm:max-w-[600px] text-gray-300 border-blue-600 rounded-xl border-[3px];
+.p_page {
+  @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
 }
 .form__size {
   @apply max-w-[500px] sm:max-w-[600px];
 }
+.p_form__0 {
+  @apply w-full grid grid-cols-1 justify-items-center gap-8;
+}
+.p_form__1 {
+  @apply w-full grid justify-items-center gap-6 text-gray-300;
+}
+.p_form__2 {
+  @apply w-full flex flex-col items-center max-w-[500px] sm:max-w-[600px] text-gray-300 border-blue-600 rounded-xl border-[3px];
+}
+.p_cards {
+  @apply w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10;
+}
+.c_card {
+  @apply w-full grid grid-cols-1 h-fit items-start border-[3px] gap-y-5 border-blue-600 p-3 pb-5 rounded-xl  justify-self-center;
+}
+
+// ? GENERIC
 
 .scrollbar__hidden::-webkit-scrollbar {
   display: none;
 }
-.scrollbar__app::-webkit-scrollbar-thumb {
+.scroll_app::-webkit-scrollbar-thumb {
   @apply bg-blue-600 rounded-lg cursor-pointer;
+  &.x::-webkit-scrollbar {
+    @apply h-[4px];
+  }
+  &.y::-webkit-scrollbar {
+    @apply w-[8px];
+  }
 }
-.scrollbar__app::-webkit-scrollbar-track {
+.scroll_app::-webkit-scrollbar-track {
   @apply bg-neutral-800;
 }
 .scrollbar__x::-webkit-scrollbar {
-  @apply h-[4px];
 }
 .scrollbar__y::-webkit-scrollbar {
-  @apply w-[8px];
 }
 
 input[type="number"]::-webkit-outer-spin-button,

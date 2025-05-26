@@ -34,7 +34,7 @@ const BookListWorker: FC = () => {
 
   return (
     <WrapPageAPI>
-      <div className="parent__page -mb-[175px]">
+      <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar
             {...{
