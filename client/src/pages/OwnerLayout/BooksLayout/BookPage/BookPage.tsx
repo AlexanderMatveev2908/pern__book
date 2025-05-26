@@ -41,7 +41,7 @@ const BookPage: FC = () => {
       {...{ canStay: user?.hasBooks && itPass, isError, error, isLoading }}
     >
       {!book ? null : (
-        <div className="parent__form ">
+        <div className="p_form__1 ">
           <Title {...{ title: book?.title }} />
 
           <DropActionsBook {...{ book }} />

@@ -115,7 +115,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
   );
 
   return (
-    <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
+    <div className="scroll_app scrollbar__y overflow-y-auto  max-h-full px-6 min-w-full py-3 ">
       <div
         className={`min-w-full grid grid-cols-[repeat(auto-fit,minmax(150px,1fr))] gap-x-10  ${
           isNormalField

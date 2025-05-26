@@ -14,7 +14,7 @@ const WrapperAuthPage: FC<PropsType> = ({
   switchForm = true,
 }) => {
   return (
-    <div className="parent__page">
+    <div className="p_page">
       <Title {...{ title }} />
       {children}
       {switchForm && <SwitcherFormAuth />}

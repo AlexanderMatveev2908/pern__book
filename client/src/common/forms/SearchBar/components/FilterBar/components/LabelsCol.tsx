@@ -33,7 +33,7 @@ const LabelsCol: FC<PropsType> = ({ filters, numericFilters }) => {
   );
 
   return (
-    <div className="scrollbar__app scrollbar__y overflow-y-auto  max-h-full px-4 py-3">
+    <div className="scroll_app scrollbar__y overflow-y-auto  max-h-full px-4 py-3">
       <div className="w-full max-w-full grid grid-cols-1 gap-y-3">
         {[
           ...(filters ?? []),

@@ -47,7 +47,7 @@ const ManageAccount: FC = () => {
   return (
     <WrapPageAPI {...{ canStay }}>
       <Title {...{ title: "My account" }} />
-      <div className="form__content">
+      <div className="p_form__2">
         <div className="w-full overflow-hidden p-6">
           <div
             className={`w-[300%] h-fit flex transition-all duration-500 ${

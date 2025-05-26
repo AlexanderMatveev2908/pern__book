@@ -43,7 +43,7 @@ const BooksList: FC = () => {
         canStay: user?.hasBooks,
       }}
     >
-      <div className="parent__page -mb-[175px]">
+      <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar
             {...{
@@ -62,7 +62,7 @@ const BooksList: FC = () => {
         {!isLoading && !isFetching && books?.length && <PdfBtn />}
 
         <WrapperContentAPI {...{ formCtx, hook }}>
-          <div className="parent__cards">
+          <div className="p_cards">
             {isArr(books) &&
               books!.map((el) => <BookItem key={el.id} {...{ el }} />)}
           </div>

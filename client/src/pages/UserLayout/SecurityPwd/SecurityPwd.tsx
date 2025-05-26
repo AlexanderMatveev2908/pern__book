@@ -72,10 +72,10 @@ const SecurityPwd: FC = () => {
   );
 
   return (
-    <div className="parent__page">
+    <div className="p_page">
       <Title {...{ title: "Confirm your password" }} />
       <WrapPageAPI {...{ canStay: from === AllowedFromApp.GEN }}>
-        <div className="parent__form">
+        <div className="p_form__1">
           <form
             onSubmit={(e) =>
               preventBrowser(e, async () => {
@@ -83,7 +83,7 @@ const SecurityPwd: FC = () => {
                 await handleSave();
               })
             }
-            className="form__content"
+            className="p_form__2"
           >
             <div className="w-full grid gap-5 p-6">
               <PwdField

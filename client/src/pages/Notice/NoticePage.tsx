@@ -26,7 +26,7 @@ const Notice: FC = () => {
   return !canStayNotice(from) ? (
     <Navigate to="/" replace={true} />
   ) : (
-    <div className="parent__page">
+    <div className="p_page">
       <div className="w-full grid justify-items-center">
         <span
           className={`text-6xl font-extrabold ${

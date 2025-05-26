@@ -30,7 +30,7 @@ const BookPageWorker: FC = () => {
         isError: res?.isError,
       }}
     >
-      <div className="parent__form ">
+      <div className="p_form__1 ">
         <Title {...{ title: book?.title }} />
 
         <DropActionsBookWorker {...{ book }} />

@@ -35,8 +35,7 @@ const InfoStoreAllUsers: FC<PropsType> = ({ bookStore }) => {
           {...{
             el: labelDescription,
             fields: null,
-            styleUL:
-              "max-h-[500px] scrollbar__app scrollbar__y overflow-y-auto",
+            styleUL: "max-h-[500px] scroll_app scrollbar__y overflow-y-auto",
           }}
         >
           <li className="w-full flex justify-start">

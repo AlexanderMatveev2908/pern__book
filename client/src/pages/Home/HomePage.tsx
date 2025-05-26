@@ -15,7 +15,7 @@ const HomePage: FC = () => {
   }, [dispatch, authState.loggingOut]);
 
   return (
-    <div className="parent__page">
+    <div className="p_page">
       <h1 className="text-4xl leading-[125%]">Work in progress ⚒️⚒️⚒️</h1>
     </div>
   );

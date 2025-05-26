@@ -40,7 +40,7 @@ const NewPwdForm: FC<PropsType> = ({
   const pwd = watch("password");
 
   return (
-    <div className="parent__form">
+    <div className="p_form__1">
       <form
         onSubmit={(e) =>
           preventBrowser(e, async () => {
@@ -48,7 +48,7 @@ const NewPwdForm: FC<PropsType> = ({
             await handleSave();
           })
         }
-        className="form__content"
+        className="p_form__2"
       >
         <div className="w-full grid gap-5 p-6">
           <PairPwd

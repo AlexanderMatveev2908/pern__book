@@ -47,7 +47,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
           className={`py-1 cursor-pointer flex w-fit max-w-full overflow-x-auto ${
             bd
               ? "el__border_sm tooltip_cpy__el__cpy_txt justify-center px-4"
-              : `hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scrollbar__x scrollbar__app min-h-full top-0 ${
+              : `hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scrollbar__x scroll_app min-h-full top-0 ${
                   align ?? "left-0"
                 }`
           }

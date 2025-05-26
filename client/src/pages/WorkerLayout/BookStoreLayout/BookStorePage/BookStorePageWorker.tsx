@@ -37,7 +37,7 @@ const BookStorePageWorker: FC = () => {
       }}
     >
       <div
-        className={`parent__form ${
+        className={`p_form__1 ${
           isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
         }`}
       >
