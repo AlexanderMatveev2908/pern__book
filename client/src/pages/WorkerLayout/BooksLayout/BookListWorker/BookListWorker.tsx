@@ -18,11 +18,9 @@ import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import BookItemWorker from "./components/BookItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import { BreadType } from "@/types/all/nav";
 
 const BookListWorker: FC = () => {
   const [defVals, setDefVals] = useState<{ [key: string]: string[] }>({});
-  const [bread, setBread] = useState<BreadType[]>([]);
 
   const { formSearchBooksWorkerCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit, watch } = formCtx;
@@ -49,17 +47,6 @@ const BookListWorker: FC = () => {
     if (isArr(books) && books?.[0]?.store?.categories?.length) {
       const cat = books![0]!.store!.categories;
       setDefVals({ mainCategories: cat });
-      setBread([
-        {
-          label: "books",
-          path: "#",
-        },
-        {
-          label: books?.[0]?.store?.name ?? "Book store",
-          path: `/worker/book-stores/${storeID}`,
-          // path: `/worker/book-stores/${storeID}`,
-        },
-      ]);
     }
   }, [books, storeID]);
 
@@ -71,7 +58,17 @@ const BookListWorker: FC = () => {
     >
       <BreadCrumb
         {...{
-          els: bread,
+          els: [
+            {
+              label: "books",
+              path: "#",
+            },
+            {
+              label: "Book store",
+              path: `/worker/book-stores/${storeID}`,
+            },
+          ],
+          lastLabel: books?.[0]?.store?.name,
         }}
       />
 

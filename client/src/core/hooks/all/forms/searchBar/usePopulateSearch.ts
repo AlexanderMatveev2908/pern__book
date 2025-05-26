@@ -52,7 +52,7 @@ export const usePopulateSearch = ({
     setSearch({ el: "currFilter", val: filters[0] });
 
     const savedVals = getStorage(keyStorage as any);
-    const existingItems = cpyObj(getValues("items") ?? []);
+    const existingItems = getValues("items") ?? [];
     const fallBackItems = [{ ...txtInputs[0], val: "", id: v4() }];
 
     // ? fb = fallback
