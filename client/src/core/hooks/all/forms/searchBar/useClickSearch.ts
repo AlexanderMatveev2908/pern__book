@@ -12,6 +12,7 @@ type Params = {
   formCtx: UseFormReturn<any>;
   txtInputs?: FormFieldBasic[];
   triggerRtk: any;
+  routeID?: string;
 };
 
 export const useClickSearch = ({
@@ -19,6 +20,7 @@ export const useClickSearch = ({
   txtInputs,
   formCtx,
   triggerRtk,
+  routeID,
 }: Params) => {
   const { keyStorage } = useGetSearchKeysStorage();
 
@@ -38,8 +40,15 @@ export const useClickSearch = ({
       ...getDefValsPagination(0, limit),
     });
 
-    updateValsNoDebounce({ vals: data, triggerRtk });
-  }, [limit, getValues, setIsPending, triggerRtk, updateValsNoDebounce]);
+    updateValsNoDebounce({ vals: data, triggerRtk, routeID });
+  }, [
+    limit,
+    getValues,
+    setIsPending,
+    triggerRtk,
+    routeID,
+    updateValsNoDebounce,
+  ]);
 
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });
@@ -54,7 +63,7 @@ export const useClickSearch = ({
 
     setPagination({ el: "page", val: 0 });
 
-    updateValsNoDebounce({ vals: merged as any, triggerRtk });
+    updateValsNoDebounce({ vals: merged as any, triggerRtk, routeID });
 
     reset(defVals);
 
@@ -62,6 +71,7 @@ export const useClickSearch = ({
   }, [
     reset,
     keyStorage,
+    routeID,
     setIsPending,
     txtInputs,
     updateValsNoDebounce,

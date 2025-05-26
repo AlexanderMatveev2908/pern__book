@@ -11,9 +11,10 @@ type PropsType = {
   res: any;
   txtInputs?: FormFieldBasic[];
   triggerRtk: any;
+  routeID?: string;
 };
 
-const BtnResults: FC<PropsType> = ({ res, triggerRtk, txtInputs }) => {
+const BtnResults: FC<PropsType> = ({ res, triggerRtk, routeID, txtInputs }) => {
   const { data: { nHits = 0 } = {} } = res ?? {};
   const ctx = useSearchCtx();
   const {
@@ -26,6 +27,7 @@ const BtnResults: FC<PropsType> = ({ res, triggerRtk, txtInputs }) => {
     formCtx,
     txtInputs,
     triggerRtk,
+    routeID,
   });
 
   const labelTxt = useMemo(

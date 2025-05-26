@@ -9,9 +9,15 @@ type PropsType = {
   children: ReactNode;
   formCtx: UseFormReturn<any>;
   hook: any;
+  paramID?: string;
 };
 
-const WrapperContentAPI: FC<PropsType> = ({ children, hook, formCtx }) => {
+const WrapperContentAPI: FC<PropsType> = ({
+  children,
+  paramID,
+  hook,
+  formCtx,
+}) => {
   const [triggerRtk, res] = hook;
   const {
     preSubmit: { isPopulated },
@@ -37,7 +43,7 @@ const WrapperContentAPI: FC<PropsType> = ({ children, hook, formCtx }) => {
 
       {!spinPage && (
         <PagesCounter
-          {...{ totPages, triggerRtk, getValues: formCtx.getValues }}
+          {...{ totPages, triggerRtk, paramID, getValues: formCtx.getValues }}
         />
       )}
     </>

@@ -20,6 +20,7 @@ type Params<T extends FieldValues> = {
   setValue: UseFormSetValue<T>;
   triggerRtk: any;
   getValues: UseFormGetValues<T>;
+  routeID?: string;
 };
 export const usePopulateSearch = ({
   txtInputs,
@@ -28,6 +29,7 @@ export const usePopulateSearch = ({
   setValue,
   getValues,
   triggerRtk,
+  routeID,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorage } = useGetSearchKeysStorage();
@@ -52,7 +54,7 @@ export const usePopulateSearch = ({
       });
       setValue("items", defVals.items, { shouldValidate: true });
       oldVals.current = defVals;
-      triggerRtk({ vals: defVals });
+      triggerRtk({ vals: defVals, routeID });
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
@@ -86,7 +88,7 @@ export const usePopulateSearch = ({
     };
 
     oldVals.current = merged;
-    triggerRtk({ vals: merged });
+    triggerRtk({ vals: merged, routeID });
 
     setPreSubmit({ el: "isPopulated", val: true });
   }, [
@@ -100,5 +102,6 @@ export const usePopulateSearch = ({
     setPreSubmit,
     setPagination,
     oldVals,
+    routeID,
   ]);
 };

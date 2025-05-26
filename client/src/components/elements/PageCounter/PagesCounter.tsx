@@ -11,7 +11,7 @@ import {
   saveStorage,
   setLimitCards,
 } from "@/core/lib/lib";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { UseFormGetValues } from "react-hook-form";
@@ -22,12 +22,14 @@ type PropsType = {
   totPages?: number;
   getValues: UseFormGetValues<any>;
   triggerRtk: any;
+  paramID?: string;
 };
 
 const PagesCounter: FC<PropsType> = ({
   triggerRtk,
   totPages = 0,
   getValues,
+  paramID,
 }) => {
   const {
     setPreSubmit,
@@ -37,6 +39,8 @@ const PagesCounter: FC<PropsType> = ({
     oldVals,
   } = useSearchCtx();
   const { keyStorage } = useGetSearchKeysStorage();
+
+  const routeID = useParams()?.[paramID ?? ""];
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());
@@ -57,14 +61,22 @@ const PagesCounter: FC<PropsType> = ({
         limit: limit ? val : setLimitCards(),
       });
       oldVals.current = data;
-      triggerRtk({ vals: data });
+      triggerRtk({ vals: data, routeID });
 
       saveStorage({
         key: keyStorage as any,
         data,
       });
     },
-    [setPreSubmit, triggerRtk, keyStorage, oldVals, setPagination, getValues]
+    [
+      setPreSubmit,
+      triggerRtk,
+      keyStorage,
+      oldVals,
+      setPagination,
+      getValues,
+      routeID,
+    ]
   );
 
   const setPagPreventFetch = useCallback(
