@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cpyObj, getStorage, isStr } from "@/core/lib/lib";
+import { cpyObj, getStorage, isObjOk, isStr } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect, useRef } from "react";
 import {
@@ -22,6 +22,7 @@ type Params<T extends FieldValues> = {
   triggerRtk: any;
   getValues: UseFormGetValues<T>;
   routeID?: string;
+  defVals?: any;
 };
 export const usePopulateSearch = ({
   txtInputs,
@@ -31,6 +32,7 @@ export const usePopulateSearch = ({
   getValues,
   triggerRtk,
   routeID,
+  defVals,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorage } = useGetSearchKeysStorage();
@@ -50,17 +52,27 @@ export const usePopulateSearch = ({
     setSearch({ el: "currFilter", val: filters[0] });
 
     const savedVals = getStorage(keyStorage as any);
-    const existingItems = getValues("items") ?? [];
+    const existingItems = cpyObj(getValues("items") ?? []);
     const fallBackItems = [{ ...txtInputs[0], val: "", id: v4() }];
 
+    // ? fb = fallback
     if (!savedVals) {
-      const defVals = cpyObj({
+      const valsFb = cpyObj({
         items: existingItems.length ? existingItems : fallBackItems,
         ...getDefValsPagination(),
+        ...defVals,
       });
-      setValue("items", defVals.items, { shouldValidate: true });
-      oldVals.current = defVals;
-      triggerRtk({ vals: defVals, routeID });
+      setValue("items", valsFb.items, { shouldValidate: true });
+      if (isObjOk(defVals)) {
+        for (const k in defVals)
+          setValue(k as Path<any>, defVals[k], {
+            shouldValidate: true,
+            shouldDirty: true,
+          });
+      }
+
+      oldVals.current = valsFb;
+      triggerRtk({ vals: valsFb, routeID });
       setPreSubmit({ el: "isPopulated", val: true });
       return;
     }
@@ -109,5 +121,6 @@ export const usePopulateSearch = ({
     setPagination,
     oldVals,
     routeID,
+    defVals,
   ]);
 };

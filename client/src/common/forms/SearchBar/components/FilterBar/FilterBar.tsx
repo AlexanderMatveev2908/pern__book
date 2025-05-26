@@ -19,6 +19,7 @@ type PropsType = {
   txtInputs?: FormFieldBasic[];
   innerJoinCat?: boolean;
   routeID?: string;
+  defVals?: any;
 };
 
 // ? I AM NOT PRETTY SURE I USED CORRECT WAY TO SPLIT COLS AND ALLOW SCROLL, ACTUALLY IT TOKE ME LONGER THAN I WAS EXPECTED TO UNDERSTAND PATTERN PARENT-CHILD ABOUT HEIGHTS AND MAX-H, BEING ELEMENTS MORE NESTED THAN THE SIDEBAR MAYBE I MIX A LITTLE THEIR SIZES
@@ -30,6 +31,7 @@ const FilterBar: FC<PropsType> = ({
   hook,
   innerJoinCat,
   routeID,
+  defVals,
 }) => {
   const [triggerRtk, res] = hook;
   const {
@@ -90,7 +92,7 @@ const FilterBar: FC<PropsType> = ({
           <ValsCol {...{ innerJoinCat }} />
         </div>
 
-        <BtnResults {...{ res, txtInputs, triggerRtk, routeID }} />
+        <BtnResults {...{ res, txtInputs, triggerRtk, routeID, defVals }} />
       </div>
     </div>
   );

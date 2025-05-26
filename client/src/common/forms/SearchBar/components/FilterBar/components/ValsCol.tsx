@@ -65,13 +65,15 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
           updatedSubCatVals.has(el)
         );
         if (newValsSubCat.length !== currSubCategories.length)
-          setValue("subCategories", newValsSubCat);
+          setValue("subCategories", newValsSubCat, { shouldValidate: true });
 
         setInnerJoinedCat(updatedJoinedFields);
       }
 
       if (!Array.isArray(value)) {
-        setValue(key, [el.val]);
+        setValue(key, [el.val], {
+          shouldValidate: true,
+        });
         return null;
       }
 
@@ -79,7 +81,10 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
         key,
         value.includes(el.val)
           ? value.filter((str) => str !== el.val)
-          : [...value, el.val]
+          : [...value, el.val],
+        {
+          shouldValidate: true,
+        }
       );
     },
     [currFilter, setValue, watch, innerJoinCat, setInnerJoinedCat, getValues]

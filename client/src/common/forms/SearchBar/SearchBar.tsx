@@ -36,6 +36,7 @@ type PropsType = {
   numericFilters?: NumericFilterSearch[];
   innerJoinCat?: boolean;
   paramID?: string;
+  defVals?: any;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -47,6 +48,7 @@ const SearchBar: FC<PropsType> = ({
   hook,
   innerJoinCat,
   paramID,
+  defVals = {},
 }) => {
   const [triggerRtk, res] = hook;
 
@@ -88,6 +90,7 @@ const SearchBar: FC<PropsType> = ({
     triggerRtk,
     isPopulated,
     routeID,
+    defVals,
   ]);
 
   const realTimeVals = watch();
@@ -101,6 +104,7 @@ const SearchBar: FC<PropsType> = ({
     txtInputs,
     getValues: formCtx.getValues,
     routeID,
+    defVals,
   });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
@@ -149,6 +153,7 @@ const SearchBar: FC<PropsType> = ({
             numericFilters,
             txtInputs,
             routeID,
+            defVals,
           }}
         />
         <SortPop {...{ sorters }} />
@@ -162,6 +167,7 @@ const SearchBar: FC<PropsType> = ({
               res,
               triggerRtk,
               routeID,
+              defVals,
             }}
           />
         </TxtInputs>

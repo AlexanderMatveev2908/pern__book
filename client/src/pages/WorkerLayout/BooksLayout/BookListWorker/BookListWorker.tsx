@@ -58,6 +58,9 @@ const BookListWorker: FC = () => {
               numericFilters: workerNumericFieldsBooks,
               innerJoinCat: true,
               paramID: "bookStoreID",
+              defVals: {
+                mainCategories: books?.[0]?.store?.categories ?? [],
+              },
             }}
           />
         </FormProvider>

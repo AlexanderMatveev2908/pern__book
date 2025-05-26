@@ -18,6 +18,7 @@ type PropsType = {
   res: any;
   triggerRtk: any;
   routeID?: string;
+  defVals?: any;
 };
 
 const ButtonsForm: FC<PropsType> = ({
@@ -25,6 +26,7 @@ const ButtonsForm: FC<PropsType> = ({
   routeID,
   triggerRtk,
   res,
+  defVals,
 }) => {
   const ctx = useSearchCtx();
   const {
@@ -45,6 +47,7 @@ const ButtonsForm: FC<PropsType> = ({
     txtInputs,
     triggerRtk,
     routeID,
+    defVals,
   });
 
   return (
