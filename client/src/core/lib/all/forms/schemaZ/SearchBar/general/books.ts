@@ -3,12 +3,7 @@ import { categoriesBooks } from "@/types/all/books";
 import { CatBookStore } from "@/types/all/bookStore";
 import { z } from "zod";
 import { schemaInt, schemaPrice } from "./general";
-import {
-  REG_BOOK_TITLE,
-  REG_INT,
-  REG_NAME,
-  REG_STORE_NAME,
-} from "@/core/config/regex";
+import { REG_BOOK_TITLE, REG_ID, REG_INT, REG_NAME } from "@/core/config/regex";
 import { isValidNumber } from "@/core/lib/lib";
 
 export const msgsErrsBookSearchForm = {
@@ -38,10 +33,10 @@ export const generalFieldsSearchBooksSchema = z.object({
 });
 
 export const generalOptSearchBookItem = {
-  bookStoreName: {
-    reg: REG_STORE_NAME,
+  ID: {
+    reg: REG_ID,
     minLen: 0,
-    maxLen: 50,
+    maxLen: 36,
   },
   title: {
     reg: REG_BOOK_TITLE,

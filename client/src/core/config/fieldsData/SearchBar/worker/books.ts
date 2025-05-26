@@ -12,12 +12,12 @@ import {
   SorterSearch,
 } from "@/types/types";
 
-export const fieldsInputsBooksWorker: FormFieldBasic[] = fieldsInputsBooks.map(
-  (el) => ({
+export const fieldsInputsBooksWorker: FormFieldBasic[] = fieldsInputsBooks
+  .filter((el) => !el.field.includes("bookStore"))
+  .map((el) => ({
     ...el,
     id: v4(),
-  })
-);
+  }));
 
 export const workerBooksFiltersBooks: FilterSearch[] = ownerBooksFilters.map(
   (el) => ({
