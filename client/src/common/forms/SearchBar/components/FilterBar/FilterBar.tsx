@@ -60,7 +60,7 @@ const FilterBar: FC<PropsType> = ({
       }`}
     >
       {/* THIS ALLOW CHILDREN SCROLL */}
-      <div className="flex flex-col items-start scroll_app scrollbar__y overflow-y-hidden max-h-full h-full relative w-full">
+      <div className="flex flex-col items-start scroll_app scroll_y overflow-y-hidden max-h-full h-full relative w-full">
         {/* JUST A LABEL AND A CLOSE BTN, HEIGHT DOES NOT MATTER HERE I THINK */}
         <div className="w-full pt-2 border-b-[3px] border-blue-600">
           <div className="flex justify-between items-center px-4">
@@ -77,7 +77,7 @@ const FilterBar: FC<PropsType> = ({
         </div>
 
         {/* I AM NOT SURE ABOUT THIS PART, THE FACT IS THAT IF I REMOVED SCROLL CLASSES JUST  BIGGER PARENT SCROLL, LEAVING THEM IS LIKE PASSING SCROLL AD PROPS TO CHILDREN METAPHORICALLY, AND PASSING DOWN SCROLL PROP IN A KIND OF RECURSIVE WAY AT THE END ALLOW USER TO SEE A SPLITTED GRID WITH DIFFERENT SCROLL BAR AS I WANTED*/}
-        <div className="grid grid-cols-[65px_3px_1fr] sm:grid-cols-[75px_3px_1fr] md:grid-cols-[1fr_3px_2fr]  scroll_app scrollbar__y overflow-y-auto  max-h-full w-full pb-[75px]">
+        <div className="grid grid-cols-[65px_3px_1fr] sm:grid-cols-[75px_3px_1fr] md:grid-cols-[1fr_3px_2fr]  scroll_app scroll_y overflow-y-auto  max-h-full w-full pb-[75px]">
           {/* LAST CHILD ,REAL CONSUMER OF SCROLL EFFECT */}
           <LabelsCol {...{ filters, numericFilters }} />
           {/* AVOID HERE SCROLL OR THERE WOULD BE TOO MUCH SCROLL BARS RESULTING CONFUSING, THEN WOULD ALSO BE UNCOMFORTABLE TO GRAB THE RIGHT ONE SCROLL BAR OF COL HAVING TWO OF THEM TOO NEAR EACH OTHER */}

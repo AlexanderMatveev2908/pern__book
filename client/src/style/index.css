@@ -1,17 +1,696 @@
-/* Error: Can't find stylesheet to import.
- *   ,
- * 9 | @use "./styles/common/popup.scs s";
- *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
- *   '
- *   client/src/style/index.scss 9:1  root stylesheet */
+@charset "UTF-8";
+@import "./t.css";
+.txt__0 {
+  @apply text-xs md:text-sm lg:text-base;
+}
 
-body::before {
-  font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
-      "Droid Sans Mono", monospace, monospace;
-  white-space: pre;
-  display: block;
-  padding: 1em;
-  margin-bottom: 1em;
-  border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 9 \2502  @use \"./styles/common/popup.scs s\";\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   client/src/style/index.scss 9:1  root stylesheet";
+.txt__1 {
+  @apply text-sm md:text-base lg:text-lg;
+}
+
+.txt__2 {
+  @apply text-base md:text-lg lg:text-xl font-semibold;
+}
+
+.txt__3 {
+  @apply text-lg md:text-xl lg:text-2xl font-bold;
+}
+
+.txt__4 {
+  @apply text-xl md:text-2xl lg:text-3xl font-bold;
+}
+
+.txt__5 {
+  @apply text-2xl md:text-3xl lg:text-4xl font-extrabold;
+}
+
+.txt__6 {
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold;
+}
+
+.txt__col {
+  @apply text-gray-300;
+}
+
+.clamp_txt {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  word-break: break-word;
+}
+
+.z__sidebar_bg {
+  z-index: 700;
+}
+
+.z__sidebar {
+  z-index: 750;
+}
+
+.z__header {
+  z-index: 800;
+}
+
+.z__drop_header {
+  z-index: 850;
+}
+
+.z__popup_bg {
+  z-index: 900;
+}
+
+.z__popup {
+  z-index: 950;
+}
+
+.z__toast {
+  z-index: 1000;
+}
+
+.icon_notice__md {
+  @apply min-w-[150px] sm:min-w-[250px] min-h-[150px] sm:min-h-[250px];
+}
+
+.icon_notice__lg {
+  @apply min-w-[200px] sm:min-w-[300px] min-h-[200px] sm:min-h-[300px];
+}
+
+.icon_notice__md,
+.icon_notice__lg {
+  animation: notice_bounce 0.6s linear forwards;
+}
+
+.icon__sm {
+  @apply min-w-[25px] sm:min-w-[30px] min-h-[25px] sm:min-h-[30px];
+}
+
+.icon__md {
+  @apply min-w-[30px] sm:min-w-[35px] min-h-[30px] sm:min-h-[35px];
+}
+
+.icon__lg {
+  @apply min-w-[40px] min-h-[40px];
+}
+
+.icon__xl {
+  @apply min-w-[50px] min-h-[50px];
+}
+
+.icon__with_txt {
+  @apply transition-all duration-300 group-hover:text-blue-600;
+}
+
+.icon__logic {
+  @apply transition-all duration-300 hover:text-blue-600 hover:scale-120 cursor-pointer;
+}
+
+.icon__close {
+  @apply min-w-[50px] min-h-[50px] text-red-600 transition-all duration-300 hover:scale-120 cursor-pointer;
+}
+
+@keyframes notice_bounce {
+  0% {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1.4, 0.6);
+  }
+  50% {
+    transform: scale(0.6, 1.4);
+  }
+  70% {
+    transform: scale(1.2, 0.8);
+  }
+  85% {
+    transform: scale(0.9, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+button {
+  @apply appearance-none;
+}
+
+button:disabled {
+  @apply opacity-50;
+}
+
+.btn__logic_sm:enabled,
+.btn__logic_md:enabled,
+.btn__logic_lg:enabled,
+.btn__logic_xl:enabled {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn__logic_xl:enabled:hover {
+  transform: scale(1.3);
+}
+
+.btn__logic_lg:enabled:hover {
+  transform: scale(1.2);
+}
+
+.btn__logic_md:enabled:hover {
+  transform: scale(1.13);
+}
+
+.btn__logic_sm:enabled:hover {
+  transform: scale(1.2);
+}
+
+.btn__logic_sm:enabled:active,
+.btn__logic_lg:enabled:active,
+.btn__logic_xl:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
+.btn__logic_md:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}
+
+.input__sm,
+.input__md,
+.input__lg {
+  @apply w-full border-2 border-blue-600 rounded-xl px-5 outline-0 transition-all duration-300;
+  appearance: none;
+}
+
+.input__sm {
+  @apply py-1;
+}
+
+.input__md {
+  @apply py-2;
+}
+
+.input__lg {
+  @apply py-[0.6rem];
+}
+
+.el__shadow,
+.el__focus:focus,
+.input__sm:focus,
+.input__md:focus,
+.input__lg:focus {
+  @apply ring-2 ring-blue-600;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app);
+}
+
+.el__border_sm,
+.el__border_md {
+  @apply border-blue-600 rounded-xl;
+}
+
+.el__border_sm {
+  @apply border-2;
+}
+
+.el__border_md {
+  @apply border-[3px];
+}
+
+.el__flow {
+  @apply transition-all duration-300;
+}
+
+.el__after_below {
+  @apply relative max-w-fit cursor-pointer;
+}
+
+.el__after_below::after {
+  @apply absolute content-[""] -bottom-2 left-1/2 w-0 h-[3px] bg-blue-600 transition-all duration-300 -translate-x-1/2;
+}
+
+.el__after_below:hover::after {
+  @apply w-full;
+}
+
+.nav_link.active::after {
+  @apply w-full;
+}
+
+.nav_link.active {
+  @apply text-blue-600;
+}
+
+.nav_link.active i {
+  @apply text-blue-600;
+}
+
+.center_div😎 {
+  @apply absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2;
+}
+
+.popup.in {
+  animation: pop_in 0.6s linear forwards;
+}
+.popup.out {
+  animation: pop_out 0.25s linear forwards;
+}
+
+@keyframes pop_in {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  25% {
+    transform: scale(1.4, 0.6);
+  }
+  50% {
+    transform: scale(0.6, 1.4);
+  }
+  70% {
+    transform: scale(1.2, 0.8);
+  }
+  85% {
+    transform: scale(0.9, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+    opacity: 1;
+  }
+}
+@keyframes pop_out {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(150px);
+    opacity: 0;
+  }
+}
+.book_store_form .sub_form {
+  @apply w-full grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-10;
+}
+
+.search_bar .skeleton {
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+  background-size: 200% 100%;
+  animation: skeleton_search 1.5s infinite linear;
+}
+@media (min-width: 500px) {
+  .search_bar .left_btns {
+    @apply grid-cols-2;
+  }
+}
+@media (min-width: 500px) {
+  .search_bar .right_btns {
+    @apply order-2;
+  }
+}
+.search_bar .btn_main {
+  @apply max-w-[75px] lg:max-w-[200px];
+}
+.search_bar .btn_main .txt {
+  @apply hidden lg:block;
+}
+.search_bar .btn_secondary {
+  @apply max-w-[75px] sm:max-w-[200px];
+}
+.search_bar .btn_secondary .txt {
+  @apply hidden sm:block;
+}
+
+@keyframes skeleton_search {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.toast.in {
+  animation: open__toast 0.6s ease-out forwards;
+}
+.toast.out {
+  animation: toast__close 0.6s ease-in forwards;
+}
+.toast .btn {
+  transition: 0.3s;
+}
+.toast .btn:hover {
+  @apply cursor-pointer scale-130;
+}
+.toast .btn:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+.toast .timer {
+  animation: count 3s linear forwards;
+}
+
+@keyframes open__toast {
+  0% {
+    opacity: 0;
+    transform: translateX(150%);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(30%);
+  }
+  65% {
+    transform: translateX(-10%);
+  }
+  75% {
+    transform: translateX(5%);
+  }
+  85% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes toast__close {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(-65%);
+  }
+  100% {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}
+@keyframes count {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}
+.button {
+  @apply relative;
+  transition: 0.3s;
+}
+.button:enabled:hover {
+  transform: scale(1.1);
+  background-color: var(--main__btn_bg);
+  cursor: pointer;
+}
+.button:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}
+.button .bubble {
+  animation: explode 0.5s ease-in-out forwards;
+}
+
+@keyframes explode {
+  0% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+  50% {
+    transform: translate(var(--pos));
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 0) scale(0);
+    opacity: 0;
+  }
+}
+/* 
+.bubbles {
+  @apply absolute -left-1/2 top-0 w-full h-full;
+}
+.bubbles::after {
+  @apply absolute content-[""] h-full w-full -top-full;
+  background-image: radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%),
+    radial-gradient(circle, var(--blue__app) 20%, transparent 20%);
+
+  background-repeat: no-repeat;
+  background-size: 10% 10%, 20% 20%, 10% 10%, 20% 20%, 10% 10%, 20% 20%, 10% 10%,
+    20% 20%, 10% 10%, 20% 20%;
+
+  background-position: 10% 125%, 20% 125%, 30% 125%, 40% 125%, 50% 125%,
+    60% 125%, 70% 125%, 80% 125%, 90% 125%, 100% 125%;
+  animation: bubble 0.4s ease-in-out forwards;
+}
+
+@keyframes bubble {
+  50% {
+    background-position: 0% 0%, 10% 0%, 20% 0%, 30% 0, 40% 0%, 50% 0%, 70% 0%,
+      80% 0%, 90% 0%, 100% 0%;
+  }
+  100% {
+    background-size: 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%, 0% 0%,
+      0% 0%, 0% 0%;
+  }
+} */
+.img_loader_handler_skeleton {
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+  background-size: 200% 100%;
+  animation: skeleton_search 1.5s infinite linear;
+}
+
+@keyframes skeleton__img {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.images_swapper .btn {
+  @apply absolute top-1/2 -translate-y-1/2 border-2 border-blue-600 rounded-xl p-2 bg-[#000] flex justify-center items-center hover:scale-110 cursor-pointer transition-all duration-300 z-30;
+  appearance: none;
+}
+
+.page_counter .btn {
+  transition: 0.3s;
+  transform: scale(var(--scale_counter_page));
+}
+.page_counter .btn:enabled:hover {
+  cursor: pointer;
+}
+.page_counter .btn:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
+.tooltip_cpy .txt {
+  transition: 0.3s;
+}
+.tooltip_cpy .txt:hover {
+  transform: scale(1.1);
+}
+.tooltip_cpy .txt:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}
+.tooltip_cpy .tool {
+  animation: appear 1.5s ease-in forwards;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(0.8);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
+.mini_spinner {
+  animation: mini_spin 0.8s linear infinite;
+}
+
+@keyframes mini_spin {
+  0% {
+    transform: rotate(0);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+/* @keyframes circle_out {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} */
+@keyframes circle_in_el {
+  0% {
+    opacity: 1;
+    transform: scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+}
+.spinner_page {
+  @apply w-[200px] sm:w-[300px] h-[200px] sm:h-[300px];
+}
+
+.spinner_page::after {
+  @apply content-[""] absolute inset-0 w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] rounded-full bg-blue-600;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app), 0 0 30px var(--blue__app), 0 0 40px var(--blue__app);
+  animation: circle_in_el 1s linear infinite;
+  animation-delay: var(--delay_page);
+  transform: scale(0);
+  /* transform: scale(var(--start__scale)); */
+}
+
+.btn_checkbox {
+  transition: 0.3s;
+  border: 2px solid var(--border_btn_check);
+  transform: scale(var(--scale_btn_check));
+}
+.btn_checkbox:enabled:hover {
+  transform: scale(var(--scale_btn_check_hover));
+  color: var(--color_btn_check);
+  border: 2px solid var(--border_btn_check);
+}
+.btn_checkbox:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
+.button_swapper {
+  @apply border-2 border-blue-600 rounded-xl p-2 flex justify-center items-center enabled:cursor-pointer transition-all duration-300 disabled:opacity-50;
+}
+.button_swapper:enabled:hover {
+  transition: 0.3s;
+  transform: scale(1.1);
+}
+.button_swapper:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}
+
+.pwd_field .btn {
+  @apply cursor-pointer;
+  transition: 0.3s;
+}
+.pwd_field .btn:hover {
+  @apply text-blue-600 scale-130;
+}
+.pwd_field .btn:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
+/* 
+IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
+*/
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("../public/Sour_Gummy/one.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("../public//Sour_Gummy/two.ttf") format("truetype");
+}
+* {
+  font-family: "Sour Gummy";
+}
+
+body {
+  overflow-x: hidden;
+}
+
+:root {
+  --blue__app: #2563eb;
+  --red__app: #dc2626;
+  --green__app: #16a34a;
+  --orange__app: #ea580c;
+  --gray__app: #d1d5db;
+  --gray__app_500: #6b7280;
+}
+
+/* UTILS */
+.p_page {
+  @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
+}
+
+.form__size {
+  @apply max-w-[500px] sm:max-w-[600px];
+}
+
+.p_form__0 {
+  @apply w-full grid grid-cols-1 justify-items-center gap-8;
+}
+
+.p_form__1 {
+  @apply w-full grid justify-items-center gap-6 text-gray-300;
+}
+
+.p_form__2 {
+  @apply w-full flex flex-col items-center max-w-[500px] sm:max-w-[600px] text-gray-300 border-blue-600 rounded-xl border-[3px];
+}
+
+.p_cards {
+  @apply w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10;
+}
+
+.c_card {
+  @apply w-full grid grid-cols-1 h-fit items-start border-[3px] gap-y-5 border-blue-600 p-3 pb-5 rounded-xl justify-self-center;
+}
+
+.scrollbar__hidden::-webkit-scrollbar {
+  display: none;
+}
+
+.scroll_app::-webkit-scrollbar-thumb {
+  @apply bg-blue-600 rounded-lg cursor-pointer;
+}
+
+.scroll_app::-webkit-scrollbar-track {
+  @apply bg-neutral-800;
+}
+
+.scroll_x::-webkit-scrollbar {
+  @apply h-[4px];
+}
+
+.scroll_y::-webkit-scrollbar {
+  @apply w-[8px];
+}
+
+input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }

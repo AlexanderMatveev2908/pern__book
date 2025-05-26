@@ -73,7 +73,7 @@ const BookStorePage: FC = () => {
           <DropStats
             {...{
               el: labelTeamStore,
-              styleUL: "max-h-[500px] scroll_app scrollbar__y overflow-y-auto",
+              styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
               fields: statsTeam(bookStore),
             }}
           >

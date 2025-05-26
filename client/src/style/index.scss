@@ -6,7 +6,7 @@
 @use "./styles/utils/el.scss";
 @use "./styles/utils/seniorStyles.scss";
 
-@use "./styles/common/popup.scs s";
+@use "./styles/common/popup.scss";
 @use "./styles/common/forms/BookStoreForm.scss";
 @use "./styles/common/forms/SearchBar.scss";
 @use "./styles/common/toast/Toast.scss";
@@ -87,19 +87,15 @@ body {
 }
 .scroll_app::-webkit-scrollbar-thumb {
   @apply bg-blue-600 rounded-lg cursor-pointer;
-  &.x::-webkit-scrollbar {
-    @apply h-[4px];
-  }
-  &.y::-webkit-scrollbar {
-    @apply w-[8px];
-  }
 }
 .scroll_app::-webkit-scrollbar-track {
   @apply bg-neutral-800;
 }
-.scrollbar__x::-webkit-scrollbar {
+.scroll_x::-webkit-scrollbar {
+  @apply h-[4px];
 }
-.scrollbar__y::-webkit-scrollbar {
+.scroll_y::-webkit-scrollbar {
+  @apply w-[8px];
 }
 
 input[type="number"]::-webkit-outer-spin-button,

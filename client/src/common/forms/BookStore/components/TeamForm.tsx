@@ -95,7 +95,7 @@ const TeamForm: FC = () => {
       ref={parentRef}
       className={`w-full grid grid-cols-1 gap-5 ${
         border
-          ? "border-2 p-5 rounded-xl border-blue-600 max-h-[500px] scroll_app scrollbar__y overflow-y-scroll"
+          ? "border-2 p-5 rounded-xl border-blue-600 max-h-[500px] scroll_app scroll_y overflow-y-scroll"
           : ""
       }`}
     >
