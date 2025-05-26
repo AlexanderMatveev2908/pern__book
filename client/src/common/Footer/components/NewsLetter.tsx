@@ -40,7 +40,7 @@ const NewsLetter: FC = () => {
             errors,
             showLabel: false,
             el: emailField,
-            customStyle: "input__icon",
+            customStyle: "input__md",
           }}
         />
 

@@ -1,9 +1,9 @@
 /* Error: Can't find stylesheet to import.
  *   ,
- * 6 | @use "./styles/common/popup.scs s";
+ * 7 | @use "./styles/common/popup.scs s";
  *   | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
  *   '
- *   client/src/style/index.scss 6:1  root stylesheet */
+ *   client/src/style/index.scss 7:1  root stylesheet */
 
 body::before {
   font-family: "Source Code Pro", "SF Mono", Monaco, Inconsolata, "Fira Mono",
@@ -13,5 +13,5 @@ body::before {
   padding: 1em;
   margin-bottom: 1em;
   border-bottom: 2px solid black;
-  content: "Error: Can't find stylesheet to import.\a   \2577 \a 6 \2502  @use \"./styles/common/popup.scs s\";\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   client/src/style/index.scss 6:1  root stylesheet";
+  content: "Error: Can't find stylesheet to import.\a   \2577 \a 7 \2502  @use \"./styles/common/popup.scs s\";\a   \2502  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\a   \2575 \a   client/src/style/index.scss 7:1  root stylesheet";
 }

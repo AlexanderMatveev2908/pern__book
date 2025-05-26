@@ -27,7 +27,7 @@ const PwdField: FC<PropsType> = ({
           <input
             type={isPwd ? "password" : "text"}
             placeholder={el.place ?? `Your ${el.label}...`}
-            className="input__icon txt__2"
+            className="input__md txt__2"
             {...register(el.field)}
             onFocus={() => setFocus?.(true)}
             onBlur={() => {
