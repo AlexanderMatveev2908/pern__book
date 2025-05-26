@@ -204,20 +204,17 @@
   transform: scale(0.8);
 }
 
-.tooltip_cpy__el__cpy_txt {
+.tooltip_cpy .txt {
   transition: 0.3s;
 }
-
-.tooltip_cpy__el__cpy_txt:hover {
+.tooltip_cpy .txt:hover {
   transform: scale(1.1);
 }
-
-.tooltip_cpy__el__cpy_txt:active {
+.tooltip_cpy .txt:active {
   transition: 0.1s;
-  transform: scale(0.8);
+  transform: scale(0.9);
 }
-
-.tooltip_cpy__el__tooltip {
+.tooltip_cpy .tool {
   animation: appear 1.5s ease-in forwards;
 }
 

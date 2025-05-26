@@ -17,10 +17,8 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
         toolRef.current &&
         btnRef.current.contains(e.target as Node)
       ) {
-        toolRef.current.classList.remove("tooltip_cpy__el__tooltip");
-        requestAnimationFrame(() =>
-          toolRef?.current?.classList.add("tooltip_cpy__el__tooltip")
-        );
+        toolRef.current.classList.remove("tool");
+        requestAnimationFrame(() => toolRef?.current?.classList.add("tool"));
       }
     };
 
@@ -42,7 +40,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
       disabled={!txt}
       type="button"
       ref={btnRef}
-      className="relative w-full flex appearance-none outline-0  max-w-full h-full"
+      className="tooltip_cpy relative w-full flex appearance-none outline-0  max-w-full h-full"
     >
       {txt && (
         <div
