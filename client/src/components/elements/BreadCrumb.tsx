@@ -1,8 +1,8 @@
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { capt, isObjOk } from "@/core/lib/lib";
-import { Fragment, type FC, type ReactNode } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import { v4 } from "uuid";
 
 type PropsType = {
   els?: {
@@ -12,44 +12,53 @@ type PropsType = {
 };
 
 const BreadCrumb: FC<PropsType> = ({ els }) => {
-  const ids = useCreateIds({ lengths: [els?.length ?? 0] });
+  const ids = useMemo(
+    () =>
+      Array.from({ length: 2 }, () =>
+        Array.from({ length: els?.length ?? 0 }, () => v4())
+      ),
+    [els?.length]
+  );
 
   return (
-    <div className="w-full flex items-center gap-x-[75px] gap-y-5 flex-wrap">
+    <div className="w-full flex items-center gap-x-[75px] gap-y-5 flex-wrap pointer-events-auto">
       {(() => {
-        const c: ReactNode[] = [];
+        const nodes: ReactNode[] = [];
+
+        if (!ids.length) return nodes;
 
         let i = 0;
         while (i < (els?.length ?? 0)) {
           const curr = els?.[i];
+          if (!curr) break;
 
-          if (isObjOk(curr))
-            c.push(
-              <Fragment key={ids[0][i]}>
-                <Link
-                  to={curr?.path ?? ""}
-                  className="el__after_below hover:text-blue-600 el__flow"
-                >
-                  <span
-                    className="clamp_txt txt__4"
-                    style={{
-                      WebkitLineClamp: 2,
-                      lineClamp: 2,
-                    }}
-                  >
-                    {capt(curr?.label ?? "")}
-                  </span>
-                </Link>
-                {isObjOk(els?.[i + 1]) && (
-                  <FaChevronRight className="icon__md" />
-                )}
-              </Fragment>
+          nodes.push(
+            <Link
+              key={ids[0][i]}
+              to={curr.path}
+              className="el__after_below el__flow hover:text-blue-600"
+            >
+              <span
+                className="txt__5 clamp_txt"
+                style={{
+                  WebkitLineClamp: 1,
+                  lineClamp: 1,
+                }}
+              >
+                {capt(curr.label)}
+              </span>
+            </Link>
+          );
+
+          if (isObjOk(els?.[i + 1]))
+            nodes.push(
+              <FaChevronRight key={ids[1][i + 1]} className="icon__md" />
             );
 
           i++;
         }
 
-        return c;
+        return nodes;
       })()}
     </div>
   );

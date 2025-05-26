@@ -2,17 +2,12 @@
   "files": {},
   "file": {},
   "query": {
-    "mainCategories": [
-      "history",
-      "politics",
-      "languages"
-    ],
     "page": "0",
     "limit": "8"
   },
   "params": {
     "bookStoreID": "f7c33da8-8ad3-4b4b-a7fc-20b2d1c62591"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODI3NjgzMywiZXhwIjoxNzQ4Mjc2ODkzfQ.k-NhA3sozm-yLaCc-mCTCFoHAQ5OE3_odtKqjpPKqk4",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODI4MjIyMiwiZXhwIjoxNzQ4MjgyMjgyfQ.T9Hs9W1mO9nzsTNspXhsKfJqwfW2vq7hlYD46WE_J2o",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.IFiuy2-x4nB8vPKrzlgYbaAvHqaNj45JMse_2pF4J0ptvZD4De3jh9xbZElX0lsAPoCMirKySeelh-x-1r9Zr0FWGEy9EvV5pprQf8b6Thdj_aQZ8GwZlJ96DD5QLv3ndJdgPcufycQ2Kq2ZO7Qi-EYKmKzxSSOXb6nyaW-C5vLUHtvjG3H69keUgujWu0Is-K04W0QKRmloXaOcT6oxvDD8SoGV0kfPcYHLmuyO2_SJEEuU7q6RbvHETJrZwJo8RlpHroix9wWLKf5btMLu6Gq2VraU85IZnIVx5KgaZB-1e9Kq6OnWqP020MZIiyeHxpz-kIaoXNbJ9626yvBXEQ.q0eVZsKfhXSlRpWK.9HdzKzVHScfFpqLlYe-rllme4Npg_AgwlMG2kgD49YM45GuE7L4fLmoSQ1pK.nUfoSWGZ1eDEmqUlofXz6g"
 }
