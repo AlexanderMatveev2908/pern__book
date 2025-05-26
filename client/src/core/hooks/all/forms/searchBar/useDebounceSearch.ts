@@ -8,10 +8,12 @@ import {
   cpyObj,
   getDefValsPagination,
   isSameData,
+  isStr,
   saveStorage,
 } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
+import { REG_ID } from "@/core/config/regex";
 
 type Params<T extends FieldValues> = {
   txtInputs?: FormFieldBasic[];
@@ -44,6 +46,7 @@ export const useDebounceSearch = ({
   useEffect(() => {
     timerID.current = setTimeout(() => {
       if (!isPopulated) return;
+      if (isStr(routeID) && !REG_ID.test(routeID ?? "")) return;
 
       // ⚠️ DO NOT CREATE JUST A SHALLOW COPY — GET_VALUES RETURN A NESTED OBJ
       // A SHALLOW SPREAD LIKE `{ ...GET_VALUES() }` WON’T BREAK INTERNAL REFERENCES TO REACT-HOOK-FORM’S PROXIES.
