@@ -13,6 +13,7 @@ type Params = {
   txtInputs?: FormFieldBasic[];
   triggerRtk: any;
   routeID?: string;
+  defVals?: any;
 };
 
 export const useClickSearch = ({
@@ -21,6 +22,7 @@ export const useClickSearch = ({
   formCtx,
   triggerRtk,
   routeID,
+  defVals,
 }: Params) => {
   const { keyStorage } = useGetSearchKeysStorage();
 
@@ -53,11 +55,12 @@ export const useClickSearch = ({
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });
 
-    const defVals = {
+    const valsFb = {
       items: [{ ...(txtInputs?.[0] ?? {}), id: v4(), val: "" }],
+      ...(defVals ?? {}),
     };
     const merged = cpyObj({
-      ...defVals,
+      ...valsFb,
       ...getDefValsPagination(0),
     });
 
@@ -65,7 +68,7 @@ export const useClickSearch = ({
 
     updateValsNoDebounce({ vals: merged as any, triggerRtk, routeID });
 
-    reset(defVals);
+    reset(valsFb);
 
     saveStorage({ data: merged, key: keyStorage as any });
   }, [
@@ -77,6 +80,7 @@ export const useClickSearch = ({
     updateValsNoDebounce,
     triggerRtk,
     setPagination,
+    defVals,
   ]);
 
   return {

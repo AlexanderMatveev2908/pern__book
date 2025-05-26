@@ -56,7 +56,7 @@ const PagesCounter: FC<PropsType> = ({
       setPagination({ el: (page ?? limit) as "limit" | "page", val });
 
       const data = cpyObj({
-        ...getValues(),
+        ...cpyObj(getValues()),
         page: page ? val : 0,
         limit: limit ? val : setLimitCards(),
       });
