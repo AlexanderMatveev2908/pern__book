@@ -68,6 +68,7 @@ export const useClickSearch = ({
 
     updateValsNoDebounce({ vals: merged as any, triggerRtk, routeID });
 
+    console.log(defVals);
     reset(valsFb);
 
     saveStorage({ data: merged, key: keyStorage as any });

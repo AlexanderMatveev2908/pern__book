@@ -60,6 +60,9 @@ export const useDebounceSearch = ({
         ...getDefValsPagination(0, limit),
       });
 
+      if (currVals === oldVals.current)
+        throw new Error("memory err debounce 😡");
+
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
       __cg("comparison", oldVals.current, currVals, isSame);

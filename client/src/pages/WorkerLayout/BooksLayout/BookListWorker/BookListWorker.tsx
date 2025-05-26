@@ -13,12 +13,14 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
 import { __cg, isArr } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
-import type { FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import BookItemWorker from "./components/BookItemWorker";
 
 const BookListWorker: FC = () => {
+  const [defVals, setDefVals] = useState<{ [key: string]: string[] }>({});
+
   const { formSearchBooksWorkerCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit, watch } = formCtx;
   const handleSave = handleSubmit(() => {
@@ -40,6 +42,11 @@ const BookListWorker: FC = () => {
   const res = hook[1];
   const { data: { books } = {} } = res ?? {};
 
+  useEffect(() => {
+    if (isArr(books) && books?.[0]?.store?.categories?.length)
+      setDefVals({ mainCategories: books![0]!.store!.categories });
+  }, [books]);
+
   return (
     <WrapPageAPI
       {...{
@@ -58,9 +65,7 @@ const BookListWorker: FC = () => {
               numericFilters: workerNumericFieldsBooks,
               innerJoinCat: true,
               paramID: "bookStoreID",
-              defVals: {
-                mainCategories: books?.[0]?.store?.categories ?? [],
-              },
+              defVals,
             }}
           />
         </FormProvider>

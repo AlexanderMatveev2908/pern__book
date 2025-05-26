@@ -1,8 +1,10 @@
 import { Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../../types/types.js";
+import { parseArrFromStr } from "../../../dataStructures.js";
 
 export const makeQueryBooksWorker = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};
+  const queryStores: WhereOptions = {};
 
   for (const k in req.query) {
     const v = req.query[k];
@@ -23,6 +25,18 @@ export const makeQueryBooksWorker = (req: ReqApp) => {
         queryBooks.id = v;
         break;
 
+      case "mainCategories":
+        queryStores.categories = {
+          [Op.contains]: parseArrFromStr(v as string | string[]),
+        };
+        break;
+
+      case "subCategories":
+        queryBooks.categories = {
+          [Op.contains]: parseArrFromStr(v as string | string[]),
+        };
+        break;
+
       default:
         break;
     }
@@ -30,5 +44,6 @@ export const makeQueryBooksWorker = (req: ReqApp) => {
 
   return {
     queryBooks,
+    queryStores,
   };
 };
