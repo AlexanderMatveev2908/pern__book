@@ -69,7 +69,7 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
                 <span className="txt__3">Store ID</span>
               </div>
 
-              <div className="w-full h-full flex max-w-full scroll_app scrollbar__x overflow-x-auto">
+              <div className="w-full h-full flex max-w-full scroll_app scroll_x overflow-x-auto">
                 <span className="txt__3 text-nowrap">{book?.bookStoreID}</span>
               </div>
             </li>
@@ -87,7 +87,7 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
             {...{
               el: labelDescriptionBook,
               fields: null,
-              styleUL: "max-h-[500px] scroll_app scrollbar__y overflow-y-auto",
+              styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
             }}
           >
             <li className="w-full flex justify-start">

@@ -61,7 +61,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
         <ErrorFormField {...{ el: { field: "bookStoreID" }, errors }} />
 
         <ul
-          className={`w-full left-0 absolute z-50 bg-neutral-950 el__border_sm max-h-[200px] scroll_app scrollbar__y  overflow-y-auto transition-all duration-[0.4s] pr-1 ${
+          className={`w-full left-0 absolute z-50 bg-neutral-950 el__border_sm max-h-[200px] scroll_app scroll_y  overflow-y-auto transition-all duration-[0.4s] pr-1 ${
             isDropOpen
               ? "opacity-100"
               : "opacity-0 pointer-events-none translate-y-[50px]"

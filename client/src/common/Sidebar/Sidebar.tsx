@@ -92,7 +92,7 @@ const Sidebar: FC = () => {
       ></div>
       <div
         ref={sideRef}
-        className={`fixed top-[80px] pb-[50px] bottom-0 right-0 w-[300px] sm:w-[500px] bg-[#000]  border-l-[3px] border-blue-600 transition-all duration-500 z__sidebar txt__col overflow-y-auto scrollbar__y scroll_app ${
+        className={`fixed top-[80px] pb-[50px] bottom-0 right-0 w-[300px] sm:w-[500px] bg-[#000]  border-l-[3px] border-blue-600 transition-all duration-500 z__sidebar txt__col overflow-y-auto scroll_y scroll_app ${
           isSideOpen ? "opacity-100" : "opacity-0 translate-x-full"
         } `}
       >
