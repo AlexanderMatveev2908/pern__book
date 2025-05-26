@@ -18,7 +18,7 @@ const ContactForm: FC<PropsType> = ({ isDisabled }) => {
   const keysUser = useMemo(() => ["email", "phone"], []);
 
   return (
-    <div className="book_store_form__sub_form">
+    <div className="sub_form">
       {fieldsContact.map((el) => (
         <FormField key={el.id} {...{ el, register, errors, isDisabled }} />
       ))}

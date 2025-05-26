@@ -9,7 +9,6 @@ import {
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
-import "./SearchBar.css";
 import SkeletonBar from "./components/SkeletonBar";
 import { useLocation } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
@@ -121,7 +120,7 @@ const SearchBar: FC<PropsType> = ({
     <form
       id={searchBarID}
       onSubmit={handleSave}
-      className="w-full grid grid-cols-1 gap-5"
+      className="w-full grid grid-cols-1 gap-5 search_bar"
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />

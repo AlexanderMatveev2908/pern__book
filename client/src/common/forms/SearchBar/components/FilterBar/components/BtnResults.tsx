@@ -35,24 +35,24 @@ const BtnResults: FC<PropsType> = ({ res, trigger, txtInputs }) => {
 
   return (
     <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
-      <div className={`w-full search_bar__btn__search__secondary`}>
+      <div className={`w-full btn_secondary`}>
         <SearchBtn
           {...{
             isPending: isPending.submit,
             handleSearch,
             hasFormErrs,
             labelTxt,
-            styleTxt: "search_bar__btn__txt_secondary",
+            styleTxt: "txt",
             isFetching: res?.isFetching,
           }}
         />
       </div>
-      <div className={`w-full search_bar__btn__search__secondary`}>
+      <div className={`w-full btn_secondary`}>
         <CLearBtn
           {...{
             handleClear,
             isPending: isPending.clear,
-            styleTxt: "search_bar__btn__txt_secondary",
+            styleTxt: "txt",
             isFetching: res?.isFetching,
           }}
         />

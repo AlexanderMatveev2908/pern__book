@@ -43,9 +43,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, trigger, res }) => {
   return (
     <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 search_bar__btns">
       <div className="w-full grid grid-cols-2 lg:grid-cols-[1fr_75px] gap-x-10 items-center search_bar_btns_right">
-        <div
-          className={`w-full justify-self-center relative  search_bar__parent__btn_main`}
-        >
+        <div className={`w-full justify-self-center relative  btn_main`}>
           <ButtonIcon
             {...{
               handleClick: () => {
@@ -56,7 +54,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, trigger, res }) => {
                   makeDelay(() => setFocus(errNumbers.currEl.field), 0);
                 }
               },
-              styleTxt: "search_bar__btn__txt_main",
+              styleTxt: "txt",
               el: {
                 icon: IoFilter,
                 label: "Filter",
@@ -73,28 +71,26 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, trigger, res }) => {
       </div>
 
       <div className="w-full grid grid-cols-2 gap-x-10 items-center">
-        <div
-          className={`w-full justify-self-center search_bar__parent__btn_main`}
-        >
+        <div className={`w-full justify-self-center btn_main`}>
           <SearchBtn
             {...{
               hasFormErrs,
               isPending: isPending.submit,
               isFetching: res?.isFetching,
               handleSearch,
-              styleTxt: "search_bar__btn__txt_main",
+              styleTxt: "txt",
             }}
           />
         </div>
         <div
-          className={`w-full search_bar__parent__btn_main  sm:justify-self-center   justify-self-end`}
+          className={`w-full btn_main  sm:justify-self-center   justify-self-end`}
         >
           <CLearBtn
             {...{
               isFetching: res?.isFetching,
               handleClear,
               isPending: isPending.clear,
-              styleTxt: "search_bar__btn__txt_main",
+              styleTxt: "txt",
             }}
           />
         </div>

@@ -1,6 +1,5 @@
 import { capt } from "@/core/lib/lib";
 import { FC, useState } from "react";
-import "./BtnCheckBox.css";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {

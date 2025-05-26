@@ -1,5 +1,4 @@
 import { useState, type FC } from "react";
-import "./ImagesScroll.css";
 
 type PropsType = {
   url: string;

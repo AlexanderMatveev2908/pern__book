@@ -2,7 +2,6 @@ import { tailwindBreak } from "@/core/config/breakpoints";
 import { AssetCloudType } from "@/types/types";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import "./ImagesSwapper.css";
 import ImgLoaderHandler from "../cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 
 type HeroImage = {

@@ -1,16 +1,30 @@
-@import "tailwindcss";
+@use "./styles/common/forms/BookStoreForm.scss";
+@use "./styles/common/forms/SearchBar.scss";
+@use "./styles/common/toast/Toast.scss";
+
+@use "./styles/components/elements/buttons/Button.scss";
+@use "./styles/components/elements/cards/ImagesScroll.scss";
+@use "./styles/components/elements/cards/ImagesSwapper.scss";
+@use "./styles/components/elements/general/PageCounter.scss";
+@use "./styles/components/elements/general/TooltipCpy.scss";
+@use "./styles/components/elements/spinners/MiniSpinner.scss";
+@use "./styles/components/elements/spinners/SpinnerPage.scss";
+
+@use "./styles/components/forms/BtnCheckBox.scss";
+@use "./styles/components/forms/ButtonsSwapper.scss";
+@use "./styles/components/forms/PwdField.scss";
+@import "./t.css";
 
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
-
 @font-face {
   font-family: "Sour Gummy";
-  src: url("./public/Sour_Gummy/one.ttf") format("truetype");
+  src: url("../public/Sour_Gummy/one.ttf") format("truetype");
 }
 @font-face {
   font-family: "Sour Gummy";
-  src: url("./public//Sour_Gummy/two.ttf") format("truetype");
+  src: url("../public//Sour_Gummy/two.ttf") format("truetype");
 }
 
 * {

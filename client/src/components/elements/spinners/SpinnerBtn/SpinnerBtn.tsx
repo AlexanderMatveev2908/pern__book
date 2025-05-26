@@ -1,6 +1,5 @@
 import { FC, useState } from "react";
 import { v4 } from "uuid";
-import "./Spinner.css";
 
 const SpinnerBtn: FC = () => {
   const [ids] = useState(Array.from({ length: 4 }, () => v4()));

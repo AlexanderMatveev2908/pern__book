@@ -1,7 +1,5 @@
 import { FC } from "react";
-import "./PwdField.css";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
-import "./PwdField.css";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
 import { FormBaseProps, FormFieldBasic } from "@/types/types.ts";
 
