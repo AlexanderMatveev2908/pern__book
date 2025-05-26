@@ -10,10 +10,10 @@ import CLearBtn from "../../Buttons/components/ClearBtn";
 type PropsType = {
   res: any;
   txtInputs?: FormFieldBasic[];
-  trigger: any;
+  triggerRtk: any;
 };
 
-const BtnResults: FC<PropsType> = ({ res, trigger, txtInputs }) => {
+const BtnResults: FC<PropsType> = ({ res, triggerRtk, txtInputs }) => {
   const { data: { nHits = 0 } = {} } = res ?? {};
   const ctx = useSearchCtx();
   const {
@@ -25,7 +25,7 @@ const BtnResults: FC<PropsType> = ({ res, trigger, txtInputs }) => {
     ctx,
     formCtx,
     txtInputs,
-    trigger,
+    triggerRtk,
   });
 
   const labelTxt = useMemo(

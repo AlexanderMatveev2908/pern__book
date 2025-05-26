@@ -18,7 +18,7 @@ type Params<T extends FieldValues> = {
   realTimeVals: T;
   ctx: SearchCtxValsConsumer;
   getValues: UseFormGetValues<T>;
-  trigger: any;
+  triggerRtk: any;
 };
 
 export const useDebounceSearch = ({
@@ -26,7 +26,7 @@ export const useDebounceSearch = ({
   ctx,
   realTimeVals,
   getValues,
-  trigger,
+  triggerRtk,
 }: Params<any>) => {
   const timerID = useRef<NodeJS.Timeout | null>(null);
 
@@ -72,7 +72,7 @@ export const useDebounceSearch = ({
       });
 
       // ? IS DIFFERENT FROM BTN_DISABLED CAUSE THE BTN IS UPDATE IS REAL_TIME WITH WATCH TO PROVIDE ACCURATE INFO ABOUT ERRORS KEYS AND MSGS, CAN_MAKE_API IS MORE ABOUT PREVENTING API TO RUN FOR UNNECESSARY REASONS, LIKE IF I ALREADY SET ARGS OR ADD FIELDS TO ARGS BUT THEY ARE EMPTY STRINGS AND WOULD NOT CHANGE THE SQL QUERY TO GET DATA
-      if (canMakeAPI && !hasFormErrs) trigger(currVals);
+      if (canMakeAPI && !hasFormErrs) triggerRtk({ vals: currVals });
       else if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
 
       clearTimer(timerID);
@@ -86,7 +86,7 @@ export const useDebounceSearch = ({
     hasFormErrs,
     getValues,
     keyStorage,
-    trigger,
+    triggerRtk,
     realTimeVals,
     canMakeAPI,
     isPopulated,

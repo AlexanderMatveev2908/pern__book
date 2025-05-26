@@ -12,7 +12,7 @@ type PropsType = {
 };
 
 const WrapperContentAPI: FC<PropsType> = ({ children, hook, formCtx }) => {
-  const [trigger, res] = hook;
+  const [triggerRtk, res] = hook;
   const {
     preSubmit: { isPopulated },
   } = useSearchCtx();
@@ -37,7 +37,7 @@ const WrapperContentAPI: FC<PropsType> = ({ children, hook, formCtx }) => {
 
       {!spinPage && (
         <PagesCounter
-          {...{ totPages, trigger, getValues: formCtx.getValues }}
+          {...{ totPages, triggerRtk, getValues: formCtx.getValues }}
         />
       )}
     </>

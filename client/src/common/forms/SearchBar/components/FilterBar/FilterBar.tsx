@@ -29,7 +29,7 @@ const FilterBar: FC<PropsType> = ({
   hook,
   innerJoinCat,
 }) => {
-  const [trigger, res] = hook;
+  const [triggerRtk, res] = hook;
   const {
     bars: { filterBar },
     setBar,
@@ -88,7 +88,7 @@ const FilterBar: FC<PropsType> = ({
           <ValsCol {...{ innerJoinCat }} />
         </div>
 
-        <BtnResults {...{ res, txtInputs, trigger }} />
+        <BtnResults {...{ res, txtInputs, triggerRtk }} />
       </div>
     </div>
   );

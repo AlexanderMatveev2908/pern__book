@@ -25,7 +25,7 @@ type Params = {
 
 type ParamsUpdateNoDebounce = {
   vals: ArgsSearchType;
-  trigger: any;
+  triggerRtk: any;
 };
 
 export type SearchCtxValsConsumer = SearchCtxStateType & {
@@ -75,13 +75,15 @@ export const useSearchCtxVals = ({
   );
 
   const updateValsNoDebounce = useCallback(
-    ({ vals, trigger }: ParamsUpdateNoDebounce) => {
+    ({ vals, triggerRtk }: ParamsUpdateNoDebounce) => {
       setPreSubmit({ el: "canMakeAPI", val: false });
 
-      trigger({
-        ...(vals as ResPaginationAPI<ArgsSearchType>),
-        // ? JUST A BRUTE FORCE FETCH IF U WANT
-        // _: Date.now(),
+      triggerRtk({
+        vals: {
+          ...(vals as ResPaginationAPI<ArgsSearchType>),
+          // ? JUST A BRUTE FORCE FETCH IF U WANT
+          // _: Date.now(),
+        },
       });
 
       oldVals.current = vals;
