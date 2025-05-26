@@ -1,5 +1,4 @@
 import { FC } from "react";
-import "./MiniSpinner.css";
 import { BtnAct } from "@/types/types";
 
 type PropsType = {

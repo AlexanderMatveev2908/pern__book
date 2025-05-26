@@ -106,7 +106,7 @@ const TeamForm: FC = () => {
             border ? "" : "border-[2px] border-blue-600 rounded-xl"
           }`}
         >
-          <div className="book_store_form__sub_form ">
+          <div className="sub_form ">
             <FormField
               {...{
                 register,

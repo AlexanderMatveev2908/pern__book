@@ -1,0 +1,38 @@
+.search_bar {
+  .skeleton {
+    background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+    background-size: 200% 100%;
+    animation: skeleton_search 1.5s infinite linear;
+  }
+
+  .btn_main {
+    @apply max-w-[75px] lg:max-w-[200px];
+    .txt {
+      @apply hidden lg:block;
+    }
+  }
+  .btn_secondary {
+    @apply max-w-[75px] sm:max-w-[200px];
+    .txt {
+      @apply hidden sm:block;
+    }
+  }
+}
+
+@media (min-width: 500px) {
+  .search_bar__btns {
+    @apply grid-cols-2;
+  }
+  .search_bar_btns_right {
+    @apply order-2;
+  }
+}
+
+@keyframes skeleton_search {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}

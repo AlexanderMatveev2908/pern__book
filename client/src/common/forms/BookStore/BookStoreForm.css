@@ -1,5 +1,0 @@
-@import "tailwindcss";
-
-.book_store_form__sub_form {
-  @apply w-full grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-10;
-}

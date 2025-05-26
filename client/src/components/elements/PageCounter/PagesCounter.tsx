@@ -2,7 +2,6 @@
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
 import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { v4 } from "uuid";
-import "./PageCounter.css";
 import BtnCounter from "./components/BtnCounter";
 import {
   calcBlockBySize,

@@ -7,7 +7,6 @@ import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import DeliveryForm from "./components/DeliveryForm";
 import TeamForm from "./components/TeamForm";
-import "./BookStoreForm.css";
 import {
   fieldDescStore,
   fieldNameStore,
@@ -65,7 +64,7 @@ const BookStoreForm: FC<PropsType> = ({
   }, [path]);
 
   return (
-    <form onSubmit={handleSave} className="__cont">
+    <form onSubmit={handleSave} className="__cont book_store_form">
       <OptionalField />
 
       <WrapperFormField

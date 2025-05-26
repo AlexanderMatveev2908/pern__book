@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef } from "react";
-import "./TooltipCpy.css";
 
 type PropsType = {
   txt: string;

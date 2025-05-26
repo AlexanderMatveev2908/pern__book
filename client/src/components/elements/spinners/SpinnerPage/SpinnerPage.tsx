@@ -1,5 +1,4 @@
 import { FC, useEffect, useState } from "react";
-import "./SpinnerPage.css";
 import { v4 } from "uuid";
 import { tailwindBreak } from "@/core/config/breakpoints";
 

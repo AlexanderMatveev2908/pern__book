@@ -1,6 +1,5 @@
 import { FC, ReactNode } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import style from "./ButtonsSwapper.module.css";
 
 type PropsType = {
   currForm: number;
@@ -25,9 +24,9 @@ const ButtonsSwapper: FC<PropsType> = ({
           if (currForm) setCurrForm(currForm - 1);
         }}
         disabled={!currForm}
-        className={`justify-self-start ${currForm ? "group" : ""} ${
-          style.button_swapper__btn__swapper
-        }`}
+        className={`justify-self-start ${
+          currForm ? "group" : ""
+        } ${"button_swapper__btn__swapper"}`}
       >
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>
@@ -50,9 +49,9 @@ const ButtonsSwapper: FC<PropsType> = ({
           type="button"
           disabled={isNextDisabled}
           onClick={() => currForm < totLen - 1 && setCurrForm(currForm + 1)}
-          className={`justify-self-end ${isNextDisabled ? "" : "group"} ${
-            style.button_swapper__btn__swapper
-          }`}
+          className={`justify-self-end ${
+            isNextDisabled ? "" : "group"
+          } ${"button_swapper__btn__swapper"}`}
         >
           <FaChevronRight className="icon__sm icon__with_txt" />
         </button>
