@@ -1,4 +1,4 @@
-import { REG_ID } from "@/core/config/regex";
+import { REG_ID, REG_STORE_NAME } from "@/core/config/regex";
 import { z } from "zod";
 import { itemsSchema, handleRefineItem } from "../general/general.ts";
 import {
@@ -18,15 +18,15 @@ const allowedKeys = [
 ];
 
 const optItem = {
-  ID: {
-    reg: REG_ID,
-    minLen: 0,
-    maxLen: 36,
-  },
   bookStoreID: {
     reg: REG_ID,
     minLen: 0,
     maxLen: 36,
+  },
+  bookStoreName: {
+    reg: REG_STORE_NAME,
+    minLen: 0,
+    maxLen: 50,
   },
   ...generalOptSearchBookItem,
 };

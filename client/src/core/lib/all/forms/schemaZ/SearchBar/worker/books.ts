@@ -1,4 +1,3 @@
-import { REG_ID } from "@/core/config/regex";
 import {
   commonHandleRefineBooks,
   generalFieldsSearchBooksSchema,
@@ -10,26 +9,9 @@ import { z } from "zod";
 
 // ? ACTUALLY RIGHT NOW IS JUST SAME IDENTICAL SCHEMA OF OWNER BUT COULD CHANGE AND I WNA T TO BE PREPARED FOR THAT SO WILL BE MORE SCALABLE
 
-const allowedKeys = [
-  "ID",
-  "bookStoreID",
-  "bookStoreName",
-  "title",
-  "author",
-  "year",
-];
+const allowedKeys = ["ID", "title", "author", "year"];
 
 const optItem = {
-  ID: {
-    reg: REG_ID,
-    minLen: 0,
-    maxLen: 36,
-  },
-  bookStoreID: {
-    reg: REG_ID,
-    minLen: 0,
-    maxLen: 36,
-  },
   ...generalOptSearchBookItem,
 };
 
