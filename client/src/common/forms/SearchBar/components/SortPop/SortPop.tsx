@@ -25,7 +25,7 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
   return (
     <div
       ref={popRef}
-      className={`z__popup fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full max-w-[600px] max-h-[500px] border-[3px] border-blue-600 rounded-xl min-h-[200px] bg-neutral-950 h-full flex flex-col overflow-hidden ${
+      className={`z__popup popup fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 w-full max-w-[600px] max-h-[500px] border-[3px] border-blue-600 rounded-xl min-h-[200px] bg-neutral-950 h-full flex flex-col overflow-hidden ${
         sortBar ? "pointer-events-auto" : "pointer-events-none"
       } ${typeof sortBar === "object" ? "opacity-0" : ""} `}
     >

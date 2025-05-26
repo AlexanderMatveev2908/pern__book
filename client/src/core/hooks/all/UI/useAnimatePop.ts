@@ -10,10 +10,10 @@ export const useAnimatePop = ({ popRef, isPopup }: Params) => {
     const animateIn = () => {
       if (!popRef.current || !isPopup) return;
 
-      popRef.current.classList.remove("popup_in");
+      popRef.current.classList.remove("in");
 
       requestAnimationFrame(() => {
-        popRef.current?.classList.add("popup_in");
+        popRef.current?.classList.add("in");
       });
     };
 
@@ -24,10 +24,10 @@ export const useAnimatePop = ({ popRef, isPopup }: Params) => {
     const animateOut = () => {
       if (!popRef.current || typeof isPopup === "object" || isPopup) return;
 
-      popRef.current.classList.remove("popup_out");
+      popRef.current.classList.remove("out");
 
       requestAnimationFrame(() => {
-        popRef.current?.classList.add("popup_out");
+        popRef.current?.classList.add("out");
       });
     };
 
