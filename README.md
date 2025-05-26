@@ -79,7 +79,7 @@ I tried **Fly.io** and found it super handy for deploying directly from the term
 fly deploy --build-arg VITE_API_URL=https://your-api-url
 ```
 
-### 🌐 Render & Railway
+### 🌐 Render
 
 If you're using **Render**,it does pass environment variables at build time to the frontend by default — so no extra config needed for that.
 
