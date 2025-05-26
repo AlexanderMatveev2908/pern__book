@@ -1,12 +1,22 @@
+.toast {
+  .btn {
+    transition: 0.3s;
+
+    &:hover {
+      @apply cursor-pointer scale-130;
+    }
+    &:active {
+      transition: 0.1s;
+      transform: scale(0.8);
+    }
+  }
+}
+
 .toast__btn {
-  transition: 0.3s;
 }
 .toast__btn:hover {
-  @apply cursor-pointer scale-130;
 }
 .toast__btn:active {
-  transition: 0.1s;
-  transform: scale(0.8);
 }
 
 @keyframes open__toast {
