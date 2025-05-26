@@ -71,6 +71,7 @@ const SearchBar: FC<PropsType> = ({
   const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {
     if (isStr(routeID) && !REG_ID.test(routeID ?? "")) return;
+
     if (
       [isLoading, isReloading, isError, Object.keys(data ?? {}).length].every(
         (val) => !val
