@@ -157,6 +157,36 @@ export const getBookListWorker = async (
         ],
       },
     ],
+    attributes: {
+      include: [
+        [
+          literal(`(
+            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+            FROM reviews AS r
+            WHERE r."bookID" = "Book".id
+            )`),
+          "reviewsCount",
+        ],
+        [
+          literal(`(
+            SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+            FROM reviews AS r
+            WHERE r."bookID" = "Book".id
+            )`),
+          "avgRating",
+        ],
+
+        ...(countTo_5().map((pair) => [
+          literal(`(
+            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
+            FROM reviews AS r
+            WHERE r."bookID" = "Book".id
+            AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}  
+            )`),
+          `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
+        ]) as [Literal, string][]),
+      ],
+    },
   });
 
   const nHits = books.length;
