@@ -12,6 +12,7 @@ import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
 import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
 import { UserRole } from "@/types/types";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookStorePageWorker: FC = () => {
   const bookStoreID = useParams()?.bookStoreID;
@@ -36,6 +37,27 @@ const BookStorePageWorker: FC = () => {
         isError: res?.isError,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            {
+              label:
+                ((bookStore?.team as any)?.[0]?.bookStoreUser?.role as any) ??
+                "worker",
+              path: "#",
+            },
+            {
+              label: "book stores",
+              path: "/worker/book-stores/list",
+            },
+            {
+              label: bookStore?.name ?? "Book store",
+              path: "#",
+            },
+          ],
+        }}
+      />
+
       <div
         className={`p_form__1 ${
           isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
