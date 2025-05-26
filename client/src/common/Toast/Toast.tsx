@@ -54,14 +54,12 @@ const Toast: FC = () => {
   const dispatch = useDispatch();
 
   const animateIn = useCallback(() => {
-    (toastRef.current as HTMLDivElement).classList.remove("toast__out");
-    (counterRef.current as HTMLDivElement).classList.remove(
-      "toast__el__timer_toast"
-    );
+    (toastRef.current as HTMLDivElement).classList.remove("out");
+    (counterRef.current as HTMLDivElement).classList.remove("timer");
 
     requestAnimationFrame(() => {
-      toastRef?.current?.classList.add("toast__in");
-      counterRef?.current?.classList.add("toast__el__timer_toast");
+      toastRef?.current?.classList.add("in");
+      counterRef?.current?.classList.add("timer");
     });
 
     timerRef.current = setTimeout(() => {
@@ -74,22 +72,20 @@ const Toast: FC = () => {
 
   const animateOut = useCallback(() => {
     clickRef.current = false;
-    toastRef?.current?.classList.remove("toast__in");
-    (counterRef.current as HTMLDivElement).classList.remove(
-      "toast__el__timer_toast"
-    );
+    toastRef?.current?.classList.remove("in");
+    (counterRef.current as HTMLDivElement).classList.remove("timer");
     clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
 
     requestAnimationFrame(() => {
-      toastRef?.current?.classList.add("toast__out");
+      toastRef?.current?.classList.add("out");
     });
   }, []);
 
   const animatePrev = useCallback(() => {
-    toastRef?.current?.classList.remove("toast__in");
+    toastRef?.current?.classList.remove("in");
     requestAnimationFrame(() => {
-      toastRef?.current?.classList.add("toast__out");
+      toastRef?.current?.classList.add("out");
     });
     clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
