@@ -79,6 +79,9 @@ export const useSearchCtxVals = ({
     ({ vals, triggerRtk, routeID }: ParamsUpdateNoDebounce) => {
       setPreSubmit({ el: "canMakeAPI", val: false });
 
+      if (vals === oldVals.current)
+        throw new Error("memory reference ctx fn 😡");
+
       triggerRtk({
         vals: {
           ...(vals as ResPaginationAPI<ArgsSearchType>),

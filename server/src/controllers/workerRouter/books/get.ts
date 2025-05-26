@@ -133,7 +133,7 @@ export const getBookListWorker = async (
   const { userID } = req;
   const { bookStoreID } = req.params;
 
-  const { queryBooks } = makeQueryBooksWorker(req);
+  const { queryBooks, queryStores } = makeQueryBooksWorker(req);
 
   const books = await Book.findAll({
     where: queryBooks,
@@ -143,6 +143,7 @@ export const getBookListWorker = async (
         as: "store",
         required: true,
         where: {
+          ...queryStores,
           id: bookStoreID,
         },
         include: [

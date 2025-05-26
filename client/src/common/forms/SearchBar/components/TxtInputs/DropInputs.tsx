@@ -104,6 +104,9 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
                 ...getDefValsPagination(page, limit),
               });
 
+              if (updatedVals === oldVals.current)
+                throw new Error("memory reference drop_txt_component 😡");
+
               oldVals.current = updatedVals;
               saveStorage({ key: keyStorage as any, data: updatedVals });
 
