@@ -62,7 +62,7 @@ const WrapPageAPI: FC<PropsType> = ({
             {getMsgErr(data)}
           </span>
         </div>
-        <ErrIcon {...{ classCSS: "icon__notice_md" }} />
+        <ErrIcon {...{ classCSS: "icon_notice__md" }} />
       </div>
     )
   ) : (
