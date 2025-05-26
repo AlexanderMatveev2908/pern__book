@@ -34,24 +34,3 @@ export const formatP = (p: string) =>
         .join("")
     )
     .join("");
-
-export const getKeysSearchBar = (path: string) => {
-  const keys = {
-    ownerBookStoreBookStores: {
-      keyStorageVals: StorageKeys.STORES_OWNER_VALS,
-    },
-    ownerBooksList: {
-      keyStorageVals: StorageKeys.BOOKS_OWNER_VALS,
-    },
-    workerBookStoresList: {
-      keyStorageVals: StorageKeys.STORES_WORKER_VALS,
-    },
-    workerBooksList: {
-      keyStorageVals: StorageKeys.BOOKS_WORKER_VALS,
-    },
-  };
-
-  const formatted = formatP(path);
-
-  return keys[formatted as keyof typeof keys];
-};

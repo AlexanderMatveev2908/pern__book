@@ -28,7 +28,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
   });
   const fields = watch("items");
 
-  const { keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorage } = useGetSearchKeysStorage();
   const {
     pagination: { page, limit },
     oldVals,
@@ -105,7 +105,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
               });
 
               oldVals.current = updatedVals;
-              saveStorage({ key: keyStorageVals, data: updatedVals });
+              saveStorage({ key: keyStorage as any, data: updatedVals });
 
               setIsDropOpen(false);
             }}

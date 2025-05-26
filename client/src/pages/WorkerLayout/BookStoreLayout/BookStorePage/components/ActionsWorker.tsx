@@ -50,11 +50,8 @@ const ActionsWorker: FC<PropsType> = ({ bookStore }) => {
         if (!curr) return null;
 
         switch (k) {
-          case KEY_MAP_STORE.ADD_BOOK:
-            return nav(curr.path + "/" + bookStore?.id);
-
           default:
-            return null;
+            return nav(curr.path + "/" + bookStore?.id);
         }
       },
     ])

@@ -47,7 +47,7 @@ export const useSearchCtxVals = ({
   const oldVals = useRef<ArgsSearchType | null>(null);
   const madeAPI = useRef<boolean>(false);
 
-  const { keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorage } = useGetSearchKeysStorage();
 
   const setBar = useCallback(
     ({ el, val }: ParamsBar) =>
@@ -85,9 +85,9 @@ export const useSearchCtxVals = ({
       });
 
       oldVals.current = vals;
-      saveStorage({ data: vals, key: keyStorageVals });
+      saveStorage({ data: vals, key: keyStorage as any });
     },
-    [keyStorageVals, setPreSubmit]
+    [keyStorage, setPreSubmit]
   );
 
   const setPagination = useCallback(
