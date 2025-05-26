@@ -1,11 +1,13 @@
-.page_counter_btn__counter_page {
-  transition: 0.3s;
-  transform: scale(var(--scale_counter_page));
-}
-.page_counter_btn__counter_page:enabled {
-  cursor: pointer;
-}
-.page_counter_btn__counter_page:enabled:active {
-  transition: 0.15s;
-  transform: scale(0.8);
+.page_counter {
+  .btn {
+    transition: 0.3s;
+    transform: scale(var(--scale_counter_page));
+    &:enabled:hover {
+      cursor: pointer;
+    }
+    &:enabled:active {
+      transition: 0.1s;
+      transform: scale(0.8);
+    }
+  }
 }

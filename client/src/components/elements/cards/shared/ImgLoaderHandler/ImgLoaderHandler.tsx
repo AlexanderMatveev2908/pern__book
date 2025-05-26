@@ -8,7 +8,7 @@ const ImgLoaderHandler: FC<PropsType> = ({ url }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return !isLoaded ? (
-    <div className="img_loader_handler__el__skeleton_img min-w-full min-h-full relative">
+    <div className="img_loader_handler_skeleton min-w-full min-h-full relative">
       <img
         src={url}
         alt="🥷🏼"
