@@ -24,7 +24,7 @@ const TxtField: FC<PropsType> = ({
         <div className="w-full relative">
           <textarea
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
-            className="input__base txt__2 scrollbar__y scrollbar__app"
+            className="input__sm txt__2 scrollbar__y scrollbar__app"
             {...register(el.field)}
             rows={4}
           />

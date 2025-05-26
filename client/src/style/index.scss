@@ -2,6 +2,7 @@
 @use "./styles/utils/z.scss";
 @use "./styles/utils/icons.scss";
 @use "./styles/utils/buttons.scss";
+@use "./styles/utils/inputs.scss";
 
 @use "./styles/common/popup.scs s";
 @use "./styles/common/forms/BookStoreForm.scss";
@@ -110,36 +111,6 @@ body {
 .nav_link.active i {
   @apply text-blue-600;
 }
-
-/* INPUTS */
-
-.input__base,
-.input__icon,
-.input__lg {
-  @apply w-full border-2 border-blue-600 rounded-xl px-5 outline-0 transition-all duration-300;
-  appearance: none;
-}
-.input__base {
-  @apply py-1;
-}
-.input__icon {
-  @apply py-2;
-}
-.input__lg {
-  @apply py-[0.6rem];
-}
-.el__shadow,
-.el__focus:focus,
-.input__base:focus,
-.input__icon:focus,
-.input__lg:focus {
-  @apply ring-2 ring-blue-600;
-  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app);
-}
-
-/* BUTTONS */
-
-/* GENERAL */
 
 .scrollbar__hidden::-webkit-scrollbar {
   display: none;

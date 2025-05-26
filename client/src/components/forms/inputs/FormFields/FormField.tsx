@@ -56,7 +56,7 @@ const FormField: FC<PropsType> = ({
             type={el.type ?? "text"}
             step={el.type === "number" ? "any" : undefined}
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
-            className={`${customStyle ?? "input__base"} txt__2`}
+            className={`${customStyle ?? "input__sm"} txt__2`}
             {...rest}
             disabled={isDisabled}
             onChange={(e) => {
