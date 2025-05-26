@@ -17,26 +17,22 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { bookID } = req.params;
   const files = req.files as Express.Multer.File[];
 
-  const stores = await BookStore.findAll({
+  const bookObj = await Book.findOne({
     where: {
-      ownerID: userID,
+      id: bookID,
     },
     include: [
       {
-        model: Book,
-        as: "books",
-        where: { id: bookID },
+        model: BookStore,
+        as: "store",
         required: true,
+        where: { ownerID: userID },
       },
     ],
-    nest: true,
+    raw: true,
   });
 
-  if (!stores.length) return err404(res, { msg: "user does not have stores" });
-
-  const storeObj: BookStoreInstance = stores[0].toJSON();
-  const bookObj: BookInstance | undefined = storeObj?.books?.[0]?.toJSON();
-  if (!bookObj) return err404(res, { msg: "book not found" });
+  if (!bookObj) return err404(res, { msg: "Book not found" });
 
   let uploadedNow: CloudImg[] = [];
   const toDeleteIds: string[] = [];
