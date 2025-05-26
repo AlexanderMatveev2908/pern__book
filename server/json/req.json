@@ -1,11 +1,26 @@
 {
-  "files": {},
-  "file": {},
-  "query": {
-    "page": "0",
-    "limit": "8"
+  "body": {
+    "bookStoreID": "34f7921d-d742-44b9-88c6-2e81c52b84c3",
+    "title": "la montagna incantata",
+    "author": "thomas mann",
+    "year": "1932",
+    "images": [
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748103326/pern__book_books/myufhrz4f6w4wizcjcyr.jpg"
+    ],
+    "categories": [
+      "high fantasy",
+      "international cuisine",
+      "backpacking"
+    ],
+    "qty": "5",
+    "price": "50.00"
   },
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODIzOTk0NSwiZXhwIjoxNzQ4MjQwMDA1fQ.12axQF1odArCYVV87Ewg6nqzj0SIjJvXvQdH5xZEKxo",
+  "files": [],
+  "file": {},
+  "query": {},
+  "params": {
+    "bookID": "16b838b9-a34b-4964-be97-71ac8eb96c42"
+  },
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjliZDcyMjUzLTBmMGYtNDJmMC04YjcxLTMzMDg2YmFmNzgzNCIsImlhdCI6MTc0ODI0MDQyNiwiZXhwIjoxNzQ4MjQwNDg2fQ.q1B8MEfhqhxnHodGB-ooaoXY8eKibA2nxEGFxxxS6Cc",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.IFiuy2-x4nB8vPKrzlgYbaAvHqaNj45JMse_2pF4J0ptvZD4De3jh9xbZElX0lsAPoCMirKySeelh-x-1r9Zr0FWGEy9EvV5pprQf8b6Thdj_aQZ8GwZlJ96DD5QLv3ndJdgPcufycQ2Kq2ZO7Qi-EYKmKzxSSOXb6nyaW-C5vLUHtvjG3H69keUgujWu0Is-K04W0QKRmloXaOcT6oxvDD8SoGV0kfPcYHLmuyO2_SJEEuU7q6RbvHETJrZwJo8RlpHroix9wWLKf5btMLu6Gq2VraU85IZnIVx5KgaZB-1e9Kq6OnWqP020MZIiyeHxpz-kIaoXNbJ9626yvBXEQ.q0eVZsKfhXSlRpWK.9HdzKzVHScfFpqLlYe-rllme4Npg_AgwlMG2kgD49YM45GuE7L4fLmoSQ1pK.nUfoSWGZ1eDEmqUlofXz6g"
 }
