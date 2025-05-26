@@ -68,10 +68,10 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
 
     getAllBooksWorker: builder.query<
       BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>, // Response type
-      ReqQueryAPI<{ vals: SearchStoreFormType }> // Query params type
+      ReqQueryAPI<{ vals: SearchStoreFormType; routeID: string }> // Query params type
     >({
-      query: ({ vals }) => ({
-        url: `${B_URL}?${makeParams(vals)}`,
+      query: ({ vals, routeID }) => ({
+        url: `${B_URL}/${routeID}?${makeParams(vals)}`,
         method: "GET",
       }),
       providesTags: (res) => [

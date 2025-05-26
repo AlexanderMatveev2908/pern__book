@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cpyObj, getStorage } from "@/core/lib/lib";
+import { cpyObj, getStorage, isStr } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect, useRef } from "react";
 import {
@@ -12,6 +12,7 @@ import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { getDefValsPagination } from "@/core/lib/lib";
 import { v4 } from "uuid";
+import { REG_ID } from "@/core/config/regex";
 
 type Params<T extends FieldValues> = {
   txtInputs?: FormFieldBasic[];
@@ -36,7 +37,12 @@ export const usePopulateSearch = ({
   const { setPagination, setSearch, oldVals, setPreSubmit } = ctx;
 
   useEffect(() => {
-    if (!txtInputs?.length || !filters?.length) return;
+    if (
+      !txtInputs?.length ||
+      !filters?.length ||
+      (isStr(routeID) && !REG_ID.test(routeID ?? ""))
+    )
+      return;
 
     if (hasRun.current) return;
     hasRun.current = true;
