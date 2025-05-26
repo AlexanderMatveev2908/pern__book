@@ -41,10 +41,10 @@ const Notice: FC = () => {
 
         {noticeState.type === EventApp.OK ? (
           <div className="w-fit">
-            <LuCircleCheckBig className="icon__notice_lg text-green-600" />
+            <LuCircleCheckBig className="icon_notice__lg text-green-600" />
           </div>
         ) : (
-          <ErrIcon {...{ classCSS: "icon__notice_lg" }} />
+          <ErrIcon {...{ classCSS: "icon_notice__lg" }} />
         )}
       </div>
     </div>
