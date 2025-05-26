@@ -30,7 +30,7 @@ export const usePopulateSearch = ({
   trigger,
 }: Params<any>) => {
   const hasRun = useRef<boolean>(false);
-  const { keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorage } = useGetSearchKeysStorage();
   const { setPagination, setSearch, oldVals, setPreSubmit } = ctx;
 
   useEffect(() => {
@@ -41,7 +41,7 @@ export const usePopulateSearch = ({
 
     setSearch({ el: "currFilter", val: filters[0] });
 
-    const savedVals = getStorage(keyStorageVals);
+    const savedVals = getStorage(keyStorage as any);
     const existingItems = getValues("items") ?? [];
     const fallBackItems = [{ ...txtInputs[0], val: "", id: v4() }];
 
@@ -93,7 +93,7 @@ export const usePopulateSearch = ({
     trigger,
     getValues,
     setValue,
-    keyStorageVals,
+    keyStorage,
     filters,
     setSearch,
     txtInputs,

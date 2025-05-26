@@ -33,7 +33,7 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
     setPagination,
     oldVals,
   } = useSearchCtx();
-  const { keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorage } = useGetSearchKeysStorage();
 
   const [ids] = useState(Array.from({ length: totPages }, () => v4()));
   const [sizeBLock, setSizeBlock] = useState(getNumBtns());
@@ -57,11 +57,11 @@ const PagesCounter: FC<PropsType> = ({ trigger, totPages = 0, getValues }) => {
       trigger(data);
 
       saveStorage({
-        key: keyStorageVals,
+        key: keyStorage as any,
         data,
       });
     },
-    [setPreSubmit, trigger, keyStorageVals, oldVals, setPagination, getValues]
+    [setPreSubmit, trigger, keyStorage, oldVals, setPagination, getValues]
   );
 
   const setPagPreventFetch = useCallback(

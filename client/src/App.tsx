@@ -155,7 +155,7 @@ const App: FC = () => {
 
           <Route path="books" element={<BooksLayoutWorker />}>
             <Route
-              path="list"
+              path="list/:bookStoreID"
               element={
                 <SearchCtxProvider>
                   <BookListWorker />

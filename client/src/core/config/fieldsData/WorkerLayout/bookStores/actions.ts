@@ -17,7 +17,7 @@ export const actionsBookStoreWorker = [
     originalKey: KEY_MAP_STORE.BOOKS,
     label: "Books",
     icon: RiBookShelfFill,
-    path: "/",
+    path: "/worker/books/list",
   },
   {
     originalKey: KEY_MAP_STORE.ORDERS,
@@ -35,7 +35,7 @@ export const actionsBookStoreWorker = [
     originalKey: KEY_MAP_STORE.UPDATE,
     label: "Update",
     icon: GrUpdate,
-    path: "/owner/book-store/update/",
+    path: "/worker/book-stores/update",
   },
 ].map((el) => ({
   ...el,

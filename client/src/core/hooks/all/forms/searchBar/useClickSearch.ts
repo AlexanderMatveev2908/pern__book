@@ -20,7 +20,7 @@ export const useClickSearch = ({
   formCtx,
   trigger,
 }: Params) => {
-  const { keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorage } = useGetSearchKeysStorage();
 
   const {
     setIsPending,
@@ -58,10 +58,10 @@ export const useClickSearch = ({
 
     reset(defVals);
 
-    saveStorage({ data: merged, key: keyStorageVals });
+    saveStorage({ data: merged, key: keyStorage as any });
   }, [
     reset,
-    keyStorageVals,
+    keyStorage,
     setIsPending,
     txtInputs,
     updateValsNoDebounce,

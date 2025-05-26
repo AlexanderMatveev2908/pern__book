@@ -37,7 +37,7 @@ export const useDebounceSearch = ({
     pagination: { limit },
   } = ctx;
 
-  const { keyStorageVals } = useGetSearchKeysStorage();
+  const { keyStorage } = useGetSearchKeysStorage();
 
   useEffect(() => {
     timerID.current = setTimeout(() => {
@@ -67,7 +67,7 @@ export const useDebounceSearch = ({
 
       oldVals.current = currVals;
       saveStorage({
-        key: keyStorageVals,
+        key: keyStorage as any,
         data: currVals,
       });
 
@@ -85,7 +85,7 @@ export const useDebounceSearch = ({
     txtInputs,
     hasFormErrs,
     getValues,
-    keyStorageVals,
+    keyStorage,
     trigger,
     realTimeVals,
     canMakeAPI,
