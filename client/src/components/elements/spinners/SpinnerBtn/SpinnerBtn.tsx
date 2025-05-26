@@ -9,7 +9,7 @@ const SpinnerBtn: FC = () => {
       {ids.map((id, i) => (
         <div
           key={id}
-          className="min-w-[35px] min-h-[35px] bg-blue-600 rounded-full el__spinner_btn"
+          className="min-w-[35px] min-h-[35px] bg-blue-600 rounded-full spinner_btn"
           style={
             {
               "--delay_spinner_btn": i * 0.25 + "s",

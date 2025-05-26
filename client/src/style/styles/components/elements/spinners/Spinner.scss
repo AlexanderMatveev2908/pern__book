@@ -1,9 +1,6 @@
-.el__spinner_btn {
+.spinner_btn {
   box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app),
     0 0 30px var(--blue__app);
-}
-
-.el__spinner_btn {
   animation: boat 1s ease-in-out infinite;
   animation-delay: var(--delay_spinner_btn);
 }
