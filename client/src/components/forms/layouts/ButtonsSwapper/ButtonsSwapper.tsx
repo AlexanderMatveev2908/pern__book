@@ -26,7 +26,7 @@ const ButtonsSwapper: FC<PropsType> = ({
         disabled={!currForm}
         className={`justify-self-start ${
           currForm ? "group" : ""
-        } ${"button_swapper__btn__swapper"}`}
+        } ${"button_swapper"}`}
       >
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>
@@ -51,7 +51,7 @@ const ButtonsSwapper: FC<PropsType> = ({
           onClick={() => currForm < totLen - 1 && setCurrForm(currForm + 1)}
           className={`justify-self-end ${
             isNextDisabled ? "" : "group"
-          } ${"button_swapper__btn__swapper"}`}
+          } ${"button_swapper"}`}
         >
           <FaChevronRight className="icon__sm icon__with_txt" />
         </button>

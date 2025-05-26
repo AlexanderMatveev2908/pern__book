@@ -19,7 +19,7 @@ const PwdField: FC<PropsType> = ({
   setFocus,
 }) => {
   return (
-    <div className="w-full grid">
+    <div className="w-full grid pwd_field">
       <label className="grid w-full gap-2 relative">
         <span className="txt__2">{el.label}</span>
 
@@ -39,7 +39,7 @@ const PwdField: FC<PropsType> = ({
           <button
             onClick={handleClick}
             type="button"
-            className="absolute top-1/2 -translate-y-1/2 right-[20px] pwd_field__btn__pwd"
+            className="absolute top-1/2 -translate-y-1/2 right-[20px] btn"
           >
             {isPwd ? (
               <IoMdEyeOff className="icon__sm" />
