@@ -31,7 +31,7 @@ const Popup: FC = () => {
   return (
     <>
       <div
-        className={`z__popup_bg bg-black/50 inset-0 ${
+        className={`z__popup_bg popup bg-black/50 inset-0 ${
           popupState.isPopup ? "fixed" : "hidden"
         }`}
       ></div>
