@@ -12,13 +12,14 @@ type PropsType = {
   children: ReactNode;
   triggerRtk: any;
   txtInputs?: FormFieldBasic[];
+  routeID?: string;
 };
 
 const removeFieldBtn = {
   icon: FaSearchMinus,
 };
 
-const TxtInputs: FC<PropsType> = ({ triggerRtk, children }) => {
+const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
   const { preSubmit, updateValsNoDebounce, setPreSubmit } = useSearchCtx();
   const {
     register,
@@ -51,9 +52,18 @@ const TxtInputs: FC<PropsType> = ({ triggerRtk, children }) => {
         ...getDefValsPagination(),
       });
 
-      if (hasSenseFetch) updateValsNoDebounce({ vals: data, triggerRtk });
+      if (hasSenseFetch)
+        updateValsNoDebounce({ vals: data, triggerRtk, routeID });
     },
-    [remove, fields, getValues, triggerRtk, updateValsNoDebounce, setPreSubmit]
+    [
+      remove,
+      fields,
+      getValues,
+      triggerRtk,
+      updateValsNoDebounce,
+      setPreSubmit,
+      routeID,
+    ]
   );
 
   return (

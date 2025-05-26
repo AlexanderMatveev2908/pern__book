@@ -17,9 +17,15 @@ type PropsType = {
   numericFilters?: NumericFilterSearch[];
   res: any;
   triggerRtk: any;
+  routeID?: string;
 };
 
-const ButtonsForm: FC<PropsType> = ({ txtInputs, triggerRtk, res }) => {
+const ButtonsForm: FC<PropsType> = ({
+  txtInputs,
+  routeID,
+  triggerRtk,
+  res,
+}) => {
   const ctx = useSearchCtx();
   const {
     setBar,
@@ -38,6 +44,7 @@ const ButtonsForm: FC<PropsType> = ({ txtInputs, triggerRtk, res }) => {
     formCtx,
     txtInputs,
     triggerRtk,
+    routeID,
   });
 
   return (

@@ -10,7 +10,7 @@ import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
 import SkeletonBar from "./components/SkeletonBar";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
@@ -22,7 +22,8 @@ import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { getDefValsPagination } from "@/core/lib/lib";
+import { getDefValsPagination, isStr } from "@/core/lib/lib";
+import { REG_ID } from "@/core/config/regex";
 
 // ? I LIKE THINKING OF WHAT I HAVE IN MIND LIKE A METAPHORIC INNER JOIN BUT ON FRONTEND CATEGORIES ITEMS AS STRINGS, IF U CHOSE THE MAIN CATEGORY AUTOMATICALLY WILL SEE THE SUB CATEGORIES
 
@@ -34,6 +35,7 @@ type PropsType = {
   sorters?: SorterSearch[];
   numericFilters?: NumericFilterSearch[];
   innerJoinCat?: boolean;
+  paramID?: string;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -44,8 +46,11 @@ const SearchBar: FC<PropsType> = ({
   numericFilters,
   hook,
   innerJoinCat,
+  paramID,
 }) => {
   const [triggerRtk, res] = hook;
+
+  const routeID = useParams()?.[paramID ?? ""];
 
   useWrapQueryAPI({ ...res });
 
@@ -63,6 +68,7 @@ const SearchBar: FC<PropsType> = ({
 
   const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {
+    if (isStr(routeID) && !REG_ID.test(routeID ?? "")) return;
     if (
       [isLoading, isReloading, isError, Object.keys(data ?? {}).length].every(
         (val) => !val
@@ -71,6 +77,7 @@ const SearchBar: FC<PropsType> = ({
     )
       triggerRtk({
         vals: { ...getValues(), ...getDefValsPagination() },
+        routeID,
       });
   }, [
     isLoading,
@@ -80,6 +87,7 @@ const SearchBar: FC<PropsType> = ({
     getValues,
     triggerRtk,
     isPopulated,
+    routeID,
   ]);
 
   const realTimeVals = watch();
@@ -92,6 +100,7 @@ const SearchBar: FC<PropsType> = ({
     filters,
     txtInputs,
     getValues: formCtx.getValues,
+    routeID,
   });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
@@ -101,6 +110,7 @@ const SearchBar: FC<PropsType> = ({
     realTimeVals,
     txtInputs,
     triggerRtk,
+    routeID,
   });
 
   // * SYNC LOADING SUBMIT AND CLEAR BTN
@@ -138,6 +148,7 @@ const SearchBar: FC<PropsType> = ({
             innerJoinCat,
             numericFilters,
             txtInputs,
+            routeID,
           }}
         />
         <SortPop {...{ sorters }} />
@@ -150,6 +161,7 @@ const SearchBar: FC<PropsType> = ({
               numericFilters,
               res,
               triggerRtk,
+              routeID,
             }}
           />
         </TxtInputs>
