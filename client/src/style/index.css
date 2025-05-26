@@ -39,15 +39,13 @@
     background-position: -200% 0;
   }
 }
-.toast__btn {
+.toast .btn {
   transition: 0.3s;
 }
-
-.toast__btn:hover {
+.toast .btn:hover {
   @apply cursor-pointer scale-130;
 }
-
-.toast__btn:active {
+.toast .btn:active {
   transition: 0.1s;
   transform: scale(0.8);
 }
