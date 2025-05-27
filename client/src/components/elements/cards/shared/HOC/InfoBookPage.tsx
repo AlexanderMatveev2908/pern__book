@@ -7,6 +7,7 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { BookType } from "@/types/all/books";
 import {
   fieldsStatsRatingBook,
+  fieldsWorkFlowBook,
   labelBookInfo,
   labelBookRating,
   labelCategoriesBook,
@@ -16,6 +17,7 @@ import {
   showGeneralStatsBook,
   statsBookInfo,
 } from "@/core/config/fieldsData/cards/books/books";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 
 type PropsType = {
   book: BookType;
@@ -28,11 +30,11 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
   });
 
   return (
-    <>
+    <div className="w-full grid grid-cols-1 gap-10">
       <ImagesScroll {...{ images: book.images }} />
 
-      <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+      <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           <DropStats {...{ el: labelBookInfo, fields: statsBookInfo(book) }} />
           <DropStats {...{ el: labelCategoriesBook, fields: null }}>
             {book.categories?.map((el, i) => (
@@ -43,7 +45,7 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
           </DropStats>
         </div>
 
-        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-10">
+        <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
           <DropStats
             {...{
               el: labelDataBook,
@@ -61,7 +63,11 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
           )}
         </div>
 
-        <div className="w-full grid grid-cols-1 gap-10 sm:grid-cols-2 ">
+        <DropStats
+          {...{ el: workFlowLabel, fields: fieldsWorkFlowBook(book) }}
+        />
+
+        <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 ">
           <DropStats {...{ el: labelStoreBook(book?.store?.name ?? "") }}>
             <li className="w-full grid grid-cols-[180px_1fr] items-center mb-4">
               <div className="w-full flex justify-start items-center gap-5">
@@ -96,7 +102,7 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
           </DropStats>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

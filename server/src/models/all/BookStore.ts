@@ -36,6 +36,8 @@ export class BookStore extends Model {
   freeDeliveryAmount?: number;
   deliveryTime!: number;
 
+  lastUpdatedBy!: string;
+
   team?: BookStoreUserInstance[];
   images?: ImgBookStoreType[];
   video?: VideoBookStoreType;
@@ -136,6 +138,11 @@ export const defineBookStore = (seq: Sequelize) =>
       phone: {
         type: DataTypes.STRING,
         allowNull: true,
+      },
+
+      lastUpdatedBy: {
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     {

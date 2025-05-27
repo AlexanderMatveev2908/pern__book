@@ -9,6 +9,7 @@ import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { clearUnnecessary, handleAssetsCloud } from "./helpers/cloudUpload.js";
 import { addMandatoryKeys, addOptKeys, makeTeam } from "./helpers/storeData.js";
+import { User } from "../../models/models.js";
 
 export const createBookStore = async (
   req: ReqApp,
@@ -25,11 +26,16 @@ export const createBookStore = async (
     const mandatoryObj: Partial<BookStoreInstance> = addMandatoryKeys(bodyData);
     const optObj: Partial<BookStoreInstance> = addOptKeys(bodyData);
 
+    const user = await User.findByPk(userID, {
+      attributes: ["id", "email"],
+    });
+
     const newBookStore: BookStoreInstance = await BookStore.create(
       {
         ...mandatoryObj,
         ...optObj,
         ownerID: userID,
+        lastUpdatedBy: user!.email,
       },
       { transaction: t }
     );

@@ -7,6 +7,9 @@ import InfoStatsBookCard from "@/components/elements/cards/books/ItemList/InfoSt
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import InfoBookStore from "@/components/elements/cards/books/ItemList/InfoBookStore";
 import { linksBookCard } from "@/core/config/fieldsData/OwnerLayout/books/actions";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+import { fieldsWorkFlowBook } from "@/core/config/fieldsData/cards/books/books";
 
 type PropsType = {
   el: BookType;
@@ -30,6 +33,14 @@ const BookItem: FC<PropsType> = ({ el }) => {
           <InfoBookCard {...{ el }} />
           <InfoStatsBookCard {...{ el }} />
           <InfoBookStore {...{ el }} />
+          <DropStats
+            {...{
+              el: workFlowLabel,
+              fields: fieldsWorkFlowBook(el),
+              abs: true,
+              border: true,
+            }}
+          />
         </div>
       </div>
 
