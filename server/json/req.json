@@ -1,14 +1,11 @@
 {
-  "body": {
-    "firstName": "alex",
-    "lastName": "matveev",
-    "email": "matveevalexander470@gmail.com",
-    "password": "o2zxih^Wl*W~8^da"
-  },
   "files": {},
   "file": {},
-  "query": {},
+  "query": {
+    "page": "0",
+    "limit": "8"
+  },
   "params": {},
-  "auth": {},
-  "refresh": {}
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjEzY2JmMTUwLWY1OTQtNDRmNi1iYTQzLTIyMDFkYTFiOTIzZiIsImlhdCI6MTc0ODM0NTA2NywiZXhwIjoxNzQ4MzQ1MTI3fQ.e7Xk0DkDxI-f02Jismq9k20AfWFxmi5tg42-wKv6lUg",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.Gp13wNBz8YOLskCoafr7niOxGSlnuWht66wnazLLrLe_uiOidZ8jGRgiuoGlZAS9_v7CfxRzZAgTPAxeP129Kjaai3oGKt2YE5Tn9Fl7Iw0tXilxF4wmUf0rLLq0j55Ba5z1SVfhSvhDunflWyl-W9eGObiIPP0ogBdNVWCQ8wSLgiKwjU9D_CPOT-8AroyWLwhzImZTn9y7ijPkaJJvcA7b7cF-W6OQS2IjA-Csn3Sr_qW3KeG7OhhOEP3sPMbCNljOevGdgedn3ZtBu25guiwfj6M_XmNoGcK9pKSJdd1jn1swo7M-TjOvf7RdRiUfYiIey5z0_BI3ho348zB5kQ.YmII_emPM6HwdA4I.5MDsROn0dbBDyNyMyyZBKgeeIaR5y4gR_u6BAA8Hpyk06in1xFYbXu7O_mhK._4Iw14rkaMSxelYRZaRrSw"
 }
