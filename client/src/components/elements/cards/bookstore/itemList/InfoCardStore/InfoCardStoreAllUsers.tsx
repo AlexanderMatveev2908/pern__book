@@ -7,9 +7,11 @@ import {
   categoriesStoreLabel,
   fieldsStatsContact,
   labelCardStore,
+  labelDelivery,
   labelFieldAddressStore,
   labelFieldContact,
   statsAddress,
+  statsDelivery,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 type PropsType = {
@@ -54,6 +56,14 @@ const InfoCardStoreAllUsers: FC<PropsType> = ({ el }) => {
           {...{
             el: labelFieldContact,
             fields: fieldsStatsContact(el),
+            abs: true,
+          }}
+        />
+
+        <DropStats
+          {...{
+            el: labelDelivery,
+            fields: statsDelivery(el),
             abs: true,
           }}
         />

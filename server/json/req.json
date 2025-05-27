@@ -2,16 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "mainCategories": [
-      "philosophy",
-      "comics"
-    ],
     "page": "0",
     "limit": "8"
   },
-  "params": {
-    "bookStoreID": "7616caf0-8560-419b-96cc-3c3d8426c542"
-  },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Ijg1MDk1ZjU1LTBjOTgtNDU5ZC05NjZhLTFiNmEyM2FmMGY0ZSIsImlhdCI6MTc0ODM0OTU2NiwiZXhwIjoxNzQ4MzQ5NjI2fQ.BjI5tMTf2cb-bGOZs9fqCI3QI4WGqljzlLb-mUX3Ns8",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.ZUY8wNzvMSzPbU3eWmrM_GPdH8HOg80a2Bc4QbZQv9GbTsvV8TC5_7PdKGpEMKLnhkfA9gJM1-SSO7RbG-POuTZU-k1x5XOh7ptq2bzKw9vcwe7pn6ALSF4RNV4fZCEczBotDC7ozNLfv0GdyUIv50AP6zvQWOHGf0U_eGZZT0WJ2XmSXsOWQfCaucZROwea2Ev6sctfGi6DKiqih2yjbrVfKfGiBBIoyOMbRqTVC1pmyFpygk1XbBUjZS1_wsOjh9paHLBW86qBIIVEFm3J8E_eI9sjBXR0HCo2J6mUpL1FkXVNmhXlnrlfTfr8gUzd3fe1CszsLUIpJPk_Qadhjw.dPmWFGxKgPFEDcsM.Jn-iYHYpAIovn9jzE2lylMMwzxDCvoHNa4yM424mOWOTCZyHPWka6nRSFH0I.c2S2gw4Bm4bzkU2EoR7OtA"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExM2YzMWVkLWU0ZTItNDE2OS1iYjE2LTVmNmFkZWEwYzg0MSIsImlhdCI6MTc0ODM1OTUxNiwiZXhwIjoxNzQ4MzU5NTc2fQ.RK44hAE5EjKUasx9X4o_BPNnevNcBAopDOg_R4XMIeg",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.vBNm--rYBjp3miSsLlN502jDpeNKP8YHwWpvODjgIPaFfd9cGID8HhXAZgOzAAAfmH3zbnUw6lfTTl8d_xq97IvqyIqg1UsQJIEryIZ26lJ-cNiXA05u11JywBso4M52XQ4TNyWXKNyr8sTAFWC_lB-fSoCK-kuVBe_NL6esTUYBdNXIlpEuQzSzlJxNJsiDVkFTTX4H4Z0vwN2tsVEj1GFUrU-jfej3qJPETNDQ_Wr2H7sSjsLwpJz3rmtCtF7H3mZOApKOgR_a-WA1bWI_DIFmO0YNph9qI0dxTk0BMeLmUttU8zha0w3zMcdd390Th43TDF2cP_jwOOW5XJMnbw.fMAmIlWOEPSYBKuS.o-__bArHL70TApJcJkOs-MdZOk0w7cXz4nJo0hQ0frYO8Fp54K-q5mB1wFUJ.r__zXbP_wuAEH6irSaOhqA"
 }

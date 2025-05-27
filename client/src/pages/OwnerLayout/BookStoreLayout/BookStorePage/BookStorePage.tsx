@@ -18,9 +18,11 @@ import { TagsAPI } from "@/types/types";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import {
+  fieldsWorkFlowStore,
   labelTeamStore,
   statsTeam,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 
 const BookStorePage: FC = () => {
   const { bookStoreID } = useParams() ?? {};
@@ -115,6 +117,13 @@ const BookStorePage: FC = () => {
               </li>
             ))}
           </DropStats>
+
+          <DropStats
+            {...{
+              el: workFlowLabel,
+              fields: fieldsWorkFlowStore(bookStore),
+            }}
+          />
         </div>
 
         {isObjOk(bookStore?.video) && (

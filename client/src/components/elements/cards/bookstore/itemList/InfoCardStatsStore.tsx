@@ -4,10 +4,12 @@ import InfoBookStoreWorker from "../../shared/HOC/InfoBookStoreWorker";
 import DropStats from "../../shared/Drop/DropStats";
 import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 import {
+  fieldsWorkFlowStore,
   labelTeamStore,
   statsCardStore,
   statsTeam,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 
 type PropsType = {
   el: BookStoreType;
@@ -23,6 +25,14 @@ const InfoCardStatsStore: FC<PropsType> = ({ el, isOwner }) => {
           {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
         />
       )}
+
+      <DropStats
+        {...{
+          el: workFlowLabel,
+          fields: fieldsWorkFlowStore(el!),
+          abs: true,
+        }}
+      />
     </DropStatsStatic>
   );
 };

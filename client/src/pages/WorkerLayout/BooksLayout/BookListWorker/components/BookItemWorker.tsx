@@ -1,9 +1,12 @@
 import InfoBookCard from "@/components/elements/cards/books/ItemList/InfoBookCard";
 import InfoBookStore from "@/components/elements/cards/books/ItemList/InfoBookStore";
 import InfoStatsBookCard from "@/components/elements/cards/books/ItemList/InfoStatsBookCard";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
+import { fieldsWorkFlowBook } from "@/core/config/fieldsData/cards/books/books";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 import { linksBookCardWorker } from "@/core/config/fieldsData/WorkerLayout/books/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
@@ -30,6 +33,14 @@ const BookItemWorker: FC<PropsType> = ({ el }) => {
           <InfoBookCard {...{ el }} />
           <InfoStatsBookCard {...{ el }} />
           <InfoBookStore {...{ el }} />
+          <DropStats
+            {...{
+              el: workFlowLabel,
+              fields: fieldsWorkFlowBook(el),
+              abs: true,
+              border: true,
+            }}
+          />
         </div>
       </div>
 

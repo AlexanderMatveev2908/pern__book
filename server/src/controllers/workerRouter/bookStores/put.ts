@@ -26,6 +26,10 @@ export const updateStoreManager = async (
 
   const { videoData, imagesData } = (await handleAssetsCloud(req)) ?? {};
 
+  const user = await User.findByPk(userID, {
+    attributes: ["id", "email"],
+  });
+
   const bookStore = await BookStore.findOne({
     where: {
       id: bookStoreID,
@@ -75,6 +79,8 @@ export const updateStoreManager = async (
     for (const k of managersKeysPut) {
       updatedData[k as keyof BookStoreInstance] = bodyData[k] || null;
     }
+
+    updatedData.lastUpdatedBy = user!.email;
 
     await BookStore.update(updatedData, {
       where: {

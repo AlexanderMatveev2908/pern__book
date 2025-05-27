@@ -4,9 +4,7 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import { KEY_MAP_STORE } from "@/core/config/fieldsData/general/labels";
 import {
-  labelDelivery,
   statsBooks,
-  statsDelivery,
   statsOrders,
   statsReviews,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
@@ -30,13 +28,6 @@ const InfoBookStoreWorker: FC<PropsType> = ({ bookStore, abs }) => {
         {...{
           el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
           fields: statsReviews(bookStore),
-          abs,
-        }}
-      />
-      <DropStats
-        {...{
-          el: labelDelivery,
-          fields: statsDelivery(bookStore),
           abs,
         }}
       />

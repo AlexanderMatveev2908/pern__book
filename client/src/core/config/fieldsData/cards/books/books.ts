@@ -1,4 +1,4 @@
-import { priceFormatter } from "@/core/lib/lib";
+import { formatD, priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { FaBook, FaDatabase } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
@@ -88,3 +88,26 @@ export const labelDescriptionBook = {
   label: "About Book",
   icon: CiTextAlignJustify,
 };
+
+export const fieldsWorkFlowBook = (book?: BookType) =>
+  [
+    {
+      label: "Created at",
+      val: formatD(book?.createdAt ?? new Date()),
+    },
+    {
+      label: "Updated at",
+      val: formatD(book?.updatedAt ?? new Date()),
+    },
+    {
+      label: "Created by",
+      val: book?.createdBy || "N/A",
+    },
+    {
+      label: "Updated by",
+      val: book?.lastUpdatedBy || "N/A",
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));

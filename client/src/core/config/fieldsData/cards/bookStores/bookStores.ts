@@ -1,4 +1,4 @@
-import { capt, formatValDel, priceFormatter } from "@/core/lib/lib";
+import { capt, formatD, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
 import { OrderStage } from "@/types/all/orders";
 import { FaMapMarkerAlt, FaWarehouse } from "react-icons/fa";
@@ -141,3 +141,22 @@ export const statsCardStore = {
   label: "Info",
   icon: IoIosStats,
 };
+
+export const fieldsWorkFlowStore = (store?: BookStoreType) =>
+  [
+    {
+      label: "Created at",
+      val: formatD(store?.createdAt ?? new Date()),
+    },
+    {
+      label: "Updated at",
+      val: formatD(store?.updatedAt ?? new Date()),
+    },
+    {
+      label: "Updated by",
+      val: store?.lastUpdatedBy || "N/A",
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));

@@ -15,6 +15,9 @@ export class Book extends Model {
   qty!: number;
   price!: number;
 
+  createdBy!: string;
+  lastUpdatedBy!: string;
+
   store?: BookStoreInstance;
 }
 
@@ -55,6 +58,15 @@ export const defineBook = (seq: Sequelize) =>
       },
       price: {
         type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+      },
+
+      createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastUpdatedBy: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },
