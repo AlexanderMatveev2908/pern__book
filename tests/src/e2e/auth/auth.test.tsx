@@ -31,7 +31,7 @@ test.beforeAll(async () => {
   await seq.authenticate();
   bindModels(seq);
 
-  await clear();
+  // await clear();
 });
 test.afterAll(async () => {
   // await clear();
@@ -127,3 +127,31 @@ test.afterAll(async () => {
 //     ).toBeVisible();
 //   });
 // });
+
+// ? ALREADY TESTED LINK EMAIL , ALSO WRITING WRONG QUERIES
+
+test.describe("handle login user", () => {
+  test("should not login ", async ({ page }) => {
+    await nav(page, "auth/login");
+
+    await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
+    await page.getByLabel("password").fill(account_0.pwd + "banana");
+
+    await page.getByRole("button", { name: "Login" }).click();
+    await expect(
+      page.getByText("invalid credentials".toUpperCase())
+    ).toBeVisible();
+  });
+
+  test("should login", async ({ page }) => {
+    await nav(page, "auth/login");
+
+    await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
+    await page.getByLabel("password").fill(account_0.pwd);
+
+    await page.getByRole("button", { name: "Login" }).click();
+    await expect(
+      page.getByText("login successful".toUpperCase())
+    ).toBeVisible();
+  });
+});

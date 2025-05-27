@@ -4,6 +4,7 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
+import { useGetU } from "@/core/hooks/all/useGetU";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
@@ -21,8 +22,10 @@ import { z } from "zod";
 type BookFormType = z.infer<typeof schemaBookForm>;
 
 const CreateBookWorker: FC = () => {
+  const { user } = useGetU();
+
   const storeID = useParams()?.bookStoreID;
-  const isIdOk = REG_ID.test(storeID ?? "");
+  const isIdOk = REG_ID.test(storeID ?? "") && user?.isWorker;
 
   const nav = useNavigate();
 

@@ -1,30 +1,19 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { connectDB, seq, syncDB } from "./config/db.js";
-import { frontURL, isDev, keyCert } from "./config/env.js";
+import { connectDB } from "./config/db.js";
+import { isDev } from "./config/env.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
 import { errMiddleware } from "./middleware/general/errMiddleware.js";
 import path from "path";
 import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
-import { decryptCert } from "./lib/hashEncryptSign/cbcHmac.js";
-import { Server } from "socket.io";
 import http from "http";
-import { handleSocket } from "./controllers/socket/test.js";
-import { logJSON } from "./lib/utils/log.js";
-import { clearDB } from "./stuff/clear.js";
-import { getCloudID } from "./lib/utils/ids.js";
-import { createUserSDA } from "./stuff/sda.js";
-import { Book } from "./models/all/Book.js";
-import { delItem, makeItem } from "./stuff/test.js";
 
 const app = express();
 const PORT = +process.env.PORT! || 3000;
 
-// trust myDir proxy
-//  hop
 app.set("trust proxy", 1);
 
 const server = http.createServer(app);
@@ -50,13 +39,6 @@ if (!isDev) {
   });
 }
 app.use(errMiddleware);
-// getDataDB();
-// clearDB();
-
-// makeItem();
-// delItem();
-
-// createUserSDA();
 
 // io.on("connection", handleSocket);
 
@@ -66,12 +48,6 @@ const start = async () => {
     // await syncDB();
 
     await new Promise<void>((res, rej) => {
-      // app.listen(PORT, (err) => {
-      //   if (err) rej(err);
-
-      //   res();
-      // });
-
       server.once("error", rej);
       server.listen(PORT, "0.0.0.0", res);
     }).then(() => console.log(`=> Server running on ${PORT}...`));
