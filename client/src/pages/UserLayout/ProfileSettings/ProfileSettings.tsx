@@ -4,6 +4,7 @@ import {
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
 import {
+  isObjOk,
   isSameData,
   makeDelay,
   makeObj,
@@ -150,7 +151,7 @@ const ProfileSettings = () => {
 
   return (
     // <ProfileCtxProvider>
-    <WrapPageAPI {...{ isLoading, isError, error }}>
+    <WrapPageAPI {...{ isLoading, isError, error, isSuccess: isObjOk(user) }}>
       <Title {...{ title: "my profile" }} />
       <FormProvider {...formCtx}>
         <form onSubmit={handleSave} className="w-full grid">

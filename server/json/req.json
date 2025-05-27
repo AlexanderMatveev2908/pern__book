@@ -2,11 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "bookStoreID": "2b4f9463-5f2f-4d35-bf43-766969c172da",
     "page": "0",
     "limit": "4"
   },
   "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExM2YzMWVkLWU0ZTItNDE2OS1iYjE2LTVmNmFkZWEwYzg0MSIsImlhdCI6MTc0ODM2MzIzOSwiZXhwIjoxNzQ4MzYzMjk5fQ.UjndWiP9DDYbkxX90TB3xcRucjhLZu7Bdsci0pGrSKU",
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExM2YzMWVkLWU0ZTItNDE2OS1iYjE2LTVmNmFkZWEwYzg0MSIsImlhdCI6MTc0ODM2NTIwNiwiZXhwIjoxNzQ4MzY1MjY2fQ.SYX5k0VuhcyPihLly3GPfG9N9I2YEl7tVgDH09svfsk",
   "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.vBNm--rYBjp3miSsLlN502jDpeNKP8YHwWpvODjgIPaFfd9cGID8HhXAZgOzAAAfmH3zbnUw6lfTTl8d_xq97IvqyIqg1UsQJIEryIZ26lJ-cNiXA05u11JywBso4M52XQ4TNyWXKNyr8sTAFWC_lB-fSoCK-kuVBe_NL6esTUYBdNXIlpEuQzSzlJxNJsiDVkFTTX4H4Z0vwN2tsVEj1GFUrU-jfej3qJPETNDQ_Wr2H7sSjsLwpJz3rmtCtF7H3mZOApKOgR_a-WA1bWI_DIFmO0YNph9qI0dxTk0BMeLmUttU8zha0w3zMcdd390Th43TDF2cP_jwOOW5XJMnbw.fMAmIlWOEPSYBKuS.o-__bArHL70TApJcJkOs-MdZOk0w7cXz4nJo0hQ0frYO8Fp54K-q5mB1wFUJ.r__zXbP_wuAEH6irSaOhqA"
 }
