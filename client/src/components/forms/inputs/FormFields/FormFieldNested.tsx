@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, ReactNode } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { capt } from "@/core/lib/lib.ts";
 import {
   FormBaseProps,
@@ -9,6 +9,7 @@ import {
 import {
   UseFormGetValues,
   UseFormSetValue,
+  UseFormTrigger,
   UseFormWatch,
 } from "react-hook-form";
 import ErrorFormField from "../../Errors/ErrorFormField";
@@ -27,6 +28,7 @@ type PropsType = {
   setValue: UseFormSetValue<any>;
   getValues: UseFormGetValues<any>;
   watch: UseFormWatch<any>;
+  trigger: UseFormTrigger<any>;
 } & FormBaseProps;
 
 const FormFieldNested: FC<PropsType> = ({
@@ -39,11 +41,15 @@ const FormFieldNested: FC<PropsType> = ({
   nestedIndex,
   isDisabled,
   setValue,
-  getValues,
   customCB,
   watch,
+  getValues,
+  trigger,
 }) => {
-  const param = `items.${nestedIndex.index}.${nestedIndex.key}`;
+  const param = useMemo(
+    () => `items.${nestedIndex.index}.${nestedIndex.key}`,
+    [nestedIndex]
+  );
 
   return (
     <div className={`w-full grid ${isDisabled ? "opacity-50" : ""}`}>
@@ -65,14 +71,15 @@ const FormFieldNested: FC<PropsType> = ({
 
               try {
                 setValue(
-                  "items",
-                  getValues("items").map((el: FormFieldBasic, i: number) =>
+                  `items`,
+                  getValues("items").map((item: FormFieldBasic, i: number) =>
                     i === nestedIndex.index
-                      ? { ...el, [nestedIndex.key]: v }
-                      : el
+                      ? { ...item, [nestedIndex.key]: v }
+                      : item
                   ),
                   { shouldValidate: true }
                 );
+                trigger("items");
               } catch (err) {
                 console.log(err);
               }
