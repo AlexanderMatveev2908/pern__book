@@ -9,8 +9,8 @@ import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
-import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
-import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
+import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/page/InfoStoreAllUsersPage";
+import InfoStoreMapProp from "@/components/elements/cards/shared/HOC/InfoStoreMapProp";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
@@ -38,9 +38,7 @@ const BookStorePageWorker: FC = () => {
     <WrapPageAPI
       {...{
         canStay: itPass && user?.isWorker,
-        isLoading: res?.isLoading,
-        error: res?.error,
-        isError: res?.isError,
+        ...res,
       }}
     >
       <BreadCrumb
@@ -81,12 +79,12 @@ const BookStorePageWorker: FC = () => {
         />
 
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <InfoStoreAllUsers {...{ bookStore }} />
+          <InfoStoreAllUsersPage {...{ bookStore }} />
 
           {role === UserRole.MANAGER && (
             <>
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-                <InfoBookStoreWorker {...{ bookStore }} />
+                <InfoStoreMapProp {...{ bookStore }} />
               </div>
               <DropStats
                 {...{

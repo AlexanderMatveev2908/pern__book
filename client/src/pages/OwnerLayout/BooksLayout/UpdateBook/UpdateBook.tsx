@@ -2,11 +2,13 @@ import BookForm from "@/common/forms/BookForm/BookForm";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import { REG_ID } from "@/core/config/regex";
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
-import { useMergeInfoExistingBook } from "@/core/hooks/all/forms/books/useMergeInfoExistingBook";
 import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
-import { useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useGetU } from "@/core/hooks/all/useGetU";
+import { useMixVars } from "@/core/hooks/all/useMixVars";
+import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
@@ -14,13 +16,43 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateBook: FC = () => {
   const nav = useNavigate();
 
-  const { user, stores, bookID, isValidID, isPending, isErr, error, book } =
-    useMergeInfoExistingBook();
+  const { bookID } = useParams() ?? {};
+  const isValidID = REG_ID.test(bookID ?? "");
+
+  const { user } = useGetU();
+  const res = booksSLiceAPI.endpoints.getSingleBook.useQuery(bookID!, {
+    skip: !isValidID,
+  });
+  const { data: { book } = {} } = res;
+  useWrapQueryAPI({ ...res });
+  const resStores =
+    booksSLiceAPI.endpoints.getStoresInfo.useQuery(undefined, {
+      refetchOnMountOrArgChange: true,
+    }) ?? {};
+  const { data: { stores } = {} } = resStores;
+  useWrapQueryAPI({ ...resStores });
+
+  const isLoading = useMixVars({
+    varB: resStores.isLoading,
+    varA: res.isLoading,
+  });
+  const isError = useMixVars({
+    varB: resStores.isError,
+    varA: res.isError,
+  });
+  const error = useMixVars({
+    varB: resStores.error,
+    varA: res.error,
+  });
+  const isSuccess = useMixVars({
+    varB: resStores.isSuccess,
+    varA: res.isSuccess,
+  });
 
   const formCtx = useForm<BookFormType>({
     resolver: zodResolver(schemaBookForm),
@@ -62,9 +94,10 @@ const UpdateBook: FC = () => {
     <WrapPageAPI
       {...{
         canStay: user?.hasBooks && isValidID,
-        isLoading: isPending,
-        isError: isErr,
+        isLoading,
+        isError,
         error,
+        isSuccess,
       }}
     >
       <BreadCrumb

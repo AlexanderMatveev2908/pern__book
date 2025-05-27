@@ -33,9 +33,8 @@ const WrapperContentAPI: FC<PropsType> = ({
     <>
       <WrapPageAPI
         {...{
+          ...res,
           isLoading: spinPage,
-          isError: res?.isError,
-          error: res?.error,
         }}
       >
         {children}

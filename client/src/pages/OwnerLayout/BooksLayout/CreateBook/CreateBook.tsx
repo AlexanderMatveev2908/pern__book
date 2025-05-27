@@ -3,8 +3,8 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useMergeInfoBookForm } from "@/core/hooks/all/forms/books/useMergeInfoBookForm";
-import { useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useGetU } from "@/core/hooks/all/useGetU";
+import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
@@ -17,8 +17,15 @@ const CreateBook: FC = () => {
 
   const { createBookFormCtx: formCtx } = useFormCtxConsumer();
 
-  const { user, stores, isSomeErr, someErr, someonePending } =
-    useMergeInfoBookForm();
+  const { user } = useGetU();
+
+  const res =
+    booksSLiceAPI.endpoints.getStoresInfo.useQuery(undefined, {
+      refetchOnMountOrArgChange: true,
+    }) ?? {};
+  const { data: { stores } = {} } = res;
+
+  useWrapQueryAPI({ ...res });
 
   const { handleSubmit, setFocus, reset } = formCtx;
   const [mutate, { isLoading: isCreateLoading }] =
@@ -49,9 +56,7 @@ const CreateBook: FC = () => {
     <WrapPageAPI
       {...{
         canStay: user?.isOwner,
-        isError: isSomeErr,
-        error: someErr,
-        isLoading: someonePending,
+        ...res,
       }}
     >
       <BreadCrumb

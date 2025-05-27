@@ -184,9 +184,7 @@ const UpdateBookStore: FC = () => {
     <WrapPageAPI
       {...{
         canStay: user?.isOwner && itPass,
-        isError: res?.isError,
-        isLoading: res?.isLoading,
-        error: res?.error,
+        ...res,
       }}
     >
       <BreadCrumb

@@ -7,7 +7,7 @@ import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWor
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBookWorker from "./components/DropActionsBookWorker";
-import InfoBookPage from "@/components/elements/cards/shared/HOC/InfoBookPage";
+import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
@@ -29,9 +29,7 @@ const BookPageWorker: FC = () => {
     <WrapPageAPI
       {...{
         canStay: itPass,
-        isLoading: res?.isLoading,
-        error: res?.error,
-        isError: res?.isError,
+        ...res,
       }}
     >
       <BreadCrumb

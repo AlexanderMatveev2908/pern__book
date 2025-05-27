@@ -58,7 +58,7 @@ const DropStats: FC<PropsType> = ({
       />
 
       <ul
-        className={`w-full grid grid-cols-1 items-start transition-all duration-[0.4s] gap-3 ${
+        className={`w-full grid grid-cols-1 items-start transition-all duration-[0.4s] gap-3 overflow-hidden ${
           abs
             ? "absolute top-0 left-0 bg-neutral-950 z-50 el__border_sm p-3"
             : ""

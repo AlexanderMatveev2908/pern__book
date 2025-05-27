@@ -1,15 +1,10 @@
-import InfoBookCard from "@/components/elements/cards/books/ItemList/InfoBookCard";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import InfoStatsBookCard from "@/components/elements/cards/books/ItemList/InfoStatsBookCard";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
-import InfoBookStore from "@/components/elements/cards/books/ItemList/InfoBookStore";
 import { linksBookCard } from "@/core/config/fieldsData/OwnerLayout/books/actions";
-import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
-import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
-import { fieldsWorkFlowBook } from "@/core/config/fieldsData/cards/books/books";
+import InfoBook from "@/components/elements/cards/shared/HOC/InfoBook";
 
 type PropsType = {
   el: BookType;
@@ -30,17 +25,7 @@ const BookItem: FC<PropsType> = ({ el }) => {
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoBookCard {...{ el }} />
-          <InfoStatsBookCard {...{ el }} />
-          <InfoBookStore {...{ el }} />
-          <DropStats
-            {...{
-              el: workFlowLabel,
-              fields: fieldsWorkFlowBook(el),
-              abs: true,
-              border: true,
-            }}
-          />
+          <InfoBook {...{ el }} />
         </div>
       </div>
 

@@ -1,8 +1,8 @@
 import type { FC } from "react";
-import ImagesScroll from "../ImagesScroll";
-import DropStats from "../Drop/DropStats";
+import ImagesScroll from "../../shared/ImagesScroll";
+import DropStats from "../../shared/Drop/DropStats";
 import { FaDatabase } from "react-icons/fa";
-import DropStatsStatic from "../Drop/DropStatsStatic";
+import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { BookType } from "@/types/all/books";
 import {
