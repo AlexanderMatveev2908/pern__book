@@ -41,8 +41,6 @@ import BookPageWorker from "./pages/WorkerLayout/BooksLayout/BookPageWorker/Book
 import CreateBookWorker from "./pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
 import UpdateBookWorker from "./pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
 
-// aaaa
-
 const App: FC = () => {
   useScroll();
 
