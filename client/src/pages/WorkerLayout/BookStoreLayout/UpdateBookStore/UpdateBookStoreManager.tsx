@@ -11,7 +11,7 @@ import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { isObjOk, isSameData } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
-import { UserRole } from "@/types/types";
+import { AssetCloudType, UserRole } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";
@@ -26,7 +26,7 @@ const UpdateBookStoreManager: FC = () => {
   const bookStoreID = useParams()?.bookStoreID;
   const validID = REG_ID.test(bookStoreID!);
 
-  const res = bookStoresWorkerSliceAPI.useGetSingleStoreWorkerQuery(
+  const res: any = bookStoresWorkerSliceAPI.useGetSingleStoreWorkerQuery(
     { bookStoreID: bookStoreID!, roles: [UserRole.MANAGER] },
     {
       skip: !validID,
@@ -103,7 +103,7 @@ const UpdateBookStoreManager: FC = () => {
           case "images": {
             original[k] =
               Array.isArray(bookStore?.[k]) && bookStore?.[k]?.length
-                ? bookStore?.images?.map((img) => img.url)
+                ? bookStore?.images?.map((img: AssetCloudType) => img.url)
                 : null;
             currVals[k] = vals?.[k]?.length ? vals[k] : null;
             break;
@@ -143,9 +143,7 @@ const UpdateBookStoreManager: FC = () => {
     <WrapPageAPI
       {...{
         canStay: validID && role === UserRole.MANAGER,
-        isLoading: res.isLoading,
-        isError: res.isError,
-        error: res.error,
+        ...res,
       }}
     >
       <BreadCrumb

@@ -14,7 +14,7 @@ type PropsType = {
   el: BookType;
 };
 
-const InfoBookStore: FC<PropsType> = ({ el }) => {
+const InfoStoreFromBook: FC<PropsType> = ({ el }) => {
   const ids = useCreateIds({ lengths: [el?.store?.categories?.length] });
 
   return (
@@ -45,4 +45,4 @@ const InfoBookStore: FC<PropsType> = ({ el }) => {
   );
 };
 
-export default InfoBookStore;
+export default InfoStoreFromBook;

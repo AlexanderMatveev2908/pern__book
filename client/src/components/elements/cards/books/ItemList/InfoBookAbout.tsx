@@ -14,7 +14,7 @@ type PropsType = {
   el: BookType;
 };
 
-const InfoBookCard: FC<PropsType> = ({ el }) => {
+const InfoBookAbout: FC<PropsType> = ({ el }) => {
   const ids = useCreateIds({
     lengths: [el?.categories?.length],
   });
@@ -36,4 +36,4 @@ const InfoBookCard: FC<PropsType> = ({ el }) => {
   );
 };
 
-export default InfoBookCard;
+export default InfoBookAbout;

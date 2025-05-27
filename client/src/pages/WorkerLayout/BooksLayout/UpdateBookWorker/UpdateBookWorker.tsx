@@ -37,7 +37,7 @@ const UpdateBookWorker: FC = () => {
     }
   );
   useWrapQueryAPI({ ...res });
-  const { isLoading, isError, error, data: { book } = {} } = res ?? {};
+  const { data: { book } = {} } = res ?? {};
   const { store } = book ?? {};
   const [{ bookStoreUser: { role } = {} } = {}] = (store?.team as any) ?? [];
 
@@ -86,9 +86,7 @@ const UpdateBookWorker: FC = () => {
     <WrapPageAPI
       {...{
         canStay: isValidID,
-        isLoading,
-        isError,
-        error,
+        ...res,
       }}
     >
       <BreadCrumb

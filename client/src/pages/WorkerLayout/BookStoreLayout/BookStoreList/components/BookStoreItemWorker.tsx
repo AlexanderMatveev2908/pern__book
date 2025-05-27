@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import InfoCardStatsStore from "@/components/elements/cards/bookstore/itemList/InfoCardStatsStore";
-import InfoCardStoreAllUsers from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStoreAllUsers";
+import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/itemList/InfoStoreItemBusiness";
+import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoStoreAllUsersItem";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStoreWorker } from "@/core/config/fieldsData/WorkerLayout/bookStores/card";
@@ -35,8 +35,8 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoCardStoreAllUsers {...{ el }} />
-          {role === UserRole.MANAGER && <InfoCardStatsStore {...{ el }} />}
+          <InfoStoreAllUsersItem {...{ el }} />
+          {role === UserRole.MANAGER && <InfoStoreItemBusiness {...{ el }} />}
         </div>
       </div>
 

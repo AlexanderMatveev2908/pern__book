@@ -1,6 +1,6 @@
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
-import InfoBookStoreWorker from "../../shared/HOC/InfoBookStoreWorker";
+import InfoStoreMapProp from "../../shared/HOC/InfoStoreMapProp";
 import DropStats from "../../shared/Drop/DropStats";
 import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 import {
@@ -16,10 +16,10 @@ type PropsType = {
   isOwner?: boolean;
 };
 
-const InfoCardStatsStore: FC<PropsType> = ({ el, isOwner }) => {
+const InfoStoreItemBusiness: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <DropStatsStatic {...{ el: statsCardStore, border: true }}>
-      <InfoBookStoreWorker {...{ abs: true, bookStore: el }} />
+      <InfoStoreMapProp {...{ abs: true, bookStore: el }} />
       {isOwner && (
         <DropStats
           {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
@@ -37,4 +37,4 @@ const InfoCardStatsStore: FC<PropsType> = ({ el, isOwner }) => {
   );
 };
 
-export default InfoCardStatsStore;
+export default InfoStoreItemBusiness;
