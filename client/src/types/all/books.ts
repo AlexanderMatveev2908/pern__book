@@ -56,4 +56,9 @@ export type BookType = {
   reviews__4_1__5?: string;
 
   store?: BookStoreType;
+
+  createdAt: string;
+  updatedAt: string;
+  createdBy: string;
+  lastUpdatedBy: string;
 };

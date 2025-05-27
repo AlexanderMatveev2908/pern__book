@@ -15,6 +15,9 @@ export class Book extends Model {
   qty!: number;
   price!: number;
 
+  createdBy!: string;
+  lastUpdatedBy!: string;
+
   store?: BookStoreInstance;
 }
 

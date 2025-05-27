@@ -19,9 +19,17 @@ type PropsType = {
   children?: ReactNode | React.ReactNode[] | null;
   styleUL?: string;
   abs?: boolean;
+  border?: boolean;
 };
 
-const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
+const DropStats: FC<PropsType> = ({
+  el,
+  fields,
+  children,
+  border,
+  styleUL,
+  abs,
+}) => {
   const [isDropOpen, setIsDropOpen] = useState(
     abs ? false : window.innerWidth > tailwindBreak.md
   );
@@ -40,12 +48,12 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
   const ids = useCreateIds({ lengths: [fields?.length ?? 0] });
 
   return !el ? null : (
-    <div className="w-full relative h-fit ">
+    <div className="w-full relative h-fit">
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
       <hr
         className={` h-[3px] w-full border-0  ${
-          abs ? "bg-transparent my-2" : "bg-blue-600 my-3"
+          abs && !border ? "bg-transparent my-2" : "bg-blue-600 my-3"
         }`}
       />
 
@@ -71,7 +79,7 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
           fields?.map((el, i) => (
             <li
               key={ids?.[0]?.[i]}
-              className="w-full flex justify-between items-center pr-4 gap-10"
+              className="w-full flex justify-between items-center pr-4 gap-3"
             >
               <div
                 className={`flex justify-start ${abs ? "min-w-[75px]" : ""}`}

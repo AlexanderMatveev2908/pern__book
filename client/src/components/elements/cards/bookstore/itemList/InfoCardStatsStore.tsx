@@ -8,8 +8,8 @@ import {
   labelTeamStore,
   statsCardStore,
   statsTeam,
-  workFlowLabel,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 
 type PropsType = {
   el: BookStoreType;

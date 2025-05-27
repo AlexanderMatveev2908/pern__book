@@ -15,10 +15,8 @@ import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
-import {
-  fieldsWorkFlowStore,
-  workFlowLabel,
-} from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import { fieldsWorkFlowStore } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 
 const BookStorePageWorker: FC = () => {
   const { user } = useGetU();

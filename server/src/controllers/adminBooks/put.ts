@@ -11,6 +11,7 @@ import { getCloudID } from "../../lib/utils/ids.js";
 import { captAll } from "../../lib/utils/formatters.js";
 import { delArrCloud } from "../../lib/cloud/delete.js";
 import { handleAssetsBooksPut } from "../../lib/sharedHandlers/assetsHandlers/books.js";
+import { User } from "../../models/models.js";
 
 export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID, body } = req;
@@ -30,6 +31,10 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
       },
     ],
     raw: true,
+  });
+
+  const user = await User.findByPk(userID, {
+    attributes: ["id", "email"],
   });
 
   if (!bookObj) return err404(res, { msg: "Book not found" });
@@ -58,6 +63,8 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
         (bookObj as any)[key] = body[key];
       }
     }
+
+    bookObj.lastUpdatedBy = user!.email;
 
     await Book.update(bookObj, { where: { id: bookID }, transaction: t });
 
