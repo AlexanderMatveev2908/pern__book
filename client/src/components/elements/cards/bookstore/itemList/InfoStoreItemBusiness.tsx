@@ -16,7 +16,7 @@ type PropsType = {
   isOwner?: boolean;
 };
 
-const InfoCardStatsStore: FC<PropsType> = ({ el, isOwner }) => {
+const InfoStoreItemBusiness: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <DropStatsStatic {...{ el: statsCardStore, border: true }}>
       <InfoBookStoreWorker {...{ abs: true, bookStore: el }} />
@@ -37,4 +37,4 @@ const InfoCardStatsStore: FC<PropsType> = ({ el, isOwner }) => {
   );
 };
 
-export default InfoCardStatsStore;
+export default InfoStoreItemBusiness;

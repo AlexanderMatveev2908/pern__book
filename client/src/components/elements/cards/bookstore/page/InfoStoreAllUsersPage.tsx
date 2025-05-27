@@ -4,20 +4,15 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import {
   categoriesStoreLabel,
-  fieldsStatsContact,
-  labelDelivery,
   labelDescription,
-  labelFieldAddressStore,
-  labelFieldContact,
-  statsAddress,
-  statsDelivery,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import InfoStore from "../../shared/HOC/InfoStore";
 
 type PropsType = {
   bookStore?: BookStoreType;
 };
 
-const InfoStoreAllUsersStorePage: FC<PropsType> = ({ bookStore }) => {
+const InfoStoreAllUsersPage: FC<PropsType> = ({ bookStore }) => {
   const ids = useCreateIds({
     lengths: [bookStore?.categories?.length],
   });
@@ -47,29 +42,10 @@ const InfoStoreAllUsersStorePage: FC<PropsType> = ({ bookStore }) => {
       </div>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-3">
-        <DropStats
-          {...{
-            el: labelFieldAddressStore,
-            fields: statsAddress(bookStore),
-          }}
-        />
-
-        <DropStats
-          {...{
-            el: labelFieldContact,
-            fields: fieldsStatsContact(bookStore),
-          }}
-        />
-
-        <DropStats
-          {...{
-            el: labelDelivery,
-            fields: statsDelivery(bookStore),
-          }}
-        />
+        <InfoStore {...{ bookStore }} />
       </div>
     </>
   );
 };
 
-export default InfoStoreAllUsersStorePage;
+export default InfoStoreAllUsersPage;

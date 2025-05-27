@@ -31,7 +31,7 @@ const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
         </span>
       </div>
       <FaChevronDown
-        className={`icon__md icon__with_txt justify-self-center ${
+        className={`icon__md icon__with_txt justify-self-end ${
           isDropOpen ? "rotate-180" : ""
         } `}
       />

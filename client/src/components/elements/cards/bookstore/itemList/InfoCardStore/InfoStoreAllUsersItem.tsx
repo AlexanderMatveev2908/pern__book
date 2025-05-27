@@ -5,20 +5,15 @@ import { FC, useState } from "react";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   categoriesStoreLabel,
-  fieldsStatsContact,
   labelCardStore,
-  labelDelivery,
-  labelFieldAddressStore,
-  labelFieldContact,
-  statsAddress,
-  statsDelivery,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import InfoStore from "../../../shared/HOC/InfoStore";
 
 type PropsType = {
   el: BookStoreType;
 };
 
-const InfoCardStoreAllUsers: FC<PropsType> = ({ el }) => {
+const InfoStoreAllUsersItem: FC<PropsType> = ({ el }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
 
   const ids = useCreateIds({ lengths: [el.categories.length] });
@@ -45,31 +40,10 @@ const InfoCardStoreAllUsers: FC<PropsType> = ({ el }) => {
           ))}
         </DropStats>
 
-        <DropStats
-          {...{
-            el: labelFieldAddressStore,
-            fields: statsAddress(el),
-            abs: true,
-          }}
-        />
-        <DropStats
-          {...{
-            el: labelFieldContact,
-            fields: fieldsStatsContact(el),
-            abs: true,
-          }}
-        />
-
-        <DropStats
-          {...{
-            el: labelDelivery,
-            fields: statsDelivery(el),
-            abs: true,
-          }}
-        />
+        <InfoStore {...{ bookStore: el, abs: true }} />
       </div>
     </div>
   );
 };
 
-export default InfoCardStoreAllUsers;
+export default InfoStoreAllUsersItem;
