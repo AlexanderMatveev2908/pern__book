@@ -14,6 +14,7 @@ import { useGetU } from "@/core/hooks/all/useGetU";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { __cg, isArr } from "@/core/lib/lib";
 import BookStoreItemOwner from "./components/BookStoreItem";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookStores: FC = () => {
   const { user } = useGetU();
@@ -37,6 +38,15 @@ const BookStores: FC = () => {
         canStay: user?.isOwner,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Book Stores", path: "#" },
+          ],
+        }}
+      />
+
       <FormProvider {...formCtx}>
         <SearchBar
           {...{

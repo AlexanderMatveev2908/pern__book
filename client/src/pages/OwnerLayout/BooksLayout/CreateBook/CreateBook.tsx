@@ -1,4 +1,5 @@
 import BookForm from "@/common/forms/BookForm/BookForm";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
@@ -53,6 +54,16 @@ const CreateBook: FC = () => {
         isLoading: someonePending,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Books", path: "/owner/books/list" },
+            { label: "add book", path: "#" },
+          ],
+        }}
+      />
+
       <Title {...{ title: "add book" }} />
 
       <div className="w-full grid justify-items-center gap-6">

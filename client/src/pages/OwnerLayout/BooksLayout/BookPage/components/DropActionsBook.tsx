@@ -24,11 +24,22 @@ const DropActionsBook: FC<PropsType> = ({ book }) => {
   } as any);
 
   const handlers = useMemo(
-    () => ({
-      delete: handleOpenPopup,
-      update: () => nav(`/owner/books/update/${book.id}`),
-    }),
-    [book, nav, handleOpenPopup]
+    () =>
+      Object.fromEntries(
+        Object.entries(actionsBookPage).map(([k, v]) => {
+          switch (k) {
+            case "delete":
+              return [k, handleOpenPopup];
+
+            case "store":
+              return [k, () => nav(`/owner/book-store/${book?.store?.id}`)];
+
+            default:
+              return [k, () => nav(`${v.path}${book.id}`)];
+          }
+        })
+      ),
+    [nav, book.id, handleOpenPopup]
   );
 
   return (

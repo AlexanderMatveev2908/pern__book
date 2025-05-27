@@ -17,6 +17,7 @@ import { useNavigate } from "react-router-dom";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -108,6 +109,19 @@ const CreateBooksStore: FC = () => {
   }, [setValue]);
   return (
     <WrapPageAPI {...{ canStay: user?.isVerified }}>
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            {
+              label: "Book Stores",
+              path: user?.isOwner ? "/owner/book-store/book-stores" : "#",
+            },
+            { label: "create", path: "#" },
+          ],
+        }}
+      />
+
       <Title {...{ title: "create a bookstore" }} />
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>

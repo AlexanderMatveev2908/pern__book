@@ -17,6 +17,7 @@ import {
   ownerBooksSorters,
 } from "@/core/config/fieldsData/SearchBar/owner/books";
 import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BooksList: FC = () => {
   const { user } = useGetU();
@@ -43,6 +44,15 @@ const BooksList: FC = () => {
         canStay: user?.hasBooks,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Books", path: "#" },
+          ],
+        }}
+      />
+
       <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar
