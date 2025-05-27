@@ -14,7 +14,7 @@ type PropsType = {
   abs?: boolean;
 };
 
-const InfoBookStoreWorker: FC<PropsType> = ({ bookStore, abs }) => {
+const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs }) => {
   return (
     <>
       <DropStats
@@ -42,4 +42,4 @@ const InfoBookStoreWorker: FC<PropsType> = ({ bookStore, abs }) => {
   );
 };
 
-export default InfoBookStoreWorker;
+export default InfoStoreMapProp;

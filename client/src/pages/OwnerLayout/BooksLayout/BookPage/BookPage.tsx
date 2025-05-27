@@ -8,7 +8,7 @@ import { type FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
 import { useMixVars } from "@/core/hooks/all/useMixVars";
-import InfoBookPage from "@/components/elements/cards/shared/HOC/InfoBookPage";
+import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookPage: FC = () => {

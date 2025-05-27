@@ -7,7 +7,7 @@ import {
   categoriesStoreLabel,
   labelCardStore,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
-import InfoStore from "../../../shared/HOC/InfoStore";
+import InfoStoreObjProp from "../../../shared/HOC/InfoStoreObjProp";
 
 type PropsType = {
   el: BookStoreType;
@@ -40,7 +40,7 @@ const InfoStoreAllUsersItem: FC<PropsType> = ({ el }) => {
           ))}
         </DropStats>
 
-        <InfoStore {...{ bookStore: el, abs: true }} />
+        <InfoStoreObjProp {...{ bookStore: el, abs: true }} />
       </div>
     </div>
   );

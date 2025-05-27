@@ -8,7 +8,7 @@ import DropActionsOwner from "./components/DropActionsOwner";
 import DropStats from "../../../../components/elements/cards/shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/page/InfoStoreAllUsersPage";
-import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
+import InfoStoreMapProp from "@/components/elements/cards/shared/HOC/InfoStoreMapProp";
 import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
@@ -80,7 +80,7 @@ const BookStorePage: FC = () => {
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
           <InfoStoreAllUsersPage {...{ bookStore }} />
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-            <InfoBookStoreWorker {...{ bookStore }} />
+            <InfoStoreMapProp {...{ bookStore }} />
           </div>
 
           <DropStats
