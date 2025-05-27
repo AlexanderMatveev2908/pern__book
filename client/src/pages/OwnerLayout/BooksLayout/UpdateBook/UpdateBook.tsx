@@ -72,7 +72,7 @@ const UpdateBook: FC = () => {
           els: [
             { label: "admin", path: "#" },
             { label: "Books", path: "/owner/books/list" },
-            { label: "update book", path: "#" },
+            { label: "update", path: "#" },
           ],
         }}
       />
