@@ -14,6 +14,7 @@ import { calcTimeRun } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { ThumbInstance } from "./img&video/Thumb.js";
 import { captAll } from "../../lib/utils/formatters.js";
+import { schemaID } from "./utils/helpers.js";
 
 const ObjectID = pkg.default;
 
@@ -21,27 +22,27 @@ export class User extends Model<
   InferAttributes<User>,
   InferCreationAttributes<User>
 > {
-  declare id: CreationOptional<string>;
+  id!: CreationOptional<string>;
 
-  declare firstName: string;
-  declare lastName: string;
+  firstName!: string;
+  lastName!: string;
 
-  declare email: string;
-  declare tempEmail: CreationOptional<string | null>;
-  declare password: string;
+  email!: string;
+  tempEmail!: CreationOptional<string | null>;
+  password!: string;
 
-  declare role: CreationOptional<UserRole>;
-  declare isVerified: CreationOptional<boolean>;
-  declare isNewsletter: CreationOptional<boolean>;
+  role!: CreationOptional<UserRole>;
+  isVerified!: CreationOptional<boolean>;
+  isNewsletter!: CreationOptional<boolean>;
 
-  declare country: CreationOptional<string>;
-  declare state: CreationOptional<string>;
-  declare city: CreationOptional<string>;
-  declare street: CreationOptional<string>;
-  declare zipCode: CreationOptional<string>;
-  declare phone: CreationOptional<string>;
+  country!: CreationOptional<string>;
+  state!: CreationOptional<string>;
+  city!: CreationOptional<string>;
+  street!: CreationOptional<string>;
+  zipCode!: CreationOptional<string>;
+  phone!: CreationOptional<string>;
 
-  declare thumb?: ThumbInstance;
+  thumb?: ThumbInstance;
 
   async existUser(this: User) {
     return await User.findOne({
@@ -83,12 +84,8 @@ export type UserInstance = InstanceType<typeof User>;
 const defineUser = (seq: Sequelize) =>
   User.init(
     {
-      id: {
-        type: DataTypes.STRING(36),
-        defaultValue: () => v4(),
-        primaryKey: true,
-        allowNull: false,
-      },
+      ...schemaID(),
+
       firstName: {
         type: DataTypes.STRING,
         allowNull: false,
