@@ -1,4 +1,5 @@
 import BookForm from "@/common/forms/BookForm/BookForm";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
@@ -66,6 +67,16 @@ const UpdateBook: FC = () => {
         error,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Books", path: "/owner/books/list" },
+            { label: "update book", path: "#" },
+          ],
+        }}
+      />
+
       <Title {...{ title: "update book" }} />
 
       <div className="w-full grid justify-items-center gap-6">

@@ -42,6 +42,10 @@ const BookPageWorker: FC = () => {
               label: book?.store?.name ?? "Book store",
               path: `/worker/book-stores/${book?.bookStoreID}`,
             },
+            {
+              label: book?.title ?? "Book",
+              path: "#",
+            },
           ],
         }}
       />
