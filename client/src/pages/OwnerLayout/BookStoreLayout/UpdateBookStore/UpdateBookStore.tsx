@@ -32,6 +32,7 @@ import {
   useUpdateBookStoreMutation,
 } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const processTeam = (team: any[]) =>
   team?.length
@@ -188,6 +189,16 @@ const UpdateBookStore: FC = () => {
         error: res?.error,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Book Stores", path: "/owner/book-store/book-stores" },
+            { label: "update book store", path: "#" },
+          ],
+        }}
+      />
+
       <Title {...{ title: "update bookstore" }} />
 
       <div className="w-full grid justify-items-center gap-6">

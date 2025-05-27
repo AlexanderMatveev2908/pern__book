@@ -3,7 +3,7 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { isObjOk } from "@/core/lib/lib";
+import { decapt, isObjOk } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
@@ -41,9 +41,10 @@ const BookStorePageWorker: FC = () => {
         {...{
           els: [
             {
-              label:
+              label: decapt(
                 ((bookStore?.team as any)?.[0]?.bookStoreUser?.role as any) ??
-                "worker",
+                  "worker"
+              ),
               path: "#",
             },
             {
