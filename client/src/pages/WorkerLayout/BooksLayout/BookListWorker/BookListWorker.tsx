@@ -20,6 +20,7 @@ import { useParams } from "react-router-dom";
 import BookItemWorker from "./components/BookItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 
 const BookListWorker: FC = () => {
   const { user } = useGetU();
@@ -35,12 +36,13 @@ const BookListWorker: FC = () => {
   const storeID = useParams()?.bookStoreID;
   const canStay = REG_ID.test(storeID ?? "") && user?.isWorker;
 
-  const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
+  const { innerJoinedCat, setInnerJoinedCat, preSubmit } = useSearchCtx();
 
   useUpdateJoinCat({
     watch,
     innerJoinedCat,
     setInnerJoinedCat,
+    preSubmit,
   });
 
   const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
@@ -95,6 +97,7 @@ const BookListWorker: FC = () => {
               innerJoinCat: true,
               paramID: "bookStoreID",
               defVals,
+              schema: schemaSearchBooks,
             }}
           />
         </FormProvider>

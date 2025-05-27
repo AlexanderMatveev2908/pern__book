@@ -15,6 +15,7 @@ import { FormProvider } from "react-hook-form";
 import BookStoreItemWorker from "./components/BookStoreItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import { schemaWorkerStores } from "@/core/lib/all/forms/schemaZ/SearchBar/worker/stores";
 
 const BookStoreListWorker: FC = () => {
   const { formWorkerBookStores: formCtx } = useFormCtxConsumer();
@@ -60,6 +61,7 @@ const BookStoreListWorker: FC = () => {
               filters: storeFiltersWorker,
               numericFilters: numericFiltersStoreWorker,
               sorters: sorterStoreWorker,
+              schema: schemaWorkerStores,
             }}
           />
         </FormProvider>

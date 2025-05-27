@@ -119,7 +119,7 @@ const PagesCounter: FC<PropsType> = ({
       if (totPages < newBlockCount || maxPossibleBlock > currBlock)
         setCurrBlock(0);
 
-      if (limit !== maxCards)
+      if (limit !== maxCards && !hasFormErrs)
         handlePagination({ limit: "limit", val: maxCards });
     };
 
@@ -136,6 +136,7 @@ const PagesCounter: FC<PropsType> = ({
     page,
     sizeBLock,
     handlePagination,
+    hasFormErrs,
   ]);
 
   const handlePrev = useCallback(

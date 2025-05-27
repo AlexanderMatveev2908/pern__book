@@ -18,20 +18,28 @@ import {
 } from "@/core/config/fieldsData/SearchBar/owner/books";
 import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 
 const BooksList: FC = () => {
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
-  const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
+  const { innerJoinedCat, setInnerJoinedCat, preSubmit } = useSearchCtx();
   const { handleSubmit, watch } = formCtx;
-  const handleSave = handleSubmit(() => {
-    __cg("submitted ✌🏼");
-  });
+  const handleSave = handleSubmit(
+    () => {
+      __cg("submitted ✌🏼");
+    },
+    (errs) => {
+      console.log(errs);
+      return errs;
+    }
+  );
 
   useUpdateJoinCat({
     watch,
     innerJoinedCat,
     setInnerJoinedCat,
+    preSubmit,
   });
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
@@ -65,6 +73,7 @@ const BooksList: FC = () => {
               sorters: ownerBooksSorters,
               // ? JUST A METAPHOR
               innerJoinCat: true,
+              schema: schemaSearchBooks,
             }}
           />
         </FormProvider>

@@ -21,9 +21,10 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
-import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { getDefValsPagination, isStr } from "@/core/lib/lib";
 import { REG_ID } from "@/core/config/regex";
+import { ZodEffects, ZodObject } from "zod";
 
 // ? I LIKE THINKING OF WHAT I HAVE IN MIND LIKE A METAPHORIC INNER JOIN BUT ON FRONTEND CATEGORIES ITEMS AS STRINGS, IF U CHOSE THE MAIN CATEGORY AUTOMATICALLY WILL SEE THE SUB CATEGORIES
 
@@ -37,6 +38,7 @@ type PropsType = {
   innerJoinCat?: boolean;
   paramID?: string;
   defVals?: any;
+  schema: ZodEffects<ZodObject<any, any, any>>;
 };
 
 const SearchBar: FC<PropsType> = ({
@@ -49,6 +51,7 @@ const SearchBar: FC<PropsType> = ({
   innerJoinCat,
   paramID,
   defVals = {},
+  schema,
 }) => {
   const [triggerRtk, res] = hook;
 
@@ -61,12 +64,13 @@ const SearchBar: FC<PropsType> = ({
   const {
     isPending,
     setIsPending,
-    preSubmit: { isPopulated },
+    preSubmit: { isPopulated, canMakeAPI },
   } = ctx;
 
   const formCtx = useFormContext();
-  const { watch, setFocus, getValues } = formCtx;
-  useFocus({ key: txtInputs?.[0].field, setFocus });
+  const { watch, getValues } = formCtx;
+
+  // useFocus({ key: `items.${0}`, setFocus, delay: 1000 });
 
   const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {
@@ -75,7 +79,9 @@ const SearchBar: FC<PropsType> = ({
       [isLoading, isReloading, isError, Object.keys(data ?? {}).length].every(
         (val) => !val
       ) &&
-      isPopulated
+      isPopulated &&
+      schema.safeParse(getValues()).success &&
+      canMakeAPI
     )
       triggerRtk({
         vals: { ...getValues(), ...getDefValsPagination() },
@@ -91,6 +97,8 @@ const SearchBar: FC<PropsType> = ({
     isPopulated,
     routeID,
     defVals,
+    canMakeAPI,
+    schema,
   ]);
 
   const realTimeVals = watch();
@@ -99,12 +107,11 @@ const SearchBar: FC<PropsType> = ({
   usePopulateSearch({
     ctx,
     triggerRtk,
-    setValue: formCtx.setValue,
     filters,
     txtInputs,
-    getValues: formCtx.getValues,
     routeID,
     defVals,
+    schema,
   });
 
   // * DEBOUNCE SUBMIT OF VALS TO SERVER OF 500 ms
