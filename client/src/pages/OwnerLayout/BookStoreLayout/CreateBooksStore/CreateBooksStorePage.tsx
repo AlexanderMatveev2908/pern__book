@@ -113,8 +113,11 @@ const CreateBooksStore: FC = () => {
         {...{
           els: [
             { label: "admin", path: "#" },
-            { label: "Book Stores", path: "/owner/book-store/book-stores" },
-            { label: "add book store", path: "#" },
+            {
+              label: "Book Stores",
+              path: user?.isOwner ? "/owner/book-store/book-stores" : "#",
+            },
+            { label: "create", path: "#" },
           ],
         }}
       />
