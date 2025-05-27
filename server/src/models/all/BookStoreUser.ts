@@ -3,13 +3,14 @@ import { v4 } from "uuid";
 import { UserRole } from "../../types/types.js";
 import { UserInstance } from "./User.js";
 import { BookStoreInstance } from "./BookStore.js";
+import { schemaID } from "./utils/helpers.js";
 
 export class BookStoreUser extends Model {
-  declare id: string;
-  declare userID: string | UserInstance;
-  declare userEmail: string;
-  declare bookStoreID: string | BookStoreInstance;
-  declare role: UserRole;
+  id!: string;
+  userID!: string | UserInstance;
+  userEmail!: string;
+  role!: UserRole;
+  bookStoreID!: string | BookStoreInstance;
 }
 
 export type BookStoreUserInstance = InstanceType<typeof BookStoreUser>;
@@ -17,12 +18,7 @@ export type BookStoreUserInstance = InstanceType<typeof BookStoreUser>;
 export const defineBookStoreUser = (seq: Sequelize) =>
   BookStoreUser.init(
     {
-      id: {
-        type: DataTypes.STRING(36),
-        defaultValue: () => v4(),
-        allowNull: false,
-        primaryKey: true,
-      },
+      ...schemaID(),
       userID: {
         type: DataTypes.STRING(36),
         allowNull: false,

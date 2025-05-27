@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { CloudClass, makeSchemaCloud } from "./cloud.js";
 
 export class VideoBookStore extends CloudClass {
-  declare bookStoreID: string;
+  bookStoreID!: string;
 }
 
 export type VideoBookStoreType = InstanceType<typeof VideoBookStore>;

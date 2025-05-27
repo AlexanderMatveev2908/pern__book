@@ -1,16 +1,16 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
-import {
-  categoriesStoreLabel,
-  fieldsStatsContact,
-  labelFieldAddressStore,
-  labelFieldContact,
-  statsAddress,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
-import { labelCardStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/card";
 import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC, useState } from "react";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import {
+  categoriesStoreLabel,
+  fieldsStatsContact,
+  labelCardStore,
+  labelFieldAddressStore,
+  labelFieldContact,
+  statsAddress,
+} from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 type PropsType = {
   el: BookStoreType;

@@ -1,16 +1,16 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
-import { schemaID } from "./helpers.js";
+import { schemaID } from "./utils/helpers.js";
 
 export class Order extends Model {
-  declare id: CreationOptional<string>;
-  declare paymentID: string;
-  declare clientSecret: string;
-  declare items: any;
-  declare totQty: number;
-  declare amount: number;
-  declare delivery: number;
-  declare discount: number;
-  declare stage: string;
+  id!: CreationOptional<string>;
+  paymentID!: string;
+  clientSecret!: string;
+  items!: any;
+  totQty!: number;
+  amount!: number;
+  delivery!: number;
+  discount!: number;
+  stage!: string;
 }
 
 export type OrderInstance = InstanceType<typeof Order>;

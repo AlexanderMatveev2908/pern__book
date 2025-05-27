@@ -1,5 +1,4 @@
 import { FC, useEffect, useRef } from "react";
-import style from "./Terms.module.css";
 import { FieldErrors } from "react-hook-form";
 import { FormSettersProps } from "@/types/types";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
@@ -18,9 +17,9 @@ const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
         checkRef.current &&
         checkRef.current.contains(e.target as Node)
       ) {
-        checkRef.current.classList.remove(style.checky);
+        checkRef.current.classList.remove("checky");
         requestAnimationFrame(() => {
-          checkRef.current?.classList.add(style.checky);
+          checkRef.current?.classList.add("checky");
         });
       }
     };
@@ -35,11 +34,14 @@ const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
   return (
     <div className="w-fit flex items-center justify-start gap-5 relative">
       <div
+        role="checkbox"
+        aria-checked={check}
+        aria-label="accept terms and conditions"
         onClick={() =>
           setValue("terms", !watch("terms"), { shouldValidate: true })
         }
         ref={checkRef}
-        className={`min-w-[30px] min-h-[30px] rounded-xl relative el__flow cursor-pointer ${style.check__terms}`}
+        className={`min-w-[30px] min-h-[30px] rounded-xl relative el__flow cursor-pointer ${"terms"}`}
         style={
           {
             "--check-color":

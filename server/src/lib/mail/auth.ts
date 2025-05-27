@@ -54,8 +54,6 @@ export const sendEmailAuth = async ({
   const verifyURL = `${frontURL}/verify-cb?token=${token}&userID=${user.id}&event=${event}`;
   const { txt, labelBtn, subject } = getTxt(event);
 
-  console.log(user.email);
-  console.log(newEmail);
   await mailer.sendMail({
     from: myMail,
     to: newEmail ?? user.email,

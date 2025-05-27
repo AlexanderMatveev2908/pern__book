@@ -5,8 +5,8 @@ import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import InfoStatsBookCard from "@/components/elements/cards/books/ItemList/InfoStatsBookCard";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
-import { linksBookCard } from "@/core/config/fieldsData/OwnerLayout/books/read";
 import InfoBookStore from "@/components/elements/cards/books/ItemList/InfoBookStore";
+import { linksBookCard } from "@/core/config/fieldsData/OwnerLayout/books/actions";
 
 type PropsType = {
   el: BookType;

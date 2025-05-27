@@ -4,6 +4,7 @@ import { TestClass } from "../models/all/Test.js";
 export const makeItem = async () => {
   await TestClass.create({
     num: 1,
+    char: "abc",
   });
 };
 

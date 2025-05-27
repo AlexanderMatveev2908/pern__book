@@ -1,13 +1,12 @@
 import { priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
-import { FaBook, FaDatabase, FaLink } from "react-icons/fa";
+import { FaBook, FaDatabase } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
 import { MdOutlineCategory, MdReviews } from "react-icons/md";
 import { v4 } from "uuid";
-import { genValsRating } from "../general";
-import { GrUpdate } from "react-icons/gr";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { CiTextAlignJustify } from "react-icons/ci";
+import { genValsRating } from "../../OwnerLayout/general";
 
 export const labelBookCard = (title: string) => ({
   label: title,
@@ -70,22 +69,6 @@ export const showGeneralStatsBook = (book: BookType) => [
     val: book.qty,
   },
 ];
-
-export const linksBookCard = [
-  {
-    icon: FaLink,
-    label: "Book",
-    path: "/owner/books/",
-  },
-  {
-    icon: GrUpdate,
-    label: "Update",
-    path: "/owner/books/update/",
-  },
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));
 
 export const labelStoreBook = (name: string) => ({
   label: name,
