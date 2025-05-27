@@ -10,10 +10,13 @@ import DropActionsBookWorker from "./components/DropActionsBookWorker";
 import InfoBookPage from "@/components/elements/cards/shared/HOC/InfoBookPage";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const BookPageWorker: FC = () => {
+  const { user } = useGetU();
+
   const bookID = useParams()?.bookID;
-  const itPass = REG_ID.test(bookID ?? "");
+  const itPass = REG_ID.test(bookID ?? "") && user?.isWorker;
 
   const res = booksSliceWorkerAPI.useGetBookWorkerQuery({ bookID: bookID! });
   useWrapQueryAPI({ ...res });

@@ -58,7 +58,10 @@ const CreateBook: FC = () => {
         {...{
           els: [
             { label: "admin", path: "#" },
-            { label: "Books", path: "/owner/books/list" },
+            {
+              label: "Books",
+              path: user?.hasBooks ? "/owner/books/list" : "#",
+            },
             { label: "add book", path: "#" },
           ],
         }}

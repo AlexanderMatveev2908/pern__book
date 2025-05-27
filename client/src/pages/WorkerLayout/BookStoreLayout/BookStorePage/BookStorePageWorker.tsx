@@ -13,8 +13,11 @@ import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoSt
 import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const BookStorePageWorker: FC = () => {
+  const { user } = useGetU();
+
   const bookStoreID = useParams()?.bookStoreID;
   const itPass = REG_ID.test(bookStoreID ?? "");
   const res = bookStoresWorkerSliceAPI.useGetSingleStoreWorkerQuery(
@@ -31,7 +34,7 @@ const BookStorePageWorker: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        canStay: itPass,
+        canStay: itPass && user?.isWorker,
         isLoading: res?.isLoading,
         error: res?.error,
         isError: res?.isError,
