@@ -1,5 +1,5 @@
-import InfoCardStatsStore from "@/components/elements/cards/bookstore/itemList/InfoCardStatsStore";
-import InfoCardStoreAllUsers from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoCardStoreAllUsers";
+import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/itemList/InfoStoreItemBusiness";
+import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoStoreAllUsersItem";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
@@ -25,8 +25,8 @@ const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoCardStoreAllUsers {...{ el }} />
-          <InfoCardStatsStore {...{ el, isOwner: true }} />
+          <InfoStoreAllUsersItem {...{ el }} />
+          <InfoStoreItemBusiness {...{ el, isOwner: true }} />
         </div>
       </div>
 
