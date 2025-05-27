@@ -22,6 +22,7 @@ import {
   handleGetDeletedAssetsStore,
   handleStoreAssetsPut,
 } from "../../lib/sharedHandlers/assetsHandlers/store.js";
+import { User } from "../../models/models.js";
 
 const choseRandom = () => Math.floor(Math.random() * 3);
 
@@ -62,10 +63,15 @@ export const updateBookStore = async (
     const mandatoryObj: Partial<BookStoreInstance> = addMandatoryKeys(bodyData);
     const optObj: Partial<BookStoreInstance> = addOptKeys(bodyData);
 
+    const user = await User.findByPk(userID, {
+      attributes: ["id", "email"],
+    });
+
     await BookStore.update(
       {
         ...mandatoryObj,
         ...optObj,
+        lastUpdatedBy: user!.email,
       },
       {
         where: {

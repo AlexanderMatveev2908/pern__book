@@ -57,6 +57,15 @@ export const defineBook = (seq: Sequelize) =>
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
+
+      createdBy: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      lastUpdatedBy: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
     },
     {
       sequelize: seq,

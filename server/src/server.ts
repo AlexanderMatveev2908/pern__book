@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { connectDB } from "./config/db.js";
+import { connectDB, syncDB } from "./config/db.js";
 import { isDev } from "./config/env.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
@@ -10,6 +10,7 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
+import { clearDB } from "./stuff/clear.js";
 
 const app = express();
 const PORT = +process.env.PORT! || 3000;
@@ -39,6 +40,8 @@ if (!isDev) {
   });
 }
 app.use(errMiddleware);
+
+// clearDB();
 
 // io.on("connection", handleSocket);
 
