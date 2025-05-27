@@ -48,7 +48,7 @@ const BookForm: FC<PropsType> = ({
 
   const categoriesFields: string[] = useMemo(() => {
     const filtered = Object.entries(subcategories).filter((pair) => {
-      const currStore = stores?.find((store) => store.id === storeID);
+      const currStore = (stores ?? [])?.find((store) => store?.id === storeID);
       if (!currStore) return;
 
       return currStore?.categories?.includes(pair[0] as CatBookStore);

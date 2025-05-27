@@ -1,6 +1,7 @@
 import DropHandler from "@/components/elements/DropHandler/DropHandler";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import FocusAnchor from "@/components/forms/FocusAnchor";
+import { isObjOk } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
 import { useEffect, useRef, useState, type FC } from "react";
 import { useFormContext } from "react-hook-form";
@@ -49,7 +50,8 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
 
   useEffect(() => {}, []);
 
-  return !stores?.length ? null : (
+  return !stores?.length ||
+    !(stores ?? [])?.every((el) => isObjOk(el)) ? null : (
     <div className="w-full flex justify-end">
       <div
         ref={dropRef}
@@ -72,9 +74,9 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
         >
           {stores.map((el) => (
             <li
-              key={el.id}
+              key={el?.id}
               className={`w-full py-3 px-4 cursor-pointer hover:text-blue-600 el__flow border-b-2 border-blue-600 last:border-0 ${
-                watch("bookStoreID") === el.id ? "text-blue-600" : ""
+                watch("bookStoreID") === el?.id ? "text-blue-600" : ""
               }`}
               onClick={() => {
                 handleClick(el.id!);
@@ -88,7 +90,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
                   lineClamp: 2,
                 }}
               >
-                {el.name}
+                {el?.name}
               </span>
             </li>
           ))}

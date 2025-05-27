@@ -7,6 +7,7 @@ import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
 import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
+import { useGetU } from "@/core/hooks/all/useGetU";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
@@ -19,8 +20,10 @@ import { FormProvider } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 
 const UpdateBookWorker: FC = () => {
+  const { user } = useGetU();
+
   const bookID = useParams()?.bookID;
-  const isValidID = REG_ID.test(bookID ?? "");
+  const isValidID = REG_ID.test(bookID ?? "") && user?.isWorker;
 
   const nav = useNavigate();
 
