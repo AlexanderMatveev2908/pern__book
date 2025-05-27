@@ -1,14 +1,14 @@
-import {
-  labelBookCard,
-  labelBookInfo,
-  labelCategoriesBook,
-  statsBookInfo,
-} from "@/core/config/fieldsData/OwnerLayout/books/read";
 import { BookType } from "@/types/all/books";
 import { type FC } from "react";
 import DropStats from "../../shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
+import {
+  labelBookCard,
+  labelBookInfo,
+  labelCategoriesBook,
+  statsBookInfo,
+} from "@/core/config/fieldsData/cards/books/books";
 
 type PropsType = {
   el: BookType;

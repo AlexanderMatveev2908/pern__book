@@ -5,10 +5,6 @@ import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsOwner from "./components/DropActionsOwner";
-import {
-  labelTeamStore,
-  statsTeam,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import DropStats from "../../../../components/elements/cards/shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
@@ -21,6 +17,10 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import {
+  labelTeamStore,
+  statsTeam,
+} from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 const BookStorePage: FC = () => {
   const { bookStoreID } = useParams() ?? {};

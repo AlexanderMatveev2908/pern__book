@@ -8,16 +8,17 @@ import {
 } from "sequelize";
 import { TokenEventType } from "../../types/types.js";
 import { v4 } from "uuid";
+import { schemaID } from "./utils/helpers.js";
 
 export class Token extends Model<
   InferAttributes<Token>,
   InferCreationAttributes<Token>
 > {
-  declare id: CreationOptional<string>;
-  declare event: TokenEventType;
-  declare hashed: string;
-  declare expiry: number;
-  declare userID: string;
+  id!: CreationOptional<string>;
+  event!: TokenEventType;
+  hashed!: string;
+  expiry!: number;
+  userID!: string;
 }
 
 export type TokenInstance = InstanceType<typeof Token>;
@@ -25,12 +26,7 @@ export type TokenInstance = InstanceType<typeof Token>;
 const defineToken = (seq: Sequelize) =>
   Token.init(
     {
-      id: {
-        type: DataTypes.STRING(36),
-        defaultValue: () => v4(),
-        primaryKey: true,
-        allowNull: false,
-      },
+      ...schemaID(),
       event: {
         type: DataTypes.ENUM(...Object.values(TokenEventType)),
         allowNull: false,

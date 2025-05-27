@@ -39,6 +39,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
       onClick={handleClick}
       disabled={!txt}
       type="button"
+      aria-label="copy to clipboard"
       ref={btnRef}
       className="tooltip_cpy relative w-full flex appearance-none outline-0  max-w-full h-full"
     >

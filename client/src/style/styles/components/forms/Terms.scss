@@ -1,9 +1,8 @@
-.check__terms {
+.terms {
   border: 2px solid var(--check-color);
-}
-
-.checky {
-  animation: checky 0.5s ease;
+  &.checky {
+    animation: checky 0.5s ease;
+  }
 }
 
 @keyframes checky {

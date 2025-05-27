@@ -1,6 +1,10 @@
 import type { FC } from "react";
 import ImagesScroll from "../ImagesScroll";
 import DropStats from "../Drop/DropStats";
+import { FaDatabase } from "react-icons/fa";
+import DropStatsStatic from "../Drop/DropStatsStatic";
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import { BookType } from "@/types/all/books";
 import {
   fieldsStatsRatingBook,
   labelBookInfo,
@@ -11,11 +15,7 @@ import {
   labelStoreBook,
   showGeneralStatsBook,
   statsBookInfo,
-} from "@/core/config/fieldsData/OwnerLayout/books/read";
-import { FaDatabase } from "react-icons/fa";
-import DropStatsStatic from "../Drop/DropStatsStatic";
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { BookType } from "@/types/all/books";
+} from "@/core/config/fieldsData/cards/books/books";
 
 type PropsType = {
   book: BookType;

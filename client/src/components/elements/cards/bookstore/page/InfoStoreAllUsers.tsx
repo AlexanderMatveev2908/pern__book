@@ -1,3 +1,7 @@
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
+import { BookStoreType } from "@/types/all/bookStore";
+import { FC } from "react";
 import {
   categoriesStoreLabel,
   fieldsStatsContact,
@@ -5,11 +9,7 @@ import {
   labelFieldAddressStore,
   labelFieldContact,
   statsAddress,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
-import { BookStoreType } from "@/types/all/bookStore";
-import { FC } from "react";
+} from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 type PropsType = {
   bookStore?: BookStoreType;

@@ -20,6 +20,7 @@ const ButtonsSwapper: FC<PropsType> = ({
     <div className="w-full grid grid-cols-[50px_1fr_50px] items-center">
       <button
         type="button"
+        aria-label="prev"
         onClick={() => {
           if (currForm) setCurrForm(currForm - 1);
         }}
@@ -46,6 +47,7 @@ const ButtonsSwapper: FC<PropsType> = ({
 
       {currForm === totLen - 1 ? null : (
         <button
+          aria-label="next"
           type="button"
           disabled={isNextDisabled}
           onClick={() => currForm < totLen - 1 && setCurrForm(currForm + 1)}

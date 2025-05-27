@@ -6,6 +6,7 @@ import { ImgBookStoreType } from "./img&video/ImgBookStore.js";
 import { VideoBookStoreType } from "./img&video/VideoBookStore.js";
 import { BookStoreUserInstance } from "./BookStoreUser.js";
 import { BookInstance } from "./Book.js";
+import { schemaID } from "./utils/helpers.js";
 
 export interface TeamType {
   email: string;
@@ -13,33 +14,33 @@ export interface TeamType {
 }
 
 export class BookStore extends Model {
-  declare id: string;
-  declare ownerID: string;
+  id!: string;
+  ownerID!: string;
 
-  declare name: string;
-  declare description?: string | null;
+  name!: string;
+  description?: string | null;
 
-  declare categories: CatBookStore[];
+  categories!: CatBookStore[];
 
-  declare email: string;
-  declare phone: string;
-  declare website?: string | null;
+  email!: string;
+  phone!: string;
+  website?: string | null;
 
-  declare country: string;
-  declare state: string;
-  declare city: string;
-  declare street: string;
-  declare zipCode: string;
+  country!: string;
+  state!: string;
+  city!: string;
+  street!: string;
+  zipCode!: string;
 
-  declare deliveryPrice?: number;
-  declare freeDeliveryAmount?: number;
-  declare deliveryTime: number;
+  deliveryPrice?: number;
+  freeDeliveryAmount?: number;
+  deliveryTime!: number;
 
-  declare team?: BookStoreUserInstance[];
-  declare images?: ImgBookStoreType[];
-  declare video?: VideoBookStoreType;
+  team?: BookStoreUserInstance[];
+  images?: ImgBookStoreType[];
+  video?: VideoBookStoreType;
 
-  declare books?: BookInstance[];
+  books?: BookInstance[];
 }
 
 export type BookStoreInstance = InstanceType<typeof BookStore>;
@@ -47,12 +48,7 @@ export type BookStoreInstance = InstanceType<typeof BookStore>;
 export const defineBookStore = (seq: Sequelize) =>
   BookStore.init(
     {
-      id: {
-        type: DataTypes.STRING(36),
-        defaultValue: () => v4(),
-        primaryKey: true,
-        allowNull: false,
-      },
+      ...schemaID(),
       name: {
         type: DataTypes.STRING,
         allowNull: false,
