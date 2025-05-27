@@ -14,6 +14,11 @@ import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBook
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
+import {
+  fieldsWorkFlowStore,
+  workFlowLabel,
+} from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 const BookStorePageWorker: FC = () => {
   const { user } = useGetU();
@@ -81,9 +86,17 @@ const BookStorePageWorker: FC = () => {
           <InfoStoreAllUsers {...{ bookStore }} />
 
           {role === UserRole.MANAGER && (
-            <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-              <InfoBookStoreWorker {...{ bookStore }} />
-            </div>
+            <>
+              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
+                <InfoBookStoreWorker {...{ bookStore }} />
+              </div>
+              <DropStats
+                {...{
+                  el: workFlowLabel,
+                  fields: fieldsWorkFlowStore(bookStore),
+                }}
+              />
+            </>
           )}
         </div>
 

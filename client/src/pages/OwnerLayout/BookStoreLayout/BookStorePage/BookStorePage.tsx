@@ -121,7 +121,7 @@ const BookStorePage: FC = () => {
           <DropStats
             {...{
               el: workFlowLabel,
-              fields: fieldsWorkFlowStore(bookStore!),
+              fields: fieldsWorkFlowStore(bookStore),
             }}
           />
         </div>
