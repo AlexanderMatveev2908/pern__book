@@ -6,7 +6,7 @@ import {
   categoriesStoreLabel,
   labelDescription,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
-import InfoStore from "../../shared/HOC/InfoStore";
+import InfoStoreObjProp from "../../shared/HOC/InfoStoreObjProp";
 
 type PropsType = {
   bookStore?: BookStoreType;
@@ -42,7 +42,7 @@ const InfoStoreAllUsersPage: FC<PropsType> = ({ bookStore }) => {
       </div>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-3">
-        <InfoStore {...{ bookStore }} />
+        <InfoStoreObjProp {...{ bookStore }} />
       </div>
     </>
   );

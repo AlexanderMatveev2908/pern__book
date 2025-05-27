@@ -14,7 +14,7 @@ type PropsType = {
   el: BookType;
 };
 
-const InfoStatsBookCard: FC<PropsType> = ({ el }) => {
+const DataBookDB: FC<PropsType> = ({ el }) => {
   return (
     <DropStatsStatic {...{ el: labelGeneralStatsBook, border: true }}>
       <DropStats
@@ -32,4 +32,4 @@ const InfoStatsBookCard: FC<PropsType> = ({ el }) => {
   );
 };
 
-export default InfoStatsBookCard;
+export default DataBookDB;
