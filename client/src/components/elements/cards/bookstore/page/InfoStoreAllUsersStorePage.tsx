@@ -17,7 +17,7 @@ type PropsType = {
   bookStore?: BookStoreType;
 };
 
-const InfoStoreAllUsers: FC<PropsType> = ({ bookStore }) => {
+const InfoStoreAllUsersStorePage: FC<PropsType> = ({ bookStore }) => {
   const ids = useCreateIds({
     lengths: [bookStore?.categories?.length],
   });
@@ -37,7 +37,7 @@ const InfoStoreAllUsers: FC<PropsType> = ({ bookStore }) => {
           {...{
             el: labelDescription,
             fields: null,
-            styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
+            styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
           }}
         >
           <li className="w-full flex justify-start">
@@ -72,4 +72,4 @@ const InfoStoreAllUsers: FC<PropsType> = ({ bookStore }) => {
   );
 };
 
-export default InfoStoreAllUsers;
+export default InfoStoreAllUsersStorePage;
