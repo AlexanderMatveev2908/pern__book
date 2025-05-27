@@ -7,11 +7,6 @@ import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import DeliveryForm from "./components/DeliveryForm";
 import TeamForm from "./components/TeamForm";
-import {
-  fieldDescStore,
-  fieldNameStore,
-  fieldsSwapStore,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import TxtField from "@/components/forms/inputs/TxtField";
 import VideoField from "@/components/forms/inputs/VideoField";
@@ -22,6 +17,11 @@ import { useLocation } from "react-router-dom";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
 import OptionalField from "@/components/elements/OptionalField";
+import {
+  fieldDescStore,
+  fieldNameStore,
+  fieldsSwapStore,
+} from "@/core/config/fieldsData/general/forms/bookStores/postPut";
 
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;

@@ -2,7 +2,10 @@ import { v4 } from "uuid";
 import { FormFieldBasic } from "@/types/types";
 import { FaUserSecret } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
-import { capt } from "@/core/lib/lib";
+import {
+  addressFields_0,
+  addressFields_1,
+} from "../general/forms/shared/shared";
 
 const namesFields = [
   {
@@ -16,23 +19,6 @@ const namesFields = [
     place: "Your Last Name...",
   },
 ];
-
-export const addressFields_0 = ["country", "state", "city"].map((el) => ({
-  field: el,
-  label: capt(el),
-}));
-export const addressFields_1 = [
-  "street",
-  { field: "zipCode", label: "Zip Code" },
-  "phone",
-].map((el) =>
-  typeof el === "object"
-    ? el
-    : {
-        field: el,
-        label: capt(el),
-      }
-);
 
 export const fieldsProfileHeader: FormFieldBasic[] = [...namesFields].map(
   (el) => ({

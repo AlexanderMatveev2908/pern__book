@@ -4,12 +4,6 @@ import FormField from "@/components/forms/inputs/FormFields/FormField";
 import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
 import TxtField from "@/components/forms/inputs/TxtField";
 import WrapperFormField from "@/components/HOC/WrapperFormField";
-import {
-  fieldAuthY,
-  fieldDescBook,
-  fieldsPriceQty,
-  titleBookField,
-} from "@/core/config/fieldsData/OwnerLayout/books/create";
 import { useFocus } from "@/core/hooks/hooks";
 import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
@@ -18,6 +12,12 @@ import { BookStoreType, CatBookStore } from "@/types/all/bookStore";
 import CheckBoxSwapper from "@/components/forms/layouts/CheckBoxSwapper/CheckBoxSwapper";
 import { subcategories } from "@/types/all/books";
 import { useLocation } from "react-router-dom";
+import {
+  fieldAuthY,
+  fieldDescBook,
+  fieldsPriceQty,
+  titleBookField,
+} from "@/core/config/fieldsData/general/forms/books/postPut";
 
 type PropsType = {
   handleSave: () => void;
