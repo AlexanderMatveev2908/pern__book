@@ -2,7 +2,7 @@
 import {
   mandatoryKeysStore,
   optKeysStore,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
+} from "@/core/config/fieldsData/general/forms/bookStores/postPut";
 import { isObjOk } from "@/core/lib/lib";
 import { FormBookStoreType } from "@/pages/OwnerLayout/BookStoreLayout/CreateBooksStore/CreateBooksStorePage";
 import { BookStoreType } from "@/types/all/bookStore";

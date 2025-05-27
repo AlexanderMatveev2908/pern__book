@@ -18,11 +18,6 @@ import { __cg, isSameData } from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import {
-  fieldsSwapStore,
-  mandatoryKeysStore,
-  optKeysStore,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import { BookStoreType } from "@/types/all/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
@@ -33,6 +28,11 @@ import {
 } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import {
+  fieldsSwapStore,
+  mandatoryKeysStore,
+  optKeysStore,
+} from "@/core/config/fieldsData/general/forms/bookStores/postPut";
 
 const processTeam = (team: any[]) =>
   team?.length

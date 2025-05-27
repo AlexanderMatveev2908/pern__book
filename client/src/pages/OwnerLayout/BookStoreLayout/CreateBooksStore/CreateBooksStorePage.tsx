@@ -8,7 +8,6 @@ import { FormProvider, useForm } from "react-hook-form";
 import { z } from "zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { fieldsSwapStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errors/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/formatters/bookStore";
 import { __cg } from "@/core/lib/lib";
@@ -18,6 +17,7 @@ import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSch
 import { useGetU } from "@/core/hooks/all/useGetU";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { fieldsSwapStore } from "@/core/config/fieldsData/general/forms/bookStores/postPut";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
