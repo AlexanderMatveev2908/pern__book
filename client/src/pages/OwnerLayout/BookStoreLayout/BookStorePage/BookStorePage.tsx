@@ -48,9 +48,7 @@ const BookStorePage: FC = () => {
     <WrapPageAPI
       {...{
         canStay: user?.isOwner && itPass,
-        isLoading: res?.isLoading,
-        error: res?.error,
-        isError: res?.isError,
+        ...res,
       }}
     >
       <BreadCrumb

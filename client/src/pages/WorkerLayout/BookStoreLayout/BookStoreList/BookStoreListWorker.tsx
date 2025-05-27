@@ -34,7 +34,7 @@ const BookStoreListWorker: FC = () => {
   const { data: { bookStores } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI {...{ canStay: user?.isWorker, isLoading: res?.isLoading }}>
+    <WrapPageAPI {...{ canStay: user?.isWorker }}>
       <BreadCrumb
         {...{
           els: [

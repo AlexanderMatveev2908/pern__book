@@ -12,14 +12,16 @@ type PropsType = {
   push?: boolean;
   error?: any;
   children?: ReactNode | null;
+  isSuccess?: boolean;
 };
 
 const WrapPageAPI: FC<PropsType> = ({
   canStay = true,
+  push = false,
   isLoading = false,
   isError = false,
-  push = false,
   error = null,
+  isSuccess = true,
   children = null,
 }) => {
   const { data, status } = error ?? {};
@@ -65,8 +67,8 @@ const WrapPageAPI: FC<PropsType> = ({
         <ErrIcon {...{ classCSS: "icon_notice__md" }} />
       </div>
     )
-  ) : (
+  ) : isSuccess ? (
     <div className="p_page">{children}</div>
-  );
+  ) : null;
 };
 export default WrapPageAPI;

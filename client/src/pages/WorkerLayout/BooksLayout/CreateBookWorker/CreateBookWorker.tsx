@@ -78,9 +78,7 @@ const CreateBookWorker: FC = () => {
     <WrapPageAPI
       {...{
         canStay: isIdOk && role === UserRole.MANAGER,
-        isLoading: res?.isLoading,
-        error: res?.error,
-        isError: res?.isError,
+        ...res,
       }}
     >
       <BreadCrumb

@@ -7,7 +7,6 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
-import { useMixVars } from "@/core/hooks/all/useMixVars";
 import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 
@@ -15,32 +14,16 @@ const BookPage: FC = () => {
   const { bookID = "" } = useParams();
   const itPass = REG_ID.test(bookID);
 
-  const {
-    user,
-    isLoading: isUserLoading,
-    isError: isUserError,
-    error: userError,
-  } = useGetU();
+  const { user } = useGetU();
 
   const res = booksSLiceAPI.endpoints.getSingleBook.useQuery(bookID, {
     skip: !itPass,
   });
-  const {
-    data: { book } = {},
-    isLoading: isBookLoading,
-    isError: isBookError,
-    error: bookError,
-  } = res;
+  const { data: { book } = {} } = res;
   useWrapQueryAPI({ ...res });
 
-  const isLoading = useMixVars({ varA: isUserLoading, varB: isBookLoading });
-  const isError = useMixVars({ varA: isUserError, varB: isBookError });
-  const error = useMixVars({ varA: userError, varB: bookError });
-
   return (
-    <WrapPageAPI
-      {...{ canStay: user?.hasBooks && itPass, isError, error, isLoading }}
-    >
+    <WrapPageAPI {...{ canStay: user?.hasBooks && itPass, ...res }}>
       <BreadCrumb
         {...{
           els: [
