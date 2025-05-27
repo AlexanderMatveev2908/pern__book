@@ -1,4 +1,4 @@
-import { FaTrashAlt } from "react-icons/fa";
+import { FaLink, FaTrashAlt } from "react-icons/fa";
 import { GrUpdate } from "react-icons/gr";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { v4 } from "uuid";
@@ -23,3 +23,19 @@ export const actionsBookPage = {
     id: v4(),
   },
 };
+
+export const linksBookCard = [
+  {
+    icon: FaLink,
+    label: "Book",
+    path: "/owner/books/",
+  },
+  {
+    icon: GrUpdate,
+    label: "Update",
+    path: "/owner/books/update/",
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
