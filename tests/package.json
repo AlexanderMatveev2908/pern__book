@@ -1,8 +1,8 @@
 {
   "name": "tests",
+  "type": "module",
   "version": "1.0.0",
   "main": "index.js",
-  "scripts": {},
   "keywords": [],
   "author": "",
   "license": "ISC",
@@ -10,6 +10,14 @@
   "packageManager": "yarn@4.9.1",
   "devDependencies": {
     "@playwright/test": "^1.52.0",
+    "@types/pg": "^8",
     "vitest": "^3.1.4"
+  },
+  "dependencies": {
+    "dotenv": "^16.5.0",
+    "pg": "^8.16.0",
+    "sequelize": "^6.37.7",
+    "sequelize-typescript": "^2.1.6",
+    "uuid": "^11.1.0"
   }
 }
