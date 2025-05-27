@@ -94,3 +94,13 @@ export const makeNum = (type: "min" | "max", txt?: string) => {
 
   return isNaN(formatted) ? (type === "min" ? 0 : Infinity) : formatted;
 };
+
+export const formatD = (date: string | Date) =>
+  new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+    weekday: "short",
+  }).format(new Date(date));

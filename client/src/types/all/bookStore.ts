@@ -81,4 +81,8 @@ export interface BookStoreType {
   teamCount?: string;
   managersCount?: string;
   employeesCount?: string;
+
+  createdAt: string;
+  updatedAt: string;
+  lastUpdatedBy: string;
 }
