@@ -3,10 +3,10 @@ import { FC, ReactNode, useCallback } from "react";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FaSearchMinus } from "react-icons/fa";
 import { BtnAct, FormFieldBasic } from "@/types/types";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { cpyObj, getDefValsPagination } from "@/core/lib/lib";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import FormFieldNested from "@/components/forms/inputs/FormFields/FormFieldNested";
 
 type PropsType = {
   children: ReactNode;
@@ -22,11 +22,11 @@ const removeFieldBtn = {
 const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
   const { preSubmit, updateValsNoDebounce, setPreSubmit } = useSearchCtx();
   const {
-    register,
     formState: { errors },
     control,
     getValues,
     watch,
+    setValue,
   } = useFormContext();
 
   const { remove } = useFieldArray({
@@ -70,11 +70,10 @@ const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
     <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
       {(fields ?? []).map((el: FormFieldBasic, i: number) => (
         <div key={el?.id} className="w-full flex gap-5 sm:gap-10">
-          <FormField
+          <FormFieldNested
             {...({
               el,
               showLabel: false,
-              register,
               errors,
               customStyle: "input__lg",
               styleContErr: { top: "-75%", right: "-0%" },
@@ -82,6 +81,9 @@ const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
                 index: i,
                 key: "val",
               },
+              setValue,
+              getValues,
+              watch,
               customCB: () => {
                 if (!preSubmit.canMakeAPI)
                   setPreSubmit({ el: "canMakeAPI", val: true });

@@ -1,48 +1,49 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode } from "react";
-import { canNestedPass, capt } from "@/core/lib/lib.ts";
-import ErrorFormField from "../../Errors/ErrorFormField.tsx";
+import { capt } from "@/core/lib/lib.ts";
 import {
   FormBaseProps,
   FormFieldBasic,
   NestedIndexProp,
 } from "@/types/types.ts";
+import {
+  UseFormGetValues,
+  UseFormSetValue,
+  UseFormWatch,
+} from "react-hook-form";
+import ErrorFormField from "../../Errors/ErrorFormField";
 
 type PropsType = {
   el: FormFieldBasic;
   showLabel?: boolean;
   customStyle?: string;
-  index?: number;
   styleContErr?: {
     [key: string]: string;
   };
-  nestedIndex?: NestedIndexProp;
+  nestedIndex: NestedIndexProp;
   children?: ReactNode;
   customCB?: ((val: any) => void) | null;
   isDisabled?: boolean;
+  setValue: UseFormSetValue<any>;
+  getValues: UseFormGetValues<any>;
+  watch: UseFormWatch<any>;
 } & FormBaseProps;
 
-const FormField: FC<PropsType> = ({
+const FormFieldNested: FC<PropsType> = ({
   el,
-  register,
   errors,
   customStyle,
   showLabel = true,
-  index,
   styleContErr,
   children,
   nestedIndex,
-  customCB,
   isDisabled,
+  setValue,
+  getValues,
+  customCB,
+  watch,
 }) => {
-  const registerParamHook =
-    typeof index === "number"
-      ? `items.${index}.${el.field}`
-      : canNestedPass(nestedIndex)
-      ? `items.${nestedIndex.index}.${nestedIndex.key}`
-      : el.field;
-
-  const registerProp = register(registerParamHook);
+  const param = `items.${nestedIndex.index}.${nestedIndex.key}`;
 
   return (
     <div className={`w-full grid ${isDisabled ? "opacity-50" : ""}`}>
@@ -53,21 +54,35 @@ const FormField: FC<PropsType> = ({
 
         <div className="w-full relative">
           <input
+            value={watch(param)}
             type={el.type ?? "text"}
             step={el.type === "number" ? "any" : undefined}
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
             className={`${customStyle ?? "input__sm"} txt__2`}
             disabled={isDisabled}
-            {...registerProp}
             onChange={(e) => {
-              registerProp.onChange(e);
+              const { value: v } = e.target;
+
+              try {
+                setValue(
+                  "items",
+                  getValues("items").map((el: FormFieldBasic, i: number) =>
+                    i === nestedIndex.index
+                      ? { ...el, [nestedIndex.key]: v }
+                      : el
+                  ),
+                  { shouldValidate: true }
+                );
+              } catch (err) {
+                console.log(err);
+              }
 
               if (typeof customCB === "function") customCB(e.target.value);
             }}
           />
           {children ?? (
             <ErrorFormField
-              {...{ errors, el, nestedIndex, index, styleCont: styleContErr }}
+              {...{ errors, el, nestedIndex, styleCont: styleContErr }}
             />
           )}
         </div>
@@ -75,4 +90,4 @@ const FormField: FC<PropsType> = ({
     </div>
   );
 };
-export default FormField;
+export default FormFieldNested;
