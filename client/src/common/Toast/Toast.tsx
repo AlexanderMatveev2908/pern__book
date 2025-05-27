@@ -116,7 +116,7 @@ const Toast: FC = () => {
   return (
     <div
       ref={toastRef}
-      className={`z__toast toast fixed top-5 right-5 border-[3px] bg-[#000] rounded-xl w-fit min-w-[300px] sm:min-w-[450px] max-w-[80vw] sm:max-w-[500px] md:max-w-[600px] el__toast_container overflow-hidden ${getBorder(
+      className={`z__toast toast fixed top-5 right-5 border-[3px] bg-[#000] rounded-xl w-fit min-w-[300px] sm:min-w-[450px] max-w-[80vw] sm:max-w-[500px] md:max-w-[600px]  overflow-hidden ${getBorder(
         toast?.type as EventApp
       )}`}
       style={{
