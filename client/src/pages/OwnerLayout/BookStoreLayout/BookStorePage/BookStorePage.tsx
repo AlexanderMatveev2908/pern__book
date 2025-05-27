@@ -21,8 +21,8 @@ import {
   fieldsWorkFlowStore,
   labelTeamStore,
   statsTeam,
-  workFlowLabel,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 
 const BookStorePage: FC = () => {
   const { bookStoreID } = useParams() ?? {};

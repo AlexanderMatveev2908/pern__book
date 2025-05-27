@@ -21,6 +21,10 @@ export const updateBookWorker = async (
   const { bookID } = req.params;
   const { userID, body } = req;
 
+  const user = await User.findByPk(userID, {
+    attributes: ["id", "email"],
+  });
+
   const book: BookInstance | null = await Book.findOne({
     where: {
       id: bookID,
@@ -50,6 +54,7 @@ export const updateBookWorker = async (
   if (!book) return err403(res, { msg: "book not found or user not allowed" });
 
   const bookObj = book.toJSON();
+  bookObj.lastUpdatedBy = user!.email;
 
   const [{ bookStoreUser: { role } = {} } = {}]: any =
     bookObj?.store?.team ?? [];

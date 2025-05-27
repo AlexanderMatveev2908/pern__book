@@ -5,11 +5,7 @@ import { FaMapMarkerAlt, FaWarehouse } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
 import { v4 } from "uuid";
 import { genValsRating } from "../../OwnerLayout/general";
-import {
-  MdConnectWithoutContact,
-  MdOutlineCategory,
-  MdUpdate,
-} from "react-icons/md";
+import { MdConnectWithoutContact, MdOutlineCategory } from "react-icons/md";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { HiLibrary } from "react-icons/hi";
 import { IoIosStats } from "react-icons/io";
@@ -144,11 +140,6 @@ export const labelCardStore = (name: string) => ({
 export const statsCardStore = {
   label: "Info",
   icon: IoIosStats,
-};
-
-export const workFlowLabel = {
-  label: "Work flow",
-  icon: MdUpdate,
 };
 
 export const fieldsWorkFlowStore = (store?: BookStoreType) =>
