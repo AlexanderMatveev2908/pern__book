@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { CloudClass, makeSchemaCloud } from "./cloud.js";
 
 export class Thumb extends CloudClass {
-  declare userID: string;
+  userID!: string;
 }
 
 export type ThumbInstance = InstanceType<typeof Thumb>;

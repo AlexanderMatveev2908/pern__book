@@ -1,14 +1,14 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { refSql, schemaID } from "./helpers.js";
+import { refSql, schemaID } from "./utils/helpers.js";
 
 export class Review extends Model {
-  declare id: string;
-  declare userID: string;
-  declare bookStoreID: string;
-  declare title: string;
-  declare rating: string;
-  declare description: string;
-  declare images: any;
+  id!: string;
+  userID!: string;
+  bookStoreID!: string;
+  title!: string;
+  rating!: string;
+  description!: string;
+  images!: any;
 }
 
 export type ReviewInstance = InstanceType<typeof Review>;
