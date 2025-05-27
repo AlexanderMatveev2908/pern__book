@@ -6,7 +6,7 @@ type Params = {
 };
 
 export const useCreateIds = ({ lengths }: Params): string[][] => {
-  const maxLen = JSON.stringify(lengths ?? []).length;
+  const maxLen = JSON.stringify(lengths ?? []);
 
   const idsArr = useMemo(
     () =>

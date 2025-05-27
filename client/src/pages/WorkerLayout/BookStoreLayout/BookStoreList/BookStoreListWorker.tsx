@@ -14,9 +14,12 @@ import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItemWorker from "./components/BookStoreItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const BookStoreListWorker: FC = () => {
   const { formWorkerBookStores: formCtx } = useFormCtxConsumer();
+
+  const { user } = useGetU();
 
   const { handleSubmit } = formCtx;
 
@@ -31,7 +34,7 @@ const BookStoreListWorker: FC = () => {
   const { data: { bookStores } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI {...{ isLoading: res?.isLoading }}>
+    <WrapPageAPI {...{ canStay: user?.isWorker, isLoading: res?.isLoading }}>
       <BreadCrumb
         {...{
           els: [

@@ -61,7 +61,7 @@ const Popup: FC = () => {
         >
           {ids.map((id, i) =>
             arrBtn[i]?.isPending ? (
-              <SpinnerBtn />
+              <SpinnerBtn key={id} />
             ) : (
               <button
                 disabled={

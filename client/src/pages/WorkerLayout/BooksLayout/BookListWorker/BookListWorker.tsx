@@ -19,8 +19,11 @@ import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import BookItemWorker from "./components/BookItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { useGetU } from "@/core/hooks/all/useGetU";
 
 const BookListWorker: FC = () => {
+  const { user } = useGetU();
+
   const [defVals, setDefVals] = useState<{ [key: string]: string[] }>({});
 
   const { formSearchBooksWorkerCtx: formCtx } = useFormCtxConsumer();
@@ -30,7 +33,7 @@ const BookListWorker: FC = () => {
   });
 
   const storeID = useParams()?.bookStoreID;
-  const canStay = REG_ID.test(storeID ?? "");
+  const canStay = REG_ID.test(storeID ?? "") && user?.isWorker;
 
   const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
 
