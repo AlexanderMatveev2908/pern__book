@@ -5,10 +5,12 @@ import { FC } from "react";
 import {
   categoriesStoreLabel,
   fieldsStatsContact,
+  labelDelivery,
   labelDescription,
   labelFieldAddressStore,
   labelFieldContact,
   statsAddress,
+  statsDelivery,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 type PropsType = {
@@ -51,10 +53,18 @@ const InfoStoreAllUsers: FC<PropsType> = ({ bookStore }) => {
             fields: statsAddress(bookStore),
           }}
         />
+
         <DropStats
           {...{
             el: labelFieldContact,
             fields: fieldsStatsContact(bookStore),
+          }}
+        />
+
+        <DropStats
+          {...{
+            el: labelDelivery,
+            fields: statsDelivery(bookStore),
           }}
         />
       </div>

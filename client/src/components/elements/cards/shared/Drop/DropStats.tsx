@@ -71,7 +71,7 @@ const DropStats: FC<PropsType> = ({ el, fields, children, styleUL, abs }) => {
           fields?.map((el, i) => (
             <li
               key={ids?.[0]?.[i]}
-              className="w-full flex justify-between items-center pr-4 gap-3"
+              className="w-full flex justify-between items-center pr-4 gap-10"
             >
               <div
                 className={`flex justify-start ${abs ? "min-w-[75px]" : ""}`}

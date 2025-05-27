@@ -25,8 +25,13 @@ const InfoCardStatsStore: FC<PropsType> = ({ el, isOwner }) => {
           {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
         />
       )}
+
       <DropStats
-        {...{ el: workFlowLabel, fields: fieldsWorkFlowStore(el), abs: true }}
+        {...{
+          el: workFlowLabel,
+          fields: fieldsWorkFlowStore(el!),
+          abs: true,
+        }}
       />
     </DropStatsStatic>
   );
