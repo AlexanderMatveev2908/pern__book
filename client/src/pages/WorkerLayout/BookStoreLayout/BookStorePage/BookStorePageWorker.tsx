@@ -9,7 +9,7 @@ import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
-import InfoStoreAllUsers from "@/components/elements/cards/bookstore/page/InfoStoreAllUsers";
+import InfoStoreAllUsersStorePage from "@/components/elements/cards/bookstore/page/InfoStoreAllUsersStorePage";
 import InfoBookStoreWorker from "@/components/elements/cards/shared/HOC/InfoBookStoreWorker";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
@@ -81,7 +81,7 @@ const BookStorePageWorker: FC = () => {
         />
 
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <InfoStoreAllUsers {...{ bookStore }} />
+          <InfoStoreAllUsersStorePage {...{ bookStore }} />
 
           {role === UserRole.MANAGER && (
             <>
