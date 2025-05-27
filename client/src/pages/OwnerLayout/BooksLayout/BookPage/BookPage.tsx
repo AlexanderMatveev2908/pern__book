@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
 import { useMixVars } from "@/core/hooks/all/useMixVars";
 import InfoBookPage from "@/components/elements/cards/shared/HOC/InfoBookPage";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookPage: FC = () => {
   const { bookID = "" } = useParams();
@@ -40,6 +41,15 @@ const BookPage: FC = () => {
     <WrapPageAPI
       {...{ canStay: user?.hasBooks && itPass, isError, error, isLoading }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Books", path: "/owner/books/list" },
+            { label: book?.title ?? "book", path: "#" },
+          ],
+        }}
+      />
       {!book ? null : (
         <div className="p_form__1 ">
           <Title {...{ title: book?.title }} />

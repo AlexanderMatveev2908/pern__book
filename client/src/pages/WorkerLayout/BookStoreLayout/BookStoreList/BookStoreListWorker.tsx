@@ -13,6 +13,7 @@ import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/boo
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItemWorker from "./components/BookStoreItemWorker";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookStoreListWorker: FC = () => {
   const { formWorkerBookStores: formCtx } = useFormCtxConsumer();
@@ -31,6 +32,21 @@ const BookStoreListWorker: FC = () => {
 
   return (
     <WrapPageAPI {...{ isLoading: res?.isLoading }}>
+      <BreadCrumb
+        {...{
+          els: [
+            {
+              label: "worker",
+              path: "#",
+            },
+            {
+              label: "book stores",
+              path: "#",
+            },
+          ],
+        }}
+      />
+
       <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar

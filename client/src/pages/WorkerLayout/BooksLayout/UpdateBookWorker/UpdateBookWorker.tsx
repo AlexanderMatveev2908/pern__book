@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import BookForm from "@/common/forms/BookForm/BookForm";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
@@ -87,6 +88,25 @@ const UpdateBookWorker: FC = () => {
         error,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            {
+              label: role ?? "worker",
+              path: "#",
+            },
+            {
+              label: book?.store?.name ?? "Book store",
+              path: `/worker/book-stores/${book?.bookStoreID}`,
+            },
+            {
+              label: "update book",
+              path: "#",
+            },
+          ],
+        }}
+      />
+
       <Title {...{ title: "update book" }} />
 
       <div className="w-full grid justify-items-center gap-6">

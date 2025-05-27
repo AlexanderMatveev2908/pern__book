@@ -9,6 +9,7 @@ import { useParams } from "react-router-dom";
 import DropActionsBookWorker from "./components/DropActionsBookWorker";
 import InfoBookPage from "@/components/elements/cards/shared/HOC/InfoBookPage";
 import { UserRole } from "@/types/types";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookPageWorker: FC = () => {
   const bookID = useParams()?.bookID;
@@ -30,6 +31,25 @@ const BookPageWorker: FC = () => {
         isError: res?.isError,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            {
+              label: role ?? "worker",
+              path: "#",
+            },
+            {
+              label: book?.store?.name ?? "Book store",
+              path: `/worker/book-stores/${book?.bookStoreID}`,
+            },
+            {
+              label: book?.title ?? "Book",
+              path: "#",
+            },
+          ],
+        }}
+      />
+
       <div className="p_form__1 ">
         <Title {...{ title: book?.title }} />
 

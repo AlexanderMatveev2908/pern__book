@@ -31,13 +31,13 @@ const Popup: FC = () => {
   return (
     <>
       <div
-        className={`z__popup_bg popup bg-black/50 inset-0 ${
+        className={`z__popup_bg  bg-black/50 inset-0 ${
           popupState.isPopup ? "fixed" : "hidden"
         }`}
       ></div>
       <div
         ref={popRef}
-        className={`z__popup fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 border-[3px] border-blue-600 rounded-xl p-6 bg-[#000] min-w-[80%] min-h-1/2 sm:max-w-[600px] sm:min-w-[600px] grid grid-cols-1 justify-items-center txt__col gap-10 sm:gap-20 transition-all duration-[0.4s] pop ${
+        className={`z__popup popup fixed top-1/2 left-1/2 -translate-y-1/2 -translate-x-1/2 border-[3px] border-blue-600 rounded-xl p-6 bg-[#000] min-w-[80%] min-h-1/2 sm:max-w-[600px] sm:min-w-[600px] grid grid-cols-1 justify-items-center txt__col gap-10 sm:gap-20 transition-all duration-[0.4s] pop ${
           popupState.isPopup ? "pointer-events-auto" : "pointer-events-none"
         } ${typeof popupState.isPopup === "object" ? "opacity-0" : ""} `}
       >

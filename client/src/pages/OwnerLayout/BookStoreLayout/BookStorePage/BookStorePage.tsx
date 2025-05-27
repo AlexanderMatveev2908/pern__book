@@ -20,6 +20,7 @@ import { useClearCacheItem } from "@/core/hooks/all/useClearCacheItem";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const BookStorePage: FC = () => {
   const { bookStoreID } = useParams() ?? {};
@@ -50,6 +51,16 @@ const BookStorePage: FC = () => {
         isError: res?.isError,
       }}
     >
+      <BreadCrumb
+        {...{
+          els: [
+            { label: "admin", path: "#" },
+            { label: "Book Stores", path: "/owner/book-store/book-stores" },
+            { label: bookStore?.name ?? "book store", path: "#" },
+          ],
+        }}
+      />
+
       <div
         className={`p_form__1 ${
           isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
