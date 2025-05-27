@@ -1,7 +1,7 @@
 import { FormFieldBasic, MySelectFieldType, UserRole } from "@/types/types";
 import { v4 } from "uuid";
-import { addressFields_0, addressFields_1 } from "../../UserLayout/pofile";
 import { decapt } from "@/core/lib/lib";
+import { addressFields_0, addressFields_1 } from "../shared/shared";
 
 export const fieldNameStore: FormFieldBasic = {
   field: "name",

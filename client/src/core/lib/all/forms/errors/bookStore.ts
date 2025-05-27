@@ -1,12 +1,12 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
+import { FieldErrors, UseFormSetFocus } from "react-hook-form";
+import { makeDelay } from "../../API/API";
 import {
   fieldsContact,
   fieldsDelivery,
   fieldsSwapStore,
-} from "@/core/config/fieldsData/OwnerLayout/bookStore/post";
-import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
-import { FieldErrors, UseFormSetFocus } from "react-hook-form";
-import { makeDelay } from "../../API/API";
+} from "@/core/config/fieldsData/general/forms/bookStores/postPut";
 
 //
 export const handleFocusErrStore = async (
