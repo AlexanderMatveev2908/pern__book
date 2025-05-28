@@ -7,7 +7,7 @@ const DeliveryForm: FC = () => {
   const {
     register,
     formState: { errors },
-    trigger,
+    trigger: triggerRHF,
   } = useFormContext();
 
   return (
@@ -21,7 +21,7 @@ const DeliveryForm: FC = () => {
             errors,
             customCB:
               el.field === "deliveryPrice"
-                ? () => trigger("freeDeliveryAmount")
+                ? () => triggerRHF("freeDeliveryAmount")
                 : null,
           }}
         />

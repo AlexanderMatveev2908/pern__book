@@ -21,7 +21,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     register,
     formState: { errors },
     getValues,
-    trigger,
+    trigger: triggerRHF,
   } = useFormContext();
   const {
     searchers: { currFilter },
@@ -167,7 +167,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
 
                     const str = el.field.includes("min") ? "min" : "max";
 
-                    trigger(el.field.replace(str, obj[str]));
+                    triggerRHF(el.field.replace(str, obj[str]));
                   },
                 }}
               >
