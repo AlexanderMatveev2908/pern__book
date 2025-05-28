@@ -52,8 +52,6 @@ const App: FC = () => {
 
   useNinjaToken();
 
-  // render please deploy app
-
   return (
     <Routes>
       <Route path="/" element={<MainLayout />}>
