@@ -44,7 +44,6 @@ const Register: FC = () => {
 
   const dispatch = useDispatch();
   const {
-    register,
     control,
     formState: { errors },
     watch,
@@ -52,6 +51,7 @@ const Register: FC = () => {
     handleSubmit,
     reset,
     setFocus,
+    trigger: triggerRHF,
   } = useForm<RegisterFormType>({
     mode: "onChange",
     resolver: zodResolver(schemaRegister),
@@ -164,12 +164,16 @@ const Register: FC = () => {
               >
                 <PairPwd
                   {...{
-                    register,
+                    control,
                     errors,
                     mainPwd,
                     confirmPwd,
                     pwd,
                     fields: fieldsAuth__1,
+                    customCbs: [
+                      () => triggerRHF("confirmPassword"),
+                      () => triggerRHF("password"),
+                    ],
                   }}
                 />
 
