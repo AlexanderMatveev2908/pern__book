@@ -39,7 +39,7 @@ const FormField: FC<PropsType> = ({
     typeof index === "number"
       ? `items.${index}.${el.field}`
       : canNestedPass(nestedIndex)
-      ? `items.${nestedIndex!.index}.${nestedIndex!.key}`
+      ? `items.${nestedIndex.index}.${nestedIndex.key}`
       : el.field;
 
   const registerProp = register(registerParamHook);
@@ -64,7 +64,6 @@ const FormField: FC<PropsType> = ({
 
               if (typeof customCB === "function") customCB(e.target.value);
             }}
-            // {...register(registerParamHook)}
           />
           {children ?? (
             <ErrorFormField

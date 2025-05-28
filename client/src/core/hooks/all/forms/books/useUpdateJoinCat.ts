@@ -10,19 +10,22 @@ type Params = {
   watch: UseFormWatch<any>;
   innerJoinedCat: FieldJoinCatType[];
   setInnerJoinedCat: (val: FieldJoinCatType[]) => void;
+  preSubmit: any;
 };
 
 export const useUpdateJoinCat = ({
   watch,
   innerJoinedCat,
   setInnerJoinedCat,
+  preSubmit,
 }: Params) => {
+  const { hasFormErrs } = preSubmit ?? {};
   const mainCatRealTime = watch("mainCategories");
 
   useEffect(() => {
     const mainCat = mainCatRealTime ?? [];
 
-    if (mainCat.length && !innerJoinedCat.length) {
+    if (mainCat.length && !innerJoinedCat.length && !hasFormErrs) {
       const updatedJoinedFields: FieldJoinCatType[] = Object.entries(
         subcategories
       )
@@ -38,7 +41,7 @@ export const useUpdateJoinCat = ({
 
       setInnerJoinedCat(updatedJoinedFields);
     }
-  }, [mainCatRealTime, innerJoinedCat, setInnerJoinedCat]);
+  }, [mainCatRealTime, innerJoinedCat, setInnerJoinedCat, hasFormErrs]);
 
   return {};
 };

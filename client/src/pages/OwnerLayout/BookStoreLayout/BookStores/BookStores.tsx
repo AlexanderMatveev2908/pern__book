@@ -15,6 +15,7 @@ import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSl
 import { __cg, isArr } from "@/core/lib/lib";
 import BookStoreItemOwner from "./components/BookStoreItem";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/store";
 
 const BookStores: FC = () => {
   const { user } = useGetU();
@@ -56,6 +57,7 @@ const BookStores: FC = () => {
             filters: storeFilters,
             numericFilters: numericFiltersStore,
             sorters: sorterStore,
+            schema: searchBarStore,
           }}
         />
       </FormProvider>

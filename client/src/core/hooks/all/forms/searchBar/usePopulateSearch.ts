@@ -1,42 +1,39 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cpyObj, getStorage, isObjOk, isStr } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect, useRef } from "react";
-import {
-  FieldValues,
-  Path,
-  UseFormGetValues,
-  UseFormSetValue,
-} from "react-hook-form";
+import { Path, useFormContext } from "react-hook-form";
 import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { getDefValsPagination } from "@/core/lib/lib";
 import { v4 } from "uuid";
 import { REG_ID } from "@/core/config/regex";
+import { ZodEffects, ZodObject } from "zod";
 
-type Params<T extends FieldValues> = {
+type Params = {
   txtInputs?: FormFieldBasic[];
   filters?: FilterSearch[];
   ctx: SearchCtxValsConsumer;
-  setValue: UseFormSetValue<T>;
   triggerRtk: any;
-  getValues: UseFormGetValues<T>;
   routeID?: string;
   defVals?: any;
+  schema: ZodEffects<ZodObject<any, any, any>>;
 };
 export const usePopulateSearch = ({
   txtInputs,
   filters,
   ctx,
-  setValue,
-  getValues,
   triggerRtk,
   routeID,
   defVals,
-}: Params<any>) => {
+  schema,
+}: Params) => {
   const hasRun = useRef<boolean>(false);
   const { keyStorage } = useGetSearchKeysStorage();
   const { setPagination, setSearch, oldVals, setPreSubmit } = ctx;
+
+  const { setValue, getValues, reset, trigger: triggerRHF } = useFormContext();
 
   useEffect(() => {
     if (
@@ -62,7 +59,10 @@ export const usePopulateSearch = ({
         ...getDefValsPagination(),
         ...defVals,
       });
-      setValue("items", valsFb.items, { shouldValidate: true });
+
+      setValue("items", valsFb.items, {
+        shouldValidate: true,
+      });
       if (isObjOk(defVals)) {
         for (const k in defVals)
           setValue(k as Path<any>, defVals[k], {
@@ -72,14 +72,16 @@ export const usePopulateSearch = ({
       }
 
       oldVals.current = valsFb;
-      triggerRtk({ vals: valsFb, routeID });
       setPreSubmit({ el: "isPopulated", val: true });
-      return;
+      if (!schema.safeParse(defVals).success) return;
+
+      triggerRtk({ vals: valsFb, routeID });
     }
 
-    const storageData = JSON.parse(savedVals);
+    const storageData = JSON.parse(savedVals!);
+    const { page, limit, ...dataRHF } = storageData;
     const parsed = cpyObj({
-      ...storageData,
+      ...dataRHF,
       items: existingItems.length
         ? existingItems
         : storageData?.items?.length
@@ -87,14 +89,8 @@ export const usePopulateSearch = ({
         : fallBackItems,
     });
 
-    for (const key in parsed) {
-      const val = parsed[key];
-
-      setValue(key as Path<any>, val, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
+    reset(parsed);
+    triggerRHF();
 
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
 
@@ -106,9 +102,10 @@ export const usePopulateSearch = ({
     };
 
     oldVals.current = merged;
-    triggerRtk({ vals: merged, routeID });
-
     setPreSubmit({ el: "isPopulated", val: true });
+
+    if (!schema.safeParse(parsed).success) return;
+    triggerRtk({ vals: merged, routeID });
   }, [
     triggerRtk,
     getValues,
@@ -122,5 +119,8 @@ export const usePopulateSearch = ({
     oldVals,
     routeID,
     defVals,
+    schema,
+    triggerRHF,
+    reset,
   ]);
 };
