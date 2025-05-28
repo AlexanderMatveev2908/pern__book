@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SearchBooksOwnerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import { catchErr } from "@/core/lib/lib";
@@ -34,6 +33,14 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         method: "POST",
         data,
       }),
+      invalidatesTags: [
+        {
+          type: TagsAPI.BOOK_STORE_LIST,
+          id: "LIST",
+        },
+        TagsAPI.BOOK_STORE,
+        TagsAPI.BOOKS_OWNER_LIST,
+      ],
       async onQueryStarted(_, { dispatch, queryFulfilled }) {
         await catchErr(async () => {
           await queryFulfilled;
@@ -67,7 +74,12 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [TagsAPI.BOOK_OWNER],
+      invalidatesTags: [
+        { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_OWNER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE,
+        TagsAPI.BOOK_OWNER,
+      ],
     }),
 
     getSingleBook: builder.query<BaseResAPI<{ book: BookType }>, string>({
@@ -83,7 +95,13 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/${bookID}`,
         method: "DELETE",
       }),
-      invalidatesTags: [TagsAPI.USER],
+      invalidatesTags: [
+        { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_OWNER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE,
+        TagsAPI.BOOK_OWNER,
+        TagsAPI.USER,
+      ],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await catchErr(async () => {
           await queryFulfilled;
