@@ -11,7 +11,7 @@ import {
 import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useUpdateJoinCatMount } from "@/core/hooks/all/forms/books/useUpdateJoinCatMount";
+import { useUpdateJoinCatMount } from "@/core/hooks/all/forms/searchBar/useUpdateJoinCatMount";
 import { __cg, decapt, isArr } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
 import { useEffect, useState, type FC } from "react";
@@ -36,7 +36,7 @@ const BookListWorker: FC = () => {
   const storeID = useParams()?.bookStoreID;
   const canStay = REG_ID.test(storeID ?? "") && user?.isWorker;
 
-  const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
+  const { innerJoinedCatCtx, setInnerJoinedCat } = useSearchCtx();
 
   const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
   const res = hook[1];
@@ -44,7 +44,7 @@ const BookListWorker: FC = () => {
 
   useUpdateJoinCatMount({
     watch,
-    innerJoinedCat,
+    innerJoinedCatCtx,
     setInnerJoinedCat,
   });
 

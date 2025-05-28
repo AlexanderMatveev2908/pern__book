@@ -2,7 +2,7 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
+import { useUpdateJoinCat } from "@/core/hooks/all/forms/searchBar/useUpdateJoinCat";
 import { FilterSubField, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
@@ -22,7 +22,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
   const {
     searchers: { currFilter },
     setInnerJoinedCat,
-    innerJoinedCat,
+    innerJoinedCatCtx,
   } = useSearchCtx();
 
   const { updateJoinCat } = useUpdateJoinCat();
@@ -90,9 +90,9 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
       currFilter?.field === "subCategories" &&
       innerJoinCat &&
       mainCatRealTime?.length
-        ? { label: "subCategories", fields: innerJoinedCat }
+        ? { label: "subCategories", fields: innerJoinedCatCtx }
         : currFilter,
-    [currFilter, mainCatRealTime, innerJoinCat, innerJoinedCat]
+    [currFilter, mainCatRealTime, innerJoinCat, innerJoinedCatCtx]
   );
 
   return (
