@@ -39,7 +39,10 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [TagsAPI.BOOK_STORE_WORKER],
+      invalidatesTags: (_, __, { bookStoreID }) => [
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: bookStoreID },
+        TagsAPI.BOOK_STORE_WORKER,
+      ],
     }),
 
     getAllStoresWorker: builder.query<

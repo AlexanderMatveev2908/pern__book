@@ -74,9 +74,9 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [
+      invalidatesTags: (_, __, { bookID }) => [
         { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
-        { type: TagsAPI.BOOKS_OWNER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_OWNER_LIST, id: bookID },
         TagsAPI.BOOK_STORE,
         TagsAPI.BOOK_OWNER,
       ],
@@ -95,11 +95,10 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/${bookID}`,
         method: "DELETE",
       }),
-      invalidatesTags: [
+      invalidatesTags: (_, __, arg) => [
         { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
-        { type: TagsAPI.BOOKS_OWNER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_OWNER_LIST, id: arg },
         TagsAPI.BOOK_STORE,
-        TagsAPI.BOOK_OWNER,
         TagsAPI.USER,
       ],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {

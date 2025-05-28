@@ -68,7 +68,6 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
-      keepUnusedDataFor: Infinity,
       providesTags: (res) =>
         res?.bookStores?.length
           ? [
@@ -103,7 +102,11 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [TagsAPI.BOOK_STORE, TagsAPI.USER],
+      invalidatesTags: (_, __, { bookStoreID }) => [
+        { type: TagsAPI.BOOK_STORE_LIST, id: bookStoreID },
+        TagsAPI.BOOK_STORE,
+        TagsAPI.USER,
+      ],
       async onQueryStarted({ bookStoreID }, { queryFulfilled, dispatch }) {
         await catchErr(async () => {
           await queryFulfilled;
@@ -128,6 +131,11 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
         url: BASE_URL + "/" + bookStoreID,
         method: "DELETE",
       }),
+      invalidatesTags: (_, __, id) => [
+        { type: TagsAPI.BOOK_STORE_LIST, id },
+        { type: TagsAPI.USER },
+      ],
+
       // invalidatesTags: [TagsAPI.USER],
       async onQueryStarted(id, { dispatch, queryFulfilled }) {
         await catchErr(async () => {
@@ -138,18 +146,9 @@ export const bookStoreSliceAPI = apiSlice.injectEndpoints({
               "getBookStore",
               id,
               (draft) => {
-                draft.ninja = "🥷🏼";
+                draft.bookStore = null!;
               }
             )
-          );
-
-          dispatch(
-            bookStoreSliceAPI.util.invalidateTags([
-              { type: TagsAPI.BOOK_STORE_LIST, id },
-              { type: TagsAPI.BOOK_STORE_LIST, id: "LIST" },
-              { type: TagsAPI.USER },
-              // { type: TagsAPI.STORES_INFO },
-            ])
           );
         });
       },
