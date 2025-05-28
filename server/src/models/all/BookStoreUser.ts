@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 import { UserRole } from "../../types/types.js";
 import { UserInstance } from "./User.js";
 import { BookStoreInstance } from "./BookStore.js";
-import { schemaID } from "./utils/helpers.js";
+import { refSql, schemaID } from "./utils/helpers.js";
 
 export class BookStoreUser extends Model {
   id!: string;
@@ -19,26 +19,12 @@ export const defineBookStoreUser = (seq: Sequelize) =>
   BookStoreUser.init(
     {
       ...schemaID(),
-      userID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
+      userID: refSql("users"),
       userEmail: {
         type: DataTypes.STRING,
         allowNull: false,
       },
-      bookStoreID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "book_stores",
-          key: "id",
-        },
-      },
+      bookStoreID: refSql("book_stores"),
       role: {
         type: DataTypes.ENUM(
           ...Object.values(UserRole).filter(
