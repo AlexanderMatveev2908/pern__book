@@ -65,7 +65,7 @@ const PagesCounter: FC<PropsType> = ({
 
       const data = cpyObj({
         ...getValues(),
-        page: pageParam ? val : page ?? 0,
+        page: pageParam ? val : 0,
         limit: limitParam ? val : setLimitCards(),
       });
       oldVals.current = data;
@@ -84,7 +84,6 @@ const PagesCounter: FC<PropsType> = ({
       setPagination,
       getValues,
       routeID,
-      page,
     ]
   );
 

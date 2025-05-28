@@ -78,7 +78,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
       />
 
       <ul
-        className={`absolute z-60 bg-neutral-950 el__border_sm w-[250%] -left-[150%] top-14 transition-all duration-[0.4s] ${
+        className={`absolute z-60 bg-neutral-950 el__border_sm w-[250%] -left-[150%] top-14 transition-all duration-[0.4s] max-h-[150px] pr-1 overflow-y-auto scroll_app scroll_y ${
           isDropOpen
             ? "opacity-100 translate-y-0"
             : "translate-y-[75px] opacity-0 pointer-events-none"

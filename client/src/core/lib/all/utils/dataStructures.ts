@@ -99,7 +99,8 @@ export const clearTimer = (timerID: React.RefObject<NodeJS.Timeout | null>) => {
 
 export const isStr = (str?: string) => str?.trim()?.length;
 
-export const isArr = <T>(arr?: T[]) => Array.isArray(arr) && !!arr?.length;
+export const isArr = <T>(arr?: T[]): boolean =>
+  Array.isArray(arr) && !!arr?.length;
 
 export const replacePoint = (val: number) => (val + "").replace(".", "_");
 
