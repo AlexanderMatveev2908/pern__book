@@ -145,6 +145,15 @@ const myCollFlatSql: FindAttributeOptions = {
             )`),
       "reviewsCount",
     ],
+    [
+      literal(`(
+      SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+      FROM  "books" AS b
+      INNER JOIN "reviews" AS r ON b.id = r."bookID"
+      WHERE b."bookStoreID" = "BookStore"."id"
+      )`),
+      "avgRating",
+    ],
     ...(countTo_5().map((pair) => [
       literal(`(
             SELECT COALESCE(COUNT(DISTINCT r.id), 0)

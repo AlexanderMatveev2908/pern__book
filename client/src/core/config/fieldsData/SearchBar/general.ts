@@ -92,7 +92,10 @@ export const commonFieldsTxtInputsStore = [
     field: "city",
     label: "City",
   },
-];
+].map((el) => ({
+  ...el,
+  place: `Store ${el.field}...`,
+}));
 
 export const commonSortersStore = [
   {

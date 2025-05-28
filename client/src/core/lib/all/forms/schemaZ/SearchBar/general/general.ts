@@ -63,6 +63,7 @@ export const itemsSchema = (allowedKeys: string[]) => ({
   val: z.string().optional(),
   id: z.string(),
   label: z.string(),
+  place: z.string().optional(),
 });
 
 export const handleRefineItem = ({

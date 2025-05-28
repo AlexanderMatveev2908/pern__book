@@ -27,7 +27,7 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
         url: `${BASE_URL}/${bookStoreID}?roles=${roles.join(",")}`,
         method: "GET",
       }),
-      providesTags: [TagsAPI.JUNCTION_BOOK_STORE_USER],
+      providesTags: [TagsAPI.BOOK_STORE_WORKER],
     }),
 
     updateBookStoreWorker: builder.mutation<
@@ -39,7 +39,7 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [TagsAPI.JUNCTION_BOOK_STORE_USER],
+      invalidatesTags: [TagsAPI.BOOK_STORE_WORKER],
     }),
 
     getAllStoresWorker: builder.query<
@@ -54,11 +54,11 @@ export const bookStoresWorkerSliceAPI = apiSlice.injectEndpoints({
         ...(!res?.bookStores?.length
           ? []
           : res.bookStores.map((el) => ({
-              type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST,
+              type: TagsAPI.BOOK_STORE_WORKER_LIST,
               id: el.id,
             }))),
         {
-          type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST,
+          type: TagsAPI.BOOK_STORE_WORKER_LIST,
           id: "LIST",
         },
       ],

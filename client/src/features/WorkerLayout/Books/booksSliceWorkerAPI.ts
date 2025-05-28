@@ -33,7 +33,10 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         method: "POST",
         data,
       }),
-      invalidatesTags: [TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST],
+      invalidatesTags: [
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE_WORKER,
+      ],
     }),
     updateBookWorker: builder.mutation<
       BaseResAPI<void>,
@@ -45,7 +48,9 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         data: formData,
       }),
       invalidatesTags: [
-        TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST,
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE_WORKER,
         TagsAPI.BOOK_WORKER,
       ],
     }),
@@ -54,6 +59,11 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         url: `${B_URL}/${bookID}`,
         method: "DELETE",
       }),
+      invalidatesTags: [
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE_WORKER,
+      ],
     }),
     getBookWorker: builder.query<
       BaseResAPI<{ book: BookType }>,

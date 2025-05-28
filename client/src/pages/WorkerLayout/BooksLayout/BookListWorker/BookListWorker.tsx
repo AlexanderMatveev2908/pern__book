@@ -36,13 +36,12 @@ const BookListWorker: FC = () => {
   const storeID = useParams()?.bookStoreID;
   const canStay = REG_ID.test(storeID ?? "") && user?.isWorker;
 
-  const { innerJoinedCat, setInnerJoinedCat, preSubmit } = useSearchCtx();
+  const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
 
   useUpdateJoinCat({
     watch,
     innerJoinedCat,
     setInnerJoinedCat,
-    preSubmit,
   });
 
   const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
