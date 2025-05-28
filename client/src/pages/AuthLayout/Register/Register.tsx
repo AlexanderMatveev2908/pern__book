@@ -1,9 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { login } from "@/features/AuthLayout/authSlice";
 import {
   RegisterParamsAPI,
   useRegisterUserMutation,
 } from "@/features/AuthLayout/authSliceAPI";
-import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import {
@@ -33,6 +33,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 
@@ -44,6 +45,7 @@ const Register: FC = () => {
   const dispatch = useDispatch();
   const {
     register,
+    control,
     formState: { errors },
     watch,
     setValue,
@@ -149,7 +151,10 @@ const Register: FC = () => {
                 }`}
               >
                 {fieldsAuth__0.map((el) => (
-                  <FormField key={el.id} {...{ el, register, errors }} />
+                  <FormField
+                    key={el.id}
+                    {...({ el, control, errors } as any)}
+                  />
                 ))}
               </div>
               <div

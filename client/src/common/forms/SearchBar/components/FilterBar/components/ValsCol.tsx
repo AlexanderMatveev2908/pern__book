@@ -15,7 +15,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
   const {
     watch,
     setValue,
-    register,
+    control,
     formState: { errors },
     trigger: triggerRHF,
   } = useFormContext();
@@ -129,7 +129,7 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
                 key={el.id}
                 {...{
                   el: el,
-                  register,
+                  control,
                   errors,
                   styleContErr: {
                     top: "-100%",

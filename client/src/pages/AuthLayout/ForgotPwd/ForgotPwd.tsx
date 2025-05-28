@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
 import { useMakeFormEmail } from "@/core/hooks/all/forms/useMakeFormEmail";
 import { useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
@@ -36,7 +37,7 @@ const ForgotPwd: FC = () => {
 
   return (
     <WrapperAuthPage {...{ title: "RECOVER ACCOUNT" }}>
-      <EmailForm {...{ ...form, handleSave, isLoading }} />
+      <EmailForm {...({ ...form, handleSave, isLoading } as any)} />
     </WrapperAuthPage>
   );
 };

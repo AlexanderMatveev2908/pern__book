@@ -109,7 +109,7 @@ const TeamForm: FC = () => {
           <div className="sub_form ">
             <FormField
               {...{
-                register,
+                control,
                 errors,
                 index: i,
                 el: fieldEmailWorker,

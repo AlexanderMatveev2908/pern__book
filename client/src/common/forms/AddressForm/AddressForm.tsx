@@ -29,7 +29,7 @@ const AddressForm: FC<PropsType> = ({
   arrAddressSwap,
 }) => {
   const {
-    register,
+    control,
     formState: { errors },
     clearErrors,
     setValue,
@@ -92,7 +92,7 @@ const AddressForm: FC<PropsType> = ({
               {arrAddressSwap[0].map((el) => (
                 <FormField
                   key={el.id}
-                  {...{ el, register, errors, isDisabled }}
+                  {...{ el, control, errors, isDisabled }}
                 />
               ))}
             </div>
@@ -105,7 +105,7 @@ const AddressForm: FC<PropsType> = ({
               {arrAddressSwap[1].map((el) => (
                 <FormField
                   key={el.id}
-                  {...{ el, register, errors, isDisabled }}
+                  {...{ el, control, errors, isDisabled }}
                 />
               ))}
             </div>
