@@ -2,13 +2,10 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
-import { captAll } from "@/core/lib/lib";
-import { subcategories } from "@/types/all/books";
+import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
 import { FilterSubField, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
-import { v4 } from "uuid";
 
 type PropsType = {
   innerJoinCat?: boolean;
@@ -20,7 +17,6 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     setValue,
     register,
     formState: { errors },
-    getValues,
     trigger: triggerRHF,
   } = useFormContext();
   const {
@@ -28,6 +24,8 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     setInnerJoinedCat,
     innerJoinedCat,
   } = useSearchCtx();
+
+  const { updateJoinCat } = useUpdateJoinCat();
 
   const mainCatRealTime = watch("mainCategories");
 
@@ -38,37 +36,8 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
 
       const value = watch(key);
 
-      if (key === "mainCategories" && innerJoinCat) {
-        const currentMainCat = value ?? [];
-        const updatedMainCat: string[] = currentMainCat.includes(el.val)
-          ? currentMainCat.filter((str: string) => str !== el.val)
-          : [...currentMainCat, el.val];
-
-        const updatedJoinedFields: FieldJoinCatType[] = Object.entries(
-          subcategories
-        )
-          .filter(([k]) => updatedMainCat.includes(k))
-          // eslint-disable-next-line
-          .flatMap(([_, v]) =>
-            v.map((sub) => ({
-              id: v4(),
-              val: sub,
-              label: captAll(sub),
-            }))
-          );
-
-        const currSubCategories = getValues("subCategories") ?? [];
-        const updatedSubCatVals = new Set(
-          updatedJoinedFields.map((el) => el.val)
-        );
-        const newValsSubCat = currSubCategories.filter((el: string) =>
-          updatedSubCatVals.has(el)
-        );
-        if (newValsSubCat.length !== currSubCategories.length)
-          setValue("subCategories", newValsSubCat, { shouldValidate: true });
-
-        setInnerJoinedCat(updatedJoinedFields);
-      }
+      if (key === "mainCategories" && innerJoinCat)
+        updateJoinCat({ value, el, setInnerJoinedCat });
 
       if (!Array.isArray(value)) {
         setValue(key, [el.val], {
@@ -87,7 +56,14 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
         }
       );
     },
-    [currFilter, setValue, watch, innerJoinCat, setInnerJoinedCat, getValues]
+    [
+      currFilter,
+      setValue,
+      watch,
+      innerJoinCat,
+      updateJoinCat,
+      setInnerJoinedCat,
+    ]
   );
 
   const getIsIn = useCallback(

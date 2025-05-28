@@ -19,6 +19,7 @@ type PropsType = {
   triggerRtk: any;
   routeID?: string;
   defVals?: any;
+  innerJoinCat?: boolean;
 };
 
 const ButtonsForm: FC<PropsType> = ({
@@ -27,6 +28,7 @@ const ButtonsForm: FC<PropsType> = ({
   triggerRtk,
   res,
   defVals,
+  innerJoinCat,
 }) => {
   const ctx = useSearchCtx();
   const {
@@ -48,6 +50,7 @@ const ButtonsForm: FC<PropsType> = ({
     triggerRtk,
     routeID,
     defVals,
+    innerJoinCat,
   });
 
   return (
