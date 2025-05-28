@@ -27,7 +27,7 @@ export const sideFieldsAllUsers: SideFieldType[] = [
     icon: GoHome,
   },
   {
-    label: "Books",
+    label: "Non existing page",
     path: "/books",
     icon: FaBook,
   },
