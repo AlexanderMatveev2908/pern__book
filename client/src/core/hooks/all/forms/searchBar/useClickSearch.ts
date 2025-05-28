@@ -46,9 +46,6 @@ export const useClickSearch = ({
       ...getDefValsPagination(0, limit),
     });
 
-    if (innerJoinCat && defVals?.mainCategories?.length)
-      setInnerJoinedCat(filterInnerSubCat(defVals.mainCategories));
-
     updateValsNoDebounce({ vals: data, triggerRtk, routeID });
   }, [
     limit,
@@ -57,9 +54,6 @@ export const useClickSearch = ({
     triggerRtk,
     routeID,
     updateValsNoDebounce,
-    defVals,
-    innerJoinCat,
-    setInnerJoinedCat,
   ]);
 
   const handleClear = useCallback(() => {
@@ -76,9 +70,11 @@ export const useClickSearch = ({
 
     setPagination({ el: "page", val: 0 });
 
+    if (innerJoinCat && defVals?.mainCategories?.length)
+      setInnerJoinedCat(filterInnerSubCat(defVals.mainCategories));
+
     updateValsNoDebounce({ vals: merged as any, triggerRtk, routeID });
 
-    console.log(defVals);
     reset(valsFb);
 
     saveStorage({ data: merged, key: keyStorage as any });
@@ -92,6 +88,8 @@ export const useClickSearch = ({
     triggerRtk,
     setPagination,
     defVals,
+    innerJoinCat,
+    setInnerJoinedCat,
   ]);
 
   return {

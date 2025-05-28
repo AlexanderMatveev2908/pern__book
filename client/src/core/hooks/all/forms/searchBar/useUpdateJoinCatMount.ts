@@ -6,26 +6,26 @@ import { UseFormWatch } from "react-hook-form";
 
 type Params = {
   watch: UseFormWatch<any>;
-  innerJoinedCat: FieldJoinCatType[];
+  innerJoinedCatCtx: FieldJoinCatType[];
   setInnerJoinedCat: (val: FieldJoinCatType[]) => void;
 };
 
 export const useUpdateJoinCatMount = ({
   watch,
-  innerJoinedCat,
+  innerJoinedCatCtx,
   setInnerJoinedCat,
 }: Params) => {
   const realTimeCat = watch("mainCategories");
   const mainCat = useMemo(() => realTimeCat ?? [], [realTimeCat]);
 
   useEffect(() => {
-    if (mainCat.length && !innerJoinedCat.length) {
+    if (mainCat.length && !innerJoinedCatCtx.length) {
       const updatedJoinedFields: FieldJoinCatType[] =
         filterInnerSubCat(mainCat);
 
       setInnerJoinedCat(updatedJoinedFields);
     }
-  }, [mainCat, innerJoinedCat, setInnerJoinedCat]);
+  }, [mainCat, innerJoinedCatCtx, setInnerJoinedCat]);
 
   return {};
 };
