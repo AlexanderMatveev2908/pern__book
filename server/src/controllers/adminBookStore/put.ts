@@ -101,6 +101,7 @@ export const updateBookStore = async (
             where: {
               id: b.id,
             },
+            transaction: t,
           }
         );
       }

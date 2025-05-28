@@ -4,7 +4,7 @@ import {
   labelsBookStore,
 } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
-import { countW, cpyObj } from "@/core/lib/lib";
+import { countW } from "@/core/lib/lib";
 import {
   closePopup,
   loadPop,
@@ -87,9 +87,12 @@ const DropActionsOwner: FC<PropsType> = ({ bookStore }) => {
 
           case KEY_MAP_STORE.BOOKS: {
             const { getValues, setValue } = formOwnerBooksCtx;
-            setValue("items", [
-              ...cpyObj(getValues("items") ?? []),
+            const cpy = (getValues("items") ?? []).filter(
+              (el) => el?.field !== "bookStoreID"
+            );
 
+            setValue("items", [
+              ...cpy,
               {
                 ...((fieldsInputsBooks.find(
                   (el) => el.field === "bookStoreID"
