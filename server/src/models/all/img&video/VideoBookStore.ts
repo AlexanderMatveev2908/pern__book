@@ -1,6 +1,7 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { v4 } from "uuid";
 import { CloudClass, makeSchemaCloud } from "./cloud.js";
+import { refSql } from "../utils/helpers.js";
 
 export class VideoBookStore extends CloudClass {
   bookStoreID!: string;
@@ -12,14 +13,7 @@ export const defineVideoBookStore = (seq: Sequelize) =>
   VideoBookStore.init(
     {
       ...makeSchemaCloud(),
-      bookStoreID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "book_stores",
-          key: "id",
-        },
-      },
+      bookStoreID: refSql("book_stores"),
     },
     {
       sequelize: seq,

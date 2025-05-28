@@ -1,6 +1,12 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { cpyObj, getStorage, isObjOk, isStr } from "@/core/lib/lib";
+import {
+  cpyObj,
+  getStorage,
+  isObjOk,
+  isStr,
+  setLimitCards,
+} from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
 import { useEffect, useRef } from "react";
 import { Path, useFormContext } from "react-hook-form";
@@ -79,7 +85,7 @@ export const usePopulateSearch = ({
     }
 
     const storageData = JSON.parse(savedVals!);
-    const { page, limit, ...dataRHF } = storageData;
+    const { page = 0, limit = setLimitCards(), ...dataRHF } = storageData ?? {};
     const parsed = cpyObj({
       ...dataRHF,
       items: existingItems.length
@@ -89,12 +95,16 @@ export const usePopulateSearch = ({
         : fallBackItems,
     });
 
-    reset(parsed);
-    triggerRHF();
+    for (const k in parsed) {
+      setValue(k as Path<any>, parsed[k], {
+        shouldValidate: true,
+        shouldDirty: true,
+      });
+    }
 
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
 
-    setPagination({ el: "page", val: parsed?.page ?? 0 });
+    setPagination({ el: "page", val: page });
 
     const merged = {
       ...parsed,

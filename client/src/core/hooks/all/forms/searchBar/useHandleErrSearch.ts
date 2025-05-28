@@ -73,7 +73,7 @@ export const useHandleErrSearch = ({
             setFocus(currEl.field);
           }, 400);
       }
-    }, 1000);
+    }, 200);
 
     return () => clearTimeout(timerID);
   }, [
