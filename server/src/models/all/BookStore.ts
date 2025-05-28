@@ -6,7 +6,7 @@ import { ImgBookStoreType } from "./img&video/ImgBookStore.js";
 import { VideoBookStoreType } from "./img&video/VideoBookStore.js";
 import { BookStoreUserInstance } from "./BookStoreUser.js";
 import { BookInstance } from "./Book.js";
-import { schemaID } from "./utils/helpers.js";
+import { refSql, schemaID } from "./utils/helpers.js";
 
 export interface TeamType {
   email: string;
@@ -97,14 +97,7 @@ export const defineBookStore = (seq: Sequelize) =>
         allowNull: false,
       },
 
-      ownerID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
+      ownerID: refSql("users"),
 
       email: {
         type: DataTypes.STRING,

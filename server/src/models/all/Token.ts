@@ -8,7 +8,7 @@ import {
 } from "sequelize";
 import { TokenEventType } from "../../types/types.js";
 import { v4 } from "uuid";
-import { schemaID } from "./utils/helpers.js";
+import { refSql, schemaID } from "./utils/helpers.js";
 
 export class Token extends Model<
   InferAttributes<Token>,
@@ -41,14 +41,7 @@ const defineToken = (seq: Sequelize) =>
         allowNull: true,
         defaultValue: null,
       },
-      userID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
+      userID: refSql("users"),
     },
     {
       sequelize: seq,
