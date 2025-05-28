@@ -35,6 +35,7 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
       }),
       invalidatesTags: [
         { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
         TagsAPI.BOOK_STORE_WORKER,
       ],
     }),
@@ -47,9 +48,9 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         method: "PUT",
         data: formData,
       }),
-      invalidatesTags: [
+      invalidatesTags: (_, __, { bookID }) => [
         { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
-        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: bookID },
         TagsAPI.BOOK_STORE_WORKER,
         TagsAPI.BOOK_WORKER,
       ],
@@ -59,9 +60,9 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         url: `${B_URL}/${bookID}`,
         method: "DELETE",
       }),
-      invalidatesTags: [
+      invalidatesTags: (_, __, bookID) => [
         { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
-        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: bookID },
         TagsAPI.BOOK_STORE_WORKER,
       ],
     }),
