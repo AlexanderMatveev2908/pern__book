@@ -7,16 +7,12 @@ import {
   Sequelize,
   Transaction,
 } from "sequelize";
-import { UserRole } from "../../types/types.js";
 import pkg from "bson-objectid";
-import { v4 } from "uuid";
 import { calcTimeRun } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { ThumbInstance } from "./img&video/Thumb.js";
 import { captAll } from "../../lib/utils/formatters.js";
 import { schemaID } from "./utils/helpers.js";
-
-const ObjectID = pkg.default;
 
 export class User extends Model<
   InferAttributes<User>,
@@ -31,7 +27,6 @@ export class User extends Model<
   tempEmail!: CreationOptional<string | null>;
   password!: string;
 
-  role!: CreationOptional<UserRole>;
   isVerified!: CreationOptional<boolean>;
   isNewsletter!: CreationOptional<boolean>;
 
@@ -107,11 +102,6 @@ const defineUser = (seq: Sequelize) =>
       password: {
         type: DataTypes.STRING,
         allowNull: false,
-      },
-      role: {
-        type: DataTypes.ENUM(...Object.values(UserRole)),
-        allowNull: false,
-        defaultValue: UserRole.CUSTOMER,
       },
       isVerified: {
         type: DataTypes.BOOLEAN,
