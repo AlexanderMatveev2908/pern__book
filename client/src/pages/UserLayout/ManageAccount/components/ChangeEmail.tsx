@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getStorage, schemaEmail } from "@/core/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useEffect, useMemo } from "react";
@@ -34,7 +35,7 @@ const ChangeEmail: FC<PropsType> = ({ cond }) => {
   type FormNewEmailType = z.infer<typeof schema>;
 
   const {
-    register,
+    control,
     formState: { errors },
     watch,
     handleSubmit,
@@ -84,11 +85,11 @@ const ChangeEmail: FC<PropsType> = ({ cond }) => {
     >
       <div className="w-full grid justify-items-center gap-5">
         <FormField
-          {...{
+          {...({
             el: newEmailField,
             errors,
-            register,
-          }}
+            control,
+          } as any)}
         />
       </div>
 

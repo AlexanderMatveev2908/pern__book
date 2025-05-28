@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -15,9 +16,9 @@ const schema = z.object({
 
 const NewsLetter: FC = () => {
   const {
-    register,
     formState: { errors },
     handleSubmit,
+    control,
   } = useForm<EmailFormType>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -36,7 +37,7 @@ const NewsLetter: FC = () => {
       >
         <FormField
           {...{
-            register,
+            control,
             errors,
             showLabel: false,
             el: emailField,

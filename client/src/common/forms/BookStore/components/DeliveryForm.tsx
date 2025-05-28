@@ -5,7 +5,7 @@ import { useFormContext } from "react-hook-form";
 
 const DeliveryForm: FC = () => {
   const {
-    register,
+    control,
     formState: { errors },
     trigger: triggerRHF,
   } = useFormContext();
@@ -17,7 +17,7 @@ const DeliveryForm: FC = () => {
           key={el.id}
           {...{
             el,
-            register,
+            control,
             errors,
             customCB:
               el.field === "deliveryPrice"

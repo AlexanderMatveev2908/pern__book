@@ -10,7 +10,7 @@ type PropsType = {
 
 const ContactForm: FC<PropsType> = ({ isDisabled }) => {
   const {
-    register,
+    control,
     formState: { errors },
     setValue,
   } = useFormContext();
@@ -20,7 +20,7 @@ const ContactForm: FC<PropsType> = ({ isDisabled }) => {
   return (
     <div className="sub_form">
       {fieldsContact.map((el) => (
-        <FormField key={el.id} {...{ el, register, errors, isDisabled }} />
+        <FormField key={el.id} {...{ el, control, errors, isDisabled }} />
       ))}
 
       {!isDisabled && (

@@ -39,10 +39,11 @@ const BookStoreForm: FC<PropsType> = ({
   const ctx = useFormContext();
   const path = useLocation().pathname;
   const {
-    register,
+    control,
     formState: { errors },
     setFocus,
     setValue,
+    register,
   } = ctx;
 
   const {
@@ -76,7 +77,7 @@ const BookStoreForm: FC<PropsType> = ({
       >
         <FormField
           {...{
-            register,
+            control,
             errors,
             el: fieldNameStore,
             showLabel: false,

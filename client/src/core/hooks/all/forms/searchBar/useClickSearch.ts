@@ -6,6 +6,7 @@ import { useGetSearchKeysStorage } from "./useGetSearchKeysStorage";
 import { UseFormReturn } from "react-hook-form";
 import { SearchCtxValsConsumer } from "@/core/contexts/SearchCtx/hooks/useSearchCtxVals";
 import { v4 } from "uuid";
+import { filterInnerSubCat } from "@/core/lib/all/utils/processData";
 
 type Params = {
   ctx: SearchCtxValsConsumer;
@@ -14,6 +15,7 @@ type Params = {
   triggerRtk: any;
   routeID?: string;
   defVals?: any;
+  innerJoinCat?: boolean;
 };
 
 export const useClickSearch = ({
@@ -23,6 +25,7 @@ export const useClickSearch = ({
   triggerRtk,
   routeID,
   defVals,
+  innerJoinCat,
 }: Params) => {
   const { keyStorage } = useGetSearchKeysStorage();
 
@@ -31,6 +34,7 @@ export const useClickSearch = ({
     pagination: { limit },
     updateValsNoDebounce,
     setPagination,
+    setInnerJoinedCat,
   } = ctx;
   const { reset, getValues } = formCtx;
 
@@ -66,9 +70,11 @@ export const useClickSearch = ({
 
     setPagination({ el: "page", val: 0 });
 
+    if (innerJoinCat && defVals?.mainCategories?.length)
+      setInnerJoinedCat(filterInnerSubCat(defVals.mainCategories));
+
     updateValsNoDebounce({ vals: merged as any, triggerRtk, routeID });
 
-    console.log(defVals);
     reset(valsFb);
 
     saveStorage({ data: merged, key: keyStorage as any });
@@ -82,6 +88,8 @@ export const useClickSearch = ({
     triggerRtk,
     setPagination,
     defVals,
+    innerJoinCat,
+    setInnerJoinedCat,
   ]);
 
   return {
