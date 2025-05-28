@@ -108,7 +108,7 @@ export const usePopulateSearch = ({
 
     const merged = {
       ...parsed,
-      ...getDefValsPagination(parsed?.page),
+      ...getDefValsPagination(storageData?.page),
     };
 
     oldVals.current = merged;
