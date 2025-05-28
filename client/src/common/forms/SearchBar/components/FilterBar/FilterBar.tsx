@@ -92,7 +92,9 @@ const FilterBar: FC<PropsType> = ({
           <ValsCol {...{ innerJoinCat }} />
         </div>
 
-        <BtnResults {...{ res, txtInputs, triggerRtk, routeID, defVals }} />
+        <BtnResults
+          {...{ res, txtInputs, triggerRtk, routeID, defVals, innerJoinCat }}
+        />
       </div>
     </div>
   );

@@ -182,6 +182,7 @@ const SearchBar: FC<PropsType> = ({
               triggerRtk,
               routeID,
               defVals,
+              innerJoinCat,
             }}
           />
         </TxtInputs>

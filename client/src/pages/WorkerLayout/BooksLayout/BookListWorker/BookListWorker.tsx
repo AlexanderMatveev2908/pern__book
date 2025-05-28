@@ -11,7 +11,7 @@ import {
 import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
+import { useUpdateJoinCatMount } from "@/core/hooks/all/forms/books/useUpdateJoinCatMount";
 import { __cg, decapt, isArr } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
 import { useEffect, useState, type FC } from "react";
@@ -38,15 +38,15 @@ const BookListWorker: FC = () => {
 
   const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
 
-  useUpdateJoinCat({
+  const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
+  const res = hook[1];
+  const { data: { books } = {} } = res ?? {};
+
+  useUpdateJoinCatMount({
     watch,
     innerJoinedCat,
     setInnerJoinedCat,
   });
-
-  const hook = booksSliceWorkerAPI.useLazyGetAllBooksWorkerQuery();
-  const res = hook[1];
-  const { data: { books } = {} } = res ?? {};
 
   useEffect(() => {
     if (isArr(books) && books?.[0]?.store?.categories?.length) {

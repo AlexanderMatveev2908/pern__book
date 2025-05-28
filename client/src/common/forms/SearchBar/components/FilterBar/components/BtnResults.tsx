@@ -13,6 +13,7 @@ type PropsType = {
   triggerRtk: any;
   routeID?: string;
   defVals?: any;
+  innerJoinCat?: boolean;
 };
 
 const BtnResults: FC<PropsType> = ({
@@ -21,6 +22,7 @@ const BtnResults: FC<PropsType> = ({
   defVals,
   routeID,
   txtInputs,
+  innerJoinCat,
 }) => {
   const { data: { nHits = 0 } = {} } = res ?? {};
   const ctx = useSearchCtx();
@@ -36,6 +38,7 @@ const BtnResults: FC<PropsType> = ({
     triggerRtk,
     routeID,
     defVals,
+    innerJoinCat,
   });
 
   const labelTxt = useMemo(

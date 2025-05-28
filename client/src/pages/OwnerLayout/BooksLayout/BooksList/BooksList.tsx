@@ -16,7 +16,7 @@ import {
   ownerBooksNumericFilters,
   ownerBooksSorters,
 } from "@/core/config/fieldsData/SearchBar/owner/books";
-import { useUpdateJoinCat } from "@/core/hooks/all/forms/books/useUpdateJoinCat";
+import { useUpdateJoinCatMount } from "@/core/hooks/all/forms/books/useUpdateJoinCatMount";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 
@@ -35,16 +35,15 @@ const BooksList: FC = () => {
     }
   );
 
-  useUpdateJoinCat({
-    watch,
-    innerJoinedCat,
-    setInnerJoinedCat,
-  });
-
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
   const res = hook[1];
   const { data: { books } = {}, isLoading, isFetching } = res;
 
+  useUpdateJoinCatMount({
+    watch,
+    innerJoinedCat,
+    setInnerJoinedCat,
+  });
   return (
     <WrapPageAPI
       {...{
