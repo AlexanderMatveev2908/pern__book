@@ -35,7 +35,7 @@ const InfoStoreAllUsersPage: FC<PropsType> = ({ bookStore }) => {
             styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
           }}
         >
-          <li className="w-full flex justify-start">
+          <li className="w-full flex justify-start pr-5">
             <span className="txt__2">{bookStore?.description ?? "N/A"}</span>
           </li>
         </DropStats>
