@@ -50,15 +50,23 @@ const PagesCounter: FC<PropsType> = ({
   const searchBarID = useMemo(() => calcSearchbarID(path), [path]);
 
   const handlePagination = useCallback(
-    ({ page, limit, val }: { limit?: "limit"; page?: "page"; val: number }) => {
+    ({
+      pageParam,
+      limitParam,
+      val,
+    }: {
+      limitParam?: "limit";
+      pageParam?: "page";
+      val: number;
+    }) => {
       setPreSubmit({ el: "canMakeAPI", val: false });
 
-      setPagination({ el: (page ?? limit) as "limit" | "page", val });
+      setPagination({ el: (pageParam ?? limitParam) as "limit" | "page", val });
 
       const data = cpyObj({
         ...getValues(),
-        page: page ? val : 0,
-        limit: limit ? val : setLimitCards(),
+        page: pageParam ? val : page ?? 0,
+        limit: limitParam ? val : setLimitCards(),
       });
       oldVals.current = data;
       triggerRtk({ vals: data, routeID });
@@ -76,6 +84,7 @@ const PagesCounter: FC<PropsType> = ({
       setPagination,
       getValues,
       routeID,
+      page,
     ]
   );
 
@@ -120,7 +129,7 @@ const PagesCounter: FC<PropsType> = ({
         setCurrBlock(0);
 
       if (limit !== maxCards && !hasFormErrs)
-        handlePagination({ limit: "limit", val: maxCards });
+        handlePagination({ limitParam: "limit", val: maxCards });
     };
 
     window.addEventListener("resize", listenResize);
@@ -154,7 +163,7 @@ const PagesCounter: FC<PropsType> = ({
 
   const handlePage = useCallback(
     (val: number) => {
-      handlePagination({ page: "page", val });
+      handlePagination({ pageParam: "page", val });
 
       makeDelay(() => {
         const el = document.getElementById(searchBarID);
