@@ -2,16 +2,10 @@
   "files": {},
   "file": {},
   "query": {
-    "mainCategories": [
-      "history",
-      "philosophy"
-    ],
     "page": "0",
     "limit": "8"
   },
-  "params": {
-    "bookStoreID": "89af924a-8b5c-423c-9726-dbb7c0078c9d"
-  },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNTJiMDlmLWY1ZmItNDY1Ni1hNmI4LWFjODkzZGRlMDVhNSIsImlhdCI6MTc0ODQyOTg3NiwiZXhwIjoxNzQ4NDI5OTM2fQ.ZQhSfK1oI9yL5m7WOOweDbq9J6YBrTOqXFvD7cRZz3g",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.elv19GfSE1Fx9BW-jRJjev9Hwqf9igbczYehWiXP4acmE7uE2wvA6JVbPMxOt_eScS30cIqwPt_Xj8rXzTq-6fiiTlt0F_h82aTd7OzZ6nWh4x5kyt-t1nPJBk8Sf54xUTnoGHXk-lNZolapu96X3lNiKYTIPM-Aop7pS4F6Mao8c8GfOV9jh68S5IRVbBZB4mo0D7WC9rALgurEXY86YBrMH_KYtlLAhNyhsvvVjnML1stxtbzG3CLjj36EYVbq6GL3zTonFdgvUuMp-tTO672TQ93F5U6ywycosYjhmerzJm9-obBFCVQDmaV2RHEK5J317wW-iayqbP3UsmOiOg.HAfkBWNv7mAZykaD.Ee-Y6L9jfN9tqalP25McPr2FtccKDS0Ejuw3VBPbCmf16VbUZ5lcmrdGUPRp.MmZ6m7A-0YnLsQNJdbl_SA"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNTJiMDlmLWY1ZmItNDY1Ni1hNmI4LWFjODkzZGRlMDVhNSIsImlhdCI6MTc0ODQzMzI3MCwiZXhwIjoxNzQ4NDMzMzMwfQ.1lTi-45AnMnzRFfjnXypJR1A-tU5_IoJGRdr6QxaRbU",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.gK2HLU6kphzBuDAY_ktvFyeeuF132u5ukmawTzwd8wnT_4_Nw-JO-9dE4kEwpf3srqsN2IPOaZBloAHUImlP6G9ygnFJKaLQlchtu0SHJeNN7Ui9nBZ0eM9bNbwqvqQCWvZPNQD3CKTiwSAUavD77Z40Nun1swewbdPf6U5qdoyJlgI1h31MX2o8MGzrtHcPFepsung69oYCsAh88AiYHjRyTjJYZA6B2HMdNTRHrNBZSz7DqzqUMAi5xgPVWE0M1AcX3Yk4F5UxL2ELSNUTCL7uIUWJsQR6BRu_LKD7ePAjKVX1c2U6VfAW-DffWc-xMUYthTaNWzh8uQL-hbKpZA.u7CQeBueK5DpY0k3.3HglgwBRXzfrkoxqV2-BOmG7s3XXHUVsTHmBHbxGZgqM9kG1zstMtzETKKhZ.pdUovRNSlFai7HqG3FkF7A"
 }

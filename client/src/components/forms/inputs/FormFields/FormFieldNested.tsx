@@ -54,6 +54,7 @@ const FormFieldNested: FC<PropsType> = ({
             render={({ field }) => (
               <input
                 {...field}
+                ref={field.ref}
                 type={el.type ?? "text"}
                 step={el.type === "number" ? "any" : undefined}
                 placeholder={
@@ -61,6 +62,7 @@ const FormFieldNested: FC<PropsType> = ({
                 }
                 className={`${customStyle ?? "input__sm"} txt__2`}
                 disabled={isDisabled}
+                value={field.value}
                 onChange={(e) => {
                   const { value: v } = e.target;
 

@@ -21,7 +21,7 @@ import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
-import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { cpyObj, getDefValsPagination, isStr } from "@/core/lib/lib";
 import { REG_ID } from "@/core/config/regex";
 import { ZodEffects, ZodObject } from "zod";
@@ -69,9 +69,9 @@ const SearchBar: FC<PropsType> = ({
   } = ctx;
 
   const formCtx = useFormContext();
-  const { watch, getValues } = formCtx;
+  const { watch, getValues, setFocus } = formCtx;
 
-  // useFocus({ key: `items.${0}`, setFocus, delay: 1000 });
+  useFocus({ key: `items.${0}.val`, setFocus, delay: 500 });
 
   const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {
