@@ -20,15 +20,6 @@ import { replacePoint } from "../../lib/dataStructures.js";
 import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
 import { countTo_5 } from "../../lib/utils/utils.js";
 
-const calcAvgSeq = (
-  prop: string,
-  res: string,
-  round: number = 2
-): [Literal, string] => [
-  literal(`ROUND(COALESCE(AVG(${prop}), 0), ${round})`),
-  res,
-];
-
 const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   literal(`(
     SELECT COALESCE(
@@ -50,14 +41,23 @@ const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
   res,
 ];
 
-const countItems = (name: string): [Literal, string] => [
-  literal(`COALESCE(COUNT(DISTINCT ${name}.id), 0)`),
-  `${name + "Count"}`,
-];
-
 const myCoolSql = [
-  countItems("books"),
-  countItems("orders"),
+  [
+    literal(`(
+    SELECT COALESCE(COUNT(DISTINCT b.id), 0)
+    FROM "books" AS b
+    WHERE b."bookStoreID" = "BookStore"."id"
+    )`),
+    "booksCount",
+  ],
+  [
+    literal(`(
+  SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+  FROM "orders" AS o
+  WHERE o."bookStoreID" = "BookStore"."id"
+  )`),
+    "ordersCount",
+  ],
   [
     literal(`(
       SELECT COALESCE(COUNT(DISTINCT r.id), 0)
@@ -86,8 +86,23 @@ const myCoolSql = [
 `),
     `reviews__${replacePoint(el[0])}__${replacePoint(el[1])}`,
   ]),
-  calcAvgSeq("books.price", "avgPrice"),
-  calcAvgSeq("books.qty", "avgQty", 0),
+
+  [
+    literal(`(
+    SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
+    FROM "books" AS b
+    WHERE b."bookStoreID" = "BookStore"."id"
+   ) `),
+    "avgPrice",
+  ],
+  [
+    literal(`(
+  SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
+  FROM "books" AS b
+  WHERE b."bookStoreID" = "BookStore"."id"
+  )`),
+    "avgQty",
+  ],
   ...Object.values(OrderStage).map((el) =>
     countOrdersSql(el, "orders" + capChar(el) + capChar("count"))
   ),
