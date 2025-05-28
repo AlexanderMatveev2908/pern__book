@@ -21,6 +21,7 @@ export const useMakeFormEmail = () => {
     watch,
     reset,
     setFocus,
+    control,
   } = useForm({
     mode: "onChange",
     resolver: zodResolver(schema),
@@ -36,5 +37,6 @@ export const useMakeFormEmail = () => {
     handleSubmit,
     watch,
     reset,
+    control,
   };
 };

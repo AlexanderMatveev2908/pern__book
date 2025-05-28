@@ -36,10 +36,11 @@ const BookForm: FC<PropsType> = ({
 }) => {
   const formCtx = useFormContext();
   const {
-    register,
+    control,
     formState: { errors },
     setFocus,
     watch,
+    register,
   } = formCtx;
 
   const storeID = watch("bookStoreID");
@@ -75,7 +76,7 @@ const BookForm: FC<PropsType> = ({
         <FormField
           {...{
             el: titleBookField,
-            register,
+            control,
             errors,
             showLabel: false,
             isDisabled: isEmployee,
@@ -88,7 +89,7 @@ const BookForm: FC<PropsType> = ({
           {fieldAuthY.map((el) => (
             <FormField
               key={el.id}
-              {...{ register, errors, el, isDisabled: isEmployee }}
+              {...{ control, errors, el, isDisabled: isEmployee }}
             />
           ))}
         </div>
@@ -130,7 +131,7 @@ const BookForm: FC<PropsType> = ({
             <FormField
               key={el.id}
               {...{
-                register,
+                control,
                 errors,
                 el,
                 isDisabled: el.field === "price" && isEmployee,
