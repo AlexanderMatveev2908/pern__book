@@ -34,7 +34,7 @@ export const setLimitCards = () =>
     ? 9
     : window.innerWidth > tailwindBreak.md
     ? 8
-    : 4;
+    : 1;
 
 export const calcCurrBlock = ({
   i,
