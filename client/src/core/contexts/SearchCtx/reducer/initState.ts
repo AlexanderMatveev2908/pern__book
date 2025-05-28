@@ -26,7 +26,7 @@ export type SearchCtxStateType = {
     currFilter: FilterSearch | NumericFilterSearch | null;
     currSorter: FilterSearch | null;
   };
-  innerJoinedCat: FieldJoinCatType[];
+  innerJoinedCatCtx: FieldJoinCatType[];
   isPending: {
     submit: boolean;
     clear: boolean;
@@ -49,7 +49,7 @@ export const initStateSearch: SearchCtxStateType = {
     currFilter: null,
     currSorter: null,
   },
-  innerJoinedCat: [],
+  innerJoinedCatCtx: [],
   isPending: {
     submit: false,
     clear: false,

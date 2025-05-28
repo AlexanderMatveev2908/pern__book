@@ -70,7 +70,7 @@ export const reducerSearch = (
     case SearchCtxActions.SET_INNER_JOINED_CAT:
       return {
         ...state,
-        innerJoinedCat: action.payload,
+        innerJoinedCatCtx: action.payload,
       };
 
     default:

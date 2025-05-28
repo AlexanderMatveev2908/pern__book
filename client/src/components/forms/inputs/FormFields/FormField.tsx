@@ -1,12 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode } from "react";
-import { canNestedPass, capt } from "@/core/lib/lib.ts";
+import { capt } from "@/core/lib/lib.ts";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
-import {
-  FormBaseProps,
-  FormFieldBasic,
-  NestedIndexProp,
-} from "@/types/types.ts";
+import { FormFieldBasic } from "@/types/types.ts";
+import { Control, Controller, FieldErrors } from "react-hook-form";
 
 type PropsType = {
   el: FormFieldBasic;
@@ -16,33 +13,27 @@ type PropsType = {
   styleContErr?: {
     [key: string]: string;
   };
-  nestedIndex?: NestedIndexProp;
   children?: ReactNode;
   customCB?: ((val: any) => void) | null;
   isDisabled?: boolean;
-} & FormBaseProps;
+  control: Control<any>;
+  errors: FieldErrors;
+};
 
 const FormField: FC<PropsType> = ({
   el,
-  register,
   errors,
   customStyle,
   showLabel = true,
   index,
   styleContErr,
   children,
-  nestedIndex,
   customCB,
   isDisabled,
+  control,
 }) => {
   const registerParamHook =
-    typeof index === "number"
-      ? `items.${index}.${el.field}`
-      : canNestedPass(nestedIndex)
-      ? `items.${nestedIndex.index}.${nestedIndex.key}`
-      : el.field;
-
-  const registerProp = register(registerParamHook);
+    typeof index === "number" ? `items.${index}.${el.field}` : el.field;
 
   return (
     <div className={`w-full grid ${isDisabled ? "opacity-50" : ""}`}>
@@ -52,22 +43,29 @@ const FormField: FC<PropsType> = ({
         )}
 
         <div className="w-full relative">
-          <input
-            type={el.type ?? "text"}
-            step={el.type === "number" ? "any" : undefined}
-            placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
-            className={`${customStyle ?? "input__sm"} txt__2`}
-            disabled={isDisabled}
-            {...registerProp}
-            onChange={(e) => {
-              registerProp.onChange(e);
+          <Controller
+            name={registerParamHook}
+            control={control}
+            render={({ field }) => (
+              <input
+                type={el.type ?? "text"}
+                step={el.type === "number" ? "any" : undefined}
+                placeholder={
+                  el?.place ?? `Your ${el?.label ?? capt(el.field)}...`
+                }
+                className={`${customStyle ?? "input__sm"} txt__2`}
+                disabled={isDisabled}
+                onChange={(e) => {
+                  field.onChange(e);
 
-              if (typeof customCB === "function") customCB(e.target.value);
-            }}
+                  if (typeof customCB === "function") customCB(e.target.value);
+                }}
+              />
+            )}
           />
           {children ?? (
             <ErrorFormField
-              {...{ errors, el, nestedIndex, index, styleCont: styleContErr }}
+              {...{ errors, el, index, styleCont: styleContErr }}
             />
           )}
         </div>

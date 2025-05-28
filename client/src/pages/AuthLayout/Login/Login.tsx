@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useMemo } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
@@ -54,6 +55,7 @@ const Login: FC = () => {
     handleSubmit,
     reset,
     watch,
+    control,
     setFocus,
   } = useForm<LoginFormType>({
     mode: "onChange",
@@ -109,7 +111,7 @@ const Login: FC = () => {
           className="p_form__2"
         >
           <div className="w-full grid gap-5 p-6">
-            <FormField {...{ register, errors, el: emailField }} />
+            <FormField {...({ control, errors, el: emailField } as any)} />
 
             <PwdField
               {...{ register, errors, el: passwordField, ...mainPwd }}
