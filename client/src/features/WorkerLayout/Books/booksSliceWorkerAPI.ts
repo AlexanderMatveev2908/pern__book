@@ -34,8 +34,8 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         data,
       }),
       invalidatesTags: [
-        { type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST, id: "LIST" },
-        TagsAPI.JUNCTION_BOOK_STORE_USER,
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE_WORKER,
       ],
     }),
     updateBookWorker: builder.mutation<
@@ -48,8 +48,9 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         data: formData,
       }),
       invalidatesTags: [
-        { type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST, id: "LIST" },
-        TagsAPI.JUNCTION_BOOK_STORE_USER,
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE_WORKER,
         TagsAPI.BOOK_WORKER,
       ],
     }),
@@ -59,8 +60,9 @@ export const booksSliceWorkerAPI = apiSlice.injectEndpoints({
         method: "DELETE",
       }),
       invalidatesTags: [
-        { type: TagsAPI.JUNCTIONS_BOOK_STORE_USER_LIST, id: "LIST" },
-        TagsAPI.JUNCTION_BOOK_STORE_USER,
+        { type: TagsAPI.BOOK_STORE_WORKER_LIST, id: "LIST" },
+        { type: TagsAPI.BOOKS_WORKER_LIST, id: "LIST" },
+        TagsAPI.BOOK_STORE_WORKER,
       ],
     }),
     getBookWorker: builder.query<
