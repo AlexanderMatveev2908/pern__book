@@ -1,22 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
 import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
-import { FormBaseProps, FormFieldBasic } from "@/types/types.ts";
+import { FormFieldBasic } from "@/types/types.ts";
+import { Control, Controller, FieldErrors } from "react-hook-form";
 
 type PropsType = {
   el: FormFieldBasic;
   isPwd: boolean;
   handleClick: () => void;
   setFocus?: (val: boolean) => void;
-} & FormBaseProps;
+  errors: FieldErrors;
+  control: Control<any>;
+  customCB?: (val: any) => void;
+};
 
 const PwdField: FC<PropsType> = ({
   el,
-  register,
+  control,
   errors,
   isPwd,
   handleClick,
   setFocus,
+  customCB,
 }) => {
   return (
     <div className="w-full grid pwd_field">
@@ -24,16 +30,28 @@ const PwdField: FC<PropsType> = ({
         <span className="txt__2">{el.label}</span>
 
         <div className="w-full flex relative">
-          <input
-            type={isPwd ? "password" : "text"}
-            placeholder={el.place ?? `Your ${el.label}...`}
-            className="input__md txt__2"
-            {...register(el.field)}
-            onFocus={() => setFocus?.(true)}
-            onBlur={() => {
-              setFocus?.(false);
-            }}
-            autoComplete="off"
+          <Controller
+            name={el.field}
+            control={control}
+            render={({ field }) => (
+              <input
+                ref={field.ref}
+                type={isPwd ? "password" : "text"}
+                placeholder={el.place ?? `Your ${el.label}...`}
+                className="input__md txt__2"
+                onFocus={() => setFocus?.(true)}
+                onBlur={() => {
+                  setFocus?.(false);
+                }}
+                autoComplete="off"
+                value={field.value}
+                onChange={(e) => {
+                  field.onChange(e);
+
+                  customCB?.(e.target.value);
+                }}
+              />
+            )}
           />
 
           <button

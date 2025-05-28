@@ -33,7 +33,7 @@ const SecurityPwd: FC = () => {
 
   const dispatch = useDispatch();
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
     watch,
@@ -87,7 +87,7 @@ const SecurityPwd: FC = () => {
           >
             <div className="w-full grid gap-5 p-6">
               <PwdField
-                {...{ register, errors, el: passwordField, ...mainPwd }}
+                {...{ control, errors, el: passwordField, ...mainPwd }}
               />
 
               <div className="max-w-[300px] w-full justify-self-center mt-10">

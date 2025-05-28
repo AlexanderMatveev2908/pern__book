@@ -50,12 +50,11 @@ const Login: FC = () => {
   const authState = useSelector(getAuthState);
   const dispatch = useDispatch();
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
     reset,
     watch,
-    control,
     setFocus,
   } = useForm<LoginFormType>({
     mode: "onChange",
@@ -113,9 +112,7 @@ const Login: FC = () => {
           <div className="w-full grid gap-5 p-6">
             <FormField {...({ control, errors, el: emailField } as any)} />
 
-            <PwdField
-              {...{ register, errors, el: passwordField, ...mainPwd }}
-            />
+            <PwdField {...{ control, errors, el: passwordField, ...mainPwd }} />
 
             <div className="max-w-[250px] w-full justify-self-center mt-10">
               <Button

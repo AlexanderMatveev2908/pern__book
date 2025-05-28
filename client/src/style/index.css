@@ -40,6 +40,10 @@
   word-break: break-word;
 }
 
+.z_check_pwd_span {
+  z-index: 100;
+}
+
 .z__sidebar_bg {
   z-index: 700;
 }

@@ -5,23 +5,30 @@ import { fieldsNewPwd } from "@/core/config/fieldsData/AuthLayout/auth";
 import { useShowPwd } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
 import { isFormValid } from "@/core/lib/lib";
-import { FormBaseProps } from "@/types/types";
 import { FC, useEffect, useState } from "react";
-import { FormState, UseFormWatch } from "react-hook-form";
+import {
+  Control,
+  FormState,
+  UseFormTrigger,
+  UseFormWatch,
+} from "react-hook-form";
 
 type PropsType = {
   handleSave: () => void;
   formState: FormState<any>;
   isLoading: boolean;
   watch: UseFormWatch<any>;
-} & Omit<FormBaseProps, "errors">;
+  control: Control<any>;
+  trigger: UseFormTrigger<any>;
+};
 
 const NewPwdForm: FC<PropsType> = ({
-  register,
+  control,
   formState,
   handleSave,
   watch,
   isLoading,
+  trigger: triggerRHF,
 }) => {
   const [isFormOk, setIsFormOk] = useState(false);
 
@@ -53,12 +60,16 @@ const NewPwdForm: FC<PropsType> = ({
         <div className="w-full grid gap-5 p-6">
           <PairPwd
             {...{
-              register,
+              control,
               errors,
               mainPwd,
               confirmPwd,
               pwd,
               fields: fieldsNewPwd,
+              customCbs: [
+                () => triggerRHF("confirmPassword"),
+                () => triggerRHF("password"),
+              ],
             }}
           />
 
