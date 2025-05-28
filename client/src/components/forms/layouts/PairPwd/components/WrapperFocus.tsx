@@ -1,7 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useState } from "react";
 import CheckRegPwd from "./CheckRegPwd.tsx";
-import { FormBaseProps, FormFieldBasic } from "@/types/types.ts";
+import { FormFieldBasic } from "@/types/types.ts";
 import PwdField from "@/components/forms/inputs/PwdField/PwdField.tsx";
+import { Control, FieldErrors } from "react-hook-form";
 
 type PropsType = {
   pwd: string | null;
@@ -10,10 +12,14 @@ type PropsType = {
     handleClick: () => void;
   };
   el: FormFieldBasic;
-} & FormBaseProps;
+  errors: FieldErrors;
+  control: Control<any>;
+  customCB: (val: any) => void;
+};
 
 const WrapperFocus: FC<PropsType> = ({
-  register,
+  control,
+  customCB,
   errors,
   mainPwd,
   pwd,
@@ -26,10 +32,11 @@ const WrapperFocus: FC<PropsType> = ({
       <PwdField
         {...{
           el,
-          register,
+          control,
           errors,
           ...mainPwd,
           setFocus,
+          customCB,
         }}
       />
 

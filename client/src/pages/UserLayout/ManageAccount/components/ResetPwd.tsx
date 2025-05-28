@@ -44,13 +44,14 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
   type FormNewEmailType = z.infer<typeof schema>;
 
   const {
-    register,
+    control,
     formState: { errors },
     handleSubmit,
     watch,
     reset,
     clearErrors,
     setFocus,
+    trigger: triggerRHF,
   } = useForm<FormNewEmailType>({
     resolver: zodResolver(schema),
     mode: "onChange",
@@ -109,11 +110,15 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
       <div className="w-full grid justify-items-center gap-5">
         <PairPwd
           {...{
-            register,
+            control,
             errors,
             fields: fieldsNewPwdReset,
             ...restProps,
             pwd,
+            customCbs: [
+              () => triggerRHF("confirmPassword"),
+              () => triggerRHF("password"),
+            ],
           }}
         />
       </div>
