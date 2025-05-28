@@ -62,7 +62,7 @@ const FormFieldNested: FC<PropsType> = ({
                 }
                 className={`${customStyle ?? "input__sm"} txt__2`}
                 disabled={isDisabled}
-                value={field.value}
+                value={field.value ?? ""}
                 onChange={(e) => {
                   const { value: v } = e.target;
 

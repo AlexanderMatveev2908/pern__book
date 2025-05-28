@@ -56,7 +56,7 @@ const FormField: FC<PropsType> = ({
                 }
                 className={`${customStyle ?? "input__sm"} txt__2`}
                 disabled={isDisabled}
-                value={field.value}
+                value={field.value ?? ""}
                 onChange={(e) => {
                   field.onChange(e);
 

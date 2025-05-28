@@ -44,7 +44,7 @@ const PwdField: FC<PropsType> = ({
                   setFocus?.(false);
                 }}
                 autoComplete="off"
-                value={field.value}
+                value={field.value ?? ""}
                 onChange={(e) => {
                   field.onChange(e);
 
