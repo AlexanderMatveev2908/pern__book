@@ -23,7 +23,7 @@ import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/
 const BooksList: FC = () => {
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
-  const { innerJoinedCat, setInnerJoinedCat, preSubmit } = useSearchCtx();
+  const { innerJoinedCat, setInnerJoinedCat } = useSearchCtx();
   const { handleSubmit, watch } = formCtx;
   const handleSave = handleSubmit(
     () => {
@@ -39,7 +39,6 @@ const BooksList: FC = () => {
     watch,
     innerJoinedCat,
     setInnerJoinedCat,
-    preSubmit,
   });
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();

@@ -11,7 +11,6 @@ import ActionsWorker from "./components/ActionsWorker";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/page/InfoStoreAllUsersPage";
 import InfoStoreMapProp from "@/components/elements/cards/shared/HOC/InfoStoreMapProp";
-import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
 import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
@@ -31,7 +30,8 @@ const BookStorePageWorker: FC = () => {
   );
   useWrapQueryAPI({ ...res });
   const { data: { bookStore } = {} } = res;
-  const [{ bookStoreUser: { role } = {} } = {}] =
+  // eslint-disable-next-line
+  const [{ bookStoreUser: { role: _ } = {} } = {}] =
     bookStore?.team ?? ([] as any);
 
   return (
@@ -81,7 +81,17 @@ const BookStorePageWorker: FC = () => {
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
           <InfoStoreAllUsersPage {...{ bookStore }} />
 
-          {role === UserRole.MANAGER && (
+          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
+            <InfoStoreMapProp {...{ bookStore }} />
+          </div>
+          <DropStats
+            {...{
+              el: workFlowLabel,
+              fields: fieldsWorkFlowStore(bookStore),
+            }}
+          />
+
+          {/* {role === UserRole.MANAGER && (
             <>
               <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
                 <InfoStoreMapProp {...{ bookStore }} />
@@ -93,7 +103,7 @@ const BookStorePageWorker: FC = () => {
                 }}
               />
             </>
-          )}
+          )} */}
         </div>
 
         {isObjOk(bookStore?.video) && (
