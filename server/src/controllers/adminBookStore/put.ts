@@ -114,7 +114,7 @@ export const updateBookStore = async (
       where: {
         bookStoreID,
         userEmail: {
-          [Op.notIn]: (newTeam ?? [])?.map((member) => member.userEmail),
+          [Op.notIn]: (newTeam ?? []).map((member) => member?.userEmail),
         },
       },
       transaction: t,
