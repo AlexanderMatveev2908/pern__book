@@ -1,10 +1,8 @@
 import { FieldJoinCatType } from "@/core/contexts/SearchCtx/reducer/initState";
-import { captAll } from "@/core/lib/lib";
-import { subcategories } from "@/types/all/books";
+import { filterInnerSubCat } from "@/core/lib/all/utils/processData";
 import { FilterSubField } from "@/types/types";
 import { useCallback } from "react";
 import { useFormContext } from "react-hook-form";
-import { v4 } from "uuid";
 
 type Params = {
   value?: string[];
@@ -22,26 +20,16 @@ export const useUpdateJoinCat = () => {
         ? currentMainCat.filter((str: string) => str !== el.val)
         : [...currentMainCat, el.val];
 
-      const updatedJoinedFields: FieldJoinCatType[] = Object.entries(
-        subcategories
-      )
-        .filter(([k]) => updatedMainCat.includes(k))
-        // eslint-disable-next-line
-        .flatMap(([_, v]) =>
-          v.map((sub) => ({
-            id: v4(),
-            val: sub,
-            label: captAll(sub),
-          }))
-        );
+      const updatedJoinedFields: FieldJoinCatType[] =
+        filterInnerSubCat(updatedMainCat);
 
       const currSubCategories = getValues("subCategories") ?? [];
       // ? GET JUST VAL TO WORK WITH STRINGS
-      const updatedSubCatVals = new Set(
+      const updatedSubCatStrSet = new Set(
         updatedJoinedFields.map((el) => el.val)
       );
       const newValsSubCat = currSubCategories.filter((el: string) =>
-        updatedSubCatVals.has(el)
+        updatedSubCatStrSet.has(el)
       );
       if (newValsSubCat.length !== currSubCategories.length)
         setValue("subCategories", newValsSubCat, { shouldValidate: true });
