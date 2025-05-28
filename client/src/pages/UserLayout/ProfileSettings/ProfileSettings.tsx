@@ -19,7 +19,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { EventApp, UserType } from "@/types/types";
 import { useUpdateProfileMutation } from "@/features/UserLayout/userSliceAPI";
-import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
@@ -35,6 +34,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { makeFormDataProfile } from "@/core/lib/all/forms/formatters/userProfile";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
