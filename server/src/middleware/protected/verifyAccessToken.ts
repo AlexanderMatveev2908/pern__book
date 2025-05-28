@@ -36,14 +36,14 @@ export const verifyAccessToken =
       if (isVerified && !user.isVerified)
         return err403(res, { msg: "User not verified" });
 
-      const arrRoles = Object.values(UserRole);
-      const indexRole = arrRoles.indexOf(role);
-      const indexUser = arrRoles.indexOf(user.role as UserRole);
+      // const arrRoles = Object.values(UserRole);
+      // const indexRole = arrRoles.indexOf(role);
+      // const indexUser = arrRoles.indexOf(user.role as UserRole);
 
-      if (indexUser < indexRole)
-        return err403(res, {
-          msg: "User does does not have permission to access this content",
-        });
+      // if (indexUser < indexRole)
+      //   return err403(res, {
+      //     msg: "User does does not have permission to access this content",
+      //   });
 
       req.userID = user.id;
       return next();

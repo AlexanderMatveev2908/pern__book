@@ -1,5 +1,5 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
-import { schemaID } from "./utils/helpers.js";
+import { refSql, schemaID } from "./utils/helpers.js";
 
 export class Order extends Model {
   id!: CreationOptional<string>;
@@ -60,22 +60,8 @@ export const defineOrder = (seq: Sequelize) =>
         defaultValue: "pending",
       },
 
-      bookStoreID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "book_stores",
-          key: "id",
-        },
-      },
-      userID: {
-        type: DataTypes.STRING(36),
-        allowNull: false,
-        references: {
-          model: "users",
-          key: "id",
-        },
-      },
+      bookStoreID: refSql("book_stores"),
+      userID: refSql("users"),
     },
     {
       timestamps: true,

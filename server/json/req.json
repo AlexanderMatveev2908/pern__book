@@ -1,11 +1,31 @@
 {
+  "body": {
+    "email": "john@gmail.com",
+    "country": "US",
+    "state": "NY",
+    "city": "New York",
+    "street": "789 Broadway Ave",
+    "zipCode": "10003",
+    "phone": "+1 234-567-8901",
+    "name": "Store_bbb",
+    "description": "      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!      Lorem ipsum dolor sit amet, consectetur adipisicing elit. Officia id cupiditate porro vitae eum nulla voluptatibus quos cumque libero, sed veritatis dolorum dicta neque numquam aut corporis error quas totam!",
+    "video": "https://res.cloudinary.com/dzusujmak/video/upload/v1748410935/pern__book_videos/lal53gasjwm7p2bg7pwn.mp4",
+    "images": [
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748410938/pern__book_stores/r7c3pb6qt2ejqgicfcug.jpg",
+      "https://res.cloudinary.com/dzusujmak/image/upload/v1748410939/pern__book_stores/hrhfy21pn3hl8lrnpner.jpg"
+    ],
+    "categories": [
+      "classics",
+      "psychology"
+    ],
+    "deliveryTime": "10"
+  },
   "files": {},
   "file": {},
-  "query": {
-    "page": "0",
-    "limit": "8"
+  "query": {},
+  "params": {
+    "bookStoreID": "555c3d55-b4af-4a8a-9e77-9d521afc6bc5"
   },
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImExM2YzMWVkLWU0ZTItNDE2OS1iYjE2LTVmNmFkZWEwYzg0MSIsImlhdCI6MTc0ODQwNjQ2NSwiZXhwIjoxNzQ4NDA2NTI1fQ.6Z-pzNVFM7--se9e-XzGeybKWHj2JJnfSdmL8D2CdBA",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.vBNm--rYBjp3miSsLlN502jDpeNKP8YHwWpvODjgIPaFfd9cGID8HhXAZgOzAAAfmH3zbnUw6lfTTl8d_xq97IvqyIqg1UsQJIEryIZ26lJ-cNiXA05u11JywBso4M52XQ4TNyWXKNyr8sTAFWC_lB-fSoCK-kuVBe_NL6esTUYBdNXIlpEuQzSzlJxNJsiDVkFTTX4H4Z0vwN2tsVEj1GFUrU-jfej3qJPETNDQ_Wr2H7sSjsLwpJz3rmtCtF7H3mZOApKOgR_a-WA1bWI_DIFmO0YNph9qI0dxTk0BMeLmUttU8zha0w3zMcdd390Th43TDF2cP_jwOOW5XJMnbw.fMAmIlWOEPSYBKuS.o-__bArHL70TApJcJkOs-MdZOk0w7cXz4nJo0hQ0frYO8Fp54K-q5mB1wFUJ.r__zXbP_wuAEH6irSaOhqA"
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNTJiMDlmLWY1ZmItNDY1Ni1hNmI4LWFjODkzZGRlMDVhNSIsImlhdCI6MTc0ODQxMjM4MCwiZXhwIjoxNzQ4NDEyNDQwfQ.HFiDj2lLIOBFIxZ6OflfFLdgeEChTanWBO2BWnzN13Q",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.pj-ib709Yh1pBtCcI_c4KcoFOrWub314nTTeq3bP3l87liZ73uDr551efZ881TXXRWMCAR9fYjpQbOTlTW5YP9kR4MH2YbDQWeRE5aT7A5ZUbwpVhQTnFmoMlqqZjOjKPboQ1H12ESnPbnq_pB6xSxcZtBOzpQlwm67uhvXt4oaJAkLGl2axk64R2_R_CFjM9ConXtSNWvGZWjUManfRz_nocJ43VDSkOgrU2TnnxlRDwFh55KLApDlrobV0NFRP2bU8a07Phd8riVNWumJvwp02tr5AonSamyYNkJljc3ZcaVDrvgnbLU6TXpSCD9lI-jczIA_M_SZHiMmIVZa_XA.KNlfQ3Z8yX14cG3Z.O23OityLJjULM4M7EPQXiuHJzVcAbeU5u0IErapg80CeiVc4qgWEPExH0bmx.TQzkyK9upVCzFSEx_3tRAg"
 }

@@ -1,5 +1,6 @@
 import { DataTypes, Model } from "sequelize";
 import { v4 } from "uuid";
+import { schemaID } from "../utils/helpers.js";
 
 export class CloudClass extends Model {
   id!: string;
@@ -8,12 +9,7 @@ export class CloudClass extends Model {
 }
 
 export const makeSchemaCloud = () => ({
-  id: {
-    type: DataTypes.STRING(36),
-    defaultValue: () => v4(),
-    primaryKey: true,
-    allowNull: false,
-  },
+  ...schemaID(),
   publicID: {
     type: DataTypes.STRING,
     allowNull: false,
