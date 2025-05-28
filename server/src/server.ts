@@ -11,7 +11,7 @@ import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
 import { clearDB } from "./stuff/clear.js";
-import { populateDB } from "./stuff/populateDB.js";
+import { populateDB, resetEmailJunction } from "./stuff/populateDB.js";
 
 const app = express();
 const PORT = +process.env.PORT! || 3000;
@@ -44,6 +44,7 @@ app.use(errMiddleware);
 
 // clearDB();
 // populateDB();
+// resetEmailJunction();
 
 // io.on("connection", handleSocket);
 

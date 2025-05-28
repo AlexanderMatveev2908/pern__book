@@ -71,7 +71,7 @@ export const useHandleErrSearch = ({
         if (currEl)
           makeDelay(() => {
             setFocus(currEl.field);
-          }, 400);
+          }, 200);
       }
     }, 200);
 

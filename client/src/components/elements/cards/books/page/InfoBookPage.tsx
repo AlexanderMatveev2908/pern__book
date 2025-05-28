@@ -93,10 +93,10 @@ const InfoBookPage: FC<PropsType> = ({ book, hide }) => {
             {...{
               el: labelDescriptionBook,
               fields: null,
-              styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
+              styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
             }}
           >
-            <li className="w-full flex justify-start">
+            <li className="w-full flex justify-start pr-5">
               <span className="txt__2">{book?.description ?? "N/A"}</span>
             </li>
           </DropStats>

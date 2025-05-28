@@ -26,8 +26,6 @@ const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
     control,
     getValues,
     watch,
-    setValue,
-    trigger,
   } = useFormContext();
 
   const { remove } = useFieldArray({
@@ -82,10 +80,6 @@ const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
                 index: i,
                 key: "val",
               },
-              setValue,
-              getValues,
-              watch,
-              trigger,
               control,
               customCB: () => {
                 if (!preSubmit.canMakeAPI)

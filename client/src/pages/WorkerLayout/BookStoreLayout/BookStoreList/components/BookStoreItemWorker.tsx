@@ -36,7 +36,8 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
           }`}
         >
           <InfoStoreAllUsersItem {...{ el }} />
-          {role === UserRole.MANAGER && <InfoStoreItemBusiness {...{ el }} />}
+          {/* {role === UserRole.MANAGER && <InfoStoreItemBusiness {...{ el }} />} */}
+          <InfoStoreItemBusiness {...{ el }} />
         </div>
       </div>
 
