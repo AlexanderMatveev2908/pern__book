@@ -22,7 +22,7 @@ import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { getDefValsPagination, isStr } from "@/core/lib/lib";
+import { cpyObj, getDefValsPagination, isStr } from "@/core/lib/lib";
 import { REG_ID } from "@/core/config/regex";
 import { ZodEffects, ZodObject } from "zod";
 
@@ -75,16 +75,22 @@ const SearchBar: FC<PropsType> = ({
   const { isLoading, isFetching: isReloading, data, isError } = res;
   useEffect(() => {
     if (isStr(routeID) && !REG_ID.test(routeID ?? "")) return;
+
+    // ? IMAG
+    const valsRHF = cpyObj({
+      ...getValues(),
+    });
+
     if (
       [isLoading, isReloading, isError, Object.keys(data ?? {}).length].every(
         (val) => !val
       ) &&
       isPopulated &&
-      schema.safeParse(getValues()).success &&
+      schema.safeParse(valsRHF).success &&
       canMakeAPI
     )
       triggerRtk({
-        vals: { ...getValues(), ...getDefValsPagination() },
+        vals: { ...valsRHF, ...getDefValsPagination() },
         routeID,
       });
   }, [

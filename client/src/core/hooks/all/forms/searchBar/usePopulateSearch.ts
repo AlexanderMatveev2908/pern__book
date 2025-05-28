@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { cpyObj, getStorage, isObjOk, isStr } from "@/core/lib/lib";
 import { FilterSearch, FormFieldBasic } from "@/types/types";
@@ -32,7 +33,7 @@ export const usePopulateSearch = ({
   const { keyStorage } = useGetSearchKeysStorage();
   const { setPagination, setSearch, oldVals, setPreSubmit } = ctx;
 
-  const { setValue, getValues } = useFormContext();
+  const { setValue, getValues, reset, trigger: triggerRHF } = useFormContext();
 
   useEffect(() => {
     if (
@@ -78,8 +79,9 @@ export const usePopulateSearch = ({
     }
 
     const storageData = JSON.parse(savedVals!);
+    const { page, limit, ...dataRHF } = storageData;
     const parsed = cpyObj({
-      ...storageData,
+      ...dataRHF,
       items: existingItems.length
         ? existingItems
         : storageData?.items?.length
@@ -87,14 +89,8 @@ export const usePopulateSearch = ({
         : fallBackItems,
     });
 
-    for (const key in parsed) {
-      const val = parsed[key];
-
-      setValue(key as Path<any>, val, {
-        shouldValidate: true,
-        shouldDirty: true,
-      });
-    }
+    reset(parsed);
+    triggerRHF();
 
     // ? HERE AS IN OTHERS PLACES U WILL SE A DISABILITIION OF STATE THAT ALLOW API, IT IS CAUSE I ALREADY MAKE CALL RIGHT NOW SO HAS NO SENSE TO REPEAT IN DEBOUNCE
 
@@ -124,5 +120,7 @@ export const usePopulateSearch = ({
     routeID,
     defVals,
     schema,
+    triggerRHF,
+    reset,
   ]);
 };

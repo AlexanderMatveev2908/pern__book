@@ -86,6 +86,7 @@ const TxtInputs: FC<PropsType> = ({ triggerRtk, children, routeID }) => {
               getValues,
               watch,
               trigger,
+              control,
               customCB: () => {
                 if (!preSubmit.canMakeAPI)
                   setPreSubmit({ el: "canMakeAPI", val: true });

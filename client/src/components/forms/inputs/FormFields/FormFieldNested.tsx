@@ -6,12 +6,7 @@ import {
   FormFieldBasic,
   NestedIndexProp,
 } from "@/types/types.ts";
-import {
-  UseFormGetValues,
-  UseFormSetValue,
-  UseFormTrigger,
-  UseFormWatch,
-} from "react-hook-form";
+import { Control, Controller } from "react-hook-form";
 import ErrorFormField from "../../Errors/ErrorFormField";
 
 type PropsType = {
@@ -25,10 +20,7 @@ type PropsType = {
   children?: ReactNode;
   customCB?: ((val: any) => void) | null;
   isDisabled?: boolean;
-  setValue: UseFormSetValue<any>;
-  getValues: UseFormGetValues<any>;
-  watch: UseFormWatch<any>;
-  trigger: UseFormTrigger<any>;
+  control: Control;
 } & FormBaseProps;
 
 const FormFieldNested: FC<PropsType> = ({
@@ -40,11 +32,8 @@ const FormFieldNested: FC<PropsType> = ({
   children,
   nestedIndex,
   isDisabled,
-  setValue,
   customCB,
-  watch,
-  getValues,
-  trigger,
+  control,
 }) => {
   const param = useMemo(
     () => `items.${nestedIndex.index}.${nestedIndex.key}`,
@@ -59,34 +48,30 @@ const FormFieldNested: FC<PropsType> = ({
         )}
 
         <div className="w-full relative">
-          <input
-            value={watch(param)}
-            type={el.type ?? "text"}
-            step={el.type === "number" ? "any" : undefined}
-            placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
-            className={`${customStyle ?? "input__sm"} txt__2`}
-            disabled={isDisabled}
-            onChange={(e) => {
-              const { value: v } = e.target;
+          <Controller
+            name={param}
+            control={control}
+            render={({ field }) => (
+              <input
+                {...field}
+                type={el.type ?? "text"}
+                step={el.type === "number" ? "any" : undefined}
+                placeholder={
+                  el?.place ?? `Your ${el?.label ?? capt(el.field)}...`
+                }
+                className={`${customStyle ?? "input__sm"} txt__2`}
+                disabled={isDisabled}
+                onChange={(e) => {
+                  const { value: v } = e.target;
 
-              try {
-                setValue(
-                  `items`,
-                  getValues("items").map((item: FormFieldBasic, i: number) =>
-                    i === nestedIndex.index
-                      ? { ...item, [nestedIndex.key]: v }
-                      : item
-                  ),
-                  { shouldValidate: true }
-                );
-                trigger("items");
-              } catch (err) {
-                console.log(err);
-              }
+                  field.onChange(e);
 
-              if (typeof customCB === "function") customCB(e.target.value);
-            }}
+                  if (typeof customCB === "function") customCB(v);
+                }}
+              />
+            )}
           />
+
           {children ?? (
             <ErrorFormField
               {...{ errors, el, nestedIndex, styleCont: styleContErr }}
