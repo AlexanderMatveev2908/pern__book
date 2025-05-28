@@ -289,11 +289,6 @@ button:disabled {
   @apply w-full grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-10;
 }
 
-.search_bar .skeleton {
-  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-  background-size: 200% 100%;
-  animation: skeleton_search 1.5s infinite linear;
-}
 @media (min-width: 500px) {
   .search_bar .left_btns {
     @apply grid-cols-2;
@@ -315,6 +310,12 @@ button:disabled {
 }
 .search_bar .btn_secondary .txt {
   @apply hidden sm:block;
+}
+
+.search_bar__skeleton {
+  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
+  background-size: 200% 100%;
+  animation: skeleton_search 1.5s infinite linear;
 }
 
 @keyframes skeleton_search {
