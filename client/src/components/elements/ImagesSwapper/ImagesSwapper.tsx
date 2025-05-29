@@ -13,37 +13,31 @@ type PropsType = {
   images?: AssetCloudType[] | HeroImage[];
 };
 
-const getSize = () =>
-  window.innerWidth >= tailwindBreak.lg
-    ? 350
-    : window.innerWidth >= tailwindBreak.md
-    ? 300
-    : 200;
+const getSize = () => (window.innerWidth >= tailwindBreak.md ? 300 : 200);
 
-// const getShift = () => 2;
+const getSwapNum = () =>
+  window.innerWidth >= 1500
+    ? 4
+    : window.innerWidth >= 1200
+    ? 3
+    : window.innerWidth >= 550
+    ? 2
+    : 1;
 
 const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
   const [wImg, setWImg] = useState(getSize());
   const clickedRef = useRef<boolean>(false);
-  const [items, setItems] = useState<(AssetCloudType | HeroImage)[]>([]);
-  // const [shitN, setShitN] = useState(getShift());
-  // const replaced = useRef<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
       setWImg(getSize());
-      // setShitN(Math.min(getShift(), images.length));
     };
 
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
   }, [images.length]);
-
-  useEffect(() => {
-    setItems(images);
-  }, [images]);
 
   // const swapItems = useCallback(async () => {
   //   const newItems = cpyObj(items);
@@ -62,37 +56,45 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   const handleClickRef = () => {
     clickedRef.current = true;
-    setTimeout(() => (clickedRef.current = false), 5000);
+    setTimeout(() => (clickedRef.current = false), 10000);
   };
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      const next = prev + 1;
+      const maxStart = images.length - getSwapNum();
+      const next = prev + getSwapNum();
 
-      if (next >= items.length) return 0;
-      // if (prev % shitN === 0) replaced.current = false;
+      if (next >= maxStart) return 0;
 
       return next;
     });
-  }, [items.length]);
+  }, [images]);
 
   const decSlide = () => {
-    handleClickRef();
-    setCurrSlide((prev) => (prev === 0 ? items.length - 1 : prev - 1));
+    setCurrSlide((prev) => {
+      const nextPrev = prev - getSwapNum();
+      return nextPrev < 0 ? images.length - 1 - getSwapNum() : nextPrev;
+    });
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!clickedRef.current) incSlide();
-    }, 1250);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (!clickedRef.current) incSlide();
+  //   }, 1250);
 
-    return () => clearInterval(interval);
-  }, [incSlide]);
+  //   return () => clearInterval(interval);
+  // }, [incSlide]);
 
-  return !items?.length ? null : (
+  return !images?.length ? null : (
     <div className="w-full flex justify-center images_swapper">
-      <div className="w-full grid text-[whitesmoke] relative">
-        <button onClick={decSlide} className={`btn group -left-[20px]`}>
+      <div className="cont grid text-[whitesmoke] relative">
+        <button
+          onClick={() => {
+            handleClickRef();
+            decSlide();
+          }}
+          className={`btn group -left-[20px]`}
+        >
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
@@ -104,10 +106,14 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
             }}
           >
             <>
-              {items.map((el) => (
+              {images.map((el, i) => (
                 <div
-                  key={el.id}
-                  className="rounded-xl overflow-hidden"
+                  key={(el as AssetCloudType).publicID}
+                  className={`card rounded-xl transition-all duration-500 border-2 overflow-hidden ${
+                    i >= currSlide && i < currSlide + getSwapNum()
+                      ? ""
+                      : "opacity-0"
+                  }`}
                   style={{ width: wImg, height: wImg }}
                 >
                   <ImgLoaderHandler

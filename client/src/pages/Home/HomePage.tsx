@@ -1,5 +1,7 @@
+import ImagesSwapper from "@/components/elements/ImagesSwapper/ImagesSwapper";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { isArrOk } from "@/core/lib/lib";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { rootAPI } from "@/features/root/rootAPI";
 import apiSlice from "@/store/apiSlice";
@@ -20,7 +22,15 @@ const HomePage: FC = () => {
   const res = rootAPI.useGetBooksByBestRatingQuery();
   useWrapQueryAPI({ ...res });
 
-  return <WrapPageAPI {...{ ...res }}></WrapPageAPI>;
+  const { data: { books } = {} } = res ?? {};
+
+  return (
+    <WrapPageAPI {...{ ...res }}>
+      {isArrOk(books) && (
+        <ImagesSwapper {...{ images: books!.map((b) => b!.images![0]) }} />
+      )}
+    </WrapPageAPI>
+  );
 };
 export default HomePage;
 
