@@ -1,4 +1,7 @@
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
+import { rootAPI } from "@/features/root/rootAPI";
 import apiSlice from "@/store/apiSlice";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,11 +17,10 @@ const HomePage: FC = () => {
     }
   }, [dispatch, authState.loggingOut]);
 
-  return (
-    <div className="p_page">
-      <h1 className="text-4xl leading-[125%]">Work in progress ⚒️⚒️⚒️</h1>
-    </div>
-  );
+  const res = rootAPI.useGetBooksByBestRatingQuery();
+  useWrapQueryAPI({ ...res });
+
+  return <WrapPageAPI {...{ ...res }}></WrapPageAPI>;
 };
 export default HomePage;
 

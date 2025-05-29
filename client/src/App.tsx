@@ -40,6 +40,8 @@ import BookListWorker from "./pages/WorkerLayout/BooksLayout/BookListWorker/Book
 import BookPageWorker from "./pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
 import CreateBookWorker from "./pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
 import UpdateBookWorker from "./pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
+import SearchLayout from "./layouts/SearchLayout/SearchLayout";
+import BookListSearch from "./pages/SearchLayout/BookListSearch";
 
 const App: FC = () => {
   useScroll();
@@ -185,6 +187,10 @@ const App: FC = () => {
           </Route>
 
           <Route path="*" element={<Navigate to="/" replace={true} />} />
+        </Route>
+
+        <Route path="search" element={<SearchLayout />}>
+          <Route index={true} element={<BookListSearch />} />
         </Route>
 
         <Route path="notice" element={<Notice />} />
