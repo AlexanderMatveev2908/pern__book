@@ -103,7 +103,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
         <div className="cont w-full flex overflow-hidden p-[20px] el__border_md">
           <div
-            className="flex transition-all duration-500 gap-[40px] w-fit h-fit items-start"
+            className="flex wrapper transition-all duration-500 gap-[40px] w-fit h-fit items-start"
             style={{
               transform: `translateX(-${currSlide * (wImg + 40)}px)`,
             }}
@@ -112,19 +112,29 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
               {images.map((el, i) => (
                 <div
                   key={(el as AssetCloudType).publicID}
-                  className={`flex rounded-xl transition-all duration-500 border-2 border-neutral-800 overflow-hidden ${
+                  className={`flex rounded-xl transition-all duration-500${
                     i >= currSlide && i < currSlide + numSwap
                       ? ""
                       : "opacity-0 pointer-events-none"
                   }`}
                   style={{ width: wImg, height: wImg }}
                 >
-                  <ImgLoaderHandler
-                    {...{
-                      url:
-                        (el as AssetCloudType)?.url ?? (el as HeroImage)?.src,
-                    }}
-                  />
+                  <div className="min-w-full min-h-full rounded-xl card border-2 border-neutral-800 ">
+                    <ImgLoaderHandler
+                      {...{
+                        url:
+                          (el as AssetCloudType)?.url ?? (el as HeroImage)?.src,
+                        customClass: "client",
+                      }}
+                    />
+
+                    <div className="server">
+                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+                      Quis rerum voluptatem animi et voluptatum illo veritatis
+                      dolorum suscipit sapiente architecto delectus nostrum qui
+                      soluta nisi adipisci, atque unde non repudiandae.
+                    </div>
+                  </div>
                 </div>
               ))}
             </>
