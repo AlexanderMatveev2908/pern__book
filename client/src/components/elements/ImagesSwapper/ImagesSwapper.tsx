@@ -128,12 +128,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
                       }}
                     />
 
-                    <div className="server">
-                      Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                      Quis rerum voluptatem animi et voluptatum illo veritatis
-                      dolorum suscipit sapiente architecto delectus nostrum qui
-                      soluta nisi adipisci, atque unde non repudiandae.
-                    </div>
+                    <div className="server"></div>
                   </div>
                 </div>
               ))}
