@@ -1,40 +1,8 @@
 import { FC, useEffect } from "react";
-import { Navigate, useNavigate, useRoutes } from "react-router-dom";
-import MainLayout from "../layouts/MainLayout";
-import HomePage from "../pages/Home/HomePage";
+import { useNavigate, useRoutes } from "react-router-dom";
 import { setNavigator } from "@/core/lib/lib";
 import { useNinjaToken, useScroll } from "@/core/hooks/hooks";
-import VerifyCb from "../pages/VerifyCb/VerifyCb";
-import Notice from "../pages/Notice/NoticePage";
-import authRoutes from "./routes/AuthRoutes";
-import userRoutes from "./routes/UserRoutes";
-import ownerRoutes from "./routes/ownerRoutes/OwnerRoutes";
-import workerRoutes from "./routes/workerRoutes/WorkerRoutes";
-import searchRoutes from "./routes/SearchRoutes";
-
-const allRoutes = [
-  {
-    path: "/",
-    element: <MainLayout />,
-    children: [
-      { index: true, element: <HomePage /> },
-
-      searchRoutes,
-
-      authRoutes,
-      userRoutes,
-      ownerRoutes,
-      workerRoutes,
-
-      { path: "notice", element: <Notice /> },
-      { path: "verify-cb", element: <VerifyCb /> },
-
-      { path: "*", element: <Navigate to="/" replace /> },
-    ],
-  },
-
-  { path: "*", element: <Navigate to="/" replace /> }, // global fallback
-];
+import appRoutes from "./routes/AppRoutes";
 
 const App: FC = () => {
   useScroll();
@@ -47,6 +15,6 @@ const App: FC = () => {
 
   useNinjaToken();
 
-  return useRoutes(allRoutes);
+  return useRoutes(appRoutes);
 };
 export default App;
