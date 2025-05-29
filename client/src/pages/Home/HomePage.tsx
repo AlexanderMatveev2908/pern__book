@@ -1,4 +1,4 @@
-import ImagesSwapper from "@/components/elements/ImagesSwapper/ImagesSwapper";
+import ImagesSwapper from "@/pages/Home/components/ImagesSwapper";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { isArrOk } from "@/core/lib/lib";
