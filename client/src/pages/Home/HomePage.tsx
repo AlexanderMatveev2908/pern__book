@@ -26,9 +26,7 @@ const HomePage: FC = () => {
 
   return (
     <WrapPageAPI {...{ ...res }}>
-      {isArrOk(books) && (
-        <ImagesSwapper {...{ images: books!.map((b) => b!.images![0]) }} />
-      )}
+      {isArrOk(books) && <ImagesSwapper {...{ books }} />}
     </WrapPageAPI>
   );
 };
