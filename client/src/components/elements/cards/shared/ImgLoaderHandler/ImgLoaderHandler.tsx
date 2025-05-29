@@ -2,13 +2,16 @@ import { useState, type FC } from "react";
 
 type PropsType = {
   url: string;
+  customClass?: string;
 };
 
-const ImgLoaderHandler: FC<PropsType> = ({ url }) => {
+const ImgLoaderHandler: FC<PropsType> = ({ url, customClass }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   return !isLoaded ? (
-    <div className="img_loader_handler_skeleton min-w-full min-h-full relative">
+    <div
+      className={`${customClass} img_loader_handler_skeleton min-w-full min-h-full relative`}
+    >
       <img
         src={url}
         alt="🥷🏼"
