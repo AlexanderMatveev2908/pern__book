@@ -218,10 +218,12 @@ export const getAllStores = async (
       {
         model: Book,
         as: "books",
+        separate: true,
         attributes: ["id", "qty", "price"],
         include: [
           {
             model: Review,
+            separate: true,
             as: "reviews",
             attributes: ["rating", "bookID", "id"],
           },
@@ -246,8 +248,8 @@ export const getAllStores = async (
       "BookStore.id",
       "images.id",
       "orders.id",
-      "books->reviews.id",
-      "books.id",
+      // "books->reviews.id",
+      // "books.id",
       "team.id",
       "team->BookStoreUser.id",
     ],
