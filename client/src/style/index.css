@@ -515,7 +515,7 @@ button:disabled {
 }
 .images_swapper .cont .wrapper .card .client,
 .images_swapper .cont .wrapper .card .server {
-  @apply absolute inset-0 w-full h-full;
+  @apply absolute inset-0 min-w-full min-h-full;
   backface-visibility: hidden;
 }
 .images_swapper .cont .wrapper .card .server {
