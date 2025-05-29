@@ -13,25 +13,26 @@ type PropsType = {
   images?: AssetCloudType[] | HeroImage[];
 };
 
-const getSize = () => (window.innerWidth >= tailwindBreak.md ? 300 : 200);
-
-const getSwapNum = () =>
-  window.innerWidth >= 1500
-    ? 4
-    : window.innerWidth >= 1200
-    ? 3
-    : window.innerWidth >= 550
-    ? 2
-    : 1;
+const obj = {
+  size: () => (window.innerWidth >= tailwindBreak.md ? 300 : 200),
+  num: () =>
+    window.innerWidth >= 1500
+      ? 4
+      : window.innerWidth >= 1250
+      ? 3
+      : window.innerWidth >= 540
+      ? 2
+      : 1,
+};
 
 const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
-  const [wImg, setWImg] = useState(getSize());
+  const [wImg, setWImg] = useState(obj.size());
   const clickedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
-      setWImg(getSize());
+      setWImg(obj.size());
     };
 
     window.addEventListener("resize", handleResize);
@@ -61,8 +62,8 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      const maxStart = images.length - getSwapNum();
-      const next = prev + getSwapNum();
+      const maxStart = images.length - obj.num();
+      const next = prev + obj.num();
 
       if (next >= maxStart) return 0;
 
@@ -72,8 +73,8 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   const decSlide = () => {
     setCurrSlide((prev) => {
-      const nextPrev = prev - getSwapNum();
-      return nextPrev < 0 ? images.length - 1 - getSwapNum() : nextPrev;
+      const nextPrev = prev - obj.num();
+      return nextPrev < 0 ? images.length - 1 - obj.num() : nextPrev;
     });
   };
 
@@ -87,18 +88,18 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   return !images?.length ? null : (
     <div className="w-full flex justify-center images_swapper">
-      <div className="cont grid text-[whitesmoke] relative">
+      <div className="grid grid-cols-1 text-[whitesmoke] relative">
         <button
           onClick={() => {
             handleClickRef();
             decSlide();
           }}
-          className={`btn group -left-[20px]`}
+          className={`btn group -left-[30px]`}
         >
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
-        <div className="w-full flex overflow-hidden p-5 el__border_md">
+        <div className="cont w-full flex overflow-hidden p-[20px] el__border_md">
           <div
             className="flex transition-all duration-500 gap-[40px] w-fit h-fit items-start"
             style={{
@@ -109,10 +110,10 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
               {images.map((el, i) => (
                 <div
                   key={(el as AssetCloudType).publicID}
-                  className={`card rounded-xl transition-all duration-500 border-2 overflow-hidden ${
-                    i >= currSlide && i < currSlide + getSwapNum()
+                  className={`flex rounded-xl transition-all duration-500 border-2 border-neutral-800 overflow-hidden ${
+                    i >= currSlide && i < currSlide + obj.num()
                       ? ""
-                      : "opacity-0"
+                      : "opacity-0 pointer-events-none"
                   }`}
                   style={{ width: wImg, height: wImg }}
                 >
@@ -133,7 +134,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
             handleClickRef();
             incSlide();
           }}
-          className={`btn -right-[20px] group`}
+          className={`btn -right-[30px] group`}
         >
           <FaChevronRight className="icon__md icon__with_txt" />
         </button>
