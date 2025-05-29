@@ -10,7 +10,7 @@ import {
 
 const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
   <div className="w-full grid grid-cols-1 max-w-full gap-5 text-gray-300">
-    <Title {...{ title, styleTxt: "txt__4" }} />
+    <Title {...{ title, styleTxt: "txt__4", styleParent: "justify-start" }} />
     {arg.map((el) => (
       <a
         key={el.id}
@@ -34,17 +34,23 @@ const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
 
 const Footer: FC = () => {
   return (
-    <div className="w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 pb-10 bottom-0 txt__col">
+    <div className="w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 pb-14 bottom-0 txt__col">
       <Link to="/" className="text-blue-600 w-fit">
         <span className="txt__5">LOGO</span>
       </Link>
 
-      <div className="w-full max-w-full grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
-        <WrapLink {...{ arg: gitLinks, title: "Git" }} />
+      <div className="w-full max-w-full grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
+        <WrapLink {...{ arg: gitLinks, title: "GitHub" }} />
         <WrapLink {...{ arg: contactLinks, title: "Contact" }} />
       </div>
 
       <NewsLetter />
+
+      <div className="w-full">
+        <p className="txt__3">
+          No copyright. Open source. Contributions welcome ✌🏽
+        </p>
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ const obj = {
   num: () =>
     window.innerWidth >= 1500
       ? 4
-      : window.innerWidth >= 1250
+      : window.innerWidth >= 1200
       ? 3
       : window.innerWidth >= 540
       ? 2
@@ -28,11 +28,13 @@ const obj = {
 const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
   const [wImg, setWImg] = useState(obj.size());
+  const [numSwap, setNumSwap] = useState(obj.num());
   const clickedRef = useRef<boolean>(false);
 
   useEffect(() => {
     const handleResize = () => {
       setWImg(obj.size());
+      setNumSwap(obj.num());
     };
 
     window.addEventListener("resize", handleResize);
@@ -62,19 +64,19 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      const maxStart = images.length - obj.num();
-      const next = prev + obj.num();
+      const maxStart = images.length - numSwap;
+      const next = prev + numSwap;
 
       if (next >= maxStart) return 0;
 
       return next;
     });
-  }, [images]);
+  }, [images, numSwap]);
 
   const decSlide = () => {
     setCurrSlide((prev) => {
-      const nextPrev = prev - obj.num();
-      return nextPrev < 0 ? images.length - 1 - obj.num() : nextPrev;
+      const nextPrev = prev - numSwap;
+      return nextPrev < 0 ? images.length - 1 - numSwap : nextPrev;
     });
   };
 
@@ -111,7 +113,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
                 <div
                   key={(el as AssetCloudType).publicID}
                   className={`flex rounded-xl transition-all duration-500 border-2 border-neutral-800 overflow-hidden ${
-                    i >= currSlide && i < currSlide + obj.num()
+                    i >= currSlide && i < currSlide + numSwap
                       ? ""
                       : "opacity-0 pointer-events-none"
                   }`}
