@@ -11,6 +11,8 @@ import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/useGetU";
+import DataBookDB from "@/components/elements/cards/shared/HOC/InfoBook/components/DataBookDB";
+import InfoBookAbout from "@/components/elements/cards/shared/HOC/InfoBook/components/InfoBookAbout";
 
 const BookPageWorker: FC = () => {
   const { user } = useGetU();
@@ -56,7 +58,14 @@ const BookPageWorker: FC = () => {
 
         <DropActionsBookWorker {...{ book }} />
 
-        <InfoBookPage {...{ book: book!, hide: role !== UserRole.MANAGER }} />
+        <InfoBookPage
+          {...{
+            book: book!,
+            hide: role !== UserRole.MANAGER,
+            AboutBook: InfoBookAbout,
+            BookDataDB: DataBookDB,
+          }}
+        />
       </div>
     </WrapPageAPI>
   );
