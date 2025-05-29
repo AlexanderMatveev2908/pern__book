@@ -8,15 +8,28 @@ import {
   gitLinks,
 } from "@/core/config/fieldsData/footer";
 
-const LinkEl = ({ el }: { el: FooterLinkType }) => (
-  <a
-    key={el.id}
-    href={el.url}
-    className="w-fit el__after_below flex items-center gap-5 el__flow hover:text-blue-600"
-  >
-    <el.icon className="icon__md" />
-    <span className="txt__2">{el.label}</span>
-  </a>
+const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
+  <div className="w-full grid grid-cols-1 max-w-full gap-5 text-gray-300">
+    <Title {...{ title, styleTxt: "txt__4" }} />
+    {arg.map((el) => (
+      <a
+        key={el.id}
+        href={el.url}
+        className="w-full justify-start el__after_below flex max-w-full items-center gap-5 el__flow hover:text-blue-600"
+      >
+        <el.icon className="icon__md" />
+        <span
+          className="txt__2 clamp_txt"
+          style={{
+            lineClamp: 2,
+            WebkitLineClamp: 2,
+          }}
+        >
+          {el.label}
+        </span>
+      </a>
+    ))}
+  </div>
 );
 
 const Footer: FC = () => {
@@ -26,18 +39,9 @@ const Footer: FC = () => {
         <span className="txt__5">LOGO</span>
       </Link>
 
-      <div className="w-full grid gap-5 text-gray-300">
-        <Title {...{ title: "GitHub", styleTxt: "txt__4" }} />
-        {gitLinks.map((el) => (
-          <LinkEl key={el.id} {...{ el }} />
-        ))}
-      </div>
-
-      <div className="w-full grid gap-5 text-gray-300">
-        <Title {...{ title: "Contact", styleTxt: "txt__4" }} />
-        {contactLinks.map((el) => (
-          <LinkEl key={el.id} {...{ el }} />
-        ))}
+      <div className="w-full max-w-full grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
+        <WrapLink {...{ arg: gitLinks, title: "Git" }} />
+        <WrapLink {...{ arg: contactLinks, title: "Contact" }} />
       </div>
 
       <NewsLetter />
