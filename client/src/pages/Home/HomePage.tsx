@@ -1,15 +1,15 @@
 import ImagesSwapper from "@/pages/Home/components/ImagesSwapper";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { isArrOk } from "@/core/lib/lib";
+import { formatD, isArrOk } from "@/core/lib/lib";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { rootAPI } from "@/features/root/rootAPI";
 import apiSlice from "@/store/apiSlice";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import Title from "@/components/elements/Title";
 import RatingItem from "@/components/elements/RatingItem";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import WrapSectionHome from "@/components/HOC/WrapSectionHome";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
@@ -25,29 +25,57 @@ const HomePage: FC = () => {
   const res = rootAPI.useGetBooksByBestRatingQuery();
   useWrapQueryAPI({ ...res });
 
-  const { data: { books } = {} } = res ?? {};
+  const { data: { booksByRating, booksRecent } = {} } = res ?? {};
 
-  const [ids] = useCreateIds({
-    lengths: [books?.length],
+  const ids = useCreateIds({
+    lengths: [booksByRating?.length, booksRecent?.length],
   });
 
   return (
     <WrapPageAPI {...{ ...res }}>
-      <Title {...{ title: "More appreciated" }} />
-      {isArrOk(books) && (
-        <ImagesSwapper {...{ books }}>
-          {(el, i) => (
-            <div
-              key={ids[i]}
-              className="w-full absolute bottom-0 bg-black/90 h-[40px] rounded-xl"
-            >
-              <div className="w-full flex h-full items-center">
-                <RatingItem {...{ rat: el?.avgRating }} />
-              </div>
-            </div>
+      <div className="w-full grid grid-cols-1 gap-20">
+        <WrapSectionHome {...{ title: "Best rating" }}>
+          {isArrOk(booksByRating) && (
+            <ImagesSwapper {...{ books: booksByRating }}>
+              {(el, i) => (
+                <div
+                  key={ids[0][i]}
+                  className="w-full absolute bottom-0 bg-black/90 h-[40px] rounded-xl"
+                >
+                  <div className="w-full flex h-full items-center">
+                    <RatingItem {...{ rat: el?.avgRating }} />
+                  </div>
+                </div>
+              )}
+            </ImagesSwapper>
           )}
-        </ImagesSwapper>
-      )}
+        </WrapSectionHome>
+
+        <WrapSectionHome {...{ title: "most recent" }}>
+          {isArrOk(booksRecent) && (
+            <ImagesSwapper {...{ books: booksRecent }}>
+              {(el, i) => (
+                <div
+                  key={ids[1][i]}
+                  className="w-full absolute bottom-0 bg-black/90 h-[50px] rounded-xl"
+                >
+                  <div className="w-full flex justify-center h-full items-center">
+                    <span
+                      className="txt__3 text-center clamp_txt"
+                      style={{
+                        lineClamp: 2,
+                        WebkitLineClamp: 2,
+                      }}
+                    >
+                      {formatD(el?.createdAt)}
+                    </span>
+                  </div>
+                </div>
+              )}
+            </ImagesSwapper>
+          )}
+        </WrapSectionHome>
+      </div>
     </WrapPageAPI>
   );
 };
