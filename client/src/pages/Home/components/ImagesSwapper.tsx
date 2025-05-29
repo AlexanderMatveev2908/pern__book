@@ -1,9 +1,11 @@
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import ImgLoaderHandler from "../cards/shared/ImgLoaderHandler/ImgLoaderHandler";
+import ImgLoaderHandler from "../../../components/elements/cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 import { BookType } from "@/types/all/books";
-import RatingItem from "../RatingItem";
+import RatingItem from "../../../components/elements/RatingItem";
+import { priceFormatter } from "@/core/lib/lib";
+import { IoNavigateOutline } from "react-icons/io5";
 
 type PropsType = {
   books?: BookType[];
@@ -57,24 +59,9 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
     return () => window.removeEventListener("resize", handleResize);
   }, [books.length]);
 
-  // const swapItems = useCallback(async () => {
-  //   const newItems = cpyObj(items);
-  //   const movedItems = [...newItems.slice(shitN), ...newItems.slice(0, shitN)];
-
-  //   setCurrSlide(0);
-  //   setItems(movedItems);
-  // }, [items, shitN]);
-
-  // useEffect(() => {
-  //   if (currSlide % shitN === 0 && !replaced.current) {
-  //     replaced.current = true;
-  //     swapItems();
-  //   }
-  // }, [swapItems, currSlide, shitN, images.length]);
-
   const handleClickRef = () => {
     clickedRef.current = true;
-    setTimeout(() => (clickedRef.current = false), 10000);
+    setTimeout(() => (clickedRef.current = false), 5000);
   };
 
   const incSlide = useCallback(() => {
@@ -95,13 +82,13 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
     });
   };
 
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!clickedRef.current) incSlide();
-  //   }, 1250);
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!clickedRef.current) incSlide();
+    }, 1500);
 
-  //   return () => clearInterval(interval);
-  // }, [incSlide]);
+    return () => clearInterval(interval);
+  }, [incSlide]);
 
   return !books?.length ? null : (
     <div className="w-full flex justify-center images_swapper">
@@ -148,18 +135,27 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
                       </div>
                     </ImgLoaderHandler>
 
-                    <div className="server flex flex-col items-center justify-start p-3 gap-2 max-h-full">
+                    <div className="server flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full">
                       <SpanTxt
                         {...{ txt: el.author, fsz: "txt__4", clamp: 1 }}
                       />
                       <SpanTxt
                         {...{ txt: el.title, fsz: "txt__3", clamp: 2 }}
                       />
-                      <div className="w-full flex-1 mt-3 overflow-y-auto scroll_app scroll_y pr-3">
+                      {/* <div className="w-full flex-1 mt-3 overflow-y-auto scroll_app scroll_y pr-3">
                         <span className="txt__2 max-h-full overflow-hidden">
                           {el.description}
                         </span>
-                      </div>
+                      </div> */}
+                      <SpanTxt
+                        {...{
+                          txt: priceFormatter(el.price),
+                          fsz: "txt__4",
+                          clamp: 5,
+                        }}
+                      />
+
+                      <IoNavigateOutline className="md:mt-5 min-w-[40px] md:min-w-[60px] min-h-[40px] md:min-h-[60px]" />
                     </div>
                   </div>
                 </div>

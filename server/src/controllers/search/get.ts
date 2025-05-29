@@ -19,6 +19,9 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
         ],
       ],
     },
+    offset: 0,
+    limit: 20,
+    order: [["avgRating", "DESC"]],
   });
 
   if (!books.length) return res204(res);

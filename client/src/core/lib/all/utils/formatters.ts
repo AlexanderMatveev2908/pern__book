@@ -27,8 +27,8 @@ export const parseNullPost = (str: string | null): string =>
 export const countW = (len: number, txt?: string) =>
   (txt?.length ?? 0) > len ? txt?.slice(0, len) + "..." : txt;
 
-export const priceFormatter = (price?: string, fb?: string) => {
-  const priceVal = +(price ?? "0.00");
+export const priceFormatter = (price?: string | number, fb?: string) => {
+  const priceVal = +(price ?? 0);
 
   return !priceVal && fb
     ? fb
