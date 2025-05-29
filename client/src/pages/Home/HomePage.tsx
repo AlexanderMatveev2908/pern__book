@@ -7,6 +7,9 @@ import { rootAPI } from "@/features/root/rootAPI";
 import apiSlice from "@/store/apiSlice";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import Title from "@/components/elements/Title";
+import RatingItem from "@/components/elements/RatingItem";
+import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
@@ -24,9 +27,27 @@ const HomePage: FC = () => {
 
   const { data: { books } = {} } = res ?? {};
 
+  const [ids] = useCreateIds({
+    lengths: [books?.length],
+  });
+
   return (
     <WrapPageAPI {...{ ...res }}>
-      {isArrOk(books) && <ImagesSwapper {...{ books }} />}
+      <Title {...{ title: "More appreciated" }} />
+      {isArrOk(books) && (
+        <ImagesSwapper {...{ books }}>
+          {(el, i) => (
+            <div
+              key={ids[i]}
+              className="w-full absolute bottom-0 bg-black/90 h-[40px] rounded-xl"
+            >
+              <div className="w-full flex h-full items-center">
+                <RatingItem {...{ rat: el?.avgRating }} />
+              </div>
+            </div>
+          )}
+        </ImagesSwapper>
+      )}
     </WrapPageAPI>
   );
 };
