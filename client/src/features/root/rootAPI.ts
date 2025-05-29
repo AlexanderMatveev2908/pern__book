@@ -11,25 +11,14 @@ export const rootAPI = apiSlice.injectEndpoints({
       }),
     }),
     getBooksByBestRating: builder.query<
-      BaseResAPI<{ books: BookType[] }>,
+      BaseResAPI<{ booksByRating: BookType[]; booksRecent: BookType[] }>,
       void
     >({
       query: () => ({
         url: "/search/best-avg-rating",
         method: "GET",
       }),
-      providesTags: (res) => [
-        ...(res?.books?.length
-          ? res.books.map((el) => ({
-              type: TagsAPI.BOOKS_BEST_RATING,
-              id: el.id,
-            }))
-          : []),
-        {
-          type: TagsAPI.BOOKS_BEST_RATING,
-          id: "LIST",
-        },
-      ],
+      providesTags: [TagsAPI.BOOKS_SEARCH_HOME],
     }),
   }),
 });

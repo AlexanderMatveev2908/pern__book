@@ -38,7 +38,7 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
               {books.map((el, i) => (
                 <div
                   key={books[i].id}
-                  className={`flex rounded-xl transition-all duration-500${
+                  className={`flex rounded-xl transition-all duration-500 ${
                     i >= currSlide && i < currSlide + numSwap
                       ? ""
                       : "opacity-0 pointer-events-none"

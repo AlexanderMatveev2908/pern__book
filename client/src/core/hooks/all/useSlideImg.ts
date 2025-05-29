@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { tailwindBreak } from "@/core/config/breakpoints";
+import { clearTimer } from "@/core/lib/lib";
 import { useCallback, useEffect, useRef, useState } from "react";
 
 type Params = {
@@ -23,6 +24,7 @@ export const useSlideImg = ({ items }: Params) => {
   const [wImg, setWImg] = useState(obj.size());
   const [numSwap, setNumSwap] = useState(obj.num());
   const clickedRef = useRef<boolean>(false);
+  const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,19 +35,25 @@ export const useSlideImg = ({ items }: Params) => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [items.length]);
+  }, [items]);
 
   const handleClickRef = () => {
     clickedRef.current = true;
-    setTimeout(() => (clickedRef.current = false), 5000);
+
+    clearTimer(timerRef);
+
+    timerRef.current = setTimeout(() => {
+      clickedRef.current = false;
+      clearTimer(timerRef);
+    }, 5000);
   };
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      const maxStart = items.length - numSwap;
+      const maxStart = Math.max(0, items.length - numSwap);
       const next = prev + numSwap;
 
-      if (next >= maxStart) return 0;
+      if (next > maxStart) return 0;
 
       return next;
     });
@@ -53,15 +61,16 @@ export const useSlideImg = ({ items }: Params) => {
 
   const decSlide = () => {
     setCurrSlide((prev) => {
+      const maxStart = Math.max(0, items.length - numSwap);
       const nextPrev = prev - numSwap;
-      return nextPrev < 0 ? items.length - 1 - numSwap : nextPrev;
+      return nextPrev < 0 ? maxStart : nextPrev;
     });
   };
 
   useEffect(() => {
     const interval = setInterval(() => {
       if (!clickedRef.current) incSlide();
-    }, 1500);
+    }, 2500);
 
     return () => clearInterval(interval);
   }, [incSlide]);

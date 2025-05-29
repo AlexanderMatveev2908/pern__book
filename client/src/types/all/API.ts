@@ -28,7 +28,7 @@ export enum TagsAPI {
   // STORES_INFO = "STORES_INFO",
   DUMMY_LIST = "DUMMY_LIST",
 
-  BOOKS_BEST_RATING = "BOOKS_BEST_RATING",
+  BOOKS_SEARCH_HOME = "BOOKS_SEARCH_HOME",
 }
 
 export interface ResApp extends AxiosResponse {
