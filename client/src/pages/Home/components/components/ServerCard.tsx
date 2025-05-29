@@ -1,5 +1,6 @@
+import { isStr } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
-import type { FC } from "react";
+import { useEffect, useRef, useState, type FC } from "react";
 
 type PropsType = {
   el: BookType;
@@ -25,13 +26,49 @@ const SpanTxt = ({
 );
 
 const ServerCard: FC<PropsType> = ({ el }) => {
+  const refTxt = useRef<HTMLSpanElement | null>(null);
+  const [displayTxt, setDisplayTxt] = useState(el?.description ?? "");
+
+  useEffect(() => {
+    const domEl = refTxt.current;
+    if (!domEl) return;
+    if (!isStr(el?.description ?? "")) {
+      setDisplayTxt("");
+      return;
+    }
+
+    domEl.innerText = el!.description as string;
+    if (domEl.scrollHeight <= domEl.clientHeight) {
+      setDisplayTxt(el?.description ?? "");
+      return;
+    }
+
+    let left = 0;
+    let right = el.description!.length;
+    let truncated = "";
+
+    while (left < right) {
+      const mid = Math.floor((left + right) / 2);
+      domEl.innerText = el.description!.slice(0, mid) + "...";
+
+      if (domEl.scrollHeight <= domEl.clientHeight) {
+        truncated = el.description!.slice(0, mid) + "...";
+        left = mid + 1;
+      } else {
+        right = mid;
+      }
+    }
+
+    setDisplayTxt(truncated);
+  }, [el]);
+
   return (
     <div className="server flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full">
       <SpanTxt {...{ txt: el.author, fsz: "txt__4", clamp: 1 }} />
       <SpanTxt {...{ txt: el.title, fsz: "txt__3", clamp: 2 }} />
 
-      <span className="txt__2 max-h-full overflow-hidden">
-        {el.description ?? ""}
+      <span ref={refTxt} className="txt__2 max-h-full overflow-hidden">
+        {displayTxt}
       </span>
     </div>
   );
