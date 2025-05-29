@@ -4,31 +4,11 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ImgLoaderHandler from "../../../components/elements/cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 import { BookType } from "@/types/all/books";
 import RatingItem from "../../../components/elements/RatingItem";
-import { priceFormatter } from "@/core/lib/lib";
-import { IoNavigateOutline } from "react-icons/io5";
+import ServerCard from "./components/ServerCard";
 
 type PropsType = {
   books?: BookType[];
 };
-
-const SpanTxt = ({
-  txt,
-  fsz,
-  clamp,
-}: {
-  fsz: string;
-  txt: string;
-  clamp: number;
-}) => (
-  <div className="w-full flex-1 justify-center items-start max-h-fit">
-    <span
-      className={`${fsz} clamp_txt text-center`}
-      style={{ lineClamp: clamp, WebkitLineClamp: clamp }}
-    >
-      {txt}
-    </span>
-  </div>
-);
 
 const obj = {
   size: () => (window.innerWidth >= tailwindBreak.md ? 300 : 200),
@@ -82,13 +62,13 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
     });
   };
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (!clickedRef.current) incSlide();
-    }, 1500);
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     if (!clickedRef.current) incSlide();
+  //   }, 1500);
 
-    return () => clearInterval(interval);
-  }, [incSlide]);
+  //   return () => clearInterval(interval);
+  // }, [incSlide]);
 
   return !books?.length ? null : (
     <div className="w-full flex justify-center images_swapper">
@@ -135,28 +115,7 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
                       </div>
                     </ImgLoaderHandler>
 
-                    <div className="server flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full">
-                      <SpanTxt
-                        {...{ txt: el.author, fsz: "txt__4", clamp: 1 }}
-                      />
-                      <SpanTxt
-                        {...{ txt: el.title, fsz: "txt__3", clamp: 2 }}
-                      />
-                      {/* <div className="w-full flex-1 mt-3 overflow-y-auto scroll_app scroll_y pr-3">
-                        <span className="txt__2 max-h-full overflow-hidden">
-                          {el.description}
-                        </span>
-                      </div> */}
-                      <SpanTxt
-                        {...{
-                          txt: priceFormatter(el.price),
-                          fsz: "txt__4",
-                          clamp: 5,
-                        }}
-                      />
-
-                      <IoNavigateOutline className="md:mt-5 min-w-[40px] md:min-w-[60px] min-h-[40px] md:min-h-[60px]" />
-                    </div>
+                    <ServerCard {...{ el }} />
                   </div>
                 </div>
               ))}
