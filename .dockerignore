@@ -7,3 +7,4 @@ tests
 client/Dockerfile.client
 client/nginx.conf
 client/docker-compose.yml
+client/.dockerignore
