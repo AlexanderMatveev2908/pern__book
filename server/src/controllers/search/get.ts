@@ -1,12 +1,17 @@
 import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
 import { Book } from "../../models/all/Book.js";
-import { literal } from "sequelize";
+import { literal, Op } from "sequelize";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 
 export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
   const books = await Book.findAll({
-    where: {},
+    where: {
+      [Op.and]: [
+        { images: { [Op.ne]: null } },
+        literal("jsonb_array_length(images) > 0"),
+      ],
+    },
     attributes: {
       include: [
         [

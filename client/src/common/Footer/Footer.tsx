@@ -34,7 +34,7 @@ const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
 
 const Footer: FC = () => {
   return (
-    <div className="w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 pb-14 bottom-0 txt__col">
+    <div className="w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 pb-10 bottom-0 txt__col">
       <Link to="/" className="text-blue-600 w-fit">
         <span className="txt__5">LOGO</span>
       </Link>
@@ -47,7 +47,7 @@ const Footer: FC = () => {
       <NewsLetter />
 
       <div className="w-full">
-        <p className="txt__3">
+        <p className="txt__3 text-center">
           No copyright. Open source. Contributions welcome ✌🏽
         </p>
       </div>
