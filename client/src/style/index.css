@@ -478,6 +478,29 @@ button:disabled {
     background-position: -200% 0;
   }
 }
+.images_swapper .cont {
+  @apply max-w-[250px];
+}
+@media (min-width: 550px) {
+  .images_swapper .cont {
+    @apply max-w-[480px];
+  }
+}
+@media (min-width: 768px) {
+  .images_swapper .cont {
+    @apply max-w-[680px];
+  }
+}
+@media (min-width: 1200px) {
+  .images_swapper .cont {
+    @apply max-w-[1020px];
+  }
+}
+@media (min-width: 1500px) {
+  .images_swapper .cont {
+    @apply max-w-[1370px];
+  }
+}
 .images_swapper .btn {
   @apply absolute top-1/2 -translate-y-1/2 border-2 border-blue-600 rounded-xl p-2 bg-[#000] flex justify-center items-center hover:scale-110 cursor-pointer transition-all duration-300 z-30;
   appearance: none;
