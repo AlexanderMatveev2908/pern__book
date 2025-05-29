@@ -1,34 +1,34 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import DropStats from "../../shared/Drop/DropStats";
-import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
+import DropStats from "../../../Drop/DropStats";
 import {
   fieldsStatsRatingBook,
   labelBookRating,
   labelDataBook,
-  labelGeneralStatsBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/cards/books/books";
 
 type PropsType = {
   el: BookType;
+  abs?: boolean;
+  border?: boolean;
 };
 
-const DataBookDB: FC<PropsType> = ({ el }) => {
+const DataBookDB: FC<PropsType> = ({ el, abs }) => {
   return (
-    <DropStatsStatic {...{ el: labelGeneralStatsBook, border: true }}>
+    <>
+      <DropStats
+        {...{ el: labelDataBook, abs, fields: showGeneralStatsBook(el) }}
+      />
+
       <DropStats
         {...{
           el: labelBookRating,
-          abs: true,
+          abs,
           fields: fieldsStatsRatingBook(el),
         }}
       />
-
-      <DropStats
-        {...{ el: labelDataBook, abs: true, fields: showGeneralStatsBook(el) }}
-      />
-    </DropStatsStatic>
+    </>
   );
 };
 

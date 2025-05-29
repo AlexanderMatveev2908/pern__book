@@ -9,6 +9,8 @@ import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
 import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import InfoBookAbout from "@/components/elements/cards/shared/HOC/InfoBook/components/InfoBookAbout";
+import DataBookDB from "@/components/elements/cards/shared/HOC/InfoBook/components/DataBookDB";
 
 const BookPage: FC = () => {
   const { bookID = "" } = useParams();
@@ -39,7 +41,9 @@ const BookPage: FC = () => {
 
           <DropActionsBook {...{ book }} />
 
-          <InfoBookPage {...{ book }} />
+          <InfoBookPage
+            {...{ book, AboutBook: InfoBookAbout, BookDataDB: DataBookDB }}
+          />
         </div>
       )}
     </WrapPageAPI>

@@ -14,7 +14,7 @@ type PropsType = {
 const DropStatsStatic: FC<PropsType> = ({ el, children, border }) => {
   const [isDropOpen, setIsDropOpen] = useState(false);
   return (
-    <div className="w-full grid grid-cols-1 gap-4">
+    <div className="w-full grid grid-cols-1 gap-4 h-fit">
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
       {border && <hr className="bg-blue-600 border-0 w-full h-[3px] -mt-2" />}
