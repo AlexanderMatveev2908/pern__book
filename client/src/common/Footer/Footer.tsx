@@ -2,14 +2,15 @@ import { FC } from "react";
 import { Link } from "react-router-dom";
 import NewsLetter from "./components/NewsLetter";
 import Title from "@/components/elements/Title";
-import { FooterLinkType, linksRender } from "@/core/config/fieldsData/footer";
+import {
+  contactLinks,
+  FooterLinkType,
+  gitLinks,
+} from "@/core/config/fieldsData/footer";
 
-type PropsType = {
-  el: FooterLinkType;
-};
-
-const FooterLink: FC<PropsType> = ({ el }) => (
+const LinkEl = ({ el }: { el: FooterLinkType }) => (
   <a
+    key={el.id}
     href={el.url}
     className="w-fit el__after_below flex items-center gap-5 el__flow hover:text-blue-600"
   >
@@ -25,17 +26,21 @@ const Footer: FC = () => {
         <span className="txt__5">LOGO</span>
       </Link>
 
-      <NewsLetter />
-
-      <div className="w-full grid gap-5">
-        <Title {...{ title: "Last projects ✌🏼", styleTxt: "txt__4" }} />
-
-        <div className="gap-5 grid grid-cols-[repeat(auto-fit,_minmax(250px,_1fr))]">
-          {linksRender.map((el) => (
-            <FooterLink key={el.id} {...{ el }} />
-          ))}
-        </div>
+      <div className="w-full grid gap-5 text-gray-300">
+        <Title {...{ title: "GitHub", styleTxt: "txt__4" }} />
+        {gitLinks.map((el) => (
+          <LinkEl key={el.id} {...{ el }} />
+        ))}
       </div>
+
+      <div className="w-full grid gap-5 text-gray-300">
+        <Title {...{ title: "Contact", styleTxt: "txt__4" }} />
+        {contactLinks.map((el) => (
+          <LinkEl key={el.id} {...{ el }} />
+        ))}
+      </div>
+
+      <NewsLetter />
     </div>
   );
 };

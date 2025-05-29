@@ -5,6 +5,7 @@ import { v4 } from "uuid";
 import { BiMath } from "react-icons/bi";
 import { FaClipboardQuestion } from "react-icons/fa6";
 import { IconType } from "react-icons/lib";
+import { MdEmail } from "react-icons/md";
 
 export type FooterLinkType = {
   id?: string;
@@ -48,6 +49,28 @@ export const linksRender = [
     label: "React Team Devs",
     url: "https://react-team-developers.onrender.com",
     icon: FaUsers,
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+
+export const gitLinks = [
+  {
+    label: "Source code",
+    url: "https://github.com/AlexanderMatveev2908/PERN__BOOK",
+    icon: FiGithub,
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
+
+export const contactLinks = [
+  {
+    label: "matveevalexander470@gmail.com",
+    url: "mailto:matveevalexander470@gmail.com?subject=PERN__BOOK%20📚&body=Hi,%20I%20have%20a%20question%20about%20PERN__BOOK%20🧐",
+    icon: MdEmail,
   },
 ].map((el) => ({
   ...el,
