@@ -1,16 +1,11 @@
 import { tailwindBreak } from "@/core/config/breakpoints";
-import { AssetCloudType } from "@/types/types";
 import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ImgLoaderHandler from "../cards/shared/ImgLoaderHandler/ImgLoaderHandler";
-
-type HeroImage = {
-  id: string;
-  src: string;
-};
+import { BookType } from "@/types/all/books";
 
 type PropsType = {
-  images?: AssetCloudType[] | HeroImage[];
+  books?: BookType[];
 };
 
 const obj = {
@@ -25,7 +20,7 @@ const obj = {
       : 1,
 };
 
-const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
+const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
   const [wImg, setWImg] = useState(obj.size());
   const [numSwap, setNumSwap] = useState(obj.num());
@@ -40,7 +35,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
     window.addEventListener("resize", handleResize);
 
     return () => window.removeEventListener("resize", handleResize);
-  }, [images.length]);
+  }, [books.length]);
 
   // const swapItems = useCallback(async () => {
   //   const newItems = cpyObj(items);
@@ -64,19 +59,19 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      const maxStart = images.length - numSwap;
+      const maxStart = books.length - numSwap;
       const next = prev + numSwap;
 
       if (next >= maxStart) return 0;
 
       return next;
     });
-  }, [images, numSwap]);
+  }, [books, numSwap]);
 
   const decSlide = () => {
     setCurrSlide((prev) => {
       const nextPrev = prev - numSwap;
-      return nextPrev < 0 ? images.length - 1 - numSwap : nextPrev;
+      return nextPrev < 0 ? books.length - 1 - numSwap : nextPrev;
     });
   };
 
@@ -88,7 +83,7 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
   //   return () => clearInterval(interval);
   // }, [incSlide]);
 
-  return !images?.length ? null : (
+  return !books?.length ? null : (
     <div className="w-full flex justify-center images_swapper">
       <div className="grid grid-cols-1 text-[whitesmoke] relative">
         <button
@@ -109,9 +104,9 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
             }}
           >
             <>
-              {images.map((el, i) => (
+              {books.map((el, i) => (
                 <div
-                  key={(el as AssetCloudType).publicID}
+                  key={books[i].id}
                   className={`flex rounded-xl transition-all duration-500${
                     i >= currSlide && i < currSlide + numSwap
                       ? ""
@@ -122,13 +117,19 @@ const ImagesSwapper: FC<PropsType> = ({ images = [] }) => {
                   <div className="min-w-full min-h-full rounded-xl card border-2 border-neutral-800 ">
                     <ImgLoaderHandler
                       {...{
-                        url:
-                          (el as AssetCloudType)?.url ?? (el as HeroImage)?.src,
+                        url: books![i]!.images![0].url || "",
                         customClass: "client",
                       }}
                     />
 
-                    <div className="server"></div>
+                    <div className="server w-full grid grid-cols-1 p-3">
+                      <span
+                        className="txt__3 clamp_txt justify-self-center"
+                        style={{ lineClamp: 2, WebkitLineClamp: 2 }}
+                      >
+                        {el.title}
+                      </span>
+                    </div>
                   </div>
                 </div>
               ))}
