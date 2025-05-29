@@ -70,6 +70,8 @@ const App: FC = () => {
           <Route path="verify-account" element={<VerifyAccount />} />
           <Route path="forgot-pwd" element={<ForgotPwd />} />
           <Route path="chose-new-pwd" element={<ChoseNewPwd />} />
+
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Route>
 
         <Route path="user" element={<UserLayout />}>
@@ -84,6 +86,8 @@ const App: FC = () => {
           />
           <Route path="manage-account" element={<ManageAccount />} />
           <Route path="security" element={<SecurityPwd />} />
+
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Route>
 
         <Route path="owner" element={<OwnerLayout />}>
@@ -115,6 +119,8 @@ const App: FC = () => {
                 </SwapCtxProvider>
               }
             />
+
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
           </Route>
 
           <Route path="books" element={<BooksOwnerLayout />}>
@@ -129,7 +135,11 @@ const App: FC = () => {
               }
             />
             <Route path=":bookID" element={<BookPage />} />
+
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
           </Route>
+
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Route>
 
         <Route path="worker" element={<WorkerLayout />}>
@@ -151,6 +161,8 @@ const App: FC = () => {
               }
             />
             <Route path=":bookStoreID" element={<BookStorePageWorker />} />
+
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
           </Route>
 
           <Route path="books" element={<BooksLayoutWorker />}>
@@ -168,13 +180,19 @@ const App: FC = () => {
             <Route path="post/:bookStoreID" element={<CreateBookWorker />} />
 
             <Route path="put/:bookID" element={<UpdateBookWorker />} />
+
+            <Route path="*" element={<Navigate to="/" replace={true} />} />
           </Route>
+
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Route>
 
         <Route path="notice" element={<Notice />} />
         <Route path="verify-cb" element={<VerifyCb />} />
 
         {/* <Route path="chat" element={<Chat />} /> */}
+
+        <Route path="*" element={<Navigate to="/" replace={true} />} />
       </Route>
 
       <Route path="*" element={<Navigate to="/" replace={true} />} />
