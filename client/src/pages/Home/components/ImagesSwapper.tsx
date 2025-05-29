@@ -1,74 +1,18 @@
-import { tailwindBreak } from "@/core/config/breakpoints";
-import { FC, useCallback, useEffect, useRef, useState } from "react";
+import { FC } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ImgLoaderHandler from "../../../components/elements/cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 import { BookType } from "@/types/all/books";
-import RatingItem from "../../../components/elements/RatingItem";
 import ServerCard from "./components/ServerCard";
+import { useSlideImg } from "@/core/hooks/all/useSlideImg";
 
 type PropsType = {
   books?: BookType[];
+  children?: (book: BookType, i: number) => React.ReactNode;
 };
 
-const obj = {
-  size: () => (window.innerWidth >= tailwindBreak.md ? 300 : 200),
-  num: () =>
-    window.innerWidth >= 1500
-      ? 4
-      : window.innerWidth >= 1200
-      ? 3
-      : window.innerWidth >= 540
-      ? 2
-      : 1,
-};
-
-const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
-  const [currSlide, setCurrSlide] = useState<number>(0);
-  const [wImg, setWImg] = useState(obj.size());
-  const [numSwap, setNumSwap] = useState(obj.num());
-  const clickedRef = useRef<boolean>(false);
-
-  useEffect(() => {
-    const handleResize = () => {
-      setWImg(obj.size());
-      setNumSwap(obj.num());
-    };
-
-    window.addEventListener("resize", handleResize);
-
-    return () => window.removeEventListener("resize", handleResize);
-  }, [books.length]);
-
-  const handleClickRef = () => {
-    clickedRef.current = true;
-    setTimeout(() => (clickedRef.current = false), 5000);
-  };
-
-  const incSlide = useCallback(() => {
-    setCurrSlide((prev) => {
-      const maxStart = books.length - numSwap;
-      const next = prev + numSwap;
-
-      if (next >= maxStart) return 0;
-
-      return next;
-    });
-  }, [books, numSwap]);
-
-  const decSlide = () => {
-    setCurrSlide((prev) => {
-      const nextPrev = prev - numSwap;
-      return nextPrev < 0 ? books.length - 1 - numSwap : nextPrev;
-    });
-  };
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!clickedRef.current) incSlide();
-  //   }, 1500);
-
-  //   return () => clearInterval(interval);
-  // }, [incSlide]);
+const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
+  const { handleClickRef, incSlide, decSlide, currSlide, wImg, numSwap } =
+    useSlideImg({ items: books });
 
   return !books?.length ? null : (
     <div className="w-full flex justify-center images_swapper">
@@ -108,11 +52,7 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
                         customClass: "client",
                       }}
                     >
-                      <div className="w-full absolute bottom-0 bg-black/90 h-[40px] rounded-xl">
-                        <div className="w-full flex h-full items-center">
-                          <RatingItem {...{ rat: el?.avgRating }} />
-                        </div>
-                      </div>
+                      {typeof children === "function" && children(el, i)}
                     </ImgLoaderHandler>
 
                     <ServerCard {...{ el }} />
