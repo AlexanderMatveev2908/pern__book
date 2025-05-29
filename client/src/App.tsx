@@ -70,6 +70,8 @@ const App: FC = () => {
           <Route path="verify-account" element={<VerifyAccount />} />
           <Route path="forgot-pwd" element={<ForgotPwd />} />
           <Route path="chose-new-pwd" element={<ChoseNewPwd />} />
+
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Route>
 
         <Route path="user" element={<UserLayout />}>
@@ -84,6 +86,8 @@ const App: FC = () => {
           />
           <Route path="manage-account" element={<ManageAccount />} />
           <Route path="security" element={<SecurityPwd />} />
+
+          <Route path="*" element={<Navigate to="/" replace={true} />} />
         </Route>
 
         <Route path="owner" element={<OwnerLayout />}>
