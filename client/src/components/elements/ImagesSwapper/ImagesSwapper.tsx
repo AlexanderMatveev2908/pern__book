@@ -3,6 +3,7 @@ import { FC, useCallback, useEffect, useRef, useState } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import ImgLoaderHandler from "../cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 import { BookType } from "@/types/all/books";
+import RatingItem from "../RatingItem";
 
 type PropsType = {
   books?: BookType[];
@@ -120,7 +121,13 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
                         url: books![i]!.images![0].url || "",
                         customClass: "client",
                       }}
-                    />
+                    >
+                      <div className="w-full absolute bottom-0 bg-black/90 h-[40px] rounded-xl">
+                        <div className="w-full flex h-full items-center">
+                          <RatingItem {...{ rat: el?.avgRating }} />
+                        </div>
+                      </div>
+                    </ImgLoaderHandler>
 
                     <div className="server w-full grid grid-cols-1 p-3">
                       <span
