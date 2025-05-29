@@ -9,6 +9,25 @@ type PropsType = {
   books?: BookType[];
 };
 
+const SpanTxt = ({
+  txt,
+  fsz,
+  clamp,
+}: {
+  fsz: string;
+  txt: string;
+  clamp: number;
+}) => (
+  <div className="w-full flex-1 justify-center items-start max-h-fit">
+    <span
+      className={`${fsz} clamp_txt text-center`}
+      style={{ lineClamp: clamp, WebkitLineClamp: clamp }}
+    >
+      {txt}
+    </span>
+  </div>
+);
+
 const obj = {
   size: () => (window.innerWidth >= tailwindBreak.md ? 300 : 200),
   num: () =>
@@ -129,13 +148,18 @@ const ImagesSwapper: FC<PropsType> = ({ books = [] }) => {
                       </div>
                     </ImgLoaderHandler>
 
-                    <div className="server w-full grid grid-cols-1 p-3">
-                      <span
-                        className="txt__3 clamp_txt justify-self-center"
-                        style={{ lineClamp: 2, WebkitLineClamp: 2 }}
-                      >
-                        {el.title}
-                      </span>
+                    <div className="server flex flex-col items-center justify-start p-3 gap-2 max-h-full">
+                      <SpanTxt
+                        {...{ txt: el.author, fsz: "txt__4", clamp: 1 }}
+                      />
+                      <SpanTxt
+                        {...{ txt: el.title, fsz: "txt__3", clamp: 2 }}
+                      />
+                      <div className="w-full flex-1 mt-3 overflow-y-auto scroll_app scroll_y pr-3">
+                        <span className="txt__2 max-h-full overflow-hidden">
+                          {el.description}
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
