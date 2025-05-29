@@ -10,6 +10,7 @@ import dummyRouter from "./all/dummy.js";
 import adminBookRouter from "./all/adminBooks.js";
 import { verifyAccessToken } from "../middleware/protected/verifyAccessToken.js";
 import workerRouter from "./all/workerRoutes/workerRoutes.js";
+import searchRouter from "./all/search.js";
 
 const routerApp = express.Router();
 
@@ -31,6 +32,7 @@ routerApp.use(
   adminBookRouter
 );
 routerApp.use("/worker", verifyAccessToken({ isVerified: true }), workerRouter);
+routerApp.use("/search", searchRouter);
 routerApp.use("/dummy", dummyRouter);
 
 export default routerApp;
