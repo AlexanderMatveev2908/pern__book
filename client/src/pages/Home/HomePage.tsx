@@ -12,6 +12,7 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import WrapSectionHome from "@/components/HOC/WrapSectionHome";
 import WrapBg from "./components/WrapBg";
 import { tailwindBreak } from "@/core/config/breakpoints";
+import SvgBookShelf from "@/components/svgs/BookShelf";
 
 const getHD = () => (window.innerWidth > tailwindBreak.md ? 60 : 50);
 
@@ -50,6 +51,8 @@ const HomePage: FC = () => {
   return (
     <WrapPageAPI {...{ ...res }}>
       <div className="w-full grid grid-cols-1 gap-20">
+        <SvgBookShelf {...{ className: "w-[100px] h-[100px]" }} />
+
         <WrapSectionHome
           {...{ title: "Best rating", len: booksByRating?.length }}
         >
