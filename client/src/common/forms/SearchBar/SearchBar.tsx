@@ -5,6 +5,7 @@ import {
   FormFieldBasic,
   NumericFilterSearch,
   SorterSearch,
+  TriggerRTK,
 } from "@/types/types";
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
@@ -30,8 +31,8 @@ import { ZodEffects, ZodObject } from "zod";
 
 // ? THE SEARCH BAR IS IN SOME WAY THE HEART OF APP AND I TRIED TO KEEP IT AS ORGANIZED AS POSSIBLE, SOME THINGS COULD BE BETTER DIVIDED FOLLOWING A MORE SPECIFIC MINDSET BUT WHERE POSSIBLE I PREFER ADD PROPS TO MY COMPONENTS INSTEAD OF COPY PASTING EXISTENT CODE INTO A NEW COMPONENT WITH JUST FEW CHANGES
 type PropsType = {
-  hook: any;
-  handleSave: () => void;
+  hook?: TriggerRTK;
+  handleSave?: () => void;
   txtInputs?: FormFieldBasic[];
   filters?: FilterSearch[];
   sorters?: SorterSearch[];
@@ -54,13 +55,13 @@ const SearchBar: FC<PropsType> = ({
   defVals = {},
   schema,
 }) => {
-  const [triggerRtk, res] = hook;
+  const [triggerRtk, res] = hook ?? ([() => null, {}] as any);
 
   const routeID = useParams()?.[paramID ?? ""];
 
-  useWrapQueryAPI({ ...res });
+  useWrapQueryAPI({ ...res } as any);
 
-  const { isFetching } = res;
+  const { isFetching } = res ?? {};
   const ctx = useSearchCtx();
   const {
     isPending,

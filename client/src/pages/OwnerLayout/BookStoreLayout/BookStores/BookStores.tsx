@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
@@ -50,7 +51,7 @@ const BookStores: FC = () => {
 
       <FormProvider {...formCtx}>
         <SearchBar
-          {...{
+          {...({
             hook,
             handleSave,
             txtInputs: fieldsSearchStore,
@@ -58,7 +59,7 @@ const BookStores: FC = () => {
             numericFilters: numericFiltersStore,
             sorters: sorterStore,
             schema: searchBarStore,
-          }}
+          } as any)}
         />
       </FormProvider>
 
