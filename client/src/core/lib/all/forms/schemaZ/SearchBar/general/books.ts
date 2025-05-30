@@ -3,7 +3,7 @@ import { categoriesBooks } from "@/types/all/books";
 import { CatBookStore } from "@/types/all/bookStore";
 import { z } from "zod";
 import { schemaInt, schemaPrice } from "./general";
-import { REG_BOOK_TITLE, REG_ID, REG_INT, REG_NAME } from "@/core/config/regex";
+import { REG_BOOK_TITLE, REG_INT, REG_NAME } from "@/core/config/regex";
 import { isValidNumber } from "@/core/lib/lib";
 
 export const msgsErrsBookSearchForm = {
@@ -33,11 +33,6 @@ export const generalFieldsSearchBooksSchema = z.object({
 });
 
 export const generalOptSearchBookItem = {
-  ID: {
-    reg: REG_ID,
-    minLen: 0,
-    maxLen: 36,
-  },
   title: {
     reg: REG_BOOK_TITLE,
     minLen: 0,
@@ -53,6 +48,25 @@ export const generalOptSearchBookItem = {
     // minLen: 4,
     maxLen: 4,
   },
+};
+
+export const superRefinePrices = ({ data, ctx }: any) => {
+  if ([data?.minPrice, data?.maxPrice].every(isValidNumber)) {
+    const min = +data.minPrice!;
+    const max = +data.maxPrice!;
+    if (min > max)
+      ctx.addIssue({
+        code: "custom",
+        path: ["minPrice"],
+        message: msgsErrsBookSearchForm.price.min,
+      });
+    if (max < min)
+      ctx.addIssue({
+        code: "custom",
+        path: ["maxPrice"],
+        message: msgsErrsBookSearchForm.price.max,
+      });
+  }
 };
 
 export const commonHandleRefineBooks = ({ data, ctx }: any) => {
@@ -73,22 +87,7 @@ export const commonHandleRefineBooks = ({ data, ctx }: any) => {
       });
   }
 
-  if ([data?.minPrice, data?.maxPrice].every(isValidNumber)) {
-    const min = +data.minPrice!;
-    const max = +data.maxPrice!;
-    if (min > max)
-      ctx.addIssue({
-        code: "custom",
-        path: ["minPrice"],
-        message: msgsErrsBookSearchForm.price.min,
-      });
-    if (max < min)
-      ctx.addIssue({
-        code: "custom",
-        path: ["maxPrice"],
-        message: msgsErrsBookSearchForm.price.max,
-      });
-  }
+  superRefinePrices({ data, ctx });
 };
 
 export const handleYearRefine = ({ item, ctx }: any) => {

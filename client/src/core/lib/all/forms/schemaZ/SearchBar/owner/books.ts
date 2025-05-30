@@ -18,6 +18,11 @@ const allowedKeys = [
 ];
 
 const optItem = {
+  ID: {
+    reg: REG_ID,
+    minLen: 0,
+    maxLen: 36,
+  },
   bookStoreID: {
     reg: REG_ID,
     minLen: 0,
