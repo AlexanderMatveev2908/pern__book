@@ -11,7 +11,13 @@ export const rootAPI = apiSlice.injectEndpoints({
       }),
     }),
     getBooksByBestRating: builder.query<
-      BaseResAPI<{ booksByRating: BookType[]; booksRecent: BookType[] }>,
+      BaseResAPI<{
+        books: {
+          booksByRating: BookType[];
+          booksRecent: BookType[];
+          booksByPrice: BookType[];
+        };
+      }>,
       void
     >({
       query: () => ({
