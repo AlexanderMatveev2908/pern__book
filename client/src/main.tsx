@@ -7,8 +7,6 @@ import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 import FormsCtxProvider from "./core/contexts/FormsCtx/FormsCtxProvider.tsx";
 
-// filter work
-
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <Provider {...{ store }}>
