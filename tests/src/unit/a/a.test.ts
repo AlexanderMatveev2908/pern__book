@@ -1,4 +1,4 @@
-import { sum } from "./a.js";
+import { sum } from "./a";
 
 describe("test test", () => {
   const res = sum(1, 2);
