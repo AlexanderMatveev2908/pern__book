@@ -1,15 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
-import { backURL } from "@/core/config/env";
-import { __cg, getStorage, removeStorage, saveStorage } from "@/core/lib/lib";
-import { setPushedOut } from "@/features/AuthLayout/authSlice";
-import { openToast } from "@/features/common/Toast/toastSlice";
-import { EventApp, StorageKeys } from "@/types/types";
-import axios from "axios";
-import { useState, type FC } from "react";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { type FC } from "react";
 import { FaFilePdf } from "react-icons/fa";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 
 const btnPdf = {
   label: "PDF",
@@ -17,76 +11,24 @@ const btnPdf = {
 };
 
 const PdfBtn: FC = () => {
-  const [isPending, setIsPending] = useState(false);
+  const hook = booksSLiceAPI.useLazyGetListPDFQuery();
+  const [triggerRTK, res] = hook;
+  const { isLoading, isFetching } = res;
+  const isPending = isLoading || isFetching;
 
-  const nav = useNavigate();
-  const dispatch = useDispatch();
+  useWrapQueryAPI({ ...res });
 
   const handlePdf = async () => {
+    // ? TRY CATCH SI NOT FOR ASYNC OPERATION , EVEN IF IT CRASH WITHOUT UNWRAP ERROR IS NOT THROWN FURTHER SO WILL NOT CAUSE ISSUES, CATCH BLOCK IS MADE TO PREVENT MY DUMMY ERRORS THAT I CAN DO WORKING WITH BLOB 🥸
     try {
-      setIsPending(true);
+      const res = (await triggerRTK()) ?? {};
 
-      const res = await axios.get(`${backURL}/admin-books/pdf`, {
-        responseType: "blob",
-        headers: {
-          Accept: "application/pdf",
-          Authorization: `Bearer ${getStorage(StorageKeys.ACCESS)}`,
-        },
-        withCredentials: true,
-      });
       const url = URL.createObjectURL(
         new Blob([res.data], { type: "application/pdf" })
       );
       window.open(url, "_blank");
     } catch (err: any) {
-      if (err?.status !== 401) {
-        dispatch(
-          openToast({
-            msg: "Error downloading PDF",
-            type: EventApp.ERR,
-            statusCode: 500,
-          })
-        );
-        return;
-      }
-
-      try {
-        const { data } = await axios.post(
-          `${backURL}/refresh`,
-          {},
-          {
-            headers: {
-              Authorization: `Bearer ${getStorage(StorageKeys.ACCESS)}`,
-              Accept: "application/json",
-            },
-            withCredentials: true,
-          }
-        );
-
-        saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
-
-        __cg("refreshed");
-
-        handlePdf();
-      } catch (err: any) {
-        console.log(err);
-
-        removeStorage();
-
-        dispatch(
-          openToast({
-            msg: "Session expired",
-            type: EventApp.ERR,
-            statusCode: 401,
-          })
-        );
-
-        dispatch(setPushedOut());
-
-        nav("/", { replace: true });
-      }
-    } finally {
-      setIsPending(false);
+      console.log(err);
     }
   };
 
@@ -106,3 +48,41 @@ const PdfBtn: FC = () => {
 };
 
 export default PdfBtn;
+
+// const res = await axios.get(`${backURL}/admin-books/pdf`, {
+//   responseType: "blob",
+//   headers: {
+//     Accept: "application/pdf",
+//     Authorization: `Bearer ${getStorage(StorageKeys.ACCESS)}`,
+//   },
+//   withCredentials: true,
+// });
+
+// try {
+//   const { data } = await axios.post(
+//     `${backURL}/refresh`,
+//     {},
+//     {
+//       headers: {
+//         Authorization: `Bearer ${getStorage(StorageKeys.ACCESS)}`,
+//         Accept: "application/json",
+//       },
+//       withCredentials: true,
+//     }
+//   );
+//   saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
+//   __cg("refreshed");
+//   handlePdf();
+// } catch (err: any) {
+//   console.log(err);
+//   removeStorage();
+//   dispatch(
+//     openToast({
+//       msg: "Session expired",
+//       type: EventApp.ERR,
+//       statusCode: 401,
+//     })
+//   );
+//   dispatch(setPushedOut());
+//   nav("/", { replace: true });
+// }

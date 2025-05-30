@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { SearchBooksOwnerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/formatters/general";
 import { catchErr } from "@/core/lib/lib";
@@ -150,6 +151,14 @@ export const booksSLiceAPI = apiSlice.injectEndpoints({
                 id: "LIST",
               },
             ],
+    }),
+
+    getListPDF: builder.query<any, void>({
+      query: () => ({
+        url: BASE_URL + "/pdf",
+        method: "GET",
+        responseType: "blob",
+      }),
     }),
   }),
 });
