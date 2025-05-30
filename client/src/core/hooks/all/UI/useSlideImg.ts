@@ -21,7 +21,7 @@ const obj = {
 };
 
 const calcBlock = (lenImgs: number, imgsBySwap: number) =>
-  Math.ceil(lenImgs / imgsBySwap);
+  Math.floor(lenImgs / imgsBySwap);
 
 export const useSlideImg = ({ items }: Params) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
@@ -82,7 +82,7 @@ export const useSlideImg = ({ items }: Params) => {
 
   const incSlide = useCallback(() => {
     setCurrSlide((prev) => {
-      const maxStart = Math.max(0, Math.ceil(items.length / imgsForSwap) - 1);
+      const maxStart = Math.max(0, Math.floor(items.length / imgsForSwap) - 1);
       const next = prev + 1;
 
       if (next > maxStart) return 0;
@@ -93,7 +93,7 @@ export const useSlideImg = ({ items }: Params) => {
 
   const decSlide = () => {
     setCurrSlide((prev) => {
-      const maxStart = Math.max(0, Math.ceil(items.length / imgsForSwap) - 1);
+      const maxStart = Math.max(0, Math.floor(items.length / imgsForSwap) - 1);
       const nextPrev = prev - 1;
       return nextPrev < 0 ? maxStart : nextPrev;
     });

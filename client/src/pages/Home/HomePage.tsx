@@ -50,7 +50,9 @@ const HomePage: FC = () => {
   return (
     <WrapPageAPI {...{ ...res }}>
       <div className="w-full grid grid-cols-1 gap-20">
-        <WrapSectionHome {...{ title: "Best rating" }}>
+        <WrapSectionHome
+          {...{ title: "Best rating", len: booksByRating?.length }}
+        >
           {isArrOk(booksByRating) && (
             <ImagesSwapper {...{ books: booksByRating }}>
               {(el, i) => (
@@ -62,7 +64,9 @@ const HomePage: FC = () => {
           )}
         </WrapSectionHome>
 
-        <WrapSectionHome {...{ title: "most recent" }}>
+        <WrapSectionHome
+          {...{ title: "most recent", len: booksRecent?.length }}
+        >
           {isArrOk(booksRecent) && (
             <ImagesSwapper {...{ books: booksRecent }}>
               {(el, i) => (
@@ -82,7 +86,9 @@ const HomePage: FC = () => {
           )}
         </WrapSectionHome>
 
-        <WrapSectionHome {...{ title: "competitive price" }}>
+        <WrapSectionHome
+          {...{ title: "competitive price", len: booksByPrice?.length }}
+        >
           {isArrOk(booksByPrice) && (
             <ImagesSwapper {...{ books: booksByPrice }}>
               {(el, i) => (
