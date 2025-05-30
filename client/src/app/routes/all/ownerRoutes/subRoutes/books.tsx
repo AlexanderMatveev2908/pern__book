@@ -1,5 +1,5 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import BooksOwnerLayout from "@/layouts/OwnerLayout/BooksOwnerLayout";
+import BooksOwnerLayout from "@/app/layouts/OwnerLayout/BooksOwnerLayout";
 import BookPage from "@/pages/OwnerLayout/BooksLayout/BookPage/BookPage";
 import BooksList from "@/pages/OwnerLayout/BooksLayout/BooksList/BooksList";
 import CreateBook from "@/pages/OwnerLayout/BooksLayout/CreateBook/CreateBook";

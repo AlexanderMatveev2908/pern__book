@@ -1,5 +1,5 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import BooksLayoutWorker from "@/layouts/WorkerLayout/BooksLayoutWorker";
+import BooksLayoutWorker from "@/app/layouts/WorkerLayout/BooksLayoutWorker";
 import BookListWorker from "@/pages/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
 import BookPageWorker from "@/pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
 import CreateBookWorker from "@/pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";

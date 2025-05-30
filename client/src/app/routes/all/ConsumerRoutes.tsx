@@ -1,5 +1,5 @@
-import ConsumerLayout from "@/layouts/ConsumerLayout/ConsumerLayout";
-import BookListSearch from "@/pages/SearchLayout/BooksListSearch/BookListSearch";
+import ConsumerLayout from "@/app/layouts/ConsumerLayout/ConsumerLayout";
+import BookListSearch from "@/pages/ConsumerLayout/BooksListSearch/BookListSearch";
 
 const consumerRoutes = {
   path: "search",

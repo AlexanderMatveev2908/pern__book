@@ -1,4 +1,4 @@
-import WorkerLayout from "@/layouts/WorkerLayout/WorkerLayout";
+import WorkerLayout from "@/app/layouts/WorkerLayout/WorkerLayout";
 import { Navigate } from "react-router-dom";
 import booksWorkerRoutes from "./subRoutes/books";
 import bookStoresWorkerRoutes from "./subRoutes/bookStores";

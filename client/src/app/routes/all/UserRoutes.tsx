@@ -1,5 +1,5 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
-import UserLayout from "@/layouts/UserLayout";
+import UserLayout from "@/app/layouts/UserLayout";
 import ManageAccount from "@/pages/UserLayout/ManageAccount/ManageAccount";
 import ProfileSettings from "@/pages/UserLayout/ProfileSettings/ProfileSettings";
 import SecurityPwd from "@/pages/UserLayout/SecurityPwd/SecurityPwd";

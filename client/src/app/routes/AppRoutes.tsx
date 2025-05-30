@@ -1,4 +1,4 @@
-import MainLayout from "@/layouts/MainLayout";
+import MainLayout from "@/app/layouts/MainLayout";
 import HomePage from "@/pages/Home/HomePage";
 import authRoutes from "./all/AuthRoutes";
 import userRoutes from "./all/UserRoutes";
