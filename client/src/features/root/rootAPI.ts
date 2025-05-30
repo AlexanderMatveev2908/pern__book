@@ -21,7 +21,7 @@ export const rootAPI = apiSlice.injectEndpoints({
       void
     >({
       query: () => ({
-        url: "/search/best-avg-rating",
+        url: "/consumer/home",
         method: "GET",
       }),
       providesTags: [TagsAPI.BOOKS_SEARCH_HOME],
