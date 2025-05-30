@@ -4,7 +4,7 @@ import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useNotice } from "../useNotice";
+import { useNotice } from "../UI/useNotice";
 import { AxiosResponse } from "axios";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */

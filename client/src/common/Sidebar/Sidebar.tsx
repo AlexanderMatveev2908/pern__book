@@ -27,7 +27,7 @@ import {
 } from "@/core/config/fieldsData/Sidebar/sidebar";
 import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
 import FakeSideLink from "./components/FakeSideLink";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 const Sidebar: FC = () => {
   const sideRef = useRef<HTMLDivElement | null>(null);

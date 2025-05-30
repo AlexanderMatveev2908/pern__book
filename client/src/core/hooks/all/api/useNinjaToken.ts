@@ -1,5 +1,4 @@
 import { useClearManageTokenMutation } from "@/features/root/rootAPI";
-import { useWrapMutationAPI } from "../hooks";
 import { useCallback, useEffect } from "react";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
@@ -7,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import { AuthState, StorageKeys } from "@/types/types";
 import { __cg, delKeyStorage } from "@/core/lib/lib";
 import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
+import { useWrapMutationAPI } from "../wrappers/useWrapMutationAPI";
 
 export const useNinjaToken = () => {
   const { pathname } = useLocation();

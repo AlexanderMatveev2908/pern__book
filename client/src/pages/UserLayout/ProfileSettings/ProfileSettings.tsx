@@ -33,7 +33,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { makeFormDataProfile } from "@/core/lib/all/forms/formatters/userProfile";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;

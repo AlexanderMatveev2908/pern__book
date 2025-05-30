@@ -6,13 +6,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReturnShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
-import { useHandleDangerAccount } from "@/core/hooks/all/useHandleDangerAccount";
 import { useUpdatePwdMutation } from "@/features/UserLayout/userSliceAPI";
 import { fieldsNewPwdReset } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
 
 type PropsType = {
   propsPwd: ReturnShowPwd;

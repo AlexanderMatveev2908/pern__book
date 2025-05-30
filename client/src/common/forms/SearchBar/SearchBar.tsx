@@ -13,7 +13,7 @@ import SkeletonBar from "./components/SkeletonBar";
 import { useLocation, useParams } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useSyncLoading } from "@/core/hooks/all/useSyncLoading";
+import { useSyncLoading } from "@/core/hooks/all/UI/useSyncLoading";
 import { usePopulateSearch } from "@/core/hooks/all/forms/searchBar/usePopulateSearch";
 import { useDebounceSearch } from "@/core/hooks/all/forms/searchBar/useDebounceSearch";
 import { useHandleErrSearch } from "@/core/hooks/all/forms/searchBar/useHandleErrSearch";

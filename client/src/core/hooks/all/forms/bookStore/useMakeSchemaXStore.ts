@@ -1,7 +1,7 @@
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { useMemo } from "react";
 import { z } from "zod";
-import { useGetU } from "../../useGetU";
+import { useGetU } from "../../api/useGetU";
 
 export const useMakeSchemaXStore = () => {
   const { user } = useGetU();

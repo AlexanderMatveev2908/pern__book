@@ -6,12 +6,12 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { StorageKeys } from "@/types/types";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
-import { useHandleDangerAccount } from "@/core/hooks/all/useHandleDangerAccount";
 import { useUpdateEmailMutation } from "@/features/UserLayout/userSliceAPI";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { newEmailField } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
 
 type PropsType = {
   cond: boolean;
