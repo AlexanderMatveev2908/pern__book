@@ -1,7 +1,7 @@
 import ImagesSwapper from "@/pages/Home/components/ImagesSwapper";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { formatD, isArrOk } from "@/core/lib/lib";
+import { formatD, isArrOk, priceFormatter } from "@/core/lib/lib";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { rootAPI } from "@/features/root/rootAPI";
 import apiSlice from "@/store/apiSlice";
@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from "react-redux";
 import RatingItem from "@/components/elements/RatingItem";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import WrapSectionHome from "@/components/HOC/WrapSectionHome";
+import WrapBg from "./components/WrapBg";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
@@ -25,10 +26,14 @@ const HomePage: FC = () => {
   const res = rootAPI.useGetBooksByBestRatingQuery();
   useWrapQueryAPI({ ...res });
 
-  const { data: { booksByRating, booksRecent } = {} } = res ?? {};
+  const {
+    data: {
+      books: { booksByRating = [], booksRecent = [], booksByPrice = [] } = {},
+    } = {},
+  } = res ?? {};
 
   const ids = useCreateIds({
-    lengths: [booksByRating?.length, booksRecent?.length],
+    lengths: [booksByRating?.length, booksRecent?.length, booksByPrice?.length],
   });
 
   return (
@@ -38,14 +43,9 @@ const HomePage: FC = () => {
           {isArrOk(booksByRating) && (
             <ImagesSwapper {...{ books: booksByRating }}>
               {(el, i) => (
-                <div
-                  key={ids[0][i]}
-                  className="w-full absolute bottom-0 bg-black/90 h-[40px] rounded-xl"
-                >
-                  <div className="w-full flex h-full items-center">
-                    <RatingItem {...{ rat: el?.avgRating }} />
-                  </div>
-                </div>
+                <WrapBg key={ids[0][i]}>
+                  <RatingItem {...{ rat: el?.avgRating }} />
+                </WrapBg>
               )}
             </ImagesSwapper>
           )}
@@ -55,22 +55,37 @@ const HomePage: FC = () => {
           {isArrOk(booksRecent) && (
             <ImagesSwapper {...{ books: booksRecent }}>
               {(el, i) => (
-                <div
-                  key={ids[1][i]}
-                  className="w-full absolute bottom-0 bg-black/90 h-[50px] rounded-xl"
-                >
-                  <div className="w-full flex justify-center h-full items-center">
-                    <span
-                      className="txt__3 text-center clamp_txt"
-                      style={{
-                        lineClamp: 2,
-                        WebkitLineClamp: 2,
-                      }}
-                    >
-                      {formatD(el?.createdAt)}
-                    </span>
-                  </div>
-                </div>
+                <WrapBg key={ids[1][i]} {...{ h: 50 }}>
+                  <span
+                    className="txt__3 text-center clamp_txt"
+                    style={{
+                      lineClamp: 2,
+                      WebkitLineClamp: 2,
+                    }}
+                  >
+                    {formatD(el?.createdAt)}
+                  </span>
+                </WrapBg>
+              )}
+            </ImagesSwapper>
+          )}
+        </WrapSectionHome>
+
+        <WrapSectionHome {...{ title: "competitive price" }}>
+          {isArrOk(booksByPrice) && (
+            <ImagesSwapper {...{ books: booksByPrice }}>
+              {(el, i) => (
+                <WrapBg key={ids[2][i]}>
+                  <span
+                    className="txt__3 text-center clamp_txt"
+                    style={{
+                      lineClamp: 1,
+                      WebkitLineClamp: 1,
+                    }}
+                  >
+                    {priceFormatter(el?.price)}
+                  </span>
+                </WrapBg>
               )}
             </ImagesSwapper>
           )}
