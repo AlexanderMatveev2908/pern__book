@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import ButtonIcon from "./ButtonIcon/ButtonIcon";
 import { BtnAct, FormSettersProps, UserType } from "@/types/types";
 import { MdDynamicForm } from "react-icons/md";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 type PropsType = {
   keysUser: string[];

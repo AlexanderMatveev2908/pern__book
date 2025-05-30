@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { useNotice } from "./useNotice";
 import { __cg, delKeyStorage, isUnHandledErr } from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 import { AxiosResponse } from "axios";
+import { useNotice } from "../UI/useNotice";
 
 export const useHandleDangerAccount = () => {
   const { makeNoticeCombo } = useNotice();

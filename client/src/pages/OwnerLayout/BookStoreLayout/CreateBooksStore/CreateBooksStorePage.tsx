@@ -14,7 +14,7 @@ import { __cg } from "@/core/lib/lib";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useNavigate } from "react-router-dom";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { fieldsSwapStore } from "@/core/config/fieldsData/general/forms/bookStores/postPut";

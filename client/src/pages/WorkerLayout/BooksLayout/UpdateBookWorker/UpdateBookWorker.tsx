@@ -7,7 +7,7 @@ import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
 import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";

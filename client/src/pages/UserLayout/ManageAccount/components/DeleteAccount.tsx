@@ -13,8 +13,8 @@ import { getStorage, removeStorage } from "@/core/lib/lib";
 import { setLoggingOut } from "@/features/AuthLayout/authSlice";
 import apiSlice from "@/store/apiSlice";
 import { clearAuthAxios } from "@/store/baseAxiosQuery";
-import { useHandleDangerAccount } from "@/core/hooks/all/useHandleDangerAccount";
 import { useDeleteAccountMutation } from "@/features/UserLayout/userSliceAPI";
+import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
 
 const el = {
   icon: Trash2,

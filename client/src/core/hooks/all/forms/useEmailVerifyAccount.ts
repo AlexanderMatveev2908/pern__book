@@ -1,5 +1,5 @@
 import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
-import { useNotice } from "../useNotice";
+import { useNotice } from "../UI/useNotice";
 import { useWrapMutationAPI } from "../wrappers/useWrapMutationAPI";
 import { useMakeFormEmail } from "./useMakeFormEmail";
 import { makeNoticeTxt } from "@/core/lib/lib";

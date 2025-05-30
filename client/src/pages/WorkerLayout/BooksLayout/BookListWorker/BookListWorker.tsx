@@ -19,7 +19,7 @@ import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";
 import BookItemWorker from "./components/BookItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 
 const BookListWorker: FC = () => {

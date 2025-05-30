@@ -478,29 +478,6 @@ button:disabled {
     background-position: -200% 0;
   }
 }
-.images_swapper .cont {
-  @apply max-w-[245px];
-}
-@media (min-width: 550px) {
-  .images_swapper .cont {
-    @apply max-w-[485px];
-  }
-}
-@media (min-width: 768px) {
-  .images_swapper .cont {
-    @apply max-w-[685px];
-  }
-}
-@media (min-width: 1200px) {
-  .images_swapper .cont {
-    @apply max-w-[1025px];
-  }
-}
-@media (min-width: 1500px) {
-  .images_swapper .cont {
-    @apply max-w-[1365px];
-  }
-}
 .images_swapper .cont .wrapper {
   perspective: 1000px;
 }

@@ -1,7 +1,7 @@
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
-import { useGetU } from "@/core/hooks/all/useGetU";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
