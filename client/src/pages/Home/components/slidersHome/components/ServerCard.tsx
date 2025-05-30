@@ -49,17 +49,17 @@ const ServerCard: FC<PropsType> = ({ el }) => {
 
     while (left < right) {
       const mid = Math.floor((left + right) / 2);
-      domEl.innerText = el.description!.slice(0, mid) + "...";
+      domEl.innerText = el.description!.slice(0, mid);
 
       if (domEl.scrollHeight <= domEl.clientHeight) {
-        truncated = el.description!.slice(0, mid) + "...";
+        truncated = el.description!.slice(0, mid);
         left = mid + 1;
       } else {
         right = mid;
       }
     }
 
-    setDisplayTxt(truncated);
+    setDisplayTxt(truncated.slice(0, truncated.length - 3) + "...");
   }, [el]);
 
   return (
