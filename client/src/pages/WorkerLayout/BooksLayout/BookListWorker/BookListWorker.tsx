@@ -101,7 +101,9 @@ const BookListWorker: FC = () => {
           />
         </FormProvider>
 
-        <WrapperContentAPI {...{ formCtx, hook, paramID: "bookStoreID" }}>
+        <WrapperContentAPI
+          {...({ formCtx, hook, paramID: "bookStoreID" } as any)}
+        >
           <div className="p_cards">
             {isArr(books) &&
               books!.map((el) => <BookItemWorker key={el.id} {...{ el }} />)}

@@ -63,7 +63,7 @@ const BookStores: FC = () => {
         />
       </FormProvider>
 
-      <WrapperContentAPI {...{ formCtx, hook }}>
+      <WrapperContentAPI {...({ formCtx, hook } as any)}>
         <div className="p_cards">
           {isArr(bookStores) &&
             bookStores!.map((el) => (

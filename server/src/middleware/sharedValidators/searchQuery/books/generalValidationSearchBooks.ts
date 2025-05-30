@@ -25,12 +25,6 @@ export const generalValidationSearchBooks = [
       const k = pair[0];
       const v = pair[1];
 
-      if (k.includes("ID") && !allOrNothingStr(REG_ID, v))
-        throw new Error("Invalid ID");
-
-      if (["minQty", "maxQty"].includes(k) && !allOrNothingStr(REG_INT, v))
-        throw new Error("Invalid quantity");
-
       if (
         ["minPrice", "maxPrice"].includes(k) &&
         !allOrNothingStr(REG_PRICE, v)
@@ -76,8 +70,28 @@ export const generalValidationSearchBooks = [
 
       if (k.includes("Sort") && !["ASC", "DESC"].includes(v))
         throw new Error("Invalid sort");
-
-      return true;
     }
+
+    return true;
+  }),
+];
+
+export const generalValidatorSearchBooksBusiness = [
+  check().custom((_, { req }) => {
+    const q = req?.query ?? {};
+    const params = Object.entries(q);
+
+    for (const pair of params) {
+      const k = pair[0];
+      const v = pair[1];
+
+      if (k.includes("ID") && !allOrNothingStr(REG_ID, v))
+        throw new Error("Invalid ID");
+
+      if (["minQty", "maxQty"].includes(k) && !allOrNothingStr(REG_INT, v))
+        throw new Error("Invalid quantity");
+    }
+
+    return true;
   }),
 ];

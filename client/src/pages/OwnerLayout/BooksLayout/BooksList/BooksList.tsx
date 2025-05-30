@@ -79,7 +79,7 @@ const BooksList: FC = () => {
 
         {!isLoading && !isFetching && books?.length && <PdfBtn />}
 
-        <WrapperContentAPI {...{ formCtx, hook }}>
+        <WrapperContentAPI {...({ formCtx, hook } as any)}>
           <div className="p_cards">
             {isArr(books) &&
               books!.map((el) => <BookItem key={el.id} {...{ el }} />)}

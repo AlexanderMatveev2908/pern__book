@@ -3,6 +3,8 @@ import { ReqApp } from "../../types/types.js";
 import { Book } from "../../models/all/Book.js";
 import { literal, Op } from "sequelize";
 import { res200, res204 } from "../../lib/responseClient/res.js";
+import { sortItems } from "../../lib/query/sort.js";
+import { calcPagination } from "../../lib/query/pagination.js";
 
 const withImages = {
   [Op.and]: [
@@ -80,4 +82,16 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
   });
 
   return res200(res, { books: { booksByRating, booksRecent, booksByPrice } });
+};
+
+export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
+  const books = await Book.findAll({ where: {} });
+
+  const nHits = books.length;
+  if (!nHits) return res204(res);
+
+  const { sorted } = sortItems(req, books);
+  const { totPages, paginated } = calcPagination({ req, nHits, els: sorted });
+
+  return res200(res, { totPages, nHits, books: paginated });
 };

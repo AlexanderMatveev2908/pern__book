@@ -7,24 +7,14 @@ import { v4 } from "uuid";
 import { TbPigMoney } from "react-icons/tb";
 import { LuAlarmClock } from "react-icons/lu";
 import { CatBookStore } from "@/types/all/bookStore";
-import { addSortFields, ratingRanges } from "../general";
+import {
+  addSortFields,
+  allUsersTxtFieldsInput,
+  ratingRanges,
+} from "../general";
 
 export const fieldsInputsBooks = [
-  {
-    field: "title",
-    label: "Title",
-    place: "Book title...",
-  },
-  {
-    field: "author",
-    label: "Author",
-    place: "Author name...",
-  },
-  {
-    field: "year",
-    label: "Year",
-    place: "Year...",
-  },
+  ...allUsersTxtFieldsInput,
   {
     field: "ID",
     label: "Book ID",
