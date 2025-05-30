@@ -86,7 +86,7 @@ const BookListWorker: FC = () => {
       <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>
           <SearchBar
-            {...{
+            {...({
               handleSave,
               hook,
               txtInputs: fieldsInputsBooksWorker,
@@ -97,7 +97,7 @@ const BookListWorker: FC = () => {
               paramID: "bookStoreID",
               defVals,
               schema: schemaSearchBooks,
-            }}
+            } as any)}
           />
         </FormProvider>
 

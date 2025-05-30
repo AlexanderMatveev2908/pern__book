@@ -1,4 +1,5 @@
 import ConsumerLayout from "@/app/layouts/ConsumerLayout/ConsumerLayout";
+import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import BookListSearch from "@/pages/ConsumerLayout/BooksListSearch/BookListSearch";
 
 const consumerRoutes = {
@@ -7,7 +8,11 @@ const consumerRoutes = {
   children: [
     {
       index: true,
-      element: <BookListSearch />,
+      element: (
+        <SearchCtxProvider>
+          <BookListSearch />
+        </SearchCtxProvider>
+      ),
     },
   ],
 };

@@ -1,3 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import {
+  QueryDefinition,
+  TypedLazyQueryTrigger,
+  TypedUseLazyQueryStateResult,
+} from "@reduxjs/toolkit/query/react";
 import { AxiosResponse } from "axios";
 
 export enum EventApp {
@@ -56,3 +62,12 @@ export type ReqQueryAPI<T> = {
   limit: number;
   _?: number;
 } & T;
+
+export type TriggerRTK = [
+  TypedLazyQueryTrigger<QueryDefinition<any, any, any, any, any>, any, any>,
+  TypedUseLazyQueryStateResult<
+    QueryDefinition<any, any, any, any, any>,
+    any,
+    any
+  >
+];

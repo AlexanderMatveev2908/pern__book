@@ -14,7 +14,7 @@ import {
   FieldJoinCatType,
   SearchCtxStateType,
 } from "../reducer/initState";
-import { ResPaginationAPI } from "@/types/types";
+import { ResPaginationAPI, TriggerRTK } from "@/types/types";
 import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
 import { saveStorage } from "@/core/lib/lib";
 
@@ -25,7 +25,7 @@ type Params = {
 
 type ParamsUpdateNoDebounce = {
   vals: ArgsSearchType;
-  triggerRtk: any;
+  triggerRtk: TriggerRTK[0];
   routeID?: string;
 };
 
