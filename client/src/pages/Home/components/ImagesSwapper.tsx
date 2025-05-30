@@ -49,12 +49,6 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
           <div
             className="wrapper flex w-full max-w-full transition-all duration-500 items-start"
             style={{
-              // transform: `translateX(-${
-              //   currSlide * (imgsForSwap * wImg + (imgsForSwap - 1) * 40)
-              // }px)`,
-              // display: "grid",
-              // gridTemplateColumns: `repeat(${numBlocks}, 1fr`,
-              // gap: "40px",
               width: `${numBlocks * 100}%`,
               transform: `translateX(-${currSlide * 100}%)`,
             }}
@@ -88,32 +82,6 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
                 ))}
               </div>
             ))}
-            {/* <>
-              {books.map((el, i) => (
-                <div
-                  key={books[i].id}
-                  className={`flex rounded-xl transition-all duration-500 ${
-                    i >= currSlide && i < currSlide + numSwap
-                      ? ""
-                      : "opacity-0 pointer-events-none"
-                  }`}
-                  style={{ width: wImg, height: wImg }}
-                >
-                  <div className="min-w-full min-h-full rounded-xl card border-2 border-neutral-800 ">
-                    <ImgLoaderHandler
-                      {...{
-                        url: books![i]!.images![0].url || "",
-                        customClass: "client",
-                      }}
-                    >
-                      {typeof children === "function" && children(el, i)}
-                    </ImgLoaderHandler>
-
-                    <ServerCard {...{ el }} />
-                  </div>
-                </div>
-              ))}
-            </> */}
           </div>
         </div>
 
