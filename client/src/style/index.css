@@ -696,11 +696,15 @@ IMPORTANT: for some practical reasons i prefer using snake case instead of kebab
 */
 @font-face {
   font-family: "Sour Gummy";
-  src: url("Sour_Gummy/one.ttf") format("truetype");
+  src: url("/Sour_Gummy/SourGummy-Italic-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
 }
 @font-face {
   font-family: "Sour Gummy";
-  src: url("Sour_Gummy/two.ttf") format("truetype");
+  src: url("/Sour_Gummy/SourGummy-VariableFont_wdth,wght.ttf") format("truetype");
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
 }
 * {
   font-family: "Sour Gummy", "Comic Sans MS";
