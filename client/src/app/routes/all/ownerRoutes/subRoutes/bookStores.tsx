@@ -1,6 +1,6 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
-import BookStoreLayout from "@/layouts/OwnerLayout/BookStoreLayout";
+import BookStoreLayout from "@/app/layouts/OwnerLayout/BookStoreLayout";
 import BookStorePage from "@/pages/OwnerLayout/BookStoreLayout/BookStorePage/BookStorePage";
 import BookStores from "@/pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
 import UpdateBookStore from "@/pages/OwnerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStore";

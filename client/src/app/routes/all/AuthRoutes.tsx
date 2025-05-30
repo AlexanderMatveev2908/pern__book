@@ -1,5 +1,5 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
-import AuthLayout from "@/layouts/AuthLayout";
+import AuthLayout from "@/app/layouts/AuthLayout";
 import ChoseNewPwd from "@/pages/AuthLayout/ChoseNewPwd/ChoseNewPwd";
 import ForgotPwd from "@/pages/AuthLayout/ForgotPwd/ForgotPwd";
 import Login from "@/pages/AuthLayout/Login/Login";
