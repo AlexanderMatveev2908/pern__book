@@ -1,10 +1,10 @@
 import { FC } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
-import ImgLoaderHandler from "../../../components/elements/cards/shared/ImgLoaderHandler/ImgLoaderHandler";
 import { BookType } from "@/types/all/books";
-import ServerCard from "./components/ServerCard";
 import { useSlideImg } from "@/core/hooks/all/UI/useSlideImg";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import ImgLoaderHandler from "@/components/elements/cards/shared/ImgLoaderHandler/ImgLoaderHandler";
+import ServerCard from "./ServerCard";
 
 type PropsType = {
   books?: BookType[];
