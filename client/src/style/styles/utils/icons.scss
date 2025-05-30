@@ -1,0 +1,53 @@
+.icon_notice__md {
+  @apply min-w-[150px] sm:min-w-[250px] min-h-[150px] sm:min-h-[250px];
+}
+.icon_notice__lg {
+  @apply min-w-[200px] sm:min-w-[300px] min-h-[200px] sm:min-h-[300px];
+}
+.icon_notice__md,
+.icon_notice__lg {
+  animation: notice_bounce 0.6s linear forwards;
+}
+
+.icon__sm {
+  @apply min-w-[25px] sm:min-w-[30px] min-h-[25px] sm:min-h-[30px];
+}
+.icon__md {
+  @apply min-w-[30px] sm:min-w-[35px] min-h-[30px] sm:min-h-[35px];
+}
+.icon__lg {
+  @apply min-w-[40px] min-h-[40px];
+}
+.icon__xl {
+  @apply min-w-[50px] min-h-[50px];
+}
+.icon__with_txt {
+  @apply transition-all duration-300 group-hover:text-blue-600;
+}
+.icon__logic {
+  @apply transition-all duration-300 hover:text-blue-600 hover:scale-120 cursor-pointer;
+}
+.icon__close {
+  @apply min-w-[50px] min-h-[50px] text-red-600 transition-all duration-300 hover:scale-120 cursor-pointer;
+}
+
+@keyframes notice_bounce {
+  0% {
+    transform: scale(0);
+  }
+  30% {
+    transform: scale(1.4, 0.6);
+  }
+  50% {
+    transform: scale(0.6, 1.4);
+  }
+  70% {
+    transform: scale(1.2, 0.8);
+  }
+  85% {
+    transform: scale(0.9, 1.1);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
