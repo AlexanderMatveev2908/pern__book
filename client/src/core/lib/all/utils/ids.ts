@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { v4 } from "uuid";
 import { capt } from "./formatters";
 
@@ -34,3 +35,13 @@ export const calcSearchbarID = (path: string) =>
         .join("")
     )
     .join("");
+
+export const addNestedIDs = <T>(arr: T[]): T[] =>
+  arr.map((el) => ({
+    ...el,
+    id: v4(),
+    fields: (el as any).fields.map((sub: any) => ({
+      ...sub,
+      id: v4(),
+    })),
+  }));

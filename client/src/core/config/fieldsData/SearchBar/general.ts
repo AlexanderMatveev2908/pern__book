@@ -15,6 +15,24 @@ import { MdOutlineCategory } from "react-icons/md";
 import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
 
+export const allUsersTxtFieldsInput = [
+  {
+    field: "title",
+    label: "Title",
+    place: "Book title...",
+  },
+  {
+    field: "author",
+    label: "Author",
+    place: "Author name...",
+  },
+  {
+    field: "year",
+    label: "Year",
+    place: "Year...",
+  },
+];
+
 export const filtersCat: Omit<FilterSearch, "id"> = {
   label: "Categories",
   field: "categories",

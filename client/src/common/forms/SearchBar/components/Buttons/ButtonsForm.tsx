@@ -78,7 +78,7 @@ const ButtonsForm: FC<PropsType> = ({
           <ErrorFormField {...{ errors, el: errNumbers?.currEl }} />
         </div>
 
-        <div className="w-full">
+        <div className="w-full flex justify-end">
           <DropInputs {...{ txtInputs }} />
         </div>
       </div>

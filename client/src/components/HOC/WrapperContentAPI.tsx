@@ -4,11 +4,12 @@ import WrapPageAPI from "./WrapPageAPI";
 import PagesCounter from "../elements/PageCounter/PagesCounter";
 import { UseFormReturn } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { TriggerRTK } from "@/types/types";
 
 type PropsType = {
   children: ReactNode;
   formCtx: UseFormReturn<any>;
-  hook: any;
+  hook?: TriggerRTK;
   paramID?: string;
 };
 
@@ -18,7 +19,7 @@ const WrapperContentAPI: FC<PropsType> = ({
   hook,
   formCtx,
 }) => {
-  const [triggerRtk, res] = hook;
+  const [triggerRtk, res] = hook ?? [() => null, {} as any];
   const {
     preSubmit: { isPopulated },
   } = useSearchCtx();

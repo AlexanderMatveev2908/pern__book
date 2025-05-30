@@ -11,6 +11,7 @@ import {
   NumericFilterSearch,
   SorterSearch,
 } from "@/types/types";
+import { addNestedIDs } from "@/core/lib/all/utils/ids";
 
 export const fieldsInputsBooksWorker: FormFieldBasic[] = fieldsInputsBooks
   .filter((el) => !el.field.includes("bookStore"))
@@ -19,26 +20,12 @@ export const fieldsInputsBooksWorker: FormFieldBasic[] = fieldsInputsBooks
     id: v4(),
   }));
 
-export const workerBooksFiltersBooks: FilterSearch[] = ownerBooksFilters.map(
-  (el) => ({
-    ...el,
-    id: v4(),
-    fields: el.fields.map((sub) => ({
-      ...sub,
-      id: v4(),
-    })),
-  })
-);
+export const workerBooksFiltersBooks: FilterSearch[] =
+  addNestedIDs(ownerBooksFilters);
 
-export const workerNumericFieldsBooks: NumericFilterSearch[] =
-  ownerBooksNumericFilters.map((el) => ({
-    ...el,
-    id: v4(),
-    fields: el.fields.map((sub) => ({
-      ...sub,
-      id: v4(),
-    })),
-  }));
+export const workerNumericFieldsBooks: NumericFilterSearch[] = addNestedIDs(
+  ownerBooksNumericFilters
+);
 
 export const workerSortersBooks: SorterSearch[] = ownerBooksSorters.map(
   (el) => ({

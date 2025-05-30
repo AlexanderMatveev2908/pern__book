@@ -12,11 +12,14 @@ import { allOrNothingStr } from "../../lib/dataStructures.js";
 import { handleValidator } from "../../lib/middleware/handleValidator.js";
 import { CatBookStore } from "../../types/all/bookStore.js";
 import { subcategories } from "../../types/all/books.js";
-import { generalValidationSearchBooks } from "../sharedValidators/searchQuery/books/generalValidationSearchBooks.js";
+import {
+  generalValidationSearchBooks,
+  generalValidatorSearchBooksBusiness,
+} from "../sharedValidators/searchQuery/books/generalValidationSearchBooks.js";
 
 export const validateGetBooksList = [
   ...generalValidationSearchBooks,
-
+  ...generalValidatorSearchBooksBusiness,
   check("bookStoreName").custom((val) =>
     allOrNothingStr(REG_STORE_NAME, val)
       ? true
