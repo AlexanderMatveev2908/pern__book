@@ -205,6 +205,11 @@ button:disabled {
   box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app);
 }
 
+.el__shadow_md {
+  @apply ring-2 ring-blue-600;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app), 0 0 30px var(--blue__app);
+}
+
 .el__border_sm,
 .el__border_md {
   @apply border-blue-600 rounded-xl;
@@ -680,6 +685,12 @@ button:disabled {
     transform: scale(1, 1);
   }
 }
+@media (min-width: 550px) {
+  .home .card {
+    @apply grid-cols-2;
+  }
+}
+
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */

@@ -21,3 +21,9 @@
   @apply ring-2 ring-blue-600;
   box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app);
 }
+
+.el__shadow_md {
+  @apply ring-2 ring-blue-600;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app),
+    0 0 30px var(--blue__app);
+}

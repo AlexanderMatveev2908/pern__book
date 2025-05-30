@@ -6,6 +6,8 @@ import apiSlice from "@/store/apiSlice";
 import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SlidersHome from "./components/slidersHome/SlidersHome";
+import CardInfo from "./components/CardInfo/CardInfo";
+import { infosAppHome } from "@/core/config/fieldsData/Home/infoApp";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
@@ -25,7 +27,10 @@ const HomePage: FC = () => {
 
   return (
     <WrapPageAPI {...{ ...res }}>
-      <div className="w-full grid grid-cols-1 gap-20">
+      <div className="w-full grid grid-cols-1 gap-20 home">
+        {infosAppHome.map((el) => (
+          <CardInfo key={el.id} {...{ ...el }} />
+        ))}
         <SlidersHome {...{ ...books }} />
       </div>
     </WrapPageAPI>
