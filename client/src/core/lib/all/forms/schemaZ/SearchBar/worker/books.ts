@@ -1,3 +1,4 @@
+import { REG_ID } from "@/core/config/regex";
 import {
   commonHandleRefineBooks,
   generalFieldsSearchBooksSchema,
@@ -12,6 +13,11 @@ import { z } from "zod";
 const allowedKeys = ["ID", "title", "author", "year"];
 
 const optItem = {
+  ID: {
+    reg: REG_ID,
+    minLen: 0,
+    maxLen: 36,
+  },
   ...generalOptSearchBookItem,
 };
 
