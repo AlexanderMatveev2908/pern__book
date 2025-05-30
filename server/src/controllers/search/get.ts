@@ -75,7 +75,7 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
     where: withImages,
 
     offset: 0,
-    limit: 4,
+    limit: 10,
     order: [["price", "ASC"]],
   });
 

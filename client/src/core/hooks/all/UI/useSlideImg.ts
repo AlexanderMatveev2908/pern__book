@@ -26,7 +26,6 @@ const calcBlock = (lenImgs: number, imgsBySwap: number) =>
 export const useSlideImg = ({ items }: Params) => {
   const [currSlide, setCurrSlide] = useState<number>(0);
   const [wImg, setWImg] = useState(obj.size());
-  // const [numSwap, setNumSwap] = useState(obj.num());
   const clickedRef = useRef<boolean>(false);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
@@ -58,17 +57,6 @@ export const useSlideImg = ({ items }: Params) => {
     [imgsForSwap, items, numBlocks]
   );
 
-  // useEffect(() => {
-  //   const handleResize = () => {
-  //     setWImg(obj.size());
-  //     setNumSwap(obj.num());
-  //   };
-
-  //   window.addEventListener("resize", handleResize);
-
-  //   return () => window.removeEventListener("resize", handleResize);
-  // }, [items]);
-
   const handleClickRef = () => {
     clickedRef.current = true;
 
@@ -98,37 +86,18 @@ export const useSlideImg = ({ items }: Params) => {
       return nextPrev < 0 ? maxStart : nextPrev;
     });
   };
-  // const incSlide = useCallback(() => {
-  //   setCurrSlide((prev) => {
-  //     const maxStart = Math.max(0, items.length - numSwap);
-  //     const next = prev + numSwap;
 
-  //     if (next > maxStart) return 0;
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (!clickedRef.current) incSlide();
+    }, 2500);
 
-  //     return next;
-  //   });
-  // }, [items, numSwap]);
-
-  // const decSlide = () => {
-  //   setCurrSlide((prev) => {
-  //     const maxStart = Math.max(0, items.length - numSwap);
-  //     const nextPrev = prev - numSwap;
-  //     return nextPrev < 0 ? maxStart : nextPrev;
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     if (!clickedRef.current) incSlide();
-  //   }, 2500);
-
-  //   return () => clearInterval(interval);
-  // }, [incSlide]);
+    return () => clearInterval(interval);
+  }, [incSlide]);
 
   return {
     currSlide,
     wImg,
-    // numSwap,
     incSlide,
     decSlide,
     handleClickRef,
@@ -137,3 +106,41 @@ export const useSlideImg = ({ items }: Params) => {
     numBlocks,
   };
 };
+
+// useEffect(() => {
+//   const handleResize = () => {
+//     setWImg(obj.size());
+//     setNumSwap(obj.num());
+//   };
+
+//   window.addEventListener("resize", handleResize);
+
+//   return () => window.removeEventListener("resize", handleResize);
+// }, [items]);
+
+// const incSlide = useCallback(() => {
+//   setCurrSlide((prev) => {
+//     const maxStart = Math.max(0, items.length - numSwap);
+//     const next = prev + numSwap;
+
+//     if (next > maxStart) return 0;
+
+//     return next;
+//   });
+// }, [items, numSwap]);
+
+// const decSlide = () => {
+//   setCurrSlide((prev) => {
+//     const maxStart = Math.max(0, items.length - numSwap);
+//     const nextPrev = prev - numSwap;
+//     return nextPrev < 0 ? maxStart : nextPrev;
+//   });
+// };
+
+// useEffect(() => {
+//   const interval = setInterval(() => {
+//     if (!clickedRef.current) incSlide();
+//   }, 2500);
+
+//   return () => clearInterval(interval);
+// }, [incSlide]);
