@@ -21,6 +21,7 @@ export const axiosBaseQuery = async ({
   // this is data that we use when make API calls in pages/components
   data: dataParams,
   params,
+  responseType,
 }: any): Promise<any> => {
   try {
     const res: AxiosResponse = await appInstance({
@@ -28,13 +29,18 @@ export const axiosBaseQuery = async ({
       method,
       data: dataParams,
       params,
+      responseType,
     });
 
     return {
-      data: { ...res?.data, status: res?.status } as Pick<
-        AxiosResponse,
-        "data"
-      >,
+      data:
+        responseType === "blob"
+          ? res.data
+          : ({ ...res?.data, status: res?.status } as Pick<
+              AxiosResponse,
+              "data"
+            >),
+      status: res?.status,
     };
   } catch (err: any) {
     const { response: { data: errData, config, status } = {} } = err ?? {};
