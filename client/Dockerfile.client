@@ -1,0 +1,37 @@
+FROM node:20 AS builder
+
+WORKDIR /app/client
+
+RUN corepack enable && corepack prepare yarn@4.9.1 --activate
+
+COPY . ./
+
+RUN echo "nodeLinker: node-modules" > .yarnrc.yml
+
+ARG VITE_BACK_URL_DEV
+ARG VITE_MODE
+
+ENV VITE_BACK_URL_DEV=$VITE_BACK_URL_DEV
+ENV VITE_MODE=$VITE_MODE
+
+
+RUN yarn install
+
+RUN yarn build
+
+# last stable version like node 20
+FROM nginx:stable-alpine
+
+# Remove default config that could not support our current needs
+RUN rm /etc/nginx/conf.d/default.conf
+
+# Add our own config to proxy to the app
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+COPY --from=builder /app/client/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]
+# set nginx config global to services
+# daemon = foreground = not background

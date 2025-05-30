@@ -1,0 +1,107 @@
+@use "./styles/utils/txt.scss";
+@use "./styles/utils/z.scss";
+@use "./styles/utils/icons.scss";
+@use "./styles/utils/buttons.scss";
+@use "./styles/utils/inputs.scss";
+@use "./styles/utils/el.scss";
+@use "./styles/utils/seniorStyles.scss";
+
+@use "./styles/common/popup.scss";
+@use "./styles/common/forms/BookStoreForm.scss";
+@use "./styles/common/forms/SearchBar.scss";
+@use "./styles/common/toast/Toast.scss";
+
+@use "./styles/components/elements/buttons/Button.scss";
+@use "./styles/components/elements/cards/ImagesScroll.scss";
+@use "./styles/components/elements/cards/ImagesSwapper.scss";
+@use "./styles/components/elements/general/PageCounter.scss";
+@use "./styles/components/elements/general/TooltipCpy.scss";
+@use "./styles/components/elements/spinners/MiniSpinner.scss";
+@use "./styles/components/elements/spinners/SpinnerPage.scss";
+@use "./styles/components/elements/spinners/Spinner.scss";
+
+@use "./styles/components/forms/BtnCheckBox.scss";
+@use "./styles/components/forms/ButtonsSwapper.scss";
+@use "./styles/components/forms/PwdField.scss";
+@use "./styles/components/forms/Terms.scss";
+
+@use "./styles//pages//Home.scss";
+@import "./t.css";
+
+/* 
+IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
+*/
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("Sour_Gummy/one.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("Sour_Gummy/two.ttf") format("truetype");
+}
+
+* {
+  font-family: "Sour Gummy", "Comic Sans MS";
+}
+
+body {
+  overflow-x: hidden;
+}
+
+:root {
+  --blue__app: #2563eb;
+  --red__app: #dc2626;
+  --green__app: #16a34a;
+  --orange__app: #ea580c;
+  --gray__app: #d1d5db;
+  --gray__app_500: #6b7280;
+}
+
+// ? p === parent
+// ? c === child
+
+.p_page {
+  @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
+}
+.form__size {
+  @apply max-w-[500px] sm:max-w-[600px];
+}
+.p_form__0 {
+  @apply w-full grid grid-cols-1 justify-items-center gap-8;
+}
+.p_form__1 {
+  @apply w-full grid justify-items-center gap-6 text-gray-300;
+}
+.p_form__2 {
+  @apply w-full flex flex-col items-center max-w-[500px] sm:max-w-[600px] text-gray-300 border-blue-600 rounded-xl border-[3px];
+}
+.p_cards {
+  @apply w-full grid grid-cols-1 md:grid-cols-2  xl:grid-cols-3 2xl:grid-cols-4 gap-10;
+}
+.c_card {
+  @apply w-full grid grid-cols-1 h-fit items-start border-[3px] gap-y-5 border-blue-600 p-3 pb-5 rounded-xl  justify-self-center;
+}
+
+// ? GENERIC
+
+.scrollbar__hidden::-webkit-scrollbar {
+  display: none;
+}
+.scroll_app::-webkit-scrollbar-thumb {
+  @apply bg-blue-600 rounded-lg cursor-pointer;
+}
+.scroll_app::-webkit-scrollbar-track {
+  @apply bg-neutral-800;
+}
+.scroll_x::-webkit-scrollbar {
+  @apply h-[4px];
+}
+.scroll_y::-webkit-scrollbar {
+  @apply w-[8px];
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

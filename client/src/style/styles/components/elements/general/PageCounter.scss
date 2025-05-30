@@ -1,0 +1,13 @@
+.page_counter {
+  .btn {
+    transition: 0.3s;
+    transform: scale(var(--scale_counter_page));
+    &:enabled:hover {
+      cursor: pointer;
+    }
+    &:enabled:active {
+      transition: 0.1s;
+      transform: scale(0.8);
+    }
+  }
+}
