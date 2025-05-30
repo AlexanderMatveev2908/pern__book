@@ -14,9 +14,7 @@ export const infosAppHome: ItemHomeArgs[] = [
   },
   {
     CompSVG: BookShelf,
-    txt: ` Keep track of your stock items and collaborate with your employees
-          using a system that prevents transaction conflicts by ensuring
-          isolation`,
+    txt: `Keep track of your stock items and collaborate with your employees using a role-based system to manage access and permissions`,
   },
 ].map((el) => ({
   ...el,
