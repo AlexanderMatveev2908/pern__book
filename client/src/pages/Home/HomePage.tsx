@@ -5,16 +5,27 @@ import { formatD, isArrOk, priceFormatter } from "@/core/lib/lib";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { rootAPI } from "@/features/root/rootAPI";
 import apiSlice from "@/store/apiSlice";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import RatingItem from "@/components/elements/RatingItem";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import WrapSectionHome from "@/components/HOC/WrapSectionHome";
 import WrapBg from "./components/WrapBg";
+import { tailwindBreak } from "@/core/config/breakpoints";
+
+const getHD = () => (window.innerWidth > tailwindBreak.md ? 60 : 50);
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
   const dispatch = useDispatch();
+  const [hDate, setHDate] = useState(getHD());
+
+  useEffect(() => {
+    const resize = () => setHDate(getHD());
+
+    window.addEventListener("resize", resize);
+    return () => window.removeEventListener("resize", resize);
+  }, []);
 
   useEffect(() => {
     if (authState.loggingOut) {
@@ -55,9 +66,9 @@ const HomePage: FC = () => {
           {isArrOk(booksRecent) && (
             <ImagesSwapper {...{ books: booksRecent }}>
               {(el, i) => (
-                <WrapBg key={ids[1][i]} {...{ h: 50 }}>
+                <WrapBg key={ids[1][i]} {...{ h: hDate }}>
                   <span
-                    className="txt__3 text-center clamp_txt"
+                    className="txt__2 text-center clamp_txt"
                     style={{
                       lineClamp: 2,
                       WebkitLineClamp: 2,
