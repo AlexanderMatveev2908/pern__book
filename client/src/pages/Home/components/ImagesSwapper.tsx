@@ -28,7 +28,7 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
   });
 
   return !books?.length ? null : (
-    <div className="border-2 flex justify-center images_swapper">
+    <div className="flex justify-center images_swapper">
       <div className="grid grid-cols-1 text-[whitesmoke] relative">
         <button
           onClick={() => {
@@ -40,26 +40,30 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
-        <div className="cont flex overflow-hidden p-[20px] el__border_md">
+        <div
+          className="cont flex overflow-hidden p-[20px] el__border_md"
+          style={{
+            width: `${imgsForSwap * wImg + (imgsForSwap - 1) * 40}px`,
+          }}
+        >
           <div
-            className="wrapper transition-all duration-500 items-start"
+            className="wrapper flex w-full max-w-full transition-all duration-500 items-start"
             style={{
-              transform: `translateX(-${
-                currSlide * (imgsForSwap * wImg + (imgsForSwap - 1) * 40)
-              }px)`,
-              display: "grid",
-              gridTemplateColumns: `repeat(${numBlocks}, 1fr`,
-              gap: "40px",
+              // transform: `translateX(-${
+              //   currSlide * (imgsForSwap * wImg + (imgsForSwap - 1) * 40)
+              // }px)`,
+              // display: "grid",
+              // gridTemplateColumns: `repeat(${numBlocks}, 1fr`,
+              // gap: "40px",
+              width: `${numBlocks * 100}%`,
+              transform: `translateX(-${currSlide * 100}%)`,
             }}
           >
             {arrParent.map((arg, iOuter) => (
               <div
-                className={`flex w-fit gap-[40px] transition-all duration-500 ${
+                className={`flex min-w-full gap-[40px] transition-all duration-500 ${
                   iOuter === currSlide ? "" : "opacity-0 pointer-events-none"
                 }`}
-                style={{
-                  minWidth: `${wImg * imgsForSwap}px`,
-                }}
                 key={ids[0][iOuter]}
               >
                 {arg.items.map((el, iInner) => (
