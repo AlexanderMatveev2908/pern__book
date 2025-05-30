@@ -45,6 +45,21 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
         literal("jsonb_array_length(images) > 0"),
       ],
     },
+    attributes: {
+      include: [
+        [
+          literal(`json_build_object(
+    'isEven', (qty % 2 = 0),
+    'qty', qty,
+    'deepNest', json_build_object(
+      'isEven', (qty % 2 = 0),
+      'qty', qty
+    )
+    )`),
+          "isEven",
+        ],
+      ],
+    },
     offset: 0,
     limit: 10,
     order: [["createdAt", "DESC"]],
