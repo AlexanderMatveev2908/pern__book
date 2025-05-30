@@ -35,7 +35,7 @@ const SlidersHome: FC<PropsType> = ({
   });
 
   return (
-    <>
+    <div className="w-full grid grid-cols-1 gap-16 justify-items-center">
       <WrapSectionHome
         {...{ title: "Best rating", len: booksByRating?.length }}
       >
@@ -91,7 +91,7 @@ const SlidersHome: FC<PropsType> = ({
           </ImagesSwapper>
         )}
       </WrapSectionHome>
-    </>
+    </div>
   );
 };
 

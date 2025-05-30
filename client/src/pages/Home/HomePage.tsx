@@ -27,10 +27,12 @@ const HomePage: FC = () => {
 
   return (
     <WrapPageAPI {...{ ...res }}>
-      <div className="w-full grid grid-cols-1 gap-20 home">
-        {infosAppHome.map((el) => (
-          <CardInfo key={el.id} {...{ ...el }} />
-        ))}
+      <div className="w-full grid grid-cols-1 gap-20 home mt-10">
+        <div className="grid grid-cols-1 2xl:grid-cols-2 gap-16">
+          {infosAppHome.map((el) => (
+            <CardInfo key={el.id} {...{ ...el }} />
+          ))}
+        </div>
         <SlidersHome {...{ ...books }} />
       </div>
     </WrapPageAPI>
