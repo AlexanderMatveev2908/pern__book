@@ -1,6 +1,7 @@
 import { literal, Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../../types/types.js";
 import { parseArrFromStr } from "../../../dataStructures.js";
+import { createCondRating } from "../../general.js";
 
 export const makeQueryBooksWorker = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};
@@ -38,19 +39,7 @@ export const makeQueryBooksWorker = (req: ReqApp) => {
         break;
 
       case "avgRating": {
-        const cond: WhereOptions = [];
-
-        for (const pair of parseArrFromStr(v as string | string[])) {
-          const [from, to] = pair.split("-");
-
-          cond.push(
-            literal(`(
-              SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-              FROM reviews AS r
-              WHERE r."bookID" = "Book"."id"
-            ) BETWEEN ${from} AND ${to}`)
-          );
-        }
+        const { cond } = createCondRating(v as string | string[]);
 
         if (cond.length)
           queryBooks[Op.or as any] = [

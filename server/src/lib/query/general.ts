@@ -1,7 +1,7 @@
 import { literal, Op, WhereOptions } from "sequelize";
 import { capChar, findVal } from "../utils/formatters.js";
 import { countTo_5 } from "../utils/utils.js";
-import { replacePoint } from "../dataStructures.js";
+import { parseArrFromStr, replacePoint } from "../dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../types/all/orders.js";
 
@@ -22,6 +22,24 @@ export const handleQueryDelivery = (val: string | string[]) => {
     });
 
   return { deliveryConditions };
+};
+
+export const createCondRating = (v: string | string[]) => {
+  const cond: WhereOptions = [];
+
+  for (const pair of parseArrFromStr(v as string | string[])) {
+    const [from, to] = pair.split("-");
+
+    cond.push(
+      literal(`(
+              SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
+              FROM reviews AS r
+              WHERE r."bookID" = "Book"."id"
+            ) BETWEEN ${from} AND ${to}`)
+    );
+  }
+
+  return { cond };
 };
 
 export const countReviewsByRatingBooks = () =>

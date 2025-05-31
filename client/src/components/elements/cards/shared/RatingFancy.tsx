@@ -55,8 +55,6 @@ const RatingFancy: FC<PropsType> = ({ el }) => {
     lengths: [2, 5, 5, ...Array.from({ length: 5 }, () => 5)],
   });
 
-  console.log(ids);
-
   return (
     <DropStats {...{ abs: true, el: labelBookRating, fields: null }}>
       <div className="w-full flex justify-between items-center">
