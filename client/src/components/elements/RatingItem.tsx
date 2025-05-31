@@ -3,7 +3,7 @@ import type { FC } from "react";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 
 type PropsType = {
-  rat?: number;
+  rat?: number | string;
 };
 
 const RatingItem: FC<PropsType> = ({ rat = 0 }) => {
@@ -13,9 +13,9 @@ const RatingItem: FC<PropsType> = ({ rat = 0 }) => {
     <div className="w-full flex gap-1 items-center justify-center">
       {ids.map((id, i) => (
         <div key={id} className="w-fit">
-          {rat >= i + 1 ? (
+          {+rat >= i + 1 ? (
             <FaStar className="icon__sm" />
-          ) : rat >= i + 0.5 ? (
+          ) : +rat >= i + 0.5 ? (
             <FaStarHalfAlt className="icon__sm" />
           ) : (
             <FaRegStar className="icon__sm" />

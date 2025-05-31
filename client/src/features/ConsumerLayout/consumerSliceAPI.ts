@@ -13,7 +13,7 @@ const B_URL = "/consumer";
 
 export const consumerSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    getAllBooks: builder.query<
+    getAllBooksConsumer: builder.query<
       BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>,
       ReqQueryAPI<{ vals: SearchBooksConsumerType }>
     >({

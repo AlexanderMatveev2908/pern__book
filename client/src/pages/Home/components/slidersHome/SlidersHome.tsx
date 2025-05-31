@@ -43,7 +43,7 @@ const SlidersHome: FC<PropsType> = ({
           <ImagesSwapper {...{ books: booksByRating }}>
             {(el, i) => (
               <WrapBg key={ids[0][i]}>
-                <RatingItem {...{ rat: el?.avgRating }} />
+                <RatingItem {...{ rat: el?.ratingStats?.avgRating }} />
               </WrapBg>
             )}
           </ImagesSwapper>

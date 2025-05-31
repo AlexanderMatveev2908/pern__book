@@ -755,20 +755,35 @@ body {
   display: none;
 }
 
+.scroll_app::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+
+.scroll_app {
+  scrollbar-width: auto;
+  scrollbar-color: #2563eb #27272a;
+}
+
 .scroll_app::-webkit-scrollbar-thumb {
-  @apply bg-blue-600 rounded-lg cursor-pointer;
+  background-color: #2563eb;
+  scrollbar-color: #2563eb #27272a;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
 
 .scroll_app::-webkit-scrollbar-track {
-  @apply bg-neutral-800;
+  background-color: #27272a;
 }
 
 .scroll_x::-webkit-scrollbar {
-  @apply h-[4px];
+  height: 4px;
+  background-color: #27272a;
 }
 
 .scroll_y::-webkit-scrollbar {
-  @apply w-[8px];
+  width: 8px;
+  background-color: #27272a;
 }
 
 input[type=number]::-webkit-outer-spin-button,

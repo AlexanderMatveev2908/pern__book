@@ -19,6 +19,7 @@ import { capChar } from "../../../lib/utils/formatters.js";
 import { User } from "../../../models/models.js";
 import { err403, err404 } from "../../../lib/responseClient/err.js";
 import { sortItems } from "../../../lib/query/sort.js";
+import { calcRatingSqlStores } from "../../../lib/query/general.js";
 
 // ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
 
@@ -48,35 +49,7 @@ const myCoolNestedSql: FindAttributeOptions = {
   )`),
       "avgPrice",
     ],
-    [
-      literal(`(
-    SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-    FROM books AS b
-    INNER JOIN reviews AS r ON b.id = r."bookID"
-    WHERE b."bookStoreID" = "BookStore"."id"
-  )`),
-      "reviewsCount",
-    ],
-    [
-      literal(`(
-    SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-    FROM books AS b
-    INNER JOIN reviews AS r ON b.id = r."bookID"
-    WHERE b."bookStoreID" = "BookStore"."id"
-  )`),
-      "avgRating",
-    ],
-
-    ...(countTo_5().map((pair) => [
-      literal(`(
-    SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-    FROM books AS b
-    INNER JOIN reviews AS r ON b.id = r."bookID"
-    WHERE b."bookStoreID" = "BookStore"."id"
-      AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
-  )`),
-      `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-    ]) as [Literal, string][]),
+    ...calcRatingSqlStores(),
 
     [
       literal(`(
@@ -133,40 +106,7 @@ const myCollFlatSql: FindAttributeOptions = {
           )`),
       "ordersCount",
     ],
-    [
-      literal(`(
-            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-            FROM reviews as r
-            WHERE r."bookID" IN (
-              SELECT b.id
-              FROM books as b
-              WHERE b."bookStoreID" = "BookStore"."id"
-            )
-            )`),
-      "reviewsCount",
-    ],
-    [
-      literal(`(
-      SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-      FROM  "books" AS b
-      INNER JOIN "reviews" AS r ON b.id = r."bookID"
-      WHERE b."bookStoreID" = "BookStore"."id"
-      )`),
-      "avgRating",
-    ],
-    ...(countTo_5().map((pair) => [
-      literal(`(
-            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-            FROM reviews as r
-            WHERE r."bookID" IN (
-              SELECT b.id
-              FROM books as b
-              WHERE b."bookStoreID" = "BookStore"."id"
-            )
-            AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}
-            )`),
-      `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-    ]) as [Literal, string][]),
+    ...calcRatingSqlStores(),
 
     ...(Object.values(OrderStage).map((stage) => [
       literal(

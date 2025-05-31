@@ -5,13 +5,11 @@ import { User } from "../../../models/models.js";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { Book } from "../../../models/all/Book.js";
-import { literal, Op } from "sequelize";
-import { countTo_5 } from "../../../lib/utils/utils.js";
-import { replacePoint } from "../../../lib/dataStructures.js";
-import { Literal } from "sequelize/lib/utils";
+import { Op } from "sequelize";
 import { calcPagination } from "../../../lib/query/pagination.js";
 import { makeQueryBooksWorker } from "../../../lib/query/worker/books/query.js";
 import { sortItems } from "../../../lib/query/sort.js";
+import { calcRatingSqlBooks } from "../../../lib/query/general.js";
 
 export const getInfoStore = async (
   req: ReqApp,
@@ -61,33 +59,7 @@ export const getBookWorker = async (
       id: bookID,
     },
     attributes: {
-      include: [
-        [
-          literal(`(
-            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-            FROM reviews AS r
-            WHERE r."bookID" = "Book".id
-            )`),
-          "reviewsCount",
-        ],
-        [
-          literal(`(
-            SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-            FROM reviews AS r
-            WHERE r."bookID" = "Book".id
-            )`),
-          "avgRating",
-        ],
-        ...(countTo_5().map((pair) => [
-          literal(`(
-            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-            FROM reviews AS r
-            WHERE r."bookID" = "Book".id
-            AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}  
-            )`),
-          `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-        ]) as [Literal, string][]),
-      ],
+      include: [...calcRatingSqlBooks()],
     },
     group: [
       "Book.id",
@@ -164,34 +136,7 @@ export const getBookListWorker = async (
       },
     ],
     attributes: {
-      include: [
-        [
-          literal(`(
-            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-            FROM reviews AS r
-            WHERE r."bookID" = "Book".id
-            )`),
-          "reviewsCount",
-        ],
-        [
-          literal(`(
-            SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-            FROM reviews AS r
-            WHERE r."bookID" = "Book".id
-            )`),
-          "avgRating",
-        ],
-
-        ...(countTo_5().map((pair) => [
-          literal(`(
-            SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-            FROM reviews AS r
-            WHERE r."bookID" = "Book".id
-            AND r.rating BETWEEN ${pair[0]} AND ${pair[1]}  
-            )`),
-          `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-        ]) as [Literal, string][]),
-      ],
+      include: [...calcRatingSqlBooks()],
     },
   });
 
