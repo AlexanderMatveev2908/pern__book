@@ -43,20 +43,19 @@ export const defineOrder = (seq: Sequelize) =>
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },
-      // ? U COULD JUST SET ALLOW_NULL_FALSE, I PREFER KEEP NULL CAUSE I LIKE WORK WITH IT
       delivery: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
+        allowNull: false,
         defaultValue: 0,
       },
       discount: {
         type: DataTypes.DECIMAL(10, 2),
-        allowNull: true,
+        allowNull: false,
         defaultValue: 0,
       },
       stage: {
         type: DataTypes.STRING,
-        allowNull: true,
+        allowNull: false,
         defaultValue: "pending",
       },
 

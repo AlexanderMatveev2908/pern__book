@@ -50,16 +50,12 @@ export const createStoreQ = (req: ReqApp) => {
         };
         break;
 
-      case "delivery": {
-        const { deliveryConditions } = handleQueryDelivery(
-          val as string | string[]
-        );
-
-        if (deliveryConditions.length)
-          queryStore[Op.or as any] = deliveryConditions;
-
+      case "delivery":
+        handleQueryDelivery({
+          val: val as string | string[],
+          storeQ: queryStore,
+        });
         break;
-      }
 
       case "orders":
         queryOrders.stage = {

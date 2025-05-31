@@ -4,6 +4,7 @@ import { parseArrFromStr } from "../../dataStructures.js";
 import {
   handleCommonQueryBooks,
   handleQueryAvgRatingBooks,
+  handleQueryDelivery,
 } from "../general.js";
 
 export const makeQueryBooksConsumer = (req: ReqApp) => {
@@ -33,6 +34,12 @@ export const makeQueryBooksConsumer = (req: ReqApp) => {
         handleQueryAvgRatingBooks({
           v: v as string | string[],
           booksQ: queryBooks,
+        });
+        break;
+      case "delivery":
+        handleQueryDelivery({
+          val: v as string | string[],
+          storeQ: queryStores,
         });
         break;
 

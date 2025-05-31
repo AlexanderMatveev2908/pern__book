@@ -25,18 +25,12 @@ export const queryStoresWorker = (req: ReqApp) => {
         };
         break;
 
-      case "delivery": {
-        const { deliveryConditions } = handleQueryDelivery(
-          v as string | string[]
-        );
-        if (deliveryConditions.length) {
-          queryStores[Op.or as any] = [
-            ...(queryStores[Op.or as any] ?? []),
-            ...deliveryConditions,
-          ];
-        }
+      case "delivery":
+        handleQueryDelivery({
+          val: v as string | string[],
+          storeQ: queryStores,
+        });
         break;
-      }
 
       case "orders":
         queryOrders.stage = {

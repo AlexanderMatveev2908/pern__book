@@ -52,8 +52,13 @@ const BookListSearch: FC = () => {
         </FormProvider>
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          {isArrOk(books) &&
-            books!.map((el) => <BookItemConsumer key={el.id} {...{ el }} />)}
+          {isArrOk(books) && (
+            <div className="p_cards">
+              {books!.map((el) => (
+                <BookItemConsumer key={el.id} {...{ el }} />
+              ))}
+            </div>
+          )}
         </WrapperContentAPI>
       </div>
     </WrapPageAPI>
