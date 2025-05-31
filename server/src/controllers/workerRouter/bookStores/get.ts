@@ -22,38 +22,15 @@ import { sortItems } from "../../../lib/query/sort.js";
 import {
   calcRatingSqlStores,
   countOrdersStores,
+  countStatsBooksFoStore,
 } from "../../../lib/query/general.js";
 
 // ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
 
 const myCoolNestedSql: FindAttributeOptions = {
   include: [
-    [
-      literal(`(
-      SELECT COALESCE(COUNT(DISTINCT b.id), 0)
-      FROM books AS b
-      WHERE b."bookStoreID" = "BookStore"."id"
-    )`),
-      "booksCount",
-    ],
-    [
-      literal(`(
-    SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
-    FROM books AS b
-    WHERE b."bookStoreID" = "BookStore"."id"
-  )`),
-      "avgQty",
-    ],
-    [
-      literal(`(
-    SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
-    FROM books AS b
-    WHERE b."bookStoreID" = "BookStore"."id"
-  )`),
-      "avgPrice",
-    ],
+    ...countStatsBooksFoStore(),
     ...calcRatingSqlStores(),
-
     ...countOrdersStores(),
   ],
 };

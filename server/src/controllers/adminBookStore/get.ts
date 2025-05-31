@@ -20,6 +20,7 @@ import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
 import {
   calcRatingSqlStores,
   countOrdersStores,
+  countStatsBooksFoStore,
 } from "../../lib/query/general.js";
 
 const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
@@ -37,40 +38,8 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
 const myCoolSql = [
   ...calcRatingSqlStores(),
   ...countOrdersStores(),
+  ...countStatsBooksFoStore(),
 
-  [
-    literal(`(
-    SELECT COALESCE(COUNT(DISTINCT b.id), 0)
-    FROM "books" AS b
-    WHERE b."bookStoreID" = "BookStore"."id"
-    )`),
-    "booksCount",
-  ],
-  [
-    literal(`(
-  SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-  FROM "orders" AS o
-  WHERE o."bookStoreID" = "BookStore"."id"
-  )`),
-    "ordersCount",
-  ],
-
-  [
-    literal(`(
-    SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
-    FROM "books" AS b
-    WHERE b."bookStoreID" = "BookStore"."id"
-   ) `),
-    "avgPrice",
-  ],
-  [
-    literal(`(
-  SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
-  FROM "books" AS b
-  WHERE b."bookStoreID" = "BookStore"."id"
-  )`),
-    "avgQty",
-  ],
   [
     literal(`(
       SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)

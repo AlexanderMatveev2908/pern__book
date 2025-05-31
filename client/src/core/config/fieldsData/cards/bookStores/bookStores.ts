@@ -15,15 +15,15 @@ export const statsBooks = (bookStore?: BookStoreType) =>
   [
     {
       label: "Total books",
-      val: bookStore?.booksCount,
+      val: bookStore?.booksStats?.booksCount,
     },
     {
       label: "Avg price",
-      val: priceFormatter(bookStore?.avgPrice ?? "0"),
+      val: priceFormatter(bookStore?.booksStats?.avgPrice ?? "0"),
     },
     {
       label: "Avg quantity",
-      val: bookStore?.avgQty,
+      val: bookStore?.booksStats?.avgQty,
     },
   ].map((el) => ({
     ...el,
