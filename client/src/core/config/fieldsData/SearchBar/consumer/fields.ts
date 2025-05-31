@@ -1,5 +1,9 @@
 import { v4 } from "uuid";
-import { addSortFields, allUsersTxtFieldsInput } from "../general";
+import {
+  addSortFields,
+  allUsersTxtFieldsInput,
+  filtersDelivery,
+} from "../general";
 import { FormFieldBasic } from "@/types/types";
 import { addNestedIDs } from "@/core/lib/all/utils/ids";
 import {
@@ -15,7 +19,10 @@ export const consumerFieldsTxt: FormFieldBasic[] = allUsersTxtFieldsInput.map(
   })
 );
 
-export const consumerFiltersBooks = addNestedIDs(ownerBooksFilters);
+export const consumerFiltersBooks = addNestedIDs([
+  ...ownerBooksFilters,
+  filtersDelivery,
+]);
 
 export const numericFiltersBooksConsumer = addNestedIDs(
   ownerBooksNumericFilters.filter((el) => el.field !== "qty")

@@ -1,6 +1,6 @@
-import { capt, formatD, priceFormatter } from "@/core/lib/lib";
+import { capt, formatD, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
-import { FaBook, FaDatabase } from "react-icons/fa";
+import { FaBook, FaDatabase, FaLink } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
 import { MdOutlineCategory, MdReviews } from "react-icons/md";
 import { v4 } from "uuid";
@@ -119,3 +119,29 @@ export const showStoreAddressFromBook = (book: BookType) =>
     val: book?.store?.[el as keyof BookStoreType],
     id: v4(),
   }));
+
+export const statsDeliveryStoreFromBook = (book?: BookType) =>
+  [
+    { key: "deliveryTime", label: "Delivery Time" },
+    { key: "deliveryPrice", label: "Delivery price" },
+    { key: "freeDeliveryAmount", label: "Free delivery amount" },
+  ].map((el) => {
+    const val = book?.store?.[el.key as keyof BookStoreType];
+
+    return {
+      id: v4(),
+      label: el.label,
+      val: formatValDel(el.key, val),
+    };
+  });
+
+export const linksBookConsumer = [
+  {
+    icon: FaLink,
+    label: "Page",
+    path: "/consumer/books/",
+  },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));

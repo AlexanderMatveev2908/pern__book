@@ -6,6 +6,7 @@ import {
   handleYearRefine,
   superRefinePrices,
 } from "../general/books";
+import { DeliveryType } from "@/types/all/orders";
 
 const allowedKeys = ["title", "author", "year"];
 
@@ -27,6 +28,10 @@ export const schemaConsumerBooks = generalFieldsSearchBooksSchema
   })
   .extend({
     items: z.array(itemSchema).optional(),
+
+    delivery: z
+      .array(z.enum(Object.values(DeliveryType) as [string, ...string[]]))
+      .optional(),
   })
   .superRefine((data, ctx) => {
     superRefinePrices({ data, ctx });

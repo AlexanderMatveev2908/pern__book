@@ -5,8 +5,15 @@ import { parseArrFromStr, replacePoint } from "../dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
 import { OrderStage } from "../../types/all/orders.js";
 
-export const handleQueryDelivery = (val: string | string[]) => {
+export const handleQueryDelivery = ({
+  val,
+  storeQ,
+}: {
+  val: string | string[];
+  storeQ: WhereOptions;
+}) => {
   const deliveryConditions: WhereOptions = [];
+
   if (findVal(val, "free_delivery"))
     deliveryConditions.push({
       deliveryPrice: {
@@ -21,7 +28,11 @@ export const handleQueryDelivery = (val: string | string[]) => {
       },
     });
 
-  return { deliveryConditions };
+  if (deliveryConditions.length)
+    (storeQ as any)[Op.or as any] = [
+      ...((storeQ as any)[Op.or as any] ?? []),
+      ...deliveryConditions,
+    ];
 };
 
 export const handleQueryAvgRatingBooks = ({
