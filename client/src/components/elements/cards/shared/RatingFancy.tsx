@@ -3,10 +3,10 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import DropStats from "./Drop/DropStats";
-import { labelBookRating } from "@/core/config/fieldsData/cards/books/books";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { replacePoint } from "@/core/lib/lib";
+import { labelBookRating } from "@/core/config/fieldsData/common/cards/books/books";
 
 type PropsType = {
   el: BookType;

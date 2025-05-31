@@ -1,14 +1,13 @@
-import { capt, formatD, formatValDel, priceFormatter } from "@/core/lib/lib";
+import { formatD, priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
-import { FaBook, FaDatabase, FaLink } from "react-icons/fa";
+import { FaBook, FaDatabase } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
 import { MdOutlineCategory, MdReviews } from "react-icons/md";
 import { v4 } from "uuid";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { CiTextAlignJustify } from "react-icons/ci";
-import { genValsRating } from "../../OwnerLayout/general";
-import { BookStoreType } from "@/types/all/bookStore";
-import { HiLibrary } from "react-icons/hi";
+
+import { genValsRating } from "../../../OwnerLayout/general";
 
 export const labelBookCard = (title: string) => ({
   label: title,
@@ -113,37 +112,3 @@ export const fieldsWorkFlowBook = (book?: BookType) =>
     ...el,
     id: v4(),
   }));
-
-export const showStoreAddressFromBook = (book: BookType) =>
-  ["country", "state", "city", "street", "zipCode"].map((el) => ({
-    label: capt(el),
-    val: book?.store?.[el as keyof BookStoreType],
-    id: v4(),
-  }));
-
-export const statsDeliveryStoreFromBook = (book?: BookType) =>
-  [
-    { key: "deliveryTime", label: "Delivery Time" },
-    { key: "deliveryPrice", label: "Delivery price" },
-    { key: "freeDeliveryAmount", label: "Free delivery amount" },
-  ].map((el) => {
-    const val = book?.store?.[el.key as keyof BookStoreType];
-
-    return {
-      id: v4(),
-      label: el.label,
-      val: formatValDel(el.key, val),
-    };
-  });
-
-export const linksBookConsumer = [
-  {
-    icon: FaLink,
-    label: "Page",
-    path: "/consumer/books/",
-  },
-  { label: "Store", icon: HiLibrary, path: "monkey" },
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));

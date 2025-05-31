@@ -24,8 +24,8 @@ import {
   sideFieldsLogged,
   sideFieldsNonLogged,
   sideFieldsWorker,
-} from "@/core/config/fieldsData/Sidebar/sidebar";
-import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
+} from "@/core/config/fieldsData/common/Sidebar/sidebar";
+import { LinksLoggedDrop } from "@/core/config/fieldsData/AuthLayout/links";
 import FakeSideLink from "./components/FakeSideLink";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 

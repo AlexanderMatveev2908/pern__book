@@ -3,7 +3,7 @@ import DropActionsMapObj from "@/components/elements/cards/shared/DropActionsHOC
 import {
   KEY_MAP_STORE,
   manageDropLabelGeneral,
-} from "@/core/config/fieldsData/general/labels";
+} from "@/core/config/fieldsData/common/general/labels";
 import { actionsBookStoreWorker } from "@/core/config/fieldsData/WorkerLayout/bookStores/actions";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";

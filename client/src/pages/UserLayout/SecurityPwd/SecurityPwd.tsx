@@ -10,7 +10,7 @@ import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
-import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
+import { LinksLoggedDrop } from "@/core/config/fieldsData/AuthLayout/links";
 import { passwordField } from "@/core/config/fieldsData/AuthLayout/auth";
 import PwdField from "@/components/forms/inputs/PwdField/PwdField";
 import Button from "@/components/elements/buttons/Button/Button";

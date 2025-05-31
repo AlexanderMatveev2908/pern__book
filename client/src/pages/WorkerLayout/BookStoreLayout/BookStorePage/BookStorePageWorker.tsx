@@ -13,8 +13,8 @@ import InfoStoreMapProp from "@/components/elements/cards/bookstore/InfoStoreMap
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
-import { fieldsWorkFlowStore } from "@/core/config/fieldsData/cards/bookStores/bookStores";
-import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+import { fieldsWorkFlowStore } from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/common/general/labels";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
 
 const BookStorePageWorker: FC = () => {

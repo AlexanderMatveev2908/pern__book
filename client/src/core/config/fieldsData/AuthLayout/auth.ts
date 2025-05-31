@@ -2,9 +2,9 @@ import { v4 } from "uuid";
 import { LuAtSign, LuCaseLower, LuCaseUpper } from "react-icons/lu";
 import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";
-import { fieldsActionsAuth } from "../general/fieldsActionsAuth";
-import { SideFieldType } from "../Sidebar/sidebar";
+import { fieldsActionsAuth } from "./links";
 import { FormFieldBasic } from "@/types/types";
+import { SideFieldType } from "../common/Sidebar/sidebar";
 
 const namesFields = [
   {

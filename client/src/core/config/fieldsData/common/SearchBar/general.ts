@@ -2,7 +2,7 @@
 import { capt } from "@/core/lib/lib";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
-import { FilterSearch } from "@/types/types";
+import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { CiDeliveryTruck } from "react-icons/ci";
 import {
   FaDatabase,
@@ -60,6 +60,44 @@ export const filtersDelivery: Omit<FilterSearch, "id"> = {
   fields: Object.values(DeliveryType).map((el) => ({
     label: capt(el.split("_").join(" ")),
     val: el,
+  })),
+};
+
+export const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
+  label: "Avg Price",
+  field: "avgPrice",
+  icon: TbPigMoney,
+  fields: [
+    {
+      label: "Min avg price",
+      field: "minAvgPrice",
+    },
+    {
+      label: "Max avg price",
+      field: "maxAvgPrice",
+    },
+  ].map((el) => ({
+    ...el,
+    place: el.label + "...",
+  })),
+};
+
+export const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
+  label: "Avg quantity",
+  icon: FaDatabase,
+  field: "avgQty",
+  fields: [
+    {
+      field: "minAvgQty",
+      label: "Min avg quantity",
+    },
+    {
+      field: "maxAvgQty",
+      label: "Max avg quantity",
+    },
+  ].map((el) => ({
+    ...el,
+    place: el.label + "...",
   })),
 };
 

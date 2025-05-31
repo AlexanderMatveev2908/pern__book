@@ -20,10 +20,10 @@ import { useNavigate } from "react-router-dom";
 import {
   KEY_MAP_STORE,
   manageDropLabelGeneral,
-} from "../../../../../core/config/fieldsData/general/labels";
+} from "../../../../../core/config/fieldsData/common/general/labels";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { v4 } from "uuid";
-import { fieldsInputsBooks } from "@/core/config/fieldsData/SearchBar/owner/books";
+import { fieldsInputsBooks } from "@/core/config/fieldsData/common/SearchBar/owner/books";
 import DropActionsMapObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsMapObj";
 
 type PropsType = {

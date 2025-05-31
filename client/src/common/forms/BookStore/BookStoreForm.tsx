@@ -21,7 +21,7 @@ import {
   fieldDescStore,
   fieldNameStore,
   fieldsSwapStore,
-} from "@/core/config/fieldsData/general/forms/bookStores/postPut";
+} from "@/core/config/fieldsData/common/forms/bookStores/postPut";
 
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;

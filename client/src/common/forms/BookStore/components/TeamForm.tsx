@@ -10,7 +10,7 @@ import FormField from "@/components/forms/inputs/FormFields/FormField";
 import {
   fieldEmailWorker,
   fieldSelectWorkerRole,
-} from "@/core/config/fieldsData/general/forms/bookStores/postPut";
+} from "@/core/config/fieldsData/common/forms/bookStores/postPut";
 
 const btnRemoveWorker = {
   icon: AiOutlineUserDelete,

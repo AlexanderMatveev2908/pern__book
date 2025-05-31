@@ -1,11 +1,11 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+import { workFlowLabel } from "@/core/config/fieldsData/common/general/labels";
 import {
   fieldsWorkFlowBook,
   labelBookCard,
   labelGeneralStatsBook,
-} from "@/core/config/fieldsData/cards/books/books";
+} from "@/core/config/fieldsData/common/cards/books/books";
 import InfoStoreFromBook from "./components/InfoStoreFromBook";
 import DataBookDB from "./components/DataBookDB";
 import InfoBookAbout from "./components/InfoBookAbout";

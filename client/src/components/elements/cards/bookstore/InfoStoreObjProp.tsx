@@ -7,7 +7,7 @@ import {
   labelFieldContact,
   statsAddress,
   statsDelivery,
-} from "@/core/config/fieldsData/cards/bookStores/bookStores";
+} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
 import { BookStoreType } from "@/types/all/bookStore";
 
 type PropsType = {

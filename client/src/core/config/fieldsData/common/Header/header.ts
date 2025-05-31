@@ -1,10 +1,10 @@
+import { IconType } from "react-icons/lib";
+import { addArrIDs } from "@/core/lib/all/utils/ids";
 import {
   AuthPagesPathType,
   fieldsActionsAuth,
   userLoggedFieldsDrop,
-} from "../general/fieldsActionsAuth";
-import { IconType } from "react-icons/lib";
-import { addArrIDs } from "@/core/lib/all/utils/ids";
+} from "../../AuthLayout/links";
 
 export interface DropFieldType {
   id?: string;
