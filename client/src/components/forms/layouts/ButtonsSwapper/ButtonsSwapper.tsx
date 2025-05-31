@@ -35,7 +35,7 @@ const ButtonsSwapper: FC<PropsType> = ({
       {/* IPHOTETIC MAIN BTN TI DO IMPORTANT THINGS, I USED IT FOR REGISTER OFR EXAMPLE  */}
       {currForm === totLen - 1 && children ? (
         <div
-          className={`w-full justify-center sm:col-span-1 ${
+          className={`w-full flex justify-center sm:col-span-1 ${
             currForm === totLen - 1 ? "col-span-2 sm:col-span-1" : ""
           }`}
         >

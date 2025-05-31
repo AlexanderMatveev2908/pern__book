@@ -16,9 +16,7 @@ import { OrderStage } from "../../types/all/orders.js";
 import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
-import { replacePoint } from "../../lib/dataStructures.js";
 import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
-import { countTo_5 } from "../../lib/utils/utils.js";
 import { calcRatingSqlStores } from "../../lib/query/general.js";
 
 const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
@@ -43,6 +41,8 @@ const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
 ];
 
 const myCoolSql = [
+  ...calcRatingSqlStores(),
+
   [
     literal(`(
     SELECT COALESCE(COUNT(DISTINCT b.id), 0)
@@ -59,7 +59,6 @@ const myCoolSql = [
   )`),
     "ordersCount",
   ],
-  ...calcRatingSqlStores(),
 
   [
     literal(`(
