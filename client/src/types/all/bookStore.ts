@@ -60,23 +60,27 @@ export interface BookStoreType {
   avgPrice?: string;
   avgQty?: string;
 
-  reviewsCount?: string;
-  avgRating: string;
-  reviews__0__1?: string;
-  reviews__1_1__2?: string;
-  reviews__2_1__3?: string;
-  reviews__3_1__4?: string;
-  reviews__4_1__5?: string;
+  ratingStats: {
+    reviewsCount?: string;
+    avgRating: string;
+    reviews__0__1?: string;
+    reviews__1_1__2?: string;
+    reviews__2_1__3?: string;
+    reviews__3_1__4?: string;
+    reviews__4_1__5?: string;
+  };
 
-  ordersCount?: string;
-  ordersPendingCount?: string;
-  ordersPaidCount?: string;
-  ordersProcessingCount?: string;
-  ordersShippedCount?: string;
-  ordersDeliveredCount?: string;
-  ordersCompletedCount?: string;
-  ordersCancelledCount?: string;
-  ordersRefundedCount?: string;
+  ordersStats: {
+    ordersCount?: string;
+    ordersPendingCount?: string;
+    ordersPaidCount?: string;
+    ordersProcessingCount?: string;
+    ordersShippedCount?: string;
+    ordersDeliveredCount?: string;
+    ordersCompletedCount?: string;
+    ordersCancelledCount?: string;
+    ordersRefundedCount?: string;
+  };
 
   teamCount?: string;
   managersCount?: string;
