@@ -94,3 +94,5 @@ export const calcRatingSqlStores = (): [Literal, string][] => [
     "ratingStats",
   ],
 ];
+
+export const countOrdersAdminStores = () => [];
