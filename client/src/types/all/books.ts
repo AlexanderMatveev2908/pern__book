@@ -49,6 +49,7 @@ export type BookType = {
   mainCategories?: CatBookStore[];
 
   ratingStats: {
+    reviewsCount?: string;
     avgRating?: number;
     reviews__0__1?: string;
     reviews__1_1__2?: string;

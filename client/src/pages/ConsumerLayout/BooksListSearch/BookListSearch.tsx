@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/forms/SearchBar/SearchBar";
 import BreadCrumb from "@/components/elements/BreadCrumb";
@@ -11,14 +12,18 @@ import {
 } from "@/core/config/fieldsData/SearchBar/consumer/fields";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { schemaConsumerBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/consumer/books";
+import { isArrOk } from "@/core/lib/lib";
 import { consumerSliceAPI } from "@/features/ConsumerLayout/consumerSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
+import BookItemConsumer from "./components/BookItemConsumer";
 
 const BookListSearch: FC = () => {
   const { formSearchBooksConsumerCtx: formCtx } = useFormCtxConsumer();
 
   const hook = consumerSliceAPI.endpoints.getAllBooksConsumer.useLazyQuery();
+  const [_, res] = hook;
+  const { data: { books } = {} } = res ?? {};
 
   return (
     <WrapPageAPI>
@@ -47,7 +52,8 @@ const BookListSearch: FC = () => {
         </FormProvider>
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          <div className=""></div>
+          {isArrOk(books) &&
+            books!.map((el) => <BookItemConsumer key={el.id} {...{ el }} />)}
         </WrapperContentAPI>
       </div>
     </WrapPageAPI>
