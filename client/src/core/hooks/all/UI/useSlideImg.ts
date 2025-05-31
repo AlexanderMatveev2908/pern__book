@@ -58,14 +58,21 @@ export const useSlideImg = ({ items }: Params) => {
   );
 
   const handleClickRef = () => {
-    clickedRef.current = true;
-
     clearTimer(timerRef);
 
     timerRef.current = setTimeout(() => {
       clickedRef.current = false;
       clearTimer(timerRef);
     }, 5000);
+  };
+
+  const stopSlide = () => {
+    clearTimer(timerRef);
+    clickedRef.current = true;
+  };
+  const startSlide = () => {
+    clearTimer(timerRef);
+    clickedRef.current = false;
   };
 
   const incSlide = useCallback(() => {
@@ -104,6 +111,8 @@ export const useSlideImg = ({ items }: Params) => {
     arrParent,
     imgsForSwap,
     numBlocks,
+    stopSlide,
+    startSlide,
   };
 };
 

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from "react";
 import { v4 } from "uuid";
-import { makeRandomMinMax } from "@/core/lib/lib";
+import { clearTimer, makeRandomMinMax } from "@/core/lib/lib";
 import SpinnerBtn from "../../spinners/SpinnerBtn/SpinnerBtn";
 import { BtnAct } from "@/types/types";
 import MiniSpinner from "../../spinners/MiniSpinner/MiniSpinner";
@@ -89,30 +89,23 @@ const Button: FC<PropsType> = ({
     return () => document.removeEventListener("mousedown", animate);
   }, [ids]);
 
-  const clearTimer = () => {
-    if (timer.current) {
-      clearTimeout(timer.current);
-      timer.current = null;
-    }
-  };
-
   useEffect(() => {
     if (isAging) {
       timer.current = setTimeout(() => {
         setCanLoad(true);
-        clearTimer();
+        clearTimer(timer);
       }, 200);
     }
 
     return () => {
-      clearTimer();
+      clearTimer(timer);
     };
   }, [isAging]);
 
   useEffect(() => {
     if (!isAging) {
       setCanLoad(false);
-      clearTimer();
+      clearTimer(timer);
     }
   }, [isAging]);
 
