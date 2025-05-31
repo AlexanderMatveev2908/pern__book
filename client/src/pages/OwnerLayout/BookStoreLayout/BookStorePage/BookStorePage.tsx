@@ -7,8 +7,7 @@ import { useParams } from "react-router-dom";
 import DropActionsOwner from "./components/DropActionsOwner";
 import DropStats from "../../../../components/elements/cards/shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/page/InfoStoreAllUsersPage";
-import InfoStoreMapProp from "@/components/elements/cards/shared/HOC/InfoStoreMapProp";
+import InfoStoreMapProp from "@/components/elements/cards/bookstore/InfoStoreMapProp";
 import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
@@ -23,6 +22,7 @@ import {
   statsTeam,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
 
 const BookStorePage: FC = () => {
   const { bookStoreID } = useParams() ?? {};

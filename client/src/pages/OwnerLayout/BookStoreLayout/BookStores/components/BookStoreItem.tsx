@@ -1,5 +1,5 @@
-import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/itemList/InfoStoreItemBusiness";
-import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/itemList/InfoCardStore/InfoStoreAllUsersItem";
+import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/InfoStoreAllUsersItem";
+import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoStoreItemBusiness";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";

@@ -9,13 +9,13 @@ import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
 import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
-import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/page/InfoStoreAllUsersPage";
-import InfoStoreMapProp from "@/components/elements/cards/shared/HOC/InfoStoreMapProp";
+import InfoStoreMapProp from "@/components/elements/cards/bookstore/InfoStoreMapProp";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { fieldsWorkFlowStore } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
 
 const BookStorePageWorker: FC = () => {
   const { user } = useGetU();

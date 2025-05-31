@@ -1,12 +1,12 @@
 import { BookType } from "@/types/all/books";
 import { type FC } from "react";
-import DropStats from "../../../Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   labelBookInfo,
   labelCategoriesBook,
   statsBookInfo,
 } from "@/core/config/fieldsData/cards/books/books";
+import DropStats from "../../../shared/Drop/DropStats";
 
 type PropsType = {
   el: BookType;
