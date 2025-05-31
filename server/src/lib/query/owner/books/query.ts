@@ -1,6 +1,7 @@
 import { literal, Op, WhereOptions } from "sequelize";
 import { isStr, parseArrFromStr } from "../../../dataStructures.js";
 import { ReqApp } from "../../../../types/types.js";
+import { handleCommonQueryBooks } from "../../general.js";
 
 export const makeBooksQ = (req: ReqApp) => {
   const { userID } = req;
@@ -18,6 +19,21 @@ export const makeBooksQ = (req: ReqApp) => {
       continue;
 
     switch (key) {
+      case "title":
+      case "author":
+      case "year":
+      case "minPrice":
+      case "maxPrice":
+      case "mainCategories":
+      case "subCategories":
+        handleCommonQueryBooks({
+          k: key,
+          v,
+          storesQ: queryStores,
+          booksQ: queryBooks,
+        });
+        break;
+
       case "bookStoreName":
         queryStores.name = {
           [Op.iLike]: `%${v}%`,
@@ -30,29 +46,6 @@ export const makeBooksQ = (req: ReqApp) => {
 
       case "ID":
         queryBooks.id = v;
-        break;
-
-      case "year":
-        queryBooks.year = v;
-        break;
-
-      case "title":
-      case "author":
-        queryBooks[key] = {
-          [Op.iLike]: `%${v}%`,
-        };
-        break;
-
-      case "mainCategories":
-        queryStores.categories = {
-          [Op.contains]: parseArrFromStr(v as string | string[]),
-        };
-        break;
-
-      case "subCategories":
-        queryBooks.categories = {
-          [Op.contains]: parseArrFromStr(v as string | string[]),
-        };
         break;
 
       case "avgRating": {
@@ -73,19 +66,6 @@ export const makeBooksQ = (req: ReqApp) => {
         ];
         break;
       }
-
-      case "minPrice":
-        queryBooks.price = {
-          ...(queryBooks.price ?? {}),
-          [Op.gte]: v,
-        };
-        break;
-      case "maxPrice":
-        queryBooks.price = {
-          ...(queryBooks.price ?? {}),
-          [Op.lte]: v,
-        };
-        break;
 
       case "minQty":
         queryBooks.qty = {
