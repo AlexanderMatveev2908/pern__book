@@ -3,8 +3,8 @@ import { BookType } from "@/types/all/books";
 import {
   fieldsWorkFlowBook,
   labelDescriptionBook,
-} from "@/core/config/fieldsData/cards/books/books";
-import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+} from "@/core/config/fieldsData/common/cards/books/books";
+import { workFlowLabel } from "@/core/config/fieldsData/common/general/labels";
 import ImagesScroll from "../shared/ImagesScroll";
 import DropStats from "../shared/Drop/DropStats";
 import InfoStoreFromBook from "./InfoBook/components/InfoStoreFromBook";

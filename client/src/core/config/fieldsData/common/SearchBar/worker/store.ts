@@ -1,6 +1,7 @@
 import { v4 } from "uuid";
 import {
   addSortFields,
+  avgQtyFilter,
   commonFieldsTxtInputsStore,
   commonSortersStore,
   filtersCat,
@@ -16,7 +17,6 @@ import {
   SorterSearch,
 } from "@/types/types";
 import { TbPigMoney } from "react-icons/tb";
-import { FaDatabase } from "react-icons/fa";
 
 export const fieldsSearchStoreWorker: FormFieldBasic[] =
   commonFieldsTxtInputsStore.map((el) => ({
@@ -50,25 +50,6 @@ const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
     {
       label: "Max avg price",
       field: "maxAvgPrice",
-    },
-  ].map((el) => ({
-    ...el,
-    place: el.label + "...",
-  })),
-};
-
-const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
-  label: "Avg quantity",
-  icon: FaDatabase,
-  field: "avgQty",
-  fields: [
-    {
-      field: "minAvgQty",
-      label: "Min avg quantity",
-    },
-    {
-      field: "maxAvgQty",
-      label: "Max avg quantity",
     },
   ].map((el) => ({
     ...el,

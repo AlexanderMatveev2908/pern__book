@@ -6,7 +6,7 @@ import { FaDatabase } from "react-icons/fa";
 import {
   labelCategoriesBook,
   labelStoreBook,
-} from "@/core/config/fieldsData/cards/books/books";
+} from "@/core/config/fieldsData/common/cards/books/books";
 import DropStats from "../../../shared/Drop/DropStats";
 import DropStatsStatic from "../../../shared/Drop/DropStatsStatic";
 

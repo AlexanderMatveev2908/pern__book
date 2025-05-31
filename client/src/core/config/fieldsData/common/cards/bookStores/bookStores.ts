@@ -5,11 +5,11 @@ import { OrderStage } from "@/types/all/orders";
 import { FaMapMarkerAlt, FaWarehouse } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
 import { v4 } from "uuid";
-import { genValsRating } from "../../OwnerLayout/general";
 import { MdConnectWithoutContact, MdOutlineCategory } from "react-icons/md";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { HiLibrary } from "react-icons/hi";
 import { IoIosStats } from "react-icons/io";
+import { genValsRating } from "../../../OwnerLayout/general";
 
 export const statsBooks = (bookStore?: BookStoreType) =>
   [

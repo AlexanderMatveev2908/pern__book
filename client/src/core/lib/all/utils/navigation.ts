@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth";
-import { DropFieldType } from "@/core/config/fieldsData/Header/header";
+import { LinksLoggedDrop } from "@/core/config/fieldsData/AuthLayout/links";
+import { DropFieldType } from "@/core/config/fieldsData/common/Header/header";
 import { AllowedFromApp } from "@/types/types";
 
 let navigator: ((path: string, opt?: any) => any) | null = null;

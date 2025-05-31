@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import DropActionsObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsObj";
-import { manageDropLabelGeneral } from "@/core/config/fieldsData/general/labels";
+import { manageDropLabelGeneral } from "@/core/config/fieldsData/common/general/labels";
 import { actionsBookPageWorker } from "@/core/config/fieldsData/WorkerLayout/books/actions";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";

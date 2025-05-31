@@ -17,7 +17,7 @@ import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSch
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import { fieldsSwapStore } from "@/core/config/fieldsData/general/forms/bookStores/postPut";
+import { fieldsSwapStore } from "@/core/config/fieldsData/common/forms/bookStores/postPut";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 

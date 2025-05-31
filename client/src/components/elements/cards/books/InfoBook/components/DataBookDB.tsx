@@ -5,7 +5,7 @@ import {
   labelBookRating,
   labelDataBook,
   showGeneralStatsBook,
-} from "@/core/config/fieldsData/cards/books/books";
+} from "@/core/config/fieldsData/common/cards/books/books";
 import DropStats from "../../../shared/Drop/DropStats";
 
 type PropsType = {

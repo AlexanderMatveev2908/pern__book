@@ -7,8 +7,8 @@ import { tailwindBreak } from "@/core/config/breakpoints.ts";
 import {
   fieldsHeaderDropLogged,
   fieldsHeaderDropNonLogged,
-} from "@/core/config/fieldsData/Header/header.ts";
-import { LinksLoggedDrop } from "@/core/config/fieldsData/general/fieldsActionsAuth.ts";
+} from "@/core/config/fieldsData/common/Header/header.ts";
+import { LinksLoggedDrop } from "@/core/config/fieldsData/AuthLayout/links.ts";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,

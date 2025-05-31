@@ -6,7 +6,7 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   categoriesStoreLabel,
   labelCardStore,
-} from "@/core/config/fieldsData/cards/bookStores/bookStores";
+} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
 import InfoStoreObjProp from "./InfoStoreObjProp";
 
 type PropsType = {

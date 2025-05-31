@@ -5,8 +5,8 @@ import {
   labelTeamStore,
   statsCardStore,
   statsTeam,
-} from "@/core/config/fieldsData/cards/bookStores/bookStores";
-import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/common/general/labels";
 import DropStatsStatic from "../shared/Drop/DropStatsStatic";
 import InfoStoreMapProp from "./InfoStoreMapProp";
 import DropStats from "../shared/Drop/DropStats";

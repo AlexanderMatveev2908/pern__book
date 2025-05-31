@@ -5,7 +5,7 @@ import { MdEmail } from "react-icons/md";
 import {
   addressFields_0,
   addressFields_1,
-} from "../general/forms/shared/shared";
+} from "../common/forms/shared/shared";
 
 const namesFields = [
   {
