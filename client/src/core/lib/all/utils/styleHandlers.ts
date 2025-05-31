@@ -1,5 +1,5 @@
 import { tailwindBreak } from "@/core/config/breakpoints";
-import { SideFieldType } from "@/core/config/fieldsData/common/Sidebar/sidebar";
+import { SideFieldType } from "@/features/common/SideBar/fields/sidebar";
 
 export const handleSideLinkStyle = ({
   path,

@@ -24,10 +24,6 @@ import { openToast } from "@/features/common/Toast/toastSlice";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
-import {
-  allProfileKeys,
-  fieldsSwapProfile,
-} from "@/core/config/fieldsData/UserLayout/pofile";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Button from "@/components/elements/buttons/Button/Button";
@@ -35,6 +31,10 @@ import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { makeFormDataProfile } from "@/core/lib/all/forms/formatters/userProfile";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import {
+  allProfileKeys,
+  fieldsSwapProfile,
+} from "@/features/UserLayout/fields/profile";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 

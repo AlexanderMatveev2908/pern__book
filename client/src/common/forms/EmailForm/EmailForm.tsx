@@ -4,7 +4,7 @@ import { isFormValid } from "@/core/lib/lib";
 import { Control, FieldErrors, UseFormWatch } from "react-hook-form";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import Button from "@/components/elements/buttons/Button/Button";
-import { emailField } from "@/core/config/fieldsData/AuthLayout/auth";
+import { emailField } from "@/features/AuthLayout/fields/auth";
 
 type PropsType = {
   handleSave: () => void;

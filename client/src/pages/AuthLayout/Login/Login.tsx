@@ -18,10 +18,7 @@ import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import PwdField from "@/components/forms/inputs/PwdField/PwdField";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import Button from "@/components/elements/buttons/Button/Button";
-import {
-  emailField,
-  passwordField,
-} from "@/core/config/fieldsData/AuthLayout/auth";
+import { emailField, passwordField } from "@/features/AuthLayout/fields/auth";
 
 const schema = z
   .object({

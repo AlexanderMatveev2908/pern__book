@@ -8,10 +8,10 @@ import { StorageKeys } from "@/types/types";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { useUpdateEmailMutation } from "@/features/UserLayout/userSliceAPI";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import { newEmailField } from "@/core/config/fieldsData/UserLayout/manageAccount";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
+import { newEmailField } from "@/features/UserLayout/fields/manageAccount";
 
 type PropsType = {
   cond: boolean;

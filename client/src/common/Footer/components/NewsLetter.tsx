@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { EmailFormType } from "../../../types/types.ts";
 import { schemaEmail } from "@/core/lib/lib.ts";
 import { useForm } from "react-hook-form";
-import { emailField } from "@/core/config/fieldsData/AuthLayout/auth.ts";
+import { emailField } from "@/features/AuthLayout/fields/auth.ts";
 import Title from "@/components/elements/Title.tsx";
 import FormField from "@/components/forms/inputs/FormFields/FormField.tsx";
 import Button from "@/components/elements/buttons/Button/Button.tsx";

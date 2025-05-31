@@ -9,7 +9,7 @@ import {
   consumerFiltersBooks,
   numericFiltersBooksConsumer,
   sortersBooksConsumer,
-} from "@/core/config/fieldsData/common/SearchBar/consumer/fields";
+} from "@/features/common/SearchBar/fields/consumer/fields";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { schemaConsumerBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/consumer/books";
 import { isArrOk } from "@/core/lib/lib";

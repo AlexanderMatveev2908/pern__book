@@ -1,5 +1,5 @@
 import { useState, type FC } from "react";
-import { KEY_MAP_STORE } from "@/core/config/fieldsData/common/general/labels";
+import { KEY_MAP_STORE } from "@/core/config/fieldsData/labels";
 import { LabelActionType, LabelDropType } from "@/types/types";
 import DropActionsAbs from "../Drop/DropActionsAbs";
 

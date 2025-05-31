@@ -7,7 +7,7 @@ import {
   labelDataBook,
   labelGeneralStatsBook,
   showGeneralStatsBook,
-} from "@/core/config/fieldsData/common/cards/books/books";
+} from "@/core/config/fieldsData/books/books";
 import DropStats from "../shared/Drop/DropStats";
 import RatingFancy from "../shared/RatingFancy";
 import { HiLibrary } from "react-icons/hi";
@@ -15,12 +15,12 @@ import {
   categoriesStoreLabel,
   labelDelivery,
   labelFieldAddressStore,
-} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/bookStores";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   showStoreAddressFromBook,
   statsDeliveryStoreFromBook,
-} from "@/core/config/fieldsData/ConsumerLayout/books/card";
+} from "@/features/ConsumerLayout/fields/books/card";
 
 type PropsType = {
   el: BookType;

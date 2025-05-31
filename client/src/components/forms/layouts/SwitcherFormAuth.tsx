@@ -5,8 +5,8 @@ import {
   fieldsRegisterSwitch,
   fieldsSwitchForgot,
   fieldsSwitchVerify,
-} from "@/core/config/fieldsData/AuthLayout/auth";
-import { AuthPagesPathType } from "@/core/config/fieldsData/AuthLayout/links";
+} from "@/features/AuthLayout/fields/auth";
+import { AuthPagesPathType } from "@/features/AuthLayout/fields/links";
 
 const SwitcherFormAuth: FC = () => {
   const path = useLocation().pathname;

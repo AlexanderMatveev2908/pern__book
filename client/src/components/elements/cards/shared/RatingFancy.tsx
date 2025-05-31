@@ -6,7 +6,7 @@ import DropStats from "./Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { replacePoint } from "@/core/lib/lib";
-import { labelBookRating } from "@/core/config/fieldsData/common/cards/books/books";
+import { labelBookRating } from "@/core/config/fieldsData/books/books";
 
 type PropsType = {
   el: BookType;

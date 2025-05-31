@@ -6,8 +6,7 @@ import { MdOutlineCategory, MdReviews } from "react-icons/md";
 import { v4 } from "uuid";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { CiTextAlignJustify } from "react-icons/ci";
-
-import { genValsRating } from "../../../OwnerLayout/general";
+import { genValsRating } from "@/features/OwnerLayout/fields/general";
 
 export const labelBookCard = (title: string) => ({
   label: title,

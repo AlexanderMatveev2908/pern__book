@@ -4,7 +4,7 @@ import { TbNumbers } from "react-icons/tb";
 import { FaRuler } from "react-icons/fa";
 import { fieldsActionsAuth } from "./links";
 import { FormFieldBasic } from "@/types/types";
-import { SideFieldType } from "../common/Sidebar/sidebar";
+import { SideFieldType } from "../../common/SideBar/fields/sidebar";
 
 const namesFields = [
   {

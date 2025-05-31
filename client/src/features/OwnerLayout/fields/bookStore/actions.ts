@@ -5,7 +5,7 @@ import { FaPenFancy, FaTrashAlt } from "react-icons/fa";
 import { v4 } from "uuid";
 import { IconType } from "react-icons/lib";
 import { MdReviews } from "react-icons/md";
-import { KEY_MAP_STORE } from "../../common/general/labels";
+import { KEY_MAP_STORE } from "@/core/config/fieldsData/labels";
 
 // * I USE MAP JUST FOR LEARNING POUPROSE, NORMALLY I WOULD JUST USE ARRAYS TO KEEP VALS
 

@@ -7,7 +7,7 @@ import { FC, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import SlidersHome from "./components/slidersHome/SlidersHome";
 import CardInfo from "./components/CardInfo/CardInfo";
-import { infosAppHome } from "@/core/config/fieldsData/Home/infoApp";
+import { infosAppHome } from "@/pages/Home/fields/infoApp";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);

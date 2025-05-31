@@ -1,5 +1,5 @@
+import { confirmNewPwd, newPwdField } from "@/features/AuthLayout/fields/auth";
 import { v4 } from "uuid";
-import { confirmNewPwd, newPwdField } from "../AuthLayout/auth";
 
 export enum ActionsManageAccount {
   CHANGE_EMAIL = "change email",

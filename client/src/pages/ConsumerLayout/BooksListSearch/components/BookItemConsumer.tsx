@@ -1,7 +1,7 @@
 import ConsumerFieldsBook from "@/components/elements/cards/books/ConsumerFieldsBook";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
-import { linksBookConsumer } from "@/core/config/fieldsData/ConsumerLayout/books/card";
+import { linksBookConsumer } from "@/features/ConsumerLayout/fields/books/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 
