@@ -7,6 +7,7 @@ import { sortItems } from "../../lib/query/sort.js";
 import { calcPagination } from "../../lib/query/pagination.js";
 import { makeQueryBooksConsumer } from "../../lib/query/consumer/books.js";
 import { calcRatingSqlBooks } from "../../lib/query/general.js";
+import { BookStore } from "../../models/all/BookStore.js";
 
 const withImages = {
   [Op.and]: [
@@ -89,10 +90,18 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
 };
 
 export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
-  const { queryBooks } = makeQueryBooksConsumer(req);
+  const { queryBooks, queryStores } = makeQueryBooksConsumer(req);
 
   const books = await Book.findAll({
-    where: {},
+    where: queryBooks,
+    include: [
+      {
+        model: BookStore,
+        as: "store",
+        required: true,
+        where: queryStores,
+      },
+    ],
     attributes: {
       include: [...calcRatingSqlBooks()],
     },
