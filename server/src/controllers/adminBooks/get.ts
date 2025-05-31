@@ -5,26 +5,12 @@ import { err404, err500 } from "../../lib/responseClient/err.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Book } from "../../models/all/Book.js";
 import { calcPagination } from "../../lib/query/pagination.js";
-import { literal, Op } from "sequelize";
+import { literal } from "sequelize";
 import { Review } from "../../models/all/Review.js";
-import { replacePoint } from "../../lib/dataStructures.js";
-import { Literal } from "sequelize/lib/utils";
 import { sortItems } from "../../lib/query/sort.js";
 import PDFDocument from "pdfkit";
 import { makeBooksQ } from "../../lib/query/owner/books/query.js";
-import { countTo_5 } from "../../lib/utils/utils.js";
-
-const calcRatingSql = (): [Literal, string][] => [
-  [literal(`COALESCE(COUNT(DISTINCT("reviews"."id")), 0)`), "reviewsCount"],
-  [literal(`ROUND(COALESCE(AVG("reviews"."rating"), 0), 1)`), "avgRating"],
-  ...(countTo_5().map((pair) => [
-    literal(`(SELECT COALESCE(COUNT(DISTINCT r.id) , 0)
-                FROM "reviews" AS r
-                WHERE r.rating BETWEEN ${pair[0]} AND ${pair[1]}
-              )`),
-    `reviews__${replacePoint(pair[0])}__${replacePoint(pair[1])}`,
-  ]) as [Literal, string][]),
-];
+import { calcRatingSqlBooks } from "../../lib/query/general.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -46,7 +32,6 @@ export const getStoreInfo = async (
 
 export const getInfoBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;
-  const { bookID } = req.params;
 
   const stores = await BookStore.findAll({
     where: {
@@ -94,7 +79,7 @@ export const getMyBook = async (req: ReqApp, res: Response): Promise<any> => {
     attributes: {
       include: [
         [literal(`"store"."categories"`), "mainCategories"],
-        ...calcRatingSql(),
+        ...calcRatingSqlBooks(),
       ],
     },
     group: ["Book.id", "store.id", "reviews.id"],
@@ -131,7 +116,7 @@ export const getBooksList = async (
       include: [
         [literal(`"store"."categories"`), "mainCategories"],
 
-        ...calcRatingSql(),
+        ...calcRatingSqlBooks(),
       ],
     },
     having: queryAfterPipe,

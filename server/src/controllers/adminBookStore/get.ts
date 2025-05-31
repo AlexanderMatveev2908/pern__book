@@ -19,6 +19,7 @@ import { sortItems } from "../../lib/query/sort.js";
 import { replacePoint } from "../../lib/dataStructures.js";
 import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
 import { countTo_5 } from "../../lib/utils/utils.js";
+import { calcRatingSqlStores } from "../../lib/query/general.js";
 
 const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   literal(`(
@@ -58,34 +59,7 @@ const myCoolSql = [
   )`),
     "ordersCount",
   ],
-  [
-    literal(`(
-      SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-      FROM "books" AS b
-      INNER JOIN "reviews" AS r ON b.id = r."bookID"
-      WHERE b."bookStoreID" = "BookStore"."id"
-    )`),
-    "reviewsCount",
-  ],
-  [
-    literal(`
-  (SELECT ROUND(COALESCE(AVG(r.rating), 0), 1)
-  FROM "books" AS b
-  INNER JOIN "reviews" AS r ON b.id = r."bookID"
-  WHERE b."bookStoreID" = "BookStore"."id")
-`),
-    "avgRating",
-  ],
-  ...countTo_5().map((el, i) => [
-    literal(`
-  (SELECT COALESCE(COUNT(DISTINCT r.id), 0)
-  FROM "books" AS b
-  INNER JOIN "reviews" AS r ON b.id = r."bookID"
-  WHERE b."bookStoreID" = "BookStore"."id"
-    AND r.rating BETWEEN ${el[0]} AND ${el[1]})
-`),
-    `reviews__${replacePoint(el[0])}__${replacePoint(el[1])}`,
-  ]),
+  ...calcRatingSqlStores(),
 
   [
     literal(`(

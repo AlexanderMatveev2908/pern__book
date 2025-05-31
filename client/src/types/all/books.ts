@@ -48,12 +48,14 @@ export type BookType = {
 
   mainCategories?: CatBookStore[];
 
-  avgRating?: number;
-  reviews__0__1?: string;
-  reviews__1_1__2?: string;
-  reviews__2_1__3?: string;
-  reviews__3_1__4?: string;
-  reviews__4_1__5?: string;
+  ratingStats: {
+    avgRating?: number;
+    reviews__0__1?: string;
+    reviews__1_1__2?: string;
+    reviews__2_1__3?: string;
+    reviews__3_1__4?: string;
+    reviews__4_1__5?: string;
+  };
 
   store?: BookStoreType;
 

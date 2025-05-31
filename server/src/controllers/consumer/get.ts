@@ -5,6 +5,8 @@ import { literal, Op } from "sequelize";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { sortItems } from "../../lib/query/sort.js";
 import { calcPagination } from "../../lib/query/pagination.js";
+import { makeQueryBooksConsumer } from "../../lib/query/consumer/books.js";
+import { calcRatingSqlBooks } from "../../lib/query/general.js";
 
 const withImages = {
   [Op.and]: [
@@ -19,12 +21,14 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
     attributes: {
       include: [
         [
-          literal(`(
-      SELECT COALESCE(AVG(r.rating), 0)
+          literal(`json_build_object(
+    'avgRating',(
+      SELECT TO_CHAR(ROUND(COALESCE(AVG(r.rating), 0), 1), 'FM0.0')
       FROM "reviews" AS r
       WHERE r."bookID" = "Book".id
+          )
     )`),
-          "avgRating",
+          "ratingStats",
         ],
       ],
     },
@@ -85,7 +89,14 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
 };
 
 export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
-  const books = await Book.findAll({ where: {} });
+  const { queryBooks } = makeQueryBooksConsumer(req);
+
+  const books = await Book.findAll({
+    where: {},
+    attributes: {
+      include: [...calcRatingSqlBooks()],
+    },
+  });
 
   const nHits = books.length;
   if (!nHits) return res204(res);

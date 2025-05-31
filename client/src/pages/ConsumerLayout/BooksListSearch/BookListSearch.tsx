@@ -18,7 +18,7 @@ import { FormProvider } from "react-hook-form";
 const BookListSearch: FC = () => {
   const { formSearchBooksConsumerCtx: formCtx } = useFormCtxConsumer();
 
-  const hook = consumerSliceAPI.endpoints.getAllBooks.useLazyQuery();
+  const hook = consumerSliceAPI.endpoints.getAllBooksConsumer.useLazyQuery();
 
   return (
     <WrapPageAPI>

@@ -65,9 +65,6 @@ body {
   --gray__app_500: #6b7280;
 }
 
-// ? p === parent
-// ? c === child
-
 .p_page {
   @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
 }
@@ -90,22 +87,37 @@ body {
   @apply w-full grid grid-cols-1 h-fit items-start border-[3px] gap-y-5 border-blue-600 p-3 pb-5 rounded-xl  justify-self-center;
 }
 
-// ? GENERIC
-
 .scrollbar__hidden::-webkit-scrollbar {
   display: none;
 }
+.scroll_app::-webkit-scrollbar {
+  width: 8px;
+  height: 4px;
+}
+.scroll_app {
+  scrollbar-width: auto;
+  scrollbar-color: #2563eb #27272a;
+}
+
 .scroll_app::-webkit-scrollbar-thumb {
-  @apply bg-blue-600 rounded-lg cursor-pointer;
+  background-color: #2563eb;
+  scrollbar-color: #2563eb #27272a;
+  border-radius: 0.5rem;
+  cursor: pointer;
 }
+
 .scroll_app::-webkit-scrollbar-track {
-  @apply bg-neutral-800;
+  background-color: #27272a;
 }
+
 .scroll_x::-webkit-scrollbar {
-  @apply h-[4px];
+  height: 4px;
+  background-color: #27272a;
 }
+
 .scroll_y::-webkit-scrollbar {
-  @apply w-[8px];
+  width: 8px;
+  background-color: #27272a;
 }
 
 input[type="number"]::-webkit-outer-spin-button,
