@@ -21,6 +21,8 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
     arrParent,
     imgsForSwap,
     numBlocks,
+    stopSlide,
+    startSlide,
   } = useSlideImg({ items: books });
 
   const ids = useCreateIds({
@@ -62,6 +64,8 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
               >
                 {arg.items.map((el, iInner) => (
                   <div
+                    onMouseEnter={stopSlide}
+                    onMouseLeave={startSlide}
                     key={ids[1][iInner]}
                     className={`flex rounded-xl transition-all duration-500 ${""}`}
                     style={{ width: wImg, height: wImg }}
