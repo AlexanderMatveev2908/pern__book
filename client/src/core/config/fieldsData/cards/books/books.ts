@@ -1,4 +1,4 @@
-import { formatD, priceFormatter } from "@/core/lib/lib";
+import { capt, formatD, priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { FaBook, FaDatabase } from "react-icons/fa";
 import { IoIosStats } from "react-icons/io";
@@ -7,6 +7,7 @@ import { v4 } from "uuid";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { genValsRating } from "../../OwnerLayout/general";
+import { BookStoreType } from "@/types/all/bookStore";
 
 export const labelBookCard = (title: string) => ({
   label: title,
@@ -109,5 +110,12 @@ export const fieldsWorkFlowBook = (book?: BookType) =>
     },
   ].map((el) => ({
     ...el,
+    id: v4(),
+  }));
+
+export const showStoreAddressFromBook = (book: BookType) =>
+  ["country", "state", "city", "street", "zipCode"].map((el) => ({
+    label: capt(el),
+    val: book?.store?.[el as keyof BookStoreType],
     id: v4(),
   }));
