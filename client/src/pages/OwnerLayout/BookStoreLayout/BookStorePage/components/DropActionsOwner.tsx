@@ -116,13 +116,13 @@ const DropActionsOwner: FC<PropsType> = ({ bookStore }) => {
       actionsBookStoreAdmin.filter((el) => {
         switch (el.originalKey) {
           case KEY_MAP_STORE.BOOKS:
-            return +(bookStore?.booksCount ?? 0);
+            return +(bookStore?.booksStats?.booksCount ?? 0);
 
           case KEY_MAP_STORE.ORDERS:
-            return +(bookStore?.ordersCount ?? 0);
+            return +(bookStore?.ordersStats?.ordersCount ?? 0);
 
           case KEY_MAP_STORE.REVIEWS:
-            return +(bookStore?.reviewsCount ?? 0);
+            return +(bookStore?.ratingStats?.reviewsCount ?? 0);
 
           case KEY_MAP_STORE.TEAM:
             return +(bookStore?.team?.length ?? 0);
