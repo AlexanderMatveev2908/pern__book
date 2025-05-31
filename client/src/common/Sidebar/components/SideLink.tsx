@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { NavLink } from "react-router-dom";
 import { setIsSideOpen } from "../../../features/common/Header/headerSlice";
 import { getPropsNav } from "@/core/lib/lib";
-import { SideFieldType } from "@/core/config/fieldsData/common/Sidebar/sidebar";
+import { SideFieldType } from "@/features/common/SideBar/fields/sidebar";
 
 type PropsType = {
   el: SideFieldType;

@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { setIsSideOpen } from "../../../features/common/Header/headerSlice.ts";
 import { LabelDropType } from "@/types/types.ts";
 import DropHandler from "@/components/elements/DropHandler/DropHandler.tsx";
-import { SideFieldType } from "@/core/config/fieldsData/common/Sidebar/sidebar.ts";
+import { SideFieldType } from "@/features/common/SideBar/fields/sidebar.ts";
 
 type PropsType = {
   arr?: SideFieldType[];

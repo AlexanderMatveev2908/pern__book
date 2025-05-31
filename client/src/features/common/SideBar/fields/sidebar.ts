@@ -11,7 +11,7 @@ import { LabelDropType } from "@/types/types";
 import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
-} from "../../AuthLayout/links";
+} from "../../../AuthLayout/fields/links";
 
 export type SideFieldType = {
   id: string;

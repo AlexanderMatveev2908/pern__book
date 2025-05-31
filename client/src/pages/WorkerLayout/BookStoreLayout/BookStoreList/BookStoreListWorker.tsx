@@ -7,7 +7,7 @@ import {
   numericFiltersStoreWorker,
   sorterStoreWorker,
   storeFiltersWorker,
-} from "@/core/config/fieldsData/common/SearchBar/worker/store";
+} from "@/features/common/SearchBar/fields/worker/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { __cg, isArr } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";

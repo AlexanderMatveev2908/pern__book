@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ratingRanges } from "@/core/config/fieldsData/common/SearchBar/general";
+import { ratingRanges } from "@/features/common/SearchBar/fields/general";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, OrderStage } from "@/types/all/orders";
 import { z } from "zod";

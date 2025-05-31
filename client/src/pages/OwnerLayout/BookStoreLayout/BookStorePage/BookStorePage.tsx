@@ -20,8 +20,8 @@ import {
   fieldsWorkFlowStore,
   labelTeamStore,
   statsTeam,
-} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
-import { workFlowLabel } from "@/core/config/fieldsData/common/general/labels";
+} from "@/core/config/fieldsData/bookStores/bookStores";
+import { workFlowLabel } from "@/core/config/fieldsData/labels";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
 
 const BookStorePage: FC = () => {

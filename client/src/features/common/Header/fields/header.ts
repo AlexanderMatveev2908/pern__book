@@ -4,7 +4,7 @@ import {
   AuthPagesPathType,
   fieldsActionsAuth,
   userLoggedFieldsDrop,
-} from "../../AuthLayout/links";
+} from "@/features/AuthLayout/fields/links";
 
 export interface DropFieldType {
   id?: string;

@@ -9,7 +9,7 @@ import { MdConnectWithoutContact, MdOutlineCategory } from "react-icons/md";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { HiLibrary } from "react-icons/hi";
 import { IoIosStats } from "react-icons/io";
-import { genValsRating } from "../../../OwnerLayout/general";
+import { genValsRating } from "@/features/OwnerLayout/fields/general";
 
 export const statsBooks = (bookStore?: BookStoreType) =>
   [

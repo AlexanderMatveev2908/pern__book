@@ -1,4 +1,4 @@
-import { SideFieldType } from "@/core/config/fieldsData/common/Sidebar/sidebar";
+import { SideFieldType } from "@/features/common/SideBar/fields/sidebar";
 import { setIsSideOpen } from "@/features/common/Header/headerSlice";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp } from "@/types/types";

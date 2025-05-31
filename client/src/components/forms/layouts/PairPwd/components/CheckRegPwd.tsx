@@ -1,4 +1,4 @@
-import { fieldsCheckReg } from "@/core/config/fieldsData/AuthLayout/auth";
+import { fieldsCheckReg } from "@/features/AuthLayout/fields/auth";
 import { PwdCheckerType } from "@/types/types";
 import { FC, useCallback, useMemo } from "react";
 

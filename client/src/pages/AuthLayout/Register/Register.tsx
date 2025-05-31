@@ -23,7 +23,7 @@ import {
   fieldsAuth__0,
   fieldsAuth__1,
   swapFieldsByAreaAuth,
-} from "@/core/config/fieldsData/AuthLayout/auth";
+} from "@/features/AuthLayout/fields/auth";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
 import FormField from "@/components/forms/inputs/FormFields/FormField";

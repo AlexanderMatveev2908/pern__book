@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import DropActionsObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsObj";
-import { manageDropLabelGeneral } from "@/core/config/fieldsData/common/general/labels";
-import { actionsBookPage } from "@/core/config/fieldsData/OwnerLayout/books/actions";
+import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { actionsBookPage } from "@/features/OwnerLayout/fields/books/actions";
 import { BookType } from "@/types/all/books";
 import { useMemo, type FC } from "react";
 import { useNavigate } from "react-router-dom";
@@ -39,7 +39,7 @@ const DropActionsBook: FC<PropsType> = ({ book }) => {
           }
         })
       ),
-    [nav, book.id, handleOpenPopup]
+    [nav, book, handleOpenPopup]
   );
 
   return (

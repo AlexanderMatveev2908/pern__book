@@ -11,12 +11,12 @@ import ResetPwd from "./components/ResetPwd";
 import DeleteAccount from "./components/DeleteAccount";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import {
   ActionsManageAccount,
   titlesFormsManage,
-} from "@/core/config/fieldsData/UserLayout/manageAccount";
-import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
-import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
+} from "@/features/UserLayout/fields/manageAccount";
 
 const ManageAccount: FC = () => {
   // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap

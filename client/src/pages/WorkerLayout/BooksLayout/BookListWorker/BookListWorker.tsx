@@ -7,7 +7,7 @@ import {
   workerBooksFiltersBooks,
   workerNumericFieldsBooks,
   workerSortersBooks,
-} from "@/core/config/fieldsData/common/SearchBar/worker/books";
+} from "@/features/common/SearchBar/fields/worker/books";
 import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";

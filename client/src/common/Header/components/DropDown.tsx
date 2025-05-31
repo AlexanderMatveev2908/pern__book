@@ -4,11 +4,11 @@ import { FaRegUser } from "react-icons/fa";
 import LogoutLi from "./LogoutLi.tsx";
 import { getPropsNav } from "@/core/lib/lib.ts";
 import { tailwindBreak } from "@/core/config/breakpoints.ts";
+import { LinksLoggedDrop } from "@/features/AuthLayout/fields/links.ts";
 import {
   fieldsHeaderDropLogged,
   fieldsHeaderDropNonLogged,
-} from "@/core/config/fieldsData/common/Header/header.ts";
-import { LinksLoggedDrop } from "@/core/config/fieldsData/AuthLayout/links.ts";
+} from "@/features/common/Header/fields/header.ts";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,

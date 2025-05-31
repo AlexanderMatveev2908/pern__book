@@ -3,7 +3,7 @@ import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/InfoSto
 import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoStoreItemBusiness";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
-import { linksCardStoreWorker } from "@/core/config/fieldsData/WorkerLayout/bookStores/card";
+import { linksCardStoreWorker } from "@/features/WorkerLayout/fields/bookStores/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";

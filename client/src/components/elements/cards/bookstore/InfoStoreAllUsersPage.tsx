@@ -5,7 +5,7 @@ import { FC } from "react";
 import {
   categoriesStoreLabel,
   labelDescription,
-} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/bookStores";
 import InfoStoreObjProp from "./InfoStoreObjProp";
 
 type PropsType = {

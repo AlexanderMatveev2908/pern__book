@@ -1,13 +1,13 @@
-import { labelsBookStore } from "@/core/config/fieldsData/OwnerLayout/bookStore/actions";
 import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
-import { KEY_MAP_STORE } from "@/core/config/fieldsData/common/general/labels";
+import { KEY_MAP_STORE } from "@/core/config/fieldsData/labels";
 import {
   statsBooks,
   statsOrders,
   statsReviews,
-} from "@/core/config/fieldsData/common/cards/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/bookStores";
+import { labelsBookStore } from "@/features/OwnerLayout/fields/bookStore/actions";
 
 type PropsType = {
   bookStore?: BookStoreType;
