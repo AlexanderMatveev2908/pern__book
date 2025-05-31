@@ -26,7 +26,7 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
         </div>
       </div>
 
-      <LinksCard {...{ ID: el.id, links: linksBookConsumer }} />
+      <LinksCard {...{ ID: el.id, links: linksBookConsumer, invalid: [1] }} />
     </div>
   );
 };

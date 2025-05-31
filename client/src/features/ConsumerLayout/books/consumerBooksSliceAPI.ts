@@ -9,9 +9,9 @@ import {
   TagsAPI,
 } from "@/types/types";
 
-const B_URL = "/consumer";
+const B_URL = "/consumer/books";
 
-export const consumerSliceAPI = apiSlice.injectEndpoints({
+export const consumerBooksSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getAllBooksConsumer: builder.query<
       BaseResAPI<ResPaginationAPI<{ books: BookType[] }>>,

@@ -10,7 +10,7 @@ import dummyRouter from "./all/dummy.js";
 import adminBookRouter from "./all/adminBooks.js";
 import { verifyAccessToken } from "../middleware/protected/verifyAccessToken.js";
 import workerRouter from "./all/workerRoutes/workerRoutes.js";
-import consumerRouter from "./all/consumer.js";
+import consumerRouter from "./all/consumerRoutes/consumer.js";
 
 const routerApp = express.Router();
 
