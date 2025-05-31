@@ -8,6 +8,7 @@ import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { genValsRating } from "../../OwnerLayout/general";
 import { BookStoreType } from "@/types/all/bookStore";
+import { HiLibrary } from "react-icons/hi";
 
 export const labelBookCard = (title: string) => ({
   label: title,
@@ -141,6 +142,7 @@ export const linksBookConsumer = [
     label: "Page",
     path: "/consumer/books/",
   },
+  { label: "Store", icon: HiLibrary, path: "monkey" },
 ].map((el) => ({
   ...el,
   id: v4(),

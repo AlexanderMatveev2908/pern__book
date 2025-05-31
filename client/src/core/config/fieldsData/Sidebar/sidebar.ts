@@ -28,7 +28,7 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   },
   {
     label: "Books",
-    path: "/search",
+    path: "/consumer/books",
     icon: FaBook,
   },
 ].map((el) => ({

@@ -7,7 +7,7 @@ import workerRoutes from "./all/workerRoutes/WorkerRoutes";
 import Notice from "@/pages/Notice/NoticePage";
 import VerifyCb from "@/pages/VerifyCb/VerifyCb";
 import { Navigate } from "react-router-dom";
-import consumerRoutes from "./all/ConsumerRoutes";
+import consumerRoutes from "./all/consumerRoutes/ConsumerRoutes";
 
 const appRoutes = [
   {

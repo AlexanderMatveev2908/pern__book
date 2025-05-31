@@ -13,7 +13,7 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { schemaConsumerBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/consumer/books";
 import { isArrOk } from "@/core/lib/lib";
-import { consumerSliceAPI } from "@/features/ConsumerLayout/consumerSliceAPI";
+import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerBooksSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItemConsumer from "./components/BookItemConsumer";
@@ -21,7 +21,8 @@ import BookItemConsumer from "./components/BookItemConsumer";
 const BookListSearch: FC = () => {
   const { formSearchBooksConsumerCtx: formCtx } = useFormCtxConsumer();
 
-  const hook = consumerSliceAPI.endpoints.getAllBooksConsumer.useLazyQuery();
+  const hook =
+    consumerBooksSliceAPI.endpoints.getAllBooksConsumer.useLazyQuery();
   const [_, res] = hook;
   const { data: { books } = {} } = res ?? {};
 
