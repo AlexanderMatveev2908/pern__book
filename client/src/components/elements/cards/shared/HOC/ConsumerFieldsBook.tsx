@@ -7,13 +7,21 @@ import {
   labelDataBook,
   labelGeneralStatsBook,
   showGeneralStatsBook,
+  showStoreAddressFromBook,
 } from "@/core/config/fieldsData/cards/books/books";
 import DropStats from "../Drop/DropStats";
 import RatingFancy from "../RatingFancy";
+import { HiLibrary } from "react-icons/hi";
+import { labelFieldAddressStore } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
 type PropsType = {
   el: BookType;
 };
+
+export const libraryLabelStore = (label: string) => ({
+  label,
+  icon: HiLibrary,
+});
 
 const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
   return (
@@ -32,6 +40,18 @@ const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
         />
 
         <RatingFancy {...{ el }} />
+      </DropStatsStatic>
+
+      <DropStatsStatic
+        {...{ el: libraryLabelStore(el?.store?.name ?? ""), border: true }}
+      >
+        <DropStats
+          {...{
+            el: labelFieldAddressStore,
+            abs: true,
+            fields: showStoreAddressFromBook(el),
+          }}
+        />
       </DropStatsStatic>
     </>
   );
