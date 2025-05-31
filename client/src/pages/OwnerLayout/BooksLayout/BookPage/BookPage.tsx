@@ -7,10 +7,10 @@ import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
-import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import InfoBookAbout from "@/components/elements/cards/shared/HOC/InfoBook/components/InfoBookAbout";
-import DataBookDB from "@/components/elements/cards/shared/HOC/InfoBook/components/DataBookDB";
+import InfoBookPage from "@/components/elements/cards/books/InfoBookPage";
+import InfoBookAbout from "@/components/elements/cards/books/InfoBook/components/InfoBookAbout";
+import DataBookDB from "@/components/elements/cards/books/InfoBook/components/DataBookDB";
 
 const BookPage: FC = () => {
   const { bookID = "" } = useParams();

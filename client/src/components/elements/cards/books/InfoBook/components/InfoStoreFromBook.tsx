@@ -1,14 +1,14 @@
 import type { FC } from "react";
 import { BookType } from "@/types/all/books";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStats from "../../../Drop/DropStats";
 import TooltipCpy from "@/components/elements/TooltipCpy/TooltipCpy";
 import { FaDatabase } from "react-icons/fa";
-import DropStatsStatic from "../../../Drop/DropStatsStatic";
 import {
   labelCategoriesBook,
   labelStoreBook,
 } from "@/core/config/fieldsData/cards/books/books";
+import DropStats from "../../../shared/Drop/DropStats";
+import DropStatsStatic from "../../../shared/Drop/DropStatsStatic";
 
 type PropsType = {
   el: BookType;

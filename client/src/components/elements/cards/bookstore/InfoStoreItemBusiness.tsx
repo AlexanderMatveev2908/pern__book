@@ -1,8 +1,5 @@
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
-import InfoStoreMapProp from "../../shared/HOC/InfoStoreMapProp";
-import DropStats from "../../shared/Drop/DropStats";
-import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
 import {
   fieldsWorkFlowStore,
   labelTeamStore,
@@ -10,6 +7,9 @@ import {
   statsTeam,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
+import DropStatsStatic from "../shared/Drop/DropStatsStatic";
+import InfoStoreMapProp from "./InfoStoreMapProp";
+import DropStats from "../shared/Drop/DropStats";
 
 type PropsType = {
   el: BookStoreType;

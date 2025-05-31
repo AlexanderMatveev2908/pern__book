@@ -7,12 +7,12 @@ import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWor
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBookWorker from "./components/DropActionsBookWorker";
-import InfoBookPage from "@/components/elements/cards/books/page/InfoBookPage";
 import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import DataBookDB from "@/components/elements/cards/shared/HOC/InfoBook/components/DataBookDB";
-import InfoBookAbout from "@/components/elements/cards/shared/HOC/InfoBook/components/InfoBookAbout";
+import InfoBookPage from "@/components/elements/cards/books/InfoBookPage";
+import InfoBookAbout from "@/components/elements/cards/books/InfoBook/components/InfoBookAbout";
+import DataBookDB from "@/components/elements/cards/books/InfoBook/components/DataBookDB";
 
 const BookPageWorker: FC = () => {
   const { user } = useGetU();

@@ -6,7 +6,7 @@ import {
   categoriesStoreLabel,
   labelDescription,
 } from "@/core/config/fieldsData/cards/bookStores/bookStores";
-import InfoStoreObjProp from "../../shared/HOC/InfoStoreObjProp";
+import InfoStoreObjProp from "./InfoStoreObjProp";
 
 type PropsType = {
   bookStore?: BookStoreType;

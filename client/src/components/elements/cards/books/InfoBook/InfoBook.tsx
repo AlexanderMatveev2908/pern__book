@@ -1,6 +1,5 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import DropStats from "../../Drop/DropStats";
 import { workFlowLabel } from "@/core/config/fieldsData/general/labels";
 import {
   fieldsWorkFlowBook,
@@ -10,7 +9,8 @@ import {
 import InfoStoreFromBook from "./components/InfoStoreFromBook";
 import DataBookDB from "./components/DataBookDB";
 import InfoBookAbout from "./components/InfoBookAbout";
-import DropStatsStatic from "../../Drop/DropStatsStatic";
+import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
+import DropStats from "../../shared/Drop/DropStats";
 
 type PropsType = {
   el: BookType;

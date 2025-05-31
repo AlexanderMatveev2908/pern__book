@@ -1,4 +1,4 @@
-import ConsumerFieldsBook from "@/components/elements/cards/shared/HOC/ConsumerFieldsBook";
+import ConsumerFieldsBook from "@/components/elements/cards/books/ConsumerFieldsBook";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";

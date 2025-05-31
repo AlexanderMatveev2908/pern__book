@@ -1,10 +1,10 @@
+import InfoBook from "@/components/elements/cards/books/InfoBook/InfoBook";
 import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookCardWorker } from "@/core/config/fieldsData/WorkerLayout/books/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import InfoBook from "@/components/elements/cards/shared/HOC/InfoBook/InfoBook";
 
 type PropsType = {
   el: BookType;

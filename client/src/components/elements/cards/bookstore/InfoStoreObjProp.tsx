@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import DropStats from "../Drop/DropStats";
+import DropStats from "../shared/Drop/DropStats";
 import {
   fieldsStatsContact,
   labelDelivery,

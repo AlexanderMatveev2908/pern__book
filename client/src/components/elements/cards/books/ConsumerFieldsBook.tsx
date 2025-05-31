@@ -1,6 +1,6 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import DropStatsStatic from "../Drop/DropStatsStatic";
+import DropStatsStatic from "../shared/Drop/DropStatsStatic";
 import InfoBookAbout from "./InfoBook/components/InfoBookAbout";
 import {
   labelBookCard,
@@ -9,8 +9,8 @@ import {
   showGeneralStatsBook,
   showStoreAddressFromBook,
 } from "@/core/config/fieldsData/cards/books/books";
-import DropStats from "../Drop/DropStats";
-import RatingFancy from "../RatingFancy";
+import DropStats from "../shared/Drop/DropStats";
+import RatingFancy from "../shared/RatingFancy";
 import { HiLibrary } from "react-icons/hi";
 import { labelFieldAddressStore } from "@/core/config/fieldsData/cards/bookStores/bookStores";
 
