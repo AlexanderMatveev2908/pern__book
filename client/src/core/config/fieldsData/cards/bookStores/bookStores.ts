@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt, formatD, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
 import { OrderStage } from "@/types/all/orders";
@@ -39,11 +40,13 @@ export const statsOrders = (store?: BookStoreType) =>
   [
     {
       label: "Total Orders",
-      val: store?.ordersCount,
+      val: store?.ordersStats?.ordersCount,
     },
     ...Object.values(OrderStage).map((el) => ({
       label: capt(el),
-      val: store?.[`orders${capt(el)}Count` as keyof BookStoreType],
+      val: (store as any)?.ordersStats?.[
+        `orders${capt(el)}Count` as keyof BookStoreType
+      ],
     })),
   ].map((el) => ({
     ...el,

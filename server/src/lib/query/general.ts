@@ -1,8 +1,9 @@
 import { literal, Op, WhereOptions } from "sequelize";
-import { findVal } from "../utils/formatters.js";
+import { capChar, findVal } from "../utils/formatters.js";
 import { countTo_5 } from "../utils/utils.js";
 import { replacePoint } from "../dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
+import { OrderStage } from "../../types/all/orders.js";
 
 export const handleQueryDelivery = (val: string | string[]) => {
   const deliveryConditions: WhereOptions = [];
@@ -95,4 +96,33 @@ export const calcRatingSqlStores = (): [Literal, string][] => [
   ],
 ];
 
-export const countOrdersAdminStores = () => [];
+const countOrdersSql = (stage: OrderStage): Literal =>
+  literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)
+    FROM "orders" 
+    WHERE "orders"."stage" = '${stage}'
+    AND "orders"."bookStoreID" = "BookStore"."id"
+    )`);
+
+export const countOrdersStores = (): [Literal, string][] => [
+  [
+    literal(`
+      json_build_object(
+      'ordersCount', (
+        SELECT COALESCE(COUNT(DISTINCT o.id), 0)
+        FROM "orders" AS o
+        WHERE o."bookStoreID" = "BookStore"."id"
+      ),
+      ${Object.values(OrderStage)
+        .map((stage) => {
+          const k = "orders" + capChar(stage) + capChar("count");
+          const sql = countOrdersSql(stage);
+
+          // console.log(sql);
+          return `'${k}', ${sql.val}`;
+        })
+        .join(",\n")}
+      )
+      `),
+    "ordersStats",
+  ],
+];

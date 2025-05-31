@@ -17,7 +17,10 @@ import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
 import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
-import { calcRatingSqlStores } from "../../lib/query/general.js";
+import {
+  calcRatingSqlStores,
+  countOrdersStores,
+} from "../../lib/query/general.js";
 
 const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   literal(`(
@@ -31,17 +34,9 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
   res,
 ];
 
-const countOrdersSql = (stage: OrderStage, res: string): [Literal, string] => [
-  literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)
-    FROM "orders" 
-    WHERE "orders"."stage" = '${stage}'
-    AND "orders"."bookStoreID" = "BookStore"."id"
-    )`),
-  res,
-];
-
 const myCoolSql = [
   ...calcRatingSqlStores(),
+  ...countOrdersStores(),
 
   [
     literal(`(
@@ -76,9 +71,6 @@ const myCoolSql = [
   )`),
     "avgQty",
   ],
-  ...Object.values(OrderStage).map((el) =>
-    countOrdersSql(el, "orders" + capChar(el) + capChar("count"))
-  ),
   [
     literal(`(
       SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)
