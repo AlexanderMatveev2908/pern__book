@@ -23,7 +23,7 @@ import {
   countStatsBooksFoStore,
 } from "../../lib/query/general.js";
 
-const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
+const countWorkSql = (role: UserRole): Literal =>
   literal(`(
     SELECT COALESCE(
       COUNT(DISTINCT "book_stores_users"."userID"), 0
@@ -31,9 +31,7 @@ const countWorkSql = (role: UserRole, res: string): [Literal, string] => [
     FROM "book_stores_users"
     WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
       AND "book_stores_users"."role" = '${role}'
-  )`),
-  res,
-];
+  )`);
 
 const myCoolSql = [
   ...calcRatingSqlStores(),
@@ -41,15 +39,17 @@ const myCoolSql = [
   ...countStatsBooksFoStore(),
 
   [
-    literal(`(
-      SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)
-      FROM "book_stores_users"
-      WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+    literal(`json_build_object(
+      'teamCount', (
+          SELECT COALESCE(COUNT(DISTINCT "book_stores_users"."id"), 0)
+          FROM "book_stores_users"
+          WHERE "book_stores_users"."bookStoreID" = "BookStore"."id"
+      ),
+      'managersCount', ${countWorkSql(UserRole.MANAGER).val},
+      'employeesCount', ${countWorkSql(UserRole.EMPLOYEE).val}
     )`),
-    "teamCount",
+    "teamStats",
   ],
-  countWorkSql(UserRole.MANAGER, "managersCount"),
-  countWorkSql(UserRole.EMPLOYEE, "employeesCount"),
 ];
 
 export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {

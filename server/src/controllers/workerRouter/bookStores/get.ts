@@ -35,56 +35,6 @@ const myCoolNestedSql: FindAttributeOptions = {
   ],
 };
 
-const myCollFlatSql: FindAttributeOptions = {
-  include: [
-    [
-      literal(`(
-          SELECT COALESCE(COUNT(DISTINCT b.id), 0)
-          FROM books as b
-          WHERE b."bookStoreID" = "BookStore"."id"
-          )`),
-      "booksCount",
-    ],
-    [
-      literal(`(
-            SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
-            FROM books as b
-            WHERE b."bookStoreID" = "BookStore"."id"
-            )`),
-      "avgQty",
-    ],
-    [
-      literal(`(
-            SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
-            FROM books as b
-            WHERE b."bookStoreID" = "BookStore"."id"
-            )`),
-      "avgPrice",
-    ],
-    [
-      literal(`(
-          SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-          FROM orders as o
-          WHERE o."bookStoreID" = "BookStore"."id"
-          )`),
-      "ordersCount",
-    ],
-    ...calcRatingSqlStores(),
-
-    ...(Object.values(OrderStage).map((stage) => [
-      literal(
-        `(
-        SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-        FROM orders AS o
-        WHERE o."bookStoreID" = "BookStore"."id"
-        AND o."stage" = '${stage}'
-        )`
-      ),
-      "orders" + capChar(stage) + "Count",
-    ]) as [Literal, string][]),
-  ],
-};
-
 export const getBookStoreWorker = async (
   req: ReqApp,
   res: Response
@@ -97,7 +47,7 @@ export const getBookStoreWorker = async (
     where: {
       id: bookStoreID,
     },
-    attributes: myCollFlatSql,
+    attributes: myCoolNestedSql,
     include: [
       {
         model: User,

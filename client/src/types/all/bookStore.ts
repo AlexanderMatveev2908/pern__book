@@ -57,6 +57,7 @@ export interface BookStoreType {
   video?: AssetCloudType;
 
   booksStats: { booksCount?: string; avgPrice?: string; avgQty?: string };
+
   ratingStats: {
     reviewsCount?: string;
     avgRating: string;
@@ -79,9 +80,11 @@ export interface BookStoreType {
     ordersRefundedCount?: string;
   };
 
-  teamCount?: string;
-  managersCount?: string;
-  employeesCount?: string;
+  teamStats: {
+    teamCount?: string;
+    managersCount?: string;
+    employeesCount?: string;
+  };
 
   createdAt: string;
   updatedAt: string;
