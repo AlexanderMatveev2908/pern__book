@@ -1,7 +1,9 @@
-import { literal, Op, WhereOptions } from "sequelize";
+import { Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../../types/types.js";
-import { parseArrFromStr } from "../../../dataStructures.js";
-import { createCondRating } from "../../general.js";
+import {
+  handleCommonQueryBooks,
+  handleQueryAvgRatingBooks,
+} from "../../general.js";
 
 export const makeQueryBooksWorker = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};
@@ -13,53 +15,28 @@ export const makeQueryBooksWorker = (req: ReqApp) => {
     switch (k) {
       case "title":
       case "author":
-        queryBooks[k] = {
-          [Op.iLike]: `%${v}%`,
-        };
+      case "year":
+      case "minPrice":
+      case "maxPrice":
+      case "mainCategories":
+      case "subCategories":
+        handleCommonQueryBooks({
+          k,
+          v,
+          storesQ: queryStores,
+          booksQ: queryBooks,
+        });
         break;
 
-      case "year":
-        queryBooks[k] = v;
+      case "avgRating":
+        handleQueryAvgRatingBooks({
+          v: v as string | string[],
+          booksQ: queryBooks,
+        });
         break;
 
       case "ID":
         queryBooks.id = v;
-        break;
-
-      case "mainCategories":
-        queryStores.categories = {
-          [Op.contains]: parseArrFromStr(v as string | string[]),
-        };
-        break;
-
-      case "subCategories":
-        queryBooks.categories = {
-          [Op.contains]: parseArrFromStr(v as string | string[]),
-        };
-        break;
-
-      case "avgRating": {
-        const { cond } = createCondRating(v as string | string[]);
-
-        if (cond.length)
-          queryBooks[Op.or as any] = [
-            ...(queryBooks[Op.or as any] ?? []),
-            ...cond,
-          ];
-
-        break;
-      }
-
-      case "minPrice":
-        queryBooks.price = {
-          [Op.gte]: +v!,
-        };
-        break;
-      case "maxPrice":
-        queryBooks.price = {
-          ...((queryBooks.price as any) ?? {}),
-          [Op.lte]: +v!,
-        };
         break;
 
       case "minQty":

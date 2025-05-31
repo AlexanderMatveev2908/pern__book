@@ -24,7 +24,13 @@ export const handleQueryDelivery = (val: string | string[]) => {
   return { deliveryConditions };
 };
 
-export const createCondRating = (v: string | string[]) => {
+export const handleQueryAvgRatingBooks = ({
+  v,
+  booksQ,
+}: {
+  v: string | string[];
+  booksQ: WhereOptions;
+}) => {
   const cond: WhereOptions = [];
 
   for (const pair of parseArrFromStr(v as string | string[])) {
@@ -39,7 +45,53 @@ export const createCondRating = (v: string | string[]) => {
     );
   }
 
-  return { cond };
+  if (cond.length)
+    (booksQ as any)[Op.or as any] = [
+      ...((booksQ as any)[Op.or as any] ?? []),
+      ...cond,
+    ];
+};
+
+export const handleCommonQueryBooks = ({ k, v, storesQ, booksQ }: any) => {
+  switch (k) {
+    case "title":
+    case "author":
+      booksQ[k] = {
+        [Op.iLike]: `%${v}%`,
+      };
+      break;
+
+    case "year":
+      booksQ[k] = v;
+      break;
+
+    case "mainCategories":
+      storesQ.categories = {
+        [Op.contains]: parseArrFromStr(v as string | string[]),
+      };
+      break;
+
+    case "subCategories":
+      booksQ.categories = {
+        [Op.contains]: parseArrFromStr(v as string | string[]),
+      };
+      break;
+
+    case "minPrice":
+      booksQ.price = {
+        [Op.gte]: +v!,
+      };
+      break;
+    case "maxPrice":
+      booksQ.price = {
+        ...((booksQ.price as any) ?? {}),
+        [Op.lte]: +v!,
+      };
+      break;
+
+    default:
+      break;
+  }
 };
 
 export const countReviewsByRatingBooks = () =>

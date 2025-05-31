@@ -1,7 +1,10 @@
 import { Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
 import { parseArrFromStr } from "../../dataStructures.js";
-import { createCondRating } from "../general.js";
+import {
+  handleCommonQueryBooks,
+  handleQueryAvgRatingBooks,
+} from "../general.js";
 
 export const makeQueryBooksConsumer = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};
@@ -13,49 +16,24 @@ export const makeQueryBooksConsumer = (req: ReqApp) => {
     switch (k) {
       case "title":
       case "author":
-        queryBooks[k] = {
-          [Op.iLike]: `%${v}%`,
-        };
-        break;
-
       case "year":
-        queryBooks[k] = v;
-        break;
-
-      case "mainCategories":
-        queryStores.categories = {
-          [Op.contains]: parseArrFromStr(v as string | string[]),
-        };
-        break;
-
-      case "subCategories":
-        queryBooks.categories = {
-          [Op.contains]: parseArrFromStr(v as string | string[]),
-        };
-        break;
-
-      case "avgRating": {
-        const { cond } = createCondRating(v as string | string[]);
-
-        if (cond.length)
-          queryBooks[Op.or as any] = [
-            ...(queryBooks[Op.or as any] ?? []),
-            ...cond,
-          ];
-
-        break;
-      }
-
       case "minPrice":
-        queryBooks.price = {
-          [Op.gte]: +v!,
-        };
-        break;
       case "maxPrice":
-        queryBooks.price = {
-          ...((queryBooks.price as any) ?? {}),
-          [Op.lte]: +v!,
-        };
+      case "mainCategories":
+      case "subCategories":
+        handleCommonQueryBooks({
+          k,
+          v,
+          storesQ: queryStores,
+          booksQ: queryBooks,
+        });
+        break;
+
+      case "avgRating":
+        handleQueryAvgRatingBooks({
+          v: v as string | string[],
+          booksQ: queryBooks,
+        });
         break;
 
       default:
