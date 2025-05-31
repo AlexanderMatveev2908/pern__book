@@ -56,10 +56,7 @@ export interface BookStoreType {
   images?: AssetCloudType[];
   video?: AssetCloudType;
 
-  booksCount?: string;
-  avgPrice?: string;
-  avgQty?: string;
-
+  booksStats: { booksCount?: string; avgPrice?: string; avgQty?: string };
   ratingStats: {
     reviewsCount?: string;
     avgRating: string;

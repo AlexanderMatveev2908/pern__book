@@ -126,3 +126,28 @@ export const countOrdersStores = (): [Literal, string][] => [
     "ordersStats",
   ],
 ];
+
+export const countStatsBooksFoStore = (): [Literal, string][] => [
+  [
+    literal(`
+      json_build_object(
+        'booksCount', (
+          SELECT COALESCE(COUNT(DISTINCT b.id), 0)
+          FROM "books" AS b
+          WHERE b."bookStoreID" = "BookStore"."id"
+        ),
+        'avgPrice', (
+          SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
+          FROM "books" AS b
+          WHERE b."bookStoreID" = "BookStore"."id"
+        ),
+        'avgQty', (
+          SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
+          FROM "books" AS b
+          WHERE b."bookStoreID" = "BookStore"."id"
+        )
+      )
+      `),
+    "booksStats",
+  ],
+];
