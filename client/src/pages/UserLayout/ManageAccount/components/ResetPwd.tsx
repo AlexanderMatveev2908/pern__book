@@ -11,7 +11,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
 import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
+import { useHandleDangerAccount } from "@/features/UserLayout/hooks/useHandleDangerAccount";
 import { fieldsNewPwdReset } from "@/features/UserLayout/fields/manageAccount";
 
 type PropsType = {

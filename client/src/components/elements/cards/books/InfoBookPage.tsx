@@ -3,9 +3,9 @@ import { BookType } from "@/types/all/books";
 import {
   fieldsWorkFlowBook,
   labelDescriptionBook,
-} from "@/core/config/fieldsData/books/books";
+} from "@/core/config/fieldsData/books/cards";
 import { workFlowLabel } from "@/core/config/fieldsData/labels";
-import InfoStoreFromBook from "./InfoBook/components/InfoStoreFromBook";
+import InfoStoreFromBook from "./InfoStoreFromBook";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 import ImagesScroll from "../../imagesHandlers/ImagesScroll";
 

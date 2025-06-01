@@ -1,19 +1,19 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import InfoBookAbout from "./InfoBook/components/InfoBookAbout";
+import InfoBookAbout from "./InfoBookAbout";
 import {
   labelBookCard,
   labelDataBook,
   labelGeneralStatsBook,
   showGeneralStatsBook,
-} from "@/core/config/fieldsData/books/books";
+} from "@/core/config/fieldsData/books/cards";
 import RatingFancy from "../../rating/RatingFancy";
 import { HiLibrary } from "react-icons/hi";
 import {
   categoriesStoreLabel,
   labelDelivery,
   labelFieldAddressStore,
-} from "@/core/config/fieldsData/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/cards";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   showStoreAddressFromBook,

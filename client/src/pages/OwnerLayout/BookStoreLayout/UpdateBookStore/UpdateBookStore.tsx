@@ -31,7 +31,7 @@ import {
   fieldsSwapStore,
   mandatoryKeysStore,
   optKeysStore,
-} from "@/core/config/fieldsData/forms/bookStores/postPut";
+} from "@/core/config/fieldsData/bookStores/forms";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 
 const processTeam = (team: any[]) =>

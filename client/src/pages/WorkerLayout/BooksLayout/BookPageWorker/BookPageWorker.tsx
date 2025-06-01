@@ -11,8 +11,8 @@ import { UserRole } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import InfoBookPage from "@/components/elements/cards/books/InfoBookPage";
-import InfoBookAbout from "@/components/elements/cards/books/InfoBook/components/InfoBookAbout";
-import DataBookDB from "@/components/elements/cards/books/InfoBook/components/DataBookDB";
+import InfoBookAbout from "@/components/elements/cards/books/InfoBookAbout";
+import DataBookDB from "@/components/elements/cards/books/DataBookDB";
 
 const BookPageWorker: FC = () => {
   const { user } = useGetU();

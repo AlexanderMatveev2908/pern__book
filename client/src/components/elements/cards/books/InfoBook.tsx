@@ -5,12 +5,12 @@ import {
   fieldsWorkFlowBook,
   labelBookCard,
   labelGeneralStatsBook,
-} from "@/core/config/fieldsData/books/books";
-import InfoStoreFromBook from "./components/InfoStoreFromBook";
-import DataBookDB from "./components/DataBookDB";
-import InfoBookAbout from "./components/InfoBookAbout";
+} from "@/core/config/fieldsData/books/cards";
 import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
+import InfoBookAbout from "./InfoBookAbout";
+import DataBookDB from "./DataBookDB";
+import InfoStoreFromBook from "./InfoStoreFromBook";
 
 type PropsType = {
   el: BookType;

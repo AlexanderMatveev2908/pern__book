@@ -1,9 +1,9 @@
 import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
-import { useNotice } from "../UI/useNotice";
-import { useWrapMutationAPI } from "../wrappers/useWrapMutationAPI";
-import { useMakeFormEmail } from "./useMakeFormEmail";
+import { useNotice } from "../../../../../features/Notice/hooks/useNotice";
+import { useWrapMutationAPI } from "../../wrappers/useWrapMutationAPI";
 import { makeNoticeTxt } from "@/core/lib/lib";
 import { SendMailEnd } from "@/types/types";
+import { useMakeFormEmail } from "./useMakeFormEmail";
 
 export const useEmailVerifyAccount = (endpoint: SendMailEnd) => {
   const form = useMakeFormEmail();

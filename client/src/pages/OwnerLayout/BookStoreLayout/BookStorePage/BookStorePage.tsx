@@ -18,7 +18,7 @@ import {
   fieldsWorkFlowStore,
   labelTeamStore,
   statsTeam,
-} from "@/core/config/fieldsData/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/cards";
 import { workFlowLabel } from "@/core/config/fieldsData/labels";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";

@@ -14,7 +14,7 @@ import { setLoggingOut } from "@/features/AuthLayout/authSlice";
 import apiSlice from "@/store/apiSlice";
 import { clearAuthAxios } from "@/store/baseAxiosQuery";
 import { useDeleteAccountMutation } from "@/features/UserLayout/userSliceAPI";
-import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
+import { useHandleDangerAccount } from "@/features/UserLayout/hooks/useHandleDangerAccount";
 
 const el = {
   icon: Trash2,

@@ -4,7 +4,7 @@ import { FC } from "react";
 import {
   categoriesStoreLabel,
   labelDescription,
-} from "@/core/config/fieldsData/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/cards";
 import InfoStoreObjProp from "./InfoStoreObjProp";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 

@@ -5,7 +5,7 @@ import type { FC } from "react";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { replacePoint } from "@/core/lib/lib";
-import { labelBookRating } from "@/core/config/fieldsData/books/books";
+import { labelBookRating } from "@/core/config/fieldsData/books/cards";
 import DropStats from "../dropMenus/dropSimple/DropStats";
 
 type PropsType = {

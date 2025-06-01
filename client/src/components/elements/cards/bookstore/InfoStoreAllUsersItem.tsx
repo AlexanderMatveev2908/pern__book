@@ -5,7 +5,7 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   categoriesStoreLabel,
   labelCardStore,
-} from "@/core/config/fieldsData/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/cards";
 import InfoStoreObjProp from "./InfoStoreObjProp";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 

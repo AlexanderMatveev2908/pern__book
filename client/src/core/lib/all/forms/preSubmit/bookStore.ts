@@ -1,4 +1,4 @@
-import { mandatoryKeysStore } from "@/core/config/fieldsData/forms/bookStores/postPut";
+import { mandatoryKeysStore } from "@/core/config/fieldsData/bookStores/forms";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const canSaveStore = (vals: any) => {

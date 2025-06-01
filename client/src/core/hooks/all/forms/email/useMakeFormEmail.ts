@@ -1,8 +1,8 @@
+import { schemaEmail } from "@/core/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-import { schemaEmail } from "../../../lib/lib";
-import { useFocus } from "../UI/useFocus";
+import { useFocus } from "../../UI/useFocus";
 
 const schema = z
   .object({

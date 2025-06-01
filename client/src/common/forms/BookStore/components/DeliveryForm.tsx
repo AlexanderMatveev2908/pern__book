@@ -1,5 +1,5 @@
 import FormField from "@/components/forms/inputs/FormFields/FormField";
-import { fieldsDelivery } from "@/core/config/fieldsData/forms/bookStores/postPut";
+import { fieldsDelivery } from "@/core/config/fieldsData/bookStores/forms";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 
