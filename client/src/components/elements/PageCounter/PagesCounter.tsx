@@ -13,7 +13,7 @@ import {
 } from "@/core/lib/lib";
 import { useLocation, useParams } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/features/common/SearchBar/hooks/useGetSearchKeysStorage";
 import { UseFormGetValues } from "react-hook-form";
 import { ParamsPage } from "@/core/contexts/SearchCtx/reducer/actions";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";

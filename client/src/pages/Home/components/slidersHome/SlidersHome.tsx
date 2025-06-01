@@ -2,7 +2,7 @@ import WrapSectionHome from "@/components/HOC/WrapSectionHome";
 import { useEffect, useState, type FC } from "react";
 import ImagesSwapper from "./components/ImagesSwapper";
 import WrapBg from "./components/WrapBg";
-import RatingItem from "@/components/elements/RatingItem";
+import RatingItem from "@/components/elements/rating/RatingItem";
 import { formatD, isArrOk, priceFormatter } from "@/core/lib/lib";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { BookType } from "@/types/all/books";

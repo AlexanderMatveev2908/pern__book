@@ -11,7 +11,7 @@ import {
 import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useUpdateJoinCatMount } from "@/core/hooks/all/forms/searchBar/useUpdateJoinCatMount";
+import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
 import { __cg, decapt, isArr } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
 import { useEffect, useState, type FC } from "react";

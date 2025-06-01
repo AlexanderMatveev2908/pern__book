@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import RemoveImgLayer from "./RemoveImgLayer";
 import { v4 } from "uuid";
-import ImgLoaderHandler from "@/components/elements/ImgLoaderHandler/ImgLoaderHandler";
+import ImgLoaderHandler from "@/components/elements/imagesHandlers/ImgLoaderHandler";
 
 type PropsType = {
   isVal: boolean;

@@ -9,8 +9,8 @@ import {
 import InfoStoreFromBook from "./components/InfoStoreFromBook";
 import DataBookDB from "./components/DataBookDB";
 import InfoBookAbout from "./components/InfoBookAbout";
-import DropStatsStatic from "../../shared/Drop/DropStatsStatic";
-import DropStats from "../../shared/Drop/DropStats";
+import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
+import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   el: BookType;

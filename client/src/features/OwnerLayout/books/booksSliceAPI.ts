@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { SearchBooksOwnerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
-import { makeParams } from "@/core/lib/all/forms/formatters/general";
+import { makeParams } from "@/core/lib/all/forms/processVals/general";
 import { catchErr } from "@/core/lib/lib";
 import { userSliceAPI } from "@/features/UserLayout/userSliceAPI";
 import apiSlice from "@/store/apiSlice";

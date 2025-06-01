@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/features/common/SearchBar/hooks/useGetSearchKeysStorage";
 import { cpyObj, getDefValsPagination, saveStorage } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { FC, useEffect, useMemo, useRef, useState } from "react";

@@ -1,4 +1,4 @@
-import DropHandler from "@/components/elements/DropHandler/DropHandler";
+import DropHandler from "@/components/elements/dropMenus/DropHandler";
 import { ReactNode, useState, type FC } from "react";
 import { IconType } from "react-icons/lib";
 

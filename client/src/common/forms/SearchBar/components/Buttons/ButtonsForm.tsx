@@ -6,7 +6,7 @@ import { IoFilter } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
 import { makeDelay } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
-import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
+import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch";
 import DropInputs from "../TxtInputs/DropInputs";
 import SearchBtn from "./components/SearchBtn";
 import CLearBtn from "./components/ClearBtn";

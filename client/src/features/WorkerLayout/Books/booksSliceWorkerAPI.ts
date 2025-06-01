@@ -9,7 +9,7 @@ import {
   UserRole,
 } from "@/types/types";
 import { SearchStoreFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
-import { makeParams } from "@/core/lib/all/forms/formatters/general";
+import { makeParams } from "@/core/lib/all/forms/processVals/general";
 
 const B_URL = "/worker/books";
 

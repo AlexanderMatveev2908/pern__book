@@ -9,8 +9,8 @@ import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBoo
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useMixVars } from "@/core/hooks/all/api/useMixVars";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { handleErrsBooks } from "@/core/lib/all/forms/errors/books";
-import { makeBooksFormData } from "@/core/lib/all/forms/formatters/books";
+import { handleErrsBooks } from "@/core/lib/all/forms/errorsHnalders/books";
+import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";

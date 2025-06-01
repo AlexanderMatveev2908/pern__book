@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import DropActionsMapObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsMapObj";
+import DropActionsMapObj from "@/components/elements/dropMenus/dropActionsHOC/DropActionsMapObj";
 import {
   KEY_MAP_STORE,
   manageDropLabelGeneral,

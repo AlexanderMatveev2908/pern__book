@@ -15,7 +15,7 @@ import {
   SearchCtxStateType,
 } from "../reducer/initState";
 import { ResPaginationAPI, TriggerRTK } from "@/types/types";
-import { useGetSearchKeysStorage } from "@/core/hooks/all/forms/searchBar/useGetSearchKeysStorage";
+import { useGetSearchKeysStorage } from "@/features/common/SearchBar/hooks/useGetSearchKeysStorage";
 import { saveStorage } from "@/core/lib/lib";
 
 type Params = {

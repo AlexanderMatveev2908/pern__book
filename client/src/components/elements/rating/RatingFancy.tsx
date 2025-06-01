@@ -2,11 +2,11 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import DropStats from "./Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { FaRegStar, FaStar, FaStarHalfAlt } from "react-icons/fa";
 import { replacePoint } from "@/core/lib/lib";
 import { labelBookRating } from "@/core/config/fieldsData/books/books";
+import DropStats from "../dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   el: BookType;

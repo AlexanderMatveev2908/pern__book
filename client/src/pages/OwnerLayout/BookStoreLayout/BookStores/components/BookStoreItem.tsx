@@ -1,8 +1,8 @@
 import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/InfoStoreAllUsersItem";
 import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoStoreItemBusiness";
-import ImagesItem from "@/components/elements/cards/shared/ImagesItem";
-import ItemID from "@/components/elements/cards/shared/ItemID";
-import LinksCard from "@/components/elements/cards/shared/LinksCard";
+import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
+import ItemID from "@/components/elements/ItemID";
+import LinksCard from "@/components/elements/LinksCard";
 import { linksCardStore } from "@/features/OwnerLayout/fields/bookStore/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";

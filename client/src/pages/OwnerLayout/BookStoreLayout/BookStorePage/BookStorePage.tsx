@@ -5,7 +5,6 @@ import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsOwner from "./components/DropActionsOwner";
-import DropStats from "../../../../components/elements/cards/shared/Drop/DropStats";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import InfoStoreMapProp from "@/components/elements/cards/bookstore/InfoStoreMapProp";
 import { isObjOk } from "@/core/lib/lib";
@@ -14,7 +13,6 @@ import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStor
 import { useClearCacheItem } from "@/core/hooks/all/api/useClearCacheItem";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
-import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import {
   fieldsWorkFlowStore,
@@ -23,6 +21,8 @@ import {
 } from "@/core/config/fieldsData/bookStores/bookStores";
 import { workFlowLabel } from "@/core/config/fieldsData/labels";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
+import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
+import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
 
 const BookStorePage: FC = () => {
   const { bookStoreID } = useParams() ?? {};

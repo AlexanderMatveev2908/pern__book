@@ -7,9 +7,9 @@ import {
   statsTeam,
 } from "@/core/config/fieldsData/bookStores/bookStores";
 import { workFlowLabel } from "@/core/config/fieldsData/labels";
-import DropStatsStatic from "../shared/Drop/DropStatsStatic";
 import InfoStoreMapProp from "./InfoStoreMapProp";
-import DropStats from "../shared/Drop/DropStats";
+import DropStatsStatic from "../../dropMenus/dropSimple/DropStatsStatic";
+import DropStats from "../../dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   el: BookStoreType;

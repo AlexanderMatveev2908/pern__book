@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useClickSearch } from "@/core/hooks/all/forms/searchBar/useClickSearch";
+import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch";
 import { FormFieldBasic } from "@/types/types";
 import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
