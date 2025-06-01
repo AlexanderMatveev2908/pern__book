@@ -7,7 +7,7 @@ import { z } from "zod";
 import { StorageKeys } from "@/types/types";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { useUpdateEmailMutation } from "@/features/UserLayout/userSliceAPI";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useHandleDangerAccount } from "@/features/UserLayout/hooks/useHandleDangerAccount";

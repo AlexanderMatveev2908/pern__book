@@ -1,5 +1,5 @@
 import QuickFillBtn from "@/components/elements/buttons/QuickFillBtn";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import { fieldsContact } from "@/core/config/fieldsData/bookStores/forms";
 import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";

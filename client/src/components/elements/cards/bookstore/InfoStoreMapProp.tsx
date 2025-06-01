@@ -6,7 +6,7 @@ import {
   statsOrders,
   statsReviews,
 } from "@/core/config/fieldsData/bookStores/cards";
-import { labelsBookStore } from "@/features/OwnerLayout/fields/bookStore/actions";
+import { labelsBookStore } from "@/features/OwnerLayout/bookStores/fields/actions";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 
 type PropsType = {

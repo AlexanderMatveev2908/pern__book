@@ -7,7 +7,7 @@ import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import DeliveryForm from "./components/DeliveryForm";
 import TeamForm from "./components/TeamForm";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import TxtField from "@/components/forms/inputs/TxtField";
 import VideoField from "@/components/forms/inputs/VideoField";
 import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";

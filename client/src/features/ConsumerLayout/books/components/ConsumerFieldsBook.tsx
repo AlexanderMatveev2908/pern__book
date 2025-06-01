@@ -1,13 +1,13 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import InfoBookAbout from "./InfoBookAbout";
+import InfoBookAbout from "../../../../components/elements/cards/books/InfoBookAbout";
 import {
   labelBookCard,
   labelDataBook,
   labelGeneralStatsBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/books/cards";
-import RatingFancy from "../../rating/RatingFancy";
+import RatingFancy from "../../../../components/elements/rating/RatingFancy";
 import { HiLibrary } from "react-icons/hi";
 import {
   categoriesStoreLabel,
@@ -18,9 +18,9 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   showStoreAddressFromBook,
   statsDeliveryStoreFromBook,
-} from "@/features/ConsumerLayout/fields/books/card";
-import DropStatsStatic from "../../dropMenus/dropSimple/DropStatsStatic";
-import DropStats from "../../dropMenus/dropSimple/DropStats";
+} from "@/features/ConsumerLayout/books/fields/card";
+import DropStatsStatic from "../../../../components/elements/dropMenus/dropSimple/DropStatsStatic";
+import DropStats from "../../../../components/elements/dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   el: BookType;
