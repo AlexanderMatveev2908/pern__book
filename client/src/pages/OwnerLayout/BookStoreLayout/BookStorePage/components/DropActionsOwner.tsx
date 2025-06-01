@@ -15,7 +15,6 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { v4 } from "uuid";
 import { fieldsInputsBooks } from "@/features/common/SearchBar/fields/owner/books";
-import DropActionsMapObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsMapObj";
 import {
   actionsBookStoreAdmin,
   labelsBookStore,
@@ -25,6 +24,7 @@ import {
   loadPop,
   openPopup,
 } from "@/features/common/Popup/popupSlice";
+import DropActionsMapObj from "@/components/elements/dropMenus/dropActionsHOC/DropActionsMapObj";
 
 type PropsType = {
   bookStore?: BookStoreType;

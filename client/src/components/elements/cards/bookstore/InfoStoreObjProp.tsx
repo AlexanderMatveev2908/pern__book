@@ -1,5 +1,4 @@
 import type { FC } from "react";
-import DropStats from "../shared/Drop/DropStats";
 import {
   fieldsStatsContact,
   labelDelivery,
@@ -9,6 +8,7 @@ import {
   statsDelivery,
 } from "@/core/config/fieldsData/bookStores/bookStores";
 import { BookStoreType } from "@/types/all/bookStore";
+import DropStats from "../../dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   bookStore?: BookStoreType;

@@ -1,6 +1,6 @@
 import { ReactNode, useEffect, useRef, type FC } from "react";
-import DropHandler from "../../../DropHandler/DropHandler";
 import { IconType } from "react-icons/lib";
+import DropHandler from "../DropHandler";
 
 type PropsType = {
   isDropOpen: boolean;

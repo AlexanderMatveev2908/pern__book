@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import DropActionsObj from "@/components/elements/cards/shared/DropActionsHOC/DropActionsObj";
 import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels";
 import { actionsBookPageWorker } from "@/features/WorkerLayout/fields/books/actions";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
@@ -8,6 +7,7 @@ import { BookType } from "@/types/all/books";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
 import { useNavigate } from "react-router-dom";
+import DropActionsObj from "@/components/elements/dropMenus/dropActionsHOC/DropActionsObj";
 
 type PropsType = {
   book?: BookType;

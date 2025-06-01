@@ -5,9 +5,9 @@ import {
   labelDescriptionBook,
 } from "@/core/config/fieldsData/books/books";
 import { workFlowLabel } from "@/core/config/fieldsData/labels";
-import ImagesScroll from "../shared/ImagesScroll";
-import DropStats from "../shared/Drop/DropStats";
 import InfoStoreFromBook from "./InfoBook/components/InfoStoreFromBook";
+import DropStats from "../../dropMenus/dropSimple/DropStats";
+import ImagesScroll from "../../imagesHandlers/ImagesScroll";
 
 type PropsType = {
   book: BookType;

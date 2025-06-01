@@ -7,8 +7,8 @@ import {
   labelCategoriesBook,
   labelStoreBook,
 } from "@/core/config/fieldsData/books/books";
-import DropStats from "../../../shared/Drop/DropStats";
-import DropStatsStatic from "../../../shared/Drop/DropStatsStatic";
+import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
+import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
 
 type PropsType = {
   el: BookType;

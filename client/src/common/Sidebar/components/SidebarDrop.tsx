@@ -3,7 +3,7 @@ import SideLink from "./SideLink.tsx";
 import { useDispatch } from "react-redux";
 import { setIsSideOpen } from "../../../features/common/Header/headerSlice.ts";
 import { LabelDropType } from "@/types/types.ts";
-import DropHandler from "@/components/elements/DropHandler/DropHandler.tsx";
+import DropHandler from "@/components/elements/dropMenus/DropHandler.tsx";
 import { SideFieldType } from "@/features/common/SideBar/fields/sidebar.ts";
 
 type PropsType = {

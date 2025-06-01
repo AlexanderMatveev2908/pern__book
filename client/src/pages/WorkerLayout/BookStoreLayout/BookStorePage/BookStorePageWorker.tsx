@@ -8,14 +8,14 @@ import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/boo
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
-import ImagesScroll from "@/components/elements/cards/shared/ImagesScroll";
 import InfoStoreMapProp from "@/components/elements/cards/bookstore/InfoStoreMapProp";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { fieldsWorkFlowStore } from "@/core/config/fieldsData/bookStores/bookStores";
 import { workFlowLabel } from "@/core/config/fieldsData/labels";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
+import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
+import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
 
 const BookStorePageWorker: FC = () => {
   const { user } = useGetU();

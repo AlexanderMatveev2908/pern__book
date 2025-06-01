@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import DropHandler from "@/components/elements/DropHandler/DropHandler";
+import DropHandler from "@/components/elements/dropMenus/DropHandler";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { FC, ReactNode, useEffect, useState } from "react";

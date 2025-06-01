@@ -2,7 +2,7 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useUpdateJoinCat } from "@/core/hooks/all/forms/searchBar/useUpdateJoinCat";
+import { useUpdateJoinCat } from "@/features/common/SearchBar/hooks/useUpdateJoinCat";
 import { FilterSubField, FormFieldBasic } from "@/types/types";
 import { FC, useCallback, useMemo } from "react";
 import { useFormContext } from "react-hook-form";

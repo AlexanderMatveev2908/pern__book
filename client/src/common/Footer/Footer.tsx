@@ -6,7 +6,7 @@ import {
   contactLinks,
   FooterLinkType,
   gitLinks,
-} from "@/common/Footer/fields/footer";
+} from "@/features/common/Footer/fields/footer";
 
 const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
   <div className="w-full grid grid-cols-1 max-w-full gap-5 text-gray-300">

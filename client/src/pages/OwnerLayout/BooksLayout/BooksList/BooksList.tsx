@@ -17,7 +17,7 @@ import {
   ownerBooksNumericFilters,
   ownerBooksSorters,
 } from "@/features/common/SearchBar/fields/owner/books";
-import { useUpdateJoinCatMount } from "@/core/hooks/all/forms/searchBar/useUpdateJoinCatMount";
+import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
 

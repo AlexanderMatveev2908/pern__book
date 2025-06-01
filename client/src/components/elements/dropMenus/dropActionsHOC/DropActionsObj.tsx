@@ -1,6 +1,6 @@
 import { useState, type FC } from "react";
-import DropActionsAbs from "../Drop/DropActionsAbs";
 import { LabelActionType, LabelDropType } from "@/types/types";
+import DropActionsAbs from "../dropSimple/DropActionsAbs";
 
 type PropsType = {
   dropLabel: LabelDropType;

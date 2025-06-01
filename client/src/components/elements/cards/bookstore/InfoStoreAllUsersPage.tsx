@@ -1,5 +1,4 @@
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStats from "@/components/elements/cards/shared/Drop/DropStats";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import {
@@ -7,6 +6,7 @@ import {
   labelDescription,
 } from "@/core/config/fieldsData/bookStores/bookStores";
 import InfoStoreObjProp from "./InfoStoreObjProp";
+import DropStats from "../../dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   bookStore?: BookStoreType;
