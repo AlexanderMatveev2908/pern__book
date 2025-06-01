@@ -2,7 +2,7 @@ import ItemID from "@/components/elements/ItemID";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import LinksCard from "@/components/elements/LinksCard";
-import { linksBookCard } from "@/features/OwnerLayout/fields/books/actions";
+import { linksBookCard } from "@/features/OwnerLayout/books/fields/actions";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import InfoBook from "@/components/elements/cards/books/InfoBook";
 

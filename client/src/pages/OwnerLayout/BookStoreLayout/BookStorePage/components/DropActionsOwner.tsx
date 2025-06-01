@@ -18,7 +18,7 @@ import { fieldsInputsBooks } from "@/features/common/SearchBar/fields/owner/book
 import {
   actionsBookStoreAdmin,
   labelsBookStore,
-} from "@/features/OwnerLayout/fields/bookStore/actions";
+} from "@/features/OwnerLayout/bookStores/fields/actions";
 import {
   closePopup,
   loadPop,

@@ -6,7 +6,7 @@ import { BtnAct, FormFieldBasic } from "@/types/types";
 import { cpyObj, getDefValsPagination } from "@/core/lib/lib";
 import { useFieldArray, useFormContext } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import FormFieldNested from "@/components/forms/inputs/FormFields/FormFieldNested";
+import FormFieldNested from "@/components/forms/inputs/baseTxtFields/FormFieldNested";
 
 type PropsType = {
   children: ReactNode;

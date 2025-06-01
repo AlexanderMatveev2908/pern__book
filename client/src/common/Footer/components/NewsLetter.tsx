@@ -7,7 +7,7 @@ import { schemaEmail } from "@/core/lib/lib.ts";
 import { useForm } from "react-hook-form";
 import { emailField } from "@/features/AuthLayout/fields/auth.ts";
 import Title from "@/components/elements/Title.tsx";
-import FormField from "@/components/forms/inputs/FormFields/FormField.tsx";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField.tsx";
 import Button from "@/components/elements/buttons/Button/Button.tsx";
 
 const schema = z.object({

@@ -1,6 +1,6 @@
 import Button from "@/components/elements/buttons/Button/Button";
 import OptionalField from "@/components/elements/OptionalField";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import ImagesField from "@/components/forms/inputs/ImagesField/ImagesField";
 import TxtField from "@/components/forms/inputs/TxtField";
 import WrapperFormField from "@/components/HOC/WrapperFormField";

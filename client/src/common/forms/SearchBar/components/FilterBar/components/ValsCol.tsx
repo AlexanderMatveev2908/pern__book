@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useUpdateJoinCat } from "@/features/common/SearchBar/hooks/useUpdateJoinCat";
 import { FilterSubField, FormFieldBasic } from "@/types/types";

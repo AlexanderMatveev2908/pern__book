@@ -6,7 +6,7 @@ import { BtnAct, UserRole } from "@/types/types";
 import { AiOutlineUserDelete } from "react-icons/ai";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { IoPersonAddOutline } from "react-icons/io5";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import {
   fieldEmailWorker,
   fieldSelectWorkerRole,

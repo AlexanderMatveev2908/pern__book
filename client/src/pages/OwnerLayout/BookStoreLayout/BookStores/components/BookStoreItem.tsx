@@ -3,7 +3,7 @@ import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoSto
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import ItemID from "@/components/elements/ItemID";
 import LinksCard from "@/components/elements/LinksCard";
-import { linksCardStore } from "@/features/OwnerLayout/fields/bookStore/card";
+import { linksCardStore } from "@/features/OwnerLayout/bookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 

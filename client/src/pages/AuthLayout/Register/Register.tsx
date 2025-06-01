@@ -26,7 +26,7 @@ import {
 } from "@/features/AuthLayout/fields/auth";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
-import FormField from "@/components/forms/inputs/FormFields/FormField";
+import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import Terms from "./components/Terms";
 import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 import Button from "@/components/elements/buttons/Button/Button";
