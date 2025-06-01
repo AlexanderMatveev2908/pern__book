@@ -17,7 +17,7 @@ import {
   fieldDescBook,
   fieldsPriceQty,
   titleBookField,
-} from "@/core/config/fieldsData/forms/books/postPut";
+} from "@/core/config/fieldsData/books/forms";
 
 type PropsType = {
   handleSave: () => void;

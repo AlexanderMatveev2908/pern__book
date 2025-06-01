@@ -2,9 +2,9 @@ import ItemID from "@/components/elements/ItemID";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import LinksCard from "@/components/elements/LinksCard";
-import InfoBook from "@/components/elements/cards/books/InfoBook/InfoBook";
 import { linksBookCard } from "@/features/OwnerLayout/fields/books/actions";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
+import InfoBook from "@/components/elements/cards/books/InfoBook";
 
 type PropsType = {
   el: BookType;

@@ -10,7 +10,7 @@ import { useUpdateEmailMutation } from "@/features/UserLayout/userSliceAPI";
 import FormField from "@/components/forms/inputs/FormFields/FormField";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useHandleDangerAccount } from "@/core/hooks/all/api/useHandleDangerAccount";
+import { useHandleDangerAccount } from "@/features/UserLayout/hooks/useHandleDangerAccount";
 import { newEmailField } from "@/features/UserLayout/fields/manageAccount";
 
 type PropsType = {

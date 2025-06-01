@@ -6,7 +6,7 @@ import { useLocation } from "react-router-dom";
 import { AuthState, StorageKeys } from "@/types/types";
 import { __cg, delKeyStorage } from "@/core/lib/lib";
 import { LinksLoggedDrop } from "@/features/AuthLayout/fields/links";
-import { useWrapMutationAPI } from "../wrappers/useWrapMutationAPI";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
 
 export const useNinjaToken = () => {
   const { pathname } = useLocation();

@@ -6,7 +6,7 @@ import {
   fieldsContact,
   fieldsDelivery,
   fieldsSwapStore,
-} from "@/core/config/fieldsData/forms/bookStores/postPut";
+} from "@/core/config/fieldsData/bookStores/forms";
 
 //
 export const handleFocusErrStore = async (

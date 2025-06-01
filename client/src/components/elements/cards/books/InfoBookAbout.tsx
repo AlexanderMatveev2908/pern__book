@@ -5,7 +5,7 @@ import {
   labelBookInfo,
   labelCategoriesBook,
   statsBookInfo,
-} from "@/core/config/fieldsData/books/books";
+} from "@/core/config/fieldsData/books/cards";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 
 type PropsType = {

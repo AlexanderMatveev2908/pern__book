@@ -9,8 +9,8 @@ import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import InfoBookPage from "@/components/elements/cards/books/InfoBookPage";
-import InfoBookAbout from "@/components/elements/cards/books/InfoBook/components/InfoBookAbout";
-import DataBookDB from "@/components/elements/cards/books/InfoBook/components/DataBookDB";
+import InfoBookAbout from "@/components/elements/cards/books/InfoBookAbout";
+import DataBookDB from "@/components/elements/cards/books/DataBookDB";
 
 const BookPage: FC = () => {
   const { bookID = "" } = useParams();

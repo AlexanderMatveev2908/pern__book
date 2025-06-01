@@ -6,7 +6,7 @@ import {
   labelFieldContact,
   statsAddress,
   statsDelivery,
-} from "@/core/config/fieldsData/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/cards";
 import { BookStoreType } from "@/types/all/bookStore";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 

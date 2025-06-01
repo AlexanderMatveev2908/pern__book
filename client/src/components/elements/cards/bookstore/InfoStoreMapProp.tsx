@@ -5,7 +5,7 @@ import {
   statsBooks,
   statsOrders,
   statsReviews,
-} from "@/core/config/fieldsData/bookStores/bookStores";
+} from "@/core/config/fieldsData/bookStores/cards";
 import { labelsBookStore } from "@/features/OwnerLayout/fields/bookStore/actions";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 

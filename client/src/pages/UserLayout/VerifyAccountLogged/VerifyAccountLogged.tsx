@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import EmailForm from "@/common/forms/EmailForm/EmailForm";
 import Title from "@/components/elements/Title";
-import { useEmailVerifyAccount } from "@/core/hooks/all/forms/useEmailVerifyAccount";
+import { useEmailVerifyAccount } from "@/core/hooks/all/forms/email/useEmailVerifyAccount";
 import { SendMailEnd } from "@/types/types";
 import { FC } from "react";
 
