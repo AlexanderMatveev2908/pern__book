@@ -19,7 +19,7 @@ const InfoBookAbout: FC<PropsType> = ({ el, abs }) => {
   });
 
   return !el ? null : (
-    <>
+    <div className="w-full grid grid-cols-1 gap-3">
       <DropStats {...{ el: labelCategories, fields: null, abs }}>
         {el.categories?.map((el, i) => (
           <li key={ids![0][i]} className="w-full flex justify-start">
@@ -29,7 +29,7 @@ const InfoBookAbout: FC<PropsType> = ({ el, abs }) => {
       </DropStats>
 
       <DropStats {...{ el: labelBookInfo, fields: statsBookInfo(el), abs }} />
-    </>
+    </div>
   );
 };
 

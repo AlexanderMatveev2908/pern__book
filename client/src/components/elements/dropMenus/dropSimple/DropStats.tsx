@@ -21,6 +21,7 @@ type PropsType = {
   abs?: boolean;
   border?: boolean;
   ovHidden?: boolean;
+  listen?: boolean;
 };
 
 const DropStats: FC<PropsType> = ({
@@ -31,6 +32,7 @@ const DropStats: FC<PropsType> = ({
   styleUL,
   abs,
   ovHidden = true,
+  listen,
 }) => {
   const [isDropOpen, setIsDropOpen] = useState(
     abs ? false : window.innerWidth > tailwindBreak.md
@@ -38,14 +40,14 @@ const DropStats: FC<PropsType> = ({
 
   useEffect(() => {
     const resize = () => {
-      if (abs) return null;
+      if (!listen) return null;
       const res = window.innerWidth > tailwindBreak.md;
       if (res !== isDropOpen) setIsDropOpen(res);
     };
 
     window.addEventListener("resize", resize);
     return () => window.removeEventListener("resize", resize);
-  }, [abs, isDropOpen]);
+  }, [listen, isDropOpen]);
 
   const ids = useCreateIds({ lengths: [fields?.length ?? 0] });
 
@@ -53,11 +55,12 @@ const DropStats: FC<PropsType> = ({
     <div className="w-full relative h-fit">
       <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
 
-      <hr
-        className={` h-[3px] w-full border-0  ${
-          abs && !border ? "bg-transparent my-2" : "bg-blue-600 my-3"
-        }`}
-      />
+      {(!abs || border) && (
+        <hr
+          className="h-[3px] w-full border-0  ${
+           bg-blue-600 my-3"
+        />
+      )}
 
       <ul
         className={`w-full grid grid-cols-1 items-start transition-all duration-[0.4s] gap-3 ${

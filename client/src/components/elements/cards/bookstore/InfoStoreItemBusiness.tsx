@@ -10,7 +10,6 @@ import {
   workFlowLabel,
 } from "@/core/config/fieldsData/labels/shared";
 import InfoStoreMapProp from "./InfoStoreMapProp";
-import DropStatsStatic from "../../dropMenus/dropSimple/DropStatsStatic";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 
 type PropsType = {
@@ -20,7 +19,7 @@ type PropsType = {
 
 const InfoStoreItemBusiness: FC<PropsType> = ({ el, isOwner }) => {
   return (
-    <DropStatsStatic {...{ el: labelInfo, border: true }}>
+    <DropStats {...{ el: labelInfo, ovHidden: false }}>
       <InfoStoreMapProp {...{ abs: true, bookStore: el }} />
       {isOwner && (
         <DropStats
@@ -35,7 +34,7 @@ const InfoStoreItemBusiness: FC<PropsType> = ({ el, isOwner }) => {
           abs: true,
         }}
       />
-    </DropStatsStatic>
+    </DropStats>
   );
 };
 
