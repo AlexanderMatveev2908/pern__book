@@ -38,7 +38,7 @@ const WrapperContentAPI: FC<PropsType> = ({
           isLoading: spinPage,
         }}
       >
-        {children}
+        {children || null}
       </WrapPageAPI>
 
       {!spinPage && (
