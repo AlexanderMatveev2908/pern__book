@@ -1,11 +1,10 @@
-import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/InfoStoreAllUsersItem";
-import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoStoreItemBusiness";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStore } from "@/features/OwnerLayout/bookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
+import BookStoreItem from "@/components/elements/cards/bookstore/BookStoreItem";
 
 type PropsType = {
   el: BookStoreType;
@@ -25,8 +24,7 @@ const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoStoreAllUsersItem {...{ el }} />
-          <InfoStoreItemBusiness {...{ el, isOwner: true }} />
+          <BookStoreItem {...{ el, isOwner: true }} />
         </div>
       </div>
 

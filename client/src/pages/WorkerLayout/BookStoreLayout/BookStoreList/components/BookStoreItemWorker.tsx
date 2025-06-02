@@ -1,12 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/InfoStoreAllUsersItem";
-import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoStoreItemBusiness";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStoreWorker } from "@/features/WorkerLayout/BookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
+import BookStoreItem from "@/components/elements/cards/bookstore/BookStoreItem";
 
 type PropsType = {
   el: BookStoreType;
@@ -35,9 +34,7 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoStoreAllUsersItem {...{ el }} />
-          {/* {role === UserRole.MANAGER && <InfoStoreItemBusiness {...{ el }} />} */}
-          <InfoStoreItemBusiness {...{ el }} />
+          <BookStoreItem {...{ el }} />
         </div>
       </div>
 

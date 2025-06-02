@@ -2,7 +2,7 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import { labelDescription } from "@/core/config/fieldsData/bookStores/cards";
-import InfoStoreObjProp from "./InfoStoreObjProp";
+import InfoStoreObjProp from "./subComponents/InfoStoreObjProp";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 import { labelCategories } from "@/core/config/fieldsData/labels/shared";
 
