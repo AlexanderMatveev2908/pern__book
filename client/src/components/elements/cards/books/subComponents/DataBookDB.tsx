@@ -12,13 +12,19 @@ type PropsType = {
   el: BookType;
   abs?: boolean;
   border?: boolean;
+  listen?: boolean;
 };
 
-const DataBookDB: FC<PropsType> = ({ el, abs }) => {
+const DataBookDB: FC<PropsType> = ({ el, abs, listen }) => {
   return (
     <>
       <DropStats
-        {...{ el: labelDataBook, abs, fields: showGeneralStatsBook(el) }}
+        {...{
+          el: labelDataBook,
+          abs,
+          fields: showGeneralStatsBook(el),
+          listen,
+        }}
       />
 
       <DropStats
@@ -26,6 +32,7 @@ const DataBookDB: FC<PropsType> = ({ el, abs }) => {
           el: labelBookRating,
           abs,
           fields: fieldsStatsRatingBook(el),
+          listen,
         }}
       />
     </>
