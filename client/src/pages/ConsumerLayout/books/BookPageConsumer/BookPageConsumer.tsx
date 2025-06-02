@@ -9,6 +9,7 @@ import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerB
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ReadContent from "./components/ReadContent";
+import ButtonsCart from "./components/ButtonsCart";
 
 const BookPageConsumer: FC = () => {
   const bookID = useParams()?.bookID;
@@ -46,6 +47,9 @@ const BookPageConsumer: FC = () => {
 
           <div className="w-full grid grid-cols-1 gap-10">
             <ImagesScroll {...{ images: book!.images }} />
+
+            <ButtonsCart {...{ book: book! }} />
+
             <ReadContent {...{ book: book! }} />
           </div>
         </div>
