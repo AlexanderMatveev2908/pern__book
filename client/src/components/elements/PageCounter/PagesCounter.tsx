@@ -104,48 +104,8 @@ const PagesCounter: FC<PropsType> = ({
   }, [sizeBLock, page]);
 
   useEffect(() => {
-    const updatePage = () => {
-      if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
-    };
-
-    updatePage();
-
-    window.addEventListener("resize", updatePage);
-    return () => {
-      window.removeEventListener("resize", updatePage);
-    };
-  }, [page, setPagPreventFetch, totPages]);
-
-  useEffect(() => {
-    const listenResize = () => {
-      // ? BLOCK BUTTONS
-      const newBlockCount = getNumBtns();
-      const maxCards = setLimitCards();
-      const maxPossibleBlock = Math.max(0, Math.ceil(totPages / sizeBLock));
-
-      if (sizeBLock !== newBlockCount) setSizeBlock(newBlockCount);
-      if (totPages < newBlockCount || maxPossibleBlock > currBlock)
-        setCurrBlock(0);
-
-      if (limit !== maxCards && !hasFormErrs)
-        handlePagination({ limitParam: "limit", val: maxCards });
-    };
-
-    window.addEventListener("resize", listenResize);
-    return () => {
-      window.removeEventListener("resize", listenResize);
-    };
-  }, [
-    currBlock,
-    setPagPreventFetch,
-    limit,
-    getValues,
-    totPages,
-    page,
-    sizeBLock,
-    handlePagination,
-    hasFormErrs,
-  ]);
+    if (page >= totPages) handlePagination({ val: 0, pageParam: "page" });
+  }, [page, handlePagination, totPages]);
 
   const handlePrev = useCallback(
     () => (currBlock ? setCurrBlock((prev) => prev - 1) : null),
@@ -185,6 +145,38 @@ const PagesCounter: FC<PropsType> = ({
       ).filter((val) => val < totPages),
     [currBlock, sizeBLock, totPages]
   );
+
+  useEffect(() => {
+    const listenResize = () => {
+      // ? BLOCK BUTTONS
+      const newBlockCount = getNumBtns();
+      const maxCards = setLimitCards();
+      const maxPossibleBlock = Math.max(0, Math.ceil(totPages / sizeBLock));
+
+      if (sizeBLock !== newBlockCount) setSizeBlock(newBlockCount);
+      if (totPages < newBlockCount || maxPossibleBlock > currBlock)
+        setCurrBlock(0);
+      if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
+
+      if (limit !== maxCards && !hasFormErrs)
+        handlePagination({ limitParam: "limit", val: maxCards });
+    };
+
+    window.addEventListener("resize", listenResize);
+    return () => {
+      window.removeEventListener("resize", listenResize);
+    };
+  }, [
+    currBlock,
+    setPagPreventFetch,
+    limit,
+    getValues,
+    totPages,
+    page,
+    sizeBLock,
+    handlePagination,
+    hasFormErrs,
+  ]);
 
   return !totPages ? null : (
     <div className="page_counter w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
