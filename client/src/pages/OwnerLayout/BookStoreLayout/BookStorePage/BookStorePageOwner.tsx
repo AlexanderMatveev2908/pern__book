@@ -5,7 +5,6 @@ import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsOwner from "./components/DropActionsOwner";
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useGetBookStoreQuery } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
@@ -13,18 +12,10 @@ import { useClearCacheItem } from "@/core/hooks/all/api/useClearCacheItem";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import {
-  fieldsWorkFlowStore,
-  labelTeamStore,
-  statsTeam,
-} from "@/core/config/fieldsData/bookStores/cards";
-import { workFlowLabel } from "@/core/config/fieldsData/labels/shared";
-import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
-import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
-import InfoStoreMapProp from "@/components/elements/cards/bookstore/subComponents/InfoStoreMapProp";
+import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
 
-const BookStorePage: FC = () => {
+const BookStorePageOwner: FC = () => {
   const { bookStoreID } = useParams() ?? {};
   const itPass = useMemo(() => REG_ID.test(bookStoreID ?? ""), [bookStoreID]);
   const { user } = useGetU();
@@ -33,10 +24,6 @@ const BookStorePage: FC = () => {
   });
   useWrapQueryAPI({ ...res });
   const { data: { bookStore } = {} } = res ?? {};
-
-  const ids = useCreateIds({
-    lengths: [bookStore?.team?.length],
-  });
 
   useClearCacheItem({
     nameQ: "getSingleBook",
@@ -76,54 +63,7 @@ const BookStorePage: FC = () => {
           }}
         />
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <InfoStoreAllUsersPage {...{ bookStore, listen: true }} />
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-            <InfoStoreMapProp {...{ bookStore, listen: true }} />
-          </div>
-
-          <DropStats
-            {...{
-              el: labelTeamStore,
-              styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
-              fields: statsTeam(bookStore),
-              listen: true,
-            }}
-          >
-            {!!bookStore?.team?.length && (
-              <hr className="w-full border-0 bg-blue-600 h-[2px] mt-2" />
-            )}
-
-            {(bookStore?.team ?? []).map((el, i) => (
-              <li
-                key={ids?.[0]?.[i] ?? i}
-                className="w-full grid grid-cols-1 sm:flex justify-between items-center gap-y-1"
-              >
-                <div className="w-full">
-                  <span
-                    className="txt__2 max-w-full clamp_txt"
-                    style={{
-                      lineClamp: 3,
-                      WebkitLineClamp: 3,
-                    }}
-                  >
-                    {el.userEmail}
-                  </span>
-                </div>
-
-                <div className="justify-self-start sm:justify-self-end pr-3">
-                  <span className="txt__2 ">{el.role}</span>
-                </div>
-              </li>
-            ))}
-          </DropStats>
-
-          <DropStats
-            {...{
-              el: workFlowLabel,
-              fields: fieldsWorkFlowStore(bookStore),
-              listen: true,
-            }}
-          />
+          <BookStorePage {...{ el: bookStore, isOwner: true }} />
         </div>
 
         {isObjOk(bookStore?.video) && (
@@ -142,7 +82,7 @@ const BookStorePage: FC = () => {
   );
 };
 
-export default BookStorePage;
+export default BookStorePageOwner;
 
 /*
      <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-5">
