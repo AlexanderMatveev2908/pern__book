@@ -51,7 +51,7 @@ const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
           }}
         />
 
-        <RatingFancy {...{ el }} />
+        <RatingFancy {...{ el, abs: true }} />
       </DropStatsStatic>
 
       <DropStatsStatic

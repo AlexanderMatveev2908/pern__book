@@ -10,6 +10,7 @@ import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 
 type PropsType = {
   el: BookType;
+  abs?: boolean;
 };
 
 type StrRat = "full" | "half" | "none";
@@ -46,7 +47,7 @@ const arrKeys = () => {
   }));
 };
 
-const RatingFancy: FC<PropsType> = ({ el }) => {
+const RatingFancy: FC<PropsType> = ({ el, abs }) => {
   // ? FIRST 2 UTILS TO AVOID WRITE TTO MUCH,
   // ? STARS AVG RATING
   // ? NUMBERS OF COUNTERS OF RATINGS FROM 1 TO 5
@@ -56,7 +57,7 @@ const RatingFancy: FC<PropsType> = ({ el }) => {
   });
 
   return (
-    <DropStats {...{ abs: true, el: labelBookRating, fields: null }}>
+    <DropStats {...{ abs, el: labelBookRating, fields: null }}>
       <div className="w-full flex justify-between items-center">
         {ids[0].map((id, i) => (
           <div
