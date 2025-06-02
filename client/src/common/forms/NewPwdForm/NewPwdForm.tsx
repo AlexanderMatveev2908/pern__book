@@ -3,7 +3,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
 import { fieldsNewPwd } from "@/features/AuthLayout/fields/auth";
 import { useShowPwd } from "@/core/hooks/hooks";
-import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import { isFormValid } from "@/core/lib/lib";
 import { FC, useEffect, useState } from "react";
 import {

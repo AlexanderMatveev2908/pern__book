@@ -1,7 +1,7 @@
 import { setCanManageAccount } from "@/features/AuthLayout/authSlice";
 import { useGetRightManageAccountMutation } from "@/features/UserLayout/userSliceAPI";
 import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
-import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import { saveStorage, schemaPwd } from "@/core/lib/lib";
 import { AllowedFromApp, StorageKeys } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";

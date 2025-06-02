@@ -12,7 +12,7 @@ import {
   useShowPwd,
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
-import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import { isObjOk, makeNoticeTxt, schemaRegister } from "@/core/lib/lib";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useCallback, useEffect } from "react";

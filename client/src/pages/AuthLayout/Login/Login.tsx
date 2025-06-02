@@ -7,7 +7,7 @@ import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import apiSlice from "@/store/apiSlice";
-import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import { isFormValid, schemaLogin } from "@/core/lib/lib";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import {

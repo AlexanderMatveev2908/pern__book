@@ -1,6 +1,6 @@
 import { z } from "zod";
-import { schemaEmail } from "./auth";
-import { schemaAddress } from "./user";
+import { schemaEmail } from "../../../../../features/AuthLayout/forms/auth";
+import { schemaAddress } from "../../../../../features/UserLayout/forms/schema";
 import { UserRole } from "@/types/types";
 import {
   REG_INT,
