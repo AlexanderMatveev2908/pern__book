@@ -20,6 +20,7 @@ type PropsType = {
   styleUL?: string;
   abs?: boolean;
   border?: boolean;
+  ovHidden?: boolean;
 };
 
 const DropStats: FC<PropsType> = ({
@@ -29,6 +30,7 @@ const DropStats: FC<PropsType> = ({
   border,
   styleUL,
   abs,
+  ovHidden = true,
 }) => {
   const [isDropOpen, setIsDropOpen] = useState(
     abs ? false : window.innerWidth > tailwindBreak.md
@@ -58,7 +60,9 @@ const DropStats: FC<PropsType> = ({
       />
 
       <ul
-        className={`w-full grid grid-cols-1 items-start transition-all duration-[0.4s] gap-3 overflow-hidden ${
+        className={`w-full grid grid-cols-1 items-start transition-all duration-[0.4s] gap-3 ${
+          ovHidden ? "overflow-hidden" : ""
+        } ${
           abs
             ? "absolute top-0 left-0 bg-neutral-950 z-50 el__border_sm p-3"
             : ""

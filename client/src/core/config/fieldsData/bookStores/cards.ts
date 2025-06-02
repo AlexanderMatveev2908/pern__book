@@ -7,7 +7,6 @@ import { RiTeamFill } from "react-icons/ri";
 import { v4 } from "uuid";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { CiTextAlignJustify } from "react-icons/ci";
-import { HiLibrary } from "react-icons/hi";
 import { genValsRating } from "@/features/OwnerLayout/fields/general";
 
 export const statsBooks = (bookStore?: BookStoreType) =>
@@ -128,11 +127,6 @@ export const labelFieldContact = {
   label: "Contact",
   icon: MdConnectWithoutContact,
 };
-
-export const labelCardStore = (name: string) => ({
-  label: name,
-  icon: HiLibrary,
-});
 
 export const fieldsWorkFlowStore = (store?: BookStoreType) =>
   [

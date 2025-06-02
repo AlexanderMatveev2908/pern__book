@@ -2,10 +2,12 @@ import DropHandler from "@/components/elements/dropMenus/DropHandler";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC, useState } from "react";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { labelCardStore } from "@/core/config/fieldsData/bookStores/cards";
 import InfoStoreObjProp from "./InfoStoreObjProp";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
-import { labelCategories } from "@/core/config/fieldsData/labels/shared";
+import {
+  labelCategories,
+  libraryLabelStoreDynamic,
+} from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   el: BookStoreType;
@@ -19,7 +21,11 @@ const InfoStoreAllUsersItem: FC<PropsType> = ({ el }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-4">
       <DropHandler
-        {...{ isDropOpen, setIsDropOpen, el: labelCardStore(el.name) }}
+        {...{
+          isDropOpen,
+          setIsDropOpen,
+          el: libraryLabelStoreDynamic(el.name),
+        }}
       />
       <hr className="bg-blue-600 border-0 h-[3px] w-full -mt-2" />
 
