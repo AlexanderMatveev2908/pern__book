@@ -1,0 +1,12 @@
+services:
+  server:
+    build:
+      context: .
+      dockerfile: Dockerfile.fullstack
+      args:
+        VITE_BACK_URL: ${VITE_BACK_URL}
+        VITE_MODE: ${VITE_MODE}
+    env_file:
+      - ./server/.env
+    ports:
+      - "3000:3000"
