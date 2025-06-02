@@ -1,7 +1,7 @@
 import ConsumerBooksLayout from "@/app/layouts/ConsumerLayout/subLayouts/ConsumerBooksLayout";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import BookPageConsumer from "@/pages/ConsumerLayout/BookPageConsumer/BookPageConsumer";
-import BookListSearch from "@/pages/ConsumerLayout/BooksListSearch/BookListSearch";
+import BookPageConsumer from "@/pages/ConsumerLayout/books/BookPageConsumer/BookPageConsumer";
+import BookListConsumer from "@/pages/ConsumerLayout/books/BooksListConsumer/BookListConsumer";
 
 const consumerBooksRoutes = {
   path: "books",
@@ -11,7 +11,7 @@ const consumerBooksRoutes = {
       index: true,
       element: (
         <SearchCtxProvider>
-          <BookListSearch />
+          <BookListConsumer />
         </SearchCtxProvider>
       ),
     },
