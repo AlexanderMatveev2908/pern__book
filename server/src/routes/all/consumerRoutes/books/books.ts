@@ -4,8 +4,10 @@ import { checkBooksSearchConsumer } from "../../../../middleware/consumer/checkB
 import {
   getAllBooksConsumer,
   getBooksByBestReviews,
-} from "../../../../controllers/consumer/get.js";
+  getSingleBookConsumer,
+} from "../../../../controllers/consumer/books/get.js";
 import { logJSON } from "../../../../lib/utils/log.js";
+import { checkBookID } from "../../../../middleware/sharedValidators/ids.js";
 
 const consumerBooksRouter = express.Router();
 
@@ -15,6 +17,11 @@ consumerBooksRouter.get(
   wrapApp(logJSON),
   checkBooksSearchConsumer,
   wrapApp(getAllBooksConsumer)
+);
+consumerBooksRouter.get(
+  "/:bookID",
+  checkBookID,
+  wrapApp(getSingleBookConsumer)
 );
 
 export default consumerBooksRouter;
