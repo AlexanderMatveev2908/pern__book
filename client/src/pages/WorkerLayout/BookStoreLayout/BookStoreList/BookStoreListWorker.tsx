@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/forms/SearchBar/SearchBar";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
@@ -16,7 +16,7 @@ import { FormProvider } from "react-hook-form";
 import BookStoreItemWorker from "./components/BookStoreItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { schemaWorkerStores } from "@/core/lib/all/forms/schemaZ/SearchBar/worker/stores";
+import { schemaWorkerStores } from "@/features/common/SearchBar/schemasZ/worker/stores";
 
 const BookStoreListWorker: FC = () => {
   const { formWorkerBookStores: formCtx } = useFormCtxConsumer();

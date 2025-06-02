@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/forms/SearchBar/SearchBar";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
@@ -11,7 +11,7 @@ import {
   sortersBooksConsumer,
 } from "@/features/common/SearchBar/fields/consumer/fields";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { schemaConsumerBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/consumer/books";
+import { schemaConsumerBooks } from "@/features/common/SearchBar/schemasZ/consumer/books";
 import { isArrOk } from "@/core/lib/lib";
 import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerBooksSliceAPI";
 import type { FC } from "react";

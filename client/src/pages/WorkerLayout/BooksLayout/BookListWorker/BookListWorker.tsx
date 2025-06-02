@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/forms/SearchBar/SearchBar";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
@@ -20,7 +20,7 @@ import { useParams } from "react-router-dom";
 import BookItemWorker from "./components/BookItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
+import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
 
 const BookListWorker: FC = () => {
   const { user } = useGetU();

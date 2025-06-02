@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/forms/SearchBar/SearchBar";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
@@ -19,7 +19,7 @@ import {
 } from "@/features/common/SearchBar/fields/owner/books";
 import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
+import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
 
 const BooksList: FC = () => {
   const { user } = useGetU();
