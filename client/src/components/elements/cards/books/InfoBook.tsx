@@ -8,7 +8,6 @@ import {
   fieldsWorkFlowBook,
   labelBookCard,
 } from "@/core/config/fieldsData/books/cards";
-import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 import InfoBookAbout from "./InfoBookAbout";
 import DataBookDB from "./DataBookDB";
@@ -21,13 +20,15 @@ type PropsType = {
 const InfoBook: FC<PropsType> = ({ el }) => {
   return (
     <>
-      <DropStatsStatic {...{ el: labelBookCard(el.title), border: true }}>
+      <DropStats
+        {...{ el: labelBookCard(el.title), border: true, ovHidden: false }}
+      >
         <InfoBookAbout {...{ el, border: true, abs: true }} />
-      </DropStatsStatic>
+      </DropStats>
 
-      <DropStatsStatic {...{ el: labelInfo, border: true }}>
+      <DropStats {...{ el: labelInfo, border: true, ovHidden: false }}>
         <DataBookDB {...{ el, abs: true }} />
-      </DropStatsStatic>
+      </DropStats>
 
       <InfoStoreFromBook {...{ el, abs: true }} />
 

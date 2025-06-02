@@ -23,15 +23,20 @@ const InfoStoreAllUsersItem: FC<PropsType> = ({ el }) => {
           ovHidden: false,
         }}
       >
-        <DropStats {...{ el: labelCategories, fields: null, abs: true }}>
-          {el?.categories?.map((el, i) => (
-            <li key={ids?.[0]?.[i] ?? i} className="w-full flex justify-start">
-              <span className="txt__2">{el}</span>
-            </li>
-          ))}
-        </DropStats>
+        <div className="w-full grid grid-cols-1 gap-4 mt-3">
+          <DropStats {...{ el: labelCategories, fields: null, abs: true }}>
+            {el?.categories?.map((el, i) => (
+              <li
+                key={ids?.[0]?.[i] ?? i}
+                className="w-full flex justify-start"
+              >
+                <span className="txt__2">{el}</span>
+              </li>
+            ))}
+          </DropStats>
 
-        <InfoStoreObjProp {...{ bookStore: el, abs: true }} />
+          <InfoStoreObjProp {...{ bookStore: el, abs: true }} />
+        </div>
       </DropStats>
     </div>
   );

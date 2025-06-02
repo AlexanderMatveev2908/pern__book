@@ -58,14 +58,14 @@ const DropStats: FC<PropsType> = ({
       {(!abs || border) && (
         <hr
           className="h-[3px] w-full border-0  ${
-           bg-blue-600 my-3"
+           bg-blue-600 mt-3"
         />
       )}
 
       <ul
         className={`w-full grid grid-cols-1 items-start transition-all duration-[0.4s] gap-3 ${
-          ovHidden ? "overflow-hidden" : ""
-        } ${
+          isDropOpen ? "mt-3" : ""
+        } ${ovHidden ? "overflow-hidden" : ""} ${
           abs
             ? "absolute top-0 left-0 bg-neutral-950 z-50 el__border_sm p-3"
             : ""
