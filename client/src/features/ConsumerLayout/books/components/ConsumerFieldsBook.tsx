@@ -6,7 +6,6 @@ import {
   labelDataBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/books/cards";
-import { HiLibrary } from "react-icons/hi";
 import {
   labelDelivery,
   labelFieldAddressStore,
@@ -22,16 +21,12 @@ import RatingFancy from "@/components/elements/cards/shared/rating/RatingFancy";
 import {
   labelCategories,
   labelInfo,
+  libraryLabelStoreDynamic,
 } from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   el: BookType;
 };
-
-const libraryLabelStore = (label: string) => ({
-  label,
-  icon: HiLibrary,
-});
 
 const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
   const ids = useCreateIds({ lengths: [el?.store?.categories?.length] });
@@ -55,7 +50,10 @@ const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
       </DropStatsStatic>
 
       <DropStatsStatic
-        {...{ el: libraryLabelStore(el?.store?.name ?? ""), border: true }}
+        {...{
+          el: libraryLabelStoreDynamic(el?.store?.name ?? ""),
+          border: true,
+        }}
       >
         <DropStats
           {...{
