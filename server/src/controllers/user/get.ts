@@ -7,6 +7,7 @@ import { BookStore } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Op } from "sequelize";
 import { Book } from "../../models/all/Book.js";
+import { err401 } from "../../lib/responseClient/err.js";
 
 export const getUserProfile = async (
   req: ReqApp,
