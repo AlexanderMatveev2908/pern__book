@@ -4,7 +4,7 @@ import { setNavigator } from "@/core/lib/lib";
 import { useScroll } from "@/core/hooks/hooks";
 import appRoutes from "./routes/AppRoutes";
 import { useNinjaToken } from "@/features/UserLayout/hooks/useNinjaToken";
-import { useGetUserCartQuery } from "@/features/root/rootAPI";
+import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 
 const App: FC = () => {
   useScroll();
@@ -16,8 +16,7 @@ const App: FC = () => {
   }, [navigate]);
 
   useNinjaToken();
-
-  useGetUserCartQuery();
+  useGetCart();
 
   return useRoutes(appRoutes);
 };
