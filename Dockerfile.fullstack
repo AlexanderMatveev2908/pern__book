@@ -1,0 +1,38 @@
+# => Client build 
+FROM node:20 AS client-build
+
+WORKDIR /app/client
+
+RUN corepack enable && corepack prepare yarn@4.9.1 --activate
+
+COPY client/ ./
+
+RUN echo "nodeLinker: node-modules" > .yarnrc.yml
+
+ARG VITE_MODE
+ENV VITE_MODE=$VITE_MODE
+ARG VITE_BACK_URL
+ENV VITE_BACK_URL=$VITE_BACK_URL
+
+RUN yarn install
+
+RUN yarn build
+
+# => Server build 
+FROM node:20
+
+WORKDIR /app/server
+
+RUN corepack enable && corepack prepare yarn@4.9.1 --activate
+
+COPY server/ ./
+
+RUN echo "nodeLinker: node-modules" > .yarnrc.yml
+
+RUN yarn install
+
+RUN yarn build
+
+COPY --from=client-build /app/client/dist /app/client/dist
+
+CMD ["yarn", "start"]

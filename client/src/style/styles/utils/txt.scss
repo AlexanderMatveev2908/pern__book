@@ -1,0 +1,33 @@
+.txt__0 {
+  @apply text-xs md:text-sm lg:text-base;
+}
+.txt__1 {
+  @apply text-sm md:text-base lg:text-lg;
+}
+.txt__2 {
+  @apply text-base md:text-lg lg:text-xl font-semibold;
+}
+.txt__3 {
+  @apply text-lg md:text-xl lg:text-2xl font-bold;
+}
+.txt__4 {
+  @apply text-xl md:text-2xl lg:text-3xl font-bold;
+}
+.txt__5 {
+  @apply text-2xl md:text-3xl lg:text-4xl font-extrabold;
+}
+.txt__6 {
+  @apply text-3xl md:text-4xl lg:text-5xl font-extrabold;
+}
+
+.txt__col {
+  @apply text-gray-300;
+}
+
+.clamp_txt {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  white-space: normal;
+  word-break: break-word;
+}
