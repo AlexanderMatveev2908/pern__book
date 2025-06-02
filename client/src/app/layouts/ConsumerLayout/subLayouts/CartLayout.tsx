@@ -1,8 +1,8 @@
 import type { FC } from "react";
 import { Outlet } from "react-router-dom";
 
-const BooksOwnerLayout: FC = () => {
+const CartLayout: FC = () => {
   return <Outlet />;
 };
 
-export default BooksOwnerLayout;
+export default CartLayout;

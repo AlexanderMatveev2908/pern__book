@@ -1,14 +1,13 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import BooksLayoutWorker from "@/app/layouts/WorkerLayout/BooksLayoutWorker";
 import BookListWorker from "@/pages/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
 import BookPageWorker from "@/pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
 import CreateBookWorker from "@/pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
 import UpdateBookWorker from "@/pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 
 const booksWorkerRoutes = {
   path: "books",
-  element: <BooksLayoutWorker />,
+  element: <Outlet />,
   children: [
     {
       path: "list/:bookStoreID",
