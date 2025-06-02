@@ -18,7 +18,7 @@ import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItemConsumer from "./components/BookItemConsumer";
 
-const BookListSearch: FC = () => {
+const BookListConsumer: FC = () => {
   const { formSearchBooksConsumerCtx: formCtx } = useFormCtxConsumer();
 
   const hook =
@@ -66,4 +66,4 @@ const BookListSearch: FC = () => {
   );
 };
 
-export default BookListSearch;
+export default BookListConsumer;
