@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { getErrFooterBar } from "@/core/lib/all/forms/errorsHnalders/searchBar";
+import { getErrFooterBar } from "@/features/common/SearchBar/forms/errPreSubmit";
 import { isSameData, makeDelay } from "@/core/lib/lib";
 import { NumericFilterSearch } from "@/types/types";
 import { useEffect, useRef } from "react";

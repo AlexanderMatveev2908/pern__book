@@ -5,7 +5,7 @@ import { StorageKeys } from "@/types/types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ReturnShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
-import { preventBrowser } from "@/core/lib/all/forms/preSubmit/submit";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import { useUpdatePwdMutation } from "@/features/UserLayout/userSliceAPI";
 import Button from "@/components/elements/buttons/Button/Button";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";

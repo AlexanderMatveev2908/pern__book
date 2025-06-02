@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { schemaNames } from "./auth";
+import { schemaNames } from "../../AuthLayout/forms/auth";
 import {
   REG_CITY,
   REG_COUNTRY,

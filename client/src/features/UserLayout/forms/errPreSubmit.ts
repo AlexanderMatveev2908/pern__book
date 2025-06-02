@@ -1,5 +1,5 @@
 import { FieldErrors } from "react-hook-form";
-import { validateSwapper } from "../validators";
+import { validateSwapper } from "../../../core/lib/all/forms/validators/general";
 import { UserProfileForm } from "@/pages/UserLayout/ProfileSettings/ProfileSettings";
 import {
   fieldsSwapProfile,
