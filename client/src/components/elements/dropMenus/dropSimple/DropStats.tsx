@@ -35,7 +35,7 @@ const DropStats: FC<PropsType> = ({
   listen,
 }) => {
   const [isDropOpen, setIsDropOpen] = useState(
-    abs ? false : window.innerWidth > tailwindBreak.md
+    !listen ? false : window.innerWidth > tailwindBreak.md
   );
 
   useEffect(() => {
