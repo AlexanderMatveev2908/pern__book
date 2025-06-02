@@ -1,31 +1,34 @@
+@use "./styles/utils/buttons.scss";
+@use "./styles/utils/el.scss";
+@use "./styles/utils/icons.scss";
+@use "./styles/utils/inputs.scss";
+@use "./styles/utils/seniorStyles.scss";
 @use "./styles/utils/txt.scss";
 @use "./styles/utils/z.scss";
-@use "./styles/utils/icons.scss";
-@use "./styles/utils/buttons.scss";
-@use "./styles/utils/inputs.scss";
-@use "./styles/utils/el.scss";
-@use "./styles/utils/seniorStyles.scss";
 
-@use "./styles/common/popup.scss";
+@use "./styles/common/Popup.scss";
 @use "./styles/common/forms/BookStoreForm.scss";
-@use "./styles/common/forms/SearchBar.scss";
-@use "./styles/common/toast/Toast.scss";
+@use "./styles/common/SearchBar.scss";
+@use "./styles/common/Toast.scss";
 
 @use "./styles/components/elements/buttons/Button.scss";
 @use "./styles/components/elements/cards/ImagesScroll.scss";
 @use "./styles/components/elements/cards/ImagesSwapper.scss";
+
 @use "./styles/components/elements/general/PageCounter.scss";
 @use "./styles/components/elements/general/TooltipCpy.scss";
+
 @use "./styles/components/elements/spinners/MiniSpinner.scss";
-@use "./styles/components/elements/spinners/SpinnerPage.scss";
 @use "./styles/components/elements/spinners/Spinner.scss";
+@use "./styles/components/elements/spinners/SpinnerPage.scss";
 
 @use "./styles/components/forms/BtnCheckBox.scss";
 @use "./styles/components/forms/ButtonsSwapper.scss";
 @use "./styles/components/forms/PwdField.scss";
 @use "./styles/components/forms/Terms.scss";
 
-@use "./styles//pages//Home.scss";
+@use "./styles/pages/Home.scss";
+
 @import "./t.css";
 
 /* 
