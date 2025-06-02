@@ -76,9 +76,9 @@ const BookStorePage: FC = () => {
           }}
         />
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <InfoStoreAllUsersPage {...{ bookStore }} />
+          <InfoStoreAllUsersPage {...{ bookStore, listen: true }} />
           <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-            <InfoStoreMapProp {...{ bookStore }} />
+            <InfoStoreMapProp {...{ bookStore, listen: true }} />
           </div>
 
           <DropStats
@@ -86,6 +86,7 @@ const BookStorePage: FC = () => {
               el: labelTeamStore,
               styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
               fields: statsTeam(bookStore),
+              listen: true,
             }}
           >
             {!!bookStore?.team?.length && (
@@ -120,6 +121,7 @@ const BookStorePage: FC = () => {
             {...{
               el: workFlowLabel,
               fields: fieldsWorkFlowStore(bookStore),
+              listen: true,
             }}
           />
         </div>

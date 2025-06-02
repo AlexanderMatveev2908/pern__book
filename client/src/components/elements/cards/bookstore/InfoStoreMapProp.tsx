@@ -12,9 +12,10 @@ import DropStats from "../../dropMenus/dropSimple/DropStats";
 type PropsType = {
   bookStore?: BookStoreType;
   abs?: boolean;
+  listen?: boolean;
 };
 
-const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs }) => {
+const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
   return (
     <>
       <DropStats
@@ -22,6 +23,7 @@ const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs }) => {
           el: labelsBookStore.get(KEY_MAP_STORE.BOOKS),
           fields: statsBooks(bookStore),
           abs,
+          listen,
         }}
       />
       <DropStats
@@ -29,6 +31,7 @@ const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs }) => {
           el: labelsBookStore.get(KEY_MAP_STORE.REVIEWS),
           fields: statsReviews(bookStore),
           abs,
+          listen,
         }}
       />
       <DropStats
@@ -36,6 +39,7 @@ const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs }) => {
           el: labelsBookStore.get(KEY_MAP_STORE.ORDERS),
           fields: statsOrders(bookStore),
           abs,
+          listen,
         }}
       />
     </>
