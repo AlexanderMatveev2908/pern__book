@@ -1,10 +1,12 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import { workFlowLabel } from "@/core/config/fieldsData/labels";
+import {
+  labelInfo,
+  workFlowLabel,
+} from "@/core/config/fieldsData/labels/shared";
 import {
   fieldsWorkFlowBook,
   labelBookCard,
-  labelGeneralStatsBook,
 } from "@/core/config/fieldsData/books/cards";
 import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
@@ -23,7 +25,7 @@ const InfoBook: FC<PropsType> = ({ el }) => {
         <InfoBookAbout {...{ el, border: true, abs: true }} />
       </DropStatsStatic>
 
-      <DropStatsStatic {...{ el: labelGeneralStatsBook, border: true }}>
+      <DropStatsStatic {...{ el: labelInfo, border: true }}>
         <DataBookDB {...{ el, abs: true }} />
       </DropStatsStatic>
 

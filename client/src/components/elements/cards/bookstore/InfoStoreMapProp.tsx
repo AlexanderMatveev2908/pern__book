@@ -1,6 +1,6 @@
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
-import { KEY_MAP_STORE } from "@/core/config/fieldsData/labels";
+import { KEY_MAP_STORE } from "@/core/config/fieldsData/labels/shared";
 import {
   statsBooks,
   statsOrders,

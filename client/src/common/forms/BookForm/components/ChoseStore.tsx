@@ -1,19 +1,14 @@
 import DropHandler from "@/components/elements/dropMenus/DropHandler";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import FocusAnchor from "@/components/forms/FocusAnchor";
+import { labelStore } from "@/core/config/fieldsData/labels/shared";
 import { isObjOk } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
 import { useEffect, useRef, useState, type FC } from "react";
 import { useFormContext } from "react-hook-form";
-import { HiMiniBuildingLibrary } from "react-icons/hi2";
 
 type PropsType = {
   stores?: Partial<BookStoreType>[];
-};
-
-const choseStoreEl = {
-  label: "Bookstore",
-  icon: HiMiniBuildingLibrary,
 };
 
 const ChoseStore: FC<PropsType> = ({ stores }) => {
@@ -57,7 +52,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
         ref={dropRef}
         className="w-full max-w-[300px] el__border_sm py-2 px-4 relative"
       >
-        <DropHandler {...{ isDropOpen, setIsDropOpen, el: choseStoreEl }} />
+        <DropHandler {...{ isDropOpen, setIsDropOpen, el: labelStore }} />
 
         <FocusAnchor {...{ register, fieldKey: "bookStoreID" }} />
         <ErrorFormField {...{ el: { field: "bookStoreID" }, errors }} />

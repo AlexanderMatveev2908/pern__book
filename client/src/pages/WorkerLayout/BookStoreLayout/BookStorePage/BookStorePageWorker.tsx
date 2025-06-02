@@ -12,7 +12,7 @@ import InfoStoreMapProp from "@/components/elements/cards/bookstore/InfoStoreMap
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { fieldsWorkFlowStore } from "@/core/config/fieldsData/bookStores/cards";
-import { workFlowLabel } from "@/core/config/fieldsData/labels";
+import { workFlowLabel } from "@/core/config/fieldsData/labels/shared";
 import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";

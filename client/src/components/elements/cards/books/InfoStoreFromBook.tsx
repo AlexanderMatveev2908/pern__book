@@ -3,12 +3,10 @@ import { BookType } from "@/types/all/books";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import TooltipCpy from "@/components/elements/TooltipCpy/TooltipCpy";
 import { FaDatabase } from "react-icons/fa";
-import {
-  labelCategoriesBook,
-  labelStoreBook,
-} from "@/core/config/fieldsData/books/cards";
+import { labelStoreBook } from "@/core/config/fieldsData/books/cards";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
+import { labelCategories } from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   el: BookType;
@@ -34,7 +32,7 @@ const InfoStoreFromBook: FC<PropsType> = ({ el }) => {
         </div>
       </div>
 
-      <DropStats {...{ el: labelCategoriesBook, abs: true }}>
+      <DropStats {...{ el: labelCategories, abs: true }}>
         {el?.store?.categories?.map((el, i) => (
           <li key={ids![0][i]} className="w-full flex justify-start">
             <span className="txt__2">{el}</span>

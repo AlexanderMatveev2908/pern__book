@@ -5,10 +5,9 @@ import { OrderStage } from "@/types/all/orders";
 import { FaMapMarkerAlt, FaWarehouse } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
 import { v4 } from "uuid";
-import { MdConnectWithoutContact, MdOutlineCategory } from "react-icons/md";
+import { MdConnectWithoutContact } from "react-icons/md";
 import { CiTextAlignJustify } from "react-icons/ci";
 import { HiLibrary } from "react-icons/hi";
-import { IoIosStats } from "react-icons/io";
 import { genValsRating } from "@/features/OwnerLayout/fields/general";
 
 export const statsBooks = (bookStore?: BookStoreType) =>
@@ -120,11 +119,6 @@ export const statsDelivery = (bookStore?: BookStoreType) =>
     };
   });
 
-export const categoriesStoreLabel = {
-  label: "Categories",
-  icon: MdOutlineCategory,
-};
-
 export const labelDescription = {
   label: "About store",
   icon: CiTextAlignJustify,
@@ -139,11 +133,6 @@ export const labelCardStore = (name: string) => ({
   label: name,
   icon: HiLibrary,
 });
-
-export const statsCardStore = {
-  label: "Info",
-  icon: IoIosStats,
-};
 
 export const fieldsWorkFlowStore = (store?: BookStoreType) =>
   [

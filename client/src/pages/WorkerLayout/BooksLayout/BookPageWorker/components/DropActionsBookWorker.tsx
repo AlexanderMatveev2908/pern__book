@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels";
+import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels/shared";
 import { actionsBookPageWorker } from "@/features/WorkerLayout/Books/fields/actions";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";

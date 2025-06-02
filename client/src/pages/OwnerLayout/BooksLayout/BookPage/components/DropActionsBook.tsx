@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import DropActionsObj from "@/components/elements/dropMenus/dropActionsHOC/DropActionsObj";
-import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels";
+import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels/shared";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { actionsBookPage } from "@/features/OwnerLayout/books/fields/actions";

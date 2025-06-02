@@ -1,8 +1,7 @@
 import { formatD, priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { FaBook, FaDatabase } from "react-icons/fa";
-import { IoIosStats } from "react-icons/io";
-import { MdOutlineCategory, MdReviews } from "react-icons/md";
+import { MdReviews } from "react-icons/md";
 import { v4 } from "uuid";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { CiTextAlignJustify } from "react-icons/ci";
@@ -12,11 +11,6 @@ export const labelBookCard = (title: string) => ({
   label: title,
   icon: FaBook,
 });
-
-export const labelCategoriesBook = {
-  label: "Categories",
-  icon: MdOutlineCategory,
-};
 
 export const labelBookInfo = {
   label: "Book",
@@ -37,11 +31,6 @@ export const statsBookInfo = (book: BookType) =>
     ...el,
     id: v4(),
   }));
-
-export const labelGeneralStatsBook = {
-  label: "Info",
-  icon: IoIosStats,
-};
 
 export const labelBookRating = {
   label: "Rating",
