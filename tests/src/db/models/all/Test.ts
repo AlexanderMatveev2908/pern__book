@@ -1,5 +1,5 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
-import { seqID } from "./utils.js";
+import { schemaID } from "./helpers.js";
 
 export class TestClass extends Model {
   id!: string;
@@ -8,11 +8,7 @@ export class TestClass extends Model {
 export const defineTestClass = (seq: Sequelize) =>
   TestClass.init(
     {
-      id: seqID(),
-      num: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
+      ...schemaID(),
     },
     {
       sequelize: seq,
