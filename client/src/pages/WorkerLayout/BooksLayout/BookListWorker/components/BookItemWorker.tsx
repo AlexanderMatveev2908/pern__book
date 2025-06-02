@@ -1,7 +1,7 @@
 import InfoBook from "@/components/elements/cards/books/InfoBook";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
-import ItemID from "@/components/elements/ItemID";
-import LinksCard from "@/components/elements/LinksCard";
+import ItemID from "@/components/elements/cards/shared/ItemID";
+import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookCardWorker } from "@/features/WorkerLayout/Books/fields/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
