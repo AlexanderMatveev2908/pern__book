@@ -2,7 +2,7 @@
 import InfoStoreAllUsersItem from "@/components/elements/cards/bookstore/InfoStoreAllUsersItem";
 import InfoStoreItemBusiness from "@/components/elements/cards/bookstore/InfoStoreItemBusiness";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
-import LinksCard from "@/components/elements/LinksCard";
+import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStoreWorker } from "@/features/WorkerLayout/BookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";

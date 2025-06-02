@@ -7,7 +7,6 @@ import {
   labelGeneralStatsBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/books/cards";
-import RatingFancy from "../../../../components/elements/rating/RatingFancy";
 import { HiLibrary } from "react-icons/hi";
 import {
   categoriesStoreLabel,
@@ -21,6 +20,7 @@ import {
 } from "@/features/ConsumerLayout/books/fields/card";
 import DropStatsStatic from "../../../../components/elements/dropMenus/dropSimple/DropStatsStatic";
 import DropStats from "../../../../components/elements/dropMenus/dropSimple/DropStats";
+import RatingFancy from "@/components/elements/cards/shared/rating/RatingFancy";
 
 type PropsType = {
   el: BookType;
