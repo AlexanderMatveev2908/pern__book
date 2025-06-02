@@ -3,6 +3,8 @@ import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { isObjOk } from "@/core/lib/lib";
+import ConsumerBookPage from "@/features/ConsumerLayout/books/components/ConsumerBookPage";
 import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerBooksSliceAPI";
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
@@ -37,9 +39,13 @@ const BookPageConsumer: FC = () => {
         }}
       />
 
-      <div className="p_form__1 ">
-        <Title {...{ title: book?.title }} />
-      </div>
+      {isObjOk(book) && (
+        <div className="p_form__1 ">
+          <Title {...{ title: book?.title }} />
+
+          <ConsumerBookPage {...{ book: book! }} />
+        </div>
+      )}
     </WrapPageAPI>
   );
 };

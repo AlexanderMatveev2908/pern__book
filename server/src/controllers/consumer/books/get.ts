@@ -124,6 +124,15 @@ export const getSingleBookConsumer = async (req: ReqApp, res: Response) => {
     where: {
       id: bookID,
     },
+    include: [
+      {
+        model: BookStore,
+        as: "store",
+      },
+    ],
+    attributes: {
+      include: [...calcRatingSqlBooks()],
+    },
   });
   if (!book) return err404(res, { msg: "book nt found" });
 
