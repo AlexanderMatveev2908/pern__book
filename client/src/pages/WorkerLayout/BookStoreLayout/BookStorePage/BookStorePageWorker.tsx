@@ -10,12 +10,8 @@ import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { fieldsWorkFlowStore } from "@/core/config/fieldsData/bookStores/cards";
-import { workFlowLabel } from "@/core/config/fieldsData/labels/shared";
-import InfoStoreAllUsersPage from "@/components/elements/cards/bookstore/InfoStoreAllUsersPage";
-import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
-import InfoStoreMapProp from "@/components/elements/cards/bookstore/subComponents/InfoStoreMapProp";
+import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
 
 const BookStorePageWorker: FC = () => {
   const { user } = useGetU();
@@ -79,31 +75,7 @@ const BookStorePageWorker: FC = () => {
         />
 
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <InfoStoreAllUsersPage {...{ bookStore }} />
-
-          <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-            <InfoStoreMapProp {...{ bookStore }} />
-          </div>
-          <DropStats
-            {...{
-              el: workFlowLabel,
-              fields: fieldsWorkFlowStore(bookStore),
-            }}
-          />
-
-          {/* {role === UserRole.MANAGER && (
-            <>
-              <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-                <InfoStoreMapProp {...{ bookStore }} />
-              </div>
-              <DropStats
-                {...{
-                  el: workFlowLabel,
-                  fields: fieldsWorkFlowStore(bookStore),
-                }}
-              />
-            </>
-          )} */}
+          <BookStorePage {...{ el: bookStore }} />
         </div>
 
         {isObjOk(bookStore?.video) && (
