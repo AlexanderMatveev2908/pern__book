@@ -27,7 +27,7 @@ export const infosAppHome: ItemHomeArgs[] = [
   },
   {
     CompSVG: ComingSoon,
-    txt: `Currently working on new features for the website, including an online shopping system with secure payments, enabling stock managers to also use the platform as a sales channel`,
+    txt: `Currently working on new features for the website, including an online shopping system with secure payments, to allow users to also use the platform as a sales channel`,
   },
 ].map((el) => ({
   ...el,
