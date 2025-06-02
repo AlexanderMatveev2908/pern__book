@@ -1,7 +1,12 @@
 import { DataTypes, Model } from "sequelize";
 import { refSql, schemaID } from "./utils/helpers.js";
 
-export class CartItem extends Model {}
+export class CartItem extends Model {
+  id!: string;
+  cartID!: string;
+  bookID!: string;
+  qty!: number;
+}
 
 export const defineCartItem = (seq: any) =>
   CartItem.init(

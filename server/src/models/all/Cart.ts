@@ -3,6 +3,7 @@ import { refSql, schemaID } from "./utils/helpers.js";
 
 export class Cart extends Model {
   id!: string;
+  userID!: string;
 }
 
 export type CartInstance = InstanceType<typeof Cart>;
