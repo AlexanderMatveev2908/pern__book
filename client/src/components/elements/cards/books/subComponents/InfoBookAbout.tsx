@@ -11,16 +11,17 @@ import { labelCategories } from "@/core/config/fieldsData/labels/shared";
 type PropsType = {
   el: BookType;
   abs?: boolean;
+  listen?: boolean;
 };
 
-const InfoBookAbout: FC<PropsType> = ({ el, abs }) => {
+const InfoBookAbout: FC<PropsType> = ({ el, abs, listen }) => {
   const ids = useCreateIds({
     lengths: [el?.categories?.length],
   });
 
   return !el ? null : (
     <>
-      <DropStats {...{ el: labelCategories, fields: null, abs }}>
+      <DropStats {...{ el: labelCategories, fields: null, abs, listen }}>
         {el.categories?.map((el, i) => (
           <li key={ids![0][i]} className="w-full flex justify-start">
             <span className="txt__2">{el}</span>
@@ -28,7 +29,9 @@ const InfoBookAbout: FC<PropsType> = ({ el, abs }) => {
         ))}
       </DropStats>
 
-      <DropStats {...{ el: labelBookInfo, fields: statsBookInfo(el), abs }} />
+      <DropStats
+        {...{ el: labelBookInfo, fields: statsBookInfo(el), abs, listen }}
+      />
     </>
   );
 };

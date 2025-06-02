@@ -8,11 +8,9 @@ import { type FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import InfoBookPage from "@/components/elements/cards/books/InfoBookPage";
-import InfoBookAbout from "@/components/elements/cards/books/subComponents/InfoBookAbout";
-import DataBookDB from "@/components/elements/cards/books/subComponents/DataBookDB";
+import BookPage from "@/components/elements/cards/books/BookPage";
 
-const BookPage: FC = () => {
+const BookPageOwner: FC = () => {
   const { bookID = "" } = useParams();
   const itPass = REG_ID.test(bookID);
 
@@ -41,13 +39,11 @@ const BookPage: FC = () => {
 
           <DropActionsBook {...{ book }} />
 
-          <InfoBookPage
-            {...{ book, AboutBook: InfoBookAbout, BookDataDB: DataBookDB }}
-          />
+          <BookPage {...{ el: book, isOwner: true }} />
         </div>
       )}
     </WrapPageAPI>
   );
 };
 
-export default BookPage;
+export default BookPageOwner;

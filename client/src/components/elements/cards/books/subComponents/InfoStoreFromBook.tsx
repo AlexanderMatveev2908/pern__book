@@ -10,9 +10,10 @@ import { labelCategories } from "@/core/config/fieldsData/labels/shared";
 type PropsType = {
   el: BookType;
   isOwner?: boolean;
+  listen?: boolean;
 };
 
-const InfoStoreFromBook: FC<PropsType> = ({ el, isOwner }) => {
+const InfoStoreFromBook: FC<PropsType> = ({ el, isOwner, listen }) => {
   const ids = useCreateIds({ lengths: [el?.store?.categories?.length] });
 
   return (
@@ -21,6 +22,7 @@ const InfoStoreFromBook: FC<PropsType> = ({ el, isOwner }) => {
         border: true,
         el: labelStoreBook(el?.store?.name ?? ""),
         ovHidden: false,
+        listen,
       }}
     >
       {isOwner && (

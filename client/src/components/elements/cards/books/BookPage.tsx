@@ -1,56 +1,57 @@
-import type { FC } from "react";
 import { BookType } from "@/types/all/books";
+import type { FC } from "react";
+import ImagesScroll from "../../imagesHandlers/ImagesScroll";
+import InfoBookAbout from "./subComponents/InfoBookAbout";
+import DataBookDB from "./subComponents/DataBookDB";
+import DropStats from "../../dropMenus/dropSimple/DropStats";
+import { workFlowLabel } from "@/core/config/fieldsData/labels/shared";
 import {
   fieldsWorkFlowBook,
   labelDescriptionBook,
 } from "@/core/config/fieldsData/books/cards";
-import { workFlowLabel } from "@/core/config/fieldsData/labels/shared";
 import InfoStoreFromBook from "./subComponents/InfoStoreFromBook";
-import DropStats from "../../dropMenus/dropSimple/DropStats";
-import ImagesScroll from "../../imagesHandlers/ImagesScroll";
 
 type PropsType = {
-  book: BookType;
-  hide?: boolean;
-  AboutBook: FC<{
-    el: BookType;
-    abs?: boolean;
-  }>;
-  BookDataDB: FC<{
-    el: BookType;
-  }>;
+  el: BookType;
+  isOwner?: boolean;
 };
 
-const InfoBookPage: FC<PropsType> = ({ book, AboutBook, BookDataDB }) => {
+const BookPage: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-10">
-      <ImagesScroll {...{ images: book.images }} />
+      <ImagesScroll {...{ images: el.images }} />
 
       <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
-          <AboutBook {...{ el: book }} />
+          <InfoBookAbout {...{ el, listen: true }} />
         </div>
 
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
-          <BookDataDB {...{ el: book }} />
+          <DataBookDB {...{ el, listen: true }} />
         </div>
 
         <DropStats
-          {...{ el: workFlowLabel, fields: fieldsWorkFlowBook(book) }}
+          {...{
+            el: workFlowLabel,
+            fields: fieldsWorkFlowBook(el),
+            listen: true,
+          }}
         />
 
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 ">
-          <InfoStoreFromBook {...{ el: book }} />
+          <InfoStoreFromBook {...{ el, listen: true, isOwner }} />
 
           <DropStats
             {...{
               el: labelDescriptionBook,
               fields: null,
               styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
+              ovHidden: true,
+              listen: true,
             }}
           >
             <li className="w-full flex justify-start pr-5">
-              <span className="txt__2">{book?.description ?? "N/A"}</span>
+              <span className="txt__2">{el?.description ?? "N/A"}</span>
             </li>
           </DropStats>
         </div>
@@ -59,4 +60,4 @@ const InfoBookPage: FC<PropsType> = ({ book, AboutBook, BookDataDB }) => {
   );
 };
 
-export default InfoBookPage;
+export default BookPage;
