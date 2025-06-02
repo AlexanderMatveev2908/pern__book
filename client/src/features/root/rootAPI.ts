@@ -27,7 +27,7 @@ export const rootAPI = apiSlice.injectEndpoints({
       providesTags: [TagsAPI.BOOKS_SEARCH_HOME],
     }),
 
-    getUserCart: builder.query({
+    getUserCart: builder.query<BaseResAPI<void>, void>({
       query: () => ({
         url: "/consumer/cart",
         method: "GET",
@@ -37,4 +37,4 @@ export const rootAPI = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useClearManageTokenMutation } = rootAPI;
+export const { useClearManageTokenMutation, useGetUserCartQuery } = rootAPI;

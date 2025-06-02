@@ -6,6 +6,7 @@ type PropsType = {
 };
 
 const ButtonsCart: FC<PropsType> = ({ book }) => {
+  console.log(book);
   return <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5"></div>;
 };
 
