@@ -58,6 +58,7 @@ export const useSlideImg = ({ items }: Params) => {
   );
 
   const handleClickRef = () => {
+    clickedRef.current = true;
     clearTimer(timerRef);
 
     timerRef.current = setTimeout(() => {
