@@ -37,6 +37,8 @@ export enum TagsAPI {
   BOOKS_SEARCH_HOME = "BOOKS_SEARCH_HOME",
   BOOKS_CONSUMER_LIST = "BOOKS_CONSUMER_LIST",
   BOOK_CONSUMER = "BOOK_CONSUMER",
+
+  USER_CART = "USER_CART",
 }
 
 export interface ResApp extends AxiosResponse {

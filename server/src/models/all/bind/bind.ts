@@ -12,7 +12,7 @@ import { defineOrder } from "../Order.js";
 import { defineReview } from "../Review.js";
 import { defineBook } from "../Book.js";
 import { defineTestClass } from "../Test.js";
-import { defineCart } from "../Cart.js";
+import { CartInstance, defineCart } from "../Cart.js";
 import { defineCartItem } from "../CartItem.js";
 
 export const bindModels = (seq: Sequelize) => {
@@ -28,6 +28,16 @@ export const bindModels = (seq: Sequelize) => {
   const Book = defineBook(seq);
   const Cart = defineCart(seq);
   const CartItem = defineCartItem(seq);
+
+  Cart.addHook("afterUpdate", async (cart: CartInstance, opt) => {
+    const count = await CartItem.count({
+      where: {
+        cartID: cart.id,
+      },
+    });
+
+    if (!count) await cart.destroy({ transaction: opt.transaction });
+  });
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
@@ -147,5 +157,15 @@ export const bindModels = (seq: Sequelize) => {
   CartItem.belongsTo(Cart, {
     foreignKey: "cartID",
     as: "cart",
+  });
+
+  CartItem.belongsTo(Book, {
+    foreignKey: "bookID",
+    as: "book",
+  });
+  Book.hasMany(CartItem, {
+    foreignKey: "bookID",
+    as: "items",
+    onDelete: "CASCADE",
   });
 };
