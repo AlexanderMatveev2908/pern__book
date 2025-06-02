@@ -20,20 +20,22 @@ type PropsType = {
 const InfoStoreItemBusiness: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <DropStats {...{ el: labelInfo, ovHidden: false }}>
-      <InfoStoreMapProp {...{ abs: true, bookStore: el }} />
-      {isOwner && (
-        <DropStats
-          {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
-        />
-      )}
+      <div className="w-full grid grid-cols-1 gap-4 mt-3">
+        <InfoStoreMapProp {...{ abs: true, bookStore: el }} />
+        {isOwner && (
+          <DropStats
+            {...{ abs: true, el: labelTeamStore, fields: statsTeam(el) }}
+          />
+        )}
 
-      <DropStats
-        {...{
-          el: workFlowLabel,
-          fields: fieldsWorkFlowStore(el!),
-          abs: true,
-        }}
-      />
+        <DropStats
+          {...{
+            el: workFlowLabel,
+            fields: fieldsWorkFlowStore(el!),
+            abs: true,
+          }}
+        />
+      </div>
     </DropStats>
   );
 };

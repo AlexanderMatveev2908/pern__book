@@ -21,7 +21,7 @@ const BookItem: FC<PropsType> = ({ el }) => {
         </div>
 
         <div
-          className={`w-full grid grid-cols-1 sm:h-fit sm:items-start ${
+          className={`w-full grid grid-cols-1 gap-4 sm:h-fit sm:items-start ${
             el.images?.length ? "" : "-mt-5"
           }`}
         >

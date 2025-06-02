@@ -5,7 +5,6 @@ import TooltipCpy from "@/components/elements/TooltipCpy/TooltipCpy";
 import { FaDatabase } from "react-icons/fa";
 import { labelStoreBook } from "@/core/config/fieldsData/books/cards";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
-import DropStatsStatic from "@/components/elements/dropMenus/dropSimple/DropStatsStatic";
 import { labelCategories } from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
@@ -16,10 +15,14 @@ const InfoStoreFromBook: FC<PropsType> = ({ el }) => {
   const ids = useCreateIds({ lengths: [el?.store?.categories?.length] });
 
   return (
-    <DropStatsStatic
-      {...{ border: true, el: labelStoreBook(el?.store?.name ?? "") }}
+    <DropStats
+      {...{
+        border: true,
+        el: labelStoreBook(el?.store?.name ?? ""),
+        ovHidden: false,
+      }}
     >
-      <div className="w-full grid grid-cols-[150px_1fr] items-center mb-4">
+      <div className="w-full grid grid-cols-[150px_1fr] items-center">
         <div className="w-full flex justify-start items-center gap-5">
           <FaDatabase className="icon__md" />
           <span className="txt__3">Store ID</span>
@@ -39,7 +42,7 @@ const InfoStoreFromBook: FC<PropsType> = ({ el }) => {
           </li>
         ))}
       </DropStats>
-    </DropStatsStatic>
+    </DropStats>
   );
 };
 
