@@ -1,6 +1,6 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import InfoBookAbout from "../../../../components/elements/cards/books/InfoBookAbout";
+import InfoBookAbout from "../../../../components/elements/cards/books/subComponents/InfoBookAbout";
 import {
   labelBookCard,
   labelDataBook,

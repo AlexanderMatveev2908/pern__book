@@ -1,16 +1,17 @@
-import InfoBook from "@/components/elements/cards/books/InfoBook";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookCardWorker } from "@/features/WorkerLayout/Books/fields/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
+import BookItem from "@/components/elements/cards/books/BookItem";
 
 type PropsType = {
   el: BookType;
+  isOwner?: boolean;
 };
 
-const BookItemWorker: FC<PropsType> = ({ el }) => {
+const BookItemWorker: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <div className="c_card">
       <ItemID {...{ ID: el.id }} />
@@ -21,11 +22,11 @@ const BookItemWorker: FC<PropsType> = ({ el }) => {
         </div>
 
         <div
-          className={`w-full grid grid-cols-1 sm:h-fit sm:items-start ${
+          className={`w-full grid grid-cols-1 gap-4 sm:h-fit sm:items-start ${
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoBook {...{ el }} />
+          <BookItem {...{ el, isOwner }} />
         </div>
       </div>
 

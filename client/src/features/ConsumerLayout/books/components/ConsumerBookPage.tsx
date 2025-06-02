@@ -1,4 +1,4 @@
-import InfoBookAbout from "@/components/elements/cards/books/InfoBookAbout";
+import InfoBookAbout from "@/components/elements/cards/books/subComponents/InfoBookAbout";
 import RatingFancy from "@/components/elements/cards/shared/rating/RatingFancy";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
