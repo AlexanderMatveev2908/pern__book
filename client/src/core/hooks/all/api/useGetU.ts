@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useGetUserProfileQuery } from "@/features/UserLayout/userSliceAPI";
 import { UserType } from "@/types/types";
+import { useWrapQueryAPI } from "../wrappers/useWrapQueryAPI";
 
 export const useGetU = (): {
   user: UserType;
@@ -8,11 +9,10 @@ export const useGetU = (): {
   isError: boolean;
   error: any;
 } => {
-  const {
-    data: { user = {} } = {},
-    isLoading,
-    isError,
-    error,
-  } = useGetUserProfileQuery() ?? {};
+  const res = useGetUserProfileQuery() ?? {};
+  const { data: { user = {} } = {}, isLoading, isError, error } = res;
+
+  useWrapQueryAPI({ ...res });
+
   return { user: user as UserType, isLoading, isError, error };
 };

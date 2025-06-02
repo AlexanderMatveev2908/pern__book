@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
@@ -7,12 +6,11 @@ import { DispatchType } from "../../store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "../../features/common/Header/headerSlice";
 import DropDown from "./components/DropDown";
-import { useGetUserProfileQuery } from "../../features/UserLayout/userSliceAPI";
 import { getAuthState } from "../../features/AuthLayout/authSlice";
-import { getData, getStorage, isObjOk, saveStorage } from "@/core/lib/lib";
-import { StorageKeys, UserType } from "@/types/types";
-import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { getStorage, isObjOk, saveStorage } from "@/core/lib/lib";
+import { StorageKeys } from "@/types/types";
 import MiniSpinner from "@/components/elements/spinners/MiniSpinner/MiniSpinner";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 const capitalize = (str?: string) => str?.at(0) ?? "";
 
@@ -25,11 +23,7 @@ const Header: FC = () => {
   const isSideOpen = useSelector(getSIde).isSideOpen;
   const { isLogged } = useSelector(getAuthState);
 
-  const res: any = useGetUserProfileQuery();
-  useWrapQueryAPI({ ...res });
-
-  const { data, isLoading } = res;
-  const user: UserType = getData(data, "user");
+  const { user, isLoading } = useGetU();
 
   useEffect(() => {
     if (isObjOk(user)) {
