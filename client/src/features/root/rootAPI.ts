@@ -26,6 +26,14 @@ export const rootAPI = apiSlice.injectEndpoints({
       }),
       providesTags: [TagsAPI.BOOKS_SEARCH_HOME],
     }),
+
+    getUserCart: builder.query({
+      query: () => ({
+        url: "/consumer/cart",
+        method: "GET",
+      }),
+      providesTags: [TagsAPI.USER_CART],
+    }),
   }),
 });
 
