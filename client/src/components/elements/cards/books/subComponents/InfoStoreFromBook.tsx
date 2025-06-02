@@ -9,9 +9,10 @@ import { labelCategories } from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   el: BookType;
+  isOwner?: boolean;
 };
 
-const InfoStoreFromBook: FC<PropsType> = ({ el }) => {
+const InfoStoreFromBook: FC<PropsType> = ({ el, isOwner }) => {
   const ids = useCreateIds({ lengths: [el?.store?.categories?.length] });
 
   return (
@@ -22,18 +23,20 @@ const InfoStoreFromBook: FC<PropsType> = ({ el }) => {
         ovHidden: false,
       }}
     >
-      <div className="w-full grid grid-cols-[150px_1fr] items-center">
-        <div className="w-full flex justify-start items-center gap-5">
-          <FaDatabase className="icon__md" />
-          <span className="txt__3">Store ID</span>
-        </div>
+      {isOwner && (
+        <div className="w-full grid grid-cols-[150px_1fr] items-center">
+          <div className="w-full flex justify-start items-center gap-5">
+            <FaDatabase className="icon__md" />
+            <span className="txt__3">Store ID</span>
+          </div>
 
-        <div className="w-full h-full">
-          <TooltipCpy
-            {...{ txt: el?.bookStoreID, bd: false, align: "right-0" }}
-          />
+          <div className="w-full h-full">
+            <TooltipCpy
+              {...{ txt: el?.bookStoreID, bd: false, align: "right-0" }}
+            />
+          </div>
         </div>
-      </div>
+      )}
 
       <DropStats {...{ el: labelCategories, abs: true }}>
         {el?.store?.categories?.map((el, i) => (

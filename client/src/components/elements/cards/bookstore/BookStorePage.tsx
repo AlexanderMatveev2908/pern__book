@@ -42,6 +42,7 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
             fields: null,
             styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
             listen: true,
+            ovHidden: true,
           }}
         >
           <li className="w-full flex justify-start pr-5">

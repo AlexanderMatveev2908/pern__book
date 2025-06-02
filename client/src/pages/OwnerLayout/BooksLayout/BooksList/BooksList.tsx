@@ -8,7 +8,6 @@ import { __cg, isArr } from "@/core/lib/lib";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { FormProvider } from "react-hook-form";
-import BookItem from "./components/BookItem";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import PdfBtn from "./components/PdfBtn";
 import {
@@ -20,6 +19,7 @@ import {
 import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
+import BookItemOwner from "./components/BookItemOwner";
 
 const BooksList: FC = () => {
   const { user } = useGetU();
@@ -82,7 +82,7 @@ const BooksList: FC = () => {
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
           <div className="p_cards">
             {isArr(books) &&
-              books!.map((el) => <BookItem key={el.id} {...{ el }} />)}
+              books!.map((el) => <BookItemOwner key={el.id} {...{ el }} />)}
           </div>
         </WrapperContentAPI>
       </div>

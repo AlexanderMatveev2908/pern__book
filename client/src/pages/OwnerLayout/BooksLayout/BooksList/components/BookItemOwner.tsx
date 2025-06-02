@@ -4,13 +4,13 @@ import type { FC } from "react";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookCard } from "@/features/OwnerLayout/books/fields/actions";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
-import InfoBook from "@/components/elements/cards/books/InfoBook";
+import BookItem from "@/components/elements/cards/books/BookItem";
 
 type PropsType = {
   el: BookType;
 };
 
-const BookItem: FC<PropsType> = ({ el }) => {
+const BookItemOwner: FC<PropsType> = ({ el }) => {
   return (
     <div className="c_card">
       <ItemID {...{ ID: el.id }} />
@@ -25,7 +25,7 @@ const BookItem: FC<PropsType> = ({ el }) => {
             el.images?.length ? "" : "-mt-5"
           }`}
         >
-          <InfoBook {...{ el }} />
+          <BookItem {...{ el }} />
         </div>
       </div>
 
@@ -34,4 +34,4 @@ const BookItem: FC<PropsType> = ({ el }) => {
   );
 };
 
-export default BookItem;
+export default BookItemOwner;

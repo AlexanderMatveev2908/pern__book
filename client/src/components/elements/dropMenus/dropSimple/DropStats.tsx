@@ -31,7 +31,7 @@ const DropStats: FC<PropsType> = ({
   border,
   styleUL,
   abs,
-  ovHidden = true,
+  ovHidden,
   listen,
 }) => {
   const [isDropOpen, setIsDropOpen] = useState(
