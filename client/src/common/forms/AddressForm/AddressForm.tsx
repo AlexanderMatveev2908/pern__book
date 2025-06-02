@@ -5,15 +5,10 @@ import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwa
 import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { BtnAct, FormFieldBasic } from "@/types/types";
-import { Eraser } from "lucide-react";
 import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-
-const clearBtnField = {
-  label: "Clear",
-  icon: Eraser,
-};
+import { clearBtnField } from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   swapID: string;

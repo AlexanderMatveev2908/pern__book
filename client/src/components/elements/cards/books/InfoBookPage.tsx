@@ -4,7 +4,7 @@ import {
   fieldsWorkFlowBook,
   labelDescriptionBook,
 } from "@/core/config/fieldsData/books/cards";
-import { workFlowLabel } from "@/core/config/fieldsData/labels";
+import { workFlowLabel } from "@/core/config/fieldsData/labels/shared";
 import InfoStoreFromBook from "./InfoStoreFromBook";
 import DropStats from "../../dropMenus/dropSimple/DropStats";
 import ImagesScroll from "../../imagesHandlers/ImagesScroll";

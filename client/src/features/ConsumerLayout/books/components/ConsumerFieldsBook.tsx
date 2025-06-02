@@ -4,12 +4,10 @@ import InfoBookAbout from "../../../../components/elements/cards/books/InfoBookA
 import {
   labelBookCard,
   labelDataBook,
-  labelGeneralStatsBook,
   showGeneralStatsBook,
 } from "@/core/config/fieldsData/books/cards";
 import { HiLibrary } from "react-icons/hi";
 import {
-  categoriesStoreLabel,
   labelDelivery,
   labelFieldAddressStore,
 } from "@/core/config/fieldsData/bookStores/cards";
@@ -21,6 +19,10 @@ import {
 import DropStatsStatic from "../../../../components/elements/dropMenus/dropSimple/DropStatsStatic";
 import DropStats from "../../../../components/elements/dropMenus/dropSimple/DropStats";
 import RatingFancy from "@/components/elements/cards/shared/rating/RatingFancy";
+import {
+  labelCategories,
+  labelInfo,
+} from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   el: BookType;
@@ -40,7 +42,7 @@ const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
         <InfoBookAbout {...{ el, border: true, abs: true }} />
       </DropStatsStatic>
 
-      <DropStatsStatic {...{ el: labelGeneralStatsBook, border: true }}>
+      <DropStatsStatic {...{ el: labelInfo, border: true }}>
         <DropStats
           {...{
             el: labelDataBook,
@@ -65,7 +67,7 @@ const ConsumerFieldsBook: FC<PropsType> = ({ el }) => {
 
         <DropStats
           {...{
-            el: categoriesStoreLabel,
+            el: labelCategories,
             abs: true,
           }}
         >
