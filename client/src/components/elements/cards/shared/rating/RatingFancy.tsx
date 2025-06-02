@@ -1,5 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
@@ -11,6 +9,7 @@ import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
 type PropsType = {
   el: BookType;
   abs?: boolean;
+  listen?: boolean;
 };
 
 type StrRat = "full" | "half" | "none";
@@ -47,7 +46,7 @@ const arrKeys = () => {
   }));
 };
 
-const RatingFancy: FC<PropsType> = ({ el, abs }) => {
+const RatingFancy: FC<PropsType> = ({ el, abs, listen }) => {
   // ? FIRST 2 UTILS TO AVOID WRITE TTO MUCH,
   // ? STARS AVG RATING
   // ? NUMBERS OF COUNTERS OF RATINGS FROM 1 TO 5
@@ -57,7 +56,7 @@ const RatingFancy: FC<PropsType> = ({ el, abs }) => {
   });
 
   return (
-    <DropStats {...{ abs, el: labelBookRating, fields: null }}>
+    <DropStats {...{ abs, el: labelBookRating, fields: null, listen }}>
       <div className="w-full flex justify-between items-center">
         {ids[0].map((id, i) => (
           <div

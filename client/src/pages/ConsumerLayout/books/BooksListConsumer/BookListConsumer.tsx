@@ -17,7 +17,6 @@ import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerB
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItemConsumer from "./components/BookItemConsumer";
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 
 const BookListConsumer: FC = () => {
   const { formSearchBooksConsumerCtx: formCtx } = useFormCtxConsumer();
