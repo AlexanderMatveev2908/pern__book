@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/forms/SearchBar/SearchBar";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   fieldsSearchStore,
@@ -16,7 +16,7 @@ import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSl
 import { __cg, isArr } from "@/core/lib/lib";
 import BookStoreItemOwner from "./components/BookStoreItem";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/store";
+import { searchBarStore } from "@/features/common/SearchBar/schemasZ/owner/store";
 
 const BookStores: FC = () => {
   const { user } = useGetU();

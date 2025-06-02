@@ -2,11 +2,11 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
-import { searchBarStore } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/store";
-import { schemaSearchBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/owner/books";
-import { schemaWorkerStores } from "@/core/lib/all/forms/schemaZ/SearchBar/worker/stores";
-import { searchBooksWorkerSchema } from "@/core/lib/all/forms/schemaZ/SearchBar/worker/books";
-import { schemaConsumerBooks } from "@/core/lib/all/forms/schemaZ/SearchBar/consumer/books";
+import { searchBarStore } from "@/features/common/SearchBar/schemasZ/owner/store";
+import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
+import { schemaConsumerBooks } from "@/features/common/SearchBar/schemasZ/consumer/books";
+import { schemaWorkerStores } from "@/features/common/SearchBar/schemasZ/worker/stores";
+import { searchBooksWorkerSchema } from "@/features/common/SearchBar/schemasZ/worker/books";
 
 export type SearchStoreFormType = z.infer<typeof searchBarStore>;
 export type BookFormType = z.infer<typeof schemaBookForm>;
