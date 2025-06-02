@@ -37,7 +37,6 @@ export const useDebounceSearch = ({
     oldVals,
     preSubmit: { canMakeAPI, isPopulated, hasFormErrs },
     setPreSubmit,
-    pagination: { page },
   } = ctx;
 
   const { keyStorage } = useGetSearchKeysStorage();
@@ -56,7 +55,7 @@ export const useDebounceSearch = ({
 
       const currVals = cpyObj({
         ...getValues(),
-        ...getDefValsPagination(page),
+        ...getDefValsPagination(),
       });
 
       if (currVals === oldVals.current)
@@ -100,6 +99,5 @@ export const useDebounceSearch = ({
     isPopulated,
     setPreSubmit,
     oldVals,
-    page,
   ]);
 };

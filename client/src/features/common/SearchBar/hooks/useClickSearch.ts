@@ -31,7 +31,6 @@ export const useClickSearch = ({
 
   const {
     setIsPending,
-    pagination: { limit },
     updateValsNoDebounce,
     setPagination,
     setInnerJoinedCat,
@@ -43,18 +42,11 @@ export const useClickSearch = ({
 
     const data = cpyObj({
       ...getValues(),
-      ...getDefValsPagination(0, limit),
+      ...getDefValsPagination(0),
     });
 
     updateValsNoDebounce({ vals: data, triggerRtk, routeID });
-  }, [
-    limit,
-    getValues,
-    setIsPending,
-    triggerRtk,
-    routeID,
-    updateValsNoDebounce,
-  ]);
+  }, [getValues, setIsPending, triggerRtk, routeID, updateValsNoDebounce]);
 
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });
