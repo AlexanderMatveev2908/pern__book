@@ -104,8 +104,8 @@ const PagesCounter: FC<PropsType> = ({
   }, [sizeBLock, page]);
 
   useEffect(() => {
-    if (page >= totPages) handlePagination({ val: 0, pageParam: "page" });
-  }, [page, handlePagination, totPages]);
+    if (page >= totPages) setPagPreventFetch({ el: "page", val: 0 });
+  }, [page, setPagPreventFetch, totPages]);
 
   const handlePrev = useCallback(
     () => (currBlock ? setCurrBlock((prev) => prev - 1) : null),
