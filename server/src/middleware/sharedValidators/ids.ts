@@ -21,6 +21,11 @@ export const validateIDs = [
   }),
 ];
 
+export const checkStoreID = [
+  check("bookStoreID").matches(REG_ID).withMessage("Invalid ID"),
+  handleValidator(422),
+];
+
 export const checkBookID = [
   check("bookID").matches(REG_ID).withMessage("Invalid book ID format"),
 

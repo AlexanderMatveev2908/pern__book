@@ -12,8 +12,8 @@ import { updateBookStore } from "../../controllers/adminBookStore/put.js";
 import { checkTeam } from "../../middleware/adminStore/checkTeam.js";
 import { deleteStore } from "../../controllers/adminBookStore/delete.js";
 import { validateQueryListStores } from "../../middleware/adminStore/listStores.js";
-import { checkStoreID } from "../../middleware/adminStore/checkStoreID.js";
 import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
+import { checkStoreID } from "../../middleware/sharedValidators/ids.js";
 
 const adminExpressRouterStore = express.Router();
 

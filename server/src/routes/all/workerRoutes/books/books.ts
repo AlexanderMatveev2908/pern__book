@@ -1,5 +1,4 @@
 import express from "express";
-import { checkStoreID } from "../../../../middleware/adminStore/checkStoreID.js";
 import { wrapApp } from "../../../../middleware/general/wrapApp.js";
 import {
   getBookListWorker,
@@ -10,7 +9,10 @@ import { multerMemoryStorage } from "../../../../middleware/multer/memoryStorage
 import { logJSON } from "../../../../lib/utils/log.js";
 import { addBookWorker } from "../../../../controllers/workerRouter/books/post.js";
 import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
-import { checkBookID } from "../../../../middleware/sharedValidators/ids.js";
+import {
+  checkBookID,
+  checkStoreID,
+} from "../../../../middleware/sharedValidators/ids.js";
 import { updateBookWorker } from "../../../../controllers/workerRouter/books/put.js";
 import { deleteBookWorker } from "../../../../controllers/workerRouter/books/delete.js";
 import { checkSearchBooksWorker } from "../../../../middleware/workerRouter/books/checkSearchBooksWorker.js";

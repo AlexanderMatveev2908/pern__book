@@ -1,13 +1,14 @@
 import { Response } from "express";
-import { ReqApp } from "../../types/types.js";
-import { Book } from "../../models/all/Book.js";
-import { literal, Op } from "sequelize";
-import { res200, res204 } from "../../lib/responseClient/res.js";
-import { sortItems } from "../../lib/query/sort.js";
-import { calcPagination } from "../../lib/query/pagination.js";
-import { makeQueryBooksConsumer } from "../../lib/query/consumer/books.js";
-import { calcRatingSqlBooks } from "../../lib/query/general.js";
-import { BookStore } from "../../models/all/BookStore.js";
+import { ReqApp } from "../../../types/types.js";
+import { Book } from "../../../models/all/Book.js";
+import { literal, Op, where } from "sequelize";
+import { res200, res204 } from "../../../lib/responseClient/res.js";
+import { sortItems } from "../../../lib/query/sort.js";
+import { calcPagination } from "../../../lib/query/pagination.js";
+import { makeQueryBooksConsumer } from "../../../lib/query/consumer/books.js";
+import { calcRatingSqlBooks } from "../../../lib/query/general.js";
+import { BookStore } from "../../../models/all/BookStore.js";
+import { err404 } from "../../../lib/responseClient/err.js";
 
 const withImages = {
   [Op.and]: [
@@ -114,4 +115,17 @@ export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
   const { totPages, paginated } = calcPagination({ req, nHits, els: sorted });
 
   return res200(res, { totPages, nHits, books: paginated });
+};
+
+export const getSingleBookConsumer = async (req: ReqApp, res: Response) => {
+  const { bookID } = req.params;
+
+  const book = await Book.findOne({
+    where: {
+      id: bookID,
+    },
+  });
+  if (!book) return err404(res, { msg: "book nt found" });
+
+  return res200(res, { msg: "✌🏽", book });
 };
