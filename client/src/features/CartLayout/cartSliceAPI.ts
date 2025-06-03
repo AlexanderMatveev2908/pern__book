@@ -2,8 +2,9 @@
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { catchErr, isArrOk } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
-import { BaseResAPI } from "@/types/types";
+import { BaseResAPI, TagsAPI } from "@/types/types";
 import { rootAPI } from "../root/rootAPI";
+import { CartType } from "@/types/all/Cart";
 
 const B_URL = "/consumer/cart";
 
@@ -26,26 +27,33 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
               if (!isArrOk(draft?.cart?.items))
                 draft.cart = {
                   items: [],
-                } as any;
+                } as unknown as CartType;
 
               const index = draft.cart.items.findIndex(
                 (item) => item.bookID === bookID
               );
-              if (index === -1)
+              if (index === -1) {
                 draft.cart.items.push({
                   bookID,
-                  cartID: "",
-                  id: "",
+                  cartID: "👻",
+                  id: "👻",
                   qty: 1,
                 });
-              else
-                draft.cart.items[index].qty +=
-                  act === KEY_ACTION_CART.INC_QTY_CART ? 1 : -1;
+              } else {
+                if (act === KEY_ACTION_CART.REMOVE_FROM_CART)
+                  draft.cart.items.splice(index, 1);
+                else
+                  draft.cart.items[index].qty +=
+                    act === KEY_ACTION_CART.INC_QTY_CART ? 1 : -1;
+              }
             })
           );
 
           try {
             await queryFulfilled;
+            dispatch(
+              rootAPI.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
+            );
           } catch (err: any) {
             console.log(err);
 

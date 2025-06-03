@@ -10,9 +10,6 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
-import { clearDB } from "./stuff/clear.js";
-import { populateDB, resetEmailJunction } from "./stuff/populateDB.js";
-import { createUserSDA } from "./stuff/sda.js";
 
 const app = express();
 const PORT = process.env.PORT ? +process.env.PORT : 3000;
