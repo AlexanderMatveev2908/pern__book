@@ -10,9 +10,10 @@ type PropsType = {
     keyAction: KEY_ACTION_CART;
     act: BtnAct;
   };
+  disabled?: boolean;
 };
 
-const WrapBtnCart: FC<PropsType> = ({ label }) => {
+const WrapBtnCart: FC<PropsType> = ({ label, disabled }) => {
   return (
     <div className="w-full max-w-[75px] flex justify-center">
       <ButtonIcon
@@ -20,6 +21,7 @@ const WrapBtnCart: FC<PropsType> = ({ label }) => {
           act: label.act,
           el: label,
           handleClick: () => console.log(label.keyAction),
+          isDisabled: disabled,
         }}
       />
     </div>

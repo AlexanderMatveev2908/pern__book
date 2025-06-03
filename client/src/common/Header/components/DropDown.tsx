@@ -11,6 +11,7 @@ import {
 } from "@/features/common/Header/fields/header.ts";
 import { UserType } from "@/types/types.ts";
 import CartLi from "./subComponents/CartLi.tsx";
+import { IoMdInformationCircleOutline } from "react-icons/io";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,
@@ -146,7 +147,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, user }) => {
 
           setIsOpen(!isOpen);
         }}
-        className="group btn__logic_sm w-[45px] h-[45px] flex justify-center items-center"
+        className="group btn__logic_sm w-[45px] h-[45px] flex justify-center items-center relative"
         onMouseEnter={() => {
           windowWrapper(() => {
             setHasClicked(false);
@@ -169,6 +170,12 @@ const DropDown: FC<PropsType> = ({ isLogged, init, user }) => {
           </div>
         ) : (
           <FaRegUser className="min-w-[35px] min-h-[35px] icon__logic" />
+        )}
+
+        {!!user?.cartCount && (
+          <div className="absolute -top-3  -right-4 z-60 bg-[#000] rounded-full">
+            <IoMdInformationCircleOutline className="icon__md text-blue-600" />
+          </div>
         )}
       </div>
     </div>
