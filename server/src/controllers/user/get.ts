@@ -83,7 +83,7 @@ export const getUserProfile = async (
         ],
         [
           literal(`(
-          SELECT COALESCE(COUNT(DISTINCT ci.id), 0)
+          SELECT COALESCE(SUM(DISTINCT ci.qty), 0)
           FROM "carts" AS c
           INNER JOIN "cart_items" AS ci ON c."id" = ci."cartID"
           WHERE c."userID" = "User"."id"

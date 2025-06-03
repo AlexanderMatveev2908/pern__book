@@ -10,10 +10,14 @@ import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ReadContent from "./components/ReadContent";
 import ButtonsCart from "./components/ButtonsCart";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import PlaceholderLogic from "./components/PlaceholderLogic";
+import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
 
 const BookPageConsumer: FC = () => {
   const bookID = useParams()?.bookID;
   const isValidID = REG_ID.test(bookID ?? "");
+  const { user, isLoading } = useGetU();
 
   const res = consumerBooksSliceAPI.endpoints.getBookConsumer.useQuery(
     bookID!,
@@ -48,7 +52,15 @@ const BookPageConsumer: FC = () => {
           <div className="w-full grid grid-cols-1 gap-10">
             <ImagesScroll {...{ images: book!.images }} />
 
-            <ButtonsCart {...{ book: book! }} />
+            {isLoading ? (
+              <div className="w-full flex justify-center">
+                <SpinnerBtn />
+              </div>
+            ) : user?.isVerified ? (
+              <ButtonsCart {...{ book: book! }} />
+            ) : (
+              <PlaceholderLogic />
+            )}
 
             <ReadContent {...{ book: book! }} />
           </div>

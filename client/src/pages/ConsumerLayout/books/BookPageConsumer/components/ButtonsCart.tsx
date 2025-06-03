@@ -30,7 +30,11 @@ const ButtonsCart: FC<PropsType> = ({ book }) => {
     >
       <div className="w-full grid grid-cols-2 items-center justify-items-center">
         <WrapBtnCart
-          {...{ label: labelAddCart, disabled: !book?.qty, bookID: book.id }}
+          {...{
+            label: labelAddCart,
+            disabled: !book?.qty || existentItemCartQty >= book?.qty,
+            bookID: book.id,
+          }}
         />
 
         <div className="w-full max-w-[50px] flex justify-center">
