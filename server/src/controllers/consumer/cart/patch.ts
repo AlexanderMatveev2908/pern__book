@@ -4,5 +4,9 @@ import { ReqApp } from "../../../types/types.js";
 import { tErr } from "../../../stuff/quick.js";
 
 export const patchCartByClick = async (req: ReqApp, res: Response) => {
+  const { body, userID } = req;
+
+  console.log(body);
+
   return res200(res, {});
 };
