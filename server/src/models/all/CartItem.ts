@@ -8,6 +8,8 @@ export class CartItem extends Model {
   qty!: number;
 }
 
+export type CartItemInstance = InstanceType<typeof CartItem>;
+
 export const defineCartItem = (seq: any) =>
   CartItem.init(
     {

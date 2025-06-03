@@ -1,9 +1,11 @@
 import { Model, Sequelize } from "sequelize";
 import { refSql, schemaID } from "./utils/helpers.js";
+import { CartItemInstance } from "./CartItem.js";
 
 export class Cart extends Model {
   id!: string;
   userID!: string;
+  items?: CartItemInstance[];
 }
 
 export type CartInstance = InstanceType<typeof Cart>;

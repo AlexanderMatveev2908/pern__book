@@ -17,12 +17,6 @@ const PORT = process.env.PORT ? +process.env.PORT : 3000;
 app.set("trust proxy", 1);
 
 const server = http.createServer(app);
-// const io = new Server(server, {
-//   transports: ["websocket"],
-//   cors: {
-//     origin: frontURL,
-//   },
-// });
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -62,7 +56,6 @@ const start = async () => {
       err: err.message,
       stack: err.stack,
     });
-    // 0 fail 1 success
     process.exit(1);
   }
 };

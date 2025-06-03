@@ -5,15 +5,16 @@ import { patchCartByClick } from "../../../../controllers/consumer/cart/patch.js
 import { logJSON } from "../../../../lib/utils/log.js";
 import { checkCartCLick } from "../../../../middleware/consumer/checkCartClick.js";
 import { verifyAccessToken } from "../../../../middleware/protected/verifyAccessToken.js";
+import { getUserID } from "../../../../middleware/protected/getUserID.js";
 
 const cartRouter = express.Router();
 
-cartRouter.get("/", wrapApp(getCart));
+cartRouter.get("/", getUserID, wrapApp(getCart));
 cartRouter.patch(
   "/click/:bookID",
+  wrapApp(logJSON),
   verifyAccessToken({ isVerified: true }),
   checkCartCLick,
-  wrapApp(logJSON),
   wrapApp(patchCartByClick)
 );
 

@@ -1,11 +1,13 @@
 {
+  "body": {
+    "act": "INC_QTY_CART"
+  },
   "files": {},
   "file": {},
-  "query": {
-    "page": "0",
-    "limit": "8"
+  "query": {},
+  "params": {
+    "bookID": "1fff5a5d-1171-4318-a81c-3416af3cea4b"
   },
-  "params": {},
-  "auth": {},
-  "refresh": {}
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNTJiMDlmLWY1ZmItNDY1Ni1hNmI4LWFjODkzZGRlMDVhNSIsImlhdCI6MTc0ODk1MjY4MywiZXhwIjoxNzQ4OTUyNzQzfQ.H5BV4QBVI_N_lAZ9xlrZ7aE4jL3OqkNRBKEX4ypQx90",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.Z3un49NhoC5UwDNzfgbT26b8JETKrfhJPJEfA54CRRBmbAI4eyxRHm6Z0LrWvIQYS_WdD1uiAJ-rPu_xEAgga7eguqbrcmVNgXPqR5t_dSJ8mFbTZPyRAI-VYBWR7-GyqYgFcU-q63WJLKsZoDabK-LDkukOpBRYZf9ZnEovbMo1PwHl3p0FNiPwrJIVstEoCyHrV8DFih7odNlnKx7GrE-Jjq2Nf-SKTWtwBViF4_3evFB3XMQdIcN5DBacoEwx3pr5L4xAomuUrxew9BWwH3qLCqVgZxBcKgjfJULb5QxJ7UKGQIqu_uD6_1mnziqOsqA_oqKyzrZK2kVA96baow.y2lbUcqwvHk2i_qW.oAepyJc3FtF09htLNqR1IBUOrht-j_V2b4mgYJS9RvgwAlSAD3Ob-VgOihhU.JKkNp1ssVlrzo5sY03dSoA"
 }
