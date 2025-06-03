@@ -46,9 +46,7 @@ const Header: FC = () => {
           {isLoading && !init ? (
             <MiniSpinner />
           ) : (
-            <DropDown
-              {...{ isLogged, isLoading, init, isVerified: user?.isVerified }}
-            />
+            <DropDown {...{ isLogged, isLoading, init, user }} />
           )}
 
           <button
@@ -67,17 +65,3 @@ const Header: FC = () => {
   );
 };
 export default Header;
-
-// const res = useGetUserProfileQuery(
-//   {}
-// {
-// refetchOnMountOrArgChange: false,
-// refetchOnReconnect: false,
-// refetchOnFocus: false,
-// skip:false,
-// pollingInterval:5000,
-// selectFromResult: ({ data, isLoading, error, ...rest }) => {
-//   return { data, isLoading, error, ...rest };
-// },
-// }
-// );
