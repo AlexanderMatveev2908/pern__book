@@ -23,7 +23,7 @@ const ShowImagesData: FC<PropsType> = ({
 
   return (
     <div
-      className={`w-fit max-w-full flex border-[3px] rounded-xl overflow-scroll scrollbar__hidden gap-6 ${
+      className={`w-full max-w-fit flex border-[3px] rounded-xl overflow-auto scroll_x scroll_app gap-6 ${
         isVal
           ? "border-blue-600 p-3 scale-100 transition-all duration-300 delay-75"
           : "border-transparent p-0 scale-0"

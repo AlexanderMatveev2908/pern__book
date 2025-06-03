@@ -1,13 +1,11 @@
 {
-  "body": {
-    "act": "INC_QTY_CART"
-  },
   "files": {},
   "file": {},
-  "query": {},
-  "params": {
-    "bookID": "e4277bd9-7389-4349-8bfa-654e69ef2bf3"
+  "query": {
+    "page": "0",
+    "limit": "8"
   },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNTJiMDlmLWY1ZmItNDY1Ni1hNmI4LWFjODkzZGRlMDVhNSIsImlhdCI6MTc0ODk2MjU0MywiZXhwIjoxNzQ4OTYyNjAzfQ.oky0pO792VSLGHTaytHsgZPyWDP5jYg7hsrmeZgp-0s",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.N8YeCWw30cqWFwRG46EiUXYFCBJo39oEVZFZ4XYxa6qnb_ZpuaXEzEx-aH9CaKtSygYZpB_HNrHisHlr3gWg6bQtXEtOM462VhpmHxs0M90qLJrNF4Y5mDUTRLr7nWqRiyLkkvUJPfxk0gnQXxTlFLyzS1nD2TERcIHaaa3jrhHrlG4o81nrsTHpyIi3idYl5mNoagQENX_mkFZux5Z7seIiGEILRhvrr5DiJT6wrEuy52io5bT_q8r8iVFPXcRkkQt8C2QORKm4fGuTPbEbLwJUNQNq6SYC5OtOcY2H_ySmSp7aLPTHelCVX81_r70tATZqVjkenwfrfDp5XaWBFg.xdPuisI5a-9UrK2T.kcZnrDTAO34iC3QLjUe4r8aIYCFUq-0iELgBtTD89nG-4AQXwS-Q11_Qf33P.XhX8fyW05P2odig6sinmtA"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjllNTJiMDlmLWY1ZmItNDY1Ni1hNmI4LWFjODkzZGRlMDVhNSIsImlhdCI6MTc0ODk2NzcyOSwiZXhwIjoxNzQ4OTY3Nzg5fQ.ByOi9ptzeqOMqbCpbw5wlyCdy_JAJteXlql-qOleyxY",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.DIssppM7Qfoi4-yeOFwqpPjXfTWz1gopVii7k-LRq2WElKDTLAlaqO_I9JyOzPUlkhHG4MSuE1b3y2x2MaJFleTltEsWfQdo3gdQPAbR3mWBfdyJGAAstPnenZMpJGtUa9qD9Xg0HhoKxzna-_Ot7ZnrUCZqmvl37k5WZxjZ7CrgCDZ85n8V1R_tnF18FgIMsXaEdF_-F9cHHxkxXnNwR1p6MwAtevYZApEriiWysT9lxyvm5MEwCtOdvaZyZwkw9sIhTIApx0wx_E0cICrCo_wVwZveMTTtE0-piXePMvO9EWgxnegesTGyu17RaMs8X9CGparfw_87wef5hfj-Hw.sCWOub1JmIPda6-j.vahTYIhgRGEdTbp-rStxEo4O5qGrWIFUyY-0xH-XVRWKbhJCGhIpga_3Hpmb.xGEAl7M9n7x84HCQ3joVqQ"
 }
