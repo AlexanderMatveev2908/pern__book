@@ -5,8 +5,8 @@ export type CartItemType = {
   bookID: string;
   cartID: string;
   qty: number;
-  book: BookType;
-  cart: CartType;
+  book?: BookType;
+  cart?: CartType;
 };
 
 export type CartType = {
