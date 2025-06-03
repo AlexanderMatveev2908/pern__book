@@ -84,6 +84,8 @@ const Toast: FC = () => {
 
   const animatePrev = useCallback(() => {
     toastRef?.current?.classList.remove("in");
+    counterRef?.current?.classList.remove("timer");
+
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add("out");
     });
