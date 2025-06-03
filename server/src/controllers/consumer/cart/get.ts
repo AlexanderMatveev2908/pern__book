@@ -4,6 +4,7 @@ import { ReqApp } from "../../../types/types.js";
 import { Cart } from "../../../models/all/Cart.js";
 import { CartItem } from "../../../models/all/CartItem.js";
 import { Book } from "../../../models/all/Book.js";
+import { BookStore } from "../../../models/all/BookStore.js";
 
 export const getCart = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -19,10 +20,26 @@ export const getCart = async (req: ReqApp, res: Response) => {
         model: CartItem,
         as: "items",
         required: true,
+        separate: true,
         include: [
           {
             model: Book,
             as: "book",
+            required: true,
+            include: [
+              {
+                model: BookStore,
+                as: "store",
+                required: true,
+                attributes: [
+                  "id",
+                  "name",
+                  "deliveryPrice",
+                  "freeDeliveryAmount",
+                  "deliveryTime",
+                ],
+              },
+            ],
           },
         ],
       },
