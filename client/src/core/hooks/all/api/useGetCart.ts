@@ -1,21 +1,20 @@
 import { useGetUserCartQuery } from "@/features/root/rootAPI";
 import { useWrapQueryAPI } from "../wrappers/useWrapQueryAPI";
+import { useGetU } from "./useGetU";
 
 export const useGetCart = () => {
-  const resCart = useGetUserCartQuery();
+  const { user } = useGetU();
+
+  const resCart = useGetUserCartQuery(undefined, {
+    skip: !user?.isVerified,
+  });
   useWrapQueryAPI({ ...resCart });
 
-  const {
-    data: { cart } = {},
-    isLoading,
-    isFetching,
-    isError,
-    error,
-  } = resCart ?? {};
+  const { data: { cart } = {}, isLoading, isError, error } = resCart ?? {};
 
   return {
     cart,
-    isLoading: isLoading || isFetching,
+    isLoading,
     isError,
     error,
   };
