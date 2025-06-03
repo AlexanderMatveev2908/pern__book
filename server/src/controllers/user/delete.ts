@@ -146,7 +146,12 @@ export const deleteAccount = async (
         }
         if (el.team?.length) {
           for (const jun of el.team) {
-            jun.destroy({ transaction: t });
+            await BookStoreUser.destroy({
+              where: {
+                userID: jun.id,
+              },
+              transaction: t,
+            });
           }
         }
 
