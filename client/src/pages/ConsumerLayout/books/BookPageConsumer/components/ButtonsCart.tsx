@@ -11,7 +11,7 @@ type PropsType = {
   book: BookType;
 };
 
-const ButtonsCart: FC<PropsType> = ({ book }) => {
+const ButtonsCart: FC<PropsType> = () => {
   return (
     <div
       className="w-full justify-items-center items-center gap-x-5 gap-y-5 md:max-w-[600px] justify-self-center"

@@ -1,7 +1,7 @@
 import { FC, useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { FaRegUser } from "react-icons/fa";
-import LogoutLi from "./LogoutLi.tsx";
+import LogoutLi from "./subComponents/LogoutLi.tsx";
 import { getPropsNav } from "@/core/lib/lib.ts";
 import { tailwindBreak } from "@/core/config/breakpoints.ts";
 import { LinksLoggedDrop } from "@/features/AuthLayout/fields/links.ts";
@@ -9,6 +9,8 @@ import {
   fieldsHeaderDropLogged,
   fieldsHeaderDropNonLogged,
 } from "@/features/common/Header/fields/header.ts";
+import { UserType } from "@/types/types.ts";
+import CartLi from "./subComponents/CartLi.tsx";
 
 // USE_REF NINJAS 🥷🏼🥷🏼🥷🏼 VS RERENDER SUPERHERO 🦹🏼🦹🏼🦹🏼
 // USER ENTER THUMB IF CLICK IT OPEN AND CAN GO TO PAGE HE WANT ON CLICK OF LINK,
@@ -26,10 +28,10 @@ const validateCLick = (clickVal: boolean) =>
 type PropsType = {
   isLogged: boolean;
   init: string | null;
-  isVerified: boolean;
+  user?: UserType;
 };
 
-const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
+const DropDown: FC<PropsType> = ({ isLogged, init, user }) => {
   const [isOpen, setIsOpen] = useState(false);
   // a couple of flag are needed i u want to make functionality of mouse enter and leave
   const [isLeaving, setIsLeaving] = useState(false);
@@ -78,7 +80,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
   // const arrDrop = fieldsHeaderDropNonLogged;
   const arrDrop = isLogged
     ? fieldsHeaderDropLogged.filter((el) =>
-        isLogged && isVerified
+        isLogged && user?.isVerified
           ? el.path !== LinksLoggedDrop.VERIFY_EMAIL_LOGGED
           : el
       )
@@ -128,6 +130,10 @@ const DropDown: FC<PropsType> = ({ isLogged, init, isVerified }) => {
               <span className="txt__2">{el.label}</span>
             </Link>
           ))}
+
+          {!!user?.cartCount && (
+            <CartLi {...{ cartCount: user?.cartCount, setIsOpen: setIsOpen }} />
+          )}
 
           {isLogged && <LogoutLi {...{ handleMainClick }} />}
         </div>

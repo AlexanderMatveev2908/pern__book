@@ -81,6 +81,15 @@ export const getUserProfile = async (
           )`),
           "hasCart",
         ],
+        [
+          literal(`(
+          SELECT COALESCE(COUNT(DISTINCT ci.id), 0)
+          FROM "carts" AS c
+          INNER JOIN "cart_items" AS ci ON c."id" = ci."cartID"
+          WHERE c."userID" = "User"."id"
+          )::INT`),
+          "cartCount",
+        ],
       ],
     },
     // include is like populate in mongoose ODM( object data modelling instead of object relational mapping) that allow u to get the data referenced by id after `populate` that field with real data and not just leaving the id as string

@@ -15,7 +15,7 @@ type ItemHomeArgs = {
 export const infosAppHome: ItemHomeArgs[] = [
   {
     CompSVG: FastDeploy,
-    txt: `Launch your store online with a few simple, seamless steps — and start managing your business effortlessly`,
+    txt: `Launch your store online with a few simple, seamless steps and start managing your business effortlessly`,
   },
   {
     CompSVG: BookShelf,

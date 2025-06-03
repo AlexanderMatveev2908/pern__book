@@ -33,6 +33,8 @@ export interface UserType {
   isWorker: boolean;
   hasWorkers: boolean;
   hasBooks: boolean;
+
+  cartCount: number;
 }
 
 export interface AuthState {
