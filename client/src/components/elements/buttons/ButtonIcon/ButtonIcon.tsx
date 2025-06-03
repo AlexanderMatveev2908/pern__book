@@ -21,6 +21,10 @@ const getCol = (act: BtnAct) => {
       border = "border-green-600";
       hoverTxt = "enabled:hover:text-green-600";
       break;
+    case BtnAct.WARN:
+      border = "border-yellow-500";
+      hoverTxt = "enabled:hover:text-yellow-500";
+      break;
     case BtnAct.DEL:
       border = "border-red-600";
       hoverTxt = "enabled:hover:text-red-600";
