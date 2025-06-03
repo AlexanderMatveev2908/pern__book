@@ -6,17 +6,16 @@ import {
   labelDecQtyCart,
   labelRemoveFromCart,
 } from "@/core/config/fieldsData/labels/shared";
-import { useGetCart } from "@/core/hooks/all/api/useGetCart";
+import { CartType } from "@/types/all/Cart";
 
 type PropsType = {
-  book: BookType;
+  book?: BookType;
+  cart?: CartType;
 };
 
-const ButtonsCart: FC<PropsType> = ({ book }) => {
-  const { cart } = useGetCart();
-
+const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
   const existentItemCartQty = useMemo(
-    () => (cart?.items || []).find((el) => el?.bookID === book.id)?.qty ?? 0,
+    () => (cart?.items || []).find((el) => el?.bookID === book?.id)?.qty ?? 0,
     [book, cart]
   );
 
@@ -33,7 +32,7 @@ const ButtonsCart: FC<PropsType> = ({ book }) => {
           {...{
             label: labelAddCart,
             disabled: !book?.qty || existentItemCartQty >= book?.qty,
-            bookID: book.id,
+            bookID: book?.id,
           }}
         />
 
@@ -47,14 +46,14 @@ const ButtonsCart: FC<PropsType> = ({ book }) => {
           {...{
             label: labelDecQtyCart,
             disabled: !existentItemCartQty,
-            bookID: book.id,
+            bookID: book?.id,
           }}
         />
         <WrapBtnCart
           {...{
             label: labelRemoveFromCart,
             disabled: !existentItemCartQty,
-            bookID: book.id,
+            bookID: book?.id,
           }}
         />
       </div>

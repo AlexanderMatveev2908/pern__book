@@ -6,9 +6,5 @@ import { verifyAccessToken } from "../../../middleware/protected/verifyAccessTok
 const consumerRouter = express.Router();
 
 consumerRouter.use("/books", consumerBooksRouter);
-consumerRouter.use(
-  "/cart",
-  verifyAccessToken({ isVerified: true }),
-  cartRouter
-);
+consumerRouter.use("/cart", verifyAccessToken({}), cartRouter);
 export default consumerRouter;
