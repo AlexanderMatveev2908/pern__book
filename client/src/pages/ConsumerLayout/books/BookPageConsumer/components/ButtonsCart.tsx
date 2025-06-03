@@ -29,7 +29,9 @@ const ButtonsCart: FC<PropsType> = ({ book }) => {
       }}
     >
       <div className="w-full grid grid-cols-2 items-center justify-items-center">
-        <WrapBtnCart {...{ label: labelAddCart, disabled: !book?.qty }} />
+        <WrapBtnCart
+          {...{ label: labelAddCart, disabled: !book?.qty, bookID: book.id }}
+        />
 
         <div className="w-full max-w-[50px] flex justify-center">
           <span className="txt__5">{existentItemCartQty}</span>
@@ -38,10 +40,18 @@ const ButtonsCart: FC<PropsType> = ({ book }) => {
 
       <div className="w-full grid grid-cols-2 justify-items-center items-center">
         <WrapBtnCart
-          {...{ label: labelDecQtyCart, disabled: !existentItemCartQty }}
+          {...{
+            label: labelDecQtyCart,
+            disabled: !existentItemCartQty,
+            bookID: book.id,
+          }}
         />
         <WrapBtnCart
-          {...{ label: labelRemoveFromCart, disabled: !existentItemCartQty }}
+          {...{
+            label: labelRemoveFromCart,
+            disabled: !existentItemCartQty,
+            bookID: book.id,
+          }}
         />
       </div>
     </div>
