@@ -3,8 +3,8 @@ import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { catchErr, isArrOk } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BaseResAPI, TagsAPI } from "@/types/types";
-import { rootAPI } from "../root/rootAPI";
 import { CartType } from "@/types/all/Cart";
+import { rootAPI } from "@/features/root/rootAPI";
 
 const B_URL = "/consumer/cart";
 

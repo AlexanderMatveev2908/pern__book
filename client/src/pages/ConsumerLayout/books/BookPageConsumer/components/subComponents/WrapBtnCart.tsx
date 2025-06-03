@@ -1,7 +1,7 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
-import { cartSLiceAPI } from "@/features/CartLayout/cartSliceAPI";
+import { cartSLiceAPI } from "@/features/ConsumerLayout/CartLayout/cartSliceAPI";
 import { BtnAct } from "@/types/types";
 import type { FC } from "react";
 import { IconType } from "react-icons/lib";
