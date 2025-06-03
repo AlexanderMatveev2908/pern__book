@@ -5,5 +5,18 @@ export const useGetCart = () => {
   const resCart = useGetUserCartQuery();
   useWrapQueryAPI({ ...resCart });
 
-  return {};
+  const {
+    data: { cart } = {},
+    isLoading,
+    isFetching,
+    isError,
+    error,
+  } = resCart ?? {};
+
+  return {
+    cart,
+    isLoading: isLoading || isFetching,
+    isError,
+    error,
+  };
 };

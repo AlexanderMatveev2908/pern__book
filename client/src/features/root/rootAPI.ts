@@ -1,5 +1,6 @@
 import apiSlice from "@/store/apiSlice";
 import { BookType } from "@/types/all/books";
+import { CartType } from "@/types/all/Cart";
 import { BaseResAPI, TagsAPI } from "@/types/types";
 
 export const rootAPI = apiSlice.injectEndpoints({
@@ -27,7 +28,7 @@ export const rootAPI = apiSlice.injectEndpoints({
       providesTags: [TagsAPI.BOOKS_SEARCH_HOME],
     }),
 
-    getUserCart: builder.query<BaseResAPI<void>, void>({
+    getUserCart: builder.query<BaseResAPI<{ cart: CartType }>, void>({
       query: () => ({
         url: "/consumer/cart",
         method: "GET",
