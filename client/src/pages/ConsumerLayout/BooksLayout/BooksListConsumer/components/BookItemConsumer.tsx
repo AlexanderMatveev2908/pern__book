@@ -4,7 +4,7 @@ import {
   linksBookConsumer,
   showStoreAddressFromBook,
   statsDeliveryStoreFromBook,
-} from "@/features/ConsumerLayout/books/fields/card";
+} from "@/features/ConsumerLayout/BooksLayout/fields/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";

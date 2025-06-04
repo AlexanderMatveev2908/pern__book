@@ -7,7 +7,7 @@ import {
   getSingleBookConsumer,
 } from "../../../../controllers/consumer/books/get.js";
 import { logJSON } from "../../../../lib/utils/log.js";
-import { checkBookID } from "../../../../middleware/sharedValidators/ids.js";
+import { checkID } from "../../../../middleware/sharedValidators/ids.js";
 
 const consumerBooksRouter = express.Router();
 
@@ -20,7 +20,7 @@ consumerBooksRouter.get(
 );
 consumerBooksRouter.get(
   "/:bookID",
-  checkBookID,
+  checkID("bookID"),
   wrapApp(getSingleBookConsumer)
 );
 

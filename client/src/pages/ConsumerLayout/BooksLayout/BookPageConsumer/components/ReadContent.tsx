@@ -18,7 +18,7 @@ import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import {
   showStoreAddressFromBook,
   statsDeliveryStoreFromBook,
-} from "@/features/ConsumerLayout/books/fields/card";
+} from "@/features/ConsumerLayout/BooksLayout/fields/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 

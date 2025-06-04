@@ -13,7 +13,7 @@ import {
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { schemaConsumerBooks } from "@/features/common/SearchBar/schemasZ/consumer/books";
 import { isArrOk } from "@/core/lib/lib";
-import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerBooksSliceAPI";
+import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/BooksLayout/consumerBooksSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItemConsumer from "./components/BookItemConsumer";

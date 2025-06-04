@@ -1,11 +1,14 @@
 import { DataTypes, Model } from "sequelize";
 import { refSql, schemaID } from "./utils/helpers.js";
+import { BookInstance } from "./Book.js";
 
 export class CartItem extends Model {
   id!: string;
   cartID!: string;
   bookID!: string;
   qty!: number;
+
+  book?: BookInstance;
 }
 
 export type CartItemInstance = InstanceType<typeof CartItem>;

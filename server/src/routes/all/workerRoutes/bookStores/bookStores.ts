@@ -8,7 +8,7 @@ import { wrapApp } from "../../../../middleware/general/wrapApp.js";
 import { logJSON } from "../../../../lib/utils/log.js";
 import { multerDiskStorage } from "../../../../middleware/multer/diskStorage.js";
 import { updateStoreManager } from "../../../../controllers/workerRouter/bookStores/put.js";
-import { checkStoreID } from "../../../../middleware/sharedValidators/ids.js";
+import { checkID } from "../../../../middleware/sharedValidators/ids.js";
 
 const bookStoresWorkerRouter = express.Router();
 
@@ -18,12 +18,8 @@ bookStoresWorkerRouter
 
 bookStoresWorkerRouter
   .route("/:bookStoreID")
-  .get(checkStoreID, wrapApp(getBookStoreWorker))
-  .put(
-    checkStoreID,
-    multerDiskStorage,
-    wrapApp(logJSON),
-    wrapApp(updateStoreManager)
-  );
+  .all(checkID("bookStoreID"))
+  .get(wrapApp(getBookStoreWorker))
+  .put(multerDiskStorage, wrapApp(logJSON), wrapApp(updateStoreManager));
 
 export default bookStoresWorkerRouter;

@@ -13,7 +13,7 @@ import { checkTeam } from "../../middleware/adminStore/checkTeam.js";
 import { deleteStore } from "../../controllers/adminBookStore/delete.js";
 import { validateQueryListStores } from "../../middleware/adminStore/listStores.js";
 import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
-import { checkStoreID } from "../../middleware/sharedValidators/ids.js";
+import { checkID } from "../../middleware/sharedValidators/ids.js";
 
 const adminExpressRouterStore = express.Router();
 
@@ -35,15 +35,15 @@ adminExpressRouterStore
 
 adminExpressRouterStore
   .route("/:bookStoreID")
-  .get(checkStoreID, wrapApp(getMyStore))
+  .all(checkID("bookStoreID"))
+  .get(wrapApp(getMyStore))
   .put(
-    checkStoreID,
     multerDiskStorage,
     wrapApp(logJSON),
     validateStore,
     checkTeam,
     wrapApp(updateBookStore)
   )
-  .delete(checkStoreID, wrapApp(deleteStore));
+  .delete(wrapApp(deleteStore));
 
 export default adminExpressRouterStore;
