@@ -11,6 +11,7 @@ type Params = {
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
   label?: CartBtnType;
   book?: BookType;
+  existingItemCartQty?: number;
 };
 
 export const useCartActionsPress = ({
@@ -18,6 +19,7 @@ export const useCartActionsPress = ({
   localQty,
   label,
   book,
+  existingItemCartQty = 0,
 }: Params) => {
   const pressRef = useRef<boolean>(false);
   const timerID = useRef<NodeJS.Timeout | null>(null);
@@ -36,12 +38,17 @@ export const useCartActionsPress = ({
       cbAPI: () =>
         mutate({
           bookID: book?.id ?? "",
-          qty: localQty ?? 0,
+          qty:
+            localQty === existingItemCartQty
+              ? label?.keyAction === KEY_ACTION_CART.INC_QTY_CART
+                ? existingItemCartQty + 1
+                : existingItemCartQty - 1
+              : localQty ?? 0,
         }),
     });
 
     if (!res) return;
-  }, [wrapMutationAPI, book, localQty, mutate]);
+  }, [wrapMutationAPI, book, localQty, mutate, existingItemCartQty, label]);
 
   const handleMousePress = async () => {
     if (typeof setLocalQty !== "function") return;

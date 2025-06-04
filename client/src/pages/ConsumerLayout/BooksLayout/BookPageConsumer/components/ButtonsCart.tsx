@@ -16,14 +16,14 @@ type PropsType = {
 const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
   const [localQty, setLocalQty] = useState(0);
 
-  const existentItemCartQty = useMemo(
+  const existingItemCartQty = useMemo(
     () => (cart?.items || []).find((el) => el?.bookID === book?.id)?.qty ?? 0,
     [book, cart]
   );
 
   useEffect(() => {
-    setLocalQty(existentItemCartQty);
-  }, [existentItemCartQty, setLocalQty]);
+    setLocalQty(existingItemCartQty);
+  }, [existingItemCartQty, setLocalQty]);
 
   return (
     <div
@@ -39,11 +39,12 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
             label: labelAddCart,
             disabled:
               !book?.qty ||
-              existentItemCartQty >= book?.qty ||
+              existingItemCartQty >= book?.qty ||
               localQty >= book?.qty,
             book,
             setLocalQty,
             localQty,
+            existingItemCartQty,
           }}
         />
 
@@ -56,16 +57,17 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelDecQtyCart,
-            disabled: !existentItemCartQty || !localQty,
+            disabled: !existingItemCartQty || !localQty,
             book,
             setLocalQty,
             localQty,
+            existingItemCartQty,
           }}
         />
         <WrapBtnCart
           {...{
             label: labelRemoveFromCart,
-            disabled: !existentItemCartQty || !localQty,
+            disabled: !existingItemCartQty || !localQty,
             book,
           }}
         />

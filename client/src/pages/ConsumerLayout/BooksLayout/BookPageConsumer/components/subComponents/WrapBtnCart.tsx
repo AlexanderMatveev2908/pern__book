@@ -1,5 +1,6 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
+import { useCartActionsClick } from "@/features/ConsumerLayout/CartLayout/hooks/useCartActions";
 import { useCartActionsPress } from "@/features/ConsumerLayout/CartLayout/hooks/useCartActionsPress";
 import { BookType } from "@/types/all/books";
 import { BtnAct } from "@/types/types";
@@ -16,6 +17,7 @@ type PropsType = {
   book?: BookType;
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
   localQty?: number;
+  existingItemCartQty?: number;
 };
 
 const WrapBtnCart: FC<PropsType> = ({
@@ -24,20 +26,24 @@ const WrapBtnCart: FC<PropsType> = ({
   book,
   setLocalQty,
   localQty,
+  existingItemCartQty,
 }) => {
-  // const { handleClick, isLoading } = useCartActionsClick({
-  //   label,
-  //   book,
-  // });
+  const { handleClick, isLoading: isLoadingClick } = useCartActionsClick({
+    label,
+    book,
+  });
 
-  const { handleMousePress, handleMouseLeave, isLoading } = useCartActionsPress(
-    {
-      setLocalQty,
-      label,
-      book,
-      localQty,
-    }
-  );
+  const {
+    handleMousePress,
+    handleMouseLeave,
+    isLoading: isLoadingPress,
+  } = useCartActionsPress({
+    setLocalQty,
+    label,
+    book,
+    localQty,
+    existingItemCartQty,
+  });
 
   return (
     <div
@@ -48,9 +54,9 @@ const WrapBtnCart: FC<PropsType> = ({
         {...{
           act: label.act,
           el: label,
-          // handleClick,
+          handleClick,
           isDisabled: disabled,
-          isPending: isLoading,
+          isPending: isLoadingClick || isLoadingPress,
           handleMousePress,
         }}
       />
