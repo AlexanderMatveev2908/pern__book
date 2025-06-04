@@ -4,7 +4,7 @@ import { useCartActionsClick } from "@/features/ConsumerLayout/CartLayout/hooks/
 import { useCartActionsPress } from "@/features/ConsumerLayout/CartLayout/hooks/useCartActionsPress";
 import { BookType } from "@/types/all/books";
 import { BtnAct } from "@/types/types";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {
@@ -13,7 +13,7 @@ type PropsType = {
     keyAction: KEY_ACTION_CART;
     act: BtnAct;
   };
-  disabled?: boolean;
+  disabledByParent?: boolean;
   book?: BookType;
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
   localQty?: number;
@@ -22,23 +22,27 @@ type PropsType = {
 
 const WrapBtnCart: FC<PropsType> = ({
   label,
-  disabled,
+  // disabled,
   book,
   setLocalQty,
   localQty,
   existingItemCartQty,
+  disabledByParent,
 }) => {
   const { handleClick, isLoading: isLoadingClick } = useCartActionsClick({
     label,
     book,
   });
+  const [isDisabled, setIsDisabled] = useState(false);
 
   const {
     handleMousePress,
     handleMouseLeave,
+    handleMouseUp,
     isLoading: isLoadingPress,
   } = useCartActionsPress({
     setLocalQty,
+    setIsDisabled,
     label,
     book,
     localQty,
@@ -48,6 +52,7 @@ const WrapBtnCart: FC<PropsType> = ({
   return (
     <div
       onMouseLeave={handleMouseLeave}
+      onMouseUp={handleMouseUp}
       className="w-full max-w-[75px] flex justify-center"
     >
       <ButtonIcon
@@ -55,7 +60,11 @@ const WrapBtnCart: FC<PropsType> = ({
           act: label.act,
           el: label,
           handleClick,
-          isDisabled: disabled,
+          isDisabled:
+            disabledByParent ||
+            (label.keyAction !== KEY_ACTION_CART.REMOVE_FROM_CART
+              ? isDisabled
+              : false),
           isPending: isLoadingClick || isLoadingPress,
           handleMousePress,
         }}
