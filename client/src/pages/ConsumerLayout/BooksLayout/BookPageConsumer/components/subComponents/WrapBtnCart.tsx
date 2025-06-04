@@ -1,9 +1,9 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
-import { useWrapMutationAPI } from "@/core/hooks/hooks";
-import { cartSLiceAPI } from "@/features/ConsumerLayout/CartLayout/cartSliceAPI";
+import { useCartActionsClick } from "@/features/ConsumerLayout/CartLayout/hooks/useCartActions";
+import { BookType } from "@/types/all/books";
 import { BtnAct } from "@/types/types";
-import { useRef, type FC } from "react";
+import { type FC } from "react";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {
@@ -13,25 +13,14 @@ type PropsType = {
     act: BtnAct;
   };
   disabled?: boolean;
-  bookID?: string;
+  book?: BookType;
 };
 
-const WrapBtnCart: FC<PropsType> = ({ label, disabled, bookID }) => {
-  const timerID = useRef<NodeJS.Timeout | null>(null);
-
-  const [mutate, { isLoading }] =
-    cartSLiceAPI.endpoints.updateQtyCartClick.useMutation();
-  const { wrapMutationAPI } = useWrapMutationAPI();
-
-  const handleClick = async () => {
-    const res = await wrapMutationAPI({
-      cbAPI: () => mutate({ act: label.keyAction, bookID: bookID ?? "" }),
-    });
-
-    if (!res) return;
-  };
-
-  const handleMousePress = () => {};
+const WrapBtnCart: FC<PropsType> = ({ label, disabled, book }) => {
+  const { handleClick, isLoading } = useCartActionsClick({
+    label,
+    book,
+  });
 
   return (
     <div className="w-full max-w-[75px] flex justify-center">
