@@ -1,5 +1,5 @@
 import { BookType } from "@/types/all/books";
-import { useMemo, type FC } from "react";
+import { useEffect, useMemo, useState, type FC } from "react";
 import WrapBtnCart from "./subComponents/WrapBtnCart";
 import {
   labelAddCart,
@@ -14,10 +14,16 @@ type PropsType = {
 };
 
 const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
+  const [localQty, setLocalQty] = useState(0);
+
   const existentItemCartQty = useMemo(
     () => (cart?.items || []).find((el) => el?.bookID === book?.id)?.qty ?? 0,
     [book, cart]
   );
+
+  useEffect(() => {
+    setLocalQty(existentItemCartQty);
+  }, [existentItemCartQty, setLocalQty]);
 
   return (
     <div
@@ -31,13 +37,17 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelAddCart,
-            disabled: !book?.qty || existentItemCartQty >= book?.qty,
+            disabled:
+              !book?.qty ||
+              existentItemCartQty >= book?.qty ||
+              localQty >= book?.qty,
             book,
+            setLocalQty,
           }}
         />
 
         <div className="w-full max-w-[50px] flex justify-center">
-          <span className="txt__5">{existentItemCartQty}</span>
+          <span className="txt__5">{localQty}</span>
         </div>
       </div>
 
@@ -45,14 +55,15 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelDecQtyCart,
-            disabled: !existentItemCartQty,
+            disabled: !existentItemCartQty || !localQty,
             book,
+            setLocalQty,
           }}
         />
         <WrapBtnCart
           {...{
             label: labelRemoveFromCart,
-            disabled: !existentItemCartQty,
+            disabled: !existentItemCartQty || !localQty,
             book,
           }}
         />
