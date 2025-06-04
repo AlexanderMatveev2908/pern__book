@@ -6,8 +6,9 @@ import { Cart, CartInstance } from "../../../models/all/Cart.js";
 import { CartItem } from "../../../models/all/CartItem.js";
 import { seq } from "../../../config/db.js";
 import { KEY_ACTION_CART } from "../../../types/all/cart.js";
-import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
 import { User } from "../../../models/models.js";
+import { Book } from "../../../models/all/Book.js";
 
 export const patchCartByClick = async (req: ReqApp, res: Response) => {
   const {
@@ -116,10 +117,17 @@ export const updateCartByInputTxt = async (req: ReqApp, res: Response) => {
           },
         ],
       },
+      {
+        model: Book,
+        as: "book",
+        required: true,
+      },
     ],
   });
 
   if (!cartItem) return err404(res, { msg: "item not found" });
+  if (+qty > cartItem.book!.qty)
+    return err422(res, { msg: "not enough books" });
 
   await cartItem.update({ qty });
 

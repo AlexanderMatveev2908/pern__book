@@ -3,7 +3,7 @@ import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { cartSLiceAPI } from "@/features/ConsumerLayout/CartLayout/cartSliceAPI";
 import { BtnAct } from "@/types/types";
-import type { FC } from "react";
+import { useRef, type FC } from "react";
 import { IconType } from "react-icons/lib";
 
 type PropsType = {
@@ -17,6 +17,8 @@ type PropsType = {
 };
 
 const WrapBtnCart: FC<PropsType> = ({ label, disabled, bookID }) => {
+  const timerID = useRef<NodeJS.Timeout | null>(null);
+
   const [mutate, { isLoading }] =
     cartSLiceAPI.endpoints.updateQtyCartClick.useMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
@@ -28,6 +30,8 @@ const WrapBtnCart: FC<PropsType> = ({ label, disabled, bookID }) => {
 
     if (!res) return;
   };
+
+  const handleMousePress = () => {};
 
   return (
     <div className="w-full max-w-[75px] flex justify-center">
