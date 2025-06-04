@@ -2,7 +2,7 @@ import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { clearTimer } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { CartBtnType } from "@/types/types";
-import { useCallback, useEffect, useRef } from "react";
+import { useCallback, useRef } from "react";
 import { cartSLiceAPI } from "../cartSliceAPI";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 
@@ -12,6 +12,7 @@ type Params = {
   label?: CartBtnType;
   book?: BookType;
   existingItemCartQty?: number;
+  setIsDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const useCartActionsPress = ({
@@ -20,6 +21,7 @@ export const useCartActionsPress = ({
   label,
   book,
   existingItemCartQty = 0,
+  setIsDisabled,
 }: Params) => {
   const pressRef = useRef<boolean>(false);
   const timerID = useRef<NodeJS.Timeout | null>(null);
@@ -34,16 +36,37 @@ export const useCartActionsPress = ({
     clearTimer(timerID);
     pressRef.current = false;
 
+    if (
+      (localQty ?? -Infinity) < 0 ||
+      (localQty ?? Infinity) > (book?.qty ?? -Infinity)
+    )
+      return;
+
+    let safeVal: null | number | undefined = null;
+
+    if (localQty === existingItemCartQty) {
+      if (label?.keyAction === KEY_ACTION_CART.INC_QTY_CART)
+        safeVal =
+          existingItemCartQty + 1 > (book?.qty ?? -Infinity) ||
+          localQty + 1 > (book?.qty ?? -Infinity)
+            ? null
+            : existingItemCartQty + 1;
+      else
+        safeVal =
+          existingItemCartQty - 1 < 0 || localQty - 1 < 0
+            ? null
+            : existingItemCartQty - 1;
+    } else {
+      safeVal = localQty;
+    }
+
+    if (typeof safeVal !== "number") return;
+
     const res = await wrapMutationAPI({
       cbAPI: () =>
         mutate({
           bookID: book?.id ?? "",
-          qty:
-            localQty === existingItemCartQty
-              ? label?.keyAction === KEY_ACTION_CART.INC_QTY_CART
-                ? existingItemCartQty + 1
-                : existingItemCartQty - 1
-              : localQty ?? 0,
+          qty: safeVal,
         }),
     });
 
@@ -77,19 +100,10 @@ export const useCartActionsPress = ({
     }
   };
 
-  useEffect(() => {
-    const handleMouseUp = async () => {
-      await handleSave();
-    };
-
-    document.addEventListener("mouseup", handleMouseUp);
-
-    return () => document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleSave]);
-
   return {
     handleMousePress,
     handleMouseLeave: handleSave,
+    handleMouseUp: handleSave,
     isLoading,
   };
 };

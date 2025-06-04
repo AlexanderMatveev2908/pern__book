@@ -37,10 +37,10 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelAddCart,
-            disabled:
-              !book?.qty ||
-              existingItemCartQty >= book?.qty ||
-              localQty >= book?.qty,
+            // disabled:
+            //   !book?.qty ||
+            //   existingItemCartQty >= book?.qty ||
+            //   localQty >= book?.qty,
             book,
             setLocalQty,
             localQty,
@@ -57,7 +57,7 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelDecQtyCart,
-            disabled: !existingItemCartQty || !localQty,
+            // disabled: !existingItemCartQty || !localQty,
             book,
             setLocalQty,
             localQty,
