@@ -15,33 +15,43 @@ type PropsType = {
   disabled?: boolean;
   book?: BookType;
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
+  localQty?: number;
 };
 
-const WrapBtnCart: FC<PropsType> = ({ label, disabled, book, setLocalQty }) => {
+const WrapBtnCart: FC<PropsType> = ({
+  label,
+  disabled,
+  book,
+  setLocalQty,
+  localQty,
+}) => {
   // const { handleClick, isLoading } = useCartActionsClick({
   //   label,
   //   book,
   // });
 
-  const { handleMouseUp, handleMousePress, handleMouseLeave } =
-    useCartActionsPress({
+  const { handleMousePress, handleMouseLeave, isLoading } = useCartActionsPress(
+    {
       setLocalQty,
       label,
       book,
-    });
+      localQty,
+    }
+  );
 
   return (
-    <div className="w-full max-w-[75px] flex justify-center">
+    <div
+      onMouseLeave={handleMouseLeave}
+      className="w-full max-w-[75px] flex justify-center"
+    >
       <ButtonIcon
         {...{
           act: label.act,
           el: label,
           // handleClick,
           isDisabled: disabled,
-          // isPending: isLoading,
+          isPending: isLoading,
           handleMousePress,
-          handleMouseUp,
-          handleMouseLeave,
         }}
       />
     </div>

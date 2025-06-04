@@ -16,16 +16,8 @@ import { User } from "../../../models/models.js";
 import { Book } from "../../../models/all/Book.js";
 import { Transaction } from "sequelize";
 
-const getCart = async ({
-  cart,
-  t,
-  userID,
-}: {
-  cart: CartInstance | null;
-  t: Transaction;
-  userID: string;
-}) => {
-  cart = await Cart.findOne({
+const getCart = async ({ t, userID }: { t: Transaction; userID: string }) => {
+  let cart = await Cart.findOne({
     where: {
       userID,
     },
@@ -43,6 +35,7 @@ const getCart = async ({
     ],
     transaction: t,
   });
+
   if (!cart) {
     cart = await Cart.create(
       {
@@ -50,8 +43,11 @@ const getCart = async ({
       },
       { transaction: t }
     );
+
     cart.items = [];
   }
+
+  return { cart };
 };
 
 export const patchCartByClick = async (req: ReqApp, res: Response) => {
@@ -66,7 +62,10 @@ export const patchCartByClick = async (req: ReqApp, res: Response) => {
   const t = await seq.transaction();
 
   try {
-    await getCart({ cart, t, userID: userID! });
+    ({ cart } = await getCart({
+      t,
+      userID: userID!,
+    }));
 
     const existingItem = (cart!.items ?? []).find((el) => el.bookID === bookID);
     if (!existingItem) {
@@ -183,12 +182,17 @@ export const updateCartByMousePress = async (req: ReqApp, res: Response) => {
   } = req;
   const { bookID } = req.params;
 
+  const qtyParsed = +qty;
+
   let cart: CartInstance | null = null;
 
   const t = await seq.transaction();
 
   try {
-    await getCart({ cart, t, userID: userID! });
+    ({ cart } = await getCart({
+      t,
+      userID: userID!,
+    }));
 
     const existingItem = (cart!.items ?? []).find((el) => el.bookID === bookID);
 
@@ -197,7 +201,7 @@ export const updateCartByMousePress = async (req: ReqApp, res: Response) => {
       await t.rollback();
       return err404(res, { msg: "book not found" });
     }
-    if (book.qty < qty) {
+    if (book.qty < qtyParsed) {
       await t.rollback();
       return err422(res, { msg: "not enough books" });
     }
@@ -214,7 +218,7 @@ export const updateCartByMousePress = async (req: ReqApp, res: Response) => {
         }
       );
     } else {
-      if (!qty) {
+      if (!qtyParsed) {
         await existingItem.destroy({ transaction: t });
         if (cart!.items!.length < 2) await cart!.destroy({ transaction: t });
       } else {
@@ -232,6 +236,4 @@ export const updateCartByMousePress = async (req: ReqApp, res: Response) => {
 
     return err500(res);
   }
-
-  return res200(res, {});
 };

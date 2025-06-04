@@ -13,8 +13,6 @@ type PropsType = {
   type?: "button" | "submit";
   styleIcon?: string;
   handleMousePress?: () => void;
-  handleMouseUp?: () => void;
-  handleMouseLeave?: () => void;
 };
 
 const getCol = (act: BtnAct) => {
@@ -51,16 +49,12 @@ const ButtonIcon: FC<PropsType> = ({
   type = "button",
   styleIcon,
   handleMousePress,
-  handleMouseUp,
-  handleMouseLeave,
 }) => {
   return (
     <button
       type={type}
       onClick={handleClick}
       onMouseDown={handleMousePress}
-      onMouseUp={handleMouseUp}
-      onMouseLeave={handleMouseLeave}
       disabled={isDisabled || isPending}
       className={`w-full border-2 rounded-xl py-2 px-4 enabled:cursor-pointer  flex items-center gap-5 justify-center group z-20 bg-neutral-950 disabled:opacity-50  btn__logic_md h-fit 
         transition-colors duration-300 ${getCol(act ?? BtnAct.INFO)} `}
