@@ -12,6 +12,7 @@ import { cartSLiceAPI } from "@/features/ConsumerLayout/CartLayout/cartSliceAPI"
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { isStr } from "@/core/lib/lib";
+import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   el: CartItemType;
@@ -48,8 +49,10 @@ const FormQty: FC<PropsType> = ({ el }) => {
     }
   );
 
-  const [mutate, { isLoading: isLoadingPatch }] =
+  const [mutateUpdate, { isLoading: isLoadingPatch }] =
     cartSLiceAPI.endpoints.updateCartInput.useMutation();
+  const [mutateDelete, { isLoading: isLoadingDelete }] =
+    cartSLiceAPI.endpoints.updateQtyCartClick.useMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
 
   const {
@@ -71,7 +74,7 @@ const FormQty: FC<PropsType> = ({ el }) => {
   const handleSave = handleSubmit(
     async (data) => {
       const res = await wrapMutationAPI({
-        cbAPI: () => mutate({ cartItemID: el!.id, qty: data.qty }),
+        cbAPI: () => mutateUpdate({ cartItemID: el!.id, qty: data.qty }),
       });
 
       if (!res || !secondaryRef?.current) return;
@@ -83,6 +86,18 @@ const FormQty: FC<PropsType> = ({ el }) => {
       return errs;
     }
   );
+
+  const handleDelete = async () => {
+    const res = await wrapMutationAPI({
+      cbAPI: () =>
+        mutateDelete({
+          bookID: el!.book!.id,
+          act: KEY_ACTION_CART.REMOVE_FROM_CART,
+        }),
+    });
+
+    if (!res) return;
+  };
 
   return (
     <form
@@ -140,6 +155,8 @@ const FormQty: FC<PropsType> = ({ el }) => {
               },
               act: BtnAct.DEL,
               styleIcon: "icon__sm text-red-600",
+              handleClick: handleDelete,
+              isPending: isLoadingDelete,
             }}
           />
         </div>
