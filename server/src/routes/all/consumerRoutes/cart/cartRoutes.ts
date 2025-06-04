@@ -33,6 +33,7 @@ cartRouter
 
 cartRouter.patch(
   "/press/:bookID",
+  wrapApp(logJSON),
   checkID("bookID"),
   checkCartItemQty(0),
   wrapApp(updateCartByMousePress)

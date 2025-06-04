@@ -7,7 +7,7 @@ export const checkCartItemQty = (min: number) => [
     .matches(REG_INT)
     .withMessage("invalid integer")
     .toInt()
-    .isInt({ min: 1 })
+    .isInt({ min })
     .withMessage("invalid integer"),
 
   handleValidator(422),
