@@ -1,8 +1,8 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import cartRoutes from "./subRoutes/CartRoutes";
 import { Outlet } from "react-router-dom";
-import BookListConsumer from "@/pages/ConsumerLayout/books/BooksListConsumer/BookListConsumer";
-import BookPageConsumer from "@/pages/ConsumerLayout/books/BookPageConsumer/BookPageConsumer";
+import BookListConsumer from "@/pages/ConsumerLayout/BooksLayout/BooksListConsumer/BookListConsumer";
+import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsumer/BookPageConsumer";
 
 const consumerRoutes = {
   path: "consumer",

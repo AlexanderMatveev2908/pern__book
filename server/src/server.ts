@@ -37,7 +37,8 @@ if (!isDev) {
 app.use(errMiddleware);
 
 // clearDB();
-// populateDB();
+// populateDB();~/.local/bin/cpy_dummy_pwd.sh
+
 // resetEmailJunction();
 
 // io.on("connection", handleSocket);

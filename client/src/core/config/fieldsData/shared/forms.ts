@@ -16,3 +16,8 @@ export const addressFields_1 = [
         label: capt(el),
       }
 );
+
+export const qtyFieldItem = {
+  field: "qty",
+  place: "Qty books...",
+};
