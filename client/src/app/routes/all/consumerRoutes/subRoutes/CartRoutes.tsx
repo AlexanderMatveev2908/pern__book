@@ -1,5 +1,5 @@
 import CartLayout from "@/app/layouts/ConsumerLayout/subLayouts/CartLayout";
-import CartPage from "@/pages/CartLayout/CartPage/CartPage";
+import CartPage from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
 
 const cartRoutes = {
   path: "cart",

@@ -31,6 +31,7 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
   };
   const getMaps = async () => {
     const { coords } = (await getRawMaps()) ?? {};
+
     // const res = await fetch(
     //   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${
     //     coords?.latitude

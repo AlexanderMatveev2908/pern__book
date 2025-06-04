@@ -1,3 +1,5 @@
+import { CartItemType } from "@/types/all/Cart";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
   `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;
@@ -104,3 +106,11 @@ export const formatD = (date: string | Date) =>
     minute: "numeric",
     weekday: "short",
   }).format(new Date(date));
+
+export const calcPriceItem = (qty: number, price: number) =>
+  priceFormatter(qty * price);
+
+export const calcTotPriceCart = (arg: CartItemType[]) =>
+  priceFormatter(
+    arg.reduce((acc, curr) => acc + curr.qty * curr!.book!.price, 0)
+  );
