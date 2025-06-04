@@ -26,7 +26,8 @@ cartRouter.patch(
 
 cartRouter
   .route("/input/:cartItemID")
-  .get(checkID("cartItemID"), wrapApp(getFreshQtyItem))
+  .all(checkID("cartItemID"))
+  .get(wrapApp(getFreshQtyItem))
   .patch(checkCartItemQty, wrapApp(updateCartByInputTxt));
 
 export default cartRouter;

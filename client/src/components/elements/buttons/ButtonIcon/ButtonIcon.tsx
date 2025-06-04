@@ -11,6 +11,7 @@ type PropsType = {
   isDisabled?: boolean;
   styleTxt?: string;
   type?: "button" | "submit";
+  styleIcon?: string;
 };
 
 const getCol = (act: BtnAct) => {
@@ -45,6 +46,7 @@ const ButtonIcon: FC<PropsType> = ({
   isDisabled,
   styleTxt,
   type = "button",
+  styleIcon,
 }) => {
   return (
     <button
@@ -57,7 +59,7 @@ const ButtonIcon: FC<PropsType> = ({
       {isPending ? (
         <MiniSpinner {...{ act }} />
       ) : (
-        <el.icon className="icon__sm" />
+        <el.icon className={`${styleIcon ?? "icon__sm"}`} />
       )}
       {el?.label && (
         <span className={`txt__3 ${styleTxt ?? ""}`}>
