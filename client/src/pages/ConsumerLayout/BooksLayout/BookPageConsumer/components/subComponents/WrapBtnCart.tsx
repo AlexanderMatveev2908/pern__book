@@ -60,7 +60,11 @@ const WrapBtnCart: FC<PropsType> = ({
           act: label.act,
           el: label,
           handleClick,
-          isDisabled: disabledByParent || isDisabled,
+          isDisabled:
+            disabledByParent ||
+            (label.keyAction !== KEY_ACTION_CART.REMOVE_FROM_CART
+              ? isDisabled
+              : false),
           isPending: isLoadingClick || isLoadingPress,
           handleMousePress,
         }}
