@@ -12,6 +12,7 @@ import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
 import { clearDB } from "./stuff/clear.js";
 import { populateDB } from "./stuff/populateDB.js";
+import { makeDummyUser } from "./stuff/sda.js";
 
 const app = express();
 const PORT = process.env.PORT ? +process.env.PORT : 3000;
@@ -42,7 +43,7 @@ app.use(errMiddleware);
 // resetEmailJunction();
 
 // io.on("connection", handleSocket);
-
+// makeDummyUser();
 const start = async () => {
   try {
     await connectDB();
