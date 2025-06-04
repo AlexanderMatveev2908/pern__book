@@ -9,6 +9,7 @@ const styles = new Map([
   [BtnAct.DO, "border-green-600"],
   [BtnAct.INFO, "border-blue-600"],
   [BtnAct.DEL, "border-red-600"],
+  [BtnAct.WARN, "border-yellow-500"],
 ]);
 
 const MiniSpinner: FC<PropsType> = ({ act = BtnAct.INFO }) => {
