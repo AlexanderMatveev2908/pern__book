@@ -2,6 +2,7 @@ import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { cartSLiceAPI } from "../cartSliceAPI";
 import { CartBtnType } from "@/types/types";
 import { BookType } from "@/types/all/books";
+import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 
 type Params = {
   label: CartBtnType;
@@ -14,6 +15,8 @@ export const useCartActionsClick = ({ label, book }: Params) => {
   const { wrapMutationAPI } = useWrapMutationAPI();
 
   const handleClick = async () => {
+    if (label.keyAction !== KEY_ACTION_CART.REMOVE_FROM_CART) return;
+
     const res = await wrapMutationAPI({
       cbAPI: () => mutate({ act: label.keyAction, bookID: book?.id ?? "" }),
     });

@@ -12,6 +12,7 @@ type Params = {
   label?: CartBtnType;
   book?: BookType;
   existingItemCartQty?: number;
+  setIsDisabled?: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const useCartActionsPress = ({
@@ -20,6 +21,7 @@ export const useCartActionsPress = ({
   label,
   book,
   existingItemCartQty = 0,
+  setIsDisabled,
 }: Params) => {
   const pressRef = useRef<boolean>(false);
   const timerID = useRef<NodeJS.Timeout | null>(null);
@@ -34,21 +36,47 @@ export const useCartActionsPress = ({
     clearTimer(timerID);
     pressRef.current = false;
 
+    const maxQty = book?.qty ?? -Infinity;
+
+    if ((localQty ?? -Infinity) < 0 || (localQty ?? Infinity) > maxQty) {
+      setIsDisabled?.(true);
+      return;
+    }
+
+    let safeVal: null | number | undefined = null;
+
+    if (localQty === existingItemCartQty) {
+      if (label?.keyAction === KEY_ACTION_CART.INC_QTY_CART) {
+        if (existingItemCartQty + 1 <= maxQty && localQty + 1 <= maxQty)
+          safeVal = existingItemCartQty + 1;
+      } else {
+        if (existingItemCartQty - 1 >= 0 && localQty - 1 >= 0)
+          safeVal = existingItemCartQty - 1;
+      }
+    } else {
+      safeVal = localQty;
+    }
+
+    if (typeof safeVal !== "number") return;
+
     const res = await wrapMutationAPI({
       cbAPI: () =>
         mutate({
           bookID: book?.id ?? "",
-          qty:
-            localQty === existingItemCartQty
-              ? label?.keyAction === KEY_ACTION_CART.INC_QTY_CART
-                ? existingItemCartQty + 1
-                : existingItemCartQty - 1
-              : localQty ?? 0,
+          qty: safeVal,
         }),
     });
 
     if (!res) return;
-  }, [wrapMutationAPI, book, localQty, mutate, existingItemCartQty, label]);
+  }, [
+    wrapMutationAPI,
+    book,
+    localQty,
+    mutate,
+    setIsDisabled,
+    existingItemCartQty,
+    label,
+  ]);
 
   const handleMousePress = async () => {
     if (typeof setLocalQty !== "function") return;
@@ -78,18 +106,24 @@ export const useCartActionsPress = ({
   };
 
   useEffect(() => {
-    const handleMouseUp = async () => {
-      await handleSave();
-    };
-
-    document.addEventListener("mouseup", handleMouseUp);
-
-    return () => document.removeEventListener("mouseup", handleMouseUp);
-  }, [handleSave]);
+    if (!pressRef.current) {
+      if (label?.keyAction === KEY_ACTION_CART.INC_QTY_CART) {
+        setIsDisabled?.(
+          (localQty ?? Infinity) >= (book?.qty ?? -Infinity) ||
+            existingItemCartQty >= (book?.qty ?? -Infinity)
+        );
+      } else {
+        setIsDisabled?.(
+          (localQty ?? -Infinity) <= 0 || existingItemCartQty <= 0
+        );
+      }
+    }
+  }, [book, localQty, setIsDisabled, label, existingItemCartQty]);
 
   return {
     handleMousePress,
     handleMouseLeave: handleSave,
+    handleMouseUp: handleSave,
     isLoading,
   };
 };
