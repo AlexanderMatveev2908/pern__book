@@ -2,18 +2,53 @@ import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { clearTimer } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { CartBtnType } from "@/types/types";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
+import { cartSLiceAPI } from "../cartSliceAPI";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
 
 type Params = {
   localQty?: number;
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
   label?: CartBtnType;
   book?: BookType;
+  existingItemCartQty?: number;
 };
 
-export const useCartActionsPress = ({ setLocalQty, label, book }: Params) => {
+export const useCartActionsPress = ({
+  setLocalQty,
+  localQty,
+  label,
+  book,
+  existingItemCartQty = 0,
+}: Params) => {
   const pressRef = useRef<boolean>(false);
   const timerID = useRef<NodeJS.Timeout | null>(null);
+
+  const [mutate, { isLoading }] =
+    cartSLiceAPI.endpoints.updateCartMousePress.useMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
+  const handleSave = useCallback(async () => {
+    if (!pressRef.current) return;
+
+    clearTimer(timerID);
+    pressRef.current = false;
+
+    const res = await wrapMutationAPI({
+      cbAPI: () =>
+        mutate({
+          bookID: book?.id ?? "",
+          qty:
+            localQty === existingItemCartQty
+              ? label?.keyAction === KEY_ACTION_CART.INC_QTY_CART
+                ? existingItemCartQty + 1
+                : existingItemCartQty - 1
+              : localQty ?? 0,
+        }),
+    });
+
+    if (!res) return;
+  }, [wrapMutationAPI, book, localQty, mutate, existingItemCartQty, label]);
 
   const handleMousePress = async () => {
     if (typeof setLocalQty !== "function") return;
@@ -32,7 +67,6 @@ export const useCartActionsPress = ({ setLocalQty, label, book }: Params) => {
               if ((prev ?? -Infinity) > 0) return prev - 1;
             }
 
-            pressRef.current = false;
             clearTimer(timerID);
             return prev;
           });
@@ -43,19 +77,19 @@ export const useCartActionsPress = ({ setLocalQty, label, book }: Params) => {
     }
   };
 
-  const handleMouseUp = () => {
-    clearTimer(timerID);
-    pressRef.current = false;
-  };
+  useEffect(() => {
+    const handleMouseUp = async () => {
+      await handleSave();
+    };
 
-  const handleMouseLeave = () => {
-    clearTimer(timerID);
-    pressRef.current = false;
-  };
+    document.addEventListener("mouseup", handleMouseUp);
+
+    return () => document.removeEventListener("mouseup", handleMouseUp);
+  }, [handleSave]);
 
   return {
     handleMousePress,
-    handleMouseUp,
-    handleMouseLeave,
+    handleMouseLeave: handleSave,
+    isLoading,
   };
 };

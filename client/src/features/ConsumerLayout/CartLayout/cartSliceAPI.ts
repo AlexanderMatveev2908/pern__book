@@ -110,5 +110,58 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
         });
       },
     }),
+
+    updateCartMousePress: builder.mutation<
+      BaseResAPI<void>,
+      { bookID: string; qty: number }
+    >({
+      query: ({ bookID, qty }) => ({
+        url: `${B_URL}/press/${bookID}`,
+        method: "PATCH",
+        data: { qty },
+      }),
+
+      async onQueryStarted({ bookID, qty }, { queryFulfilled, dispatch }) {
+        await catchErr(async () => {
+          const patched = dispatch(
+            rootAPI.util.updateQueryData("getUserCart", undefined, (draft) => {
+              if (!isArrOk(draft?.cart?.items))
+                draft.cart = {
+                  items: [],
+                } as unknown as CartType;
+
+              const index = draft.cart.items.findIndex(
+                (item) => item.bookID === bookID
+              );
+              if (index === -1) {
+                draft.cart.items.push({
+                  bookID,
+                  cartID: "👻",
+                  id: "👻",
+                  qty,
+                });
+              } else {
+                if (draft.cart.items.length < 2 && !qty)
+                  draft.cart = {
+                    items: [],
+                  } as unknown as CartType;
+                else draft.cart.items[index].qty = qty;
+              }
+            })
+          );
+
+          try {
+            await queryFulfilled;
+            dispatch(
+              apiSlice.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
+            );
+          } catch (err) {
+            console.log(err);
+
+            patched.undo();
+          }
+        });
+      },
+    }),
   }),
 });
