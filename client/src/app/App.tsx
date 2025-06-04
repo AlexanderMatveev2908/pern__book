@@ -18,6 +18,8 @@ const App: FC = () => {
   useNinjaToken();
   useGetCart();
 
+  // test
+
   return useRoutes(appRoutes);
 };
 export default App;
