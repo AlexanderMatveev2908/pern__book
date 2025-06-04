@@ -7,6 +7,7 @@ import { CartItem } from "../../../models/all/CartItem.js";
 import { seq } from "../../../config/db.js";
 import { KEY_ACTION_CART } from "../../../types/all/cart.js";
 import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { User } from "../../../models/models.js";
 
 export const patchCartByClick = async (req: ReqApp, res: Response) => {
   const {
@@ -89,5 +90,38 @@ export const patchCartByClick = async (req: ReqApp, res: Response) => {
 };
 
 export const updateCartByInputTxt = async (req: ReqApp, res: Response) => {
-  return res200(res, { msg: "👻" });
+  const {
+    userID,
+    body: { qty },
+  } = req;
+  const { cartItemID } = req.params;
+
+  const cartItem = await CartItem.findOne({
+    where: {
+      id: cartItemID,
+    },
+    include: [
+      {
+        model: Cart,
+        as: "cart",
+        required: true,
+        include: [
+          {
+            model: User,
+            as: "user",
+            required: true,
+            where: {
+              id: userID,
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!cartItem) return err404(res, { msg: "item not found" });
+
+  await cartItem.update({ qty });
+
+  return res200(res, { msg: "cart updated" });
 };

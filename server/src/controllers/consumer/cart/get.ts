@@ -12,7 +12,7 @@ export const getCart = async (req: ReqApp, res: Response) => {
 
   if (!userID) return res204(res);
 
-  const cart = await Cart.findOne({
+  const carts = await Cart.findAll({
     where: {
       userID,
     },
@@ -21,7 +21,6 @@ export const getCart = async (req: ReqApp, res: Response) => {
         model: CartItem,
         as: "items",
         required: true,
-        separate: true,
         include: [
           {
             model: Book,
@@ -45,10 +44,19 @@ export const getCart = async (req: ReqApp, res: Response) => {
         ],
       },
     ],
-  });
-  if (!cart) return res204(res);
 
-  return res200(res, { msg: "🛒", cart });
+    order: [
+      [
+        { model: CartItem, as: "items" },
+        { model: Book, as: "book" },
+        "title",
+        "ASC",
+      ],
+    ],
+  });
+  if (!carts.length) return res204(res);
+
+  return res200(res, { msg: "🛒", cart: carts[0] });
 };
 
 export const getFreshQtyItem = async (req: ReqApp, res: Response) => {
