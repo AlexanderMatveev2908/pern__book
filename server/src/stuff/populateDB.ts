@@ -5,7 +5,7 @@ import { User, UserInstance } from "../models/models.js";
 
 const commonFields = {
   isVerified: true,
-  password: "Safe_pwd_@123",
+  password: "8cLS4XY!{2Wdvl4*l^4",
 };
 const users = [
   {
