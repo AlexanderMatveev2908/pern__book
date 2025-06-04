@@ -13,10 +13,9 @@ import { createBook } from "../../controllers/adminBooks/post.js";
 import { multerMemoryStorage } from "../../middleware/multer/memoryStorage.js";
 import { validatePostPutBooks } from "../../middleware/sharedValidators/postPutBooks.js";
 import { updateBook } from "../../controllers/adminBooks/put.js";
-import { deleteStore } from "../../controllers/adminBookStore/delete.js";
 import { deleteBook } from "../../controllers/adminBooks/delete.js";
 import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
-import { checkBookID } from "../../middleware/sharedValidators/ids.js";
+import { checkID } from "../../middleware/sharedValidators/ids.js";
 
 const adminBookRouter = express.Router();
 
@@ -38,7 +37,7 @@ adminBookRouter.get("/info/:bookID", wrapApp(getInfoBook));
 
 adminBookRouter
   .route("/:bookID")
-  .all(checkBookID)
+  .all(checkID("bookID"))
   .put(
     multerMemoryStorage,
     wrapApp(logJSON),

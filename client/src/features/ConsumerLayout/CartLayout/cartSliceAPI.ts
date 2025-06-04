@@ -52,9 +52,57 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
           try {
             await queryFulfilled;
             dispatch(
-              rootAPI.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
+              apiSlice.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
             );
           } catch (err: any) {
+            console.log(err);
+
+            patched.undo();
+          }
+        });
+      },
+    }),
+
+    getFreshQtyItem: builder.query<
+      BaseResAPI<{ qty: number }>,
+      { cartItemID: string }
+    >({
+      query: ({ cartItemID }) => ({
+        url: `${B_URL}/input/${cartItemID}`,
+        method: "GET",
+      }),
+    }),
+
+    updateCartInput: builder.mutation<
+      BaseResAPI<void>,
+      { qty: string; cartItemID: string }
+    >({
+      query: ({ qty, cartItemID }) => ({
+        url: `${B_URL}/input/${cartItemID}`,
+        method: "PATCH",
+        data: { qty },
+      }),
+
+      async onQueryStarted({ qty, cartItemID }, { dispatch, queryFulfilled }) {
+        await catchErr(async () => {
+          const patched = dispatch(
+            rootAPI.util.updateQueryData("getUserCart", undefined, (draft) => {
+              const existingIndex = draft.cart.items.findIndex(
+                (el) => el.id === cartItemID
+              );
+              if (existingIndex === -1) return;
+
+              draft.cart.items[existingIndex].qty = +qty;
+            })
+          );
+
+          try {
+            await queryFulfilled;
+
+            dispatch(
+              apiSlice.util.invalidateTags([TagsAPI.USER, TagsAPI.USER_CART])
+            );
+          } catch (err) {
             console.log(err);
 
             patched.undo();

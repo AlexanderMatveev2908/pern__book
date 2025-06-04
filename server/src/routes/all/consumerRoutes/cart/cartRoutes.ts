@@ -1,10 +1,18 @@
 import express from "express";
-import { getCart } from "../../../../controllers/consumer/cart/get.js";
+import {
+  getCart,
+  getFreshQtyItem,
+} from "../../../../controllers/consumer/cart/get.js";
 import { wrapApp } from "../../../../middleware/general/wrapApp.js";
-import { patchCartByClick } from "../../../../controllers/consumer/cart/patch.js";
+import {
+  patchCartByClick,
+  updateCartByInputTxt,
+} from "../../../../controllers/consumer/cart/patch.js";
 import { logJSON } from "../../../../lib/utils/log.js";
 import { checkCartCLick } from "../../../../middleware/consumer/checkCartClick.js";
 import { getUserID } from "../../../../middleware/protected/getUserID.js";
+import { checkCartItemQty } from "../../../../middleware/consumer/checkCartInput.js";
+import { checkID } from "../../../../middleware/sharedValidators/ids.js";
 
 const cartRouter = express.Router();
 
@@ -15,5 +23,10 @@ cartRouter.patch(
   checkCartCLick,
   wrapApp(patchCartByClick)
 );
+
+cartRouter
+  .route("/input/:cartItemID")
+  .get(checkID("cartItemID"), wrapApp(getFreshQtyItem))
+  .patch(checkCartItemQty, wrapApp(updateCartByInputTxt));
 
 export default cartRouter;

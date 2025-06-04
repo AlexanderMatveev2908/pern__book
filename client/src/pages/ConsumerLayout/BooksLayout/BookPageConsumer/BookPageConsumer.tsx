@@ -5,7 +5,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { isObjOk } from "@/core/lib/lib";
-import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/books/consumerBooksSliceAPI";
+import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/BooksLayout/consumerBooksSliceAPI";
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ReadContent from "./components/ReadContent";

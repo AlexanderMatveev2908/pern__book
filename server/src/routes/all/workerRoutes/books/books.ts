@@ -9,10 +9,7 @@ import { multerMemoryStorage } from "../../../../middleware/multer/memoryStorage
 import { logJSON } from "../../../../lib/utils/log.js";
 import { addBookWorker } from "../../../../controllers/workerRouter/books/post.js";
 import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
-import {
-  checkBookID,
-  checkStoreID,
-} from "../../../../middleware/sharedValidators/ids.js";
+import { checkID } from "../../../../middleware/sharedValidators/ids.js";
 import { updateBookWorker } from "../../../../controllers/workerRouter/books/put.js";
 import { deleteBookWorker } from "../../../../controllers/workerRouter/books/delete.js";
 import { checkSearchBooksWorker } from "../../../../middleware/workerRouter/books/checkSearchBooksWorker.js";
@@ -21,7 +18,7 @@ const workerBooksRouter = express.Router();
 
 workerBooksRouter.get(
   "/list/:bookStoreID",
-  checkStoreID,
+  checkID("bookStoreID"),
   checkSearchBooksWorker,
   wrapApp(logJSON),
   wrapApp(getBookListWorker)
@@ -29,12 +26,12 @@ workerBooksRouter.get(
 
 workerBooksRouter.get(
   "/info-store/:bookStoreID",
-  checkStoreID,
+  checkID("bookStoreID"),
   wrapApp(getInfoStore)
 );
 workerBooksRouter
   .route("/:bookStoreID")
-  .all(checkStoreID)
+  .all(checkID("bookStoreID"))
   .post(
     multerMemoryStorage,
     wrapApp(logJSON),
@@ -43,7 +40,7 @@ workerBooksRouter
   );
 workerBooksRouter
   .route("/:bookID")
-  .all(checkBookID)
+  .all(checkID("bookID"))
   .get(wrapApp(getBookWorker))
   .put(
     multerMemoryStorage,

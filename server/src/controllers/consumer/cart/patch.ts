@@ -87,3 +87,7 @@ export const patchCartByClick = async (req: ReqApp, res: Response) => {
     return err500(res);
   }
 };
+
+export const updateCartByInputTxt = async (req: ReqApp, res: Response) => {
+  return res200(res, { msg: "👻" });
+};
