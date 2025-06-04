@@ -2,30 +2,33 @@ import { AssetCloudType } from "./images";
 import { UserRole } from "./user";
 
 export enum CatBookStore {
-  CLASSICS = "classics",
+  // 📚 Fiction
+  LITERATURE_FICTION = "literature & fiction",
+  MYSTERY_THRILLER = "mystery, thriller & suspense",
+  SCIENCE_FICTION = "science fiction & fantasy",
+  ROMANCE = "romance",
+  HORROR = "horror",
+  COMICS_GRAPHIC_NOVELS = "comics & graphic novels",
+  HISTORICAL_FICTION = "historical fiction",
+  CHILDRENS_BOOKS = "children's books",
+  YOUNG_ADULT = "young adult",
+
+  // 📘 Nonfiction
+  BIOGRAPHIES = "biographies & memoirs",
+  HISTORY = "history",
+  POLITICS_SOCIAL = "politics & social sciences",
   PHILOSOPHY = "philosophy",
   PSYCHOLOGY = "psychology",
-  HISTORY = "history",
-  COMICS = "comics",
-  MANGA = "manga",
-
-  IT = "it",
-  POLITICS = "politics",
-  ECONOMICS = "economics",
-  SCIENCE = "science",
-  MATH = "math",
-  LANGUAGES = "languages",
-
-  CRIME = "crime",
-  SPORT = "sport",
-  CHILDREN = "children",
-  FANTASY = "fantasy",
-  HORROR = "horror",
-  BIOGRAPHY = "biography",
-
-  COOKING = "cooking",
+  RELIGION_SPIRITUALITY = "religion & spirituality",
+  SELF_HELP = "self-help",
+  HEALTH = "health, fitness & dieting",
   TRAVEL = "travel",
-  ROMANCE = "romance",
+  COOKING = "cookbooks, food & wine",
+  BUSINESS_MONEY = "business & money",
+  EDUCATION = "education & teaching",
+  COMPUTERS_TECH = "computers & technology",
+  SCIENCE = "science & math",
+  LANGUAGE = "reference & language",
 }
 
 export interface TeamItem {
