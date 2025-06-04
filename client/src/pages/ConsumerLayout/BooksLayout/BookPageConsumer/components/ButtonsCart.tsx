@@ -67,7 +67,7 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelRemoveFromCart,
-            disabled: !existingItemCartQty || !localQty,
+            disabledByParent: !existingItemCartQty || !localQty,
             book,
           }}
         />

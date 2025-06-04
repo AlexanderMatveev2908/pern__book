@@ -13,7 +13,7 @@ type PropsType = {
     keyAction: KEY_ACTION_CART;
     act: BtnAct;
   };
-  // disabled?: boolean;
+  disabledByParent?: boolean;
   book?: BookType;
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
   localQty?: number;
@@ -27,6 +27,7 @@ const WrapBtnCart: FC<PropsType> = ({
   setLocalQty,
   localQty,
   existingItemCartQty,
+  disabledByParent,
 }) => {
   const { handleClick, isLoading: isLoadingClick } = useCartActionsClick({
     label,
@@ -59,7 +60,7 @@ const WrapBtnCart: FC<PropsType> = ({
           act: label.act,
           el: label,
           handleClick,
-          isDisabled,
+          isDisabled: disabledByParent || isDisabled,
           isPending: isLoadingClick || isLoadingPress,
           handleMousePress,
         }}

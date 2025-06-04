@@ -2,7 +2,7 @@ import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { clearTimer } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { CartBtnType } from "@/types/types";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { cartSLiceAPI } from "../cartSliceAPI";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 
@@ -36,26 +36,23 @@ export const useCartActionsPress = ({
     clearTimer(timerID);
     pressRef.current = false;
 
-    if (
-      (localQty ?? -Infinity) < 0 ||
-      (localQty ?? Infinity) > (book?.qty ?? -Infinity)
-    )
+    const maxQty = book?.qty ?? -Infinity;
+
+    if ((localQty ?? -Infinity) < 0 || (localQty ?? Infinity) > maxQty) {
+      setIsDisabled?.(true);
       return;
+    }
 
     let safeVal: null | number | undefined = null;
 
     if (localQty === existingItemCartQty) {
-      if (label?.keyAction === KEY_ACTION_CART.INC_QTY_CART)
-        safeVal =
-          existingItemCartQty + 1 > (book?.qty ?? -Infinity) ||
-          localQty + 1 > (book?.qty ?? -Infinity)
-            ? null
-            : existingItemCartQty + 1;
-      else
-        safeVal =
-          existingItemCartQty - 1 < 0 || localQty - 1 < 0
-            ? null
-            : existingItemCartQty - 1;
+      if (label?.keyAction === KEY_ACTION_CART.INC_QTY_CART) {
+        if (existingItemCartQty + 1 <= maxQty && localQty + 1 <= maxQty)
+          safeVal = existingItemCartQty + 1;
+      } else {
+        if (existingItemCartQty - 1 >= 0 && localQty - 1 >= 0)
+          safeVal = existingItemCartQty - 1;
+      }
     } else {
       safeVal = localQty;
     }
@@ -71,7 +68,15 @@ export const useCartActionsPress = ({
     });
 
     if (!res) return;
-  }, [wrapMutationAPI, book, localQty, mutate, existingItemCartQty, label]);
+  }, [
+    wrapMutationAPI,
+    book,
+    localQty,
+    mutate,
+    setIsDisabled,
+    existingItemCartQty,
+    label,
+  ]);
 
   const handleMousePress = async () => {
     if (typeof setLocalQty !== "function") return;
@@ -99,6 +104,21 @@ export const useCartActionsPress = ({
       });
     }
   };
+
+  useEffect(() => {
+    if (!pressRef.current) {
+      if (label?.keyAction === KEY_ACTION_CART.INC_QTY_CART) {
+        setIsDisabled?.(
+          (localQty ?? Infinity) >= (book?.qty ?? -Infinity) ||
+            existingItemCartQty >= (book?.qty ?? -Infinity)
+        );
+      } else {
+        setIsDisabled?.(
+          (localQty ?? -Infinity) <= 0 || existingItemCartQty <= 0
+        );
+      }
+    }
+  }, [book, localQty, setIsDisabled, label, existingItemCartQty]);
 
   return {
     handleMousePress,
