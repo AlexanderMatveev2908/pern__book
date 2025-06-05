@@ -29,11 +29,11 @@ export const getNumBtns = () =>
 
 export const setLimitCards = () =>
   window.innerWidth > 1800
-    ? 16
+    ? 4
     : window.innerWidth > 1500
-    ? 12
+    ? 3
     : window.innerWidth > 1000
-    ? 8
+    ? 2
     : 1;
 
 export const calcCurrBlock = ({
