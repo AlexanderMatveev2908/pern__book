@@ -10,18 +10,17 @@ type PropsType = {
     path: string;
   }[];
   ID: string;
-  invalid?: number[];
 };
 
-const LinksCard: FC<PropsType> = ({ links, ID, invalid }) => {
+const LinksCard: FC<PropsType> = ({ links, ID }) => {
   return (
     <div className="w-full grid grid-cols-2 justify-items-center mt-3">
-      {links.map((lin, i) => (
+      {links.map((lin, _, arg) => (
         <Link
           key={lin.id}
           to={lin.path + ID}
-          className={`px-4 py-1 flex justify-center gap-5 items-center el__flow hover:text-blue-600 el__after_below ${
-            invalid?.includes(i) ? "opacity-50 pointer-events-none" : ""
+          className={`px-4 py-1 flex justify-center gap-5 items-center el__flow hover:text-blue-600 el__after_below w-full ${
+            arg.length < 2 ? "col-span-2" : ""
           }`}
         >
           <lin.icon className="icon__md" />
