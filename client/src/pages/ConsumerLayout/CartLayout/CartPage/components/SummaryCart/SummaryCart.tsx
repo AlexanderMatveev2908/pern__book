@@ -2,7 +2,7 @@
 import Title from "@/components/elements/Title";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { getDeliveryPrice, isArrOk, priceFormatter } from "@/core/lib/lib";
+import { isArrOk, priceFormatter } from "@/core/lib/lib";
 import WrapTxt from "@/components/elements/WrapPairTxt/WrapTxt";
 import { X } from "lucide-react";
 import { type FC } from "react";
