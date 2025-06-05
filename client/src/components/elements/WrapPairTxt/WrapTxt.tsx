@@ -1,3 +1,4 @@
+import { capt } from "@/core/lib/lib";
 import type { FC } from "react";
 
 type PropsType = {
@@ -13,7 +14,7 @@ const WrapTxt: FC<PropsType> = ({ txt, customStyle }) => {
         lineClamp: 2,
       }}
     >
-      {txt}
+      {capt(txt + "")}
     </span>
   );
 };

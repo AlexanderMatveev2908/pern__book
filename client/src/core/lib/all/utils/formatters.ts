@@ -1,6 +1,8 @@
-import { CartItemType } from "@/types/all/Cart";
+import { CartItemType, CartType } from "@/types/all/Cart";
 import { isWeekend } from "../../../../../node_modules/date-fns/fp/isWeekend";
 import { format } from "date-fns";
+import { BookStoreType } from "@/types/all/bookStore";
+import { isObjOk } from "./dataStructures";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
@@ -132,4 +134,32 @@ export const getExpectedDeliveredDay = ({
   }
 
   return format(currDate, "EEE, dd MMM yyyy");
+};
+
+export const getDeliveryPrice = ({
+  cart,
+  store,
+}: {
+  cart?: CartType;
+  store?: BookStoreType;
+}) => {
+  if ([cart, store].some((el) => !isObjOk(el))) return "👻";
+
+  if (!store?.deliveryPrice) return "Free Delivery";
+
+  const filtered = cart!.items!.filter(
+    (el) => el.book!.store!.id === store!.id
+  );
+  let tot = 0;
+  let i = filtered.length - 1;
+
+  while (i >= 0) {
+    const curr = filtered[i];
+    tot += curr.qty * curr.book!.price;
+    i--;
+  }
+
+  return tot > store!.freeDeliveryAmount!
+    ? "Free Delivery"
+    : store!.deliveryPrice;
 };
