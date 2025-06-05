@@ -12,16 +12,19 @@ type PropsType = {
   el: BookType;
   abs?: boolean;
   listen?: boolean;
+  border?: boolean;
 };
 
-const InfoBookAbout: FC<PropsType> = ({ el, abs, listen }) => {
+const InfoBookAbout: FC<PropsType> = ({ el, abs, listen, border }) => {
   const ids = useCreateIds({
     lengths: [el?.categories?.length],
   });
 
   return !el ? null : (
     <>
-      <DropStats {...{ el: labelCategories, fields: null, abs, listen }}>
+      <DropStats
+        {...{ el: labelCategories, fields: null, abs, listen, border }}
+      >
         {el.categories?.map((el, i) => (
           <li key={ids![0][i]} className="w-full flex justify-start">
             <span className="txt__2">{el}</span>
@@ -30,7 +33,13 @@ const InfoBookAbout: FC<PropsType> = ({ el, abs, listen }) => {
       </DropStats>
 
       <DropStats
-        {...{ el: labelBookInfo, fields: statsBookInfo(el), abs, listen }}
+        {...{
+          el: labelBookInfo,
+          fields: statsBookInfo(el),
+          abs,
+          listen,
+          border,
+        }}
       />
     </>
   );

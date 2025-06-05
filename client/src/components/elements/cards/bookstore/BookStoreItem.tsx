@@ -31,6 +31,7 @@ const BookStoreItem: FC<PropsType> = ({ el, isOwner }) => {
           el: libraryLabelStoreDynamic(el.name),
           ovHidden: false,
           listen: false,
+          border: true,
         }}
       >
         <div className="w-full grid grid-cols-1 gap-4 mt-3">
@@ -50,7 +51,9 @@ const BookStoreItem: FC<PropsType> = ({ el, isOwner }) => {
         </div>
       </DropStats>
 
-      <DropStats {...{ el: labelInfo, ovHidden: false, listen: false }}>
+      <DropStats
+        {...{ el: labelInfo, ovHidden: false, listen: false, border: true }}
+      >
         <div className="w-full grid grid-cols-1 gap-4 mt-3">
           <InfoStoreMapProp {...{ abs: true, bookStore: el, listen: false }} />
           {isOwner && (

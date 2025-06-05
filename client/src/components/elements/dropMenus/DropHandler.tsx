@@ -9,9 +9,15 @@ type PropsType = {
     label?: string;
     icon?: IconType;
   };
+  styleTxt?: string;
 };
 
-const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
+const DropHandler: FC<PropsType> = ({
+  isDropOpen,
+  setIsDropOpen,
+  el,
+  styleTxt,
+}) => {
   return !el ? null : (
     <div
       onClick={() => setIsDropOpen(!isDropOpen)}
@@ -21,7 +27,9 @@ const DropHandler: FC<PropsType> = ({ isDropOpen, setIsDropOpen, el }) => {
         {el.icon && <el.icon className="icon__md icon__with_txt" />}
 
         <span
-          className="txt__3 group-hover:text-blue-600 el__flow clamp_txt"
+          className={`group-hover:text-blue-600 el__flow clamp_txt ${
+            styleTxt ?? "txt__3"
+          }`}
           style={{
             lineClamp: 1,
             WebkitLineClamp: 1,

@@ -15,7 +15,7 @@ type PropsType = {
   listen?: boolean;
 };
 
-const DataBookDB: FC<PropsType> = ({ el, abs, listen }) => {
+const DataBookDB: FC<PropsType> = ({ el, abs, listen, border }) => {
   return (
     <>
       <DropStats
@@ -24,6 +24,7 @@ const DataBookDB: FC<PropsType> = ({ el, abs, listen }) => {
           abs,
           fields: showGeneralStatsBook(el),
           listen,
+          border,
         }}
       />
 
@@ -33,6 +34,7 @@ const DataBookDB: FC<PropsType> = ({ el, abs, listen }) => {
           abs,
           fields: fieldsStatsRatingBook(el),
           listen,
+          border,
         }}
       />
     </>

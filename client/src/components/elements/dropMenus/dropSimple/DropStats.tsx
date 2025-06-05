@@ -18,6 +18,7 @@ type PropsType = {
     | null;
   children?: ReactNode | React.ReactNode[] | null;
   styleUL?: string;
+  styleTxt?: string;
   abs?: boolean;
   border?: boolean;
   ovHidden?: boolean;
@@ -33,6 +34,7 @@ const DropStats: FC<PropsType> = ({
   abs,
   ovHidden,
   listen,
+  styleTxt,
 }) => {
   const [isDropOpen, setIsDropOpen] = useState(
     !listen ? false : window.innerWidth > tailwindBreak.md
@@ -53,11 +55,11 @@ const DropStats: FC<PropsType> = ({
 
   return !el ? null : (
     <div className="w-full relative h-fit">
-      <DropHandler {...{ isDropOpen, setIsDropOpen, el }} />
+      <DropHandler {...{ isDropOpen, setIsDropOpen, el, styleTxt }} />
 
-      {(!abs || border) && (
+      {border && (
         <hr
-          className="h-[3px] w-full border-0  ${
+          className="h-[3px] w-full border-0 
            bg-blue-600 mt-3"
         />
       )}

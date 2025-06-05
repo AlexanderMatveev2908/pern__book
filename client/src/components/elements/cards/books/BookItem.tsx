@@ -22,7 +22,7 @@ const BookItem: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <>
       <DropStats {...{ el: labelBookCard(el.title), border: true }}>
-        <InfoBookAbout {...{ el, border: true, abs: true }} />
+        <InfoBookAbout {...{ el, abs: true }} />
       </DropStats>
 
       <DropStats {...{ el: labelInfo, border: true }}>
