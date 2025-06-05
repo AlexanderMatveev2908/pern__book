@@ -5,11 +5,9 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useMixVars } from "@/core/hooks/all/api/useMixVars";
 import { isArrOk } from "@/core/lib/lib";
 import { useMemo, type FC } from "react";
-import SummaryCart from "./components/SummaryCart/SummaryCart";
 import { CartItemType } from "@/types/all/Cart";
 import { BookStoreType } from "@/types/all/bookStore";
 import CartItemsList from "./components/CartItemsList/CartItemsList";
-import WrapAsBorder from "@/components/elements/WrapAsBorder";
 import Title from "@/components/elements/Title";
 
 export type CartItemsGroupedType = {
@@ -73,15 +71,8 @@ const CartPage: FC = () => {
     >
       <Title {...{ title: "Cart summary" }} />
 
-      <div className="w-full grid grid-cols-1 gap-8">
-        <WrapAsBorder>
-          <SummaryCart {...{ groupedByStoreID }} />
-        </WrapAsBorder>
-
-        <WrapAsBorder>
-          <CartItemsList {...{ groupedByStoreID }} />
-        </WrapAsBorder>
-      </div>
+      <Title {...{ title: "Items list", styleTxt: "txt__4" }} />
+      <CartItemsList {...{ groupedByStoreID, cart: cart! }} />
     </WrapPageAPI>
   );
 };
