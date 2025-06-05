@@ -53,6 +53,12 @@ export const getCart = async (req: ReqApp, res: Response) => {
         "name",
         "ASC",
       ],
+      [
+        { model: CartItem, as: "items" },
+        { model: Book, as: "book" },
+        "title",
+        "ASC",
+      ],
     ],
   });
   if (!carts.length) return res204(res);

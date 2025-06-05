@@ -114,9 +114,7 @@ export const calcPriceItem = (qty: number, price: number) =>
   priceFormatter(qty * price);
 
 export const calcTotPriceCart = (arg: CartItemType[]) =>
-  priceFormatter(
-    arg.reduce((acc, curr) => acc + curr.qty * curr!.book!.price, 0)
-  );
+  arg.reduce((acc, curr) => acc + curr.qty * curr!.book!.price, 0);
 
 export const getExpectedDeliveredDay = ({
   daysToAdd,
@@ -142,10 +140,10 @@ export const getDeliveryPrice = ({
   cart: CartType;
   store: BookStoreType;
 }) => {
-  if ([cart, store].some((el) => !isObjOk(el))) return "👻";
+  if ([cart, store].some((el) => !isObjOk(el))) return 0;
 
-  if (!+store!.deliveryPrice!) return "Free Delivery";
-  if (!+store!.freeDeliveryAmount!) return priceFormatter(store!.deliveryPrice);
+  if (!+store!.deliveryPrice!) return 0;
+  if (!+store!.freeDeliveryAmount!) return +store!.deliveryPrice!;
 
   const filtered = cart!.items!.filter(
     (el) => el.book!.store!.id === store!.id
@@ -159,7 +157,5 @@ export const getDeliveryPrice = ({
     i--;
   }
 
-  return tot > +store!.freeDeliveryAmount!
-    ? "Free Delivery"
-    : priceFormatter(store!.deliveryPrice!);
+  return tot > +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;
 };
