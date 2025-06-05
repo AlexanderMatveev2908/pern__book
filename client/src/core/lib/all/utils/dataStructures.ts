@@ -132,4 +132,4 @@ export const serializeObjRtk = (err: AxiosError<any, any>) => {
 };
 
 export const isArrOk = (arr?: any) =>
-  Array.isArray(arr) && arr.length && arr.every((el) => isObjOk(el));
+  Array.isArray(arr) && !!arr.length && arr.every((el) => isObjOk(el));

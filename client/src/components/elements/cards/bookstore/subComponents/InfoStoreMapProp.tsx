@@ -13,9 +13,15 @@ type PropsType = {
   bookStore?: BookStoreType;
   abs?: boolean;
   listen?: boolean;
+  border?: boolean;
 };
 
-const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
+const InfoStoreMapProp: FC<PropsType> = ({
+  border,
+  bookStore,
+  abs,
+  listen,
+}) => {
   return (
     <>
       <DropStats
@@ -24,6 +30,7 @@ const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
           fields: statsBooks(bookStore),
           abs,
           listen,
+          border,
         }}
       />
       <DropStats
@@ -32,6 +39,7 @@ const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
           fields: statsReviews(bookStore),
           abs,
           listen,
+          border,
         }}
       />
       <DropStats
@@ -40,6 +48,7 @@ const InfoStoreMapProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
           fields: statsOrders(bookStore),
           abs,
           listen,
+          border,
         }}
       />
     </>

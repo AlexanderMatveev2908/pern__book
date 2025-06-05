@@ -33,23 +33,25 @@ const ReadContent: FC<PropsType> = ({ book }) => {
 
   return (
     <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2">
-      <InfoBookAbout {...{ el: book!, listen: true }} />
+      <InfoBookAbout {...{ el: book!, listen: true, border: true }} />
 
       <DropStats
         {...{
           el: labelInfo,
           fields: showGeneralStatsBook(book!),
           listen: true,
+          border: true,
         }}
       />
 
-      <RatingFancy {...{ el: book!, listen: true }} />
+      <RatingFancy {...{ el: book!, listen: true, border: true }} />
 
       <DropStats
         {...{
           el: libraryLabelStoreDynamic(book?.store?.name ?? ""),
           ovHidden: false,
           listen: true,
+          border: true,
         }}
       >
         <DropStats
@@ -89,6 +91,7 @@ const ReadContent: FC<PropsType> = ({ book }) => {
           styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
           ovHidden: true,
           listen: true,
+          border: true,
         }}
       >
         <li className="w-full flex justify-start pr-5">

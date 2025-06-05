@@ -93,7 +93,7 @@ export const deleteAccount = async (
     ],
   });
 
-  const junctions = await BookStoreUser.findAll({
+  const junctionsAsWorker = await BookStoreUser.findAll({
     where: {
       userID: user.id,
     },
@@ -117,7 +117,7 @@ export const deleteAccount = async (
       await user.thumb.destroy({ transaction: t });
     }
 
-    if (junctions.length)
+    if (junctionsAsWorker.length)
       await BookStoreUser.destroy({
         where: {
           userID: user.id,
