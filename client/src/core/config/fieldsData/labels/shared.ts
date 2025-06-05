@@ -6,6 +6,7 @@ import { IoIosStats } from "react-icons/io";
 import { MdOutlineCategory, MdUpdate } from "react-icons/md";
 import { BsCartDash, BsCartPlus, BsCartX } from "react-icons/bs";
 import { BtnAct } from "@/types/types";
+import { FaBook } from "react-icons/fa";
 
 export const manageDropLabelGeneral = {
   icon: AiFillInteraction,
@@ -36,6 +37,11 @@ export const labelCategories = {
   label: "Categories",
   icon: MdOutlineCategory,
 };
+
+export const labelBookTitle = (title: string) => ({
+  icon: FaBook,
+  label: title,
+});
 
 export const libraryLabelStoreDynamic = (label: string) => ({
   label,
