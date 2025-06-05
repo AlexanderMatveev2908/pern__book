@@ -1,4 +1,6 @@
 import { CartItemType } from "@/types/all/Cart";
+import { isWeekend } from "../../../../../node_modules/date-fns/fp/isWeekend";
+import { format } from "date-fns";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
@@ -114,3 +116,20 @@ export const calcTotPriceCart = (arg: CartItemType[]) =>
   priceFormatter(
     arg.reduce((acc, curr) => acc + curr.qty * curr!.book!.price, 0)
   );
+
+export const getExpectedDeliveredDay = ({
+  daysToAdd,
+}: {
+  daysToAdd: number;
+}) => {
+  const currDate = new Date();
+  let addedDays = 0;
+
+  while (addedDays < daysToAdd) {
+    currDate.setDate(currDate.getDate() + 1);
+
+    if (!isWeekend(currDate)) addedDays++;
+  }
+
+  return format(currDate, "EEE, dd MMM yyyy");
+};

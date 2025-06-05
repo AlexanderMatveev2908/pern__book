@@ -8,7 +8,7 @@ type PropsType = {
 const WrapTxt: FC<PropsType> = ({ txt, customStyle }) => {
   return (
     <span
-      className={`txt__3 clamp_txt ${customStyle ?? "justify-self-center"}`}
+      className={`txt__2 clamp_txt ${customStyle ?? "justify-self-center"}`}
       style={{
         lineClamp: 2,
       }}

@@ -2,13 +2,11 @@ import Title from "@/components/elements/Title";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { isArrOk, priceFormatter } from "@/core/lib/lib";
-import WrapTxt from "@/features/ConsumerLayout/CartLayout/components/WrapPairTxt/WrapTxt";
+import WrapTxt from "@/components/elements/WrapPairTxt/WrapTxt";
 import { X } from "lucide-react";
 import type { FC } from "react";
 
-type PropsType = {};
-
-const SummaryCart: FC<PropsType> = ({}) => {
+const SummaryCart: FC = () => {
   const { cart } = useGetCart();
 
   const ids = useCreateIds({ lengths: [cart?.items?.length] });
@@ -39,7 +37,7 @@ const SummaryCart: FC<PropsType> = ({}) => {
               </div>
 
               <div className="w-full grid grid-cols-3 justify-items-center items-center">
-                <WrapTxt {...{ txt: el.book!.qty }} />
+                <WrapTxt {...{ txt: el!.qty }} />
 
                 <X className="icon__sd" />
 

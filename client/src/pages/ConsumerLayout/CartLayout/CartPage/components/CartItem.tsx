@@ -1,8 +1,8 @@
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
-import { isArrOk } from "@/core/lib/lib";
+import { getExpectedDeliveredDay, isArrOk } from "@/core/lib/lib";
 import { CartItemType } from "@/types/all/Cart";
 import type { FC } from "react";
-import WrapPairTxt from "../../../../../features/ConsumerLayout/CartLayout/components/WrapPairTxt/WrapPairTxt";
+import WrapPairTxt from "../../../../../components/elements/WrapPairTxt/WrapPairTxt";
 import FormQty from "./subComponents/FormQty";
 import SummaryPriceItem from "./subComponents/SummaryPriceItem";
 
@@ -30,6 +30,17 @@ const CartItem: FC<PropsType> = ({ el }) => {
 
           <WrapPairTxt {...{ arg: ["author", book!.author] }} />
           <WrapPairTxt {...{ arg: ["title", book!.title] }} />
+
+          <WrapPairTxt
+            {...{
+              arg: [
+                "expected",
+                getExpectedDeliveredDay({
+                  daysToAdd: book!.store!.deliveryTime,
+                }),
+              ],
+            }}
+          />
         </div>
         <div className="w-full grid grid-cols-1 gap-y-4 gap-x-10">
           <SummaryPriceItem {...{ el }} />
