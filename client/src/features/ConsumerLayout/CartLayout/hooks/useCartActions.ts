@@ -8,15 +8,16 @@ import { tailwindBreak } from "@/core/config/breakpoints";
 type Params = {
   label: CartBtnType;
   book?: BookType;
+  main?: boolean;
 };
 
-export const useCartActionsClick = ({ label, book }: Params) => {
+export const useCartActionsClick = ({ label, book, main }: Params) => {
   const [mutate, { isLoading }] =
     cartSLiceAPI.endpoints.updateQtyCartClick.useMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
 
   const handleClick = async () => {
-    if (label.keyAction !== KEY_ACTION_CART.REMOVE_FROM_CART) {
+    if (label.keyAction !== KEY_ACTION_CART.REMOVE_FROM_CART && !main) {
       if (window.innerWidth > tailwindBreak.md) return;
     }
 
