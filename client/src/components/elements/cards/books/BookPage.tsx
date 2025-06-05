@@ -23,11 +23,11 @@ const BookPage: FC<PropsType> = ({ el, isOwner }) => {
 
       <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5">
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
-          <InfoBookAbout {...{ el, listen: true }} />
+          <InfoBookAbout {...{ el, listen: true, border: true }} />
         </div>
 
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-5">
-          <DataBookDB {...{ el, listen: true }} />
+          <DataBookDB {...{ el, listen: true, border: true }} />
         </div>
 
         <DropStats
@@ -35,11 +35,12 @@ const BookPage: FC<PropsType> = ({ el, isOwner }) => {
             el: workFlowLabel,
             fields: fieldsWorkFlowBook(el),
             listen: true,
+            border: true,
           }}
         />
 
         <div className="w-full grid grid-cols-1 gap-x-10 gap-y-5 sm:grid-cols-2 ">
-          <InfoStoreFromBook {...{ el, listen: true, isOwner }} />
+          <InfoStoreFromBook {...{ el, listen: true, isOwner, border: true }} />
 
           <DropStats
             {...{
@@ -48,6 +49,7 @@ const BookPage: FC<PropsType> = ({ el, isOwner }) => {
               styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
               ovHidden: true,
               listen: true,
+              border: true,
             }}
           >
             <li className="w-full flex justify-start pr-5">

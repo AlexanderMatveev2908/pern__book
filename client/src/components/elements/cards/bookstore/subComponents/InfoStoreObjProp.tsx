@@ -14,9 +14,15 @@ type PropsType = {
   bookStore?: BookStoreType;
   abs?: boolean;
   listen?: boolean;
+  border?: boolean;
 };
 
-const InfoStoreObjProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
+const InfoStoreObjProp: FC<PropsType> = ({
+  bookStore,
+  abs,
+  listen,
+  border,
+}) => {
   return (
     <>
       <DropStats
@@ -25,6 +31,7 @@ const InfoStoreObjProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
           fields: statsAddress(bookStore),
           abs,
           listen,
+          border,
         }}
       />
 
@@ -34,6 +41,7 @@ const InfoStoreObjProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
           fields: fieldsStatsContact(bookStore),
           abs,
           listen,
+          border,
         }}
       />
 
@@ -43,6 +51,7 @@ const InfoStoreObjProp: FC<PropsType> = ({ bookStore, abs, listen }) => {
           fields: statsDelivery(bookStore),
           abs,
           listen,
+          border,
         }}
       />
     </>

@@ -140,12 +140,13 @@ export const getDeliveryPrice = ({
   cart,
   store,
 }: {
-  cart?: CartType;
-  store?: BookStoreType;
+  cart: CartType;
+  store: BookStoreType;
 }) => {
   if ([cart, store].some((el) => !isObjOk(el))) return "👻";
 
-  if (!store?.deliveryPrice) return "Free Delivery";
+  if (!+store!.deliveryPrice!) return "Free Delivery";
+  if (!+store!.freeDeliveryAmount!) return priceFormatter(store!.deliveryPrice);
 
   const filtered = cart!.items!.filter(
     (el) => el.book!.store!.id === store!.id
@@ -159,7 +160,7 @@ export const getDeliveryPrice = ({
     i--;
   }
 
-  return tot > store!.freeDeliveryAmount!
+  return tot > +store!.freeDeliveryAmount!
     ? "Free Delivery"
-    : store!.deliveryPrice;
+    : priceFormatter(store!.deliveryPrice!);
 };

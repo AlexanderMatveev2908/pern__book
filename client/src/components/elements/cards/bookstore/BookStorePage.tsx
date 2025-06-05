@@ -28,7 +28,9 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
   return (
     <>
       <div className="w-full grid grid-cols-1 sm:grid-cols-[1fr_1fr] md:grid-cols-[1fr_2fr] xl:grid-cols-[1fr_3fr] gap-x-10 gap-y-3">
-        <DropStats {...{ el: labelCategories, fields: null, listen: true }}>
+        <DropStats
+          {...{ el: labelCategories, fields: null, listen: true, border: true }}
+        >
           {el?.categories?.map((el, i) => (
             <li key={ids?.[0]?.[i] ?? i} className="w-full flex justify-start">
               <span className="txt__2">{el}</span>
@@ -43,6 +45,7 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
             styleUL: "max-h-[200px] scroll_app scroll_y overflow-y-auto",
             listen: true,
             ovHidden: true,
+            border: true,
           }}
         >
           <li className="w-full flex justify-start pr-5">
@@ -52,11 +55,11 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
       </div>
 
       <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-x-10 gap-y-3">
-        <InfoStoreObjProp {...{ bookStore: el, listen: true }} />
+        <InfoStoreObjProp {...{ bookStore: el, listen: true, border: true }} />
       </div>
 
       <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-x-10 gap-y-3">
-        <InfoStoreMapProp {...{ bookStore: el, listen: true }} />
+        <InfoStoreMapProp {...{ bookStore: el, listen: true, border: true }} />
       </div>
 
       {isOwner && (
@@ -66,6 +69,7 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
             styleUL: "max-h-[500px] scroll_app scroll_y overflow-y-auto",
             fields: statsTeam(el),
             listen: true,
+            border: true,
           }}
         >
           {!!el?.team?.length && (
@@ -102,6 +106,7 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
           el: workFlowLabel,
           fields: fieldsWorkFlowStore(el),
           listen: true,
+          border: true,
         }}
       />
     </>
