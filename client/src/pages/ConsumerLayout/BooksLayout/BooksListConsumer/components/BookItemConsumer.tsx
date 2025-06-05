@@ -15,6 +15,7 @@ import {
 } from "@/core/config/fieldsData/books/cards";
 import InfoBookAbout from "@/components/elements/cards/books/subComponents/InfoBookAbout";
 import {
+  labelBookTitle,
   labelCategories,
   labelInfo,
   libraryLabelStoreDynamic,
@@ -25,7 +26,7 @@ import {
   labelFieldAddressStore,
 } from "@/core/config/fieldsData/bookStores/cards";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import BtnsCartCardItem from "./subComponents/BtnsCartCardItem";
+import SpanTitleCard from "@/components/elements/cards/shared/SpanTitleCard";
 
 type PropsType = {
   el: BookType;
@@ -35,12 +36,14 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
   const ids = useCreateIds({ lengths: [el?.store?.categories?.length] });
 
   return (
-    <div className="c_card">
-      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-5">
-        <div className="w-full grid grid-cols-1 h-fit items-start">
-          <ImagesItem {...{ images: el.images }} />
-        </div>
+    <div className="w-full grid grid-cols-1 gap-x-10 border-[3px] border-neutral-800 rounded-xl p-3 gap-y-5">
+      <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5">
+        <SpanTitleCard {...{ label: labelBookTitle(el.title) }} />
 
+        <ImagesItem {...{ images: el.images }} />
+      </div>
+
+      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-5">
         <div
           className={`w-full grid grid-cols-1 gap-4 sm:h-fit sm:items-start ${
             el.images?.length ? "" : "-mt-5"
@@ -101,11 +104,9 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
             />
           </DropStats>
         </div>
+
+        <LinksCard {...{ ID: el.id, links: linksBookConsumer }} />
       </div>
-
-      <BtnsCartCardItem {...{ el }} />
-
-      <LinksCard {...{ ID: el.id, links: linksBookConsumer }} />
     </div>
   );
 };
