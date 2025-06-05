@@ -5,6 +5,7 @@ import { useSlideImg } from "@/core/hooks/all/UI/useSlideImg";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import ImgLoaderHandler from "@/components/elements/imagesHandlers/ImgLoaderHandler";
 import ServerCard from "./ServerCard";
+import { Link } from "react-router-dom";
 
 type PropsType = {
   books?: BookType[];
@@ -63,7 +64,8 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
                 key={ids[0][iOuter]}
               >
                 {arg.items.map((el, iInner) => (
-                  <div
+                  <Link
+                    to={`/consumer/books/${el.id}`}
                     onMouseEnter={stopSlide}
                     onMouseLeave={startSlide}
                     key={ids[1][iInner]}
@@ -82,7 +84,7 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
 
                       <ServerCard {...{ el }} />
                     </div>
-                  </div>
+                  </Link>
                 ))}
               </div>
             ))}
