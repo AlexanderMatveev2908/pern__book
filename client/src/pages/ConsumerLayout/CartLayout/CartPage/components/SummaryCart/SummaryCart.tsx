@@ -1,15 +1,39 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import Title from "@/components/elements/Title";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { getDeliveryPrice, isArrOk, priceFormatter } from "@/core/lib/lib";
 import WrapTxt from "@/components/elements/WrapPairTxt/WrapTxt";
 import { X } from "lucide-react";
-import { type FC } from "react";
+import { useMemo, type FC } from "react";
+import { CartItemType } from "@/types/all/Cart";
+import { BookStoreType } from "@/types/all/bookStore";
 
 const SummaryCart: FC = () => {
   const { cart } = useGetCart();
 
   const ids = useCreateIds({ lengths: [cart?.items?.length] });
+
+  const groupedStore = useMemo(
+    () =>
+      !isArrOk(cart?.items)
+        ? []
+        : cart!.items!.reduce((acc: any, curr: CartItemType) => {
+            const storeID = curr.book!.store!.id;
+            if (!acc[storeID])
+              acc[storeID] = {
+                store: curr.book!.store!,
+                items: [],
+              };
+
+            acc[storeID].items.push(curr);
+
+            return acc;
+          }, {} as Record<string, { store: BookStoreType; items: CartItemType[] }>),
+    [cart]
+  );
+
+  console.log(groupedStore);
 
   return (
     <div className="sticky top-[85px] p-4 pt-0 border-[3px] border-blue-600 rounded-xl grid grid-cols-1 gap-y-4 z-60 bg-neutral-950 w-full max-w-[800px] ">
@@ -24,7 +48,7 @@ const SummaryCart: FC = () => {
               key={ids[0][i]}
               className="w-full grid grid-cols-1 items-center gap-y-3 pl-3 border-l-2 border-blue-600"
             >
-              <div className="w-full flex justify-center max-w-full">
+              <div className="w-full flex justify-start max-w-full">
                 <span
                   className="txt__3 clamp_txt"
                   style={{
