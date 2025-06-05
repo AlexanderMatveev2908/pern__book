@@ -520,13 +520,8 @@ button:disabled {
   .card_list > :nth-child(1) {
     grid-column: span 2;
   }
-  .card_list .footer {
-    @apply col-span-2;
-  }
-}
-@media screen and (min-width: 1200px) {
-  .card_list .footer {
-    @apply grid-cols-[2fr_1fr];
+  .card_list .footer_link {
+    @apply justify-items-start;
   }
 }
 
@@ -536,6 +531,12 @@ button:disabled {
 @media screen and (min-width: 600px) {
   .images_item .wrapper {
     @apply min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px];
+  }
+}
+
+@media screen and (min-width: 600px) {
+  .book_item_consumer__btns {
+    @apply col-span-2;
   }
 }
 

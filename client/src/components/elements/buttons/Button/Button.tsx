@@ -17,6 +17,7 @@ type PropsType = {
   act?: BtnAct;
   styleTxt?: string;
   handleClick?: () => void;
+  handleMousePress?: () => void;
 };
 
 const style = new Map([
@@ -59,6 +60,7 @@ const Button: FC<PropsType> = ({
   act = BtnAct.INFO,
   handleClick,
   styleTxt,
+  handleMousePress,
 }) => {
   const [canLoad, setCanLoad] = useState(false);
   const timer = useRef<NodeJS.Timeout | null>(null);
@@ -116,6 +118,7 @@ const Button: FC<PropsType> = ({
   ) : (
     <button
       onClick={() => (typeof handleClick === "function" ? handleClick() : null)}
+      onMouseDown={handleMousePress}
       type={type}
       ref={btnRef}
       disabled={isDisabled || isPending}

@@ -7,14 +7,9 @@
     > :nth-child(1) {
       grid-column: span 2;
     }
-    .footer {
-      @apply col-span-2;
-    }
-  }
 
-  .footer {
-    @media screen and (min-width: 1200px) {
-      @apply grid-cols-[2fr_1fr];
+    .footer_link {
+      @apply justify-items-start;
     }
   }
 }
