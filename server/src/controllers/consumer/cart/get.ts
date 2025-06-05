@@ -49,7 +49,8 @@ export const getCart = async (req: ReqApp, res: Response) => {
       [
         { model: CartItem, as: "items" },
         { model: Book, as: "book" },
-        "title",
+        { model: BookStore, as: "store" },
+        "name",
         "ASC",
       ],
     ],

@@ -1,5 +1,5 @@
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
-import { getExpectedDeliveredDay, isArrOk } from "@/core/lib/lib";
+import { isArrOk } from "@/core/lib/lib";
 import { CartItemType } from "@/types/all/Cart";
 import type { FC } from "react";
 import WrapPairTxt from "../../../../../components/elements/WrapPairTxt/WrapPairTxt";
@@ -26,21 +26,7 @@ const CartItem: FC<PropsType> = ({ el }) => {
       )}
       <div className="w-full grid grid-cols-1 gap-6">
         <div className="w-full h-fit gap-y-4 grid grid-cols-1">
-          <WrapPairTxt {...{ arg: ["store", book!.store!.name] }} />
-
-          <WrapPairTxt {...{ arg: ["author", book!.author] }} />
           <WrapPairTxt {...{ arg: ["title", book!.title] }} />
-
-          <WrapPairTxt
-            {...{
-              arg: [
-                "expected",
-                getExpectedDeliveredDay({
-                  daysToAdd: book!.store!.deliveryTime,
-                }),
-              ],
-            }}
-          />
         </div>
         <div className="w-full grid grid-cols-1 gap-y-4 gap-x-10">
           <SummaryPriceItem {...{ el }} />
