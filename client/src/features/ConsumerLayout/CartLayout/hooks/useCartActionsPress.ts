@@ -5,6 +5,7 @@ import { CartBtnType } from "@/types/types";
 import { useCallback, useEffect, useRef } from "react";
 import { cartSLiceAPI } from "../cartSliceAPI";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
+import { tailwindBreak } from "@/core/config/breakpoints";
 
 type Params = {
   localQty?: number;
@@ -70,7 +71,11 @@ export const useCartActionsPress = ({
   }, [wrapMutationAPI, book, localQty, mutate, existingItemCartQty, label]);
 
   const handleMousePress = async () => {
-    if (typeof setLocalQty !== "function") return;
+    if (
+      typeof setLocalQty !== "function" ||
+      window.innerWidth < tailwindBreak.md
+    )
+      return;
 
     pressRef.current = true;
     clearTimer(timerID);
