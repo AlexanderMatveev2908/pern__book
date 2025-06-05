@@ -34,7 +34,7 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
   return !isLogged ? (
     <PlaceholderLogic />
   ) : (
-    <div className="w-full justify-items-center items-center gap-x-5 gap-y-5 justify-self-center grid grid-cols-1">
+    <div className="w-full justify-items-center items-center gap-x-5 gap-y-5 justify-self-center grid grid-cols-1 button_cart">
       {!existingItemCartQty ? (
         <div className="w-full max-w-[400px]">
           <MainBtnAddCart
@@ -48,7 +48,30 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         </div>
       ) : (
         <>
-          <div className="w-full grid grid-cols-2 items-center justify-items-center">
+          <div className="w-full grid grid-cols-[1fr_40px_1fr] items-center justify-items-center max-w-[400px] gap-y-5 gap-x-6">
+            {existingItemCartQty === 1 ? (
+              <WrapBtnCart
+                {...{
+                  label: labelRemoveFromCart,
+                  disabledByParent: !existingItemCartQty || !localQty,
+                  book,
+                }}
+              />
+            ) : (
+              <WrapBtnCart
+                {...{
+                  label: labelDecQtyCart,
+                  book,
+                  setLocalQty,
+                  localQty,
+                  existingItemCartQty,
+                }}
+              />
+            )}
+
+            <div className="w-full max-w-[50px] flex justify-center">
+              <span className="txt__5">{localQty}</span>
+            </div>
             <WrapBtnCart
               {...{
                 label: labelAddCart,
@@ -56,28 +79,6 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
                 setLocalQty,
                 localQty,
                 existingItemCartQty,
-              }}
-            />
-
-            <div className="w-full max-w-[50px] flex justify-center">
-              <span className="txt__5">{localQty}</span>
-            </div>
-          </div>
-          <div className="w-full grid grid-cols-2 justify-items-center items-center">
-            <WrapBtnCart
-              {...{
-                label: labelDecQtyCart,
-                book,
-                setLocalQty,
-                localQty,
-                existingItemCartQty,
-              }}
-            />
-            <WrapBtnCart
-              {...{
-                label: labelRemoveFromCart,
-                disabledByParent: !existingItemCartQty || !localQty,
-                book,
               }}
             />
           </div>
