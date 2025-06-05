@@ -10,6 +10,7 @@ import WrapBtnCart from "./WrapBtnCart";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
 import PlaceholderLogic from "./PlaceholderLogic";
+import MainBtnAddCart from "./MainBtnAddCart";
 
 type PropsType = {
   book?: BookType;
@@ -33,47 +34,56 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
   return !isLogged ? (
     <PlaceholderLogic />
   ) : (
-    <div
-      className="w-full justify-items-center items-center gap-x-5 gap-y-5 md:max-w-[600px] justify-self-center"
-      style={{
-        display: "grid",
-        gridTemplateColumns: `repeat(auto-fit, minmax(200px, 1fr))`,
-      }}
-    >
-      <div className="w-full grid grid-cols-2 items-center justify-items-center">
-        <WrapBtnCart
-          {...{
-            label: labelAddCart,
-            book,
-            setLocalQty,
-            localQty,
-            existingItemCartQty,
-          }}
-        />
-
-        <div className="w-full max-w-[50px] flex justify-center">
-          <span className="txt__5">{localQty}</span>
+    <div className="w-full justify-items-center items-center gap-x-5 gap-y-5 justify-self-center grid grid-cols-1">
+      {!existingItemCartQty ? (
+        <div className="w-full max-w-[400px]">
+          <MainBtnAddCart
+            {...{
+              label: { ...labelAddCart, label: "Add to Cart" },
+              book,
+              disabledByParent: !book!.qty,
+              existingItemCartQty,
+            }}
+          />
         </div>
-      </div>
+      ) : (
+        <>
+          <div className="w-full grid grid-cols-2 items-center justify-items-center">
+            <WrapBtnCart
+              {...{
+                label: labelAddCart,
+                book,
+                setLocalQty,
+                localQty,
+                existingItemCartQty,
+              }}
+            />
 
-      <div className="w-full grid grid-cols-2 justify-items-center items-center">
-        <WrapBtnCart
-          {...{
-            label: labelDecQtyCart,
-            book,
-            setLocalQty,
-            localQty,
-            existingItemCartQty,
-          }}
-        />
-        <WrapBtnCart
-          {...{
-            label: labelRemoveFromCart,
-            disabledByParent: !existingItemCartQty || !localQty,
-            book,
-          }}
-        />
-      </div>
+            <div className="w-full max-w-[50px] flex justify-center">
+              <span className="txt__5">{localQty}</span>
+            </div>
+          </div>
+
+          <div className="w-full grid grid-cols-2 justify-items-center items-center">
+            <WrapBtnCart
+              {...{
+                label: labelDecQtyCart,
+                book,
+                setLocalQty,
+                localQty,
+                existingItemCartQty,
+              }}
+            />
+            <WrapBtnCart
+              {...{
+                label: labelRemoveFromCart,
+                disabledByParent: !existingItemCartQty || !localQty,
+                book,
+              }}
+            />
+          </div>
+        </>
+      )}
     </div>
   );
 };

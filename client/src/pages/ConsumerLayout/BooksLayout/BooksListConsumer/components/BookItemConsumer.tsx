@@ -63,13 +63,13 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
           </div>
         </div>
 
-        <div className="w-full grid grid-cols-1 h-fit gap-y-5 footer">
-          <div className="w-full flex justify-center">
-            <ButtonsCart {...{ book: el, cart }} />
-          </div>
-
+        <div className="w-full grid grid-cols-1 h-fit items-center  footer_link justify-items-center">
           <LinksCard {...{ ID: el.id, links: linksBookConsumer }} />
         </div>
+      </div>
+
+      <div className="w-full flex justify-center book_item_consumer__btns">
+        <ButtonsCart {...{ book: el, cart }} />
       </div>
     </div>
   );

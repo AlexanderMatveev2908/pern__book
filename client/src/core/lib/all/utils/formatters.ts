@@ -1,6 +1,5 @@
 import { CartItemType, CartType } from "@/types/all/Cart";
-import { isWeekend } from "../../../../../node_modules/date-fns/fp/isWeekend";
-import { format } from "date-fns";
+import { isWeekend, format } from "date-fns";
 import { BookStoreType } from "@/types/all/bookStore";
 import { isObjOk } from "./dataStructures";
 

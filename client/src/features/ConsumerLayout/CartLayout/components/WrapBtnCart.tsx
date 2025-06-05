@@ -3,16 +3,11 @@ import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { useCartActionsClick } from "@/features/ConsumerLayout/CartLayout/hooks/useCartActions";
 import { useCartActionsPress } from "@/features/ConsumerLayout/CartLayout/hooks/useCartActionsPress";
 import { BookType } from "@/types/all/books";
-import { BtnAct } from "@/types/types";
+import { CartBtnType } from "@/types/types";
 import { useState, type FC } from "react";
-import { IconType } from "react-icons/lib";
 
 type PropsType = {
-  label: {
-    icon: IconType;
-    keyAction: KEY_ACTION_CART;
-    act: BtnAct;
-  };
+  label: CartBtnType;
   disabledByParent?: boolean;
   book?: BookType;
   setLocalQty?: React.Dispatch<React.SetStateAction<number>>;
@@ -22,7 +17,6 @@ type PropsType = {
 
 const WrapBtnCart: FC<PropsType> = ({
   label,
-  // disabled,
   book,
   setLocalQty,
   localQty,

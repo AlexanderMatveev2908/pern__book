@@ -14,7 +14,7 @@ type PropsType = {
 
 const LinksCard: FC<PropsType> = ({ links, ID }) => {
   return (
-    <div className="w-full grid grid-cols-2 justify-items-center mt-3">
+    <div className="w-full max-w-fit grid grid-cols-2 mt-3">
       {links.map((lin, _, arg) => (
         <Link
           key={lin.id}
