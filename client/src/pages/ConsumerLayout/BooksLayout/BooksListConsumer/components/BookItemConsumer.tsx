@@ -26,9 +26,11 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
         <SpanTitleCard {...{ label: labelBookTitle(el.title) }} />
       </div>
 
-      <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5">
-        <ImagesItem {...{ images: el.images }} />
-      </div>
+      {!!el.images?.length && (
+        <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5">
+          <ImagesItem {...{ images: el.images }} />
+        </div>
+      )}
 
       <div className="w-full grid grid-cols-1 gap-x-5 gap-y-5 h-fit">
         <div
