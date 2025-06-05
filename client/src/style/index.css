@@ -510,6 +510,27 @@ button:disabled {
   appearance: none;
 }
 
+.card_list {
+  @apply w-full grid grid-cols-1 gap-x-10 border-[3px] border-neutral-800 rounded-xl p-3 pb-5 gap-y-5;
+}
+@media screen and (min-width: 600px) {
+  .card_list {
+    @apply grid-cols-[200px_1fr];
+  }
+  .card_list > :nth-child(1) {
+    grid-column: span 2;
+  }
+}
+
+.images_item .wrapper {
+  @apply min-w-[150px] max-w-[150px] max-h-[150px];
+}
+@media screen and (min-width: 600px) {
+  .images_item .wrapper {
+    @apply min-w-[200px] max-w-[200px] max-h-[200px] min-h-[200px];
+  }
+}
+
 .page_counter .btn {
   transition: 0.3s;
   transform: scale(var(--scale_counter_page));

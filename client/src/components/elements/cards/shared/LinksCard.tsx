@@ -20,7 +20,7 @@ const LinksCard: FC<PropsType> = ({ links, ID }) => {
           key={lin.id}
           to={lin.path + ID}
           className={`px-4 py-1 flex justify-center gap-5 items-center el__flow hover:text-blue-600 el__after_below w-full ${
-            arg.length < 2 ? "col-span-2" : ""
+            arg.length < 2 ? "col-span-2 justify-self-center" : ""
           }`}
         >
           <lin.icon className="icon__md" />
