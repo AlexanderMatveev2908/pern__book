@@ -1,12 +1,12 @@
 import { BookType } from "@/types/all/books";
 import { useEffect, useMemo, useState, type FC } from "react";
-import WrapBtnCart from "./subComponents/WrapBtnCart";
 import {
   labelAddCart,
   labelDecQtyCart,
   labelRemoveFromCart,
 } from "@/core/config/fieldsData/labels/shared";
 import { CartType } from "@/types/all/Cart";
+import WrapBtnCart from "./WrapBtnCart";
 
 type PropsType = {
   book?: BookType;
@@ -37,10 +37,6 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelAddCart,
-            // disabled:
-            //   !book?.qty ||
-            //   existingItemCartQty >= book?.qty ||
-            //   localQty >= book?.qty,
             book,
             setLocalQty,
             localQty,
@@ -57,7 +53,6 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
         <WrapBtnCart
           {...{
             label: labelDecQtyCart,
-            // disabled: !existingItemCartQty || !localQty,
             book,
             setLocalQty,
             localQty,
