@@ -33,7 +33,7 @@ const ServerCard: FC<PropsType> = ({ el }) => {
     const domEl = refTxt.current;
     if (!domEl) return;
     if (!isStr(el?.description ?? "")) {
-      setDisplayTxt("");
+      setDisplayTxt("N/A");
       return;
     }
 
@@ -64,12 +64,14 @@ const ServerCard: FC<PropsType> = ({ el }) => {
 
   return (
     <div className="server flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full">
-      <SpanTxt {...{ txt: el.author, fsz: "txt__4", clamp: 1 }} />
-      <SpanTxt {...{ txt: el.title, fsz: "txt__3", clamp: 2 }} />
+      <div className="w-full flex flex-col justify-start items-center gap-3 max-h-full">
+        <SpanTxt {...{ txt: el.author, fsz: "txt__4", clamp: 1 }} />
+        <SpanTxt {...{ txt: el.title, fsz: "txt__3", clamp: 2 }} />
 
-      <span ref={refTxt} className="txt__2 max-h-full overflow-hidden">
-        {displayTxt}
-      </span>
+        <span ref={refTxt} className="txt__2 max-h-full overflow-hidden">
+          {displayTxt}
+        </span>
+      </div>
     </div>
   );
 };
