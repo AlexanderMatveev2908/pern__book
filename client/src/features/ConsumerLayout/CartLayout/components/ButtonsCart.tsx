@@ -7,6 +7,9 @@ import {
 } from "@/core/config/fieldsData/labels/shared";
 import { CartType } from "@/types/all/Cart";
 import WrapBtnCart from "./WrapBtnCart";
+import { useSelector } from "react-redux";
+import { getAuthState } from "@/features/AuthLayout/authSlice";
+import PlaceholderLogic from "./PlaceholderLogic";
 
 type PropsType = {
   book?: BookType;
@@ -15,6 +18,8 @@ type PropsType = {
 
 const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
   const [localQty, setLocalQty] = useState(0);
+
+  const isLogged = useSelector(getAuthState).isLogged;
 
   const existingItemCartQty = useMemo(
     () => (cart?.items || []).find((el) => el?.bookID === book?.id)?.qty ?? 0,
@@ -25,7 +30,9 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
     setLocalQty(existingItemCartQty);
   }, [existingItemCartQty, setLocalQty]);
 
-  return (
+  return !isLogged ? (
+    <PlaceholderLogic />
+  ) : (
     <div
       className="w-full justify-items-center items-center gap-x-5 gap-y-5 md:max-w-[600px] justify-self-center"
       style={{
