@@ -25,6 +25,7 @@ import {
   labelFieldAddressStore,
 } from "@/core/config/fieldsData/bookStores/cards";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import BtnsCartCardItem from "./subComponents/BtnsCartCardItem";
 
 type PropsType = {
   el: BookType;
@@ -102,7 +103,9 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
         </div>
       </div>
 
-      <LinksCard {...{ ID: el.id, links: linksBookConsumer, invalid: [1] }} />
+      <BtnsCartCardItem {...{ el }} />
+
+      <LinksCard {...{ ID: el.id, links: linksBookConsumer }} />
     </div>
   );
 };

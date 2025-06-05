@@ -28,11 +28,11 @@ export const getNumBtns = () =>
     : 2;
 
 export const setLimitCards = () =>
-  window.innerWidth > tailwindBreak._2xl
+  window.innerWidth > 1800
+    ? 16
+    : window.innerWidth > 1500
     ? 12
-    : window.innerWidth > tailwindBreak.xl
-    ? 9
-    : window.innerWidth > tailwindBreak.md
+    : window.innerWidth > 1000
     ? 8
     : 1;
 
