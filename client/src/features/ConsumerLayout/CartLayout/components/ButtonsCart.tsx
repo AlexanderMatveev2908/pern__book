@@ -63,8 +63,8 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
               <span className="txt__5">{localQty}</span>
             </div>
           </div>
-          {/* aa */}
           <div className="w-full grid grid-cols-2 justify-items-center items-center">
+            {/* aaa */}
             <WrapBtnCart
               {...{
                 label: labelDecQtyCart,
