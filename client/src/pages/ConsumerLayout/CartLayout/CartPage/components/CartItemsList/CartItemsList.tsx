@@ -3,7 +3,6 @@
 import type { FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
-import Title from "@/components/elements/Title";
 import { getDeliveryPrice, getExpectedDeliveredDay } from "@/core/lib/lib";
 import CartItem from "./components/CartItem";
 import { CartItemType, CartType } from "@/types/all/Cart";
