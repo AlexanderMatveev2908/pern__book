@@ -2,7 +2,7 @@ import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
 import { isArrOk } from "@/core/lib/lib";
 import { CartItemType } from "@/types/all/Cart";
 import type { FC } from "react";
-import WrapPairTxt from "../../../../../components/elements/WrapPairTxt/WrapPairTxt";
+import WrapPairTxt from "../../../../../../../components/elements/WrapPairTxt/WrapPairTxt";
 import FormQty from "./subComponents/FormQty";
 import SummaryPriceItem from "./subComponents/SummaryPriceItem";
 
