@@ -2,7 +2,6 @@ import { capt, formatValDel } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FaLink } from "react-icons/fa";
-import { HiLibrary } from "react-icons/hi";
 import { v4 } from "uuid";
 
 export const showStoreAddressFromBook = (book: BookType) =>
@@ -30,10 +29,9 @@ export const statsDeliveryStoreFromBook = (book?: BookType) =>
 export const linksBookConsumer = [
   {
     icon: FaLink,
-    label: "Page",
+    label: "View more",
     path: "/consumer/books/",
   },
-  { label: "Store", icon: HiLibrary, path: "monkey" },
 ].map((el) => ({
   ...el,
   id: v4(),
