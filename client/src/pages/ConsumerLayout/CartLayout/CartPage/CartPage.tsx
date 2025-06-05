@@ -10,6 +10,7 @@ import { CartItemType } from "@/types/all/Cart";
 import { BookStoreType } from "@/types/all/bookStore";
 import CartItemsList from "./components/CartItemsList/CartItemsList";
 import WrapAsBorder from "@/components/elements/WrapAsBorder";
+import Title from "@/components/elements/Title";
 
 export type CartItemsGroupedType = {
   store: BookStoreType;
@@ -70,7 +71,9 @@ const CartPage: FC = () => {
         canStay: !!cart?.items?.length,
       }}
     >
-      <div className="w-full grid grid-cols-1 gap-10">
+      <Title {...{ title: "Cart summary" }} />
+
+      <div className="w-full grid grid-cols-1 gap-8">
         <WrapAsBorder>
           <SummaryCart {...{ groupedByStoreID }} />
         </WrapAsBorder>
