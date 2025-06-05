@@ -14,7 +14,7 @@ const CartItem: FC<PropsType> = ({ el }) => {
   const { book } = el;
 
   return (
-    <div className="w-full border-[3px] border-blue-600 rounded-xl p-3 grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-10 gap-y-5 cart_item">
+    <div className="w-full border-[3px] border-neutral-800 rounded-xl p-3 grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-10 gap-y-5 cart_item">
       {isArrOk(el!.book!.images) && (
         <ImagesScroll
           {...{

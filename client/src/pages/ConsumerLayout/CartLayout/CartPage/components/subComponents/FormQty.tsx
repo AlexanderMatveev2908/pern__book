@@ -60,10 +60,12 @@ const FormQty: FC<PropsType> = ({ el }) => {
     handleSubmit,
     formState: { errors },
     setValue,
+    watch,
   } = useForm<FormQtyType>({
     resolver: zodResolver(schemaX),
     mode: "onChange",
   });
+  const realTimeQtyUser = watch("qty");
 
   useEffect(() => {
     setValue("qty", el!.qty + "", {
@@ -142,7 +144,8 @@ const FormQty: FC<PropsType> = ({ el }) => {
               type: "submit",
               isPending: isLoadingPatch,
               styleIcon: "icon__sm text-green-600",
-              isDisabled: isStr(errors?.qty?.message),
+              isDisabled:
+                isStr(errors?.qty?.message) || el.qty === +realTimeQtyUser,
             }}
           />
         </div>
