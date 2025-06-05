@@ -50,8 +50,16 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
               spanInfo: { icon: TbPigMoney, info: priceFormatter(el.price) },
             }}
           />
-          <div className="w-full flex justify-start">
+          <div className="w-full flex justify-start items-center gap-5">
             <RatingItem {...{ rat: el.ratingStats.avgRating }} />
+
+            <SpanInfoCard
+              {...{ spanInfo: { info: el.ratingStats.avgRating! } }}
+            />
+
+            <div className="w-full flex justify-start -ml-2">
+              <span className="txt__2">({el.ratingStats.reviewsCount})</span>
+            </div>
           </div>
         </div>
 
