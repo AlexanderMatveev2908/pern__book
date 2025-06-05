@@ -13,7 +13,7 @@ const ImagesScroll: FC<PropsType> = ({ images, customStyleParent }) => {
   return !images?.length ? null : (
     <div
       ref={snapperRef}
-      className="w-full max-w-fit h-fit flex rounded-xl p-4 overflow-x-auto scroll_x scroll_app gap-5 snap-x snap-mandatory"
+      className="w-full justify-self-center max-w-fit h-fit flex rounded-xl p-4 overflow-x-auto scroll_x scroll_app gap-5 snap-x snap-mandatory"
     >
       {images.map((el) => (
         <div
