@@ -9,12 +9,12 @@ import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/BooksLayout/con
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ReadContent from "./components/ReadContent";
-import ButtonsCart from "./components/ButtonsCart";
 import PlaceholderLogic from "./components/PlaceholderLogic";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
+import ButtonsCart from "@/features/ConsumerLayout/CartLayout/components/ButtonsCart";
 
 const BookPageConsumer: FC = () => {
   const bookID = useParams()?.bookID;

@@ -1,0 +1,20 @@
+.card_list {
+  @apply w-full grid grid-cols-1 gap-x-10 border-[3px] border-neutral-800 rounded-xl p-3 pb-5 gap-y-5;
+
+  @media screen and (min-width: 600px) {
+    @apply grid-cols-[200px_1fr];
+
+    > :nth-child(1) {
+      grid-column: span 2;
+    }
+    .footer {
+      @apply col-span-2;
+    }
+  }
+
+  .footer {
+    @media screen and (min-width: 1200px) {
+      @apply grid-cols-[2fr_1fr];
+    }
+  }
+}
