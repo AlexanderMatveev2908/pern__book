@@ -5,6 +5,7 @@ import { useScroll } from "@/core/hooks/hooks";
 import appRoutes from "./routes/AppRoutes";
 import { useNinjaToken } from "@/features/UserLayout/hooks/useNinjaToken";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
+import { format } from "date-fns";
 
 const App: FC = () => {
   useScroll();
@@ -18,7 +19,7 @@ const App: FC = () => {
   useNinjaToken();
   useGetCart();
 
-  // test
+  console.log(format(new Date(), "EEE, dd MMM yyyy"));
 
   return useRoutes(appRoutes);
 };
