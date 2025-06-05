@@ -4,18 +4,18 @@ import type { FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import Title from "@/components/elements/Title";
-import { getExpectedDeliveredDay } from "@/core/lib/lib";
+import { getDeliveryPrice, getExpectedDeliveredDay } from "@/core/lib/lib";
 import CartItem from "./components/CartItem";
-import { CartItemType } from "@/types/all/Cart";
+import { CartItemType, CartType } from "@/types/all/Cart";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
-import { CiCircleList } from "react-icons/ci";
+import WrapTxt from "@/components/elements/WrapPairTxt/WrapTxt";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
+  cart: CartType;
 };
 
-const CartItemsList: FC<PropsType> = ({ groupedByStoreID }) => {
+const CartItemsList: FC<PropsType> = ({ groupedByStoreID, cart }) => {
   const ids = useCreateIds({
     lengths: [
       Object.keys(groupedByStoreID ?? {}).length,
@@ -26,46 +26,50 @@ const CartItemsList: FC<PropsType> = ({ groupedByStoreID }) => {
   });
 
   return (
-    <DropStats
-      {...{
-        el: {
-          label: "items list",
-          icon: CiCircleList,
-        },
-        styleUL: "mt-5 max-h-[500px] overflow-y-auto scroll_y scroll_app px-4",
-        styleTxt: "txt__4",
-        ovHidden: true,
-      }}
-    >
-      <div className="w-full grid grid-cols-1 gap-10">
-        {Object.entries(groupedByStoreID).map(
-          ([_, { store, items }]: any, outerI) => (
-            <div
-              key={ids[0][outerI]}
-              className="w-full grid grid-cols-1 gap-y-6"
-            >
-              <div className="w-full grid grid-cols-1 p-3 border-[3px] border-blue-600 rounded-xl gap-y-3">
-                <Title {...{ title: store.name, styleTxt: "txt__3" }} />
-                <WrapPairTxt
-                  {...{
-                    arg: [
-                      "expected",
-                      getExpectedDeliveredDay({
-                        daysToAdd: store!.deliveryTime,
-                      }),
-                    ],
-                  }}
-                />
-              </div>
+    <div className="w-full grid grid-cols-1 gap-10">
+      {Object.entries(groupedByStoreID).map(
+        ([_, { store, items }]: any, outerI) => (
+          <div key={ids[0][outerI]} className="w-full grid grid-cols-1 gap-y-6">
+            <div className="w-full grid grid-cols-1 p-3 border-[3px] border-blue-600 rounded-xl gap-y-3">
+              <div className="w-full flex justify-center gap-10">
+                <WrapTxt {...{ txt: "Sold by", customStyle: "txt__3" }} />
 
-              {items!.map((el: CartItemType, innerI: number) => (
-                <CartItem key={ids[outerI + 1][innerI]} {...{ el }} />
-              ))}
+                <WrapTxt {...{ txt: store!.name, customStyle: "txt__3" }} />
+              </div>
             </div>
-          )
-        )}
-      </div>
-    </DropStats>
+
+            <div className="w-full grid p-4 border-2 border-neutral-800 rounded-xl items-center grid-cols-1 gap-y-5">
+              <WrapPairTxt
+                {...{
+                  arg: [
+                    "expected arrival date",
+                    getExpectedDeliveredDay({
+                      daysToAdd: store!.deliveryTime,
+                    }),
+                  ],
+                }}
+              />
+
+              <WrapPairTxt
+                {...{
+                  arg: [
+                    "delivery price",
+                    getDeliveryPrice({
+                      cart: cart!,
+                      store: store!,
+                    }),
+                  ],
+                }}
+              />
+            </div>
+
+            {items!.map((el: CartItemType, innerI: number) => (
+              <CartItem key={ids[outerI + 1][innerI]} {...{ el }} />
+            ))}
+          </div>
+        )
+      )}
+    </div>
   );
 };
 

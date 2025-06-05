@@ -49,21 +49,6 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
                   <Title {...{ title: store!.name, styleTxt: "txt__3" }} />
                 </div>
 
-                <div className="w-full grid grid-cols-3 items-center justify-items-center p-3 border-2 border-neutral-800 rounded-xl">
-                  <WrapTxt {...{ txt: "delivery" }} />
-
-                  <div className=""></div>
-
-                  <WrapTxt
-                    {...{
-                      txt: getDeliveryPrice({
-                        cart: cart!,
-                        store: store!,
-                      }),
-                    }}
-                  />
-                </div>
-
                 {items!.map((el: CartItemType, innerI: number) => (
                   <div
                     key={ids[outerI + 1][innerI]}
