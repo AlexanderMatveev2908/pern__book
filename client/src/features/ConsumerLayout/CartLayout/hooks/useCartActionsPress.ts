@@ -39,7 +39,6 @@ export const useCartActionsPress = ({
     const maxQty = book?.qty ?? -Infinity;
 
     if ((localQty ?? -Infinity) < 0 || (localQty ?? Infinity) > maxQty) {
-      setIsDisabled?.(true);
       return;
     }
 
@@ -68,15 +67,7 @@ export const useCartActionsPress = ({
     });
 
     if (!res) return;
-  }, [
-    wrapMutationAPI,
-    book,
-    localQty,
-    mutate,
-    setIsDisabled,
-    existingItemCartQty,
-    label,
-  ]);
+  }, [wrapMutationAPI, book, localQty, mutate, existingItemCartQty, label]);
 
   const handleMousePress = async () => {
     if (typeof setLocalQty !== "function") return;
