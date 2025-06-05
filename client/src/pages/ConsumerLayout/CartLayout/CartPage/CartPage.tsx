@@ -6,6 +6,7 @@ import { useMixVars } from "@/core/hooks/all/api/useMixVars";
 import { isArrOk, isObjOk } from "@/core/lib/lib";
 import type { FC } from "react";
 import CartItem from "./components/CartItem";
+import SummaryCart from "./components/SummaryCart/SummaryCart";
 
 const CartPage: FC = () => {
   const {
@@ -42,7 +43,9 @@ const CartPage: FC = () => {
         canStay: !!cart?.items?.length,
       }}
     >
-      <Title {...{ title: "cart" }} />
+      <SummaryCart />
+
+      <Title {...{ title: "items list", styleTxt: "txt__4" }} />
 
       <div className="w-full grid grid-cols-1 gap-10">
         {isArrOk(cart?.items) &&

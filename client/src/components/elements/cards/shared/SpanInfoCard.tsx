@@ -4,13 +4,13 @@ import { IconType } from "react-icons/lib";
 type PropsType = {
   spanInfo: {
     icon?: IconType;
-    info?: string;
+    info?: string | number;
   };
 };
 
 const SpanInfoCard: FC<PropsType> = ({ spanInfo }) => {
   return (
-    <div className="w-full flex justify-start gap-x-5 items-center">
+    <div className="w-full max-w-fit flex justify-start gap-x-5 items-center">
       {spanInfo.icon && <spanInfo.icon className="icon__sm" />}
       <span className="txt__3">{spanInfo.info}</span>
     </div>

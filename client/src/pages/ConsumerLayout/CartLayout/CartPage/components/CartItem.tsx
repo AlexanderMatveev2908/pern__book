@@ -2,7 +2,7 @@ import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
 import { isArrOk } from "@/core/lib/lib";
 import { CartItemType } from "@/types/all/Cart";
 import type { FC } from "react";
-import WrapTxt from "./subComponents/WrapTxt";
+import WrapPairTxt from "../../../../../features/ConsumerLayout/CartLayout/components/WrapPairTxt/WrapPairTxt";
 import FormQty from "./subComponents/FormQty";
 import SummaryPriceItem from "./subComponents/SummaryPriceItem";
 
@@ -26,10 +26,10 @@ const CartItem: FC<PropsType> = ({ el }) => {
       )}
       <div className="w-full grid grid-cols-1 gap-6">
         <div className="w-full h-fit gap-y-4 grid grid-cols-1">
-          <WrapTxt {...{ arg: ["store", book!.store!.name] }} />
+          <WrapPairTxt {...{ arg: ["store", book!.store!.name] }} />
 
-          <WrapTxt {...{ arg: ["author", book!.author] }} />
-          <WrapTxt {...{ arg: ["title", book!.title] }} />
+          <WrapPairTxt {...{ arg: ["author", book!.author] }} />
+          <WrapPairTxt {...{ arg: ["title", book!.title] }} />
         </div>
         <div className="w-full grid grid-cols-1 gap-y-4 gap-x-10">
           <SummaryPriceItem {...{ el }} />
