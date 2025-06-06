@@ -170,7 +170,7 @@ const UpdateBookStoreManager: FC = () => {
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
           <BookStoreForm
-            {...{ handleSave, isManager: true, isLoading, isFormOk }}
+            {...{ handleSave, role: UserRole.MANAGER, isLoading, isFormOk }}
           />
         </FormProvider>
       </div>

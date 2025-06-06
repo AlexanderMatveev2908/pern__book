@@ -33,6 +33,7 @@ import {
   optKeysStore,
 } from "@/core/config/fieldsData/bookStores/forms";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { UserRole } from "@/types/types";
 
 const processTeam = (team: any[]) =>
   team?.length
@@ -198,7 +199,9 @@ const UpdateBookStore: FC = () => {
 
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
-          <BookStoreForm {...{ isLoading, handleSave, isFormOk }} />
+          <BookStoreForm
+            {...{ isLoading, handleSave, isFormOk, role: UserRole.OWNER }}
+          />
         </FormProvider>
       </div>
     </WrapPageAPI>

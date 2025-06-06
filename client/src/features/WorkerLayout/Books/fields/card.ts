@@ -2,18 +2,19 @@ import { FaLink } from "react-icons/fa";
 import { GrUpdate } from "react-icons/gr";
 import { v4 } from "uuid";
 
-export const linksBookCardWorker = [
-  {
-    icon: FaLink,
-    label: "Book",
-    path: "/worker/books/",
-  },
-  {
-    icon: GrUpdate,
-    label: "Update",
-    path: "/worker/books/put/",
-  },
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));
+export const linksBookCardWorker = (id: string) =>
+  [
+    {
+      icon: FaLink,
+      label: "View more",
+      path: `/worker/books/${id}`,
+    },
+    {
+      icon: GrUpdate,
+      label: "Update",
+      path: `/worker/books/put/${id}`,
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));

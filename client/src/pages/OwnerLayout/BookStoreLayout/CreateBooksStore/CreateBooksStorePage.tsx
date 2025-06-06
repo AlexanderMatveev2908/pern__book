@@ -17,6 +17,7 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { fieldsSwapStore } from "@/core/config/fieldsData/bookStores/forms";
+import { UserRole } from "@/types/types";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -123,7 +124,9 @@ const CreateBooksStore: FC = () => {
       <Title {...{ title: "create a bookstore" }} />
       <div className="w-full grid justify-items-center gap-6">
         <FormProvider {...formCtx}>
-          <BookStoreForm {...{ handleSave, isFormOk: true, isLoading }} />
+          <BookStoreForm
+            {...{ handleSave, isFormOk: true, isLoading, role: UserRole.OWNER }}
+          />
         </FormProvider>
       </div>
     </WrapPageAPI>

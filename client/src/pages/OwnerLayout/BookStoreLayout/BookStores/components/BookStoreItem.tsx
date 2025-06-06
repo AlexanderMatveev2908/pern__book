@@ -12,6 +12,7 @@ const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
   return (
     <div className="item">
       <ItemID {...{ ID: el.id }} />
+
       <StoreItemList {...{ el, links: linksCardStore(el.id) }} />
     </div>
   );
