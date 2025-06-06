@@ -18,6 +18,7 @@ type PropsType = {
   isDisabled?: boolean;
   control: Control<any>;
   errors: FieldErrors;
+  styleLabel?: string;
 };
 
 const FormField: FC<PropsType> = ({
@@ -31,6 +32,7 @@ const FormField: FC<PropsType> = ({
   customCB,
   isDisabled,
   control,
+  styleLabel,
 }) => {
   const registerParamHook =
     typeof index === "number" ? `items.${index}.${el.field}` : el.field;
@@ -39,7 +41,9 @@ const FormField: FC<PropsType> = ({
     <div className={`w-full grid ${isDisabled ? "opacity-50" : ""}`}>
       <label className="grid w-full gap-2 relative">
         {showLabel && (
-          <span className="txt__2">{el?.label ?? capt(el.field)}</span>
+          <span className={`txt__2 ${styleLabel ?? ""}`}>
+            {el?.label ?? capt(el.field)}
+          </span>
         )}
 
         <div className="w-full relative">

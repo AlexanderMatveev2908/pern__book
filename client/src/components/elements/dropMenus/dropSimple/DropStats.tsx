@@ -55,7 +55,9 @@ const DropStats: FC<PropsType> = ({
 
   return !el ? null : (
     <div className="w-full relative h-fit">
-      <DropHandler {...{ isDropOpen, setIsDropOpen, el, styleTxt }} />
+      <div className="w-full pr-3">
+        <DropHandler {...{ isDropOpen, setIsDropOpen, el, styleTxt }} />
+      </div>
 
       {border && (
         <hr
