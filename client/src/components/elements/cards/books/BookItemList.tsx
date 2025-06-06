@@ -4,15 +4,12 @@ import ItemList from "../shared/ItemList";
 import SpanInfoCard from "../shared/SpanInfoCard";
 import { FaBook, FaPenFancy } from "react-icons/fa";
 import { HiLibrary } from "react-icons/hi";
-import PairBtnsLink from "../shared/PairBtnsLink";
-import { BtnIconLinkType } from "@/types/types";
 
 type PropsType = {
   el: BookType;
-  links: BtnIconLinkType[];
 };
 
-const BookItemList: FC<PropsType> = ({ el, links }) => {
+const BookItemList: FC<PropsType> = ({ el }) => {
   return (
     <ItemList {...{ el }}>
       <SpanInfoCard
@@ -41,8 +38,6 @@ const BookItemList: FC<PropsType> = ({ el, links }) => {
           },
         }}
       />
-
-      <PairBtnsLink {...{ links }} />
     </ItemList>
   );
 };

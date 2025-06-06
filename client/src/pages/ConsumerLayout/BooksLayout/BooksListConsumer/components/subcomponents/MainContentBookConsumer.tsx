@@ -30,6 +30,7 @@ const MainContentBookConsumer: FC<PropsType> = ({ el }) => {
           },
         }}
       />
+
       <div className="w-full flex justify-start items-center gap-5">
         <RatingItem {...{ rat: el.ratingStats.avgRating }} />
 
