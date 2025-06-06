@@ -12,8 +12,6 @@ import { Book } from "../../models/all/Book.js";
 import { User } from "../../models/models.js";
 import { literal } from "sequelize";
 import { Literal } from "sequelize/lib/utils";
-import { OrderStage } from "../../types/all/orders.js";
-import { capChar } from "../../lib/utils/formatters.js";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { sortItems } from "../../lib/query/sort.js";
 import { createStoreQ } from "../../lib/query/owner/bookStore/query.js";
@@ -136,6 +134,7 @@ export const getAllStores = async (
 
   const bookStores = await BookStore.findAll({
     where: queryStore,
+
     include: [
       {
         model: ImgBookStore,

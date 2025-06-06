@@ -38,7 +38,7 @@ if (!isDev) {
 app.use(errMiddleware);
 
 // clearDB();
-// populateDB();~/.local/bin/cpy_dummy_pwd.sh
+populateDB();
 
 // resetEmailJunction();
 

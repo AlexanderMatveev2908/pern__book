@@ -17,8 +17,8 @@ export const defineReview = (seq: Sequelize) =>
   Review.init(
     {
       ...schemaID(),
-      userID: refSql("users"),
-      bookID: refSql("books"),
+      userID: refSql("users", { allowNull: true }),
+      bookID: refSql("books", { allowNull: true }),
       title: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -48,5 +48,6 @@ export const defineReview = (seq: Sequelize) =>
       timestamps: true,
       modelName: "Review",
       tableName: "reviews",
+      paranoid: true,
     }
   );

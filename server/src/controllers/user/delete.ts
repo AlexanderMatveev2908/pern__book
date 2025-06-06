@@ -16,6 +16,8 @@ import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { Thumb } from "../../models/all/img&video/Thumb.js";
 import { delArrCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book } from "../../models/all/Book.js";
+import { Cart } from "../../models/all/Cart.js";
+import { CartItem } from "../../models/all/CartItem.js";
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -54,10 +56,26 @@ export const deleteAccount = async (
     where: {
       id: userID,
     },
-    include: {
-      model: Thumb,
-      as: "thumb",
-    },
+    include: [
+      {
+        model: Thumb,
+        as: "thumb",
+      },
+      {
+        model: Cart,
+        as: "cart",
+        include: [
+          {
+            model: CartItem,
+            as: "items",
+          },
+        ],
+      },
+      {
+        model: BookStore,
+        as: "stores",
+      },
+    ],
   })) as UserInstance;
 
   const canProceed = await checkCbcHmac({
@@ -93,12 +111,6 @@ export const deleteAccount = async (
     ],
   });
 
-  const junctionsAsWorker = await BookStoreUser.findAll({
-    where: {
-      userID: user.id,
-    },
-  });
-
   const idsCloudImg: string[] = [];
   const idsCloudVideo: string[] = [];
 
@@ -116,14 +128,6 @@ export const deleteAccount = async (
       idsCloudImg.push(user.thumb.publicID);
       await user.thumb.destroy({ transaction: t });
     }
-
-    if (junctionsAsWorker.length)
-      await BookStoreUser.destroy({
-        where: {
-          userID: user.id,
-        },
-        transaction: t,
-      });
 
     if (stores.length) {
       for (const el of stores) {
@@ -155,8 +159,31 @@ export const deleteAccount = async (
           }
         }
 
-        await el.destroy({ transaction: t });
+        await el.update(
+          { ownerID: null, deletedAt: new Date() },
+          { transaction: t }
+        );
       }
+    }
+
+    if (user?.stores?.length)
+      await BookStoreUser.destroy({
+        where: {
+          userID: user.id,
+        },
+        transaction: t,
+      });
+
+    if (user?.cart) {
+      if (user.cart?.items?.length)
+        await CartItem.destroy({
+          where: {
+            cartID: user.cart.id,
+          },
+          transaction: t,
+        });
+
+      await user.cart.destroy({ transaction: t });
     }
 
     await user.destroy({ transaction: t });
@@ -170,6 +197,8 @@ export const deleteAccount = async (
 
     return res200(res, { msg: "account deleted" });
   } catch (err: any) {
+    console.log(err);
+
     await t.rollback();
 
     return err500(res);

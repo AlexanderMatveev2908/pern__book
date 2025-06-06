@@ -30,6 +30,7 @@ export const getUserProfile = async (
       END
       FROM "book_stores" AS bs
       WHERE bs."ownerID" = "User"."id"
+      AND bs."deletedAt" IS NULL
           )`),
           "isOwner",
         ],
@@ -53,6 +54,7 @@ export const getUserProfile = async (
           FROM "book_stores" AS bs
           INNER JOIN "books" AS b ON bs."id" = b."bookStoreID"
           WHERE bs."ownerID" = "User"."id"
+          AND b."deletedAt" IS NULL
           )`),
           "hasBooks",
         ],
