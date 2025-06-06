@@ -2,7 +2,6 @@
 import { useMemo, useState, type FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
 import { CartType } from "@/types/all/Cart";
-import Title from "@/components/elements/Title";
 import {
   calcTotPriceCart,
   getDeliveryPrice,
@@ -25,7 +24,7 @@ const checkoutLabel = {
   icon: MdOutlineShoppingCartCheckout,
 };
 
-const SummaryCart: FC<PropsType> = ({ groupedByStoreID, cart }) => {
+const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
   const [isFooterOpen, setIsFooterOpen] = useState(false);
 
   const totalCart = useMemo(() => {
