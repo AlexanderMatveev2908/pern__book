@@ -1,4 +1,4 @@
-import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
+import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import { isArrOk } from "@/core/lib/lib";
 import { CartItemType } from "@/types/all/Cart";
 import type { FC } from "react";

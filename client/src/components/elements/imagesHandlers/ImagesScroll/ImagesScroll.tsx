@@ -1,6 +1,6 @@
 import { AssetCloudType } from "@/types/types";
 import { useRef, type FC } from "react";
-import ImgLoaderHandler from "./ImgLoaderHandler";
+import ImgLoaderHandler from "../ImgLoaderHandler/ImgLoaderHandler";
 
 type PropsType = {
   images?: AssetCloudType[] | null;

@@ -9,6 +9,7 @@ import { CartItemType } from "@/types/all/Cart";
 import { BookStoreType } from "@/types/all/bookStore";
 import CartItemsList from "./components/CartItemsList/CartItemsList";
 import Title from "@/components/elements/Title";
+import SummaryCart from "./components/SummaryCart/SummaryCart";
 
 export type CartItemsGroupedType = {
   store: BookStoreType;
@@ -73,6 +74,8 @@ const CartPage: FC = () => {
 
       <Title {...{ title: "Items list", styleTxt: "txt__4" }} />
       <CartItemsList {...{ groupedByStoreID, cart: cart! }} />
+
+      <SummaryCart {...{ groupedByStoreID, cart: cart! }} />
     </WrapPageAPI>
   );
 };
