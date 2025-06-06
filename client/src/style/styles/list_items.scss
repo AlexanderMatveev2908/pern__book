@@ -1,0 +1,27 @@
+.list_items {
+  @apply w-full grid grid-cols-1 gap-10;
+
+  @media screen and (min-width: 1200px) {
+    @apply grid-cols-2;
+  }
+
+  .item {
+    @apply w-full grid grid-cols-1 gap-y-5 p-5 border-[3px] border-neutral-800 rounded-xl h-fit;
+
+    .content {
+      @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
+
+      @media screen and (min-width: 600px) {
+        @apply grid-cols-[200px_1fr];
+      }
+
+      .images_wrapper {
+        @apply w-full grid grid-cols-1 h-fit items-start;
+      }
+
+      .info_wrapper {
+        @apply w-full grid grid-cols-1 gap-y-3 h-fit;
+      }
+    }
+  }
+}

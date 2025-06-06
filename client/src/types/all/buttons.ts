@@ -13,3 +13,9 @@ export type CartBtnType = {
   keyAction: KEY_ACTION_CART;
   act: BtnAct;
 };
+
+export type BtnIconLinkType = {
+  label?: string;
+  icon?: IconType;
+  path: string;
+};
