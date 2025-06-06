@@ -39,7 +39,7 @@ const Header: FC = () => {
     <div className="w-full border-b-[3px] border-blue-600 sticky top-0 h-[80px] z__header bg-[#000]">
       <div className="w-full h-full items-center grid grid-cols-2 pl-3 pr-4 sm:pr-8">
         <Link to="/" className="txt__6 text-blue-600 w-fit">
-          PERN__BOOK
+          SNAS
         </Link>
 
         <div className="w-full flex justify-end gap-4 txt__col items-center">
