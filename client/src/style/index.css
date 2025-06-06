@@ -11,7 +11,8 @@ button:disabled {
 .btn__logic_sm:enabled,
 .btn__logic_md:enabled,
 .btn__logic_lg:enabled,
-.btn__logic_xl:enabled {
+.btn__logic_xl:enabled,
+.btn_link {
   transition: 0.3s;
   cursor: pointer;
 }
@@ -24,7 +25,8 @@ button:disabled {
   transform: scale(1.2);
 }
 
-.btn__logic_md:enabled:hover {
+.btn__logic_md:enabled:hover,
+.btn_link:hover {
   transform: scale(1.13);
 }
 
@@ -34,7 +36,8 @@ button:disabled {
 
 .btn__logic_sm:enabled:active,
 .btn__logic_lg:enabled:active,
-.btn__logic_xl:enabled:active {
+.btn__logic_xl:enabled:active,
+.btn_link:active {
   transition: 0.1s;
   transform: scale(0.8);
 }
@@ -268,6 +271,32 @@ button:disabled {
 
 .z__toast {
   z-index: 1000;
+}
+
+.list_items {
+  @apply w-full grid grid-cols-1 gap-10;
+}
+@media screen and (min-width: 1200px) {
+  .list_items {
+    @apply grid-cols-2;
+  }
+}
+.list_items .item {
+  @apply w-full grid grid-cols-1 gap-y-5 p-5 border-[3px] border-neutral-800 rounded-xl h-fit;
+}
+.list_items .item .content {
+  @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
+}
+@media screen and (min-width: 600px) {
+  .list_items .item .content {
+    @apply grid-cols-[200px_1fr];
+  }
+}
+.list_items .item .content .images_wrapper {
+  @apply w-full grid grid-cols-1 h-fit items-start;
+}
+.list_items .item .content .info_wrapper {
+  @apply w-full grid grid-cols-1 gap-y-3 h-fit;
 }
 
 .book_store_form .sub_form {
@@ -507,39 +536,6 @@ button:disabled {
     background-position: -200% 0;
   }
 }
-.images_swapper .cont .wrapper {
-  perspective: 1000px;
-}
-.images_swapper .cont .wrapper .card {
-  transform-style: preserve-3d;
-  transition: transform 0.7s ease-in-out;
-  cursor: pointer;
-  position: relative;
-}
-.images_swapper .cont .wrapper .card:hover {
-  transform: rotateY(180deg);
-}
-.images_swapper .cont .wrapper .card .client,
-.images_swapper .cont .wrapper .card .server {
-  @apply absolute inset-0 min-w-full min-h-full;
-  backface-visibility: hidden;
-}
-.images_swapper .cont .wrapper .card .server {
-  @apply rounded-xl bg-neutral-950;
-  transform: rotateY(180deg);
-  overflow: hidden;
-}
-.images_swapper .btn {
-  @apply absolute top-1/2 -translate-y-1/2 border-2 border-blue-600 rounded-xl p-2 bg-[#000] flex justify-center items-center hover:scale-110 cursor-pointer transition-all duration-300 z-30;
-  appearance: none;
-}
-
-@media screen and (min-width: 600px) {
-  .book_item_consumer__btns {
-    @apply col-span-2;
-  }
-}
-
 .page_counter .btn {
   transition: 0.3s;
   transform: scale(var(--scale_counter_page));
@@ -552,6 +548,46 @@ button:disabled {
   transform: scale(0.8);
 }
 
+.tooltip_cpy .txt {
+  transition: 0.3s;
+}
+.tooltip_cpy .txt:hover {
+  transform: scale(1.1);
+}
+.tooltip_cpy .txt:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}
+.tooltip_cpy .tool {
+  animation: appear 1.5s ease-in forwards;
+}
+
+@keyframes appear {
+  0% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  10% {
+    transform: scale(1.4);
+    opacity: 1;
+  }
+  20% {
+    transform: scale(0.8);
+  }
+  30% {
+    transform: scale(1.1);
+  }
+  40% {
+    transform: scale(0.9);
+  }
+  50% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0;
+  }
+}
 .mini_spinner {
   animation: mini_spin 0.8s linear infinite;
 }
@@ -675,6 +711,39 @@ button:disabled {
     transform: scale(1, 1);
   }
 }
+.images_swapper .cont .wrapper {
+  perspective: 1000px;
+}
+.images_swapper .cont .wrapper .card {
+  transform-style: preserve-3d;
+  transition: transform 0.7s ease-in-out;
+  cursor: pointer;
+  position: relative;
+}
+.images_swapper .cont .wrapper .card:hover {
+  transform: rotateY(180deg);
+}
+.images_swapper .cont .wrapper .card .client,
+.images_swapper .cont .wrapper .card .server {
+  @apply absolute inset-0 min-w-full min-h-full;
+  backface-visibility: hidden;
+}
+.images_swapper .cont .wrapper .card .server {
+  @apply rounded-xl bg-neutral-950;
+  transform: rotateY(180deg);
+  overflow: hidden;
+}
+.images_swapper .btn {
+  @apply absolute top-1/2 -translate-y-1/2 border-2 border-blue-600 rounded-xl p-2 bg-[#000] flex justify-center items-center hover:scale-110 cursor-pointer transition-all duration-300 z-30;
+  appearance: none;
+}
+
+@media screen and (min-width: 600px) {
+  .book_item_consumer__btns {
+    @apply col-span-2;
+  }
+}
+
 @media (min-width: 550px) {
   .home .card {
     @apply grid-cols-2;
