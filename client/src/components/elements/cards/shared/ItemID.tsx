@@ -8,7 +8,7 @@ type PropsType = {
 
 const ItemID: FC<PropsType> = ({ ID }) => {
   return (
-    <div className="w-full max-w-full grid grid-cols-[50px_1fr] items-center">
+    <div className="w-full max-w-full h-fit grid grid-cols-[50px_1fr] items-center">
       <div className="w-full flex justify-start items-center">
         <FaDatabase className="icon__md" />
       </div>
