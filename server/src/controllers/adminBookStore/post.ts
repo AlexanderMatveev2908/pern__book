@@ -76,14 +76,10 @@ export const createBookStore = async (
       bookStoreID: newBookStore.id,
     });
   } catch (err) {
-    console.log(err);
     await t.rollback();
 
-    try {
-      await clearUnnecessary(videoData!, imagesData!);
-    } catch (err) {
-      console.log("err delete cloud", err);
-    }
+    await clearUnnecessary(videoData!, imagesData!);
+
     return err500(res);
   }
 };

@@ -1,9 +1,9 @@
 import { NextFunction, Response } from "express";
 import { ReqApp } from "../../types/types.js";
 import { User } from "../../models/models.js";
-import { BookStoreInstance } from "../../models/all/BookStore.js";
 import { err422, err500 } from "../../lib/responseClient/err.js";
 import fs from "fs";
+import { __cg } from "../../lib/utils/log.js";
 
 export const clearMemoryDisk = async (req: ReqApp) => {
   const images = (req?.files as { [fieldname: string]: Express.Multer.File[] })
@@ -25,7 +25,7 @@ export const clearMemoryDisk = async (req: ReqApp) => {
         images.map(async (img) => await fs.promises.unlink(img.path))
       );
     } catch (err) {
-      console.log("err delete images locally", err);
+      __cg("err delete images locally", err);
     }
   }
 };

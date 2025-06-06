@@ -179,14 +179,9 @@ export const updateBookStore = async (
 
     return res200(res, { msg: "BookStore updated" });
   } catch (err: any) {
-    console.log(err);
     await t.rollback();
 
-    try {
-      await clearUnnecessary(videoData!, imagesData!);
-    } catch (err) {
-      console.log("err delete cloud", err);
-    }
+    await clearUnnecessary(videoData!, imagesData!);
 
     return err500(res);
   }

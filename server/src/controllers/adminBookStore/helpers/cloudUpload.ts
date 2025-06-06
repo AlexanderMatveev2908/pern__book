@@ -9,6 +9,7 @@ import { ImgBookStoreType } from "../../../models/all/img&video/ImgBookStore.js"
 import { VideoBookStoreType } from "../../../models/all/img&video/VideoBookStore.js";
 import fs from "fs";
 import { ReqApp } from "../../../types/types.js";
+import { __cg } from "../../../lib/utils/log.js";
 
 export const clearUnnecessary = async (
   videoData: Partial<VideoBookStoreType> | null,
@@ -33,7 +34,7 @@ export const handleAssetsCloud = async (req: ReqApp) => {
     try {
       await fs.promises.unlink(video[0].path);
     } catch (err) {
-      console.log("fail delete video file", err);
+      __cg("fail delete video file", err);
     }
   }
 
@@ -50,7 +51,6 @@ export const handleAssetsCloud = async (req: ReqApp) => {
         i++;
       } while (i < images.length);
     } catch (err) {
-      console.log("fail upload all images", err);
       await clearUnnecessary(videoData, imagesData);
 
       throw err;
@@ -60,7 +60,7 @@ export const handleAssetsCloud = async (req: ReqApp) => {
           images.map(async (img) => await fs.promises.unlink(img.path))
         );
       } catch (err) {
-        console.log("err delete images locally", err);
+        __cg("err delete images locally", err);
       }
     }
   }

@@ -14,6 +14,4 @@ export const delItem = async () => {
       num: 1,
     },
   });
-
-  console.log(res);
 };
