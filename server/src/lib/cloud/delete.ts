@@ -10,6 +10,7 @@ export const delCloud = async (publicID: string, resource?: ResourceType) => {
   try {
     const res = await cloud.uploader.destroy(publicID, {
       resource_type: resource ?? "image",
+      invalidate: true,
     });
 
     __cg("res deletion", res);
@@ -27,6 +28,7 @@ export const delArrCloud = async (
   try {
     const res = await cloud.api.delete_resources(publicIDs, {
       resource_type: resource ?? "image",
+      invalidate: true,
     });
 
     __cg("res deletion", res);

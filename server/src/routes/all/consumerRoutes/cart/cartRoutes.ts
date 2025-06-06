@@ -14,6 +14,7 @@ import { checkCartCLick } from "../../../../middleware/consumer/checkCartClick.j
 import { getUserID } from "../../../../middleware/protected/getUserID.js";
 import { checkCartItemQty } from "../../../../middleware/consumer/checkCartItemQty.js";
 import { checkID } from "../../../../middleware/sharedValidators/ids.js";
+import { deleteCart } from "../../../../controllers/consumer/cart/delete.js";
 
 const cartRouter = express.Router();
 
@@ -38,5 +39,7 @@ cartRouter.patch(
   checkCartItemQty(0),
   wrapApp(updateCartByMousePress)
 );
+
+cartRouter.delete("/", wrapApp(deleteCart));
 
 export default cartRouter;

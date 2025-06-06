@@ -25,5 +25,6 @@ export const defineTestClass = (seq: Sequelize) =>
       modelName: "Test",
       tableName: "tests",
       timestamps: true,
+      paranoid: true,
     }
   );

@@ -92,4 +92,6 @@ export interface BookStoreType {
   createdAt: string;
   updatedAt: string;
   lastUpdatedBy: string;
+
+  deletedAt?: string;
 }

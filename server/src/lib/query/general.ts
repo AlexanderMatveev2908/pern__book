@@ -115,6 +115,7 @@ export const countReviewsByRatingBooks = () =>
           FROM "reviews" AS r
           WHERE r.rating BETWEEN ${pair[0]} AND ${pair[1]}
             AND r."bookID" = "Book".id
+            AND r."deletedAt" IS NULL
         )`;
       return `'${key}', ${sql}`;
     })
@@ -128,11 +129,13 @@ export const calcRatingSqlBooks = (): [Literal, string][] => [
           SELECT COALESCE(COUNT(DISTINCT r.id), 0)
           FROM "reviews" AS r
           WHERE r."bookID" = "Book".id
+          AND r."deletedAt" IS NULL
         ),
         'avgRating', (
           SELECT TO_CHAR(ROUND(COALESCE(AVG(r.rating), 0.0), 1), 'FM0.0')
           FROM "reviews" AS r
           WHERE r."bookID" = "Book".id
+          AND r."deletedAt" IS NULL
         ),
         ${countReviewsByRatingBooks()}
       )
@@ -149,12 +152,16 @@ export const calcRatingSqlStores = (): [Literal, string][] => [
           FROM "books" AS b
           INNER JOIN "reviews" AS r ON b.id = r."bookID"
           WHERE b."bookStoreID" = "BookStore"."id"
+          AND b."deletedAt" IS NULL
+          AND r."deletedAt" IS NULL
         ),
         'avgRating', (
           SELECT TO_CHAR(ROUND(COALESCE(AVG(r.rating), 0), 1), 'FM0.0')
           FROM "books" AS b
           INNER JOIN "reviews" AS r ON b.id = r."bookID"
           WHERE b."bookStoreID" = "BookStore"."id"
+          AND b."deletedAt" IS NULL
+          AND r."deletedAt" IS NULL
         ),
         ${countTo_5()
           .map((el) => {
@@ -168,6 +175,8 @@ export const calcRatingSqlStores = (): [Literal, string][] => [
               INNER JOIN "reviews" AS r ON b.id = r."bookID"
               WHERE b."bookStoreID" = "BookStore"."id"
                 AND r.rating BETWEEN ${el[0]} AND ${el[1]}
+                AND b."deletedAt" IS NULL
+                AND r."deletedAt" IS NULL
             )`;
           })
           .join(",\n")}
@@ -182,6 +191,7 @@ const countOrdersSql = (stage: OrderStage): Literal =>
     FROM "orders" 
     WHERE "orders"."stage" = '${stage}'
     AND "orders"."bookStoreID" = "BookStore"."id"
+    AND "orders"."deletedAt" IS NULL
     )`);
 
 export const countOrdersStores = (): [Literal, string][] => [
@@ -192,6 +202,7 @@ export const countOrdersStores = (): [Literal, string][] => [
         SELECT COALESCE(COUNT(DISTINCT o.id), 0)
         FROM "orders" AS o
         WHERE o."bookStoreID" = "BookStore"."id"
+        AND o."deletedAt" IS NULL
       ),
       ${Object.values(OrderStage)
         .map((stage) => {
@@ -215,16 +226,19 @@ export const countStatsBooksFoStore = (): [Literal, string][] => [
           SELECT COALESCE(COUNT(DISTINCT b.id), 0)
           FROM "books" AS b
           WHERE b."bookStoreID" = "BookStore"."id"
+          AND b."deletedAt" IS NULL
         ),
         'avgPrice', (
           SELECT ROUND(COALESCE(AVG(b.price), 0), 2)
           FROM "books" AS b
           WHERE b."bookStoreID" = "BookStore"."id"
+          AND b."deletedAt" IS NULL
         ),
         'avgQty', (
           SELECT ROUND(COALESCE(AVG(b.qty), 0), 0)
           FROM "books" AS b
           WHERE b."bookStoreID" = "BookStore"."id"
+          AND b."deletedAt" IS NULL
         )
       )
       `),
