@@ -70,9 +70,10 @@ const BookStoreForm: FC<PropsType> = ({
 
       <WrapperFormField
         {...{
-          title: "bookstore name",
+          title: "bookstore name *",
           sizeStyle: "max-w-[500px] lg:max-w-1/2",
           isDisabled: isManager,
+          styleTxt: "text-green-600",
         }}
       >
         <FormField
@@ -87,23 +88,27 @@ const BookStoreForm: FC<PropsType> = ({
       </WrapperFormField>
 
       <WrapperFormField
-        {...{ title: "Description ~", sizeStyle: "max-w-[500px] lg:max-w-1/2" }}
+        {...{ title: "Description", sizeStyle: "max-w-[500px] lg:max-w-1/2" }}
       >
         <TxtField
           {...{ register, errors, el: fieldDescStore, showLabel: false }}
         />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Video ~" }}>
+      <WrapperFormField {...{ title: "Video" }}>
         <VideoField {...{ register, errors, setValue }} />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Images ~" }}>
+      <WrapperFormField {...{ title: "Images" }}>
         <ImagesField />
       </WrapperFormField>
 
       <WrapperFormField
-        {...{ title: "Categories (max-3)", isDisabled: isManager }}
+        {...{
+          title: "Categories (max-3) *",
+          styleTxt: "text-green-600",
+          isDisabled: isManager,
+        }}
       >
         <CheckBoxSwapper
           {...{
@@ -119,7 +124,13 @@ const BookStoreForm: FC<PropsType> = ({
         <ContactForm {...{ isDisabled: isManager }} />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Address", isDisabled: isManager }}>
+      <WrapperFormField
+        {...{
+          title: "Address *",
+          styleTxt: "text-green-600",
+          isDisabled: isManager,
+        }}
+      >
         <AddressForm
           {...{
             swapID,
@@ -135,7 +146,7 @@ const BookStoreForm: FC<PropsType> = ({
       </WrapperFormField>
 
       {!isManager && (
-        <WrapperFormField {...{ title: "Team ~" }}>
+        <WrapperFormField {...{ title: "Team" }}>
           <TeamForm />
         </WrapperFormField>
       )}

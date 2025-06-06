@@ -15,18 +15,18 @@ export const fieldDescStore: FormFieldBasic = {
 export const fieldsContact: FormFieldBasic[] = [
   {
     field: "email",
-    label: "Company email",
+    label: "Company email *",
     place: "Company email...",
     type: "email",
   },
   {
     field: "phone",
-    label: "Company phone",
+    label: "Company phone *",
     place: "Company phone...",
   },
   {
     field: "website",
-    label: "Website url ~",
+    label: "Website url",
     place: "Your website url...",
     type: "url",
   },
@@ -59,19 +59,19 @@ export const fieldsSwapStore: FormFieldBasic[][] = [
 export const fieldsDelivery: FormFieldBasic[] = [
   {
     field: "deliveryPrice",
-    label: "Delivery price ~",
+    label: "Delivery price",
     place: "Delivery price...",
     type: "text",
   },
   {
     field: "freeDeliveryAmount",
-    label: "Amount for free delivery ~",
+    label: "Amount for free delivery",
     place: "Price to reach for free delivery...",
     type: "text",
   },
   {
     field: "deliveryTime",
-    label: "Delivery time (days)",
+    label: "Delivery time (days) *",
     place: "Delivery time...",
     type: "text",
   },

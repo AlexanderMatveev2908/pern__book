@@ -1,13 +1,99 @@
 {
   "body": {
-    "qty": 5
+    "email": "tyler@gmail.com",
+    "country": "US",
+    "state": "CA",
+    "city": "Los Angeles",
+    "street": "456 Sunset Blvd",
+    "zipCode": "90028",
+    "phone": "+0 123-456-7890",
+    "name": "store_aaa",
+    "description": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!Lorem ipsum dolor sit amet consectetur adipisicing elit. Provident laborum explicabo, delectus culpa nostrum fugit nam quisquam nemo cupiditate maiores earum vitae totam quibusdam, nisi adipisci tempora dolores. Eveniet, laboriosam!",
+    "categories": [
+      "literature & fiction",
+      "science fiction & fantasy"
+    ],
+    "deliveryTime": "5",
+    "items": [
+      {
+        "email": "john@gmail.com",
+        "role": "MANAGER"
+      },
+      {
+        "email": "jane@gmail.com",
+        "role": "EMPLOYEE"
+      }
+    ]
   },
-  "files": {},
+  "files": {
+    "video": [
+      {
+        "fieldname": "video",
+        "originalname": "0.mp4",
+        "encoding": "7bit",
+        "mimetype": "video/mp4",
+        "destination": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads",
+        "filename": "f7ca7b27-9f50-48cb-a620-d53ea9a47a2d.mp4",
+        "path": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads/f7ca7b27-9f50-48cb-a620-d53ea9a47a2d.mp4",
+        "size": 31491130
+      }
+    ],
+    "images": [
+      {
+        "fieldname": "images",
+        "originalname": "0.jpeg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads",
+        "filename": "3b7ac098-94de-491c-a370-c6ef371fae1a.jpeg",
+        "path": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads/3b7ac098-94de-491c-a370-c6ef371fae1a.jpeg",
+        "size": 20411
+      },
+      {
+        "fieldname": "images",
+        "originalname": "2.jpeg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads",
+        "filename": "fc3ad7a2-9315-4e14-9309-2ffa94a1805b.jpeg",
+        "path": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads/fc3ad7a2-9315-4e14-9309-2ffa94a1805b.jpeg",
+        "size": 19253
+      },
+      {
+        "fieldname": "images",
+        "originalname": "11.jpeg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads",
+        "filename": "72bd1403-398f-4674-8722-6fa93d043b1b.jpeg",
+        "path": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads/72bd1403-398f-4674-8722-6fa93d043b1b.jpeg",
+        "size": 29951
+      },
+      {
+        "fieldname": "images",
+        "originalname": "14.jpeg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads",
+        "filename": "dd357e4e-615f-44cd-8811-bc04478f55e6.jpeg",
+        "path": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads/dd357e4e-615f-44cd-8811-bc04478f55e6.jpeg",
+        "size": 28985
+      },
+      {
+        "fieldname": "images",
+        "originalname": "22.jpeg",
+        "encoding": "7bit",
+        "mimetype": "image/jpeg",
+        "destination": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads",
+        "filename": "4242bbdf-d5fc-40c2-a095-50a81a7e20cc.jpeg",
+        "path": "/home/ninja/Documents/PROJECTS/PERN__BOOK/server/uploads/4242bbdf-d5fc-40c2-a095-50a81a7e20cc.jpeg",
+        "size": 30894
+      }
+    ]
+  },
   "file": {},
   "query": {},
-  "params": {
-    "bookID": "d611aea9-3261-4199-940c-a30ed7ac9b7d"
-  },
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjYTg5MjNiLTUwNTMtNDMzOS04OGM0LTBhMjlhM2MwYmYxMiIsImlhdCI6MTc0OTE5NjM2NCwiZXhwIjoxNzQ5MTk2NDI0fQ.LBUcDp44_7K0BS9a7zkXZjmms7M17lAt1NpG2m9h4kk",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.D2Y2M5L-IR6TYLnG5Fvc8z16rXQOad-jlVTMw2W0sIA57ZiE6uVrOMsk_ldtKOQZffYZI7hbG_dESGzobPPks4qo42dcvHmy1j933K-NJiHqR5e9NklC5zuH9THdnzZWiCsOPL0CNYg_CXGCo0AmK-NLJlaLsmeLbITz4SWbTOj7pYlX-hqUC_RzdXsQaYBNrDxbd6yMm2oUXab237h6R-cNfQkfd8rUiBrXCxFqqkI9tB-DvFlC92JQhfn-6HUSoPpl5z5eCmXV0bDgQ9x2vpudfuZK2SMOroD7YY0K76eWSPsyA1WHAPJe0aRFTBh2sDTOowqtsMhsM30EU49f-Q.DIbOp3V8wKFNRE8y.j5xFz-yEpH_4-7rejsHnrWn9GvrEvnl6dLwjrvZyOdcFP-GZxQbAMkxdPGyg.8cG_6n8ECAkNVr0rZlQhnA"
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6ImI5Nzc0M2E4LWVkOWUtNDQzYS04ODMyLTNhMDVlMWRlNmIxZSIsImlhdCI6MTc0OTE5ODc4NywiZXhwIjoxNzQ5MTk4ODQ3fQ.eUNVFENpiDW4LqGlArvsm3p0xZE_YaiWJMCkVAKRIwA",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.cbzc-hv4GG5m2_-H8fHQ0zw8zWCZ50xQPtcV_XuRQWZxYgLl6b8gwnT_agQVAgpnApxfdYMrmzwQ_seo66N0cb5umyG3isDieH40zGvok-BzPL-zKqc9QHyvZ1FOK0d7zlbbRBDIld0CdGTauJjUjENnUStl1q_SXZkQS9ha58btNYDWZwrXFWchTT4Ccajze92CUBBUJ6jkAcJR2HTry1bBkbNcO72fywl5JcXw_VYbw2czvFDJoBmXAPFIo1hv6dzLfOnLfJbxZY7S0k4NR62meQqOa8_ilqy9RKxXyySXEURubCmpwzovL_2ErUSu0dJhVqM3yrwiBmCD4KBicQ.NK78DXLKn32BzQvx.gH3RaxBuoKYfzwMmTeAFg5umv17ia0HK30qTgK0wdtVywO-w_MeM-Cj2D1RI.wSVeQXzo-gWo7RXW3XxDWw"
 }
