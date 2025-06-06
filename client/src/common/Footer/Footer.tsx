@@ -1,5 +1,5 @@
 import { FC } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import NewsLetter from "./components/NewsLetter";
 import Title from "@/components/elements/Title";
 import {
@@ -33,8 +33,14 @@ const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
 );
 
 const Footer: FC = () => {
+  const path = useLocation().pathname;
+
   return (
-    <div className="w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 pb-10 bottom-0 txt__col">
+    <div
+      className={`w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 bottom-0 txt__col ${
+        path.includes("/consumer/cart") ? "pb-[75px]" : "pb-10"
+      }`}
+    >
       <Link to="/" className="text-blue-600 w-fit">
         <span className="txt__5">LOGO</span>
       </Link>

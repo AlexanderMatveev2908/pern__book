@@ -1,19 +1,13 @@
 {
   "body": {
-    "bookStoreID": "410bcb9e-d6fb-41b7-a057-164ee76b7ebf",
-    "title": "qq",
-    "author": "aaa",
-    "year": "1555",
-    "categories": [
-      "literary fiction"
-    ],
-    "qty": "2",
-    "price": "3"
+    "act": "REMOVE_FROM_CART"
   },
-  "files": [],
+  "files": {},
   "file": {},
   "query": {},
-  "params": {},
-  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjlmZDE4MTkwLWQ1MzAtNGEwYS04ZDczLTMzODM1NDZmYjFiNiIsImlhdCI6MTc0OTE4NzQxNiwiZXhwIjoxNzQ5MTg3NDc2fQ.y0BPsL63bnMFC3FEgNyPptRO_MDGgEPK_7av0LmBYr4",
-  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.PXLD9TNbx10_cOs0xP-sw2SLV8DWvFdeQ78iUrgncXlUIbHd-UjcPTNutuxmlfa-Vp2EXc80h10uWD4iWbcfDZL8WrZKtqMz5-rRCKTdm2Bt0ebRdSPIiNZFtajsX8MavXA2xRq-Y-c1y50-npBjjRE8euJIkhV9YcWMPCS4KafSJDL5iRzHQTWh1iSzKJPkXRLJIuFtmZb8zLHyPdAhRpfmWZN7UiQGVX5IjXO995qiLdxA2qBxTyOpZemeCkVUBXElNGAnZEaIGWTOJ-hGq9Gu6TBEKMW1jrGwUz0ulDofZnNGlSlyUsNzJXJIdtuzd45z5Bt4W_97_1dWtGf_IQ.Sf1k8LnkkWQU5Ubn.i4aA5hlY27n5iuo9ZJAQavj4QV6EQgAM7wat8-lI1o1g8MP2LDMcU3JfGgjW.NLuOtyQRNKsFdNH-3VR4PQ"
+  "params": {
+    "bookID": "d9aaef5e-8030-4d05-ab9c-f5c93ef10bed"
+  },
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjBjYTg5MjNiLTUwNTMtNDMzOS04OGM0LTBhMjlhM2MwYmYxMiIsImlhdCI6MTc0OTE5MTk0NSwiZXhwIjoxNzQ5MTkyMDA1fQ.hM8tV6hS9oMCP4-Z6ZHjjJerBONuTrVuqK5QU2c_gnU",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.D2Y2M5L-IR6TYLnG5Fvc8z16rXQOad-jlVTMw2W0sIA57ZiE6uVrOMsk_ldtKOQZffYZI7hbG_dESGzobPPks4qo42dcvHmy1j933K-NJiHqR5e9NklC5zuH9THdnzZWiCsOPL0CNYg_CXGCo0AmK-NLJlaLsmeLbITz4SWbTOj7pYlX-hqUC_RzdXsQaYBNrDxbd6yMm2oUXab237h6R-cNfQkfd8rUiBrXCxFqqkI9tB-DvFlC92JQhfn-6HUSoPpl5z5eCmXV0bDgQ9x2vpudfuZK2SMOroD7YY0K76eWSPsyA1WHAPJe0aRFTBh2sDTOowqtsMhsM30EU49f-Q.DIbOp3V8wKFNRE8y.j5xFz-yEpH_4-7rejsHnrWn9GvrEvnl6dLwjrvZyOdcFP-GZxQbAMkxdPGyg.8cG_6n8ECAkNVr0rZlQhnA"
 }

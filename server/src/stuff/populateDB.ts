@@ -50,15 +50,13 @@ const users = [
 })) as UserInstance[];
 
 export const populateDB = async () => {
-  await calcTimeRun(async () => {
-    const safeUsers = await Promise.all(
-      users.map(async (u) => {
-        u.password = await hashPwd(u.password);
-        return u;
-      })
-    );
-    await User.bulkCreate(safeUsers);
-  });
+  const safeUsers = await Promise.all(
+    users.map(async (u) => {
+      u.password = await hashPwd(u.password);
+      return u;
+    })
+  );
+  await User.bulkCreate(safeUsers);
 };
 
 export const resetEmailJunction = async () => {

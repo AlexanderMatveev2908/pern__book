@@ -7,7 +7,6 @@ import {
   Sequelize,
 } from "sequelize";
 import { KeyTypeCbcHmac } from "../../types/all/keys.js";
-import { v4 } from "uuid";
 import { schemaID } from "./utils/helpers.js";
 
 export class KeyCbcHmac extends Model<

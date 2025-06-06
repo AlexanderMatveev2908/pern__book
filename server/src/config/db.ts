@@ -22,8 +22,7 @@ const seq = new Sequelize(process.env.URI_AIVEN!, {
 bindModels(seq);
 
 const connectDB = async () => await seq.authenticate();
-const syncDB = async () =>
-  calcTimeRun(() => seq.sync({ force: false, alter: true }));
+const syncDB = async () => seq.sync({ force: false, alter: true });
 // const syncDB = async () => await seq.sync({ force: true, alter: true });
 
 export { connectDB, syncDB, seq };

@@ -1,6 +1,7 @@
 import { calcTimeRun } from "../lib/utils/utils.js";
 import { cloud } from "../config/cloud.js";
-import { seq } from "../config/db.js";
+import { seq, syncDB } from "../config/db.js";
+import { populateDB } from "./populateDB.js";
 
 export const clearDB = async () => {
   calcTimeRun(async () => {
@@ -14,6 +15,10 @@ export const clearDB = async () => {
       });
 
       await seq.drop({ cascade: true });
+
+      await syncDB();
+
+      populateDB();
     } catch (err) {}
   });
 };
