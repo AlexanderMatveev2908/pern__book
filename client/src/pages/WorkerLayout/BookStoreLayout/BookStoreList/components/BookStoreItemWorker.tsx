@@ -21,7 +21,7 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
   );
 
   return (
-    <div className="item">
+    <div className="item_business">
       <StoreItemList {...{ el, links: filtered }} />
     </div>
   );

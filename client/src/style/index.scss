@@ -1,5 +1,4 @@
 @use "./styles/buttons.scss";
-@use "./styles/CardV2.scss";
 @use "./styles/el.scss";
 @use "./styles/icons.scss";
 @use "./styles/inputs.scss";
@@ -9,7 +8,6 @@
 @use "./styles/list_items.scss";
 
 @use "../common/forms/BookStore/styles/BookStoreForm.scss";
-
 @use "../common/Popup/styles/Popup.scss";
 @use "../common/Toast/styles/Toast.scss";
 @use "../common/SearchBar/styles/SearchBar.scss";
@@ -29,7 +27,6 @@
 
 @use "../pages/AuthLayout/Register/styles/Terms.scss";
 @use "../pages/Home/styles/ImagesSwapper.scss";
-@use "../pages/ConsumerLayout/BooksLayout/BooksListConsumer/styles/BookItemConsumer.scss";
 @use "../pages/Home/styles/Home.scss";
 
 @import "./t.css";

@@ -33,3 +33,12 @@ export const infosAppHome: ItemHomeArgs[] = [
   ...el,
   id: v4(),
 }));
+
+export const argSNAS = [
+  "Not another CRUD",
+  "Not another SaaS",
+  "Just SNAS 👻",
+].map((el) => ({
+  id: v4(),
+  txt: el,
+}));

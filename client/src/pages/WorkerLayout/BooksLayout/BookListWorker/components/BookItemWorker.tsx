@@ -11,7 +11,7 @@ type PropsType = {
 
 const BookItemWorker: FC<PropsType> = ({ el }) => {
   return (
-    <div className="item">
+    <div className="item_business">
       <ItemID {...{ ID: el.id }} />
 
       <BookItemList {...{ links: linksBookCardWorker(el.id), el }} />

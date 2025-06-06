@@ -26,13 +26,14 @@ export const statsDeliveryStoreFromBook = (book?: BookType) =>
     };
   });
 
-export const linksBookConsumer = [
-  {
-    icon: FaLink,
-    label: "View more",
-    path: "/consumer/books/",
-  },
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));
+export const linksBookConsumer = (id: string) =>
+  [
+    {
+      icon: FaLink,
+      label: "View more",
+      path: `/consumer/books/${id}`,
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
