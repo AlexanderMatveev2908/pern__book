@@ -163,5 +163,33 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
         });
       },
     }),
+
+    deleteCart: builder.mutation<BaseResAPI<void>, void>({
+      query: () => ({
+        url: `${B_URL}`,
+        method: "DELETE",
+      }),
+      async onQueryStarted(_, { dispatch, queryFulfilled }) {
+        await catchErr(async () => {
+          const patched = dispatch(
+            rootAPI.util.updateQueryData("getUserCart", undefined, (draft) => {
+              draft.cart = {
+                items: [],
+              } as unknown as CartType;
+            })
+          );
+
+          try {
+            await queryFulfilled;
+            dispatch(
+              apiSlice.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
+            );
+          } catch (err) {
+            patched.undo();
+            __cg('err "deleteCart"', err);
+          }
+        });
+      },
+    }),
   }),
 });

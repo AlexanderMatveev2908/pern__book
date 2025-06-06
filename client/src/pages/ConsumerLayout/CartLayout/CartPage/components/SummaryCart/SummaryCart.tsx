@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import { useMemo, useState, type FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
 import { CartType } from "@/types/all/Cart";

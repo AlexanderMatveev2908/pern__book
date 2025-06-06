@@ -143,7 +143,7 @@ export const getDeliveryPrice = ({
   subTotal: number;
   store: BookStoreType;
 }) => {
-  if (!+store!.deliveryPrice!) return 0;
+  if (!+store!.deliveryPrice! || store?.deletedAt) return 0;
   if (!+store!.freeDeliveryAmount!) return +store!.deliveryPrice!;
 
   return subTotal > +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;

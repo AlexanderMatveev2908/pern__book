@@ -34,3 +34,6 @@ export const isArrEq = (arr_1: any[], arr_2: any[]) => {
 
   return !map_1.size;
 };
+
+export const isArrOk = (arr?: any) =>
+  Array.isArray(arr) && !!arr.length && arr.every((el) => isObjOk(el));
