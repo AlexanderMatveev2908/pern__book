@@ -103,7 +103,10 @@ const FormQty: FC<PropsType> = ({ el }) => {
   return (
     <form
       onSubmit={handleSave}
-      className="w-full items-center gap-x-4 justify-end grid grid-cols-2"
+      className="w-full items-center gap-x-4 grid gap-y-5"
+      style={{
+        gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`,
+      }}
     >
       {!el!.book?.deletedAt && (
         <div className="w-full flex justify-self-end">
