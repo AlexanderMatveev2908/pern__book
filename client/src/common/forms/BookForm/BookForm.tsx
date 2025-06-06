@@ -75,7 +75,7 @@ const BookForm: FC<PropsType> = ({
           title: "title",
           sizeStyle: "max-w-[500px] lg:max-w-1/",
           isDisabled: isEmployee,
-          styleTxt: "text-green-600",
+          styleTxt: !isEmployee ? "text-green-600" : "",
         }}
       >
         <FormField
@@ -93,7 +93,7 @@ const BookForm: FC<PropsType> = ({
         {...{
           title: "author & year *",
           isDisabled: isEmployee,
-          styleTxt: "text-green-600",
+          styleTxt: !isEmployee ? "text-green-600" : "",
         }}
       >
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
@@ -105,7 +105,7 @@ const BookForm: FC<PropsType> = ({
                 errors,
                 el,
                 isDisabled: isEmployee,
-                styleLabel: "text-green-600",
+                styleLabel: !isEmployee ? "text-green-600" : "",
               }}
             />
           ))}
@@ -128,7 +128,7 @@ const BookForm: FC<PropsType> = ({
         {...{
           title: "categories *",
           isDisabled: isEmployee,
-          styleTxt: "text-green-600",
+          styleTxt: !isEmployee ? "text-green-600" : "",
         }}
       >
         {storeID ? (
@@ -160,7 +160,8 @@ const BookForm: FC<PropsType> = ({
                 errors,
                 el,
                 isDisabled: el.field === "price" && isEmployee,
-                styleLabel: "text-green-600",
+                styleLabel:
+                  isEmployee && el.field === "price" ? "" : "text-green-600",
               }}
             />
           ))}
