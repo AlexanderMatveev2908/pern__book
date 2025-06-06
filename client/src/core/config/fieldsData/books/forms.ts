@@ -3,7 +3,7 @@ import { v4 } from "uuid";
 
 export const titleBookField = {
   field: "title",
-  label: "Book Title",
+  label: "Book Title *",
   place: "Book title...",
 };
 
@@ -14,12 +14,12 @@ export const fieldDescBook: FormFieldBasic = {
 
 export const fieldAuthor = {
   field: "author",
-  label: "Author",
+  label: "Author *",
   place: "Author name...",
 };
 export const fieldYear = {
   field: "year",
-  label: "Year",
+  label: "Year *",
   place: "Year...",
 };
 
@@ -30,12 +30,12 @@ export const fieldAuthY = [fieldAuthor, fieldYear].map((el) => ({
 
 export const fieldBookQty = {
   field: "qty",
-  label: "Quantity",
+  label: "Quantity *",
   place: "Quantity...",
 };
 export const fieldPrice = {
   field: "price",
-  label: "Price",
+  label: "Price *",
   place: "Price...",
 };
 
