@@ -10,6 +10,7 @@ type PropsType = {
     icon?: IconType;
   };
   styleTxt?: string;
+  styleIcon?: string;
 };
 
 const DropHandler: FC<PropsType> = ({
@@ -17,11 +18,12 @@ const DropHandler: FC<PropsType> = ({
   setIsDropOpen,
   el,
   styleTxt,
+  styleIcon,
 }) => {
   return !el ? null : (
     <div
       onClick={() => setIsDropOpen(!isDropOpen)}
-      className="w-full grid grid-cols-[1fr_50px] relative group cursor-pointer"
+      className="w-full grid grid-cols-[1fr_50px] relative group cursor-pointer items-center"
     >
       <div className="w-fit flex gap-5 justify-start items-center">
         {el.icon && <el.icon className="icon__md icon__with_txt" />}
@@ -38,11 +40,14 @@ const DropHandler: FC<PropsType> = ({
           {el.label}
         </span>
       </div>
-      <FaChevronDown
-        className={`icon__md icon__with_txt justify-self-end ${
-          isDropOpen ? "rotate-180" : ""
-        } `}
-      />
+
+      <div className="w-full h-full items-center flex justify-end">
+        <FaChevronDown
+          className={`icon__with_txt justify-self-end ${
+            styleIcon ?? "icon__sm"
+          } ${isDropOpen ? "rotate-180" : ""} `}
+        />
+      </div>
     </div>
   );
 };

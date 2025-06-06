@@ -17,6 +17,7 @@ const DeliveryForm: FC = () => {
           key={el.id}
           {...{
             el,
+            styleLabel: el.field === "deliveryTime" ? "text-green-600" : "",
             control,
             errors,
             customCB:
