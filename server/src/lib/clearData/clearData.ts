@@ -4,7 +4,6 @@ import { TokenEventType } from "../../types/types.js";
 import { decodeExpJWT } from "../hashEncryptSign/JWT.js";
 import { REG_ID } from "../../config/regex.js";
 import { Thumb, ThumbInstance } from "../../models/all/img&video/Thumb.js";
-import { __cg } from "../utils/log.js";
 import { delArrCloud } from "../cloud/delete.js";
 
 export const clearTokensById = async (id: string, args: TokenEventType[]) => {

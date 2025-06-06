@@ -14,8 +14,6 @@ export const clearDB = async () => {
       });
 
       await seq.drop({ cascade: true });
-    } catch (err) {
-      console.log(err);
-    }
+    } catch (err) {}
   });
 };

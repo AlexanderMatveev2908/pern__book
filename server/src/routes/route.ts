@@ -4,7 +4,6 @@ import profileRouter from "./all/user.js";
 import verifyRouter from "./all/verify.js";
 import routerRefresh from "./all/refresh.js";
 import sendMailRouter from "./all/sendEmail.js";
-import { __cr } from "../middleware/general/logger.js";
 import adminExpressRouterStore from "./all/adminBookStore.js";
 import dummyRouter from "./all/dummy.js";
 import adminBookRouter from "./all/adminBooks.js";
@@ -13,8 +12,6 @@ import workerRouter from "./all/workerRoutes/workerRoutes.js";
 import consumerRouter from "./all/consumerRoutes/consumer.js";
 
 const routerApp = express.Router();
-
-// routerApp.use(__cr);
 
 routerApp.use("/auth", authRouter);
 routerApp.use("/refresh", routerRefresh);

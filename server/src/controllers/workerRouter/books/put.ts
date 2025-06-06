@@ -5,7 +5,6 @@ import { Book, BookInstance } from "../../../models/all/Book.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { User } from "../../../models/models.js";
 import { err403, err500 } from "../../../lib/responseClient/err.js";
-import { __cg } from "../../../lib/utils/log.js";
 import { isArrEq } from "../../../lib/dataStructures.js";
 import { seq } from "../../../config/db.js";
 import { CloudImg } from "../../../types/all/cloud.js";
@@ -77,7 +76,6 @@ export const updateBookWorker = async (
         case "price":
           if (+valBody !== +valBook && role !== UserRole.MANAGER)
             return err403(res, { msg: "user not allowed" });
-          console.log(valBody);
           bookObj[key] = +valBody;
           break;
 
@@ -96,8 +94,6 @@ export const updateBookWorker = async (
   const toDeleteIds: string[] = [];
 
   const t = await seq.transaction();
-
-  console.log(bookObj.images);
 
   try {
     await handleAssetsBooksPut({

@@ -8,7 +8,6 @@ import { decryptCert, encryptCert } from "../lib/hashEncryptSign/cbcHmac.js";
 
 const seq = new Sequelize(process.env.URI_AIVEN!, {
   dialect: "postgres",
-  // logging: console.log,
   logging: false,
   dialectOptions: {
     ssl: {

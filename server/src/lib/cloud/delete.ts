@@ -31,6 +31,6 @@ export const delArrCloud = async (
 
     __cg("res deletion", res);
   } catch (err) {
-    console.log(err);
+    __cg("err cloud", err);
   }
 };

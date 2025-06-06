@@ -1,6 +1,7 @@
 import { NextFunction, Request, Response } from "express";
 import { isDev } from "../../config/env.js";
 import { err500 } from "../../lib/responseClient/err.js";
+import { __cg } from "../../lib/utils/log.js";
 
 export const errMiddleware = (
   err: any,
@@ -9,7 +10,7 @@ export const errMiddleware = (
   __: NextFunction
 ): any => {
   if (isDev)
-    console.log({
+    __cg("err 500", {
       msg: err?.msg,
       message: err?.message,
       stack: err.stack,

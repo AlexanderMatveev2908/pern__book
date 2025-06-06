@@ -36,8 +36,6 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
 
     return res201(res, { msg: "Book created", ID: bookCreated.id });
   } catch (err: any) {
-    console.log(err);
-
     await t.rollback();
 
     if (images.length) await delArrCloud(images.map((el) => el.publicID));

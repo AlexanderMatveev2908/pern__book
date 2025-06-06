@@ -12,7 +12,6 @@ import {
 } from "../../lib/responseClient/err.js";
 import { isObjOk, parseNull } from "../../lib/dataStructures.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
-import { __cg } from "../../lib/utils/log.js";
 import { genTokSendEmail } from "../../lib/combo/combo.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";

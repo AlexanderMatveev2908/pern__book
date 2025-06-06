@@ -170,8 +170,6 @@ export const deleteAccount = async (
 
     return res200(res, { msg: "account deleted" });
   } catch (err: any) {
-    console.log(err);
-
     await t.rollback();
 
     return err500(res);

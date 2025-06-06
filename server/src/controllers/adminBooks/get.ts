@@ -11,6 +11,7 @@ import { sortItems } from "../../lib/query/sort.js";
 import PDFDocument from "pdfkit";
 import { makeBooksQ } from "../../lib/query/owner/books/query.js";
 import { calcRatingSqlBooks } from "../../lib/query/general.js";
+import { __cg } from "../../lib/utils/log.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -180,7 +181,7 @@ export const getPdf = async (req: ReqApp, res: Response): Promise<any> => {
 
     doc.end();
   } catch (err) {
-    console.log(err);
+    __cg("err pdf", err);
 
     return err500(res);
   }
