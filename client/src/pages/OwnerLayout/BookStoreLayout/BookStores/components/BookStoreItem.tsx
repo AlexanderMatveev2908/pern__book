@@ -1,10 +1,10 @@
-import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksCardStore } from "@/features/OwnerLayout/bookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import BookStoreItem from "@/components/elements/cards/bookstore/BookStoreItem";
+import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem/ImagesItem";
 
 type PropsType = {
   el: BookStoreType;

@@ -1,4 +1,3 @@
-import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookConsumer } from "@/features/ConsumerLayout/BooksLayout/fields/card";
 import { BookType } from "@/types/all/books";
@@ -12,6 +11,7 @@ import RatingItem from "@/components/elements/cards/shared/rating/RatingItem";
 import { FaPenFancy } from "react-icons/fa";
 import ButtonsCart from "@/features/ConsumerLayout/CartLayout/components/ButtonsCart";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
+import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem/ImagesItem";
 
 type PropsType = {
   el: BookType;
