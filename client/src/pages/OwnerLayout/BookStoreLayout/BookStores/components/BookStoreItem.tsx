@@ -10,7 +10,7 @@ type PropsType = {
 
 const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
   return (
-    <div className="item">
+    <div className="item_business">
       <ItemID {...{ ID: el.id }} />
 
       <StoreItemList {...{ el, links: linksCardStore(el.id) }} />

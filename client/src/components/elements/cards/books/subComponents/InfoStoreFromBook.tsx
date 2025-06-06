@@ -38,7 +38,7 @@ const InfoStoreFromBook: FC<PropsType> = ({ el, isOwner, listen }) => {
         </div>
       )}
 
-      <DropStats {...{ el: labelCategories, abs: true }}>
+      <DropStats {...{ el: labelCategories, abs: true, sizeHandler: "sm" }}>
         {el?.store?.categories?.map((el, i) => (
           <li key={ids![0][i]} className="w-full flex justify-start">
             <span className="txt__2">{el}</span>

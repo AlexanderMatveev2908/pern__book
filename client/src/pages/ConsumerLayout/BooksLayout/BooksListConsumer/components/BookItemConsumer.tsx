@@ -1,17 +1,14 @@
-import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookConsumer } from "@/features/ConsumerLayout/BooksLayout/fields/card";
 import { BookType } from "@/types/all/books";
-import type { FC } from "react";
+import { useMemo, type FC } from "react";
 import { labelBookTitle } from "@/core/config/fieldsData/labels/shared";
 import SpanTitleCard from "@/components/elements/cards/shared/SpanTitleCard";
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
-import { TbPigMoney } from "react-icons/tb";
-import { priceFormatter } from "@/core/lib/lib";
-import RatingItem from "@/components/elements/cards/shared/rating/RatingItem";
-import { FaPenFancy } from "react-icons/fa";
-import ButtonsCart from "@/features/ConsumerLayout/CartLayout/components/ButtonsCart";
+import { isArrOk } from "@/core/lib/lib";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem/ImagesItem";
+import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
+import MainContentBookConsumer from "./subcomponents/MainContentBookConsumer";
+import ButtonsCart from "@/features/ConsumerLayout/CartLayout/components/ButtonsCart";
 
 type PropsType = {
   el: BookType;
@@ -20,57 +17,31 @@ type PropsType = {
 const BookItemConsumer: FC<PropsType> = ({ el }) => {
   const { cart } = useGetCart();
 
+  const hasImages = useMemo(() => isArrOk(el.images), [el]);
+
   return (
-    <div className="card_list">
-      <div className="w-full">
-        <SpanTitleCard {...{ label: labelBookTitle(el.title) }} />
-      </div>
-
-      {!!el.images?.length && (
-        <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5">
-          <ImagesItem {...{ images: el.images }} />
+    <div className="wrapper_item_consumer">
+      <div className="item_consumer">
+        <div className="w-full">
+          <SpanTitleCard {...{ label: labelBookTitle(el.title) }} />
         </div>
-      )}
 
-      <div className="w-full grid grid-cols-1 gap-x-5 gap-y-5 h-fit">
-        <div
-          className={`w-full grid grid-cols-1 gap-4 sm:h-fit sm:items-start ${
-            el.images?.length ? "" : "-mt-5"
-          }`}
-        >
-          <SpanInfoCard
-            {...{
-              spanInfo: {
-                icon: FaPenFancy,
-                label: el.author,
-              },
-            }}
-          />
-
-          <SpanInfoCard
-            {...{
-              spanInfo: { icon: TbPigMoney, label: priceFormatter(el.price) },
-            }}
-          />
-          <div className="w-full flex justify-start items-center gap-5">
-            <RatingItem {...{ rat: el.ratingStats.avgRating }} />
-
-            <SpanInfoCard
-              {...{ spanInfo: { label: el.ratingStats.avgRating! } }}
-            />
-
-            <div className="w-full flex justify-start -ml-2">
-              <span className="txt__2">({el.ratingStats.reviewsCount})</span>
+        <div className="content">
+          {hasImages && (
+            <div className="images_wrapper">
+              <ImagesItem {...{ images: el.images }} />
             </div>
+          )}
+
+          <div className={`info_wrapper ${!hasImages ? "col-span-2" : ""}`}>
+            <MainContentBookConsumer {...{ el }} />
+
+            <PairBtnsLink {...{ ID: el.id, links: linksBookConsumer(el.id) }} />
           </div>
         </div>
-
-        <div className="w-full grid grid-cols-1 h-fit items-center  footer_link justify-items-center">
-          <LinksCard {...{ ID: el.id, links: linksBookConsumer }} />
-        </div>
       </div>
 
-      <div className="w-full flex justify-center book_item_consumer__btns">
+      <div className="w-full flex justify-center ">
         <ButtonsCart {...{ book: el, cart }} />
       </div>
     </div>
