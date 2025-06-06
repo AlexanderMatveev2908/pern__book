@@ -36,7 +36,7 @@ const ButtonsCart: FC<PropsType> = ({ book, cart }) => {
   ) : (
     <div className="w-full justify-items-center items-center gap-x-5 gap-y-5 justify-self-center grid grid-cols-1 button_cart">
       {!existingItemCartQty ? (
-        <div className="w-full max-w-[400px]">
+        <div className="w-full flex justify-center">
           <MainBtnAddCart
             {...{
               label: { ...labelAddCart, label: "Add to Cart" },
