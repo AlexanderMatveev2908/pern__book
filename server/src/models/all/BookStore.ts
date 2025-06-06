@@ -97,7 +97,7 @@ export const defineBookStore = (seq: Sequelize) =>
         allowNull: false,
       },
 
-      ownerID: refSql("users"),
+      ownerID: refSql("users", { allowNull: true }),
 
       email: {
         type: DataTypes.STRING,
@@ -143,5 +143,6 @@ export const defineBookStore = (seq: Sequelize) =>
       tableName: "book_stores",
       modelName: "BookStore",
       timestamps: true,
+      paranoid: true,
     }
   );

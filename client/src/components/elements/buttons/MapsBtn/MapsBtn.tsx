@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { TbWorldSearch } from "react-icons/tb";
 import { __cg } from "@/core/lib/lib";
+import axios from "axios";
 
 const mapsBtnField: BtnFieldIconType = {
   label: "Get my position",
@@ -23,15 +24,13 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
 
   const dispatch = useDispatch();
 
-  const getRawMaps = (): Promise<GeolocationPosition> => {
-    return new Promise((res, rej) => {
-      if (!navigator.geolocation) rej(new Error("geolocation not supported"));
+  const getRawMaps = async (): Promise<any> => {
+    const res = await axios.get("https://ipapi.co/json");
 
-      navigator.geolocation.getCurrentPosition(res, rej);
-    });
+    return res.data;
   };
   const getMaps = async () => {
-    const { coords } = (await getRawMaps()) ?? {};
+    const { latitude, longitude } = (await getRawMaps()) ?? {};
 
     // const res = await fetch(
     //   `https://maps.googleapis.com/maps/api/geocode/json?latlng=${
@@ -39,7 +38,7 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
     //   },${coords?.longitude}&key=${import.meta.env.VITE_GOOGLE_KEY}`
     // );
     const res = await fetch(
-      `https://nominatim.openstreetmap.org/reverse?lat=${coords?.latitude}&lon=${coords?.longitude}&format=json`
+      `https://nominatim.openstreetmap.org/reverse?lat=${latitude}&lon=${longitude}&format=json`
     );
     return await res.json();
   };
