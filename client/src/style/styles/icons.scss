@@ -24,6 +24,9 @@
 .icon__with_txt {
   @apply transition-all duration-300 group-hover:text-blue-600;
 }
+.icon__with_txt__green {
+  @apply transition-all duration-300 group-hover:text-green-600;
+}
 .icon__logic {
   @apply transition-all duration-300 hover:text-blue-600 hover:scale-120 cursor-pointer;
 }
