@@ -3,16 +3,13 @@ import { type FC } from "react";
 import SpanInfoCard from "../shared/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
 import { FaCity, FaDatabase } from "react-icons/fa";
-import PairBtnsLink from "../shared/PairBtnsLink";
-import { BtnIconLinkType } from "@/types/types";
 import ItemList from "../shared/ItemList";
 
 type PropsType = {
   el: BookStoreType;
-  links: BtnIconLinkType[];
 };
 
-const StoreItemList: FC<PropsType> = ({ el, links }) => {
+const StoreItemList: FC<PropsType> = ({ el }) => {
   return (
     <ItemList {...{ el }}>
       <SpanInfoCard
@@ -44,8 +41,6 @@ const StoreItemList: FC<PropsType> = ({ el, links }) => {
 
         <span className="txt__3">{el.booksStats.avgQty}</span>
       </div>
-
-      <PairBtnsLink {...{ links }} />
     </ItemList>
   );
 };

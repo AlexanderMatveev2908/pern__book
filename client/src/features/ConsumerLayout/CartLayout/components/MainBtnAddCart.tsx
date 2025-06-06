@@ -27,7 +27,7 @@ const MainBtnAddCart: FC<PropsType> = ({ label, disabledByParent, book }) => {
   });
 
   return (
-    <div className="w-full flex max-w-full">
+    <div className="w-full flex max-w-[250px]">
       <Button
         {...{
           act: BtnAct.DO,
