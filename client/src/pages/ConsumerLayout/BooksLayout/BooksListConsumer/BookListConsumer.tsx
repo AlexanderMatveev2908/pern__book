@@ -54,7 +54,7 @@ const BookListConsumer: FC = () => {
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
           {isArrOk(books) && (
-            <div className="book_list_consumer">
+            <div className="list_items_consumer">
               {books!.map((el) => (
                 <BookItemConsumer key={el.id} {...{ el }} />
               ))}
