@@ -62,7 +62,11 @@ const BookForm: FC<PropsType> = ({
 
   return (
     <form onSubmit={handleSave} className="p_form__0">
-      <OptionalField />
+      <OptionalField
+        {...{
+          txt: "🟢 Choose the bookstore where you'll add the book. Fields marked in green are required",
+        }}
+      />
 
       <ChoseStore {...{ stores }} />
 
@@ -71,6 +75,7 @@ const BookForm: FC<PropsType> = ({
           title: "title",
           sizeStyle: "max-w-[500px] lg:max-w-1/",
           isDisabled: isEmployee,
+          styleTxt: "text-green-600",
         }}
       >
         <FormField
@@ -84,12 +89,24 @@ const BookForm: FC<PropsType> = ({
         />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "author & year", isDisabled: isEmployee }}>
+      <WrapperFormField
+        {...{
+          title: "author & year *",
+          isDisabled: isEmployee,
+          styleTxt: "text-green-600",
+        }}
+      >
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           {fieldAuthY.map((el) => (
             <FormField
               key={el.id}
-              {...{ control, errors, el, isDisabled: isEmployee }}
+              {...{
+                control,
+                errors,
+                el,
+                isDisabled: isEmployee,
+                styleLabel: "text-green-600",
+              }}
             />
           ))}
         </div>
@@ -107,7 +124,13 @@ const BookForm: FC<PropsType> = ({
         <ImagesField />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "categories", isDisabled: isEmployee }}>
+      <WrapperFormField
+        {...{
+          title: "categories *",
+          isDisabled: isEmployee,
+          styleTxt: "text-green-600",
+        }}
+      >
         {storeID ? (
           <CheckBoxSwapper
             {...{
@@ -125,7 +148,9 @@ const BookForm: FC<PropsType> = ({
         )}
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "quantity & price" }}>
+      <WrapperFormField
+        {...{ title: "quantity & price *", styleTxt: "text-green-600" }}
+      >
         <div className="w-full grid grid-cols-1 sm:grid-cols-2 gap-y-5 gap-x-10">
           {fieldsPriceQty.map((el) => (
             <FormField
@@ -135,6 +160,7 @@ const BookForm: FC<PropsType> = ({
                 errors,
                 el,
                 isDisabled: el.field === "price" && isEmployee,
+                styleLabel: "text-green-600",
               }}
             />
           ))}
