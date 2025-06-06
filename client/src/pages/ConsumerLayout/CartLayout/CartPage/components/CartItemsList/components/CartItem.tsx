@@ -15,9 +15,10 @@ const CartItem: FC<PropsType> = ({ el }) => {
 
   return (
     <div
-      className={`w-full border-[3px] border-neutral-800 rounded-xl p-3 grid grid-cols-1 gap-x-10 gap-y-5 cart_item ${
-        isArrOk(el!.book!.images) ? "sm:grid-cols-2" : ""
-      } `}
+      className={`w-full border-[3px] border-neutral-800 rounded-xl p-3
+        cart_item gap-x-10 gap-y-5 ${
+          isArrOk(el!.book!.images) ? "cart_item_with_imgs" : ""
+        } `}
     >
       {isArrOk(el!.book!.images) && (
         <ImagesScroll
@@ -29,7 +30,7 @@ const CartItem: FC<PropsType> = ({ el }) => {
         />
       )}
 
-      <div className="w-full grid grid-cols-1 gap-6">
+      <div className="w-full grid grid-cols-1 gap-6 h-fit">
         <div className="w-full h-fit gap-y-4 grid grid-cols-1">
           <WrapPairTxt {...{ arg: ["title", book!.title] }} />
         </div>
