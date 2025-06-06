@@ -1,3 +1,4 @@
+import { __cg } from "@/core/lib/lib";
 import { useState, type FC } from "react";
 import { MdError } from "react-icons/md";
 
@@ -23,7 +24,7 @@ const ImgLoaderHandler: FC<PropsType> = ({ url, customClass, children }) => {
         onError={(err) => {
           setIsError(true);
           setIsLoaded(true);
-          console.log(err);
+          __cg("err image", err);
         }}
       />
     </div>

@@ -9,7 +9,7 @@ import {
   storeFiltersWorker,
 } from "@/features/common/SearchBar/fields/worker/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { __cg, isArr } from "@/core/lib/lib";
+import { isArr } from "@/core/lib/lib";
 import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -25,9 +25,7 @@ const BookStoreListWorker: FC = () => {
 
   const { handleSubmit } = formCtx;
 
-  const handleSave = handleSubmit(() => {
-    __cg("submitted ✌🏼");
-  });
+  const handleSave = handleSubmit(() => {});
 
   const hook =
     bookStoresWorkerSliceAPI.endpoints.getAllStoresWorker.useLazyQuery();

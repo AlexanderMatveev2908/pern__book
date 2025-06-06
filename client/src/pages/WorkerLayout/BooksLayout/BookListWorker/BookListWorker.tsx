@@ -12,7 +12,7 @@ import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
-import { __cg, decapt, isArr } from "@/core/lib/lib";
+import { decapt, isArr } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
 import { useEffect, useState, type FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -29,9 +29,7 @@ const BookListWorker: FC = () => {
 
   const { formSearchBooksWorkerCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit, watch } = formCtx;
-  const handleSave = handleSubmit(() => {
-    __cg("submitted ✌🏼");
-  });
+  const handleSave = handleSubmit(() => {});
 
   const storeID = useParams()?.bookStoreID;
   const canStay = REG_ID.test(storeID ?? "") && user?.isWorker;

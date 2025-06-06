@@ -10,6 +10,7 @@ import {
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { TbWorldSearch } from "react-icons/tb";
+import { __cg } from "@/core/lib/lib";
 
 const mapsBtnField: BtnFieldIconType = {
   label: "Get my position",
@@ -74,7 +75,7 @@ const MapsBtn: FC<Omit<FormSettersProps, "watch">> = ({ setValue }) => {
     } catch (err: any) {
       const { msg, code, message } = err ?? {};
 
-      console.log(err);
+      __cg("err maps", err);
       dispatch(
         openToast({
           statusCode: code,

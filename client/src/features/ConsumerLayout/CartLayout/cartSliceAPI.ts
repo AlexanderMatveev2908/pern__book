@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
-import { catchErr, isArrOk } from "@/core/lib/lib";
+import { __cg, catchErr, isArrOk } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
 import { BaseResAPI, TagsAPI } from "@/types/types";
 import { CartType } from "@/types/all/Cart";
@@ -55,7 +55,7 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
               apiSlice.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
             );
           } catch (err: any) {
-            console.log(err);
+            __cg('err "updateQtyCartClick', err);
 
             patched.undo();
           }
@@ -103,7 +103,7 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
               apiSlice.util.invalidateTags([TagsAPI.USER, TagsAPI.USER_CART])
             );
           } catch (err) {
-            console.log(err);
+            __cg('err "updateCartInput"', err);
 
             patched.undo();
           }
@@ -156,7 +156,7 @@ export const cartSLiceAPI = apiSlice.injectEndpoints({
               apiSlice.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER])
             );
           } catch (err) {
-            console.log(err);
+            __cg('err "updateCartMousePress"', err);
 
             patched.undo();
           }

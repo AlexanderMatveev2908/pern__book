@@ -7,6 +7,7 @@ import {
 } from "@/types/types";
 import { formatMsgCode } from "../utils/formatters";
 import { setLimitCards } from "../utils/styleHandlers";
+import { __cg } from "../utils/logger";
 
 export const isAccessExpired = (msg: string) =>
   [...Object.values(MsgErrAccess)].includes(msg as MsgErrAccess);
@@ -65,7 +66,7 @@ export const catchErr = async (cb: () => any) => {
   try {
     await cb();
   } catch (err) {
-    console.log(err);
+    __cg("catch err wrapper", err);
   }
 };
 

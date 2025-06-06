@@ -81,7 +81,3 @@
 // Edit
 // const items = page.locator('.item')
 // await expect(items).toHaveCount(5)
-
-// for (let i = 0; i < await items.count(); i++) {
-//   console.log(await items.nth(i).textContent())
-// }
