@@ -62,7 +62,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
       </div>
 
       <div
-        className="absolute tooltip_cpy left-1/2 -translate-x-1/2"
+        className="absolute pointer-events-none tooltip_cpy left-1/2 -translate-x-1/2"
         style={{
           top: `calc(-100% - 7.5px) `,
         }}
