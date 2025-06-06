@@ -6,7 +6,7 @@ type PropsType = {
   align?: string;
 };
 
-const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
+const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
   const btnRef = useRef<HTMLButtonElement | null>(null);
   const toolRef = useRef<HTMLDivElement | null>(null);
 
@@ -35,50 +35,50 @@ const TooltipCpy: FC<PropsType> = ({ txt, align, bd = true }) => {
   };
 
   return (
-    <button
-      onClick={handleClick}
-      disabled={!txt}
-      type="button"
-      aria-label="copy to clipboard"
-      ref={btnRef}
-      className="tooltip_cpy relative w-full flex appearance-none outline-0  max-w-full h-full"
-    >
-      {txt && (
-        <div
-          className={`py-1 cursor-pointer flex w-fit max-w-full overflow-x-auto ${
-            bd
-              ? "el__border_sm tooltip_cpy__el__cpy_txt justify-center px-4"
-              : `hover:text-blue-600 el__flow justify-start absolute overflow-x-auto scroll_x scroll_app min-h-full top-0 ${
-                  align ?? "left-0"
-                }`
-          }
-          }`}
+    <>
+      <div className="w-fit h-full flex justify-start max-w-full overflow-x-auto">
+        <button
+          onClick={handleClick}
+          disabled={!txt}
+          type="button"
+          aria-label="copy to clipboard"
+          ref={btnRef}
+          className="tooltip_cpy flex appearance-none outline-0 w-full max-w-full h-full left-0 relative overflow-x-auto"
         >
-          <span
-            className="txt__2 w-fit text-nowrap"
-            style={
-              {
-                // lineClamp: 1,
-                // WebkitLineClamp: 1,
-              }
-            }
-          >
-            {txt}
-          </span>
-        </div>
-      )}
+          {txt && (
+            <div
+              className={`cursor-pointer flex w-full max-w-full el__flow overflow-x-auto ${
+                bd
+                  ? "el__border_sm px-6 py-1 items-center"
+                  : "hover:text-blue-600"
+              }`}
+            >
+              <span className={`txt__2 text-nowrap ${!bd ? "pb-3" : ""}`}>
+                {txt}
+              </span>
+            </div>
+          )}
+        </button>
+      </div>
 
       <div
-        ref={toolRef}
-        className="absolute el__border_sm -top-[40px] py-1 px-5 z-60 bg-[#000] right-0 min-w-[250px] flex justify-center tooltip pointer-events-none"
+        className="absolute tooltip_cpy left-1/2 -translate-x-1/2"
         style={{
-          opacity: "0",
-          transform: "scale(0)",
+          top: `calc(-100% - 7.5px) `,
         }}
       >
-        <span className="txt__1">Copied to clipboard</span>
+        <div
+          ref={toolRef}
+          className="el__border_sm h-full -top-[80px] py-1 px-5 z-60 bg-[#000] -right-[20px] min-w-[250px] flex justify-center tooltip pointer-events-none"
+          style={{
+            opacity: "0",
+            transform: "scale(0)",
+          }}
+        >
+          <span className="txt__1">Copied to clipboard</span>
+        </div>
       </div>
-    </button>
+    </>
   );
 };
 export default TooltipCpy;
