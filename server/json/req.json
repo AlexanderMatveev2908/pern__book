@@ -1,0 +1,11 @@
+{
+  "files": {},
+  "file": {},
+  "query": {
+    "page": "0",
+    "limit": "1"
+  },
+  "params": {},
+  "auth": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjhjOGFjYjlkLTY5YzgtNDAzMC1hYjU0LTM0ZTk3MmQxZDhkYSIsImlhdCI6MTc0OTE0NjAwOCwiZXhwIjoxNzQ5MTQ2MDY4fQ.fK28bUK9NGqhdSdM3uvdIFczALDyVf4v8sDI50hwuLY",
+  "refresh": "eyJhbGciOiJSU0EtT0FFUC0yNTYiLCJlbmMiOiJBMjU2R0NNIn0.E3rYWBs84pLXIv6kQFQMjGV5l_pSc70jBithmJAQoIZgIsXCkXCh5NkJ9zUq2epJgrcSJeoG6bDMnjSblCROgKMUv-dMMKUQmwql6COp6cjwL7OlFCAEKGdjTSlinhjXkHc5tbF7lAr7V1GytgLMlFo83eND3EyAYsoZxXeo419sMoiohbdcewo83wNvd8WnO_XdWE_hm9CErJRVIoZAga8lyFS68P8KNC3AAB8sMP2btNxyQNw9ZsXrRtyq5O_wub53LZGYBDONByPFH6LmGNKhGqEG7fyHn3uo_kJ4utyWMtk9qAFDuruBNPVuIV6GOqxR8mwL9uXWuD50R8ls1g.WUgo1gofGNbAB8p6.lTqujXo-libHuKtI1rmzgVR6cgJY7Rl-BlDmmhHG8lHBMORHcGqCccJWIL3e.FK3y3aZ8x8ZSq7AT3MgsGw"
+}

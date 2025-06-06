@@ -117,8 +117,6 @@ export const updateStoreManager = async (
   } catch (err: any) {
     await t.rollback();
 
-    console.log(err);
-
     await clearUnnecessary(videoData, imagesData);
 
     return err500(res);

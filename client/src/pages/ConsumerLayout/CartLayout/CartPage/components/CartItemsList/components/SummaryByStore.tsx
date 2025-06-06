@@ -16,15 +16,15 @@ type PropsType = {
   items: CartItemType[];
 };
 
-const SummaryByStore: FC<PropsType> = ({ cart, store, items }) => {
+const SummaryByStore: FC<PropsType> = ({ store, items }) => {
   const subTotal = useMemo(() => calcTotPriceCart(items), [items]);
   const deliveryPrice = useMemo(
     () =>
       getDeliveryPrice({
-        cart: cart!,
+        subTotal,
         store: store!,
       }),
-    [cart, store]
+    [subTotal, store]
   );
 
   return (

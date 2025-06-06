@@ -232,8 +232,6 @@ export const updateCartByMousePress = async (req: ReqApp, res: Response) => {
   } catch (err) {
     await t.rollback();
 
-    console.log(err);
-
     return err500(res);
   }
 };

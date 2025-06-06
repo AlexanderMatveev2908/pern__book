@@ -12,7 +12,7 @@ import { useClearCacheItem } from "@/core/hooks/all/api/useClearCacheItem";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
+import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
 
 const BookStorePageOwner: FC = () => {

@@ -1,5 +1,5 @@
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
+import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";

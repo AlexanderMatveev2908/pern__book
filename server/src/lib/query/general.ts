@@ -198,7 +198,6 @@ export const countOrdersStores = (): [Literal, string][] => [
           const k = "orders" + capChar(stage) + capChar("count");
           const sql = countOrdersSql(stage);
 
-          // console.log(sql);
           return `'${k}', ${sql.val}`;
         })
         .join(",\n")}

@@ -10,7 +10,7 @@ import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll";
+import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
 
 const BookStorePageWorker: FC = () => {

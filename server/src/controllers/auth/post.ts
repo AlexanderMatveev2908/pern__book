@@ -17,7 +17,6 @@ import {
 } from "../../lib/clearData/clearData.js";
 import { genTokSendEmail, pairTokenSession } from "../../lib/combo/combo.js";
 import { seq } from "../../config/db.js";
-import { __cg } from "../../lib/utils/log.js";
 
 export const registerUser = async (
   req: Request,
@@ -47,8 +46,6 @@ export const registerUser = async (
 
     return res201(res, { msg: "Account created", accessToken });
   } catch (err: any) {
-    __cg("register err", err);
-
     await t.rollback();
     return err500(res);
   }

@@ -5,7 +5,6 @@ import { genTokenCBC } from "../hashEncryptSign/cbcHmac.js";
 import { sendEmailAuth } from "../mail/auth.js";
 import { genTokenJWE } from "../hashEncryptSign/JWE.js";
 import { genAccessJWT } from "../hashEncryptSign/JWT.js";
-import { __cg } from "../utils/log.js";
 
 export const genTokSendEmail = async ({
   user,

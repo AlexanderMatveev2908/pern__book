@@ -73,8 +73,6 @@ export const useFormSwap = ({
         valsForm: vals,
       });
 
-      // __cg("swapper", isValid, i, j);
-
       if (!isValid && i <= currForm && !isNextDisabled) setNextDisabled(true);
       else if ((isValid || currForm < i) && isNextDisabled)
         setNextDisabled(false);

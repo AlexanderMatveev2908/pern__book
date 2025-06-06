@@ -3,7 +3,7 @@ import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
 import { BookType } from "@/types/all/books";
 import { useSlideImg } from "@/core/hooks/all/UI/useSlideImg";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import ImgLoaderHandler from "@/components/elements/imagesHandlers/ImgLoaderHandler";
+import ImgLoaderHandler from "@/components/elements/imagesHandlers/ImgLoaderHandler/ImgLoaderHandler";
 import ServerCard from "./ServerCard";
 import { Link } from "react-router-dom";
 
