@@ -1,5 +1,4 @@
 @use "./styles/buttons.scss";
-@use "./styles/CardV2.scss";
 @use "./styles/el.scss";
 @use "./styles/icons.scss";
 @use "./styles/inputs.scss";
@@ -9,7 +8,6 @@
 @use "./styles/list_items.scss";
 
 @use "../common/forms/BookStore/styles/BookStoreForm.scss";
-
 @use "../common/Popup/styles/Popup.scss";
 @use "../common/Toast/styles/Toast.scss";
 @use "../common/SearchBar/styles/SearchBar.scss";
