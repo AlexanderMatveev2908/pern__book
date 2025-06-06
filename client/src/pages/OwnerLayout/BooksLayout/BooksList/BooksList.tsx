@@ -77,7 +77,7 @@ const BooksList: FC = () => {
         {!isLoading && !isFetching && books?.length && <PdfBtn />}
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          <div className="p_cards">
+          <div className="list_items">
             {isArr(books) &&
               books!.map((el) => <BookItemOwner key={el.id} {...{ el }} />)}
           </div>
