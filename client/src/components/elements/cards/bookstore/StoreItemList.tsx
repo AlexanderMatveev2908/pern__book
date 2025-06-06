@@ -2,7 +2,7 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { type FC } from "react";
 import SpanInfoCard from "../shared/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
-import { FaCity } from "react-icons/fa";
+import { FaCity, FaDatabase } from "react-icons/fa";
 import PairBtnsLink from "../shared/PairBtnsLink";
 import { BtnIconLinkType } from "@/types/types";
 import ItemList from "../shared/ItemList";
@@ -31,6 +31,19 @@ const StoreItemList: FC<PropsType> = ({ el, links }) => {
           },
         }}
       />
+
+      <div className="w-full flex justify-start items-center gap-6">
+        <SpanInfoCard
+          {...{
+            spanInfo: {
+              label: "Average quantity",
+              icon: FaDatabase,
+            },
+          }}
+        />
+
+        <span className="txt__3">{el.booksStats.avgQty}</span>
+      </div>
 
       <PairBtnsLink {...{ links }} />
     </ItemList>

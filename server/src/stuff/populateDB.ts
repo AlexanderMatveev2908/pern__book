@@ -1,5 +1,6 @@
 import { hashPwd } from "../lib/hashEncryptSign/argon.js";
 import { calcTimeRun } from "../lib/utils/utils.js";
+import { BookStore } from "../models/all/BookStore.js";
 import { BookStoreUser } from "../models/all/BookStoreUser.js";
 import { User, UserInstance } from "../models/models.js";
 
