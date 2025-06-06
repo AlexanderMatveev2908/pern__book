@@ -1,11 +1,6 @@
 import { useChoseNewPwdMutation } from "@/features/AuthLayout/authSliceAPI";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
-import {
-  __cg,
-  checkQueryAuth,
-  isUnHandledErr,
-  schemaPwd,
-} from "@/core/lib/lib";
+import { checkQueryAuth, isUnHandledErr, schemaPwd } from "@/core/lib/lib";
 import { AllowedFromApp } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosResponse } from "axios";
@@ -57,14 +52,10 @@ const ChoseNewPwd: FC = () => {
   const customErrCB = useCallback(
     (err: AxiosResponse) => {
       if (isUnHandledErr(err)) {
-        __cg("run danger 401");
         makeNoticeCombo({
           status: err?.status,
           msg: err?.data?.msg,
         });
-      }
-      if (err?.status === 429) {
-        __cg("run danger 429");
       }
     },
     [makeNoticeCombo]

@@ -175,7 +175,6 @@ export const {
           const { data } = await queryFulfilled;
 
           dispatch(setBookStore(data.bookStore));
-          __cg("fulfilled", data);
         });
       },
     }),

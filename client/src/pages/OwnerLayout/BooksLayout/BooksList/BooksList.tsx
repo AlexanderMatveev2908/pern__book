@@ -4,7 +4,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { __cg, isArr } from "@/core/lib/lib";
+import { isArr } from "@/core/lib/lib";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -27,11 +27,8 @@ const BooksList: FC = () => {
   const { innerJoinedCatCtx, setInnerJoinedCat } = useSearchCtx();
   const { handleSubmit, watch } = formCtx;
   const handleSave = handleSubmit(
-    () => {
-      __cg("submitted ✌🏼");
-    },
+    () => {},
     (errs) => {
-      console.log(errs);
       return errs;
     }
   );

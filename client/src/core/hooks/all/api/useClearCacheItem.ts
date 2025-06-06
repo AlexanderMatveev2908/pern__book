@@ -21,7 +21,6 @@ export const useClearCacheItem = ({ nameQ, slice, tag }: Params) => {
 
   useEffect(() => {
     if ((itemQ as any)?.data?.ninja === "🥷🏼") {
-      console.log("run");
       dispatch(slice.util.invalidateTags([tag]));
     }
   }, [dispatch, itemQ, slice, nameQ, tag]);

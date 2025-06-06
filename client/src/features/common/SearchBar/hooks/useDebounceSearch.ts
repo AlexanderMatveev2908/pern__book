@@ -63,8 +63,6 @@ export const useDebounceSearch = ({
 
       const isSame: boolean = isSameData(oldVals.current, currVals);
 
-      // __cg("comparison", oldVals.current, currVals, isSame);
-
       if (isSame) {
         if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
         clearTimer(timerID);

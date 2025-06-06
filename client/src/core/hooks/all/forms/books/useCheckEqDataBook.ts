@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { keysFormBook } from "@/core/lib/all/forms/schemaZ/books";
-import { __cg, isSameData } from "@/core/lib/lib";
+import { isSameData } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { useEffect, useState } from "react";
 import { UseFormWatch } from "react-hook-form";
@@ -53,7 +53,6 @@ export const useCheckEqDataBook = ({ watch, book }: Params) => {
 
       const areSameVals = isSameData(original, updated);
 
-      __cg("comparison", original, updated, isSame);
       if (areSameVals !== isSame) setIsSame(areSameVals);
     };
 

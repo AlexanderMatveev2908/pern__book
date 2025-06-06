@@ -24,7 +24,6 @@ const account_2 = {
 const clear = async () => {
   const c_0 = await Token.destroy({ where: {} });
   const c_1 = await User.destroy({ where: {} });
-  console.log(c_0 + c_1);
 };
 
 test.beforeAll(async () => {

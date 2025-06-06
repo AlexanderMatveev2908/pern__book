@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { __cg } from "@/core/lib/lib";
 import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
 import { type FC } from "react";
 import { FaFilePdf } from "react-icons/fa";
@@ -28,7 +29,7 @@ const PdfBtn: FC = () => {
       );
       window.open(url, "_blank");
     } catch (err: any) {
-      console.log(err);
+      __cg("err pdf", err);
     }
   };
 
@@ -48,41 +49,3 @@ const PdfBtn: FC = () => {
 };
 
 export default PdfBtn;
-
-// const res = await axios.get(`${backURL}/admin-books/pdf`, {
-//   responseType: "blob",
-//   headers: {
-//     Accept: "application/pdf",
-//     Authorization: `Bearer ${getStorage(StorageKeys.ACCESS)}`,
-//   },
-//   withCredentials: true,
-// });
-
-// try {
-//   const { data } = await axios.post(
-//     `${backURL}/refresh`,
-//     {},
-//     {
-//       headers: {
-//         Authorization: `Bearer ${getStorage(StorageKeys.ACCESS)}`,
-//         Accept: "application/json",
-//       },
-//       withCredentials: true,
-//     }
-//   );
-//   saveStorage({ data: data.accessToken, key: StorageKeys.ACCESS });
-//   __cg("refreshed");
-//   handlePdf();
-// } catch (err: any) {
-//   console.log(err);
-//   removeStorage();
-//   dispatch(
-//     openToast({
-//       msg: "Session expired",
-//       type: EventApp.ERR,
-//       statusCode: 401,
-//     })
-//   );
-//   dispatch(setPushedOut());
-//   nav("/", { replace: true });
-// }

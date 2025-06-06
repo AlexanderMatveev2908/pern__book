@@ -6,8 +6,6 @@ export const appInstance = axios.create({
   withCredentials: true,
 });
 
-console.log(backURL);
-
 appInstance.interceptors.request.use(
   (req) => {
     const token = sessionStorage.getItem("accessToken");
