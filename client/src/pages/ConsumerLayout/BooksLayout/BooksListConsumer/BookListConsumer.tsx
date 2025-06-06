@@ -37,7 +37,7 @@ const BookListConsumer: FC = () => {
         }}
       />
 
-      <div className="p_page -mb-[175px]">
+      <div className="p_page -mb-[175px] ">
         <FormProvider {...formCtx}>
           <SearchBar
             {...({
@@ -54,7 +54,7 @@ const BookListConsumer: FC = () => {
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
           {isArrOk(books) && (
-            <div className="w-full grid grid-cols-1 gap-10">
+            <div className="book_list_consumer">
               {books!.map((el) => (
                 <BookItemConsumer key={el.id} {...{ el }} />
               ))}

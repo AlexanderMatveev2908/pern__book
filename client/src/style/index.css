@@ -274,21 +274,21 @@ button:disabled {
     @apply grid-cols-2;
   }
 }
-.list_items .item {
+.list_items .item_business {
   @apply w-full grid grid-cols-1 gap-y-5 p-5 border-[3px] border-neutral-800 rounded-xl h-fit;
 }
-.list_items .item .content {
+.list_items .item_business .content {
   @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
 }
 @media screen and (min-width: 600px) {
-  .list_items .item .content {
+  .list_items .item_business .content {
     @apply grid-cols-[200px_1fr];
   }
 }
-.list_items .item .content .images_wrapper {
+.list_items .item_business .content .images_wrapper {
   @apply w-full grid grid-cols-1 h-fit items-start;
 }
-.list_items .item .content .info_wrapper {
+.list_items .item_business .content .info_wrapper {
   @apply w-full grid grid-cols-1 gap-y-3 h-fit;
 }
 
@@ -729,27 +729,6 @@ button:disabled {
 .images_swapper .btn {
   @apply absolute top-1/2 -translate-y-1/2 border-2 border-blue-600 rounded-xl p-2 bg-[#000] flex justify-center items-center hover:scale-110 cursor-pointer transition-all duration-300 z-30;
   appearance: none;
-}
-
-.card_list {
-  @apply w-full grid grid-cols-1 gap-x-10 border-[3px] border-neutral-800 rounded-xl p-3 pb-5 gap-y-5;
-}
-@media screen and (min-width: 600px) {
-  .card_list {
-    @apply grid-cols-[200px_1fr];
-  }
-  .card_list > :nth-child(1) {
-    grid-column: span 2;
-  }
-  .card_list .footer_link {
-    @apply justify-items-start;
-  }
-}
-
-@media screen and (min-width: 600px) {
-  .book_item_consumer__btns {
-    @apply col-span-2;
-  }
 }
 
 @media (min-width: 550px) {
