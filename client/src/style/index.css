@@ -744,6 +744,16 @@ button:disabled {
   }
 }
 
+.cart_item {
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+@media screen and (min-width: 600px) {
+  .cart_item_with_imgs {
+    grid-template-columns: 175px 1fr;
+  }
+}
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
