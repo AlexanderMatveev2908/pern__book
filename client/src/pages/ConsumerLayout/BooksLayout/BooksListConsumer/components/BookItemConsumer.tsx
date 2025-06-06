@@ -35,13 +35,18 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
 
           <div className={`info_wrapper ${!hasImages ? "col-span-2" : ""}`}>
             <MainContentBookConsumer {...{ el }} />
-
-            <PairBtnsLink {...{ ID: el.id, links: linksBookConsumer(el.id) }} />
           </div>
         </div>
       </div>
 
-      <div className="w-full flex justify-center ">
+      <div
+        className="w-full grid gap-x-10 gap-y-5 items-center"
+        style={{
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        }}
+      >
+        <PairBtnsLink {...{ ID: el.id, links: linksBookConsumer(el.id) }} />
+
         <ButtonsCart {...{ book: el, cart }} />
       </div>
     </div>

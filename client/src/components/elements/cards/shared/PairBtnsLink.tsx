@@ -12,7 +12,7 @@ const PairBtnsLink: FC<PropsType> = ({ links }) => {
 
   return (
     <div
-      className="w-full grid gap-y-3 justify-items-center items-center mt-4 gap-x-8"
+      className="w-full grid gap-y-3 justify-items-center items-center gap-x-8"
       style={{
         gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
       }}
