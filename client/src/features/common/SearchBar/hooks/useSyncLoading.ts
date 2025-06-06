@@ -13,7 +13,5 @@ export const useSyncLoading = ({
 }: Params) => {
   useEffect(() => {
     if (isPendingCustom && !isFetching) setIsPending(false);
-    // __cg("real", isFetching);
-    // __cg("custom", isPendingCustom);
   }, [isPendingCustom, isFetching, setIsPending]);
 };

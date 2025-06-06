@@ -14,7 +14,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { FormBookStoreType } from "../CreateBooksStore/CreateBooksStorePage";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
-import { __cg, isSameData } from "@/core/lib/lib";
+import { isSameData } from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
@@ -167,9 +167,6 @@ const UpdateBookStore: FC = () => {
       },
       {}
     );
-
-    __cg("original", originalObj);
-    __cg("vals", newVals);
 
     return !isSameData(originalObj, newVals);
   }, [vals, bookStore]);

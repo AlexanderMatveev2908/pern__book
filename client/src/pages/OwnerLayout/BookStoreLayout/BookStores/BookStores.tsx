@@ -13,7 +13,7 @@ import { FormProvider } from "react-hook-form";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
-import { __cg, isArr } from "@/core/lib/lib";
+import { isArr } from "@/core/lib/lib";
 import BookStoreItemOwner from "./components/BookStoreItem";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { searchBarStore } from "@/features/common/SearchBar/schemasZ/owner/store";
@@ -25,9 +25,7 @@ const BookStores: FC = () => {
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
   const { handleSubmit } = formCtx;
-  const handleSave = handleSubmit(() => {
-    __cg("submitted ✌🏼");
-  });
+  const handleSave = handleSubmit(() => {});
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
   // eslint-disable-next-line

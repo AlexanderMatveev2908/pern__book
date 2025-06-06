@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { backURL } from "@/core/config/env";
-import { __cg } from "@/core/lib/lib";
 import {
   createAsyncThunk,
   createEntityAdapter,
@@ -39,7 +37,6 @@ export const getSomeData = createAsyncThunk<{ items: ValItemType[] }>(
       const { data } = await axios.get(backURL + "/dummy");
       return data;
     } catch (err: any) {
-      console.log(err);
       return _thunkAPI.rejectWithValue(err?.response?.data);
     }
   }
@@ -70,7 +67,6 @@ const dummySlice = createSlice({
 
     builder.addCase(getSomeData.fulfilled, (state, action) => {
       state.isPending = false;
-      console.log(action.payload);
       entityAd.setAll(state, action.payload.items);
     });
 

@@ -58,15 +58,6 @@ const DropActionsBookWorker: FC<PropsType> = ({ book }) => {
     })
   );
 
-  // const handlers = useMemo(
-  //   () => ({
-  //     update: () => nav(`${filteredActions?.update?.path}${book?.id}`),
-  //     delete: () => console.log("delete"),
-  //     store: () => nav(filteredActions?.store?.path + book?.bookStoreID),
-  //   }),
-  //   [book, filteredActions, nav]
-  // );
-
   return (
     <div className="w-full flex justify-end">
       <DropActionsObj

@@ -10,7 +10,6 @@ import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
 import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
-import { __cg } from "@/core/lib/lib";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useNavigate } from "react-router-dom";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
@@ -68,7 +67,6 @@ const CreateBooksStore: FC = () => {
 
     handleSubmit(
       async (data) => {
-        __cg("data", data);
         const formData = makeFormDataStore(data);
 
         const res = await wrapMutationAPI({

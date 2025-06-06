@@ -76,8 +76,6 @@ export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   } catch (err) {
     await t.rollback();
 
-    console.log(err);
-
     if (uploadedNow.length)
       await delArrCloud(uploadedNow.map((img) => img.publicID));
 

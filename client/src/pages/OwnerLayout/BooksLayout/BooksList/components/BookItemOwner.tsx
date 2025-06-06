@@ -3,8 +3,8 @@ import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import LinksCard from "@/components/elements/cards/shared/LinksCard";
 import { linksBookCard } from "@/features/OwnerLayout/books/fields/actions";
-import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem";
 import BookItem from "@/components/elements/cards/books/BookItem";
+import ImagesItem from "@/components/elements/imagesHandlers/ImagesItem/ImagesItem";
 
 type PropsType = {
   el: BookType;

@@ -1,85 +1,93 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import Title from "@/components/elements/Title";
-import { useGetCart } from "@/core/hooks/all/api/useGetCart";
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { isArrOk, priceFormatter } from "@/core/lib/lib";
-import WrapTxt from "@/components/elements/WrapPairTxt/WrapTxt";
-import { X } from "lucide-react";
-import { type FC } from "react";
-import { CartItemType } from "@/types/all/Cart";
-import DropStats from "@/components/elements/dropMenus/dropSimple/DropStats";
-import { FaCalculator } from "react-icons/fa";
+import { useMemo, useState, type FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
+import { CartType } from "@/types/all/Cart";
+import Title from "@/components/elements/Title";
+import {
+  calcTotPriceCart,
+  getDeliveryPrice,
+  priceFormatter,
+} from "@/core/lib/lib";
+import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
+import FormCoupon from "./components/FormCoupon";
+import Button from "@/components/elements/buttons/Button/Button";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
+import { BtnAct } from "@/types/types";
+import { FaChevronUp } from "react-icons/fa";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
+  cart: CartType;
 };
 
-const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
-  const { cart } = useGetCart();
+const checkoutLabel = {
+  label: "checkout",
+  icon: MdOutlineShoppingCartCheckout,
+};
 
-  const ids = useCreateIds({
-    lengths: [
-      Object.keys(groupedByStoreID ?? {}).length,
-      ...Object.values(groupedByStoreID).map(({ items }) => items?.length),
-    ],
-  });
+const SummaryCart: FC<PropsType> = ({ groupedByStoreID, cart }) => {
+  const [isFooterOpen, setIsFooterOpen] = useState(false);
 
-  return !isArrOk(cart?.items) ? null : (
-    <div className="grid grid-cols-1 gap-y-4 z-60 bg-neutral-950 w-full max-w-[1000px] ">
-      <DropStats
-        {...{
-          el: {
-            label: "Summary",
-            icon: FaCalculator,
-          },
-          ovHidden: true,
-          styleUL:
-            "mt-5 px-4 max-h-[500px] scroll_app scroll_y overflow-y-auto",
-        }}
+  const totalCart = useMemo(() => {
+    const arr = Object.values(groupedByStoreID ?? {});
+
+    let i = arr.length - 1;
+    let tot = 0;
+
+    while (i >= 0) {
+      const { store, items } = arr[i];
+
+      const subTotal = calcTotPriceCart(items);
+      tot += subTotal;
+      tot += getDeliveryPrice({
+        subTotal,
+        store: store!,
+      });
+
+      i--;
+    }
+
+    return tot;
+  }, [groupedByStoreID]);
+
+  return (
+    <div
+      className={`w-[95%] grid grid-cols-1 gap-y-3 fixed bottom-0 p-4 border-[3px] border-b-0  border-blue-600 rounded-t-xl bg-[#000] z-60 max-w-[800px] transition-all duration-500 ${
+        isFooterOpen ? "translate-y-0" : "translate-y-[80%]"
+      }`}
+    >
+      <div
+        onClick={() => setIsFooterOpen(!isFooterOpen)}
+        className="w-full flex justify-center -mt-2 mb-5 hover:text-blue-600 cursor-pointer"
       >
-        <div className="w-full grid grid-cols-1 gap-y-8">
-          {Object.entries(groupedByStoreID).map(
-            ([_, { store, items }], outerI) => (
-              <div
-                key={ids[0][outerI]}
-                className="w-full grid grid-cols-1 gap-y-6 justify-items-center"
-              >
-                <div className="w-full border-2 border-blue-600 rounded-xl grid grid-cols-1 py-2">
-                  <Title {...{ title: store!.name, styleTxt: "txt__3" }} />
-                </div>
+        <FaChevronUp
+          className={`min-w-[50px] min-h-[50px] transition-all duration-500 ${
+            isFooterOpen ? "rotate-180" : ""
+          }`}
+        />
+      </div>
 
-                {items!.map((el: CartItemType, innerI: number) => (
-                  <div
-                    key={ids[outerI + 1][innerI]}
-                    className="w-full grid grid-cols-1 items-center gap-y-3 pl-3 border-blue-600 border-l-2"
-                  >
-                    <div className="w-full flex justify-start max-w-full">
-                      <span
-                        className="txt__2 clamp_txt"
-                        style={{
-                          lineClamp: 2,
-                          WebkitLineClamp: 2,
-                        }}
-                      >
-                        {el.book!.title}
-                      </span>
-                    </div>
+      <WrapPairTxt
+        {...{
+          arg: ["total", priceFormatter(totalCart)],
+          customStyles: [
+            "txt__5 justify-self-center",
+            "txt__5 justify-self-center",
+          ],
+        }}
+      />
 
-                    <div className="w-full grid grid-cols-3 justify-items-center items-center">
-                      <WrapTxt {...{ txt: el!.qty }} />
+      <FormCoupon />
 
-                      <X className="icon__sd" />
-
-                      <WrapTxt {...{ txt: priceFormatter(el.book!.price) }} />
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )
-          )}
-        </div>
-      </DropStats>
+      <div className="w-full max-w-[400px] justify-self-center mt-3 sm:mt-6">
+        <Button
+          {...{
+            label: checkoutLabel.label,
+            Icon: checkoutLabel.icon,
+            act: BtnAct.DO,
+          }}
+        />
+      </div>
     </div>
   );
 };

@@ -84,7 +84,6 @@ const FormQty: FC<PropsType> = ({ el }) => {
       secondaryRef.current.blur();
     },
     (errs) => {
-      console.log(errs);
       return errs;
     }
   );

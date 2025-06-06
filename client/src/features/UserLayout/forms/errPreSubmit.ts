@@ -36,8 +36,6 @@ export const preSubmitCheckProfile = ({
     fieldsByArea: fieldsSwapProfile,
   });
 
-  // __cg("swapper", isValid, i, j);
-
   if (i || j || !isValid) {
     isFormOk = false;
     setCurrForm(i);

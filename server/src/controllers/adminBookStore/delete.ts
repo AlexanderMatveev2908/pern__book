@@ -95,7 +95,6 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
 
     return res200(res, { msg: "store deleted" });
   } catch (err) {
-    console.log(err);
     await t.rollback();
 
     return err500(res);

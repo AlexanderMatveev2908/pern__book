@@ -1,6 +1,6 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
-import ImagesScroll from "../../imagesHandlers/ImagesScroll";
+import ImagesScroll from "../../imagesHandlers/ImagesScroll/ImagesScroll";
 import InfoBookAbout from "./subComponents/InfoBookAbout";
 import DataBookDB from "./subComponents/DataBookDB";
 import DropStats from "../../dropMenus/dropSimple/DropStats";

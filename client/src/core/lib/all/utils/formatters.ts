@@ -1,7 +1,6 @@
-import { CartItemType, CartType } from "@/types/all/Cart";
+import { CartItemType } from "@/types/all/Cart";
 import { isWeekend, format } from "date-fns";
 import { BookStoreType } from "@/types/all/bookStore";
-import { isObjOk } from "./dataStructures";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
@@ -134,28 +133,14 @@ export const getExpectedDeliveredDay = ({
 };
 
 export const getDeliveryPrice = ({
-  cart,
+  subTotal,
   store,
 }: {
-  cart: CartType;
+  subTotal: number;
   store: BookStoreType;
 }) => {
-  if ([cart, store].some((el) => !isObjOk(el))) return 0;
-
   if (!+store!.deliveryPrice!) return 0;
   if (!+store!.freeDeliveryAmount!) return +store!.deliveryPrice!;
 
-  const filtered = cart!.items!.filter(
-    (el) => el.book!.store!.id === store!.id
-  );
-  let tot = 0;
-  let i = filtered.length - 1;
-
-  while (i >= 0) {
-    const curr = filtered[i];
-    tot += curr.qty * curr.book!.price;
-    i--;
-  }
-
-  return tot > +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;
+  return subTotal > +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;
 };
