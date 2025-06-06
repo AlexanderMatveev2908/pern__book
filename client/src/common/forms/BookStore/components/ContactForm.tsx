@@ -20,7 +20,16 @@ const ContactForm: FC<PropsType> = ({ isDisabled }) => {
   return (
     <div className="sub_form">
       {fieldsContact.map((el) => (
-        <FormField key={el.id} {...{ el, control, errors, isDisabled }} />
+        <FormField
+          key={el.id}
+          {...{
+            el,
+            styleLabel: el.field !== "website" ? "text-green-600" : "",
+            control,
+            errors,
+            isDisabled,
+          }}
+        />
       ))}
 
       {!isDisabled && (

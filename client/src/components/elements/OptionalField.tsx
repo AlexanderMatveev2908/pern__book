@@ -7,8 +7,8 @@ type PropsType = {
 const OptionalField: FC<PropsType> = ({ txt }) => {
   return (
     <div className="w-full flex justify-end">
-      <span className="txt__1 border-b-[3px] border-blue-600 pb-1">
-        {txt ?? "Fields with ~ near name are opti"}
+      <span className="txt__2 border-b-[3px] border-green-600 pb-1">
+        {txt ?? "🟢 Green fields are mandatory"}
       </span>
     </div>
   );

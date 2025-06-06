@@ -6,6 +6,7 @@ type PropsType = {
   children: ReactNode;
   sizeStyle?: string;
   isDisabled?: boolean;
+  styleTxt?: string;
 };
 
 const WrapperFormField: FC<PropsType> = ({
@@ -13,13 +14,14 @@ const WrapperFormField: FC<PropsType> = ({
   isDisabled,
   children,
   sizeStyle,
+  styleTxt,
 }) => {
   return (
     <div className={`w-full grid gap-4 ${isDisabled ? "opacity-50" : ""}`}>
       <Title
         {...{
           title,
-          styleTxt: "txt__3",
+          styleTxt: `txt__3 ${styleTxt ?? ""}`,
           styleParent: "justify-start",
         }}
       />
