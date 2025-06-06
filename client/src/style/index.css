@@ -116,6 +116,10 @@ button:disabled {
   animation: notice_bounce 0.6s linear forwards;
 }
 
+.icon__xs {
+  @apply min-w-[20px] sm:min-w-[25px] min-h-[20px] sm:min-h-[25px];
+}
+
 .icon__sm {
   @apply min-w-[25px] sm:min-w-[30px] min-h-[25px] sm:min-h-[30px];
 }

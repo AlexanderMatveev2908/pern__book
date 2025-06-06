@@ -10,8 +10,7 @@ type PropsType = {
     icon?: IconType;
   };
   styleTxt?: string;
-  styleChevron?: string;
-  styleParent?: string;
+  size?: "sm" | "md";
 };
 
 const DropHandler: FC<PropsType> = ({
@@ -19,21 +18,24 @@ const DropHandler: FC<PropsType> = ({
   setIsDropOpen,
   el,
   styleTxt,
-  styleChevron,
-  styleParent,
+  size = "md",
 }) => {
   return !el ? null : (
     <div
       onClick={() => setIsDropOpen(!isDropOpen)}
-      className={`w-full grid grid-cols-[1fr_50px] relative group cursor-pointer items-center ${
-        styleParent ?? "hover:text-blue-600"
-      }`}
+      className="w-full grid grid-cols-[1fr_50px] relative group cursor-pointer items-center hover:text-blue-600"
     >
       <div className="w-fit flex gap-5 justify-start items-center">
-        {el.icon && <el.icon className="icon__md  el__flow" />}
+        {el.icon && (
+          <el.icon
+            className={`  el__flow ${size === "md" ? "icon__md" : "icon__sm"}`}
+          />
+        )}
 
         <span
-          className={`el__flow clamp_txt ${styleTxt ?? "txt__3"}`}
+          className={`el__flow clamp_txt ${
+            styleTxt ? styleTxt : size === "md" ? "txt__3" : "txt__2"
+          }`}
           style={{
             lineClamp: 1,
             WebkitLineClamp: 1,
@@ -45,9 +47,9 @@ const DropHandler: FC<PropsType> = ({
 
       <div className="w-full h-full items-center flex justify-end">
         <FaChevronDown
-          className={`justify-self-end el__flow ${styleChevron ?? "icon__sm"} ${
-            isDropOpen ? "rotate-180" : ""
-          } `}
+          className={`justify-self-end el__flow ${
+            size === "sm" ? "icon__xs" : "icon__sm"
+          } ${isDropOpen ? "rotate-180" : ""} `}
         />
       </div>
     </div>
