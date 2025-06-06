@@ -3,6 +3,7 @@ import { linksBookCardWorker } from "@/features/WorkerLayout/Books/fields/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import BookItemList from "@/components/elements/cards/books/BookItemList";
+import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 
 type PropsType = {
   el: BookType;
@@ -11,10 +12,16 @@ type PropsType = {
 
 const BookItemWorker: FC<PropsType> = ({ el }) => {
   return (
-    <div className="item_business">
-      <ItemID {...{ ID: el.id }} />
+    <div className="card">
+      <div className="body_card">
+        <ItemID {...{ ID: el.id }} />
 
-      <BookItemList {...{ links: linksBookCardWorker(el.id), el }} />
+        <BookItemList {...{ el }} />
+      </div>
+
+      <div className="footer_card">
+        <PairBtnsLink {...{ links: linksBookCardWorker(el.id) }} />
+      </div>
     </div>
   );
 };

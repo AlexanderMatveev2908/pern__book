@@ -266,59 +266,37 @@ button:disabled {
   z-index: 1000;
 }
 
-.list_items_business,
-.list_items_consumer {
+.list_items_app {
   @apply w-full grid grid-cols-1 gap-10;
 }
 @media screen and (min-width: 1200px) {
-  .list_items_business,
-  .list_items_consumer {
+  .list_items_app {
     @apply grid-cols-2;
   }
 }
-
-.item_business,
-.wrapper_item_consumer {
-  @apply w-full grid grid-cols-1 gap-y-5 border-[3px] border-neutral-800 rounded-xl h-fit;
+.list_items_app .card {
+  @apply w-full grid grid-cols-1 gap-y-5 border-[3px] border-neutral-800 rounded-xl h-fit px-4 pt-3 pb-5;
 }
-
-.list_items_business .item_business {
-  @apply p-5;
+.list_items_app .card .body_card {
+  @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
 }
-.list_items_business .item_business .content {
+.list_items_app .card .body_card .content {
   @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
 }
 @media screen and (min-width: 600px) {
-  .list_items_business .item_business .content {
+  .list_items_app .card .body_card .content {
     @apply grid-cols-[200px_1fr];
   }
 }
-.list_items_business .item_business .content .images_wrapper {
+.list_items_app .card .body_card .content .images_wrapper {
   @apply w-full grid grid-cols-1 h-fit items-start;
 }
-.list_items_business .item_business .content .info_wrapper {
+.list_items_app .card .body_card .content .info_wrapper {
   @apply w-full grid grid-cols-1 gap-y-3 h-fit;
 }
-
-.list_items_consumer .wrapper_item_consumer {
-  @apply px-4 pt-3 pb-5;
-}
-.list_items_consumer .wrapper_item_consumer .item_consumer {
-  @apply w-full grid grid-cols-1 gap-y-5;
-}
-.list_items_consumer .wrapper_item_consumer .item_consumer .content {
-  @apply w-full grid grid-cols-1 gap-x-10 gap-y-5;
-}
-@media screen and (min-width: 600px) {
-  .list_items_consumer .wrapper_item_consumer .item_consumer .content {
-    @apply grid-cols-[200px_1fr];
-  }
-}
-.list_items_consumer .wrapper_item_consumer .item_consumer .content .images_wrapper {
-  @apply w-full grid grid-cols-1 h-fit items-start;
-}
-.list_items_consumer .wrapper_item_consumer .item_consumer .content .info_wrapper {
-  @apply w-full grid grid-cols-1 gap-y-3 h-fit;
+.list_items_app .card .footer_card {
+  @apply w-full grid gap-x-10 gap-y-5 items-center;
+  grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
 }
 
 .book_store_form .sub_form {
