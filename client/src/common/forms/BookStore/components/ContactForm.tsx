@@ -24,7 +24,8 @@ const ContactForm: FC<PropsType> = ({ isDisabled }) => {
           key={el.id}
           {...{
             el,
-            styleLabel: el.field !== "website" ? "text-green-600" : "",
+            styleLabel:
+              el.field !== "website" && !isDisabled ? "text-green-600" : "",
             control,
             errors,
             isDisabled,
