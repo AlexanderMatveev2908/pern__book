@@ -22,19 +22,20 @@ import {
   fieldNameStore,
   fieldsSwapStore,
 } from "@/core/config/fieldsData/bookStores/forms";
+import { UserRole } from "@/types/types";
 
 type PropsType = {
   handleSave: (e: React.FormEvent) => void;
   isFormOk: boolean;
   isLoading: boolean;
-  isManager?: boolean;
+  role: UserRole;
 };
 
 const BookStoreForm: FC<PropsType> = ({
   handleSave,
   isFormOk,
   isLoading,
-  isManager,
+  role,
 }) => {
   const ctx = useFormContext();
   const path = useLocation().pathname;
@@ -64,6 +65,13 @@ const BookStoreForm: FC<PropsType> = ({
     }`;
   }, [path]);
 
+  const level = useMemo(() => {
+    const roles = [UserRole.MANAGER, UserRole.OWNER];
+    const userI = roles.findIndex((el) => el === role);
+
+    return userI;
+  }, [role]);
+
   return (
     <form onSubmit={handleSave} className="p_form__0 book_store_form">
       <OptionalField />
@@ -72,8 +80,8 @@ const BookStoreForm: FC<PropsType> = ({
         {...{
           title: "bookstore name *",
           sizeStyle: "max-w-[500px] lg:max-w-1/2",
-          isDisabled: isManager,
-          styleTxt: "text-green-600",
+          isDisabled: !level,
+          styleTxt: level ? "text-green-600" : "",
         }}
       >
         <FormField
@@ -82,7 +90,7 @@ const BookStoreForm: FC<PropsType> = ({
             errors,
             el: fieldNameStore,
             showLabel: false,
-            isDisabled: isManager,
+            isDisabled: !level,
           }}
         />
       </WrapperFormField>
@@ -106,8 +114,8 @@ const BookStoreForm: FC<PropsType> = ({
       <WrapperFormField
         {...{
           title: "Categories (max-3) *",
-          styleTxt: "text-green-600",
-          isDisabled: isManager,
+          styleTxt: level ? "text-green-600" : "",
+          isDisabled: !level,
         }}
       >
         <CheckBoxSwapper
@@ -115,20 +123,20 @@ const BookStoreForm: FC<PropsType> = ({
             keyForm: "categories",
             maxData: 3,
             fieldsArg: Object.values(CatBookStore),
-            isDisabled: isManager,
+            isDisabled: !level,
           }}
         />
       </WrapperFormField>
 
-      <WrapperFormField {...{ title: "Contact", isDisabled: isManager }}>
-        <ContactForm {...{ isDisabled: isManager }} />
+      <WrapperFormField {...{ title: "Contact", isDisabled: !level }}>
+        <ContactForm {...{ isDisabled: !level }} />
       </WrapperFormField>
 
       <WrapperFormField
         {...{
           title: "Address *",
-          styleTxt: "text-green-600",
-          isDisabled: isManager,
+          styleTxt: level ? "text-green-600" : "",
+          isDisabled: !level,
         }}
       >
         <AddressForm
@@ -136,7 +144,7 @@ const BookStoreForm: FC<PropsType> = ({
             swapID,
             btnProfile: true,
             arrAddressSwap: fieldsSwapStore,
-            isDisabled: isManager,
+            isDisabled: !level,
           }}
         />
       </WrapperFormField>
@@ -145,7 +153,7 @@ const BookStoreForm: FC<PropsType> = ({
         <DeliveryForm />
       </WrapperFormField>
 
-      {!isManager && (
+      {!!level && (
         <WrapperFormField {...{ title: "Team" }}>
           <TeamForm />
         </WrapperFormField>

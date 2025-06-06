@@ -24,18 +24,19 @@ export const actionsBookPage = {
   },
 };
 
-export const linksBookCard = [
-  {
-    icon: FaLink,
-    label: "Book",
-    path: "/owner/books/",
-  },
-  {
-    icon: GrUpdate,
-    label: "Update",
-    path: "/owner/books/update/",
-  },
-].map((el) => ({
-  ...el,
-  id: v4(),
-}));
+export const linksBookCard = (id: string) =>
+  [
+    {
+      icon: FaLink,
+      label: "View more",
+      path: `/owner/books/${id}`,
+    },
+    {
+      icon: GrUpdate,
+      label: "Update",
+      path: `/owner/books/update/${id}`,
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
