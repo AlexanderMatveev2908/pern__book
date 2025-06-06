@@ -29,9 +29,11 @@ const CartItemsList: FC<PropsType> = ({ groupedByStoreID, cart }) => {
           <div key={ids[0][outerI]} className="w-full grid grid-cols-1 gap-y-6">
             <SummaryByStore {...{ cart, store, items }} />
 
-            {items!.map((el: CartItemType, innerI: number) => (
-              <CartItem key={ids[outerI + 1][innerI]} {...{ el }} />
-            ))}
+            <div className="w-full grid grid-cols-1 gap-y-6 lg:grid-cols-2 gap-x-10">
+              {items!.map((el: CartItemType, innerI: number) => (
+                <CartItem key={ids[outerI + 1][innerI]} {...{ el }} />
+              ))}
+            </div>
           </div>
         )
       )}
