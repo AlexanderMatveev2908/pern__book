@@ -18,7 +18,7 @@ export const defineCartItem = (seq: any) =>
     {
       ...schemaID(),
       cartID: refSql("carts"),
-      bookID: refSql("books"),
+      bookID: refSql("books", { allowNull: true }),
       qty: {
         type: DataTypes.INTEGER,
         allowNull: false,

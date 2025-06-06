@@ -26,17 +26,20 @@ export const getCart = async (req: ReqApp, res: Response) => {
             model: Book,
             as: "book",
             required: true,
+            paranoid: false,
             include: [
               {
                 model: BookStore,
                 as: "store",
                 required: true,
+                paranoid: false,
                 attributes: [
                   "id",
                   "name",
                   "deliveryPrice",
                   "freeDeliveryAmount",
                   "deliveryTime",
+                  "deletedAt",
                 ],
               },
             ],

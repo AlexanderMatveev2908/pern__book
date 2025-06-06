@@ -13,6 +13,8 @@ import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { ThumbInstance } from "./img&video/Thumb.js";
 import { captAll } from "../../lib/utils/formatters.js";
 import { schemaID } from "./utils/helpers.js";
+import { CartInstance } from "./Cart.js";
+import { BookStoreInstance } from "./BookStore.js";
 
 export class User extends Model<
   InferAttributes<User>,
@@ -38,6 +40,9 @@ export class User extends Model<
   phone!: CreationOptional<string>;
 
   thumb?: ThumbInstance;
+
+  stores?: BookStoreInstance[];
+  cart?: CartInstance;
 
   async existUser(this: User) {
     return await User.findOne({

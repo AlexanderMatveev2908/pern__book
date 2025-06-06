@@ -75,5 +75,6 @@ export const defineBook = (seq: Sequelize) =>
       timestamps: true,
       modelName: "Book",
       tableName: "books",
+      paranoid: true,
     }
   );

@@ -105,49 +105,60 @@ const FormQty: FC<PropsType> = ({ el }) => {
       onSubmit={handleSave}
       className="w-full items-center gap-x-4 justify-end grid grid-cols-2"
     >
-      <div className="w-full flex justify-self-end">
-        <div className="w-full relative">
-          <Controller
-            control={control}
-            name="qty"
-            render={({ field }) => (
-              <input
-                ref={(node) => {
-                  field.ref(node);
-                  secondaryRef.current = node;
-                }}
-                type="text"
-                placeholder="qty..."
-                className="input__md txt__2"
-                value={field.value ?? ""}
-                onChange={(e) => {
-                  field.onChange(e.target.value);
-                }}
-                onFocus={() => triggerRTK({ cartItemID: el!.id })}
-              />
-            )}
-          />
+      {!el!.book?.deletedAt && (
+        <div className="w-full flex justify-self-end">
+          <div className="w-full relative">
+            <Controller
+              control={control}
+              name="qty"
+              render={({ field }) => (
+                <input
+                  disabled={!!el!.book?.deletedAt}
+                  ref={(node) => {
+                    field.ref(node);
+                    secondaryRef.current = node;
+                  }}
+                  type="text"
+                  placeholder="qty..."
+                  className="input__md txt__2 disabled:opacity-50"
+                  value={field.value ?? ""}
+                  onChange={(e) => {
+                    field.onChange(e.target.value);
+                  }}
+                  onFocus={() => triggerRTK({ cartItemID: el!.id })}
+                />
+              )}
+            />
 
-          <ErrorFormField {...{ errors, el: { field: "qty" } }} />
+            <ErrorFormField {...{ errors, el: { field: "qty" } }} />
+          </div>
         </div>
-      </div>
+      )}
 
-      <div className="w-full grid grid-cols-2 gap-x-4 justify-items-center items-center">
-        <div className="w-full max-w-[75px]">
-          <ButtonIcon
-            {...{
-              el: {
-                icon: FaRegCheckCircle,
-              },
-              act: BtnAct.DO,
-              type: "submit",
-              isPending: isLoadingPatch,
-              styleIcon: "icon__sm text-green-600",
-              isDisabled:
-                isStr(errors?.qty?.message) || el.qty === +realTimeQtyUser,
-            }}
-          />
-        </div>
+      <div
+        className={`w-full grid gap-x-4 justify-items-center items-center ${
+          el!.book?.deletedAt
+            ? "grid-cols-1 justify-items-end col-span-2"
+            : "grid-cols-2 justify-items-center"
+        }`}
+      >
+        {!el!.book?.deletedAt && (
+          <div className="w-full max-w-[75px]">
+            <ButtonIcon
+              {...{
+                el: {
+                  icon: FaRegCheckCircle,
+                },
+                act: BtnAct.DO,
+                type: "submit",
+                isPending: isLoadingPatch,
+                styleIcon: "icon__sm text-green-600",
+                isDisabled:
+                  isStr(errors?.qty?.message) || el.qty === +realTimeQtyUser,
+              }}
+            />
+          </div>
+        )}
 
         <div className="w-full max-w-[75px]">
           <ButtonIcon

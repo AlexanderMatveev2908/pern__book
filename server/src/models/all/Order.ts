@@ -59,13 +59,14 @@ export const defineOrder = (seq: Sequelize) =>
         defaultValue: "pending",
       },
 
-      bookStoreID: refSql("book_stores"),
-      userID: refSql("users"),
+      bookStoreID: refSql("book_stores", { allowNull: true }),
+      userID: refSql("users", { allowNull: true }),
     },
     {
       timestamps: true,
       sequelize: seq,
       modelName: "Order",
       tableName: "orders",
+      paranoid: true,
     }
   );

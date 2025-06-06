@@ -38,16 +38,10 @@ if (!isDev) {
 app.use(errMiddleware);
 
 // clearDB();
-// populateDB();~/.local/bin/cpy_dummy_pwd.sh
 
-// resetEmailJunction();
-
-// io.on("connection", handleSocket);
-// makeDummyUser();
 const start = async () => {
   try {
     await connectDB();
-    // await syncDB();
 
     await new Promise<void>((res, rej) => {
       server.once("error", rej);
