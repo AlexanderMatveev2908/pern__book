@@ -14,7 +14,11 @@ const CartItem: FC<PropsType> = ({ el }) => {
   const { book } = el;
 
   return (
-    <div className="w-full border-[3px] border-neutral-800 rounded-xl p-3 grid grid-cols-1 sm:grid-cols-[200px_1fr] gap-x-10 gap-y-5 cart_item">
+    <div
+      className={`w-full border-[3px] border-neutral-800 rounded-xl p-3 grid grid-cols-1 gap-x-10 gap-y-5 cart_item ${
+        isArrOk(el!.book!.images) ? "sm:grid-cols-2" : ""
+      } `}
+    >
       {isArrOk(el!.book!.images) && (
         <ImagesScroll
           {...{
@@ -24,19 +28,21 @@ const CartItem: FC<PropsType> = ({ el }) => {
           }}
         />
       )}
+
       <div className="w-full grid grid-cols-1 gap-6">
         <div className="w-full h-fit gap-y-4 grid grid-cols-1">
           <WrapPairTxt {...{ arg: ["title", book!.title] }} />
         </div>
+
         <div className="w-full grid grid-cols-1 gap-y-4 gap-x-10">
-          {el?.book?.deletedAt ? (
+          <SummaryPriceItem {...{ el }} />
+
+          {el?.book?.deletedAt && (
             <div className="w-full flex justify-center">
               <span className="txt__3 border-b-2 border-red-600">
                 This item has been removed from stock
               </span>
             </div>
-          ) : (
-            <SummaryPriceItem {...{ el }} />
           )}
 
           <FormQty {...{ el }} />

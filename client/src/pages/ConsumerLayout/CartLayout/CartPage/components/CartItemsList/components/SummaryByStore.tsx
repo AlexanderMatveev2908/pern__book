@@ -27,43 +27,61 @@ const SummaryByStore: FC<PropsType> = ({ store, items }) => {
     [subTotal, store]
   );
 
+  const storeClosed = useMemo(() => store?.deletedAt, [store]);
+
   return (
     <>
-      <div className="w-full grid grid-cols-1 p-3 border-[3px] border-blue-600 rounded-xl gap-y-3">
+      <div
+        className={`w-full grid grid-cols-1 p-3 border-[3px]  rounded-xl gap-y-3 ${
+          storeClosed ? "border-red-600" : "border-blue-600"
+        }`}
+      >
         <div className="w-full flex justify-center gap-10">
-          <WrapTxt {...{ txt: "Sold by", customStyle: "txt__3" }} />
+          <WrapTxt
+            {...{
+              txt: storeClosed ? store!.name : "Sold by",
+              customStyle: "txt__3",
+            }}
+          />
 
-          <WrapTxt {...{ txt: store!.name, customStyle: "txt__3" }} />
+          <WrapTxt
+            {...{
+              txt: storeClosed ? "has closed his activity" : store!.name,
+              customStyle: "txt__3",
+            }}
+          />
         </div>
       </div>
 
-      <div className="w-full grid p-4 border-2 border-neutral-800 rounded-xl items-center grid-cols-1 gap-y-5">
-        <WrapPairTxt
-          {...{
-            arg: [
-              "expected arrival date",
-              getExpectedDeliveredDay({
-                daysToAdd: store!.deliveryTime,
-              }),
-            ],
-          }}
-        />
+      {!storeClosed && (
+        <div className="w-full grid p-4 border-2 border-neutral-800 rounded-xl items-center grid-cols-1 gap-y-5">
+          <WrapPairTxt
+            {...{
+              arg: [
+                "expected arrival date",
+                getExpectedDeliveredDay({
+                  daysToAdd: store!.deliveryTime,
+                }),
+              ],
+            }}
+          />
 
-        <WrapPairTxt {...{ arg: ["subtotal", priceFormatter(subTotal)] }} />
+          <WrapPairTxt {...{ arg: ["subtotal", priceFormatter(subTotal)] }} />
 
-        <WrapPairTxt
-          {...{
-            arg: [
-              "delivery price",
-              priceFormatter(deliveryPrice, "Free Delivery"),
-            ],
-          }}
-        />
+          <WrapPairTxt
+            {...{
+              arg: [
+                "delivery price",
+                priceFormatter(deliveryPrice, "Free Delivery"),
+              ],
+            }}
+          />
 
-        <WrapPairTxt
-          {...{ arg: ["total", priceFormatter(subTotal + deliveryPrice)] }}
-        />
-      </div>
+          <WrapPairTxt
+            {...{ arg: ["total", priceFormatter(subTotal + deliveryPrice)] }}
+          />
+        </div>
+      )}
     </>
   );
 };
