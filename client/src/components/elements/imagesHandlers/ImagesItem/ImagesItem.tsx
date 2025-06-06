@@ -9,7 +9,7 @@ type PropsType = {
 const ImagesItem: FC<PropsType> = ({ images }) => {
   return !Array.isArray(images) || !images.length ? null : (
     <div className="w-full flex justify-center overflow-hidden rounded-xl images_item">
-      <div className="flex overflow-x-auto snap-mandatory snap-x gap-x-5 scroll_app scroll_x">
+      <div className="flex overflow-x-auto snap-mandatory snap-x gap-x-5 scroll_app scroll_x pb-3">
         {images.map((el) => (
           <div
             key={el.publicID}
