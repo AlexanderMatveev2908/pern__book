@@ -113,7 +113,11 @@ export const calcPriceItem = (qty: number, price: number) =>
   priceFormatter(qty * price);
 
 export const calcTotPriceCart = (arg: CartItemType[]) =>
-  arg.reduce((acc, curr) => acc + curr.qty * curr!.book!.price, 0);
+  arg.reduce(
+    (acc, curr) =>
+      curr!.book?.deletedAt ? acc : acc + curr.qty * curr!.book!.price,
+    0
+  );
 
 export const getExpectedDeliveredDay = ({
   daysToAdd,

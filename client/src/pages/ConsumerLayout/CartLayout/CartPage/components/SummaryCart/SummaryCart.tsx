@@ -12,7 +12,7 @@ import FormCoupon from "./components/FormCoupon";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { BtnAct } from "@/types/types";
-import { FaChevronUp } from "react-icons/fa";
+import { FaAngleDoubleUp } from "react-icons/fa";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
@@ -25,7 +25,7 @@ const checkoutLabel = {
 };
 
 const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
-  const [isFooterOpen, setIsFooterOpen] = useState(false);
+  const [isFooterOpen, setIsFooterOpen] = useState(true);
 
   const totalCart = useMemo(() => {
     const arr = Object.values(groupedByStoreID ?? {});
@@ -57,9 +57,9 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
     >
       <div
         onClick={() => setIsFooterOpen(!isFooterOpen)}
-        className="w-full flex justify-center -mt-2 mb-5 hover:text-blue-600 cursor-pointer"
+        className="w-full flex justify-center -mt-2 hover:text-blue-600 cursor-pointer"
       >
-        <FaChevronUp
+        <FaAngleDoubleUp
           className={`min-w-[50px] min-h-[50px] transition-all duration-500 ${
             isFooterOpen ? "rotate-180" : ""
           }`}

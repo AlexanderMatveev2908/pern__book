@@ -199,4 +199,6 @@ export type BookType = {
   updatedAt: string;
   createdBy: string;
   lastUpdatedBy: string;
+
+  deletedAt?: string | null;
 };

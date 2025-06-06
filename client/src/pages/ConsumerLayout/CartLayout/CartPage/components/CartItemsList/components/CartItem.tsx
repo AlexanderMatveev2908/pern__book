@@ -29,7 +29,15 @@ const CartItem: FC<PropsType> = ({ el }) => {
           <WrapPairTxt {...{ arg: ["title", book!.title] }} />
         </div>
         <div className="w-full grid grid-cols-1 gap-y-4 gap-x-10">
-          <SummaryPriceItem {...{ el }} />
+          {el?.book?.deletedAt ? (
+            <div className="w-full flex justify-center">
+              <span className="txt__3 border-b-2 border-red-600">
+                This item has been removed from stock
+              </span>
+            </div>
+          ) : (
+            <SummaryPriceItem {...{ el }} />
+          )}
 
           <FormQty {...{ el }} />
         </div>

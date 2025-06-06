@@ -6,10 +6,17 @@ import { __cg } from "./log.js";
 export const calcTimeRun = async (cb: () => Promise<any>) => {
   const start = performance.now();
 
+  let count = 0;
+  const interval = setInterval(() => {
+    count += 1;
+    if (isDev) __cg(`👻 loading... ${count * 500}ms elapsed`);
+  }, 500);
+
   const res = await cb();
 
   const end = performance.now();
 
+  clearInterval(interval);
   if (isDev) __cg(`=> DONE ${end - start} md`);
 
   return res;

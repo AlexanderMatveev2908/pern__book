@@ -39,7 +39,6 @@ export const defineBookStoreUser = (seq: Sequelize) =>
       tableName: "book_stores_users",
       modelName: "BookStoreUser",
       timestamps: true,
-      paranoid: true,
       indexes: [
         {
           fields: ["userEmail"],
