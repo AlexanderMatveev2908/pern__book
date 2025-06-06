@@ -4,6 +4,7 @@ import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
 import StoreItemList from "@/components/elements/cards/bookstore/StoreItemList";
+import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 
 type PropsType = {
   el: BookStoreType;
@@ -21,8 +22,14 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
   );
 
   return (
-    <div className="item_business">
-      <StoreItemList {...{ el, links: filtered }} />
+    <div className="card">
+      <div className="body_card">
+        <StoreItemList {...{ el, links: filtered }} />
+      </div>
+
+      <div className="footer_card">
+        <PairBtnsLink {...{ links: filtered }} />
+      </div>
     </div>
   );
 };
