@@ -17,7 +17,6 @@ type PropsType = {
   formCTX: UseFormReturn<any>;
   handleSave: () => void;
   groupedByStoreID: CartItemsGroupedType[];
-  isFormOk: boolean;
 };
 
 const LeftPageForm: FC<PropsType> = ({
@@ -25,7 +24,6 @@ const LeftPageForm: FC<PropsType> = ({
   formCTX,
   handleSave,
   groupedByStoreID,
-  isFormOk,
 }) => {
   const { totalCart } = useCalcTotCart({ groupedByStoreID });
 
