@@ -5,8 +5,8 @@ import {
   calcTotPriceCart,
   getDeliveryPrice,
   getExpectedDeliveredDay,
-  priceFormatter,
-} from "@/core/lib/lib";
+} from "@/core/lib/all/utils/calc";
+import { priceFormatter } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
 import { CartItemType, CartType } from "@/types/all/Cart";
 import { useMemo, type FC } from "react";
@@ -69,7 +69,7 @@ const SummaryByStore: FC<PropsType> = ({ store, items }) => {
         </div>
       </div>
 
-      {!storeClosed && (
+      {!storeClosed && !!subTotal && (
         <div className="w-full grid p-4 border-2 border-neutral-800 rounded-xl items-center grid-cols-1 gap-y-5">
           <WrapPairTxt
             {...{
