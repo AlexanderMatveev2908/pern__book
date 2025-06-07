@@ -46,22 +46,22 @@ const CartItem: FC<PropsType> = ({ el }) => {
 
         <div className="w-full grid grid-cols-1 gap-y-4 gap-x-10 h-fit">
           <SummaryPriceItem {...{ el }} />
-
-          {!isAvailable && (
-            <div className="w-full flex justify-center items-center gap-x-10">
-              <MdError className="icon__xl text-red-600" />
-
-              <span className="txt__3 pb-1 border-b-2 border-red-600">
-                {book?.deletedAt
-                  ? `This book has been deleted`
-                  : `This book is out of stock`}
-              </span>
-            </div>
-          )}
         </div>
       </div>
 
-      <FormQty {...{ el }} />
+      <FormQty {...{ el }}>
+        {!isAvailable && (
+          <div className="w-full flex justify-center items-center gap-x-5">
+            <MdError className="icon__xl text-red-600" />
+
+            <span className="txt__3 pb-1 border-b-2 border-red-600">
+              {book?.deletedAt
+                ? `This book has been deleted`
+                : `This book is out of stock`}
+            </span>
+          </div>
+        )}
+      </FormQty>
     </div>
   );
 };

@@ -1,9 +1,26 @@
+@import "tailwindcss";
+
+.parent_btns {
+  @apply grid-cols-2;
+}
+
+.parent_warn {
+  @apply grid-cols-1;
+}
+
 @media screen and (min-width: 450px) {
   .form_qty {
     grid-template-columns: 1fr 225px;
   }
 
   .parent_btns {
+    grid-template-columns: repeat(2, 1fr);
     justify-items: end;
+  }
+
+  .parent_warn {
+    grid-column: span 2 / span 2;
+    grid-template-columns: 1fr 75px;
+    column-gap: 50px;
   }
 }

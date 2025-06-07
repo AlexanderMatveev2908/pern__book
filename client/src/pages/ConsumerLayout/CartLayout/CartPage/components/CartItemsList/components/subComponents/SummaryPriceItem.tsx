@@ -19,6 +19,8 @@ const SummaryPriceItem: FC<PropsType> = ({ el }) => {
         {...{ arg: ["price per item", priceFormatter(el.book!.price)] }}
       />
 
+      <WrapPairTxt {...{ arg: ["Quantity item", el.qty + ""] }} />
+
       <WrapPairTxt
         {...{
           arg: ["total price", calcPriceItem(el.qty, el.book!.price)],
