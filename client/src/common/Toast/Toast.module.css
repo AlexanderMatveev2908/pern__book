@@ -1,0 +1,74 @@
+@import "tailwindcss";
+
+.btn {
+  transition: 0.3s;
+}
+
+.btn:hover {
+  @apply cursor-pointer scale-130;
+}
+.btn:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
+
+.timer {
+  animation: count 3s linear forwards;
+}
+
+.in {
+  animation: open__toast 0.6s ease-out forwards;
+}
+.out {
+  animation: toast__close 0.4s ease-in forwards;
+}
+
+@keyframes open__toast {
+  0% {
+    opacity: 0;
+    transform: translateX(150%);
+  }
+  30% {
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  50% {
+    transform: translateX(30%);
+  }
+  65% {
+    transform: translateX(-10%);
+  }
+  75% {
+    transform: translateX(5%);
+  }
+  85% {
+    transform: translateX(-5%);
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes toast__close {
+  0% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  20% {
+    transform: translateX(-65%);
+  }
+  100% {
+    transform: translateX(150%);
+    opacity: 0;
+  }
+}
+
+@keyframes count {
+  0% {
+    width: 100%;
+  }
+  100% {
+    width: 0;
+  }
+}

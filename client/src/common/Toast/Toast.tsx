@@ -7,6 +7,7 @@ import {
 } from "../../features/common/Toast/toastSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { EventApp } from "@/types/types";
+import s from "./Toast.module.css";
 
 /* IMPORTANT => {
 THE FLOW TO MAKE IN A WAY THE ALL WORK IN RIGHT DIRECTION FOR SMOOTH UI AND SYNC IS 
@@ -54,12 +55,12 @@ const Toast: FC = () => {
   const dispatch = useDispatch();
 
   const animateIn = useCallback(() => {
-    (toastRef.current as HTMLDivElement).classList.remove("out");
-    (counterRef.current as HTMLDivElement).classList.remove("timer");
+    (toastRef.current as HTMLDivElement).classList.remove(s.out);
+    (counterRef.current as HTMLDivElement).classList.remove(s.timer);
 
     requestAnimationFrame(() => {
-      toastRef?.current?.classList.add("in");
-      counterRef?.current?.classList.add("timer");
+      toastRef?.current?.classList.add(s.in);
+      counterRef?.current?.classList.add(s.timer);
     });
 
     timerRef.current = setTimeout(() => {
@@ -72,22 +73,22 @@ const Toast: FC = () => {
 
   const animateOut = useCallback(() => {
     clickRef.current = false;
-    toastRef?.current?.classList.remove("in");
-    (counterRef.current as HTMLDivElement).classList.remove("timer");
+    toastRef?.current?.classList.remove(s.in);
+    (counterRef.current as HTMLDivElement).classList.remove(s.timer);
     clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
 
     requestAnimationFrame(() => {
-      toastRef?.current?.classList.add("out");
+      toastRef?.current?.classList.add(s.out);
     });
   }, []);
 
   const animatePrev = useCallback(() => {
-    toastRef?.current?.classList.remove("in");
-    counterRef?.current?.classList.remove("timer");
+    toastRef?.current?.classList.remove(s.in);
+    counterRef?.current?.classList.remove(s.timer);
 
     requestAnimationFrame(() => {
-      toastRef?.current?.classList.add("out");
+      toastRef?.current?.classList.add(s.out);
     });
     clearTimeout(timerRef.current as NodeJS.Timeout);
     timerRef.current = null;
@@ -149,7 +150,7 @@ const Toast: FC = () => {
         {/* CLOSE BTN */}
         <button
           onClick={handleClick}
-          className="appearance-none top-[4px] right-[4px] absolute btn"
+          className={`${s.btn} top-[4px] right-[4px] absolute `}
         >
           <IoClose className="icon__md text-red-600" />
         </button>

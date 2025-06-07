@@ -3,6 +3,7 @@ import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import { fieldsContact } from "@/core/config/fieldsData/bookStores/forms";
 import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
+import s from "../BookStoreForm.module.css";
 
 type PropsType = {
   isDisabled?: boolean;
@@ -18,7 +19,7 @@ const ContactForm: FC<PropsType> = ({ isDisabled }) => {
   const keysUser = useMemo(() => ["email", "phone"], []);
 
   return (
-    <div className="sub_form">
+    <div className={s.sub_form}>
       {fieldsContact.map((el) => (
         <FormField
           key={el.id}

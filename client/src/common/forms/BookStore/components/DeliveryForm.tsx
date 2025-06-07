@@ -2,6 +2,7 @@ import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import { fieldsDelivery } from "@/core/config/fieldsData/bookStores/forms";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
+import s from "../BookStoreForm.module.css";
 
 const DeliveryForm: FC = () => {
   const {
@@ -11,7 +12,7 @@ const DeliveryForm: FC = () => {
   } = useFormContext();
 
   return (
-    <div className="sub_form">
+    <div className={s.sub_form}>
       {fieldsDelivery.map((el) => (
         <FormField
           key={el.id}

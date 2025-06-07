@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@media (min-width: 500px) {
+  .left_btns {
+    @apply grid-cols-2;
+  }
+
+  .right_btns {
+    @apply order-2;
+  }
+}
+
+.btn_main {
+  @apply max-w-[75px] lg:max-w-[200px];
+}
+
+.btn_main .txt {
+  @apply hidden lg:block;
+}

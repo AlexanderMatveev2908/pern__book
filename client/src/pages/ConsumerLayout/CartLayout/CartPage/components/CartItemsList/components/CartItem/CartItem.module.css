@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+.cart_item {
+  display: grid;
+  grid-template-columns: 1fr;
+  max-height: fit-content;
+}
+
+@media screen and (min-width: 600px) {
+  .cart_item_with_imgs {
+    grid-template-columns: 175px 1fr;
+  }
+}

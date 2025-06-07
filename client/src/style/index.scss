@@ -6,29 +6,7 @@
 @use "./styles/txt.scss";
 @use "./styles/z.scss";
 @use "./styles/list_items.scss";
-
-@use "../common/forms/BookStore/styles/BookStoreForm.scss";
-@use "../common/Popup/styles/Popup.scss";
-@use "../common/Toast/styles/Toast.scss";
-@use "../common/SearchBar/styles/SearchBar.scss";
-
-@use "../components/elements/buttons/Button/Button.scss";
-@use "../components/elements/imagesHandlers/ImagesItem/ImagesItem.scss";
-@use "../components/elements/imagesHandlers/ImagesScroll/ImagesScroll.scss";
-@use "../components/elements/PageCounter/styles/PageCounter.scss";
-@use "../components/elements/TooltipCpy/TooltipCpy.scss";
-@use "../components/elements/spinners/MiniSpinner/MiniSpinner.scss";
-@use "../components/elements/spinners/SpinnerBtn/SpinnerBtn.scss";
-@use "../components/elements/spinners/SpinnerPage/SpinnerPage.scss";
-
-@use "../components/forms/inputs/BtnCheckBox/styles/BtnCheckBox.scss";
-@use "../components/forms/layouts/ButtonsSwapper/styles/ButtonsSwapper.scss";
-@use "../components/forms/inputs/PwdField/styles/PwdField.scss";
-
-@use "../pages/AuthLayout/Register/styles/Terms.scss";
-@use "../pages/Home/styles/ImagesSwapper.scss";
-@use "../pages/Home/styles/Home.scss";
-@use "../pages/ConsumerLayout/CartLayout/CartPage/styles/CartItem.scss";
+@use "./styles/popup.scss";
 
 @import "./t.css";
 

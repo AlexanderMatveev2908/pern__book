@@ -1,4 +1,5 @@
 import { FC, useEffect, useRef } from "react";
+import s from "./TooltipCpy.module.css";
 
 type PropsType = {
   txt: string;
@@ -17,8 +18,8 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
         toolRef.current &&
         btnRef.current.contains(e.target as Node)
       ) {
-        toolRef.current.classList.remove("tool");
-        requestAnimationFrame(() => toolRef?.current?.classList.add("tool"));
+        toolRef.current.classList.remove(s.tool);
+        requestAnimationFrame(() => toolRef?.current?.classList.add(s.tool));
       }
     };
 
@@ -43,7 +44,7 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
           type="button"
           aria-label="copy to clipboard"
           ref={btnRef}
-          className="tooltip_cpy flex appearance-none outline-0 w-full max-w-full h-full left-0 relative overflow-x-auto"
+          className="flex appearance-none outline-0 w-full max-w-full h-full left-0 relative overflow-x-auto"
         >
           {txt && (
             <div

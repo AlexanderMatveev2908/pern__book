@@ -1,4 +1,5 @@
 import { useState, type FC } from "react";
+import s from "./CardInfo.module.css";
 
 type PropsType = {
   CompSVG: React.ElementType;
@@ -16,7 +17,9 @@ const CardInfo: FC<PropsType> = ({ CompSVG, txt }) => {
       onMouseLeave={() => {
         setIsHover(false);
       }}
-      className={`w-full max-w-fit sm:max-w-[800px] el__border_md p-5 sm:p-8 grid grid-cols-1 gap-x-14 gap-y-6 card justify-self-center transition-all duration-[0.4s] ${
+      className={`${
+        s.card
+      } w-full max-w-fit sm:max-w-[800px] el__border_md p-5 sm:p-8 grid grid-cols-1 gap-x-14 gap-y-6  justify-self-center transition-all duration-[0.4s] ${
         isHover ? "el__shadow_md" : ""
       }`}
     >
