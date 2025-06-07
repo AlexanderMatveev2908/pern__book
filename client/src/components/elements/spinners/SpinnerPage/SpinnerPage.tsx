@@ -1,6 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import { v4 } from "uuid";
 import { tailwindBreak } from "@/core/config/breakpoints";
+import s from "./SpinnerPage.module.css";
 
 const SpinnerPage: FC = () => {
   const [ids, setIds] = useState(
@@ -28,7 +29,7 @@ const SpinnerPage: FC = () => {
         {ids.map((id, i) => (
           <div
             key={id}
-            className="spinner_page center_div😎"
+            className={`${s.spinner_page} center_div😎`}
             style={
               {
                 "--start__scale": `${(i || 1) / ids.length}`,

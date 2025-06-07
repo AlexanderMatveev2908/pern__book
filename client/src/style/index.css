@@ -588,69 +588,6 @@ button:disabled {
     opacity: 0;
   }
 }
-.mini_spinner {
-  animation: mini_spin 0.8s linear infinite;
-}
-
-@keyframes mini_spin {
-  0% {
-    transform: rotate(0);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-}
-.spinner_btn {
-  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app), 0 0 30px var(--blue__app);
-  animation: boat 1s ease-in-out infinite;
-  animation-delay: var(--delay_spinner_btn);
-}
-
-@keyframes boat {
-  0% {
-    transform: scale(1) translateY(0%);
-    opacity: 1;
-  }
-  50% {
-    transform: scale(1.5) translateY(-65%);
-    opacity: 0.8;
-  }
-  100% {
-    transform: scale(0.5s) translateY(0%);
-    opacity: 1;
-  }
-}
-/* @keyframes circle_out {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
-} */
-@keyframes circle_in_el {
-  0% {
-    opacity: 1;
-    transform: scale(1.2);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.5);
-  }
-}
-.spinner_page {
-  @apply w-[200px] sm:w-[300px] h-[200px] sm:h-[300px];
-}
-
-.spinner_page::after {
-  @apply content-[""] absolute inset-0 w-[40px] sm:w-[50px] h-[40px] sm:h-[50px] rounded-full bg-blue-600;
-  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app), 0 0 30px var(--blue__app), 0 0 40px var(--blue__app);
-  animation: circle_in_el 1s linear infinite;
-  animation-delay: var(--delay_page);
-  transform: scale(0);
-  /* transform: scale(var(--start__scale)); */
-}
-
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
