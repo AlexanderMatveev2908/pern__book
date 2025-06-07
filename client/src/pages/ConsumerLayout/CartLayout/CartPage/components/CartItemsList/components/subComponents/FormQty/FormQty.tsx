@@ -17,6 +17,7 @@ import s from "./FormQty.module.css";
 
 type PropsType = {
   el: CartItemType;
+  children: React.ReactNode;
 };
 
 const schemaAtyForm = z.object({
@@ -32,7 +33,7 @@ const schemaAtyForm = z.object({
 
 type FormQtyType = z.infer<typeof schemaAtyForm>;
 
-const FormQty: FC<PropsType> = ({ el }) => {
+const FormQty: FC<PropsType> = ({ el, children }) => {
   const secondaryRef = useRef<HTMLInputElement | null>(null);
 
   const [triggerRTK, res] =
@@ -139,13 +140,11 @@ const FormQty: FC<PropsType> = ({ el }) => {
       )}
 
       <div
-        className={`${s.parent_btns} w-full grid gap-x-4 items-center  ${
-          showAll
-            ? "grid-cols-2 justify-items-center"
-            : "grid-cols-1 justify-items-end col-span-2"
-        }`}
+        className={`${
+          showAll ? s.parent_btns : s.parent_warn
+        } w-full grid gap-x-4 items-center justify-items-center gap-y-5`}
       >
-        {showAll && (
+        {showAll ? (
           <div className="w-full max-w-[75px]">
             <ButtonIcon
               {...{
@@ -161,9 +160,13 @@ const FormQty: FC<PropsType> = ({ el }) => {
               }}
             />
           </div>
+        ) : (
+          children
         )}
 
-        <div className="w-full max-w-[75px]">
+        <div
+          className={`w-full max-w-[75px] ${showAll ? "" : "justify-self-end"}`}
+        >
           <ButtonIcon
             {...{
               el: {
