@@ -103,13 +103,10 @@ const FormQty: FC<PropsType> = ({ el }) => {
   return (
     <form
       onSubmit={handleSave}
-      className="w-full items-center gap-x-4 grid gap-y-5"
-      style={{
-        gridTemplateColumns: `repeat(auto-fit, minmax(150px, 1fr))`,
-      }}
+      className="w-full items-center form_qty grid grid-cols-1 gap-y-5"
     >
       {!el!.book?.deletedAt && (
-        <div className="w-full flex justify-self-end">
+        <div className="w-full flex">
           <div className="w-full relative">
             <Controller
               control={control}
@@ -139,7 +136,7 @@ const FormQty: FC<PropsType> = ({ el }) => {
       )}
 
       <div
-        className={`w-full grid gap-x-4 justify-items-center items-center ${
+        className={`w-full grid gap-x-4 items-center parent_btns ${
           el!.book?.deletedAt
             ? "grid-cols-1 justify-items-end col-span-2"
             : "grid-cols-2 justify-items-center"
