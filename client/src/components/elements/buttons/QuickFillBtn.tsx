@@ -9,7 +9,7 @@ type PropsType = {
 } & Omit<FormSettersProps, "watch">;
 
 const quickFillBtn = {
-  label: "Use Profile data",
+  label: "Quick fill",
   icon: MdDynamicForm,
 };
 

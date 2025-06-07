@@ -1,6 +1,5 @@
 import { z } from "zod";
 import { schemaEmail } from "../../../../../features/AuthLayout/forms/auth";
-import { schemaAddress } from "../../../../../features/UserLayout/forms/schema";
 import { UserRole } from "@/types/types";
 import {
   REG_INT,
@@ -10,6 +9,7 @@ import {
 } from "@/core/config/regex";
 import { CatBookStore } from "@/types/all/bookStore";
 import { isStr } from "../../utils/dataStructures";
+import { schemaAddress } from "./address";
 
 const allowedRoles = [UserRole.EMPLOYEE, UserRole.MANAGER];
 

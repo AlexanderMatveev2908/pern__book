@@ -1,10 +1,6 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { useGetCart } from "@/core/hooks/all/api/useGetCart";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useMixVars } from "@/core/hooks/all/api/useMixVars";
 import { isArrOk } from "@/core/lib/lib";
-import { useMemo, type FC } from "react";
+import { type FC } from "react";
 import { CartItemType } from "@/types/all/Cart";
 import { BookStoreType } from "@/types/all/bookStore";
 import CartItemsList from "./components/CartItemsList/CartItemsList";
@@ -23,6 +19,8 @@ import { cartSLiceAPI } from "@/features/ConsumerLayout/CartLayout/cartSliceAPI"
 import { useNavigate } from "react-router-dom";
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { openToast } from "@/features/common/Toast/toastSlice";
+import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
+import { useMixUserCartAsyncStates } from "@/features/ConsumerLayout/CartLayout/hooks/useMixUserCartAsyncStates";
 
 export type CartItemsGroupedType = {
   store: BookStoreType;
@@ -30,50 +28,13 @@ export type CartItemsGroupedType = {
 };
 
 const CartPage: FC = () => {
-  const {
-    cart,
-    isLoading: cartLoading,
-    isError: isCartError,
-    error: cartError,
-  } = useGetCart();
-  const {
-    isLoading: userLoading,
-    isError: isUserError,
-    error: userError,
-  } = useGetU();
-  const isLoading = useMixVars({
-    varA: userLoading,
-    varB: cartLoading,
-  });
-  const isError = useMixVars({
-    varA: isUserError,
-    varB: isCartError,
-  });
-  const error = useMixVars({
-    varA: userError,
-    varB: cartError,
-  });
+  const { cart, isLoading, isError, error } = useMixUserCartAsyncStates();
 
   const nav = useNavigate();
 
-  const groupedByStoreID = useMemo(
-    () =>
-      !isArrOk(cart?.items)
-        ? []
-        : cart!.items!.reduce((acc: any, curr: CartItemType) => {
-            const storeID = curr.book!.store!.id;
-            if (!acc[storeID])
-              acc[storeID] = {
-                store: curr.book!.store!,
-                items: [],
-              };
-
-            acc[storeID].items.push(curr);
-
-            return acc;
-          }, {} as Record<string, { store: BookStoreType; items: CartItemType[] }>),
-    [cart]
-  );
+  const { groupedByStoreID } = useGroupItemsByStore({
+    cart,
+  });
 
   const dispatch = useDispatch();
   const [mutate] = cartSLiceAPI.endpoints.deleteCart.useMutation();

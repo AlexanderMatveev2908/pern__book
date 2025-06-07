@@ -1,9 +1,6 @@
 import seq from "../../db/config.js";
 import { expect, test } from "@playwright/test";
-import { bindModels } from "../../db/models/all/bind/bind.js";
 import { nav } from "../utils/general.js";
-import { User } from "../../db/models/all/User.js";
-import { Token } from "../../db/models/all/Token.js";
 import { makeNoticeTxt } from "../../lib/utils.js";
 
 const account_0 = {
@@ -21,14 +18,8 @@ const account_2 = {
   pwd: "f760Im}CZ_7YG?(.",
 };
 
-const clear = async () => {
-  const c_0 = await Token.destroy({ where: {} });
-  const c_1 = await User.destroy({ where: {} });
-};
-
 test.beforeAll(async () => {
   await seq.authenticate();
-  bindModels(seq);
 
   // await clear();
 });

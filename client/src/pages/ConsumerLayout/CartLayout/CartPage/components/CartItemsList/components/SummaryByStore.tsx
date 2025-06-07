@@ -1,11 +1,8 @@
 import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
-import {
-  calcTotPriceCart,
-  getDeliveryPrice,
-  getExpectedDeliveredDay,
-} from "@/core/lib/all/utils/calc";
+import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { priceFormatter } from "@/core/lib/lib";
+import { useCalcSubtotalStore } from "@/features/ConsumerLayout/CartLayout/hooks/useCalcSubtotalStore";
 import { BookStoreType } from "@/types/all/bookStore";
 import { CartItemType, CartType } from "@/types/all/Cart";
 import { useMemo, type FC } from "react";
@@ -18,15 +15,7 @@ type PropsType = {
 };
 
 const SummaryByStore: FC<PropsType> = ({ store, items }) => {
-  const subTotal = useMemo(() => calcTotPriceCart(items), [items]);
-  const deliveryPrice = useMemo(
-    () =>
-      getDeliveryPrice({
-        subTotal,
-        store: store!,
-      }),
-    [subTotal, store]
-  );
+  const { subTotal, deliveryPrice } = useCalcSubtotalStore({ items, store });
 
   const storeClosed = useMemo(() => store?.deletedAt, [store]);
 
