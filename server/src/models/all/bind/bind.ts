@@ -14,6 +14,7 @@ import { defineBook } from "../Book.js";
 import { defineTestClass } from "../Test.js";
 import { defineCart } from "../Cart.js";
 import { defineCartItem } from "../CartItem.js";
+import { defineOrderStore } from "../OrderStore.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);
@@ -28,6 +29,7 @@ export const bindModels = (seq: Sequelize) => {
   const Book = defineBook(seq);
   const Cart = defineCart(seq);
   const CartItem = defineCartItem(seq);
+  const OrderStore = defineOrderStore(seq);
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
@@ -97,10 +99,20 @@ export const bindModels = (seq: Sequelize) => {
     as: "orders",
   });
 
-  Order.belongsTo(BookStore, {
-    foreignKey: "bookStoreID",
+  Order.hasMany(OrderStore, {
+    foreignKey: "orderID",
+    as: "orderStores",
   });
-  BookStore.hasMany(Order, {
+  OrderStore.belongsTo(Order, {
+    foreignKey: "orderID",
+    as: "order",
+  });
+
+  OrderStore.belongsTo(BookStore, {
+    foreignKey: "bookStoreID",
+    as: "store",
+  });
+  BookStore.hasMany(OrderStore, {
     foreignKey: "bookStoreID",
     as: "orders",
   });

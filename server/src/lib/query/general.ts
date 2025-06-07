@@ -187,11 +187,11 @@ export const calcRatingSqlStores = (): [Literal, string][] => [
 ];
 
 const countOrdersSql = (stage: OrderStage): Literal =>
-  literal(`(SELECT COALESCE(COUNT(DISTINCT "orders"."id"), 0)
-    FROM "orders" 
-    WHERE "orders"."stage" = '${stage}'
-    AND "orders"."bookStoreID" = "BookStore"."id"
-    AND "orders"."deletedAt" IS NULL
+  literal(`(SELECT COALESCE(COUNT(DISTINCT o."id"), 0)
+    FROM "orders_stores" AS o
+    WHERE o."stage" = '${stage}'
+    AND o."bookStoreID" = "BookStore"."id"
+    AND o."deletedAt" IS NULL
     )`);
 
 export const countOrdersStores = (): [Literal, string][] => [
@@ -200,7 +200,7 @@ export const countOrdersStores = (): [Literal, string][] => [
       json_build_object(
       'ordersCount', (
         SELECT COALESCE(COUNT(DISTINCT o.id), 0)
-        FROM "orders" AS o
+        FROM "orders_stores" AS o
         WHERE o."bookStoreID" = "BookStore"."id"
         AND o."deletedAt" IS NULL
       ),

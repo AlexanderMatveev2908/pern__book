@@ -1,7 +1,6 @@
 import { Response } from "express";
 import { ReqApp, UserRole } from "../../../types/types.js";
 import { BookStore } from "../../../models/all/BookStore.js";
-import { User } from "../../../models/models.js";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { Book } from "../../../models/all/Book.js";
@@ -10,6 +9,7 @@ import { calcPagination } from "../../../lib/query/pagination.js";
 import { makeQueryBooksWorker } from "../../../lib/query/worker/books/query.js";
 import { sortItems } from "../../../lib/query/sort.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general.js";
+import { User } from "../../../models/all/User.js";
 
 export const getInfoStore = async (
   req: ReqApp,

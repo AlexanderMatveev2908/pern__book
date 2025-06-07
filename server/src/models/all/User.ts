@@ -1,5 +1,4 @@
 import {
-  CreationOptional,
   DataTypes,
   InferAttributes,
   InferCreationAttributes,
@@ -16,28 +15,25 @@ import { schemaID } from "./utils/helpers.js";
 import { CartInstance } from "./Cart.js";
 import { BookStoreInstance } from "./BookStore.js";
 
-export class User extends Model<
-  InferAttributes<User>,
-  InferCreationAttributes<User>
-> {
-  id!: CreationOptional<string>;
+export class User extends Model {
+  id!: string;
 
   firstName!: string;
   lastName!: string;
 
   email!: string;
-  tempEmail!: CreationOptional<string | null>;
+  tempEmail!: string | null;
   password!: string;
 
-  isVerified!: CreationOptional<boolean>;
-  isNewsletter!: CreationOptional<boolean>;
+  isVerified!: boolean;
+  isNewsletter!: boolean;
 
-  country!: CreationOptional<string>;
-  state!: CreationOptional<string>;
-  city!: CreationOptional<string>;
-  street!: CreationOptional<string>;
-  zipCode!: CreationOptional<string>;
-  phone!: CreationOptional<string>;
+  country?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  zipCode?: string;
+  phone?: string;
 
   thumb?: ThumbInstance;
 

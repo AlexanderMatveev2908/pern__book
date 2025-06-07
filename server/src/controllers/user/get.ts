@@ -1,13 +1,10 @@
 import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
-import { User } from "../../models/models.js";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { Thumb } from "../../models/all/img&video/Thumb.js";
-import { BookStore } from "../../models/all/BookStore.js";
-import { BookStoreUser } from "../../models/all/BookStoreUser.js";
-import { literal, Op } from "sequelize";
-import { Book } from "../../models/all/Book.js";
-import { err401, err404 } from "../../lib/responseClient/err.js";
+import { literal } from "sequelize";
+import { err404 } from "../../lib/responseClient/err.js";
+import { User } from "../../models/all/User.js";
 
 export const getUserProfile = async (
   req: ReqApp,

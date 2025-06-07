@@ -2,12 +2,12 @@ import { Response } from "express";
 import { ReqApp, UserRole } from "../../../types/types.js";
 import { res201 } from "../../../lib/responseClient/res.js";
 import { BookStore } from "../../../models/all/BookStore.js";
-import { User } from "../../../models/models.js";
 import { err403, err500 } from "../../../lib/responseClient/err.js";
 import { seq } from "../../../config/db.js";
 import { CloudImg } from "../../../types/all/cloud.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
 import { handleAddBook } from "../../../lib/sharedHandlers/books/addBook.js";
+import { User } from "../../../models/all/User.js";
 
 export const addBookWorker = async (
   req: ReqApp,

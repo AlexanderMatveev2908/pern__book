@@ -1,10 +1,11 @@
 import { Transaction } from "sequelize";
-import { Token, UserInstance } from "../../models/models.js";
 import { TokenEventType } from "../../types/types.js";
 import { genTokenCBC } from "../hashEncryptSign/cbcHmac.js";
 import { sendEmailAuth } from "../mail/auth.js";
 import { genTokenJWE } from "../hashEncryptSign/JWE.js";
 import { genAccessJWT } from "../hashEncryptSign/JWT.js";
+import { UserInstance } from "../../models/all/User.js";
+import { Token } from "../../models/all/Token.js";
 
 export const genTokSendEmail = async ({
   user,
