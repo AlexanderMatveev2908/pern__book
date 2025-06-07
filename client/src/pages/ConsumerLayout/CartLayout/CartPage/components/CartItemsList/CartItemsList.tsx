@@ -2,7 +2,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import type { FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
-import CartItem from "./components/CartItem";
+import CartItem from "./components/CartItem/CartItem";
 import { CartItemType, CartType } from "@/types/all/Cart";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import SummaryByStore from "./components/SummaryByStore";
