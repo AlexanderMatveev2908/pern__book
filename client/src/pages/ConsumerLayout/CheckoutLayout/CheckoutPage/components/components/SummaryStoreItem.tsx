@@ -14,7 +14,7 @@ type PropsType = {
 const SummaryStoreItem: FC<PropsType> = ({ store, items }) => {
   const { subTotal, deliveryPrice } = useCalcSubtotalStore({ items, store });
 
-  return (
+  return !subTotal ? null : (
     <div className="w-full flex flex-col items-center pl-4 border-l-2 border-blue-600">
       <div className="w-full grid grid-cols-1 gap-y-3">
         <WrapPairTxt

@@ -64,9 +64,7 @@ export const handleFocusErrStore = async (
       const curr = currArr[j];
       if (errKeys.includes(curr.field)) {
         const swap = document.getElementById(swapID);
-        if (!swap) {
-          return;
-        }
+        if (!swap) return;
 
         const distance =
           swap.getBoundingClientRect().top +

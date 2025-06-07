@@ -16,15 +16,41 @@ import LeftPageForm from "./components/LeftPageForm";
 import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
 import { useMixUserCartAsyncStates } from "@/features/ConsumerLayout/CartLayout/hooks/useMixUserCartAsyncStates";
 import BriefSummary from "./components/BriefSummary";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { usePartialSwap } from "@/core/hooks/all/forms/usePartialSwap";
+import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
 
 const CheckoutPage: FC = () => {
   const { cart, isLoading, user, isError, error } = useMixUserCartAsyncStates();
+
+  const ctx = useSwapCtxConsumer();
+  const {
+    state: { currSwapState, currForm },
+  } = ctx;
+  const { setCurrForm } = usePartialSwap({ ...ctx });
 
   const formCTX = useForm<CheckoutAddress>({
     resolver: zodResolver(schemaCheckoutAddress),
     mode: "onChange",
   });
-  const { setValue, setFocus } = formCTX;
+  const {
+    setValue,
+    setFocus,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = formCTX;
+
+  const handleSave = handleSubmit(
+    async (data) => {
+      console.log(data);
+    },
+    (errs) => {
+      handleErrFocusCheckout(errs, setFocus, setCurrForm);
+
+      return errs;
+    }
+  );
 
   useEffect(() => {
     const keys = ["country", "state", "city", "street", "zipCode", "phone"];
@@ -43,10 +69,6 @@ const CheckoutPage: FC = () => {
     }
   }, [user, setValue]);
 
-  const {
-    state: { currSwapState, currForm },
-  } = useSwapCtxConsumer();
-
   useFocus({
     key: "country",
     setFocus,
@@ -56,6 +78,10 @@ const CheckoutPage: FC = () => {
     setFocus,
     currSwapState: currSwapState,
     currForm: currForm,
+  });
+  const { isFormOk } = useListenFormOk({
+    errors,
+    watch,
   });
 
   useCLearTab();
@@ -72,10 +98,12 @@ const CheckoutPage: FC = () => {
       }}
     >
       <Title {...{ title: "checkout" }} />
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 justify-items-center gap-y-8 gap-x-8">
-        <LeftPageForm {...{ currForm, formCTX }} />
-
+      <div className="w-full grid grid-cols-1 xl:grid-cols-2 justify-items-center gap-x-8 gap-y-10">
         <BriefSummary {...{ groupedByStoreID }} />
+
+        <LeftPageForm
+          {...{ currForm, formCTX, handleSave, groupedByStoreID, isFormOk }}
+        />
       </div>
     </WrapPageAPI>
   );

@@ -17,6 +17,8 @@ export const addressFields_1 = [
       }
 );
 
+export const addressFieldsByArea = [addressFields_0, addressFields_1];
+
 export const qtyFieldItem = {
   field: "qty",
   place: "Qty books...",
