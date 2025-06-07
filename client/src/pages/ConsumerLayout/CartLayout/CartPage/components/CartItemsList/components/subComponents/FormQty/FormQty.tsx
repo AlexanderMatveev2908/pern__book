@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC } from "react";
+import { useEffect, useMemo, useRef, type FC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
@@ -17,6 +17,7 @@ import s from "./FormQty.module.css";
 
 type PropsType = {
   el: CartItemType;
+  children: React.ReactNode;
 };
 
 const schemaAtyForm = z.object({
@@ -32,7 +33,7 @@ const schemaAtyForm = z.object({
 
 type FormQtyType = z.infer<typeof schemaAtyForm>;
 
-const FormQty: FC<PropsType> = ({ el }) => {
+const FormQty: FC<PropsType> = ({ el, children }) => {
   const secondaryRef = useRef<HTMLInputElement | null>(null);
 
   const [triggerRTK, res] =
@@ -101,12 +102,14 @@ const FormQty: FC<PropsType> = ({ el }) => {
     if (!res) return;
   };
 
+  const showAll = useMemo(() => !el!.book?.deletedAt && !!+el.book!.qty, [el]);
+
   return (
     <form
       onSubmit={handleSave}
-      className={`${s.form_qty} w-full items-center grid grid-cols-1 gap-y-5`}
+      className={`${s.form_qty} w-full items-center grid grid-cols-1 gap-y-5 gap-x-5`}
     >
-      {!el!.book?.deletedAt && (
+      {showAll && (
         <div className="w-full flex">
           <div className="w-full relative">
             <Controller
@@ -137,13 +140,11 @@ const FormQty: FC<PropsType> = ({ el }) => {
       )}
 
       <div
-        className={`${s.parent_btns} w-full grid gap-x-4 items-center  ${
-          el!.book?.deletedAt
-            ? "grid-cols-1 justify-items-end col-span-2"
-            : "grid-cols-2 justify-items-center"
-        }`}
+        className={`${
+          showAll ? s.parent_btns : s.parent_warn
+        } w-full grid gap-x-4 items-center justify-items-center gap-y-5`}
       >
-        {!el!.book?.deletedAt && (
+        {showAll ? (
           <div className="w-full max-w-[75px]">
             <ButtonIcon
               {...{
@@ -159,9 +160,13 @@ const FormQty: FC<PropsType> = ({ el }) => {
               }}
             />
           </div>
+        ) : (
+          children
         )}
 
-        <div className="w-full max-w-[75px]">
+        <div
+          className={`w-full max-w-[75px] ${showAll ? "" : "justify-self-end"}`}
+        >
           <ButtonIcon
             {...{
               el: {

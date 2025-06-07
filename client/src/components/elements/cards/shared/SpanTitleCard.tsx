@@ -6,11 +6,16 @@ type PropsType = {
     icon?: IconType;
     label?: string;
   };
+  customStyleParent?: string;
 };
 
-const SpanTitleCard: FC<PropsType> = ({ label }) => {
+const SpanTitleCard: FC<PropsType> = ({ customStyleParent, label }) => {
   return (
-    <div className="w-full flex justify-start items-center gap-5 px-3 py-2 bg-black/50 rounded-xl h-fit">
+    <div
+      className={`${
+        customStyleParent ?? ""
+      } w-full flex justify-start items-center gap-5 px-3 py-2 bg-black/50 rounded-xl h-fit`}
+    >
       {label.icon && <label.icon className="icon__md" />}
 
       <div className="w-full flex justify-start items-center">
