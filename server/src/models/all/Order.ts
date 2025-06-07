@@ -5,12 +5,7 @@ export class Order extends Model {
   id!: CreationOptional<string>;
   paymentID!: string;
   clientSecret!: string;
-  items!: any;
-  totQty!: number;
-  amount!: number;
-  delivery!: number;
   discount!: number;
-  stage!: string;
 }
 
 export type OrderInstance = InstanceType<typeof Order>;
@@ -19,8 +14,8 @@ export const defineOrder = (seq: Sequelize) =>
   Order.init(
     {
       ...schemaID(),
-      bookStoreID: refSql("book_stores", { allowNull: true }),
       userID: refSql("users", { allowNull: true }),
+
       paymentID: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -29,36 +24,11 @@ export const defineOrder = (seq: Sequelize) =>
         type: DataTypes.STRING,
         allowNull: false,
       },
-      items: {
-        type: DataTypes.JSONB,
-        allowNull: false,
-      },
-      images: {
-        type: DataTypes.JSONB,
-        allowNull: true,
-      },
-      totQty: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-      },
-      amount: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-      },
-      delivery: {
-        type: DataTypes.DECIMAL(10, 2),
-        allowNull: false,
-        defaultValue: 0,
-      },
+
       discount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         defaultValue: 0,
-      },
-      stage: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        defaultValue: "pending",
       },
     },
     {

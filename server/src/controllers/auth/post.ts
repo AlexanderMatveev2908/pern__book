@@ -1,6 +1,5 @@
 import { Request, Response } from "express";
 import { ReqApp, TokenEventType } from "../../types/types.js";
-import { User } from "../../models/models.js";
 import {
   err401,
   err404,
@@ -17,6 +16,7 @@ import {
 } from "../../lib/clearData/clearData.js";
 import { genTokSendEmail, pairTokenSession } from "../../lib/combo/combo.js";
 import { seq } from "../../config/db.js";
+import { User } from "../../models/all/User.js";
 
 export const registerUser = async (
   req: Request,

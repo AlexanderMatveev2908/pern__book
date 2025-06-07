@@ -1,6 +1,5 @@
 import { Response } from "express";
 import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
-import { User } from "../../models/models.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import {
   err401,
@@ -15,6 +14,7 @@ import { pairTokenSession } from "../../lib/combo/combo.js";
 import { clearTokensById } from "../../lib/clearData/clearData.js";
 import { seq } from "../../config/db.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
+import { User } from "../../models/all/User.js";
 
 export const verifyAccount = async (
   req: ReqApp,

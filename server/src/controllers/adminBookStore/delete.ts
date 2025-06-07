@@ -1,6 +1,5 @@
 import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
-import { getStoreByID } from "./helpers/storeData.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import { err404, err500 } from "../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
@@ -11,7 +10,7 @@ import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 import { delArrCloud, delCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { Book } from "../../models/all/Book.js";
-import { User } from "../../models/models.js";
+import { User } from "../../models/all/User.js";
 
 export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID } = req;

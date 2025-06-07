@@ -3,9 +3,9 @@ import { ReqApp, UserRole } from "../../../types/types.js";
 import { res200 } from "../../../lib/responseClient/res.js";
 import { Book } from "../../../models/all/Book.js";
 import { BookStore } from "../../../models/all/BookStore.js";
-import { User } from "../../../models/models.js";
 import { err403 } from "../../../lib/responseClient/err.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
+import { User } from "../../../models/all/User.js";
 
 export const deleteBookWorker = async (req: ReqApp, res: Response) => {
   const { userID } = req;

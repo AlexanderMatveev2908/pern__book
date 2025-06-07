@@ -1,6 +1,5 @@
 import { Response } from "express";
 import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
-import { User } from "../../models/models.js";
 import {
   err400,
   err401,
@@ -14,6 +13,7 @@ import { setCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import { pairTokenSession } from "../../lib/combo/combo.js";
 import { seq } from "../../config/db.js";
+import { User } from "../../models/all/User.js";
 
 export const choseNewPwdForgotOld = async (
   req: ReqApp,

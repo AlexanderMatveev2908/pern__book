@@ -1,6 +1,5 @@
 import { NextFunction, Request, Response } from "express";
 import { MsgErrSession, ReqApp, UserRole } from "../../types/types.js";
-import { User } from "../../models/models.js";
 import {
   PayloadJWT,
   prepareHeader,
@@ -12,6 +11,7 @@ import {
   err403,
   handleErrAccessToken,
 } from "../../lib/responseClient/err.js";
+import { User } from "../../models/all/User.js";
 
 export const verifyAccessToken =
   ({

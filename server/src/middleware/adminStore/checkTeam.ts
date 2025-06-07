@@ -1,9 +1,9 @@
 import { NextFunction, Response } from "express";
 import { ReqApp } from "../../types/types.js";
-import { User } from "../../models/models.js";
 import { err422, err500 } from "../../lib/responseClient/err.js";
 import fs from "fs";
 import { __cg } from "../../lib/utils/log.js";
+import { User } from "../../models/all/User.js";
 
 export const clearMemoryDisk = async (req: ReqApp) => {
   const images = (req?.files as { [fieldname: string]: Express.Multer.File[] })

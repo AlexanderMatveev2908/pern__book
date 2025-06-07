@@ -4,7 +4,7 @@ import { CloudAsset } from "../../../types/all/cloud.js";
 import { ReqApp } from "../../../types/types.js";
 import { uploadCloudMemory } from "../../cloud/imagesMemory.js";
 import { captAll } from "../../utils/formatters.js";
-import { User } from "../../../models/models.js";
+import { User } from "../../../models/all/User.js";
 
 export const handleAddBook = async ({
   images,

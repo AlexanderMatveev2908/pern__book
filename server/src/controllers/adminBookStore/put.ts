@@ -22,7 +22,7 @@ import {
   handleGetDeletedAssetsStore,
   handleStoreAssetsPut,
 } from "../../lib/sharedHandlers/assetsHandlers/store.js";
-import { User } from "../../models/models.js";
+import { User } from "../../models/all/User.js";
 
 const choseRandom = () => Math.floor(Math.random() * 3);
 
