@@ -548,46 +548,6 @@ button:disabled {
   transform: scale(0.8);
 }
 
-.tooltip_cpy .txt {
-  transition: 0.3s;
-}
-.tooltip_cpy .txt:hover {
-  transform: scale(1.1);
-}
-.tooltip_cpy .txt:active {
-  transition: 0.1s;
-  transform: scale(0.9);
-}
-.tooltip_cpy .tool {
-  animation: appear 1.5s ease-in forwards;
-}
-
-@keyframes appear {
-  0% {
-    transform: scale(0);
-    opacity: 0;
-  }
-  10% {
-    transform: scale(1.4);
-    opacity: 1;
-  }
-  20% {
-    transform: scale(0.8);
-  }
-  30% {
-    transform: scale(1.1);
-  }
-  40% {
-    transform: scale(0.9);
-  }
-  50% {
-    transform: scale(1);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 0;
-  }
-}
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
