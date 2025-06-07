@@ -19,6 +19,8 @@ export const defineOrder = (seq: Sequelize) =>
   Order.init(
     {
       ...schemaID(),
+      bookStoreID: refSql("book_stores", { allowNull: true }),
+      userID: refSql("users", { allowNull: true }),
       paymentID: {
         type: DataTypes.STRING,
         allowNull: false,
@@ -58,9 +60,6 @@ export const defineOrder = (seq: Sequelize) =>
         allowNull: false,
         defaultValue: "pending",
       },
-
-      bookStoreID: refSql("book_stores", { allowNull: true }),
-      userID: refSql("users", { allowNull: true }),
     },
     {
       timestamps: true,
