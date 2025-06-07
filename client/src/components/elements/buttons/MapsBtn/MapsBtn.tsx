@@ -14,7 +14,7 @@ import { __cg } from "@/core/lib/lib";
 import axios from "axios";
 
 const mapsBtnField: BtnFieldIconType = {
-  label: "Get my position",
+  label: "Geolocation",
   icon: TbWorldSearch,
   pendingLabel: "Searching...",
 };
