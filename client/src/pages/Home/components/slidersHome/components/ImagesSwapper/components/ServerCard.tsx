@@ -1,6 +1,7 @@
 import { isStr } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { useEffect, useRef, useState, type FC } from "react";
+import s from "../ImagesSwapper.module.css";
 
 type PropsType = {
   el: BookType;
@@ -63,7 +64,9 @@ const ServerCard: FC<PropsType> = ({ el }) => {
   }, [el]);
 
   return (
-    <div className="server flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full">
+    <div
+      className={`${s.server} flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full`}
+    >
       <div className="w-full flex flex-col justify-start items-center gap-3 max-h-full">
         <SpanTxt {...{ txt: el.author, fsz: "txt__4", clamp: 1 }} />
         <SpanTxt {...{ txt: el.title, fsz: "txt__3", clamp: 2 }} />

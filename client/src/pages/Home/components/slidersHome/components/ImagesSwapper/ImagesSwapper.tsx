@@ -4,8 +4,9 @@ import { BookType } from "@/types/all/books";
 import { useSlideImg } from "@/core/hooks/all/UI/useSlideImg";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import ImgLoaderHandler from "@/components/elements/imagesHandlers/ImgLoaderHandler/ImgLoaderHandler";
-import ServerCard from "./ServerCard";
+import ServerCard from "./components/ServerCard";
 import { Link } from "react-router-dom";
+import s from "./ImagesSwapper.module.css";
 
 type PropsType = {
   books?: BookType[];
@@ -31,26 +32,26 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
   });
 
   return !books?.length ? null : (
-    <div className="flex justify-center images_swapper">
+    <div className="flex justify-center ">
       <div className="grid grid-cols-1 text-[whitesmoke] relative">
         <button
           onClick={() => {
             handleClickRef();
             decSlide();
           }}
-          className={`btn group -left-[30px]`}
+          className={`${s.btn} group -left-[30px]`}
         >
           <FaChevronLeft className="icon__md icon__with_txt" />
         </button>
 
         <div
-          className="cont flex overflow-hidden p-[20px] el__border_md"
+          className="flex overflow-hidden p-[20px] el__border_md"
           style={{
             width: `${imgsForSwap * wImg + (imgsForSwap - 1) * 40}px`,
           }}
         >
           <div
-            className="wrapper flex w-full max-w-full transition-all duration-500 items-start"
+            className={`${s.wrapper} flex w-full max-w-full transition-all duration-500 items-start`}
             style={{
               width: `${numBlocks * 100}%`,
               transform: `translateX(-${currSlide * 100}%)`,
@@ -72,11 +73,13 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
                     className={`flex rounded-xl transition-all duration-500 ${""}`}
                     style={{ width: wImg, height: wImg }}
                   >
-                    <div className="min-w-full min-h-full rounded-xl card border-2 border-neutral-800 ">
+                    <div
+                      className={`${s.card} min-w-full min-h-full rounded-xl border-2 border-neutral-800 `}
+                    >
                       <ImgLoaderHandler
                         {...{
                           url: el.images[0].url || "",
-                          customClass: "client",
+                          customClass: s.client,
                         }}
                       >
                         {typeof children === "function" && children(el, iInner)}
@@ -96,7 +99,7 @@ const ImagesSwapper: FC<PropsType> = ({ books = [], children }) => {
             handleClickRef();
             incSlide();
           }}
-          className={`btn -right-[30px] group`}
+          className={`${s.btn} -right-[30px] group`}
         >
           <FaChevronRight className="icon__md icon__with_txt" />
         </button>

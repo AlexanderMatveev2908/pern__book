@@ -27,7 +27,7 @@ const HomePage: FC = () => {
 
   return (
     <WrapPageAPI {...{ ...res }}>
-      <div className="w-full grid grid-cols-1 gap-20 home mt-10">
+      <div className={`w-full grid grid-cols-1 gap-20 mt-10`}>
         <div className="w-full grid justify-center">
           {argSNAS.map((el, i, arg) => (
             <div
