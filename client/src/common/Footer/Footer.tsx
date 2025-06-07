@@ -43,7 +43,7 @@ const Footer: FC = () => {
       }`}
     >
       <Link to="/" className="">
-        <HappyGhost className="w-[100px] h-[100px]" fill="#d1d5db" />
+        <HappyGhost className="w-[100px] h-[100px]" fill="#000" />
       </Link>
 
       <div className="w-full max-w-full grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">
