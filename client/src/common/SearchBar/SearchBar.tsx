@@ -157,7 +157,7 @@ const SearchBar: FC<PropsType> = ({
     <form
       id={searchBarID}
       onSubmit={handleSave}
-      className="w-full grid grid-cols-1 gap-5 search_bar"
+      className="w-full grid grid-cols-1 gap-5"
     >
       <div className="w-full grid grid-cols-1 border-[3px] border-blue-600 rounded-xl p-4">
         <BgBlack {...{ bars: ctx.bars }} />
