@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC } from "react";
 import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";

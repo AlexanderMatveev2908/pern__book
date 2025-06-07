@@ -39,7 +39,9 @@ const Footer: FC = () => {
   return (
     <div
       className={`w-full border-t-[3px] border-blue-600 grid gap-10 px-5 sm:px-10 pt-5 bottom-0 txt__col ${
-        path.includes("/consumer/cart") ? "pb-[75px]" : "pb-10"
+        ["/consumer/cart", "/consumer/checkout"].includes(path)
+          ? "pb-[100px]"
+          : "pb-10"
       }`}
     >
       <Link to="/" className="">

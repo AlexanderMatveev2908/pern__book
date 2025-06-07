@@ -24,7 +24,11 @@ const CheckoutPage: FC = () => {
     resolver: zodResolver(schemaCheckoutAddress),
     mode: "onChange",
   });
-  const { setValue, setFocus } = formCTX;
+  const { setValue, setFocus, handleSubmit } = formCTX;
+
+  const handleSave = handleSubmit(async (data) => {
+    console.log(data);
+  });
 
   useEffect(() => {
     const keys = ["country", "state", "city", "street", "zipCode", "phone"];
@@ -72,8 +76,8 @@ const CheckoutPage: FC = () => {
       }}
     >
       <Title {...{ title: "checkout" }} />
-      <div className="w-full grid grid-cols-1 lg:grid-cols-2 justify-items-center gap-y-8 gap-x-8">
-        <LeftPageForm {...{ currForm, formCTX }} />
+      <div className="w-full grid grid-cols-1 xl:grid-cols-2 justify-items-center gap-x-8 gap-y-10">
+        <LeftPageForm {...{ currForm, formCTX, handleSave }} />
 
         <BriefSummary {...{ groupedByStoreID }} />
       </div>

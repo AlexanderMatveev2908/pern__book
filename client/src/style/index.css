@@ -269,6 +269,10 @@ button:disabled {
   z-index: 100;
 }
 
+.z__footer_bar {
+  z-index: 200;
+}
+
 .z__sidebar_bg {
   z-index: 700;
 }
