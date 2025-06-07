@@ -1,5 +1,4 @@
 import { generateKeyPairSync } from "crypto";
-import { KeyRSA, Token, UserInstance } from "../../models/models.js";
 import { compactDecrypt, CompactEncrypt, importPKCS8, importSPKI } from "jose";
 import { JWEInvalid } from "jose/errors";
 import {
@@ -13,6 +12,9 @@ import { isDev } from "../../config/env.js";
 import { Op, Transaction } from "sequelize";
 import { KeyTypeRSA } from "../../types/all/keys.js";
 import { genExpiryJWE } from "./expiryTime.js";
+import { KeyRSA } from "../../models/all/KeyRSA.js";
+import { UserInstance } from "../../models/all/User.js";
+import { Token } from "../../models/all/Token.js";
 
 // IMPORTANT ⚠️
 // IF U PREFER USE COMMON-JS JOSE IS THOUGH FOR MODULES AND U'LL HAVE WARNINGS OR COULD EVEN CRASH IF BECOME UNSUPPORTED(I USED COMMON JS IN LAST PROJECT) SO U WOULD NEED TO MAKE DYNAMIC ASYNC IMPORTS INSTEAD OF SIMPLE IMPORT

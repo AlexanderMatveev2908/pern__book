@@ -1,10 +1,11 @@
 import { Response } from "express";
 import { ReqApp, TokenEventType } from "../../types/types.js";
-import { Token, User, UserInstance } from "../../models/models.js";
 import { verifyPwd } from "../../lib/hashEncryptSign/argon.js";
 import { err401 } from "../../lib/responseClient/err.js";
 import { genTokenCBC } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { res200 } from "../../lib/responseClient/res.js";
+import { User, UserInstance } from "../../models/all/User.js";
+import { Token } from "../../models/all/Token.js";
 
 export const allowManageAccount = async (
   req: ReqApp,

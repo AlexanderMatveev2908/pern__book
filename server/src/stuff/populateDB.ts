@@ -1,8 +1,6 @@
 import { hashPwd } from "../lib/hashEncryptSign/argon.js";
-import { calcTimeRun } from "../lib/utils/utils.js";
-import { BookStore } from "../models/all/BookStore.js";
 import { BookStoreUser } from "../models/all/BookStoreUser.js";
-import { User, UserInstance } from "../models/models.js";
+import { User, UserInstance } from "../models/all/User.js";
 
 const commonFields = {
   isVerified: true,
@@ -48,7 +46,7 @@ const users = [
 ].map((el) => ({
   ...el,
   ...commonFields,
-})) as UserInstance[];
+}));
 
 export const populateDB = async () => {
   const safeUsers = await Promise.all(

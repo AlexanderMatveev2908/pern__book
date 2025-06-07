@@ -12,9 +12,9 @@ import {
   err422,
   err500,
 } from "../../../lib/responseClient/err.js";
-import { User } from "../../../models/models.js";
 import { Book } from "../../../models/all/Book.js";
 import { Transaction } from "sequelize";
+import { User } from "../../../models/all/User.js";
 
 const getCart = async ({ t, userID }: { t: Transaction; userID: string }) => {
   let cart = await Cart.findOne({

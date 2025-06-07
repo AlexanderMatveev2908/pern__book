@@ -1,13 +1,11 @@
 import { Response } from "express";
 import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
-import { Token, User, UserInstance } from "../../models/models.js";
 import { Op } from "sequelize";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
 import { err401, err500 } from "../../lib/responseClient/err.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { clearCookie } from "../../lib/hashEncryptSign/JWE.js";
-import { clearThumb } from "../../lib/clearData/clearData.js";
 import { seq } from "../../config/db.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
@@ -18,6 +16,8 @@ import { delArrCloud, ResourceType } from "../../lib/cloud/delete.js";
 import { Book } from "../../models/all/Book.js";
 import { Cart } from "../../models/all/Cart.js";
 import { CartItem } from "../../models/all/CartItem.js";
+import { User, UserInstance } from "../../models/all/User.js";
+import { Token } from "../../models/all/Token.js";
 
 export const clearManageToken = async (
   req: ReqApp,

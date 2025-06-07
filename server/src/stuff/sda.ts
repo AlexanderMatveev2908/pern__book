@@ -1,5 +1,5 @@
 import { hashPwd } from "../lib/hashEncryptSign/argon.js";
-import { User } from "../models/models.js";
+import { User } from "../models/all/User.js";
 
 export const createUserSDA = async () => {
   const pwd = await hashPwd("SdaRo46@");

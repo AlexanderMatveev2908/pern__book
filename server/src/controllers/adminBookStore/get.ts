@@ -6,10 +6,8 @@ import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
 import { calcPagination } from "../../lib/query/pagination.js";
-import { Order } from "../../models/all/Order.js";
 import { Review } from "../../models/all/Review.js";
 import { Book } from "../../models/all/Book.js";
-import { User } from "../../models/models.js";
 import { literal } from "sequelize";
 import { Literal } from "sequelize/lib/utils";
 import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
@@ -20,6 +18,8 @@ import {
   countOrdersStores,
   countStatsBooksFoStore,
 } from "../../lib/query/general.js";
+import { OrderStore } from "../../models/all/OrderStore.js";
+import { User } from "../../models/all/User.js";
 
 const countWorkSql = (role: UserRole): Literal =>
   literal(`(
@@ -69,7 +69,7 @@ export const getMyStore = async (req: ReqApp, res: Response): Promise<any> => {
         as: "video",
       },
       {
-        model: Order,
+        model: OrderStore,
         as: "orders",
       },
       {
@@ -141,7 +141,7 @@ export const getAllStores = async (
         as: "images",
       },
       {
-        model: Order,
+        model: OrderStore,
         as: "orders",
         where: queryOrders,
         // ? WITHOUT REQUIRED IT WOULD BE A LEFT JOIN WHERE WE GET ALL DATA EVEN INNER MODELS DOES NOT MATCH OPT, WITH REQUIRED IT IS AN INNER JOIN AND INNER DATA MUST MATCH AND RESPECT PARAMS PROVIDED

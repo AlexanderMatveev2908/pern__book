@@ -5,13 +5,14 @@ import {
   randomBytes,
 } from "crypto";
 import { MsgCheckToken, TokAlg, TokenEventType } from "../../types/types.js";
-import { Token, UserInstance } from "../../models/models.js";
 import { KeyCbcHmac } from "../../models/all/KeyCbcHmac.js";
 import { KeyTypeCbcHmac } from "../../types/all/keys.js";
 import { Op } from "sequelize";
 import { genExpiryCBC } from "./expiryTime.js";
 import { keyCert, myCert, myIv } from "../../config/env.js";
 import { v4 } from "uuid";
+import { UserInstance } from "../../models/all/User.js";
+import { Token } from "../../models/all/Token.js";
 
 const AES_KEY_LENGTH = 32;
 const HMAC_KEY_LENGTH = 32;

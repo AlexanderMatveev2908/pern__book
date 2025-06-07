@@ -1,10 +1,11 @@
 import { Op } from "sequelize";
-import { Token, UserInstance } from "../../models/models.js";
 import { TokenEventType } from "../../types/types.js";
 import { decodeExpJWT } from "../hashEncryptSign/JWT.js";
 import { REG_ID } from "../../config/regex.js";
 import { Thumb, ThumbInstance } from "../../models/all/img&video/Thumb.js";
 import { delArrCloud } from "../cloud/delete.js";
+import { Token } from "../../models/all/Token.js";
+import { UserInstance } from "../../models/all/User.js";
 
 export const clearTokensById = async (id: string, args: TokenEventType[]) => {
   await Token.destroy({
