@@ -59,6 +59,7 @@ const ReadContent: FC<PropsType> = ({ book }) => {
             el: labelFieldAddressStore,
             abs: true,
             fields: showStoreAddressFromBook(book!),
+            sizeHandler: "sm",
           }}
         />
 
@@ -66,6 +67,7 @@ const ReadContent: FC<PropsType> = ({ book }) => {
           {...{
             el: labelCategories,
             abs: true,
+            sizeHandler: "sm",
           }}
         >
           {book?.store?.categories?.map((el, i) => (
@@ -80,6 +82,7 @@ const ReadContent: FC<PropsType> = ({ book }) => {
             el: labelDelivery,
             abs: true,
             fields: statsDeliveryStoreFromBook(book!),
+            sizeHandler: "sm",
           }}
         />
       </DropStats>
