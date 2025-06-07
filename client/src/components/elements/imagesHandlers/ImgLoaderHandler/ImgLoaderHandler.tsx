@@ -1,6 +1,7 @@
 import { __cg } from "@/core/lib/lib";
 import { useState, type FC } from "react";
 import { MdError } from "react-icons/md";
+import s from "./ImgLoaderHandler.module.css";
 
 type PropsType = {
   url: string;
@@ -14,7 +15,7 @@ const ImgLoaderHandler: FC<PropsType> = ({ url, customClass, children }) => {
 
   return !isLoaded ? (
     <div
-      className={`${customClass} img_loader_handler_skeleton min-w-full min-h-full relative`}
+      className={`${customClass} ${s.img_loader_handler_skeleton}   min-w-full min-h-full relative`}
     >
       <img
         src={url}
