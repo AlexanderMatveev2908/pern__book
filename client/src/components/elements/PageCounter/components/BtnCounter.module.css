@@ -1,0 +1,12 @@
+.btn {
+  transition: 0.3s;
+  transform: scale(var(--scale_counter_page));
+}
+
+.btn:enabled:hover {
+  cursor: pointer;
+}
+.btn:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}

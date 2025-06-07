@@ -522,32 +522,6 @@ button:disabled {
   }
 }
 
-.img_loader_handler_skeleton {
-  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-  background-size: 200% 100%;
-  animation: skeleton_search 1.5s infinite linear;
-}
-
-@keyframes skeleton__img {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
-.page_counter .btn {
-  transition: 0.3s;
-  transform: scale(var(--scale_counter_page));
-}
-.page_counter .btn:enabled:hover {
-  cursor: pointer;
-}
-.page_counter .btn:enabled:active {
-  transition: 0.1s;
-  transform: scale(0.8);
-}
-
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
