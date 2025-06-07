@@ -13,6 +13,7 @@ import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import { isStr } from "@/core/lib/lib";
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
+import s from "./FormQty.module.css";
 
 type PropsType = {
   el: CartItemType;
@@ -103,7 +104,7 @@ const FormQty: FC<PropsType> = ({ el }) => {
   return (
     <form
       onSubmit={handleSave}
-      className="w-full items-center form_qty grid grid-cols-1 gap-y-5"
+      className={`${s.form_qty} w-full items-center grid grid-cols-1 gap-y-5`}
     >
       {!el!.book?.deletedAt && (
         <div className="w-full flex">
@@ -136,7 +137,7 @@ const FormQty: FC<PropsType> = ({ el }) => {
       )}
 
       <div
-        className={`w-full grid gap-x-4 items-center parent_btns ${
+        className={`${s.parent_btns} w-full grid gap-x-4 items-center  ${
           el!.book?.deletedAt
             ? "grid-cols-1 justify-items-end col-span-2"
             : "grid-cols-2 justify-items-center"

@@ -690,46 +690,6 @@ button:disabled {
   transform: scale(0.8);
 }
 
-.terms {
-  border: 2px solid var(--check-color);
-}
-.terms.checky {
-  animation: checky 0.5s ease;
-}
-
-@keyframes checky {
-  0% {
-    transform: scale(1, 1);
-  }
-  30% {
-    transform: scale(1.5, 0.75);
-  }
-  60% {
-    transform: scale(0.75, 1.5);
-  }
-  100% {
-    transform: scale(1, 1);
-  }
-}
-.wrapper_cart_item .cart_item {
-  display: grid;
-  grid-template-columns: 1fr;
-  max-height: fit-content;
-}
-@media screen and (min-width: 600px) {
-  .wrapper_cart_item .cart_item.cart_item_with_imgs {
-    grid-template-columns: 175px 1fr;
-  }
-}
-@media screen and (min-width: 450px) {
-  .wrapper_cart_item .form_qty {
-    grid-template-columns: 1fr 2fr;
-  }
-  .wrapper_cart_item .form_qty .parent_btns {
-    justify-items: end;
-  }
-}
-
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
