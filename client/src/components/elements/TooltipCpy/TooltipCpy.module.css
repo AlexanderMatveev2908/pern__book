@@ -1,18 +1,5 @@
-.tooltip_cpy {
-  .txt {
-    transition: 0.3s;
-    &:hover {
-      transform: scale(1.1);
-    }
-    &:active {
-      transition: 0.1s;
-      transform: scale(0.9);
-    }
-  }
-
-  .tool {
-    animation: appear 1.5s ease-in forwards;
-  }
+.tool {
+  animation: appear 1.5s ease-in forwards;
 }
 
 @keyframes appear {
