@@ -6,6 +6,7 @@ import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
+import { useFocus } from "@/core/hooks/hooks";
 import { isObjOk } from "@/core/lib/lib";
 import {
   CheckoutAddress,
@@ -45,6 +46,12 @@ const CheckoutPage: FC = () => {
   const {
     state: { currSwapState, currForm },
   } = useSwapCtxConsumer();
+
+  useFocus({
+    key: "country",
+    setFocus,
+    delay: 500,
+  });
   useFocusAddress({
     setFocus,
     currSwapState: currSwapState,
