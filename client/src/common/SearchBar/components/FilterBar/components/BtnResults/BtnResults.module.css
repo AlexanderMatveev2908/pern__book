@@ -1,0 +1,9 @@
+@import "tailwindcss";
+
+.btn_secondary {
+  @apply max-w-[75px] sm:max-w-[250px];
+}
+
+.btn_secondary .txt {
+  @apply hidden sm:block;
+}

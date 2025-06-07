@@ -4,6 +4,7 @@ import { clearTimer, makeRandomMinMax } from "@/core/lib/lib";
 import SpinnerBtn from "../../spinners/SpinnerBtn/SpinnerBtn";
 import { BtnAct } from "@/types/types";
 import MiniSpinner from "../../spinners/MiniSpinner/MiniSpinner";
+import s from "./Button.module.css";
 
 const makeRandomBtn = () => makeRandomMinMax(-1200, 1200);
 
@@ -80,8 +81,8 @@ const Button: FC<PropsType> = ({
             continue;
           }
 
-          curr.classList.remove("bubble");
-          requestAnimationFrame(() => curr.classList.add("bubble"));
+          curr.classList.remove(s.bubble);
+          requestAnimationFrame(() => curr.classList.add(s.bubble));
           i++;
         } while (i < ids.length);
       }
@@ -122,7 +123,9 @@ const Button: FC<PropsType> = ({
       type={type}
       ref={btnRef}
       disabled={isDisabled || isPending}
-      className={`appearance-none w-full border-2 rounded-xl py-2 px-5 flex justify-center items-center disabled:opacity-50 button ${
+      className={`${
+        s.button
+      } appearance-none w-full border-2 rounded-xl py-2 px-5 flex justify-center items-center disabled:opacity-50  ${
         style.get(act)?.border
       } ${style.get(act)?.text}`}
       style={

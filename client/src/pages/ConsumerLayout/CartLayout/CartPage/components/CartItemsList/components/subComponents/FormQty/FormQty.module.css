@@ -1,0 +1,9 @@
+@media screen and (min-width: 450px) {
+  .form_qty {
+    grid-template-columns: 1fr 2fr;
+  }
+
+  .parent_btns {
+    justify-items: end;
+  }
+}

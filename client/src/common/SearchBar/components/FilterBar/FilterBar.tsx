@@ -9,7 +9,7 @@ import { FC, useEffect, useRef } from "react";
 import { IoCloseSharp } from "react-icons/io5";
 import LabelsCol from "./components/LabelsCol";
 import ValsCol from "./components/ValsCol";
-import BtnResults from "./components/BtnResults";
+import BtnResults from "./components/BtnResults/BtnResults";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {

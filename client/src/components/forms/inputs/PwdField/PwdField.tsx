@@ -4,6 +4,7 @@ import { IoMdEye, IoMdEyeOff } from "react-icons/io";
 import ErrorFormField from "../../Errors/ErrorFormField.tsx";
 import { FormFieldBasic } from "@/types/types.ts";
 import { Control, Controller, FieldErrors } from "react-hook-form";
+import s from "./PwdField.module.css";
 
 type PropsType = {
   el: FormFieldBasic;
@@ -57,7 +58,7 @@ const PwdField: FC<PropsType> = ({
           <button
             onClick={handleClick}
             type="button"
-            className="absolute top-1/2 -translate-y-1/2 right-[20px] btn"
+            className={`${s.btn} absolute top-1/2 -translate-y-1/2 right-[20px] `}
           >
             {isPwd ? (
               <IoMdEyeOff className="icon__sm" />

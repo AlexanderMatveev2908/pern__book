@@ -1,6 +1,6 @@
 import WrapSectionHome from "@/components/HOC/WrapSectionHome";
 import { useEffect, useState, type FC } from "react";
-import ImagesSwapper from "./components/ImagesSwapper";
+import ImagesSwapper from "./components/ImagesSwapper/ImagesSwapper";
 import WrapBg from "./components/WrapBg";
 import { formatD, isArrOk, priceFormatter } from "@/core/lib/lib";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";

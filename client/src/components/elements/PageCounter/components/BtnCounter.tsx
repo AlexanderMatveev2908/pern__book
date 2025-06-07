@@ -1,4 +1,5 @@
 import { FC, useState } from "react";
+import s from "./BtnCounter.module.css";
 
 type PropsType = {
   handleClick: () => void;
@@ -17,7 +18,9 @@ const BtnCounter: FC<PropsType> = ({ handleClick, isIn, val, isDisabled }) => {
       onClick={handleClick}
       disabled={isDisabled}
       type="button"
-      className={`btn appearance-none border-3 rounded-xl px-4 py-1 flex justify-center items-center
+      className={`${
+        s.btn
+      } appearance-none border-3 rounded-xl px-4 py-1 flex justify-center items-center
      ${isIn || isHover ? "border-blue-600" : "border-neutral-600 "}`}
       style={
         {

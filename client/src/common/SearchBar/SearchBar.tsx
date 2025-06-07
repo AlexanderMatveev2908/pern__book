@@ -10,7 +10,7 @@ import {
 import TxtInputs from "./components/TxtInputs/TxtInputs";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
-import SkeletonBar from "./components/SkeletonBar";
+import SkeletonBar from "./SkeletonBar/SkeletonBar";
 import { useLocation, useParams } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
