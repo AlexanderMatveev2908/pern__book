@@ -1,3 +1,4 @@
+import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import WrapTxt from "@/components/elements/WrapPairTxt/WrapTxt";
 import {
@@ -9,6 +10,7 @@ import {
 import { BookStoreType } from "@/types/all/bookStore";
 import { CartItemType, CartType } from "@/types/all/Cart";
 import { useMemo, type FC } from "react";
+import { MdError } from "react-icons/md";
 
 type PropsType = {
   store: BookStoreType;
@@ -37,19 +39,33 @@ const SummaryByStore: FC<PropsType> = ({ store, items }) => {
         }`}
       >
         <div className="w-full flex justify-center gap-10">
-          <WrapTxt
-            {...{
-              txt: storeClosed ? store!.name : "Sold by",
-              customStyle: "txt__3",
-            }}
-          />
+          {storeClosed ? (
+            <SpanInfoCard
+              {...{
+                spanInfo: {
+                  icon: MdError,
+                  label: "This business has been closed",
+                },
+                customStyleIcon: "text-red-600",
+              }}
+            />
+          ) : (
+            <>
+              <WrapTxt
+                {...{
+                  txt: "Sold by",
+                  customStyle: "txt__3",
+                }}
+              />
 
-          <WrapTxt
-            {...{
-              txt: storeClosed ? "has closed his activity" : store!.name,
-              customStyle: "txt__3",
-            }}
-          />
+              <WrapTxt
+                {...{
+                  txt: store!.name,
+                  customStyle: "txt__3",
+                }}
+              />
+            </>
+          )}
         </div>
       </div>
 

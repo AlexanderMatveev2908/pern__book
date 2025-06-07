@@ -104,7 +104,7 @@ const FormQty: FC<PropsType> = ({ el }) => {
   return (
     <form
       onSubmit={handleSave}
-      className={`${s.form_qty} w-full items-center grid grid-cols-1 gap-y-5`}
+      className={`${s.form_qty} w-full items-center grid grid-cols-1 gap-y-5 gap-x-5`}
     >
       {!el!.book?.deletedAt && (
         <div className="w-full flex">
