@@ -11,7 +11,7 @@ import { getCloudID } from "../../lib/utils/ids.js";
 import { captAll } from "../../lib/utils/formatters.js";
 import { delArrCloud } from "../../lib/cloud/delete.js";
 import { handleAssetsBooksPut } from "../../lib/sharedHandlers/assetsHandlers/books.js";
-import { User } from "../../models/models.js";
+import { User } from "../../models/all/User.js";
 
 export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID, body } = req;

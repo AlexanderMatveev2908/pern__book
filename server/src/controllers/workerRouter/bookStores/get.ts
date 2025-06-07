@@ -1,29 +1,23 @@
 import { Response } from "express";
-import { ReqApp, UserRole } from "../../../types/types.js";
+import { ReqApp } from "../../../types/types.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
-import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
-import { Order } from "../../../models/all/Order.js";
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
 import { calcPagination } from "../../../lib/query/pagination.js";
-import { FindAttributeOptions, literal, Op } from "sequelize";
-import { countTo_5 } from "../../../lib/utils/utils.js";
-import { replacePoint } from "../../../lib/dataStructures.js";
-import { Literal } from "sequelize/lib/utils";
-import { OrderStage } from "../../../types/all/orders.js";
-import { capChar } from "../../../lib/utils/formatters.js";
-import { User } from "../../../models/models.js";
-import { err403, err404 } from "../../../lib/responseClient/err.js";
+import { FindAttributeOptions, Op } from "sequelize";
+import { err404 } from "../../../lib/responseClient/err.js";
 import { sortItems } from "../../../lib/query/sort.js";
 import {
   calcRatingSqlStores,
   countOrdersStores,
   countStatsBooksFoStore,
 } from "../../../lib/query/general.js";
+import { OrderStore } from "../../../models/all/OrderStore.js";
+import { User } from "../../../models/all/User.js";
 
 // ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
 
@@ -84,7 +78,7 @@ export const getBookStoreWorker = async (
         ],
       },
       {
-        model: Order,
+        model: OrderStore,
         as: "orders",
       },
     ],
@@ -128,7 +122,7 @@ export const getAllStoresWorker = async (
         as: "video",
       },
       {
-        model: Order,
+        model: OrderStore,
         as: "orders",
         where: queryOrders,
         required: !!Object.keys(queryOrders).length,

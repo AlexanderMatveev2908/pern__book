@@ -6,7 +6,6 @@ import {
   handleAssetsCloud,
 } from "../../adminBookStore/helpers/cloudUpload.js";
 import { BookStore, BookStoreInstance } from "../../../models/all/BookStore.js";
-import { User } from "../../../models/models.js";
 import { err404, err500 } from "../../../lib/responseClient/err.js";
 import { seq } from "../../../config/db.js";
 import {
@@ -16,6 +15,7 @@ import {
 } from "../../../lib/sharedHandlers/assetsHandlers/store.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
+import { User } from "../../../models/all/User.js";
 
 export const updateStoreManager = async (
   req: ReqApp,

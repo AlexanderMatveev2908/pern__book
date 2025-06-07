@@ -7,14 +7,10 @@ import {
   Sequelize,
 } from "sequelize";
 import { TokenEventType } from "../../types/types.js";
-import { v4 } from "uuid";
 import { refSql, schemaID } from "./utils/helpers.js";
 
-export class Token extends Model<
-  InferAttributes<Token>,
-  InferCreationAttributes<Token>
-> {
-  id!: CreationOptional<string>;
+export class Token extends Model {
+  id!: string;
   event!: TokenEventType;
   hashed!: string;
   expiry!: number;

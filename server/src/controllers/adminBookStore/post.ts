@@ -9,7 +9,7 @@ import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { clearUnnecessary, handleAssetsCloud } from "./helpers/cloudUpload.js";
 import { addMandatoryKeys, addOptKeys, makeTeam } from "./helpers/storeData.js";
-import { User } from "../../models/models.js";
+import { User } from "../../models/all/User.js";
 
 export const createBookStore = async (
   req: ReqApp,

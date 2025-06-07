@@ -43,6 +43,8 @@ const start = async () => {
   try {
     await connectDB();
 
+    // await syncDB();
+
     await new Promise<void>((res, rej) => {
       server.once("error", rej);
       server.listen(PORT, "0.0.0.0", res);

@@ -1,9 +1,9 @@
 import { JWTPayload } from "jose";
 import jwt from "jsonwebtoken";
 import { mySign } from "../../config/env.js";
-import { UserInstance } from "../../models/models.js";
 import { expiryAccess } from "./expiryTime.js";
 import { ReqApp } from "../../types/types.js";
+import { UserInstance } from "../../models/all/User.js";
 
 export interface PayloadJWT extends JWTPayload {
   id: string;

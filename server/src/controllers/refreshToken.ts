@@ -1,6 +1,5 @@
 import { Response } from "express";
 import { MsgErrSession, ReqApp } from "../types/types.js";
-import { User } from "../models/models.js";
 import {
   checkJWE,
   clearCookie,
@@ -10,6 +9,7 @@ import { clearTokensByExpired } from "../lib/clearData/clearData.js";
 import { genAccessJWT, prepareHeader } from "../lib/hashEncryptSign/JWT.js";
 import { err401, err404 } from "../lib/responseClient/err.js";
 import { res200 } from "../lib/responseClient/res.js";
+import { User } from "../models/all/User.js";
 
 const fail = async (res: Response, accessExp?: string | null) => {
   clearCookie(res);

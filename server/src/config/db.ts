@@ -2,9 +2,9 @@ import dotenv from "dotenv";
 dotenv.config();
 import { Sequelize } from "sequelize";
 import fs from "fs";
-import { bindModels } from "../models/models.js";
 import { calcTimeRun, getCaDir } from "../lib/utils/utils.js";
 import { decryptCert, encryptCert } from "../lib/hashEncryptSign/cbcHmac.js";
+import { bindModels } from "../models/all/bind/bind.js";
 
 const seq = new Sequelize(process.env.URI_AIVEN!, {
   dialect: "postgres",

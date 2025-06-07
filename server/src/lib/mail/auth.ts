@@ -1,6 +1,6 @@
 import { frontURL, myMail } from "../../config/env.js";
 import mailer from "../../config/mail.js";
-import { UserInstance } from "../../models/models.js";
+import { UserInstance } from "../../models/all/User.js";
 import { TokenEventType } from "../../types/types.js";
 import { getHtmlMail } from "./html/template.js";
 
