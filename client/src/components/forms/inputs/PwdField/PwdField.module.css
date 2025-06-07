@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+.btn {
+  @apply cursor-pointer;
+  transition: 0.3s;
+}
+
+.btn:hover {
+  @apply text-blue-600 scale-130;
+}
+.btn:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}
