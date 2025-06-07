@@ -1,5 +1,6 @@
 import { FC, ReactNode } from "react";
 import { FaChevronLeft, FaChevronRight } from "react-icons/fa";
+import s from "./ButtonsSwapper.module.css";
 
 type PropsType = {
   currForm: number;
@@ -25,9 +26,9 @@ const ButtonsSwapper: FC<PropsType> = ({
           if (currForm) setCurrForm(currForm - 1);
         }}
         disabled={!currForm}
-        className={`justify-self-start ${
+        className={`${s.button_swapper} justify-self-start ${
           currForm ? "group" : ""
-        } ${"button_swapper"}`}
+        }`}
       >
         <FaChevronLeft className="icon__sm icon__with_txt" />
       </button>

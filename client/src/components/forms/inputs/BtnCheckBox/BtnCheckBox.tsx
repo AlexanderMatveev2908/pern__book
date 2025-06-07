@@ -1,6 +1,7 @@
 import { capt } from "@/core/lib/lib";
 import { FC, useState } from "react";
 import { IconType } from "react-icons/lib";
+import s from "./BtnCheckBox.module.css";
 
 type PropsType = {
   handleClick: () => void;
@@ -34,8 +35,10 @@ const BtnCheckBox: FC<PropsType> = ({
       }}
       type="button"
       disabled={isDisabled}
-      className={`w-full max-w-[275px] rounded-xl px-5 py-2 flex gap-5 justify-center 
-     appearance-none outline-0 items-center transition-all duration-300 enabled:cursor-pointer btn_checkbox ${
+      className={`${
+        s.btn_checkbox
+      } w-full max-w-[275px] rounded-xl px-5 py-2 flex gap-5 justify-center 
+     appearance-none outline-0 items-center transition-all duration-300 enabled:cursor-pointer  ${
        isIn ? "border-blue-600 text-blue-600" : ""
      }`}
       style={

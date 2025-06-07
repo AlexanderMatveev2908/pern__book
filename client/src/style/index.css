@@ -651,45 +651,6 @@ button:disabled {
   /* transform: scale(var(--start__scale)); */
 }
 
-.btn_checkbox {
-  transition: 0.3s;
-  border: 2px solid var(--border_btn_check);
-  transform: scale(var(--scale_btn_check));
-}
-.btn_checkbox:enabled:hover {
-  transform: scale(var(--scale_btn_check_hover));
-  color: var(--color_btn_check);
-  border: 2px solid var(--border_btn_check);
-}
-.btn_checkbox:enabled:active {
-  transition: 0.1s;
-  transform: scale(0.8);
-}
-
-.button_swapper {
-  @apply border-2 border-blue-600 rounded-xl p-2 flex justify-center items-center enabled:cursor-pointer transition-all duration-300 disabled:opacity-50;
-}
-.button_swapper:enabled:hover {
-  transition: 0.3s;
-  transform: scale(1.1);
-}
-.button_swapper:enabled:active {
-  transition: 0.1s;
-  transform: scale(0.9);
-}
-
-.pwd_field .btn {
-  @apply cursor-pointer;
-  transition: 0.3s;
-}
-.pwd_field .btn:hover {
-  @apply text-blue-600 scale-130;
-}
-.pwd_field .btn:active {
-  transition: 0.1s;
-  transform: scale(0.8);
-}
-
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
