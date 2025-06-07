@@ -56,7 +56,7 @@ const BtnResults: FC<PropsType> = ({
             handleSearch,
             hasFormErrs,
             labelTxt,
-            styleTxt: "txt",
+            styleTxt: s.txt,
             isFetching: res?.isFetching,
           }}
         />
@@ -66,7 +66,7 @@ const BtnResults: FC<PropsType> = ({
           {...{
             handleClear,
             isPending: isPending.clear,
-            styleTxt: "txt",
+            styleTxt: s.txt,
             isFetching: res?.isFetching,
           }}
         />
