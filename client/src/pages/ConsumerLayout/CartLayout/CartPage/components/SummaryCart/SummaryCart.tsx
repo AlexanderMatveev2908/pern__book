@@ -9,6 +9,7 @@ import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { BtnAct } from "@/types/types";
 import { FaAngleDoubleUp } from "react-icons/fa";
 import { calcTotPriceCart, getDeliveryPrice } from "@/core/lib/all/utils/calc";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
@@ -22,6 +23,8 @@ const checkoutLabel = {
 
 const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
   const [isFooterOpen, setIsFooterOpen] = useState(true);
+
+  const nav = useNavigate();
 
   const totalCart = useMemo(() => {
     const arr = Object.values(groupedByStoreID ?? {});
@@ -46,6 +49,10 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
 
     return tot;
   }, [groupedByStoreID]);
+
+  const handleClick = () => {
+    nav("/consumer/checkout");
+  };
 
   return (
     <div
@@ -82,6 +89,8 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
             label: checkoutLabel.label,
             Icon: checkoutLabel.icon,
             act: BtnAct.DO,
+            isDisabled: !totalCart,
+            handleClick,
           }}
         />
       </div>
