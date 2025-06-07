@@ -11,6 +11,7 @@ import {
   fieldEmailWorker,
   fieldSelectWorkerRole,
 } from "@/core/config/fieldsData/bookStores/forms";
+import s from "../BookStoreForm.module.css";
 
 const btnRemoveWorker = {
   icon: AiOutlineUserDelete,
@@ -106,7 +107,7 @@ const TeamForm: FC = () => {
             border ? "" : "border-[2px] border-blue-600 rounded-xl"
           }`}
         >
-          <div className="sub_form ">
+          <div className={s.sub_form}>
             <FormField
               {...{
                 control,

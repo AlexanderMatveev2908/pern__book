@@ -1,12 +1,9 @@
-.popup {
-  &.in {
-    animation: pop_in 0.6s linear forwards;
-  }
-  &.out {
-    animation: pop_out 0.25s linear forwards;
-  }
+.in {
+  animation: pop_in 0.6s linear forwards;
 }
-
+.out {
+  animation: pop_out 0.25s linear forwards;
+}
 @keyframes pop_in {
   0% {
     transform: scale(0);
