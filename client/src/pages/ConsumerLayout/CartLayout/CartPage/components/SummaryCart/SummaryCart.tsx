@@ -1,4 +1,4 @@
-import { useMemo, useState, type FC } from "react";
+import { useState, type FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
 import { CartType } from "@/types/all/Cart";
 import { priceFormatter } from "@/core/lib/lib";
@@ -8,8 +8,8 @@ import Button from "@/components/elements/buttons/Button/Button";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { BtnAct } from "@/types/types";
 import { FaAngleDoubleUp } from "react-icons/fa";
-import { calcTotPriceCart, getDeliveryPrice } from "@/core/lib/all/utils/calc";
 import { useNavigate } from "react-router-dom";
+import { useCalcTotCart } from "@/features/ConsumerLayout/CartLayout/hooks/useCalcTotCart";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
@@ -26,30 +26,9 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
 
   const nav = useNavigate();
 
-  const totalCart = useMemo(() => {
-    const arr = Object.values(groupedByStoreID ?? {});
-
-    let i = arr.length - 1;
-    let tot = 0;
-
-    while (i >= 0) {
-      const { store, items } = arr[i];
-
-      const subTotal = calcTotPriceCart(items);
-      tot += subTotal;
-      tot += subTotal
-        ? getDeliveryPrice({
-            subTotal,
-            store: store!,
-          })
-        : 0;
-
-      i--;
-    }
-
-    return tot;
-  }, [groupedByStoreID]);
-
+  const { totalCart } = useCalcTotCart({
+    groupedByStoreID,
+  });
   const handleClick = () => {
     nav("/consumer/checkout");
   };

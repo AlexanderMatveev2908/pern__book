@@ -130,12 +130,17 @@ const AddressForm: FC<PropsType> = ({
       </div>
 
       {!isDisabled && (
-        <div className="form__size w-full justify-self-center grid grid-cols-1 sm:grid-cols-2 gap-5 justify-items-center">
-          <div className="w-[275px]">
+        <div
+          className="form__size w-full justify-self-center grid gap-5 justify-items-center"
+          style={{
+            gridTemplateColumns: "repeat(auto-fit, minmax(250px, 1fr))",
+          }}
+        >
+          <div className="w-[250px]">
             <MapsBtn {...{ setValue }} />
           </div>
           {btnProfile && (
-            <div className="w-[275px]">
+            <div className="w-[250px]">
               <QuickFillBtn {...{ setValue, keysUser }} />
             </div>
           )}

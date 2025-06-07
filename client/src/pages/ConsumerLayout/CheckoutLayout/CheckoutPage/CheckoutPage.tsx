@@ -1,24 +1,24 @@
-import AddressForm from "@/common/forms/AddressForm/AddressForm";
 import Title from "@/components/elements/Title";
-import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { useFocus } from "@/core/hooks/hooks";
-import { isObjOk } from "@/core/lib/lib";
+import { isArrOk, isObjOk } from "@/core/lib/lib";
 import {
   CheckoutAddress,
   schemaCheckoutAddress,
 } from "@/features/ConsumerLayout/CheckoutLayout/forms/schema";
-import { fieldsSwapProfile } from "@/features/UserLayout/fields/profile";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, type FC } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
+import LeftPageForm from "./components/LeftPageForm";
+import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
+import { useMixUserCartAsyncStates } from "@/features/ConsumerLayout/CartLayout/hooks/useMixUserCartAsyncStates";
+import BriefSummary from "./components/BriefSummary";
 
 const CheckoutPage: FC = () => {
-  const { user, isLoading } = useGetU();
+  const { cart, isLoading, user, isError, error } = useMixUserCartAsyncStates();
 
   const formCTX = useForm<CheckoutAddress>({
     resolver: zodResolver(schemaCheckoutAddress),
@@ -60,23 +60,23 @@ const CheckoutPage: FC = () => {
 
   useCLearTab();
 
+  const { groupedByStoreID } = useGroupItemsByStore({ cart });
+
   return (
-    <WrapPageAPI {...{ isLoading }}>
+    <WrapPageAPI
+      {...{
+        isLoading,
+        isError,
+        error,
+        isSuccess: isObjOk(user) && isArrOk(cart?.items),
+      }}
+    >
       <Title {...{ title: "checkout" }} />
+      <div className="w-full grid grid-cols-1 lg:grid-cols-2">
+        <LeftPageForm {...{ currForm, formCTX }} />
 
-      <div className="w-full flex justify-center">
-        <BreadCrumbForm {...{ currForm, totLen: 2 }} />
+        <BriefSummary />
       </div>
-
-      <FormProvider {...formCTX}>
-        <AddressForm
-          {...{
-            swapID: "swapCheckoutForm",
-            btnProfile: true,
-            arrAddressSwap: fieldsSwapProfile,
-          }}
-        />
-      </FormProvider>
     </WrapPageAPI>
   );
 };
