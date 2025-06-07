@@ -21,8 +21,8 @@ const TooltipBtn: FC<PropsType> = ({ handleClick, el }) => {
         <el.icon className="icon__md text-red-600" />
       </button>
       <div
-        className={`w-[150px] absolute el__border_sm py-1 px-3 bg-[#000] -top-[130%] -right-[100%]  z-60 pointer-events-none transition-all duration-[0.4s] ${
-          isIn ? "translate-y-0 opacity-100" : "translate-y-[30px] opacity-0"
+        className={`w-[150px] absolute el__border_sm py-1 px-3 bg-[#000] -top-[200%] -right-[100%]  z-60 pointer-events-none transition-all duration-[0.4s] ${
+          isIn ? "translate-y-0 opacity-100" : "translate-y-[50px] opacity-0"
         }`}
       >
         <span className="txt__1">{el.label}</span>

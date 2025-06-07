@@ -1,4 +1,4 @@
-import { useEffect, useRef, type FC } from "react";
+import { useEffect, useMemo, useRef, type FC } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
@@ -101,12 +101,14 @@ const FormQty: FC<PropsType> = ({ el }) => {
     if (!res) return;
   };
 
+  const showAll = useMemo(() => !el!.book?.deletedAt && !!+el.book!.qty, [el]);
+
   return (
     <form
       onSubmit={handleSave}
       className={`${s.form_qty} w-full items-center grid grid-cols-1 gap-y-5 gap-x-5`}
     >
-      {!el!.book?.deletedAt && (
+      {showAll && (
         <div className="w-full flex">
           <div className="w-full relative">
             <Controller
@@ -138,12 +140,12 @@ const FormQty: FC<PropsType> = ({ el }) => {
 
       <div
         className={`${s.parent_btns} w-full grid gap-x-4 items-center  ${
-          el!.book?.deletedAt
-            ? "grid-cols-1 justify-items-end col-span-2"
-            : "grid-cols-2 justify-items-center"
+          showAll
+            ? "grid-cols-2 justify-items-center"
+            : "grid-cols-1 justify-items-end col-span-2"
         }`}
       >
-        {!el!.book?.deletedAt && (
+        {showAll && (
           <div className="w-full max-w-[75px]">
             <ButtonIcon
               {...{

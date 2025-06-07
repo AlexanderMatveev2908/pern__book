@@ -1,17 +1,14 @@
 import { useMemo, useState, type FC } from "react";
 import { CartItemsGroupedType } from "../../CartPage";
 import { CartType } from "@/types/all/Cart";
-import {
-  calcTotPriceCart,
-  getDeliveryPrice,
-  priceFormatter,
-} from "@/core/lib/lib";
+import { priceFormatter } from "@/core/lib/lib";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import FormCoupon from "./components/FormCoupon";
 import Button from "@/components/elements/buttons/Button/Button";
 import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { BtnAct } from "@/types/types";
 import { FaAngleDoubleUp } from "react-icons/fa";
+import { calcTotPriceCart, getDeliveryPrice } from "@/core/lib/all/utils/calc";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
@@ -37,10 +34,12 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
 
       const subTotal = calcTotPriceCart(items);
       tot += subTotal;
-      tot += getDeliveryPrice({
-        subTotal,
-        store: store!,
-      });
+      tot += subTotal
+        ? getDeliveryPrice({
+            subTotal,
+            store: store!,
+          })
+        : 0;
 
       i--;
     }
