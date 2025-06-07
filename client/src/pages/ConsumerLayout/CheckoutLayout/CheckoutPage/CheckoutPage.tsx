@@ -1,7 +1,11 @@
 import AddressForm from "@/common/forms/AddressForm/AddressForm";
 import Title from "@/components/elements/Title";
+import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
+import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { isObjOk } from "@/core/lib/lib";
 import {
   CheckoutAddress,
@@ -19,7 +23,7 @@ const CheckoutPage: FC = () => {
     resolver: zodResolver(schemaCheckoutAddress),
     mode: "onChange",
   });
-  const { setValue } = formCTX;
+  const { setValue, setFocus } = formCTX;
 
   useEffect(() => {
     const keys = ["country", "state", "city", "street", "zipCode", "phone"];
@@ -38,9 +42,24 @@ const CheckoutPage: FC = () => {
     }
   }, [user, setValue]);
 
+  const {
+    state: { currSwapState, currForm },
+  } = useSwapCtxConsumer();
+  useFocusAddress({
+    setFocus,
+    currSwapState: currSwapState,
+    currForm: currForm,
+  });
+
+  useCLearTab();
+
   return (
     <WrapPageAPI {...{ isLoading }}>
       <Title {...{ title: "checkout" }} />
+
+      <div className="w-full flex justify-center">
+        <BreadCrumbForm {...{ currForm, totLen: 2 }} />
+      </div>
 
       <FormProvider {...formCTX}>
         <AddressForm
