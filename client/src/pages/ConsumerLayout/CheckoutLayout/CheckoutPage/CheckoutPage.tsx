@@ -77,9 +77,11 @@ const CheckoutPage: FC = () => {
     >
       <Title {...{ title: "checkout" }} />
       <div className="w-full grid grid-cols-1 xl:grid-cols-2 justify-items-center gap-x-8 gap-y-10">
-        <LeftPageForm {...{ currForm, formCTX, handleSave }} />
-
         <BriefSummary {...{ groupedByStoreID }} />
+
+        <LeftPageForm
+          {...{ currForm, formCTX, handleSave, groupedByStoreID }}
+        />
       </div>
     </WrapPageAPI>
   );
