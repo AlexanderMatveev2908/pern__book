@@ -11,6 +11,7 @@ import DropInputs from "../TxtInputs/DropInputs";
 import SearchBtn from "./components/SearchBtn";
 import CLearBtn from "./components/ClearBtn";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import s from "./ButtonsForm.module.css";
 
 type PropsType = {
   txtInputs?: FormFieldBasic[];
@@ -54,9 +55,13 @@ const ButtonsForm: FC<PropsType> = ({
   });
 
   return (
-    <div className="w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 left_btns">
-      <div className="w-full grid grid-cols-2 lg:grid-cols-[1fr_75px] gap-x-10 items-center right_btns">
-        <div className={`w-full justify-self-center relative  btn_main`}>
+    <div
+      className={`${s.left_btns} w-full grid grid-cols-1 h-fit items-start gap-y-5 gap-x-10 `}
+    >
+      <div
+        className={`${s.right_btns} w-full grid grid-cols-2 lg:grid-cols-[1fr_75px] gap-x-10 items-center `}
+      >
+        <div className={`${s.btn_main} w-full justify-self-center relative  `}>
           <ButtonIcon
             {...{
               handleClick: () => {
@@ -67,7 +72,7 @@ const ButtonsForm: FC<PropsType> = ({
                   makeDelay(() => setFocus(errNumbers.currEl.field), 0);
                 }
               },
-              styleTxt: "txt",
+              styleTxt: s.txt,
               el: {
                 icon: IoFilter,
                 label: "Filter",
@@ -84,26 +89,26 @@ const ButtonsForm: FC<PropsType> = ({
       </div>
 
       <div className="w-full grid grid-cols-2 gap-x-10 items-center">
-        <div className={`w-full justify-self-center btn_main`}>
+        <div className={`${s.btn_main} w-full justify-self-center `}>
           <SearchBtn
             {...{
               hasFormErrs,
               isPending: isPending.submit,
               isFetching: res?.isFetching,
               handleSearch,
-              styleTxt: "txt",
+              styleTxt: s.txt,
             }}
           />
         </div>
         <div
-          className={`w-full btn_main  sm:justify-self-center   justify-self-end`}
+          className={`${s.btn_main} w-full   sm:justify-self-center   justify-self-end`}
         >
           <CLearBtn
             {...{
               isFetching: res?.isFetching,
               handleClear,
               isPending: isPending.clear,
-              styleTxt: "txt",
+              styleTxt: s.txt,
             }}
           />
         </div>

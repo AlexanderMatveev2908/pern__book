@@ -4,8 +4,9 @@ import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch
 import { FormFieldBasic } from "@/types/types";
 import { useMemo, type FC } from "react";
 import { useFormContext } from "react-hook-form";
-import SearchBtn from "../../Buttons/components/SearchBtn";
-import CLearBtn from "../../Buttons/components/ClearBtn";
+import SearchBtn from "../../../Buttons/components/SearchBtn";
+import CLearBtn from "../../../Buttons/components/ClearBtn";
+import s from "./BtnResults.module.css";
 
 type PropsType = {
   res: any;
@@ -48,7 +49,7 @@ const BtnResults: FC<PropsType> = ({
 
   return (
     <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
-      <div className={`w-full btn_secondary`}>
+      <div className={`${s.btn_secondary} w-full `}>
         <SearchBtn
           {...{
             isPending: isPending.submit,
@@ -60,7 +61,7 @@ const BtnResults: FC<PropsType> = ({
           }}
         />
       </div>
-      <div className={`w-full btn_secondary`}>
+      <div className={`${s.btn_secondary} w-full `}>
         <CLearBtn
           {...{
             handleClear,
