@@ -1,5 +1,6 @@
 import { FC } from "react";
 import { BtnAct } from "@/types/types";
+import s from "./MiniSpinner.module.css";
 
 type PropsType = {
   act?: BtnAct;
@@ -15,7 +16,9 @@ const styles = new Map([
 const MiniSpinner: FC<PropsType> = ({ act = BtnAct.INFO }) => {
   return (
     <div
-      className={`w-[30px] h-[30px] border-[4px] border-r-transparent border-b-transparent rounded-full mini_spinner ${styles.get(
+      className={`${
+        s.mini_spinner
+      } w-[30px] h-[30px] border-[4px] border-r-transparent border-b-transparent rounded-full  ${styles.get(
         act
       )}`}
     ></div>
