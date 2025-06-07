@@ -9,7 +9,11 @@ type PropsType = {
 
 const SummaryPriceItem: FC<PropsType> = ({ el }) => {
   return (
-    <div className="w-full grid grid-cols-1 gap-y-3 h-fit ">
+    <div
+      className={`w-full grid grid-cols-1 gap-y-3 h-fit ${
+        el.book?.deletedAt ? "opacity-50" : ""
+      }`}
+    >
       <WrapPairTxt
         {...{ arg: ["price per item", priceFormatter(el.book!.price)] }}
       />
