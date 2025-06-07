@@ -285,7 +285,7 @@ button:disabled {
 }
 @media screen and (min-width: 600px) {
   .list_items_app .card .body_card .content {
-    @apply grid-cols-[200px_1fr];
+    grid-template-columns: 200px 1fr;
   }
 }
 .list_items_app .card .body_card .content .images_wrapper {
@@ -744,16 +744,25 @@ button:disabled {
   }
 }
 
-.cart_item {
+.wrapper_cart_item .cart_item {
   display: grid;
   grid-template-columns: 1fr;
+  max-height: fit-content;
 }
-
 @media screen and (min-width: 600px) {
-  .cart_item_with_imgs {
+  .wrapper_cart_item .cart_item.cart_item_with_imgs {
     grid-template-columns: 175px 1fr;
   }
 }
+@media screen and (min-width: 450px) {
+  .wrapper_cart_item .form_qty {
+    grid-template-columns: 1fr 2fr;
+  }
+  .wrapper_cart_item .form_qty .parent_btns {
+    justify-items: end;
+  }
+}
+
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
