@@ -1,22 +1,23 @@
+@import "tailwindcss";
+
 .button {
   @apply relative;
   transition: 0.3s;
-
-  &:enabled:hover {
-    transform: scale(1.1);
-    background-color: var(--main__btn_bg);
-    cursor: pointer;
-  }
-  &:enabled:active {
-    transition: 0.1s;
-    transform: scale(0.9);
-  }
-
-  .bubble {
-    animation: explode 0.5s ease-in-out forwards;
-  }
 }
 
+.button:enabled:hover {
+  transform: scale(1.1);
+  background-color: var(--main__btn_bg);
+  cursor: pointer;
+}
+.button:enabled:active {
+  transition: 0.1s;
+  transform: scale(0.9);
+}
+
+.bubble {
+  animation: explode 0.5s ease-in-out forwards;
+}
 @keyframes explode {
   0% {
     transform: translate(0, 0) scale(0);
