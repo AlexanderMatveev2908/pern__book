@@ -299,14 +299,11 @@ button:disabled {
   grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
 }
 
-.book_store_form .sub_form {
-  @apply w-full grid grid-cols-1 sm:grid-cols-2 gap-y-3 gap-x-10;
-}
-
-.popup.in {
+.in {
   animation: pop_in 0.6s linear forwards;
 }
-.popup.out {
+
+.out {
   animation: pop_out 0.25s linear forwards;
 }
 
