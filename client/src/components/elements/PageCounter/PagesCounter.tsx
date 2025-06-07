@@ -178,7 +178,9 @@ const PagesCounter: FC<PropsType> = ({
     hasFormErrs,
   ]);
 
-  return !totPages ? null : (
+  return !totPages ? (
+    <div className="h-[40vh]"></div>
+  ) : (
     <div className=" w-full h-[50px] mt-[150px] grid grid-cols-[50px_1fr_50px] items-center gap-5">
       {currBlock ? (
         <button
