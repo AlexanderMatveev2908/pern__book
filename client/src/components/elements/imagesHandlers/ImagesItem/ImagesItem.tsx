@@ -1,6 +1,7 @@
 import { AssetCloudType } from "@/types/types";
 import { FC } from "react";
 import ImgLoaderHandler from "../ImgLoaderHandler/ImgLoaderHandler";
+import s from "./ImagesItem.module.css";
 
 type PropsType = {
   images?: AssetCloudType[] | null;
@@ -13,7 +14,7 @@ const ImagesItem: FC<PropsType> = ({ images }) => {
         {images.map((el) => (
           <div
             key={el.publicID}
-            className="w-full rounded-xl overflow-hidden border-2 border-neutral-800 snap-center wrapper"
+            className={`${s.wrapper} w-full rounded-xl overflow-hidden border-2 border-neutral-800 snap-center `}
           >
             <ImgLoaderHandler {...{ url: el.url }} />
           </div>
