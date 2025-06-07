@@ -18,6 +18,7 @@
 .bubble {
   animation: explode 0.5s ease-in-out forwards;
 }
+
 @keyframes explode {
   0% {
     transform: translate(0, 0) scale(0);

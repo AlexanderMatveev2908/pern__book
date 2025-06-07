@@ -409,43 +409,6 @@ button:disabled {
     width: 0;
   }
 }
-@media (min-width: 500px) {
-  .search_bar .left_btns {
-    @apply grid-cols-2;
-  }
-}
-@media (min-width: 500px) {
-  .search_bar .right_btns {
-    @apply order-2;
-  }
-}
-.search_bar .btn_main {
-  @apply max-w-[75px] lg:max-w-[200px];
-}
-.search_bar .btn_main .txt {
-  @apply hidden lg:block;
-}
-.search_bar .btn_secondary {
-  @apply max-w-[75px] sm:max-w-[200px];
-}
-.search_bar .btn_secondary .txt {
-  @apply hidden sm:block;
-}
-
-.search_bar__skeleton {
-  background: linear-gradient(90deg, #222 25%, #333 50%, #222 75%);
-  background-size: 200% 100%;
-  animation: skeleton_search 1.5s infinite linear;
-}
-
-@keyframes skeleton_search {
-  0% {
-    background-position: 200% 0;
-  }
-  100% {
-    background-position: -200% 0;
-  }
-}
 /* 
 IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
 */
