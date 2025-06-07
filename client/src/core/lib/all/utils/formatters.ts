@@ -1,7 +1,3 @@
-import { CartItemType } from "@/types/all/Cart";
-import { isWeekend, format } from "date-fns";
-import { BookStoreType } from "@/types/all/bookStore";
-
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
   `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;
@@ -108,43 +104,3 @@ export const formatD = (date: string | Date) =>
     minute: "numeric",
     weekday: "short",
   }).format(new Date(date));
-
-export const calcPriceItem = (qty: number, price: number) =>
-  priceFormatter(qty * price);
-
-export const calcTotPriceCart = (arg: CartItemType[]) =>
-  arg.reduce(
-    (acc, curr) =>
-      curr!.book?.deletedAt ? acc : acc + curr.qty * curr!.book!.price,
-    0
-  );
-
-export const getExpectedDeliveredDay = ({
-  daysToAdd,
-}: {
-  daysToAdd: number;
-}) => {
-  const currDate = new Date();
-  let addedDays = 0;
-
-  while (addedDays < daysToAdd) {
-    currDate.setDate(currDate.getDate() + 1);
-
-    if (!isWeekend(currDate)) addedDays++;
-  }
-
-  return format(currDate, "EEE, dd MMM yyyy");
-};
-
-export const getDeliveryPrice = ({
-  subTotal,
-  store,
-}: {
-  subTotal: number;
-  store: BookStoreType;
-}) => {
-  if (!+store!.deliveryPrice! || store?.deletedAt) return 0;
-  if (!+store!.freeDeliveryAmount!) return +store!.deliveryPrice!;
-
-  return subTotal > +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;
-};

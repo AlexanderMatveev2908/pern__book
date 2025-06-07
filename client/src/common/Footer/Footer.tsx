@@ -7,6 +7,7 @@ import {
   FooterLinkType,
   gitLinks,
 } from "@/features/common/Footer/fields/footer";
+import { HappyGhost } from "@/components/svgs";
 
 const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
   <div className="w-full grid grid-cols-1 max-w-full gap-5 text-gray-300">
@@ -41,8 +42,8 @@ const Footer: FC = () => {
         path.includes("/consumer/cart") ? "pb-[75px]" : "pb-10"
       }`}
     >
-      <Link to="/" className="text-blue-600 w-fit">
-        <span className="txt__5">LOGO</span>
+      <Link to="/" className="">
+        <HappyGhost className="w-[100px] h-[100px]" fill="#000" />
       </Link>
 
       <div className="w-full max-w-full grid grid-cols-1 gap-x-10 gap-y-5 md:grid-cols-2">

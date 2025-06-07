@@ -77,7 +77,8 @@ export const updateStoreManager = async (
     const updatedData: Partial<BookStoreInstance> = {};
 
     for (const k of managersKeysPut) {
-      updatedData[k as keyof BookStoreInstance] = bodyData[k] || null;
+      updatedData[k as keyof BookStoreInstance] =
+        bodyData[k] || (k === "description" ? null : 0);
     }
 
     updatedData.lastUpdatedBy = user!.email;
