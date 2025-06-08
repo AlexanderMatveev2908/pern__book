@@ -13,7 +13,7 @@ export const getUserProfile = async (
 ): Promise<any> => {
   const { userID } = req;
 
-  tErr();
+  // tErr();
 
   if (!userID) return res204(res);
 
