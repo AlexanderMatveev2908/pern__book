@@ -5,8 +5,17 @@ import { OrderState } from "../../types/all/orders.js";
 export class Order extends Model {
   id!: CreationOptional<string>;
   paymentID!: string;
-  clientSecret!: string;
   discount!: number;
+  totAmount!: number;
+  stage!: OrderState;
+  userID?: string;
+
+  country!: string;
+  state!: string;
+  city!: string;
+  street!: string;
+  zipCode!: string;
+  phone!: string;
 }
 
 export type OrderInstance = InstanceType<typeof Order>;
@@ -17,6 +26,8 @@ export const defineOrder = (seq: Sequelize) =>
       ...schemaID(),
       userID: refSql("users", { allowNull: true }),
 
+      ...schemaAddress({ allowNull: false }),
+
       paymentID: {
         type: DataTypes.STRING,
         allowNull: true,
@@ -26,16 +37,12 @@ export const defineOrder = (seq: Sequelize) =>
         type: DataTypes.STRING,
         allowNull: false,
         defaultValue: "pending",
-        validate: {
-          enumVals(val: string) {
-            if (!Object.values(OrderState).includes(val as OrderState))
-              throw new Error("Invalid state");
-            return true;
-          },
-        },
       },
 
-      ...schemaAddress({ allowNull: false }),
+      totAmount: {
+        type: DataTypes.DECIMAL(10, 2),
+        allowNull: false,
+      },
 
       discount: {
         type: DataTypes.DECIMAL(10, 2),

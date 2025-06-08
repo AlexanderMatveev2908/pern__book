@@ -13,3 +13,5 @@ export const captAll = (txt: string) =>
 
 export const findVal = (val: string | string[], key: string) =>
   (Array.isArray(val) && val.includes(key)) || val === key ? key : null;
+
+export const formatFloat = (val: number) => +val.toFixed(2);

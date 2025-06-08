@@ -5,9 +5,15 @@ import { getCartWithTotPrice } from "./helpers/getCart.js";
 import { seq } from "../../../config/db.js";
 import { __cg } from "../../../lib/utils/log.js";
 import { stripe } from "../../../config/stripe.js";
-import { err404, err422 } from "../../../lib/responseClient/err.js";
+import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
 import { Order } from "../../../models/all/Order.js";
-import { groupOrdersByStore } from "./helpers/groupOrders.js";
+import { calcAmountStore, groupOrdersByStore } from "./helpers/groupOrders.js";
+import { CloudImg } from "../../../types/all/cloud.js";
+import { OrderStore } from "../../../models/all/OrderStore.js";
+import { formatFloat } from "../../../lib/utils/formatters.js";
+import { reUploadImg } from "../../../lib/cloud/reUploadExisting.js";
+import { OrderItemStore } from "../../../models/all/OrderItem.js";
+import { delArrCloud } from "../../../lib/cloud/delete.js";
 
 export const getAddressCheckout = async (req: ReqApp, res: Response) => {
   const { userID, body } = req;
@@ -22,39 +28,102 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
     });
 
   const t = await seq.transaction();
+  const imagesUploaded: CloudImg[] = [];
 
   const { groupedOrders } = groupOrdersByStore(cart);
 
   try {
-    // const order = await Order.create(
-    //   {
-    //     ...body,
-    //     userID,
-    //   },
-    //   {
-    //     transaction: t,
-    //   }
-    // );
+    const order = await Order.create(
+      {
+        ...body,
+        userID,
+        totAmount: formatFloat(cart.totPrice),
+      },
+      {
+        transaction: t,
+      }
+    );
 
     for (const group of Object.values(groupedOrders)) {
       const store = group.store;
       const items = group.items;
+
+      const { totAmountStore, deliveryPrice } = calcAmountStore({
+        store,
+        items,
+      });
+
+      const storeOrder = await OrderStore.create(
+        {
+          orderID: order.id,
+          bookStoreID: store.id,
+          delivery: deliveryPrice,
+          amount: formatFloat(totAmountStore),
+        },
+        {
+          transaction: t,
+        }
+      );
+
+      for (const item of items) {
+        const imagesItem: CloudImg[] = [];
+        if (item.book?.images?.length) {
+          for (const img of item.book.images) {
+            const uploaded = await reUploadImg({
+              url: img.url,
+              folder: "order_items",
+            });
+            imagesItem.push(uploaded);
+            imagesUploaded.push(uploaded);
+          }
+        }
+
+        await OrderItemStore.create(
+          {
+            orderStoreID: storeOrder.id,
+            bookID: item!.book!.id,
+            qty: item.qty,
+            title: item!.book!.title,
+            price: item!.book!.price,
+            images: imagesItem?.length ? imagesItem : null,
+          },
+          { transaction: t }
+        );
+      }
     }
 
-    // const paymentIntent = await stripe.paymentIntents.create({
-    //   amount: +(cart.totPrice * 100).toFixed(2),
-    //   currency: "usd",
-    //   metadata: {
-    //     userID: userID!,
-    //     orderID: order.id,
-    //   },
-    // });
+    const paymentIntent = await stripe.paymentIntents.create({
+      amount: formatFloat(cart.totPrice * 100),
+      currency: "usd",
+      metadata: {
+        userID: userID!,
+        orderID: order.id,
+      },
+    });
+
+    await Order.update(
+      {
+        paymentID: paymentIntent.id,
+      },
+      {
+        where: {
+          id: order.id,
+        },
+        transaction: t,
+      }
+    );
 
     await t.commit();
+
+    return res200(res, { clientSecret: paymentIntent.client_secret });
   } catch (err) {
     await t.rollback();
 
+    if (imagesUploaded.length)
+      await delArrCloud(imagesUploaded.map((img) => img.url));
+
     __cg("fail pre checkout", err);
+
+    return err500(res);
   }
-  return res200(res, { msg: "ok" });
 };
