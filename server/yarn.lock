@@ -2739,7 +2739,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pg@npm:^8.15.5":
+"pg@npm:^8.16.0":
   version: 8.16.0
   resolution: "pg@npm:8.16.0"
   dependencies:
@@ -3207,7 +3207,7 @@ __metadata:
     nodemailer: "npm:^6.10.1"
     nodemon: "npm:^3.1.9"
     pdfkit: "npm:^0.17.1"
-    pg: "npm:^8.15.5"
+    pg: "npm:^8.16.0"
     pg-hstore: "npm:^2.3.4"
     reflect-metadata: "npm:^0.2.2"
     sequelize: "npm:^6.37.7"
