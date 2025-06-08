@@ -12,14 +12,3 @@ export const createUserSDA = async () => {
     isVerified: true,
   });
 };
-export const makeDummyUser = async () => {
-  const pwd = await hashPwd("Banana123@");
-
-  await User.create({
-    firstName: "aa",
-    lastName: "mm",
-    email: "banana@gmail.com",
-    password: pwd,
-    isVerified: true,
-  });
-};

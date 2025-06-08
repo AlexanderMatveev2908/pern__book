@@ -9,6 +9,7 @@ export const calcPriceItem = (qty: number, price: number) =>
 export const calcTotPriceCart = (arg: CartItemType[]) =>
   arg.reduce(
     (acc, curr) =>
+      // ? book deleted or out of stock skip
       curr!.book?.deletedAt || +!curr!.book?.qty
         ? acc
         : acc + curr.qty * curr!.book!.price,
@@ -42,5 +43,5 @@ export const getDeliveryPrice = ({
   if (!+store!.deliveryPrice! || store?.deletedAt) return 0;
   if (!+store!.freeDeliveryAmount!) return +store!.deliveryPrice!;
 
-  return subTotal > +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;
+  return subTotal >= +store!.freeDeliveryAmount! ? 0 : +store!.deliveryPrice!;
 };

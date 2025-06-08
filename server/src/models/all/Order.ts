@@ -19,7 +19,7 @@ export const defineOrder = (seq: Sequelize) =>
 
       paymentID: {
         type: DataTypes.STRING,
-        allowNull: false,
+        allowNull: true,
       },
 
       stage: {

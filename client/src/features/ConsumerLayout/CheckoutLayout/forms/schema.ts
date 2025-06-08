@@ -5,4 +5,4 @@ export const schemaCheckoutAddress = z.object({
   ...schemaAddress(),
 });
 
-export type CheckoutAddress = z.infer<typeof schemaCheckoutAddress>;
+export type CheckoutAddressType = z.infer<typeof schemaCheckoutAddress>;

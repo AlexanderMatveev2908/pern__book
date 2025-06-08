@@ -23,7 +23,7 @@ export const defineOrderStore = (seq: Sequelize) =>
 
       expectedArrival: {
         type: DataTypes.BIGINT,
-        allowNull: false,
+        allowNull: true,
       },
       stage: {
         type: DataTypes.STRING,

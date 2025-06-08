@@ -3,10 +3,14 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
-import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
+import {
+  useFocus,
+  useWrapMutationAPI,
+  useWrapQueryAPI,
+} from "@/core/hooks/hooks";
 import { isArrOk, isObjOk } from "@/core/lib/lib";
 import {
-  CheckoutAddress,
+  CheckoutAddressType,
   schemaCheckoutAddress,
 } from "@/features/ConsumerLayout/CheckoutLayout/forms/schema";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -24,8 +28,14 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 const CheckoutPage: FC = () => {
   const { user } = useGetU();
-  const res = checkoutSliceAPI.useGetCartCheckoutQuery();
+  const res = checkoutSliceAPI.useGetCartCheckoutQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   useWrapQueryAPI({ ...res });
+
+  const [mutate, { isLoading }] =
+    checkoutSliceAPI.useSendAddressOrderMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
 
   const { data: { cart } = {} } = res ?? {};
 
@@ -35,7 +45,7 @@ const CheckoutPage: FC = () => {
   } = ctx;
   const { setCurrForm } = usePartialSwap({ ...ctx });
 
-  const formCTX = useForm<CheckoutAddress>({
+  const formCTX = useForm<CheckoutAddressType>({
     resolver: zodResolver(schemaCheckoutAddress),
     mode: "onChange",
   });
@@ -49,7 +59,11 @@ const CheckoutPage: FC = () => {
 
   const handleSave = handleSubmit(
     async (data) => {
-      console.log(data);
+      await wrapMutationAPI({
+        cbAPI: () => mutate({ data }),
+      });
+
+      if (!res) return;
     },
     (errs) => {
       handleErrFocusCheckout(errs, setFocus, setCurrForm);
@@ -65,8 +79,8 @@ const CheckoutPage: FC = () => {
       for (const k in user) {
         if (keys.includes(k))
           setValue(
-            k as keyof CheckoutAddress,
-            user[k as keyof CheckoutAddress] ?? "",
+            k as keyof CheckoutAddressType,
+            user[k as keyof CheckoutAddressType] ?? "",
             {
               shouldValidate: true,
             }
@@ -114,6 +128,7 @@ const CheckoutPage: FC = () => {
             handleSave,
             isFormOk,
             cart: cart!,
+            isLoading,
           }}
         />
       </div>
