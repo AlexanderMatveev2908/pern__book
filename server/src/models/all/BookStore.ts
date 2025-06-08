@@ -6,7 +6,7 @@ import { ImgBookStoreType } from "./img&video/ImgBookStore.js";
 import { VideoBookStoreType } from "./img&video/VideoBookStore.js";
 import { BookStoreUserInstance } from "./BookStoreUser.js";
 import { BookInstance } from "./Book.js";
-import { refSql, schemaID } from "./utils/helpers.js";
+import { refSql, schemaAddress, schemaID } from "./utils/helpers.js";
 
 export interface TeamType {
   email: string;
@@ -108,30 +108,7 @@ export const defineBookStore = (seq: Sequelize) =>
         allowNull: true,
       },
 
-      country: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      state: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      city: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      street: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      zipCode: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      phone: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      ...schemaAddress({ allowNull: false }),
 
       lastUpdatedBy: {
         type: DataTypes.STRING,

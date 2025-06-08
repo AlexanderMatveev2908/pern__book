@@ -21,3 +21,30 @@ export const refSql = (
     key: "id",
   },
 });
+
+export const schemaAddress = ({ allowNull }: { allowNull: boolean }) => ({
+  country: {
+    type: DataTypes.STRING,
+    allowNull,
+  },
+  state: {
+    type: DataTypes.STRING,
+    allowNull,
+  },
+  city: {
+    type: DataTypes.STRING,
+    allowNull,
+  },
+  street: {
+    type: DataTypes.STRING,
+    allowNull,
+  },
+  zipCode: {
+    type: DataTypes.STRING,
+    allowNull,
+  },
+  phone: {
+    type: DataTypes.STRING,
+    allowNull,
+  },
+});

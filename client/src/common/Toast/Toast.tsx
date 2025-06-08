@@ -3,11 +3,13 @@ import { IoClose } from "react-icons/io5";
 import {
   closeToast,
   getToast,
-  reopenToast,
+  openToast,
+  ToastType,
 } from "../../features/common/Toast/toastSlice";
 import { useDispatch, useSelector } from "react-redux";
 import { EventApp } from "@/types/types";
 import s from "./Toast.module.css";
+import { clearTimer } from "@/core/lib/lib";
 
 /* IMPORTANT => {
 THE FLOW TO MAKE IN A WAY THE ALL WORK IN RIGHT DIRECTION FOR SMOOTH UI AND SYNC IS 
@@ -44,70 +46,88 @@ const getBorder = (type: EventApp) => styles?.[type]?.border;
 const getTxt = (type: EventApp) => styles?.[type]?.text;
 const getBg = (type: EventApp) => styles?.[type]?.bg;
 
+// ? ⚠️ COULD SEEM I USED TOO MANY REFS, MAYBE IS TRUE I DO NOT KNOW, BUT I STRONGLY RECOMMEND NO NOT USE TOO MANY STATES LIKE PREV, CLICKS ETC IN STATES BECAUSE CAN EASILY TRIGGER INFINITE LOOPS IN MANY CIRCUMSTANCES (ACCESS-REFRESH FLOW AUTH WOULD BE ONE THAT IS ALREADY TRICKY IN SOME STEPS)
+
 const Toast: FC = () => {
   const toastRef = useRef<HTMLDivElement | null>(null);
   const counterRef = useRef<HTMLDivElement | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
   const clickRef = useRef<boolean>(false);
+  const prevToastRef = useRef<boolean>(null);
+  const savedToast = useRef<ToastType | null>(null);
 
   const toastState = useSelector(getToast);
-  const { toast, isToast, isToastPrev } = toastState;
+  const { toast, isToast } = toastState;
   const dispatch = useDispatch();
 
-  const animateIn = useCallback(() => {
+  const clearPrevAmv = useCallback(() => {
+    // ? CLEAR PREV ANIMATION OR NEW WON'T WORK AS EXPECTED
     (toastRef.current as HTMLDivElement).classList.remove(s.out);
     (counterRef.current as HTMLDivElement).classList.remove(s.timer);
+  }, []);
+
+  const handleExpiredTimer = useCallback(() => {
+    // ? TIMER EXPIRED MUST RESPECT 100% USER INTERACTION OR NO ANIMATION JUST BORING TRANSITION
+
+    timerRef.current = setTimeout(() => {
+      clearTimer(timerRef);
+      clickRef.current = true;
+      prevToastRef.current = false;
+      dispatch(closeToast());
+    }, 3000);
+  }, [dispatch]);
+
+  const animateIn = useCallback(() => {
+    clearPrevAmv();
+    prevToastRef.current = true;
 
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add(s.in);
       counterRef?.current?.classList.add(s.timer);
     });
 
-    timerRef.current = setTimeout(() => {
-      clearTimeout(timerRef.current as NodeJS.Timeout);
-      timerRef.current = null;
-      clickRef.current = true;
-      dispatch(closeToast());
-    }, 3000);
-  }, [dispatch]);
+    handleExpiredTimer();
+  }, [clearPrevAmv, handleExpiredTimer]);
 
   const animateOut = useCallback(() => {
+    prevToastRef.current = false;
     clickRef.current = false;
-    toastRef?.current?.classList.remove(s.in);
-    (counterRef.current as HTMLDivElement).classList.remove(s.timer);
-    clearTimeout(timerRef.current as NodeJS.Timeout);
-    timerRef.current = null;
+    clearPrevAmv();
+    clearTimer(timerRef);
 
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add(s.out);
     });
-  }, []);
+  }, [clearPrevAmv]);
 
   const animatePrev = useCallback(() => {
-    toastRef?.current?.classList.remove(s.in);
-    counterRef?.current?.classList.remove(s.timer);
+    clearPrevAmv();
+    savedToast.current = toast;
+    prevToastRef.current = true;
 
+    dispatch(closeToast());
+    clickRef.current = true;
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add(s.out);
     });
-    clearTimeout(timerRef.current as NodeJS.Timeout);
-    timerRef.current = null;
+    clearTimer(timerRef);
 
     setTimeout(() => {
-      dispatch(reopenToast());
-    }, 300);
-  }, [dispatch]);
+      // ? JUST TRIGGER RERENDER THEN OPEN TOAST HANDLER WILL MANAGE LOGIC ALREADY BUILD ABOVE
+      dispatch(openToast(savedToast.current as ToastType));
+    }, 500);
+  }, [dispatch, toast, clearPrevAmv]);
 
   useEffect(() => {
     const animate = () => {
       if (!toastRef || !counterRef) return;
 
-      if (isToast && isToastPrev) animatePrev();
-      else if (isToast && !isToastPrev) animateIn();
+      if (isToast && prevToastRef.current) animatePrev();
+      else if (isToast && !prevToastRef.current) animateIn();
       else if (!isToast && clickRef.current) animateOut();
     };
     animate();
-  }, [isToast, animateIn, animateOut, animatePrev, isToastPrev]);
+  }, [isToast, animateIn, animateOut, animatePrev, toast]);
 
   useEffect(() => {}, []);
 

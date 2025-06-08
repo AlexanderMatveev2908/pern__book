@@ -11,7 +11,7 @@ import { calcTimeRun } from "../../lib/utils/utils.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { ThumbInstance } from "./img&video/Thumb.js";
 import { captAll } from "../../lib/utils/formatters.js";
-import { schemaID } from "./utils/helpers.js";
+import { schemaAddress, schemaID } from "./utils/helpers.js";
 import { CartInstance } from "./Cart.js";
 import { BookStoreInstance } from "./BookStore.js";
 
@@ -114,30 +114,7 @@ const defineUser = (seq: Sequelize) =>
         allowNull: false,
         defaultValue: false,
       },
-      country: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      state: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      city: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      street: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      zipCode: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
-      phone: {
-        type: DataTypes.STRING,
-        allowNull: true,
-      },
+      ...schemaAddress({ allowNull: true }),
     },
     {
       sequelize: seq,

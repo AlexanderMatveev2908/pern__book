@@ -1,5 +1,5 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
-import { refSql, schemaID } from "./utils/helpers.js";
+import { refSql, schemaAddress, schemaID } from "./utils/helpers.js";
 import { OrderState } from "../../types/all/orders.js";
 
 export class Order extends Model {
@@ -34,6 +34,8 @@ export const defineOrder = (seq: Sequelize) =>
           },
         },
       },
+
+      ...schemaAddress({ allowNull: false }),
 
       discount: {
         type: DataTypes.DECIMAL(10, 2),
