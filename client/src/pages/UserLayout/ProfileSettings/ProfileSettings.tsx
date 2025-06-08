@@ -22,7 +22,7 @@ import { useUpdateProfileMutation } from "@/features/UserLayout/userSliceAPI";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";

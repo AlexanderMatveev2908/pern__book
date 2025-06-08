@@ -13,6 +13,7 @@ import http from "http";
 import { clearDB } from "./stuff/clear.js";
 import { populateDB } from "./stuff/populateDB.js";
 import { makeDummyUser } from "./stuff/sda.js";
+import routerWebhook from "./routes/webHooks.js";
 
 const app = express();
 const PORT = process.env.PORT ? +process.env.PORT : 3000;
@@ -20,6 +21,8 @@ const PORT = process.env.PORT ? +process.env.PORT : 3000;
 app.set("trust proxy", 1);
 
 const server = http.createServer(app);
+
+app.use("/api/v1/webhooks", routerWebhook);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));

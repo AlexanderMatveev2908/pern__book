@@ -15,10 +15,11 @@ import { useForm } from "react-hook-form";
 import LeftPageForm from "./components/LeftPageForm";
 import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
 import { useMixUserCartAsyncStates } from "@/features/ConsumerLayout/CartLayout/hooks/useMixUserCartAsyncStates";
-import BriefSummary from "./components/BriefSummary";
+import BriefSummary from "./components/BriefSummary/BriefSummary";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
-import { usePartialSwap } from "@/core/hooks/all/forms/usePartialSwap";
 import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
+import s from "./CheckoutPage.module.css";
+import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
 
 const CheckoutPage: FC = () => {
   const { cart, isLoading, user, isError, error } = useMixUserCartAsyncStates();
@@ -98,7 +99,9 @@ const CheckoutPage: FC = () => {
       }}
     >
       <Title {...{ title: "checkout" }} />
-      <div className="w-full grid grid-cols-1 xl:grid-cols-2 justify-items-center gap-x-8 gap-y-10">
+      <div
+        className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
+      >
         <BriefSummary {...{ groupedByStoreID }} />
 
         <LeftPageForm
