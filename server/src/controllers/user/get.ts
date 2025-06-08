@@ -5,12 +5,15 @@ import { Thumb } from "../../models/all/img&video/Thumb.js";
 import { literal } from "sequelize";
 import { err404 } from "../../lib/responseClient/err.js";
 import { User } from "../../models/all/User.js";
+import { tErr } from "../../stuff/quick.js";
 
 export const getUserProfile = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
   const { userID } = req;
+
+  tErr();
 
   if (!userID) return res204(res);
 

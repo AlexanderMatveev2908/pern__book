@@ -8,6 +8,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { EventApp } from "@/types/types";
 import s from "./Toast.module.css";
+import { clearTimer } from "@/core/lib/lib";
 
 /* IMPORTANT => {
 THE FLOW TO MAKE IN A WAY THE ALL WORK IN RIGHT DIRECTION FOR SMOOTH UI AND SYNC IS 
@@ -64,8 +65,7 @@ const Toast: FC = () => {
     });
 
     timerRef.current = setTimeout(() => {
-      clearTimeout(timerRef.current as NodeJS.Timeout);
-      timerRef.current = null;
+      clearTimer(timerRef);
       clickRef.current = true;
       dispatch(closeToast());
     }, 3000);
@@ -75,8 +75,7 @@ const Toast: FC = () => {
     clickRef.current = false;
     toastRef?.current?.classList.remove(s.in);
     (counterRef.current as HTMLDivElement).classList.remove(s.timer);
-    clearTimeout(timerRef.current as NodeJS.Timeout);
-    timerRef.current = null;
+    clearTimer(timerRef);
 
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add(s.out);
@@ -90,8 +89,7 @@ const Toast: FC = () => {
     requestAnimationFrame(() => {
       toastRef?.current?.classList.add(s.out);
     });
-    clearTimeout(timerRef.current as NodeJS.Timeout);
-    timerRef.current = null;
+    clearTimer(timerRef);
 
     setTimeout(() => {
       dispatch(reopenToast());
