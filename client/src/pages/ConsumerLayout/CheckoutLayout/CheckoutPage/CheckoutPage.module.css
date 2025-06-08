@@ -1,0 +1,6 @@
+@import "tailwindcss";
+
+@media screen and (min-width: 1200px) {
+  .checkout_page {
+  }
+}

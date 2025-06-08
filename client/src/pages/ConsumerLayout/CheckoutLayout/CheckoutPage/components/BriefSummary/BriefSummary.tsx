@@ -2,10 +2,11 @@ import Title from "@/components/elements/Title";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { CartItemsGroupedType } from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
 import type { FC } from "react";
-import SummaryStoreItem from "./components/SummaryStoreItem";
+import SummaryStoreItem from "../components/SummaryStoreItem";
 import { useCalcTotCart } from "@/features/ConsumerLayout/CartLayout/hooks/useCalcTotCart";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import { priceFormatter } from "@/core/lib/lib";
+import s from "./BriefSummary.module.css";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
@@ -22,7 +23,9 @@ const BriefSummary: FC<PropsType> = ({ groupedByStoreID }) => {
   const { totalCart } = useCalcTotCart({ groupedByStoreID });
 
   return (
-    <div className="w-full grid grid-cols-1 justify-items-center h-fit gap-y-6">
+    <div
+      className={`${s.brief_summary} w-full grid grid-cols-1 justify-items-center h-fit gap-y-6 xl:order-2`}
+    >
       <Title {...{ title: "summary", styleTxt: "txt__4" }} />
 
       <div className="w-full max-w-[500px] sm:max-w-[600px] border-[3px] border-neutral-800 rounded-xl gap-y-6 grid grid-cols-1 ">

@@ -4,7 +4,7 @@ import {
   RegisterParamsAPI,
   useRegisterUserMutation,
 } from "@/features/AuthLayout/authSliceAPI";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import {
   useFocus,

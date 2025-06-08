@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { makeDelay, validateSwapper } from "@/core/lib/lib";
+import { validateSwapper } from "@/core/lib/lib";
 import { useCallback, useEffect } from "react";
 import { FieldErrors, UseFormWatch } from "react-hook-form";
 import { FormFieldBasic } from "@/types/types";
@@ -11,6 +11,7 @@ import {
   ActionsSwap,
   SwapAddressActions,
 } from "@/core/contexts/SwapCtx/ctx/actions";
+import { usePartialSwap } from "./usePartialSwap";
 
 type Params = {
   state: SwapAddressStateType;
@@ -40,23 +41,8 @@ export const useFormSwap = ({
 }: Params): ReturnSwapType => {
   const { currForm, isNextDisabled } = state;
 
-  const setCurrForm = useCallback(
-    (val: number, swapMode: SwapModeType | null = SwapModeType.SWAPPED) => {
-      if (typeof customSwapCB === "function") customSwapCB();
+  const { setCurrForm } = usePartialSwap({ state, dispatch, customSwapCB });
 
-      dispatch({ type: ActionsSwap.SET_SWAP, payload: val });
-      if (val < state.currForm)
-        dispatch({ type: ActionsSwap.SET_NEXT_DISABLED, payload: false });
-
-      makeDelay(() => {
-        dispatch({
-          type: ActionsSwap.SET_SWAP_STATE,
-          payload: swapMode,
-        });
-      }, 500);
-    },
-    [customSwapCB, state.currForm, dispatch]
-  );
   const setNextDisabled = useCallback(
     (val: boolean) =>
       dispatch({ type: ActionsSwap.SET_NEXT_DISABLED, payload: val }),

@@ -21,7 +21,6 @@ export const usePartialSwap = ({ state, dispatch, customSwapCB }: Params) => {
   const setCurrForm = useCallback(
     (val: number, swapMode: SwapModeType | null = SwapModeType.SWAPPED) => {
       // ? pass null to avoid focus if u do not want to
-
       if (typeof customSwapCB === "function") customSwapCB();
 
       dispatch({ type: ActionsSwap.SET_SWAP, payload: val });
