@@ -37,3 +37,6 @@ export const isArrEq = (arr_1: any[], arr_2: any[]) => {
 
 export const isArrOk = (arr?: any) =>
   Array.isArray(arr) && !!arr.length && arr.every((el) => isObjOk(el));
+
+export const isLenStr = (str: string | undefined, minLen: number) =>
+  (str?.trim()?.length ?? 0) >= minLen;

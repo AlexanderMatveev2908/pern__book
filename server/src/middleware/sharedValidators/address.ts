@@ -7,12 +7,14 @@ import {
   REG_STREET,
   REG_ZIP,
 } from "../../config/regex.js";
-import { validateNull } from "../../lib/dataStructures.js";
+import { isLenStr, validateNull } from "../../lib/dataStructures.js";
 
 export const validateAddress = (opt: boolean = false) => [
   check("country")
     .custom((val) => {
       if (opt && validateNull(val)) return true;
+
+      if (!opt && !isLenStr(val, 2)) throw new Error("Country is required");
 
       if (!REG_COUNTRY.test(val)) throw new Error("Invalid country");
 
@@ -24,6 +26,8 @@ export const validateAddress = (opt: boolean = false) => [
     .custom((val) => {
       if (opt && validateNull(val)) return true;
 
+      if (!opt && !isLenStr(val, 2)) throw new Error("State is required");
+
       if (!REG_STATE.test(val)) throw new Error("Invalid state");
 
       return true;
@@ -33,6 +37,8 @@ export const validateAddress = (opt: boolean = false) => [
   check("city")
     .custom((val) => {
       if (opt && validateNull(val)) return true;
+
+      if (!opt && !isLenStr(val, 2)) throw new Error("City is required");
 
       if (!REG_CITY.test(val)) throw new Error("Invalid city");
 
@@ -44,6 +50,8 @@ export const validateAddress = (opt: boolean = false) => [
   check("street")
     .custom((val) => {
       if (opt && validateNull(val)) return true;
+
+      if (!opt && !isLenStr(val, 4)) throw new Error("Street is required");
 
       if (!REG_STREET.test(val)) throw new Error("Invalid street");
 

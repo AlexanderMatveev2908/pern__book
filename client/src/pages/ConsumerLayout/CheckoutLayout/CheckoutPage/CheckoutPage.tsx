@@ -24,7 +24,9 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 const CheckoutPage: FC = () => {
   const { user } = useGetU();
-  const res = checkoutSliceAPI.useGetCartCheckoutQuery();
+  const res = checkoutSliceAPI.useGetCartCheckoutQuery(undefined, {
+    refetchOnMountOrArgChange: true,
+  });
   useWrapQueryAPI({ ...res });
 
   const { data: { cart } = {} } = res ?? {};
