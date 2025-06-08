@@ -30,6 +30,7 @@ export const bindModels = (seq: Sequelize) => {
   const Cart = defineCart(seq);
   const CartItem = defineCartItem(seq);
   const OrderStore = defineOrderStore(seq);
+  const OrderItemStore = defineOrderStore(seq);
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
@@ -115,6 +116,24 @@ export const bindModels = (seq: Sequelize) => {
   BookStore.hasMany(OrderStore, {
     foreignKey: "bookStoreID",
     as: "orders",
+  });
+
+  OrderItemStore.belongsTo(OrderStore, {
+    foreignKey: "orderStoreID",
+    as: "orderStore",
+  });
+  OrderStore.hasMany(OrderItemStore, {
+    foreignKey: "orderStoreID",
+    as: "orderItemStores",
+  });
+
+  OrderItemStore.belongsTo(Book, {
+    foreignKey: "bookID",
+    as: "book",
+  });
+  Book.hasMany(OrderItemStore, {
+    foreignKey: "bookID",
+    as: "orderItemStores",
   });
 
   Review.belongsTo(User, {
