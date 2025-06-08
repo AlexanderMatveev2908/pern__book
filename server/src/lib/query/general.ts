@@ -3,7 +3,7 @@ import { capChar, findVal } from "../utils/formatters.js";
 import { countTo_5 } from "../utils/utils.js";
 import { parseArrFromStr, replacePoint } from "../dataStructures.js";
 import { Literal } from "sequelize/lib/utils";
-import { OrderStage } from "../../types/all/orders.js";
+import { StoreOrderStage } from "../../types/all/orders.js";
 
 export const handleQueryDelivery = ({
   val,
@@ -186,7 +186,7 @@ export const calcRatingSqlStores = (): [Literal, string][] => [
   ],
 ];
 
-const countOrdersSql = (stage: OrderStage): Literal =>
+const countOrdersSql = (stage: StoreOrderStage): Literal =>
   literal(`(SELECT COALESCE(COUNT(DISTINCT o."id"), 0)
     FROM "orders_stores" AS o
     WHERE o."stage" = '${stage}'
@@ -204,7 +204,7 @@ export const countOrdersStores = (): [Literal, string][] => [
         WHERE o."bookStoreID" = "BookStore"."id"
         AND o."deletedAt" IS NULL
       ),
-      ${Object.values(OrderStage)
+      ${Object.values(StoreOrderStage)
         .map((stage) => {
           const k = "orders" + capChar(stage) + capChar("count");
           const sql = countOrdersSql(stage);

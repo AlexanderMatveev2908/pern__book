@@ -1,4 +1,4 @@
-export enum OrderStage {
+export enum StoreOrderStage {
   PENDING = "pending",
   PAID = "paid",
   PROCESSING = "processing",
@@ -7,4 +7,13 @@ export enum OrderStage {
   COMPLETED = "completed",
   CANCELLED = "cancelled",
   REFUNDED = "refunded",
+}
+
+export enum OrderState {
+  PENDING = "pending",
+  PAID = "paid",
+  CANCELLED = "cancelled",
+  REFUNDED = "refunded",
+  PARTIALLY_REFUNDED = "partially_refunded",
+  COMPLETED = "completed",
 }

@@ -1,5 +1,6 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaID } from "./utils/helpers.js";
+import { OrderState } from "../../types/all/orders.js";
 
 export class Order extends Model {
   id!: CreationOptional<string>;
@@ -20,9 +21,18 @@ export const defineOrder = (seq: Sequelize) =>
         type: DataTypes.STRING,
         allowNull: false,
       },
-      clientSecret: {
+
+      stage: {
         type: DataTypes.STRING,
         allowNull: false,
+        defaultValue: "pending",
+        validate: {
+          enumVals(val: string) {
+            if (!Object.values(OrderState).includes(val as OrderState))
+              throw new Error("Invalid state");
+            return true;
+          },
+        },
       },
 
       discount: {

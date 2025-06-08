@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt, formatD, formatValDel, priceFormatter } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
-import { OrderStage } from "@/types/all/orders";
+import { StoreOrderStage } from "@/types/all/orders";
 import { FaMapMarkerAlt, FaWarehouse } from "react-icons/fa";
 import { RiTeamFill } from "react-icons/ri";
 import { v4 } from "uuid";
@@ -40,7 +40,7 @@ export const statsOrders = (store?: BookStoreType) =>
       label: "Total Orders",
       val: store?.ordersStats?.ordersCount,
     },
-    ...Object.values(OrderStage).map((el) => ({
+    ...Object.values(StoreOrderStage).map((el) => ({
       label: capt(el),
       val: (store as any)?.ordersStats?.[
         `orders${capt(el)}Count` as keyof BookStoreType

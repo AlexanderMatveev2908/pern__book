@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt } from "@/core/lib/lib";
 import { CatBookStore } from "@/types/all/bookStore";
-import { DeliveryType, OrderStage } from "@/types/all/orders";
+import { DeliveryType, StoreOrderStage } from "@/types/all/orders";
 import { FilterSearch, NumericFilterSearch } from "@/types/types";
 import { CiDeliveryTruck } from "react-icons/ci";
 import {
@@ -47,7 +47,7 @@ export const filtersOrders: Omit<FilterSearch, "id"> = {
   label: "Orders",
   field: "orders",
   icon: TbTruckDelivery,
-  fields: Object.values(OrderStage).map((el) => ({
+  fields: Object.values(StoreOrderStage).map((el) => ({
     label: capt(el),
     val: el,
   })),

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ratingRanges } from "@/features/common/SearchBar/fields/general";
 import { CatBookStore } from "@/types/all/bookStore";
-import { DeliveryType, OrderStage } from "@/types/all/orders";
+import { DeliveryType, StoreOrderStage } from "@/types/all/orders";
 import { z } from "zod";
 import { schemaInt, schemaPrice } from "./general";
 import { isValidNumber } from "@/core/lib/lib";
@@ -26,7 +26,7 @@ export const generalFiltersStoreSchema = z.object({
     .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))
     .optional(),
   orders: z
-    .array(z.enum(Object.values(OrderStage) as [string, ...string[]]))
+    .array(z.enum(Object.values(StoreOrderStage) as [string, ...string[]]))
     .optional(),
   delivery: z
     .array(z.enum(Object.values(DeliveryType) as [string, ...string[]]))

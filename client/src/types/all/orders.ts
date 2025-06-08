@@ -1,4 +1,4 @@
-export enum OrderStage {
+export enum StoreOrderStage {
   PENDING = "pending",
   PAID = "paid",
   PROCESSING = "processing",
