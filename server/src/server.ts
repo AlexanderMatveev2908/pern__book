@@ -12,7 +12,6 @@ import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
 import { clearDB } from "./stuff/clear.js";
 import { populateDB } from "./stuff/populateDB.js";
-import { makeDummyUser } from "./stuff/sda.js";
 import routerWebhook from "./routes/webHooks.js";
 
 const app = express();

@@ -16,6 +16,7 @@ type PropsType = {
   formCTX: UseFormReturn<any>;
   handleSave: () => void;
   cart: CartType;
+  isLoading: boolean;
 };
 
 const LeftPageForm: FC<PropsType> = ({
@@ -23,6 +24,7 @@ const LeftPageForm: FC<PropsType> = ({
   formCTX,
   handleSave,
   cart,
+  isLoading,
 }) => {
   return (
     <form onSubmit={handleSave} className="w-full grid grid-cols-1 gap-y-5">
@@ -57,6 +59,7 @@ const LeftPageForm: FC<PropsType> = ({
                 act: BtnAct.DO,
                 label: "Save & Continue",
                 styleTxt: "txt__3",
+                isAging: isLoading,
                 // isDisabled: !isFormOk,
               }}
             />
