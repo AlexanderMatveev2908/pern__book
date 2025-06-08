@@ -1,15 +1,15 @@
 import express from "express";
-import authRouter from "./all/auth.js";
-import profileRouter from "./all/user.js";
-import verifyRouter from "./all/verify.js";
-import routerRefresh from "./all/refresh.js";
-import sendMailRouter from "./all/sendEmail.js";
-import adminExpressRouterStore from "./all/adminBookStore.js";
-import dummyRouter from "./all/dummy.js";
-import adminBookRouter from "./all/adminBooks.js";
+import authRouter from "./routes/auth.js";
+import profileRouter from "./routes/user.js";
+import verifyRouter from "./routes/verify.js";
+import routerRefresh from "./routes/refresh.js";
+import sendMailRouter from "./routes/sendEmail.js";
+import adminExpressRouterStore from "./routes/adminBookStore.js";
+import dummyRouter from "./routes/dummy.js";
+import adminBookRouter from "./routes/adminBooks.js";
 import { verifyAccessToken } from "../middleware/protected/verifyAccessToken.js";
-import workerRouter from "./all/workerRoutes/workerRoutes.js";
-import consumerRouter from "./all/consumerRoutes/consumer.js";
+import workerRouter from "./routes/workerRoutes/workerRoutes.js";
+import consumerRouter from "./routes/consumerRoutes/consumer.js";
 
 const routerApp = express.Router();
 
