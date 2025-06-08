@@ -8,7 +8,7 @@ const consumerRouter = express.Router();
 
 consumerRouter.use("/books", consumerBooksRouter);
 consumerRouter.use("/cart", verifyAccessToken({}), cartRouter);
-consumerBooksRouter.use(
+consumerRouter.use(
   "/checkout",
   verifyAccessToken({ isVerified: true }),
   checkoutRouter

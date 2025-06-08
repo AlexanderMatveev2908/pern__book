@@ -2,25 +2,24 @@ import Title from "@/components/elements/Title";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { CartItemsGroupedType } from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
 import type { FC } from "react";
-import SummaryStoreItem from "../components/SummaryStoreItem";
-import { useCalcTotCart } from "@/features/ConsumerLayout/CartLayout/hooks/useCalcTotCart";
+import SummaryStoreItem from "./components/SummaryStoreItem";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import { priceFormatter } from "@/core/lib/lib";
 import s from "./BriefSummary.module.css";
+import { CartType } from "@/types/all/Cart";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
+  cart: CartType;
 };
 
-const BriefSummary: FC<PropsType> = ({ groupedByStoreID }) => {
+const BriefSummary: FC<PropsType> = ({ groupedByStoreID, cart }) => {
   const ids = useCreateIds({
     lengths: [
       Object.keys(groupedByStoreID).length,
       ...Object.values(groupedByStoreID).map(({ items }) => items?.length),
     ],
   });
-
-  const { totalCart } = useCalcTotCart({ groupedByStoreID });
 
   return (
     <div
@@ -29,10 +28,10 @@ const BriefSummary: FC<PropsType> = ({ groupedByStoreID }) => {
       <Title {...{ title: "summary", styleTxt: "txt__4" }} />
 
       <div className="w-full max-w-[500px] sm:max-w-[600px] border-[3px] border-neutral-800 rounded-xl gap-y-6 grid grid-cols-1 ">
-        <div className="w-full sticky top-0 bg-neutral-950 z-60 grid grid-cols-1 pb-2 border-b-2 border-blue-600 py-2 gap-y-3 rounded-t-xl">
+        <div className="w-full sticky top-0 bg-neutral-950 z-60 grid grid-cols-1 pb-2 border-b-2 border-blue-600 py-2 gap-y-2 rounded-t-xl">
           <WrapPairTxt
             {...{
-              arg: ["subtotal", priceFormatter(totalCart)],
+              arg: ["subtotal", priceFormatter(cart!.totPrice)],
               customStyles: [
                 "justify-self-center txt__2",
                 "justify-self-center txt__2",
@@ -50,7 +49,7 @@ const BriefSummary: FC<PropsType> = ({ groupedByStoreID }) => {
           />
           <WrapPairTxt
             {...{
-              arg: ["Total", priceFormatter(totalCart)],
+              arg: ["Total", priceFormatter(cart!.totPrice)],
               customStyles: [
                 "justify-self-center txt__3",
                 "justify-self-center txt__3",
