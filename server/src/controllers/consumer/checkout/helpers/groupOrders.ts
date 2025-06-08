@@ -1,3 +1,4 @@
+import { formatFloat } from "../../../../lib/utils/formatters.js";
 import { BookStoreInstance } from "../../../../models/all/BookStore.js";
 import { CartInstance } from "../../../../models/all/Cart.js";
 import { CartItemInstance } from "../../../../models/all/CartItem.js";
@@ -31,4 +32,28 @@ export const groupOrdersByStore = (
   );
 
   return { groupedOrders: groupedOrders };
+};
+
+export const calcAmountStore = ({
+  store,
+  items,
+}: {
+  store: BookStoreInstance;
+  items: CartItemInstance[];
+}) => {
+  const totAmountStore = items.reduce(
+    (acc, curr) => acc + +curr.book!.price * curr.qty,
+    0
+  );
+
+  const deliveryPrice = +store!.deliveryPrice!
+    ? +totAmountStore >= +store.freeDeliveryAmount!
+      ? 0
+      : +store!.deliveryPrice!
+    : 0;
+
+  return {
+    totAmountStore: formatFloat(totAmountStore),
+    deliveryPrice,
+  };
 };

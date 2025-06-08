@@ -15,6 +15,7 @@ import { defineTestClass } from "../Test.js";
 import { defineCart } from "../Cart.js";
 import { defineCartItem } from "../CartItem.js";
 import { defineOrderStore } from "../OrderStore.js";
+import { defineOrderItemStore } from "../OrderItem.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);
@@ -30,7 +31,7 @@ export const bindModels = (seq: Sequelize) => {
   const Cart = defineCart(seq);
   const CartItem = defineCartItem(seq);
   const OrderStore = defineOrderStore(seq);
-  const OrderItemStore = defineOrderStore(seq);
+  const OrderItemStore = defineOrderItemStore(seq);
 
   definePairRSA(seq);
   defineKeyCbcHmac(seq);
