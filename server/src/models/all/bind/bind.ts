@@ -167,7 +167,6 @@ export const bindModels = (seq: Sequelize) => {
   });
   Book.hasMany(CartItem, {
     foreignKey: "bookID",
-    as: "items",
-    onDelete: "CASCADE",
+    as: "bookItems",
   });
 };

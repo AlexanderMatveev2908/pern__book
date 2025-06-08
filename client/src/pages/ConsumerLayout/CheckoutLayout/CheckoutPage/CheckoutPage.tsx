@@ -3,7 +3,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
-import { useFocus } from "@/core/hooks/hooks";
+import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { isArrOk, isObjOk } from "@/core/lib/lib";
 import {
   CheckoutAddress,
@@ -14,15 +14,20 @@ import { useEffect, type FC } from "react";
 import { useForm } from "react-hook-form";
 import LeftPageForm from "./components/LeftPageForm";
 import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
-import { useMixUserCartAsyncStates } from "@/features/ConsumerLayout/CartLayout/hooks/useMixUserCartAsyncStates";
 import BriefSummary from "./components/BriefSummary/BriefSummary";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
 import s from "./CheckoutPage.module.css";
 import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
+import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 const CheckoutPage: FC = () => {
-  const { cart, isLoading, user, isError, error } = useMixUserCartAsyncStates();
+  const { user } = useGetU();
+  const res = checkoutSliceAPI.useGetCartCheckoutQuery();
+  useWrapQueryAPI({ ...res });
+
+  const { data: { cart } = {} } = res ?? {};
 
   const ctx = useSwapCtxConsumer();
   const {
@@ -92,9 +97,7 @@ const CheckoutPage: FC = () => {
   return (
     <WrapPageAPI
       {...{
-        isLoading,
-        isError,
-        error,
+        ...res,
         isSuccess: isObjOk(user) && isArrOk(cart?.items),
       }}
     >
@@ -102,10 +105,16 @@ const CheckoutPage: FC = () => {
       <div
         className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
       >
-        <BriefSummary {...{ groupedByStoreID }} />
+        <BriefSummary {...{ groupedByStoreID, cart: cart! }} />
 
         <LeftPageForm
-          {...{ currForm, formCTX, handleSave, groupedByStoreID, isFormOk }}
+          {...{
+            currForm,
+            formCTX,
+            handleSave,
+            isFormOk,
+            cart: cart!,
+          }}
         />
       </div>
     </WrapPageAPI>

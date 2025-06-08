@@ -13,4 +13,6 @@ export type CartType = {
   id: string;
   userID: string;
   items: CartItemType[];
+
+  totPrice?: number;
 };
