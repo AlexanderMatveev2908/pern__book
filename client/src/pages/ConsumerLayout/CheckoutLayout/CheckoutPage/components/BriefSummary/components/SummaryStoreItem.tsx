@@ -1,25 +1,20 @@
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { priceFormatter } from "@/core/lib/lib";
-import { useCalcSubtotalStore } from "@/features/ConsumerLayout/CartLayout/hooks/useCalcSubtotalStore";
-import { BookStoreType } from "@/types/all/bookStore";
-import { CartItemType } from "@/types/all/Cart";
+import { OrderStoreType } from "@/types/all/orders";
 import type { FC } from "react";
 
 type PropsType = {
-  store: BookStoreType;
-  items: CartItemType[];
+  el: OrderStoreType;
 };
 
-const SummaryStoreItem: FC<PropsType> = ({ store, items }) => {
-  const { subTotal, deliveryPrice } = useCalcSubtotalStore({ items, store });
-
-  return !subTotal ? null : (
+const SummaryStoreItem: FC<PropsType> = ({ el }) => {
+  return (
     <div className="w-full flex flex-col items-center pl-4 border-l-2 border-blue-600">
       <div className="w-full grid grid-cols-1 gap-y-3">
         <WrapPairTxt
           {...{
-            arg: ["Seller", store!.name],
+            arg: ["Seller", el.store!.name],
           }}
         />
 
@@ -28,26 +23,26 @@ const SummaryStoreItem: FC<PropsType> = ({ store, items }) => {
             arg: [
               "expected arrival date",
               getExpectedDeliveredDay({
-                daysToAdd: store!.deliveryTime,
+                daysToAdd: el.store!.deliveryTime,
               }),
             ],
           }}
         />
 
-        <WrapPairTxt {...{ arg: ["subtotal", priceFormatter(subTotal)] }} />
+        <WrapPairTxt {...{ arg: ["subtotal", priceFormatter(el.amount)] }} />
 
         <WrapPairTxt
           {...{
             arg: [
               "delivery price",
-              priceFormatter(deliveryPrice, "Free Delivery"),
+              priceFormatter(el.delivery, "Free Delivery"),
             ],
           }}
         />
 
         <WrapPairTxt
           {...{
-            arg: ["total", priceFormatter(subTotal + deliveryPrice)],
+            arg: ["total", priceFormatter(+el.amount + +el.delivery)],
           }}
         />
       </div>

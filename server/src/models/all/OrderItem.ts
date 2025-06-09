@@ -1,5 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaID } from "./utils/helpers.js";
+import { BookInstance } from "./Book.js";
 
 export class OrderItemStore extends Model {
   id!: string;
@@ -9,7 +10,11 @@ export class OrderItemStore extends Model {
   qty!: number;
   price!: number;
   images?: string[];
+
+  book?: BookInstance;
 }
+
+export type OrderItemStoreInstance = InstanceType<typeof OrderItemStore>;
 
 export const defineOrderItemStore = (seq: Sequelize) =>
   OrderItemStore.init(

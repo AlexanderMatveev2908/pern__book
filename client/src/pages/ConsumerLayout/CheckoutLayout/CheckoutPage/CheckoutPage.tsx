@@ -8,7 +8,7 @@ import {
   useWrapMutationAPI,
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
-import { isObjOk } from "@/core/lib/lib";
+import { isArrOk, isObjOk } from "@/core/lib/lib";
 import {
   CheckoutAddressType,
   schemaCheckoutAddress,
@@ -25,6 +25,7 @@ import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/check
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useParams } from "react-router-dom";
 import { REG_ID } from "@/core/config/regex";
+import BriefSummary from "./components/BriefSummary/BriefSummary";
 
 const CheckoutPage: FC = () => {
   const orderID = useParams()?.orderID;
@@ -39,6 +40,8 @@ const CheckoutPage: FC = () => {
     }
   );
   useWrapQueryAPI({ ...res });
+
+  const { data: { order } = {} } = res ?? [];
 
   const [mutate, { isLoading }] =
     checkoutSliceAPI.useSendAddressOrderMutation();
@@ -116,14 +119,14 @@ const CheckoutPage: FC = () => {
       {...{
         ...res,
         canStay: isValidID,
-        isSuccess: isObjOk(user),
+        isSuccess: isObjOk(user) && isArrOk(order?.orderStores),
       }}
     >
       <Title {...{ title: "checkout" }} />
       <div
         className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
       >
-        {/* <BriefSummary {...{ groupedByStoreID, cart: cart! }} /> */}
+        <BriefSummary {...{ order: order! }} />
 
         <LeftPageForm
           {...{

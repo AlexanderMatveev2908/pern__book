@@ -1,6 +1,7 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaAddress, schemaID } from "./utils/helpers.js";
 import { OrderState } from "../../types/all/orders.js";
+import { OrderStoreInstance } from "./OrderStore.js";
 
 export class Order extends Model {
   id!: CreationOptional<string>;
@@ -10,12 +11,14 @@ export class Order extends Model {
   stage!: OrderState;
   userID?: string;
 
-  country!: string;
-  state!: string;
-  city!: string;
-  street!: string;
-  zipCode!: string;
-  phone!: string;
+  county?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  zipCod?: string;
+  phone?: string;
+
+  orderStores?: OrderStoreInstance[];
 }
 
 export type OrderInstance = InstanceType<typeof Order>;
