@@ -41,8 +41,6 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
 
   const { isValid } = checkAvailabilityStock({ order });
 
-  __cg("order still valid", isValid);
-
   if (!isValid) {
     await deleteOrder(order);
     return err422(res, {

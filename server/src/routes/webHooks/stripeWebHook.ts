@@ -9,6 +9,8 @@ import Stripe from "stripe";
 export const handleStripeWebHook = (req: ReqApp, res: Response) => {
   const sig = req.headers["stripe-signature"];
 
+  console.log("run");
+
   let e;
 
   try {
@@ -36,5 +38,3 @@ export const handleStripeWebHook = (req: ReqApp, res: Response) => {
 
   return res200(res, { received: true });
 };
-
-// aa
