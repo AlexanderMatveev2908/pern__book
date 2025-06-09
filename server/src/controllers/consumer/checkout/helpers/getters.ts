@@ -3,6 +3,9 @@ import { BookStore } from "../../../../models/all/BookStore.js";
 import { Book } from "../../../../models/all/Book.js";
 import { CartItem } from "../../../../models/all/CartItem.js";
 import { Cart } from "../../../../models/all/Cart.js";
+import { Order } from "../../../../models/all/Order.js";
+import { OrderStore } from "../../../../models/all/OrderStore.js";
+import { OrderItemStore } from "../../../../models/all/OrderItem.js";
 
 export const getCartWithTotPrice = async (userID: string) => {
   const cart = await Cart.findOne({
@@ -60,4 +63,49 @@ export const getCartWithTotPrice = async (userID: string) => {
   });
 
   return { cart: cart ? cart.toJSON() : null };
+};
+
+export const getPopulatedOrder = async ({
+  orderID,
+  userID,
+}: {
+  orderID: string;
+  userID: string;
+}) => {
+  const order = await Order.findOne({
+    where: {
+      userID,
+      id: orderID,
+    },
+
+    include: [
+      {
+        model: OrderStore,
+        as: "orderStores",
+        required: true,
+        separate: true,
+        include: [
+          {
+            model: BookStore,
+            as: "store",
+            required: true,
+          },
+          {
+            model: OrderItemStore,
+            as: "orderItemStores",
+            required: true,
+            include: [
+              {
+                model: Book,
+                as: "book",
+                required: true,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  });
+
+  return { order };
 };

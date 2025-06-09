@@ -2,13 +2,9 @@ import { Response } from "express";
 import { res200 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
 import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
-import { getCartWithTotPrice } from "./helpers/getCart.js";
+import { getCartWithTotPrice, getPopulatedOrder } from "./helpers/getters.js";
 import { Order } from "../../../models/all/Order.js";
-import { OrderStore } from "../../../models/all/OrderStore.js";
-import { OrderItemStore } from "../../../models/all/OrderItem.js";
-import { Book } from "../../../models/all/Book.js";
 import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
-import { BookStore } from "../../../models/all/BookStore.js";
 import { seq } from "../../../config/db.js";
 import { deleteOrder } from "./helpers/deleteOrder.js";
 import { stripe } from "../../../config/stripe.js";
@@ -40,41 +36,7 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
   const { userID } = req;
   const { orderID } = req.params;
 
-  const order = await Order.findOne({
-    where: {
-      userID,
-      id: orderID,
-    },
-
-    include: [
-      {
-        model: OrderStore,
-        as: "orderStores",
-        required: true,
-        separate: true,
-        include: [
-          {
-            model: BookStore,
-            as: "store",
-            required: true,
-          },
-          {
-            model: OrderItemStore,
-            as: "orderItemStores",
-            required: true,
-            include: [
-              {
-                model: Book,
-                as: "book",
-                required: true,
-              },
-            ],
-          },
-        ],
-      },
-    ],
-  });
-
+  const { order } = await getPopulatedOrder({ orderID, userID: userID! });
   if (!order) return err404(res, { msg: "order not found" });
 
   const { isValid } = checkAvailabilityStock({ order });
@@ -95,6 +57,8 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
 
     try {
       paymentIntent = await stripe.paymentIntents.retrieve(order.paymentID);
+
+      __cg("payment intent success", paymentIntent);
     } catch (err) {
       // console.log(err);
     }

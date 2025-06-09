@@ -10,6 +10,7 @@ import { OrderType } from "@/types/all/orders";
 import { BtnAct } from "@/types/types";
 import { ReactNode, type FC } from "react";
 import { FormProvider, UseFormReturn } from "react-hook-form";
+import { TbShoppingBagCheck } from "react-icons/tb";
 
 type PropsType = {
   currForm: number;
@@ -61,7 +62,8 @@ const LeftPageForm: FC<PropsType> = ({
               {...{
                 type: "submit",
                 act: BtnAct.DO,
-                label: "Save & Continue",
+                Icon: TbShoppingBagCheck,
+                label: "Place order",
                 styleTxt: "txt__3",
                 isAging: isLoading,
                 // isDisabled: !isFormOk,

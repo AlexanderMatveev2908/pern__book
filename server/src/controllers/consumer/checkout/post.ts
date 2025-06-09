@@ -1,11 +1,16 @@
 import { Response } from "express";
 import { ReqApp } from "../../../types/types.js";
 import { res200 } from "../../../lib/responseClient/res.js";
-import { getCartWithTotPrice } from "./helpers/getCart.js";
+import { getCartWithTotPrice, getPopulatedOrder } from "./helpers/getters.js";
 import { seq } from "../../../config/db.js";
 import { __cg } from "../../../lib/utils/log.js";
 import { stripe } from "../../../config/stripe.js";
-import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
+import {
+  err404,
+  err409,
+  err422,
+  err500,
+} from "../../../lib/responseClient/err.js";
 import { Order } from "../../../models/all/Order.js";
 import { calcAmountStore, groupOrdersByStore } from "./helpers/groupOrders.js";
 import { CloudImg } from "../../../types/all/cloud.js";
@@ -15,6 +20,9 @@ import { reUploadImg } from "../../../lib/cloud/reUploadExisting.js";
 import { OrderItemStore } from "../../../models/all/OrderItem.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
 import { Cart } from "../../../models/all/Cart.js";
+import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
+import { deleteOrder } from "./helpers/deleteOrder.js";
+import { OrderState, StoreOrderStage } from "../../../types/all/orders.js";
 
 export const createOrder = async (req: ReqApp, res: Response) => {
   const {
@@ -126,96 +134,35 @@ export const createOrder = async (req: ReqApp, res: Response) => {
 
 export const getAddressCheckout = async (req: ReqApp, res: Response) => {
   const { userID, body } = req;
+  const { orderID } = req.params;
 
-  const { cart } = await getCartWithTotPrice(userID!);
+  const { order } = await getPopulatedOrder({ orderID, userID: userID! });
 
-  if (!cart) return err404(res, { msg: "Cart not found" });
+  if (!order) return err404(res, { msg: "Order not found" });
 
-  if (!cart.totPrice)
+  if (order.stage !== "pending")
+    return err409(res, { msg: "Order already paid" });
+
+  const { isValid } = checkAvailabilityStock({ order });
+
+  if (!isValid) {
+    await deleteOrder(order);
     return err422(res, {
-      msg: "Items not present in cart or removed from stock",
+      msg: "Entity not processable",
     });
+  }
 
   const t = await seq.transaction();
   const imagesUploaded: CloudImg[] = [];
 
-  const { groupedOrders } = groupOrdersByStore(cart);
-
   try {
-    const order = await Order.create(
-      {
-        ...body,
-        userID,
-        totAmount: formatFloat(cart.totPrice),
-      },
-      {
-        transaction: t,
-      }
-    );
-
-    for (const group of Object.values(groupedOrders)) {
-      const store = group.store;
-      const items = group.items;
-
-      const { totAmountStore, deliveryPrice } = calcAmountStore({
-        store,
-        items,
-      });
-
-      const storeOrder = await OrderStore.create(
-        {
-          orderID: order.id,
-          bookStoreID: store.id,
-          delivery: deliveryPrice,
-          amount: formatFloat(totAmountStore),
-        },
-        {
-          transaction: t,
-        }
-      );
-
-      for (const item of items) {
-        const imagesItem: CloudImg[] = [];
-        if (item.book?.images?.length) {
-          for (const img of item.book.images) {
-            const uploaded = await reUploadImg({
-              url: img.url,
-              folder: "order_items",
-            });
-            imagesItem.push(uploaded);
-            imagesUploaded.push(uploaded);
-          }
-        }
-
-        await OrderItemStore.create(
-          {
-            orderStoreID: storeOrder.id,
-            bookID: item!.book!.id,
-            qty: item.qty,
-            title: item!.book!.title,
-            price: item!.book!.price,
-            images: imagesItem?.length ? imagesItem : null,
-          },
-          { transaction: t }
-        );
-      }
-    }
-
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: formatFloat(cart.totPrice * 100),
-      currency: "usd",
-      metadata: {
-        userID: userID!,
-        orderID: order.id,
-      },
-    });
-
     await Order.update(
       {
-        paymentID: paymentIntent.id,
+        ...body,
       },
       {
         where: {
+          userID,
           id: order.id,
         },
         transaction: t,
@@ -224,7 +171,7 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
 
     await t.commit();
 
-    return res200(res, { clientSecret: paymentIntent.client_secret });
+    return res200(res, { msg: "order address saved" });
   } catch (err) {
     await t.rollback();
 

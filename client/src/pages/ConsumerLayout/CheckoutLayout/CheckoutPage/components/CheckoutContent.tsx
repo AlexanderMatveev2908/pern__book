@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, type FC } from "react";
 import BriefSummary from "./components/BriefSummary/BriefSummary";
 import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
@@ -11,7 +12,7 @@ import {
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
-import { isObjOk } from "@/core/lib/lib";
+import { __cg, isObjOk } from "@/core/lib/lib";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
@@ -25,6 +26,9 @@ import {
 } from "@stripe/react-stripe-js";
 import s from "./CheckoutContent.module.css";
 import Title from "@/components/elements/Title";
+import { useDispatch } from "react-redux";
+import { openToast } from "@/features/common/Toast/toastSlice";
+import { EventApp } from "@/types/types";
 
 type PropsType = {
   order: OrderType;
@@ -36,6 +40,8 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
   const [isPending, setIsPending] = useState(false);
 
   const { user } = useGetU();
+
+  const dispatch = useDispatch();
 
   const [mutate, { isLoading }] =
     checkoutSliceAPI.useSendAddressOrderMutation();
@@ -61,12 +67,21 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
 
   const handleSave = handleSubmit(
     async (data) => {
-      // const res = await wrapMutationAPI({
-      //   cbAPI: () => mutate({ data }),
-      // });
-      // if (!res) return;
+      const res = await wrapMutationAPI({
+        cbAPI: () => mutate({ data, orderID: order.id }),
+      });
+      if (!res) return;
 
-      if ([stripe, elements].some((el) => !isObjOk(el))) return;
+      if ([stripe, elements].some((el) => !isObjOk(el))) {
+        dispatch(
+          openToast({
+            msg: "stripe not initialized",
+            type: EventApp.ERR,
+            statusCode: 500,
+          })
+        );
+        return;
+      }
 
       setIsPending(true);
 
@@ -78,13 +93,35 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
           })) ?? {};
 
         if (error) {
-          console.log(error);
+          dispatch(
+            openToast({
+              msg: error?.message ?? "payment failed",
+              type: EventApp.ERR,
+              statusCode: 500,
+            } as any)
+          );
+          __cg("payment fail", error);
           return;
         }
 
-        console.log(paymentIntent);
+        __cg("payment is cool", paymentIntent);
+
+        dispatch(
+          openToast({
+            msg: "payment successful",
+            type: EventApp.OK,
+            statusCode: 200,
+          })
+        );
       } catch (err) {
-        console.log(err);
+        __cg("deep dummy error", err);
+        dispatch(
+          openToast({
+            msg: "my fault buddy 👻",
+            type: EventApp.ERR,
+            statusCode: 500,
+          } as any)
+        );
       } finally {
         setIsPending(false);
       }
@@ -142,7 +179,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
           formCTX,
           handleSave,
           isFormOk,
-          isLoading,
+          isLoading: isPending || isLoading,
           order,
         }}
       >

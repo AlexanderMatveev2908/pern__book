@@ -17,7 +17,7 @@ import routerWebhook from "./routes/webHooks.js";
 const app = express();
 const PORT = process.env.PORT ? +process.env.PORT : 3000;
 
-app.set("trust proxy", 1);
+app.set("trust proxy", true);
 
 const server = http.createServer(app);
 
