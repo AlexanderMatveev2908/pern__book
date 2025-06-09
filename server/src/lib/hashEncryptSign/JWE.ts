@@ -155,6 +155,8 @@ export const setCookie = (res: Response, refreshToken: string) =>
     httpOnly: true,
     secure: !isDev,
     sameSite: "strict",
+    // secure: true,
+    // sameSite: "none",
     maxAge: genExpiryJWE(),
     path: "/",
   });
@@ -164,6 +166,8 @@ export const clearCookie = (res: Response) =>
     httpOnly: true,
     secure: !isDev,
     sameSite: "strict",
+    // secure: true,
+    // sameSite: "none",
     maxAge: 0,
     path: "/",
   });

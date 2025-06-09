@@ -6,3 +6,4 @@ node_modules
 certs/ca.pem
 theory_linux
 stripe_tmp.log
+network_theory.md

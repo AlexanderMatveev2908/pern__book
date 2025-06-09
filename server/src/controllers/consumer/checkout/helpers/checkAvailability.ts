@@ -13,9 +13,13 @@ export const checkAvailabilityStock = ({ order }: { order: OrderInstance }) => {
     const { orderItemStores } = currOrderStore;
 
     if (
-      currOrderStore.delivery &&
-      currOrderStore.store!.deliveryPrice !== currOrderStore.delivery
+      +currOrderStore.delivery &&
+      +currOrderStore.store!.deliveryPrice! !== +currOrderStore.delivery
     ) {
+      console.log(
+        +currOrderStore.store!.deliveryPrice!,
+        +currOrderStore.delivery
+      );
       __cg("delivery err");
       isValid = false;
       break;
@@ -26,8 +30,14 @@ export const checkAvailabilityStock = ({ order }: { order: OrderInstance }) => {
     while (j >= 0) {
       const currStoreOrderItem: OrderItemStoreInstance = orderItemStores![j];
 
-      if (currStoreOrderItem.qty > currStoreOrderItem.book!.qty) {
+      if (+currStoreOrderItem.qty > +currStoreOrderItem.book!.qty) {
         __cg("err stock");
+        isValid = false;
+        break;
+      }
+
+      if (+currStoreOrderItem.price !== +currStoreOrderItem.book!.price) {
+        __cg("err price");
         isValid = false;
         break;
       }

@@ -1,0 +1,126 @@
+import { useEffect, useState, type FC } from "react";
+import BriefSummary from "./components/BriefSummary/BriefSummary";
+import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
+import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
+import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
+import {
+  CheckoutAddressType,
+  schemaCheckoutAddress,
+} from "@/features/ConsumerLayout/CheckoutLayout/forms/schema";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
+import { isObjOk } from "@/core/lib/lib";
+import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
+import LeftPageForm from "./components/LeftPageForm";
+import { OrderType } from "@/types/all/orders";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+
+type PropsType = {
+  order: OrderType;
+};
+
+const CheckoutContent: FC<PropsType> = ({ order }) => {
+  const stripe = useStripe();
+  const elements = useElements();
+  const [isPending, setIsPending] = useState(false);
+
+  const { user } = useGetU();
+
+  const [mutate, { isLoading }] =
+    checkoutSliceAPI.useSendAddressOrderMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
+  const ctx = useSwapCtxConsumer();
+  const {
+    state: { currSwapState, currForm },
+  } = ctx;
+  const { setCurrForm } = usePartialSwap({ ...ctx });
+
+  const formCTX = useForm<CheckoutAddressType>({
+    resolver: zodResolver(schemaCheckoutAddress),
+    mode: "onChange",
+  });
+  const {
+    setValue,
+    setFocus,
+    handleSubmit,
+    formState: { errors },
+    watch,
+  } = formCTX;
+
+  const handleSave = handleSubmit(
+    async (data) => {
+      const res = await wrapMutationAPI({
+        cbAPI: () => mutate({ data }),
+      });
+
+      if (!res) return;
+    },
+    (errs) => {
+      handleErrFocusCheckout(errs, setFocus, setCurrForm);
+
+      return errs;
+    }
+  );
+
+  useEffect(() => {
+    const keys = ["country", "state", "city", "street", "zipCode", "phone"];
+
+    if (isObjOk(user)) {
+      for (const k in user) {
+        if (keys.includes(k))
+          setValue(
+            k as keyof CheckoutAddressType,
+            user[k as keyof CheckoutAddressType] ?? "",
+            {
+              shouldValidate: true,
+            }
+          );
+      }
+    }
+  }, [user, setValue]);
+
+  useFocus({
+    key: "country",
+    setFocus,
+    delay: 500,
+  });
+  useFocusAddress({
+    setFocus,
+    currSwapState: currSwapState,
+    currForm: currForm,
+  });
+  const { isFormOk } = useListenFormOk({
+    errors,
+    watch,
+  });
+
+  useCLearTab();
+
+  return (
+    <>
+      <BriefSummary {...{ order: order! }} />
+
+      <LeftPageForm
+        {...{
+          currForm,
+          formCTX,
+          handleSave,
+          isFormOk,
+          isLoading,
+        }}
+      />
+
+      <div className="border-2">
+        <CardElement />
+      </div>
+    </>
+  );
+};
+
+export default CheckoutContent;
