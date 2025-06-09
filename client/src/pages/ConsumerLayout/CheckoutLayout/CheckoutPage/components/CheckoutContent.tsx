@@ -18,7 +18,12 @@ import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import LeftPageForm from "./components/LeftPageForm";
 import { OrderType } from "@/types/all/orders";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import {
+  PaymentElement,
+  useElements,
+  useStripe,
+} from "@stripe/react-stripe-js";
+import s from "./CheckoutContent.module.css";
 
 type PropsType = {
   order: OrderType;
@@ -103,7 +108,9 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
   useCLearTab();
 
   return (
-    <>
+    <div
+      className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
+    >
       <BriefSummary {...{ order: order! }} />
 
       <LeftPageForm
@@ -116,10 +123,10 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
         }}
       />
 
-      <div className="border-2">
-        <CardElement />
+      <div className="w-full max-w-[400px] border-2 border-blue-600 rounded-xl">
+        <PaymentElement />
       </div>
-    </>
+    </div>
   );
 };
 

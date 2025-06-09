@@ -3,7 +3,6 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { isArrOk, isObjOk, isStr } from "@/core/lib/lib";
 import { type FC } from "react";
-import s from "./CheckoutPage.module.css";
 import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useParams } from "react-router-dom";
@@ -39,20 +38,49 @@ const CheckoutPage: FC = () => {
       }}
     >
       <Title {...{ title: "checkout" }} />
-      <div
-        className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
-      >
-        {stripePromise && isStr(clientSecret) && (
-          <Elements
-            stripe={stripePromise}
-            options={{
-              clientSecret,
-            }}
-          >
-            <CheckoutContent {...{ order: order! }} />
-          </Elements>
-        )}
-      </div>
+
+      {stripePromise && isStr(clientSecret) && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret,
+            fonts: [
+              {
+                cssSrc:
+                  "https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap",
+              },
+            ],
+            appearance: {
+              theme: "night",
+              variables: {
+                colorBackground: "#000",
+                colorText: "whitesmoke",
+                fontFamily: "Sour Gummy",
+                colorPrimary: "#1e40af",
+                borderRadius: "10px",
+                colorDanger: "#dc2626",
+                colorSuccess: "#16a34a",
+              },
+              rules: {
+                ".Label": {
+                  fontSize: "20px",
+                },
+                ".Input": {
+                  fontSize: "18px",
+                },
+                ".Input::placeholder": {
+                  color: "#9ca3af",
+                },
+                ".Input:focus": {
+                  borderColor: "#1e40af",
+                },
+              },
+            },
+          }}
+        >
+          <CheckoutContent {...{ order: order! }} />
+        </Elements>
+      )}
     </WrapPageAPI>
   );
 };

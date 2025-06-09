@@ -108,6 +108,7 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
           userID: userID!,
           orderID: order.id,
         },
+        payment_method_types: ["card"],
       });
 
       await Order.update(
