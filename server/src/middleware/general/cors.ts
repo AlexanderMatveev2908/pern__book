@@ -1,8 +1,11 @@
 import cors from "cors";
-import { frontURL } from "../../config/env.js";
+import { frontURL, isDev } from "../../config/env.js";
 
 export const corsMid = () =>
   cors({
-    origin: frontURL,
+    origin: [
+      process.env.FRONT_URL!,
+      ...(isDev ? ["http://localhost:3001", "https://localhost"] : []),
+    ],
     credentials: true,
   });

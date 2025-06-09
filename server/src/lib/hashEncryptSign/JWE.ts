@@ -153,8 +153,10 @@ export const checkJWE = async (
 export const setCookie = (res: Response, refreshToken: string) =>
   res.cookie("refreshToken", refreshToken, {
     httpOnly: true,
-    secure: !isDev,
-    sameSite: "strict",
+    // secure: !isDev,
+    // sameSite: "strict",
+    secure: true,
+    sameSite: "none",
     maxAge: genExpiryJWE(),
     path: "/",
   });
@@ -162,8 +164,10 @@ export const setCookie = (res: Response, refreshToken: string) =>
 export const clearCookie = (res: Response) =>
   res.clearCookie("refreshToken", {
     httpOnly: true,
-    secure: !isDev,
-    sameSite: "strict",
+    // secure: !isDev,
+    // sameSite: "strict",
+    secure: true,
+    sameSite: "none",
     maxAge: 0,
     path: "/",
   });

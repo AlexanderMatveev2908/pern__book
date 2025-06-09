@@ -1,137 +1,84 @@
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
-import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
-import {
-  useFocus,
-  useWrapMutationAPI,
-  useWrapQueryAPI,
-} from "@/core/hooks/hooks";
-import { isArrOk, isObjOk } from "@/core/lib/lib";
-import {
-  CheckoutAddressType,
-  schemaCheckoutAddress,
-} from "@/features/ConsumerLayout/CheckoutLayout/forms/schema";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, type FC } from "react";
-import { useForm } from "react-hook-form";
-import LeftPageForm from "./components/LeftPageForm";
-import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
-import BriefSummary from "./components/BriefSummary/BriefSummary";
-import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
-import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
-import s from "./CheckoutPage.module.css";
-import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import { isArrOk, isObjOk, isStr } from "@/core/lib/lib";
+import { type FC } from "react";
 import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useParams } from "react-router-dom";
+import { REG_ID } from "@/core/config/regex";
+import { Elements } from "@stripe/react-stripe-js";
+import CheckoutContent from "./components/CheckoutContent";
+import { stripePromise } from "@/core/config/stripe";
 
 const CheckoutPage: FC = () => {
+  const orderID = useParams()?.orderID;
+  const isValidID = REG_ID.test(orderID ?? "");
+
   const { user } = useGetU();
-  const res = checkoutSliceAPI.useGetCartCheckoutQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
-  useWrapQueryAPI({ ...res });
-
-  const [mutate, { isLoading }] =
-    checkoutSliceAPI.useSendAddressOrderMutation();
-  const { wrapMutationAPI } = useWrapMutationAPI();
-
-  const { data: { cart } = {} } = res ?? {};
-
-  const ctx = useSwapCtxConsumer();
-  const {
-    state: { currSwapState, currForm },
-  } = ctx;
-  const { setCurrForm } = usePartialSwap({ ...ctx });
-
-  const formCTX = useForm<CheckoutAddressType>({
-    resolver: zodResolver(schemaCheckoutAddress),
-    mode: "onChange",
-  });
-  const {
-    setValue,
-    setFocus,
-    handleSubmit,
-    formState: { errors },
-    watch,
-  } = formCTX;
-
-  const handleSave = handleSubmit(
-    async (data) => {
-      await wrapMutationAPI({
-        cbAPI: () => mutate({ data }),
-      });
-
-      if (!res) return;
-    },
-    (errs) => {
-      handleErrFocusCheckout(errs, setFocus, setCurrForm);
-
-      return errs;
+  const res = checkoutSliceAPI.useGetClientSecretOrderQuery(
+    { orderID: orderID! },
+    {
+      refetchOnMountOrArgChange: true,
+      skip: !isValidID,
     }
   );
+  useWrapQueryAPI({ ...res });
 
-  useEffect(() => {
-    const keys = ["country", "state", "city", "street", "zipCode", "phone"];
-
-    if (isObjOk(user)) {
-      for (const k in user) {
-        if (keys.includes(k))
-          setValue(
-            k as keyof CheckoutAddressType,
-            user[k as keyof CheckoutAddressType] ?? "",
-            {
-              shouldValidate: true,
-            }
-          );
-      }
-    }
-  }, [user, setValue]);
-
-  useFocus({
-    key: "country",
-    setFocus,
-    delay: 500,
-  });
-  useFocusAddress({
-    setFocus,
-    currSwapState: currSwapState,
-    currForm: currForm,
-  });
-  const { isFormOk } = useListenFormOk({
-    errors,
-    watch,
-  });
-
-  useCLearTab();
-
-  const { groupedByStoreID } = useGroupItemsByStore({ cart });
+  const { data: { order, clientSecret } = {} } = res ?? [];
 
   return (
     <WrapPageAPI
       {...{
         ...res,
-        isSuccess: isObjOk(user) && isArrOk(cart?.items),
+        canStay: isValidID,
+        isSuccess: isObjOk(user) && isArrOk(order?.orderStores),
       }}
     >
       <Title {...{ title: "checkout" }} />
-      <div
-        className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
-      >
-        <BriefSummary {...{ groupedByStoreID, cart: cart! }} />
 
-        <LeftPageForm
-          {...{
-            currForm,
-            formCTX,
-            handleSave,
-            isFormOk,
-            cart: cart!,
-            isLoading,
+      {stripePromise && isStr(clientSecret) && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            clientSecret,
+            fonts: [
+              {
+                cssSrc:
+                  "https://fonts.googleapis.com/css2?family=Sour+Gummy&display=swap",
+              },
+            ],
+            appearance: {
+              theme: "night",
+              variables: {
+                colorBackground: "#000",
+                colorText: "whitesmoke",
+                fontFamily: "Sour Gummy",
+                colorPrimary: "#1e40af",
+                borderRadius: "10px",
+                colorDanger: "#dc2626",
+                colorSuccess: "#16a34a",
+              },
+              rules: {
+                ".Label": {
+                  fontSize: "20px",
+                },
+                ".Input": {
+                  fontSize: "18px",
+                },
+                ".Input::placeholder": {
+                  color: "#9ca3af",
+                },
+                ".Input:focus": {
+                  borderColor: "#1e40af",
+                },
+              },
+            },
           }}
-        />
-      </div>
+        >
+          <CheckoutContent {...{ order: order! }} />
+        </Elements>
+      )}
     </WrapPageAPI>
   );
 };

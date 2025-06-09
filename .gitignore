@@ -4,5 +4,4 @@ dist
 node_modules
 .vscode
 certs/ca.pem
-theory_linux
 stripe_tmp.log

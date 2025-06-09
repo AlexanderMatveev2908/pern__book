@@ -1,21 +1,25 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaAddress, schemaID } from "./utils/helpers.js";
-import { OrderState } from "../../types/all/orders.js";
+import { OrderStage } from "../../types/all/orders.js";
+import { OrderStoreInstance } from "./OrderStore.js";
 
 export class Order extends Model {
   id!: CreationOptional<string>;
   paymentID!: string;
   discount!: number;
-  totAmount!: number;
-  stage!: OrderState;
+  amount!: number;
+  stage!: OrderStage;
   userID?: string;
 
-  country!: string;
-  state!: string;
-  city!: string;
-  street!: string;
-  zipCode!: string;
-  phone!: string;
+  county?: string;
+  state?: string;
+  city?: string;
+  street?: string;
+  zipCod?: string;
+  phone?: string;
+
+  orderStores?: OrderStoreInstance[];
+  clientSecret?: string;
 }
 
 export type OrderInstance = InstanceType<typeof Order>;
@@ -26,9 +30,13 @@ export const defineOrder = (seq: Sequelize) =>
       ...schemaID(),
       userID: refSql("users", { allowNull: true }),
 
-      ...schemaAddress({ allowNull: false }),
+      ...schemaAddress({ allowNull: true }),
 
       paymentID: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      clientSecret: {
         type: DataTypes.STRING,
         allowNull: true,
       },
@@ -39,7 +47,7 @@ export const defineOrder = (seq: Sequelize) =>
         defaultValue: "pending",
       },
 
-      totAmount: {
+      amount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },

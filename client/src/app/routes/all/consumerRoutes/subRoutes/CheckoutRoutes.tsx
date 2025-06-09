@@ -7,7 +7,7 @@ const checkoutRoutes = {
   element: <CheckoutLayout />,
   children: [
     {
-      index: true,
+      path: ":orderID",
       element: (
         <SwapCtxProvider>
           <CheckoutPage />

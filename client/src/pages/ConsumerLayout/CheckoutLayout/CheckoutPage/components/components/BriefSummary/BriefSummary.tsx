@@ -1,26 +1,16 @@
 import Title from "@/components/elements/Title";
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { CartItemsGroupedType } from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
 import type { FC } from "react";
 import SummaryStoreItem from "./components/SummaryStoreItem";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import { priceFormatter } from "@/core/lib/lib";
 import s from "./BriefSummary.module.css";
-import { CartType } from "@/types/all/Cart";
+import { OrderType } from "@/types/all/orders";
 
 type PropsType = {
-  groupedByStoreID: CartItemsGroupedType[];
-  cart: CartType;
+  order: OrderType;
 };
 
-const BriefSummary: FC<PropsType> = ({ groupedByStoreID, cart }) => {
-  const ids = useCreateIds({
-    lengths: [
-      Object.keys(groupedByStoreID).length,
-      ...Object.values(groupedByStoreID).map(({ items }) => items?.length),
-    ],
-  });
-
+const BriefSummary: FC<PropsType> = ({ order }) => {
   return (
     <div
       className={`${s.brief_summary} w-full grid grid-cols-1 justify-items-center h-fit gap-y-6 xl:order-2`}
@@ -31,7 +21,7 @@ const BriefSummary: FC<PropsType> = ({ groupedByStoreID, cart }) => {
         <div className="w-full sticky top-0 bg-neutral-950 z-60 grid grid-cols-1 pb-2 border-b-2 border-blue-600 py-2 gap-y-2 rounded-t-xl">
           <WrapPairTxt
             {...{
-              arg: ["subtotal", priceFormatter(cart!.totPrice)],
+              arg: ["subtotal", priceFormatter(order!.amount)],
               customStyles: [
                 "justify-self-center txt__2",
                 "justify-self-center txt__2",
@@ -49,7 +39,7 @@ const BriefSummary: FC<PropsType> = ({ groupedByStoreID, cart }) => {
           />
           <WrapPairTxt
             {...{
-              arg: ["Total", priceFormatter(cart!.totPrice)],
+              arg: ["Total", priceFormatter(order!.amount)],
               customStyles: [
                 "justify-self-center txt__3",
                 "justify-self-center txt__3",
@@ -59,8 +49,8 @@ const BriefSummary: FC<PropsType> = ({ groupedByStoreID, cart }) => {
         </div>
 
         <div className="max-h-[250px] overflow-y-auto scroll_app scroll_y flex flex-col gap-y-6  pb-10 px-4">
-          {Object.values(groupedByStoreID).map(({ store, items }, outerIdx) => (
-            <SummaryStoreItem key={ids[0][outerIdx]} {...{ store, items }} />
+          {order.orderStores?.map((el) => (
+            <SummaryStoreItem key={el.id} {...{ el }} />
           ))}
         </div>
       </div>

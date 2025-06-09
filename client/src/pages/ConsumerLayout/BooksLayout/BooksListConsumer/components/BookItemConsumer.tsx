@@ -14,7 +14,7 @@ type PropsType = {
 };
 
 const BookItemConsumer: FC<PropsType> = ({ el }) => {
-  const { cart } = useGetCart();
+  const { cart } = useGetCart({});
 
   return (
     <div className="card">

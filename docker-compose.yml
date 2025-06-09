@@ -6,6 +6,7 @@ services:
       args:
         VITE_BACK_URL: ${VITE_BACK_URL}
         VITE_MODE: ${VITE_MODE}
+        VITE_STRIPE_PUBLIC_KEY: ${VITE_STRIPE_PUBLIC_KEY}
     env_file:
       - ./server/.env
     ports:

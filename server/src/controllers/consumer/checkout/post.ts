@@ -1,11 +1,16 @@
 import { Response } from "express";
 import { ReqApp } from "../../../types/types.js";
 import { res200 } from "../../../lib/responseClient/res.js";
-import { getCartWithTotPrice } from "./helpers/getCart.js";
+import { getCartWithTotPrice, getPopulatedOrder } from "./helpers/getters.js";
 import { seq } from "../../../config/db.js";
 import { __cg } from "../../../lib/utils/log.js";
 import { stripe } from "../../../config/stripe.js";
-import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
+import {
+  err404,
+  err409,
+  err422,
+  err500,
+} from "../../../lib/responseClient/err.js";
 import { Order } from "../../../models/all/Order.js";
 import { calcAmountStore, groupOrdersByStore } from "./helpers/groupOrders.js";
 import { CloudImg } from "../../../types/all/cloud.js";
@@ -14,9 +19,16 @@ import { formatFloat } from "../../../lib/utils/formatters.js";
 import { reUploadImg } from "../../../lib/cloud/reUploadExisting.js";
 import { OrderItemStore } from "../../../models/all/OrderItem.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
+import { Cart } from "../../../models/all/Cart.js";
+import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
+import { deleteOrder } from "./helpers/deleteOrder.js";
+import { OrderStage, StoreOrderStage } from "../../../types/all/orders.js";
 
-export const getAddressCheckout = async (req: ReqApp, res: Response) => {
-  const { userID, body } = req;
+export const createOrder = async (req: ReqApp, res: Response) => {
+  const {
+    userID,
+    body: { totPrice: amountSeenBuUser, code },
+  } = req;
 
   const { cart } = await getCartWithTotPrice(userID!);
 
@@ -27,6 +39,13 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
       msg: "Items not present in cart or removed from stock",
     });
 
+  const totAmountFormatted = formatFloat(amountSeenBuUser);
+
+  if (cart.totPrice !== totAmountFormatted)
+    return err422(res, {
+      msg: "amount not match, some items may have become unavailable",
+    });
+
   const t = await seq.transaction();
   const imagesUploaded: CloudImg[] = [];
 
@@ -35,9 +54,8 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
   try {
     const order = await Order.create(
       {
-        ...body,
         userID,
-        totAmount: formatFloat(cart.totPrice),
+        amount: totAmountFormatted,
       },
       {
         transaction: t,
@@ -92,21 +110,59 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
       }
     }
 
-    const paymentIntent = await stripe.paymentIntents.create({
-      amount: formatFloat(cart.totPrice * 100),
-      currency: "usd",
-      metadata: {
-        userID: userID!,
-        orderID: order.id,
+    await Cart.destroy({
+      where: {
+        userID,
       },
+      transaction: t,
     });
 
+    await t.commit();
+
+    return res200(res, { orderID: order.id });
+  } catch (err) {
+    await t.rollback();
+
+    if (imagesUploaded.length)
+      await delArrCloud(imagesUploaded.map((img) => img.url));
+
+    __cg("fail pre checkout", err);
+
+    return err500(res);
+  }
+};
+
+export const getAddressCheckout = async (req: ReqApp, res: Response) => {
+  const { userID, body } = req;
+  const { orderID } = req.params;
+
+  const { order } = await getPopulatedOrder({ orderID, userID: userID! });
+
+  if (!order) return err404(res, { msg: "Order not found" });
+
+  if (order.stage !== "pending")
+    return err409(res, { msg: "Order already paid" });
+
+  const { isValid } = checkAvailabilityStock({ order });
+
+  if (!isValid) {
+    await deleteOrder(order);
+    return err422(res, {
+      msg: "Entity not processable",
+    });
+  }
+
+  const t = await seq.transaction();
+  const imagesUploaded: CloudImg[] = [];
+
+  try {
     await Order.update(
       {
-        paymentID: paymentIntent.id,
+        ...body,
       },
       {
         where: {
+          userID,
           id: order.id,
         },
         transaction: t,
@@ -115,7 +171,7 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
 
     await t.commit();
 
-    return res200(res, { clientSecret: paymentIntent.client_secret });
+    return res200(res, { msg: "order address saved" });
   } catch (err) {
     await t.rollback();
 
