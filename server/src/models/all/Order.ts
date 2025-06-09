@@ -7,7 +7,7 @@ export class Order extends Model {
   id!: CreationOptional<string>;
   paymentID!: string;
   discount!: number;
-  totAmount!: number;
+  amount!: number;
   stage!: OrderState;
   userID?: string;
 
@@ -47,7 +47,7 @@ export const defineOrder = (seq: Sequelize) =>
         defaultValue: "pending",
       },
 
-      totAmount: {
+      amount: {
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
       },

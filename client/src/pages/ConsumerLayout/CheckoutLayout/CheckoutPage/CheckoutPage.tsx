@@ -27,8 +27,6 @@ const CheckoutPage: FC = () => {
 
   const { data: { order, clientSecret } = {} } = res ?? [];
 
-  console.log(stripePromise);
-
   return (
     <WrapPageAPI
       {...{

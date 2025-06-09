@@ -102,7 +102,7 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
 
     if (!isSecretOk(status)) {
       paymentIntent = await stripe.paymentIntents.create({
-        amount: formatFloat(+order.totAmount * 100),
+        amount: formatFloat(+order.amount * 100),
         currency: "usd",
         metadata: {
           userID: userID!,

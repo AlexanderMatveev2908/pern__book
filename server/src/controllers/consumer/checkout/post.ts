@@ -47,7 +47,7 @@ export const createOrder = async (req: ReqApp, res: Response) => {
     const order = await Order.create(
       {
         userID,
-        totAmount: totAmountFormatted,
+        amount: totAmountFormatted,
       },
       {
         transaction: t,

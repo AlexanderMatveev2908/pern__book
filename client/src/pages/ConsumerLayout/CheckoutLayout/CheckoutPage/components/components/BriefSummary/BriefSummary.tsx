@@ -21,7 +21,7 @@ const BriefSummary: FC<PropsType> = ({ order }) => {
         <div className="w-full sticky top-0 bg-neutral-950 z-60 grid grid-cols-1 pb-2 border-b-2 border-blue-600 py-2 gap-y-2 rounded-t-xl">
           <WrapPairTxt
             {...{
-              arg: ["subtotal", priceFormatter(order!.totAmount)],
+              arg: ["subtotal", priceFormatter(order!.amount)],
               customStyles: [
                 "justify-self-center txt__2",
                 "justify-self-center txt__2",
@@ -39,7 +39,7 @@ const BriefSummary: FC<PropsType> = ({ order }) => {
           />
           <WrapPairTxt
             {...{
-              arg: ["Total", priceFormatter(order!.totAmount)],
+              arg: ["Total", priceFormatter(order!.amount)],
               customStyles: [
                 "justify-self-center txt__3",
                 "justify-self-center txt__3",

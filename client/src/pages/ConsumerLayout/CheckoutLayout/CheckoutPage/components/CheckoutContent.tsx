@@ -24,6 +24,7 @@ import {
   useStripe,
 } from "@stripe/react-stripe-js";
 import s from "./CheckoutContent.module.css";
+import Title from "@/components/elements/Title";
 
 type PropsType = {
   order: OrderType;
@@ -60,11 +61,33 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
 
   const handleSave = handleSubmit(
     async (data) => {
-      const res = await wrapMutationAPI({
-        cbAPI: () => mutate({ data }),
-      });
+      // const res = await wrapMutationAPI({
+      //   cbAPI: () => mutate({ data }),
+      // });
+      // if (!res) return;
 
-      if (!res) return;
+      if ([stripe, elements].some((el) => !isObjOk(el))) return;
+
+      setIsPending(true);
+
+      try {
+        const { error, paymentIntent } =
+          (await stripe?.confirmPayment({
+            elements: elements!,
+            redirect: "if_required",
+          })) ?? {};
+
+        if (error) {
+          console.log(error);
+          return;
+        }
+
+        console.log(paymentIntent);
+      } catch (err) {
+        console.log(err);
+      } finally {
+        setIsPending(false);
+      }
     },
     (errs) => {
       handleErrFocusCheckout(errs, setFocus, setCurrForm);
@@ -120,12 +143,17 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
           handleSave,
           isFormOk,
           isLoading,
+          order,
         }}
-      />
+      >
+        <div className="w-full grid gap-y-6 justify-items-center">
+          <Title {...{ title: "Card details", styleTxt: "txt__4" }} />
 
-      <div className="w-full max-w-[400px] border-2 border-blue-600 rounded-xl">
-        <PaymentElement />
-      </div>
+          <div className="w-full max-w-[500px] sm:max-w-[600px] border-2 border-blue-600 rounded-xl ">
+            <PaymentElement />
+          </div>
+        </div>
+      </LeftPageForm>
     </div>
   );
 };

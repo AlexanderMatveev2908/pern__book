@@ -56,7 +56,7 @@ export type OrderType = {
   id: string;
   paymentID: string;
   discount: number;
-  totAmount: number;
+  amount: number;
   stage: OrderState;
   userID?: string;
 

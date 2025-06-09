@@ -4,9 +4,11 @@ import Button from "@/components/elements/buttons/Button/Button";
 import FooterBar from "@/components/elements/FooterBar";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
+import { priceFormatter } from "@/core/lib/lib";
 import { fieldsSwapProfile } from "@/features/UserLayout/fields/profile";
+import { OrderType } from "@/types/all/orders";
 import { BtnAct } from "@/types/types";
-import { type FC } from "react";
+import { ReactNode, type FC } from "react";
 import { FormProvider, UseFormReturn } from "react-hook-form";
 
 type PropsType = {
@@ -14,6 +16,8 @@ type PropsType = {
   formCTX: UseFormReturn<any>;
   handleSave: () => void;
   isLoading: boolean;
+  children: ReactNode;
+  order: OrderType;
 };
 
 const LeftPageForm: FC<PropsType> = ({
@@ -21,26 +25,30 @@ const LeftPageForm: FC<PropsType> = ({
   formCTX,
   handleSave,
   isLoading,
+  children,
+  order,
 }) => {
   return (
-    <form onSubmit={handleSave} className="w-full grid grid-cols-1 gap-y-5">
-      <div className="w-full flex justify-center">
-        <BreadCrumbForm {...{ currForm, totLen: 2 }} />
-      </div>
-
+    <form onSubmit={handleSave} className="w-full grid grid-cols-1 gap-y-16">
       <FormProvider {...formCTX}>
-        <AddressForm
-          {...{
-            swapID: "swapCheckoutForm",
-            btnProfile: true,
-            arrAddressSwap: fieldsSwapProfile,
-          }}
-        />
+        <div className="w-full grid grid-cols-1 gap-y-5">
+          <div className="w-full flex justify-center">
+            <BreadCrumbForm {...{ currForm, totLen: 2 }} />
+          </div>
+          <AddressForm
+            {...{
+              swapID: "swapCheckoutForm",
+              btnProfile: true,
+              arrAddressSwap: fieldsSwapProfile,
+            }}
+          />
+        </div>
+        {children}
 
         <FooterBar {...{ translation: "translate-y-[70%]" }}>
           <WrapPairTxt
             {...{
-              arg: ["Total", ""],
+              arg: ["Total", priceFormatter(+order.amount - +order.discount)],
               customStyles: [
                 "justify-self-center txt__4",
                 "justify-self-center txt__4",
