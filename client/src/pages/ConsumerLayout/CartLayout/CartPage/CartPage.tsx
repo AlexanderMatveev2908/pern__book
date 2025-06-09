@@ -1,6 +1,6 @@
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { isArrOk } from "@/core/lib/lib";
-import { type FC } from "react";
+import { useState, type FC } from "react";
 import { CartItemType } from "@/types/all/Cart";
 import { BookStoreType } from "@/types/all/bookStore";
 import CartItemsList from "./components/CartItemsList/CartItemsList";
@@ -29,6 +29,7 @@ export type CartItemsGroupedType = {
 
 const CartPage: FC = () => {
   const { cart, isLoading, isError, error } = useMixUserCartAsyncStates();
+  const [canStayNoCart, setCanStayNoCart] = useState(false);
 
   const nav = useNavigate();
 
@@ -85,7 +86,7 @@ const CartPage: FC = () => {
         isError,
         error,
         isSuccess: isArrOk(cart?.items),
-        canStay: !!cart?.items?.length,
+        canStay: !!cart?.items?.length || canStayNoCart,
       }}
     >
       <Title {...{ title: "Cart summary" }} />
@@ -106,7 +107,7 @@ const CartPage: FC = () => {
       </div>
       <CartItemsList {...{ groupedByStoreID, cart: cart! }} />
 
-      <SummaryCart {...{ groupedByStoreID, cart: cart! }} />
+      <SummaryCart {...{ groupedByStoreID, cart: cart!, setCanStayNoCart }} />
     </WrapPageAPI>
   );
 };

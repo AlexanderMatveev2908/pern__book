@@ -1,3 +1,4 @@
+import { __cg } from "../../../../lib/utils/log.js";
 import { OrderInstance } from "../../../../models/all/Order.js";
 import { OrderItemStoreInstance } from "../../../../models/all/OrderItem.js";
 
@@ -15,6 +16,7 @@ export const checkAvailabilityStock = ({ order }: { order: OrderInstance }) => {
       currOrderStore.delivery &&
       currOrderStore.store!.deliveryPrice !== currOrderStore.delivery
     ) {
+      __cg("delivery err");
       isValid = false;
       break;
     }
@@ -25,6 +27,7 @@ export const checkAvailabilityStock = ({ order }: { order: OrderInstance }) => {
       const currStoreOrderItem: OrderItemStoreInstance = orderItemStores![j];
 
       if (currStoreOrderItem.qty > currStoreOrderItem.book!.qty) {
+        __cg("err stock");
         isValid = false;
         break;
       }

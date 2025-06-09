@@ -19,6 +19,7 @@ export class Order extends Model {
   phone?: string;
 
   orderStores?: OrderStoreInstance[];
+  clientSecret?: string;
 }
 
 export type OrderInstance = InstanceType<typeof Order>;
@@ -32,6 +33,10 @@ export const defineOrder = (seq: Sequelize) =>
       ...schemaAddress({ allowNull: true }),
 
       paymentID: {
+        type: DataTypes.STRING,
+        allowNull: true,
+      },
+      clientSecret: {
         type: DataTypes.STRING,
         allowNull: true,
       },

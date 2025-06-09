@@ -22,6 +22,7 @@ import { rootAPI } from "@/features/root/rootAPI";
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
   cart: CartType;
+  setCanStayNoCart: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 const checkoutLabel = {
@@ -34,7 +35,7 @@ const verifyAccountLabel = {
   icon: MdOutlineVerified,
 };
 
-const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
+const SummaryCart: FC<PropsType> = ({ groupedByStoreID, setCanStayNoCart }) => {
   const { user } = useGetU();
 
   const nav = useNavigate();
@@ -57,6 +58,10 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
       dispatch(rootAPI.util.invalidateTags([TagsAPI.USER_CART]));
       return;
     }
+
+    setCanStayNoCart(true);
+
+    dispatch(rootAPI.util.invalidateTags([TagsAPI.USER_CART, TagsAPI.USER]));
 
     nav(`/consumer/checkout/${res.orderID}`);
   };

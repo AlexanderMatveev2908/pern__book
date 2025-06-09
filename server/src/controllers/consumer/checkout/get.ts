@@ -1,7 +1,7 @@
 import { Response } from "express";
 import { res200 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
-import { err404, err422 } from "../../../lib/responseClient/err.js";
+import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
 import { getCartWithTotPrice } from "./helpers/getCart.js";
 import { Order } from "../../../models/all/Order.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";
@@ -9,6 +9,17 @@ import { OrderItemStore } from "../../../models/all/OrderItem.js";
 import { Book } from "../../../models/all/Book.js";
 import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
 import { BookStore } from "../../../models/all/BookStore.js";
+import { seq } from "../../../config/db.js";
+import { deleteOrder } from "./helpers/deleteOrder.js";
+import { stripe } from "../../../config/stripe.js";
+import { formatFloat } from "../../../lib/utils/formatters.js";
+import Stripe from "stripe";
+import { __cg } from "../../../lib/utils/log.js";
+
+const isSecretOk = (status?: string) =>
+  ["requires_payment_method", "requires_confirmation", "requires_action"].some(
+    (s) => s === status
+  );
 
 export const getCartCheckout = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -68,10 +79,63 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
 
   const { isValid } = checkAvailabilityStock({ order });
 
-  if (!isValid)
+  __cg("order still valid", isValid);
+
+  if (!isValid) {
+    await deleteOrder(order);
     return err422(res, {
       msg: "Entity not processable",
     });
+  }
 
-  return res200(res, { order });
+  const t = await seq.transaction();
+
+  try {
+    let paymentIntent: Stripe.PaymentIntent | null = null;
+
+    try {
+      paymentIntent = await stripe.paymentIntents.retrieve(order.paymentID);
+    } catch (err) {
+      // console.log(err);
+    }
+    const { status } = paymentIntent ?? {};
+
+    if (!isSecretOk(status)) {
+      paymentIntent = await stripe.paymentIntents.create({
+        amount: formatFloat(+order.totAmount * 100),
+        currency: "usd",
+        metadata: {
+          userID: userID!,
+          orderID: order.id,
+        },
+      });
+
+      await Order.update(
+        {
+          paymentID: paymentIntent.id,
+          clientSecret: paymentIntent.client_secret,
+        },
+        {
+          where: {
+            id: order.id,
+          },
+          transaction: t,
+        }
+      );
+    }
+
+    const updatedOrder = await Order.findByPk(order.id, {
+      transaction: t,
+    });
+
+    await t.commit();
+
+    return res200(res, { order, clientSecret: updatedOrder!.clientSecret });
+  } catch (err) {
+    await t.rollback();
+
+    console.log(err);
+
+    return err500(res);
+  }
 };
