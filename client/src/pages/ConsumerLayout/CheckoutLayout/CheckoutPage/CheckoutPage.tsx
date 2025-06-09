@@ -8,7 +8,7 @@ import {
   useWrapMutationAPI,
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
-import { isArrOk, isObjOk } from "@/core/lib/lib";
+import { isObjOk } from "@/core/lib/lib";
 import {
   CheckoutAddressType,
   schemaCheckoutAddress,
@@ -17,27 +17,32 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, type FC } from "react";
 import { useForm } from "react-hook-form";
 import LeftPageForm from "./components/LeftPageForm";
-import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
-import BriefSummary from "./components/BriefSummary/BriefSummary";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { handleErrFocusCheckout } from "@/core/lib/all/forms/errPostSubmit/checkout";
 import s from "./CheckoutPage.module.css";
 import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
 import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useParams } from "react-router-dom";
+import { REG_ID } from "@/core/config/regex";
 
 const CheckoutPage: FC = () => {
+  const orderID = useParams()?.orderID;
+  const isValidID = REG_ID.test(orderID ?? "");
+
   const { user } = useGetU();
-  const res = checkoutSliceAPI.useGetCartCheckoutQuery(undefined, {
-    refetchOnMountOrArgChange: true,
-  });
+  const res = checkoutSliceAPI.useGetClientSecretOrderQuery(
+    { orderID: orderID! },
+    {
+      refetchOnMountOrArgChange: true,
+      skip: !isValidID,
+    }
+  );
   useWrapQueryAPI({ ...res });
 
   const [mutate, { isLoading }] =
     checkoutSliceAPI.useSendAddressOrderMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
-
-  const { data: { cart } = {} } = res ?? {};
 
   const ctx = useSwapCtxConsumer();
   const {
@@ -106,20 +111,19 @@ const CheckoutPage: FC = () => {
 
   useCLearTab();
 
-  const { groupedByStoreID } = useGroupItemsByStore({ cart });
-
   return (
     <WrapPageAPI
       {...{
         ...res,
-        isSuccess: isObjOk(user) && isArrOk(cart?.items),
+        canStay: isValidID,
+        isSuccess: isObjOk(user),
       }}
     >
       <Title {...{ title: "checkout" }} />
       <div
         className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
       >
-        <BriefSummary {...{ groupedByStoreID, cart: cart! }} />
+        {/* <BriefSummary {...{ groupedByStoreID, cart: cart! }} /> */}
 
         <LeftPageForm
           {...{
@@ -127,7 +131,6 @@ const CheckoutPage: FC = () => {
             formCTX,
             handleSave,
             isFormOk,
-            cart: cart!,
             isLoading,
           }}
         />

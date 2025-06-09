@@ -4,9 +4,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import FooterBar from "@/components/elements/FooterBar";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
-import { priceFormatter } from "@/core/lib/lib";
 import { fieldsSwapProfile } from "@/features/UserLayout/fields/profile";
-import { CartType } from "@/types/all/Cart";
 import { BtnAct } from "@/types/types";
 import { type FC } from "react";
 import { FormProvider, UseFormReturn } from "react-hook-form";
@@ -15,7 +13,6 @@ type PropsType = {
   currForm: number;
   formCTX: UseFormReturn<any>;
   handleSave: () => void;
-  cart: CartType;
   isLoading: boolean;
 };
 
@@ -23,7 +20,6 @@ const LeftPageForm: FC<PropsType> = ({
   currForm,
   formCTX,
   handleSave,
-  cart,
   isLoading,
 }) => {
   return (
@@ -44,7 +40,7 @@ const LeftPageForm: FC<PropsType> = ({
         <FooterBar {...{ translation: "translate-y-[70%]" }}>
           <WrapPairTxt
             {...{
-              arg: ["Total", priceFormatter(cart!.totPrice)],
+              arg: ["Total", ""],
               customStyles: [
                 "justify-self-center txt__4",
                 "justify-self-center txt__4",

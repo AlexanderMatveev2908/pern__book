@@ -57,6 +57,8 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
       dispatch(rootAPI.util.invalidateTags([TagsAPI.USER_CART]));
       return;
     }
+
+    nav(`/consumer/checkout/${res.orderID}`);
   };
 
   const verifyAccountClick = () => nav("/user/verify-account");

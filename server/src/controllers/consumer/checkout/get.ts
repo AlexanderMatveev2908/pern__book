@@ -18,3 +18,7 @@ export const getCartCheckout = async (req: ReqApp, res: Response) => {
 
   return res200(res, { cart });
 };
+
+export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
+  return res200(res, { msg: "✌🏽" });
+};
