@@ -8,7 +8,7 @@ export const useMixUserCartAsyncStates = () => {
     isLoading: cartLoading,
     isError: isCartError,
     error: cartError,
-  } = useGetCart();
+  } = useGetCart({ refetchOnMountOrArgChange: true });
   const {
     isLoading: userLoading,
     isError: isUserError,

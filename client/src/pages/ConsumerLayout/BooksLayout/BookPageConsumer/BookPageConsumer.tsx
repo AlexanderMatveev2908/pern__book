@@ -16,7 +16,7 @@ import ButtonsCart from "@/features/ConsumerLayout/CartLayout/components/Buttons
 const BookPageConsumer: FC = () => {
   const bookID = useParams()?.bookID;
   const isValidID = REG_ID.test(bookID ?? "");
-  const { cart, isLoading } = useGetCart();
+  const { cart, isLoading } = useGetCart({ refetchOnMountOrArgChange: true });
 
   const res = consumerBooksSliceAPI.endpoints.getBookConsumer.useQuery(
     bookID!,

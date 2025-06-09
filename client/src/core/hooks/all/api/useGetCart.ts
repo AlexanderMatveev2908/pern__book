@@ -3,11 +3,16 @@ import { useWrapQueryAPI } from "../wrappers/useWrapQueryAPI";
 import { useSelector } from "react-redux";
 import { getAuthState } from "@/features/AuthLayout/authSlice";
 
-export const useGetCart = () => {
+export const useGetCart = ({
+  refetchOnMountOrArgChange,
+}: {
+  refetchOnMountOrArgChange?: boolean;
+} = {}) => {
   const isLogged = useSelector(getAuthState).isLogged;
 
   const resCart = useGetUserCartQuery(undefined, {
     skip: !isLogged,
+    refetchOnMountOrArgChange,
   });
   useWrapQueryAPI({ ...resCart });
 

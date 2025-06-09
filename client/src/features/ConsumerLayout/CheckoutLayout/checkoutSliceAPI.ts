@@ -14,6 +14,17 @@ export const checkoutSliceAPI = apiSlice.injectEndpoints({
       }),
     }),
 
+    createOrder: builder.mutation<
+      BaseResAPI<{ orderID: string }>,
+      { code?: string; totPrice: number }
+    >({
+      query: ({ code, totPrice }) => ({
+        url: B_URL,
+        method: "POST",
+        data: { code, totPrice },
+      }),
+    }),
+
     sendAddressOrder: builder.mutation<
       BaseResAPI<{ ghost: "👻" | "" }>,
       { data: CheckoutAddressType }

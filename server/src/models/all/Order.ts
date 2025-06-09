@@ -26,7 +26,7 @@ export const defineOrder = (seq: Sequelize) =>
       ...schemaID(),
       userID: refSql("users", { allowNull: true }),
 
-      ...schemaAddress({ allowNull: false }),
+      ...schemaAddress({ allowNull: true }),
 
       paymentID: {
         type: DataTypes.STRING,

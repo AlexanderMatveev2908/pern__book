@@ -9,11 +9,15 @@ import {
   MdOutlineShoppingCartCheckout,
   MdOutlineVerified,
 } from "react-icons/md";
-import { BtnAct } from "@/types/types";
+import { BtnAct, TagsAPI } from "@/types/types";
 import { useNavigate } from "react-router-dom";
 import { useCalcTotCart } from "@/features/ConsumerLayout/CartLayout/hooks/useCalcTotCart";
 import FooterBar from "@/components/elements/FooterBar";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useDispatch } from "react-redux";
+import { rootAPI } from "@/features/root/rootAPI";
 
 type PropsType = {
   groupedByStoreID: CartItemsGroupedType[];
@@ -38,8 +42,24 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
   const { totalCart } = useCalcTotCart({
     groupedByStoreID,
   });
-  const handleClick = () =>
-    nav(user.isVerified ? "/consumer/checkout" : "/user/verify-account");
+
+  const [mutate, { isLoading }] =
+    checkoutSliceAPI.endpoints.createOrder.useMutation();
+  const { wrapMutationAPI } = useWrapMutationAPI();
+
+  const dispatch = useDispatch();
+  const createOrder = async () => {
+    const res = await wrapMutationAPI({
+      cbAPI: () => mutate({ totPrice: totalCart }),
+    });
+
+    if (!res) {
+      dispatch(rootAPI.util.invalidateTags([TagsAPI.USER_CART]));
+      return;
+    }
+  };
+
+  const verifyAccountClick = () => nav("/user/verify-account");
 
   return (
     <FooterBar>
@@ -66,7 +86,8 @@ const SummaryCart: FC<PropsType> = ({ groupedByStoreID }) => {
               : verifyAccountLabel.icon,
             act: user.isVerified ? BtnAct.DO : BtnAct.INFO,
             isDisabled: user.isVerified ? !totalCart : false,
-            handleClick,
+            handleClick: user.isVerified ? createOrder : verifyAccountClick,
+            isAging: isLoading,
           }}
         />
       </div>
