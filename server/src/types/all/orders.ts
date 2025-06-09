@@ -9,7 +9,7 @@ export enum StoreOrderStage {
   REFUNDED = "refunded",
 }
 
-export enum OrderState {
+export enum OrderStage {
   PENDING = "pending",
   PAID = "paid",
   CANCELLED = "cancelled",

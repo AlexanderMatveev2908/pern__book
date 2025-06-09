@@ -18,7 +18,7 @@ export enum DeliveryType {
   PAY = "delivery_charged",
 }
 
-export enum OrderState {
+export enum OrderStage {
   PENDING = "pending",
   PAID = "paid",
   CANCELLED = "cancelled",
@@ -57,7 +57,7 @@ export type OrderType = {
   paymentID: string;
   discount: number;
   amount: number;
-  stage: OrderState;
+  stage: OrderStage;
   userID?: string;
 
   county: string;

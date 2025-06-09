@@ -1,6 +1,6 @@
 import { CreationOptional, DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaAddress, schemaID } from "./utils/helpers.js";
-import { OrderState } from "../../types/all/orders.js";
+import { OrderStage } from "../../types/all/orders.js";
 import { OrderStoreInstance } from "./OrderStore.js";
 
 export class Order extends Model {
@@ -8,7 +8,7 @@ export class Order extends Model {
   paymentID!: string;
   discount!: number;
   amount!: number;
-  stage!: OrderState;
+  stage!: OrderStage;
   userID?: string;
 
   county?: string;
