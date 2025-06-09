@@ -69,6 +69,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
     async (data) => {
       const res = await wrapMutationAPI({
         cbAPI: () => mutate({ data, orderID: order.id }),
+        showToast: false,
       });
       if (!res) return;
 
