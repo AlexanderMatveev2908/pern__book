@@ -14,6 +14,7 @@ export interface UserType {
   email: string;
   isNewsLetter: boolean;
   isVerified: boolean;
+  // ? actually after app has become multi store and has more complex relationships than a single user => role, this role prop has become pretty useless
   role: UserRole;
 
   thumb:
@@ -29,11 +30,14 @@ export interface UserType {
   zipCode: string | null;
   phone: string | null;
 
+  // ? business flags
   isOwner: boolean;
   isWorker: boolean;
   hasWorkers: boolean;
+  hasBusinessOrders: boolean;
   hasBooks: boolean;
 
+  // ? consumer flags
   cartCount: number;
 }
 

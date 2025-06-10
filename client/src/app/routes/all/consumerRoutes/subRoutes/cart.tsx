@@ -1,7 +1,8 @@
 import CartLayout from "@/app/layouts/ConsumerLayout/subLayouts/CartLayout";
+import Push from "@/app/routes/helpers/Push";
 import CartPage from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
 
-const cartRoutes = {
+export const cartRoutes = {
   path: "cart",
   element: <CartLayout />,
   children: [
@@ -9,7 +10,10 @@ const cartRoutes = {
       index: true,
       element: <CartPage />,
     },
+
+    {
+      path: "*",
+      element: <Push />,
+    },
   ],
 };
-
-export default cartRoutes;

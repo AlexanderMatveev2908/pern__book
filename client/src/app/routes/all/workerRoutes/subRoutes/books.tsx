@@ -1,11 +1,12 @@
+import Push from "@/app/routes/helpers/Push";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import BookListWorker from "@/pages/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
 import BookPageWorker from "@/pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
 import CreateBookWorker from "@/pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
 import UpdateBookWorker from "@/pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-const booksWorkerRoutes = {
+export const booksWorkerRoutes = {
   path: "books",
   element: <Outlet />,
   children: [
@@ -31,9 +32,7 @@ const booksWorkerRoutes = {
     },
     {
       path: "*",
-      element: <Navigate to="/" replace />,
+      element: <Push />,
     },
   ],
 };
-
-export default booksWorkerRoutes;

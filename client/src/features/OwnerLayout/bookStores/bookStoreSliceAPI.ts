@@ -11,7 +11,7 @@ import {
   TagsAPI,
 } from "@/types/types";
 
-const BASE_URL = "/admin-book-store";
+const BASE_URL = "/admin/bookstores";
 
 export const bookStoreSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

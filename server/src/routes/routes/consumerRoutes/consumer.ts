@@ -1,8 +1,8 @@
 import express from "express";
-import consumerBooksRouter from "./books/books.js";
-import cartRouter from "./cart/cartRoutes.js";
+import consumerBooksRouter from "./subRoutes/books.js";
+import cartRouter from "./subRoutes/cartRoutes.js";
 import { verifyAccessToken } from "../../../middleware/protected/verifyAccessToken.js";
-import checkoutRouter from "./checkout/checkoutRoutes.js";
+import checkoutRouter from "./subRoutes/checkoutRoutes.js";
 
 const consumerRouter = express.Router();
 

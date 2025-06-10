@@ -1,17 +1,15 @@
 import { Response } from "express";
-import { ReqApp } from "../../types/types.js";
-import { res200 } from "../../lib/responseClient/res.js";
-import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
-import { Book, BookInstance } from "../../models/all/Book.js";
-import { err404, err500 } from "../../lib/responseClient/err.js";
-import { CloudImg } from "../../types/all/cloud.js";
-import { seq } from "../../config/db.js";
-import { uploadCloudMemory } from "../../lib/cloud/imagesMemory.js";
-import { getCloudID } from "../../lib/utils/ids.js";
-import { captAll } from "../../lib/utils/formatters.js";
-import { delArrCloud } from "../../lib/cloud/delete.js";
-import { handleAssetsBooksPut } from "../../lib/sharedHandlers/assetsHandlers/books.js";
-import { User } from "../../models/all/User.js";
+import { Book } from "../../../models/all/Book.js";
+import { BookStore } from "../../../models/all/BookStore.js";
+import { User } from "../../../models/all/User.js";
+import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { CloudImg } from "../../../types/all/cloud.js";
+import { seq } from "../../../config/db.js";
+import { handleAssetsBooksPut } from "../../../lib/sharedHandlers/assetsHandlers/books.js";
+import { captAll } from "../../../lib/utils/formatters.js";
+import { ReqApp } from "../../../types/types.js";
+import { delArrCloud } from "../../../lib/cloud/delete.js";
+import { res200 } from "../../../lib/responseClient/res.js";
 
 export const updateBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { userID, body } = req;

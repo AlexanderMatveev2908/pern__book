@@ -13,11 +13,11 @@ import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
 import {
-  createStoreField,
-  fieldAccountLogged,
-  fieldAccountNonLogged,
-  fieldAdminDrop,
-  fieldWorkerDrop,
+  labelCreateStore,
+  labelAccountLogged,
+  labelAccountNonLogged,
+  labelAdminDrop,
+  labelWorkerDrop,
   ownerOnlyPaths,
   sideFieldsAdmin,
   sideFieldsAllUsers,
@@ -66,7 +66,7 @@ const Sidebar: FC = () => {
               : el
           )
         : sideFieldsNonLogged,
-      label: authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged,
+      label: authState.isLogged ? labelAccountLogged : labelAccountNonLogged,
     }),
     [authState.isLogged, user?.isVerified]
   );
@@ -77,7 +77,17 @@ const Sidebar: FC = () => {
         if (ownerOnlyPaths.includes(el.path)) return user?.isOwner;
         if (el.path === "/owner/team") return user?.hasWorkers;
         if (el.path === "/owner/books/list") return user?.hasBooks;
+        if (el.path === "/owner/orders/list") return user?.hasBusinessOrders;
 
+        return true;
+      }),
+    [user]
+  );
+
+  const fieldsAllUsers = useMemo(
+    () =>
+      sideFieldsAllUsers.filter((el) => {
+        if (el.path === "/consumer/cart") return user?.cartCount;
         return true;
       }),
     [user]
@@ -102,23 +112,36 @@ const Sidebar: FC = () => {
           )}
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
-            {sideFieldsAllUsers.map((el) => (
-              <SideLink key={el.id} {...{ el }} />
-            ))}
+            {fieldsAllUsers.map((el) =>
+              el.path === "/consumer/cart" ? (
+                <div
+                  key={el.id}
+                  className="w-full flex justify-start gap-6 items-center"
+                >
+                  <SideLink {...{ el }} />
+
+                  <div className="w-[35px] h-[35px] border-2 border-blue-600 rounded-xl p-3 flex justify-center items-center">
+                    <span className="txt__3">{user?.cartCount ?? 0}</span>
+                  </div>
+                </div>
+              ) : (
+                <SideLink key={el.id} {...{ el }} />
+              )
+            )}
 
             <SidebarDrop {...propsAccount} />
 
             {authState.isLogged && (
-              <SidebarDrop {...{ label: fieldAdminDrop, arr: fieldsAdmin }}>
+              <SidebarDrop {...{ label: labelAdminDrop, arr: fieldsAdmin }}>
                 {user?.isVerified ? null : (
-                  <FakeSideLink {...{ el: createStoreField }} />
+                  <FakeSideLink {...{ el: labelCreateStore }} />
                 )}
               </SidebarDrop>
             )}
 
             {user?.isWorker && (
               <SidebarDrop
-                {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}
+                {...{ label: labelWorkerDrop, arr: sideFieldsWorker }}
               />
             )}
             {authState.isLogged && <SideLogout />}

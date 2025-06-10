@@ -1,6 +1,6 @@
 import express from "express";
-import bookStoresWorkerRouter from "./bookStores/bookStores.js";
-import workerBooksRouter from "./books/books.js";
+import bookStoresWorkerRouter from "./subRoutes/bookStores.js";
+import workerBooksRouter from "./subRoutes/books.js";
 
 const workerRouter = express.Router();
 

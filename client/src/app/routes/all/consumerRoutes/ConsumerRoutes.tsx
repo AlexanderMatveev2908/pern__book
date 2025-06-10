@@ -1,11 +1,12 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import cartRoutes from "./subRoutes/CartRoutes";
 import { Outlet } from "react-router-dom";
 import BookListConsumer from "@/pages/ConsumerLayout/BooksLayout/BooksListConsumer/BookListConsumer";
 import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsumer/BookPageConsumer";
-import checkoutRoutes from "./subRoutes/CheckoutRoutes";
+import { cartRoutes } from "./subRoutes/cart";
+import { checkoutRoutes } from "./subRoutes/checkout";
+import Push from "../../helpers/Push";
 
-const consumerRoutes = {
+export const consumerRoutes = {
   path: "consumer",
   element: <Outlet />,
   children: [
@@ -25,11 +26,13 @@ const consumerRoutes = {
           path: ":bookID",
           element: <BookPageConsumer />,
         },
+        {
+          path: "*",
+          element: <Push />,
+        },
       ],
     },
     cartRoutes,
     checkoutRoutes,
   ],
 };
-
-export default consumerRoutes;

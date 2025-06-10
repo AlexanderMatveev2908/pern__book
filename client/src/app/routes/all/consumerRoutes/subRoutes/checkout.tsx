@@ -1,8 +1,9 @@
 import CheckoutLayout from "@/app/layouts/ConsumerLayout/subLayouts/CheckoutLayout";
+import Push from "@/app/routes/helpers/Push";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import CheckoutPage from "@/pages/ConsumerLayout/CheckoutLayout/CheckoutPage/CheckoutPage";
 
-const checkoutRoutes = {
+export const checkoutRoutes = {
   path: "checkout",
   element: <CheckoutLayout />,
   children: [
@@ -14,7 +15,10 @@ const checkoutRoutes = {
         </SwapCtxProvider>
       ),
     },
+
+    {
+      path: "*",
+      element: <Push />,
+    },
   ],
 };
-
-export default checkoutRoutes;

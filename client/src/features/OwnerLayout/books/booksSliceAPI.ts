@@ -13,7 +13,7 @@ import {
   TagsAPI,
 } from "@/types/types";
 
-const BASE_URL = "/admin-books";
+const BASE_URL = "/admin/books";
 
 export const booksSLiceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

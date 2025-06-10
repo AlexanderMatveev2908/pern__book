@@ -2,10 +2,11 @@ import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import BooksList from "@/pages/OwnerLayout/BooksLayout/BooksList/BooksList";
 import CreateBook from "@/pages/OwnerLayout/BooksLayout/CreateBook/CreateBook";
 import UpdateBook from "@/pages/OwnerLayout/BooksLayout/UpdateBook/UpdateBook";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import BookPageOwner from "@/pages/OwnerLayout/BooksLayout/BookPage/BookPageOwner";
+import Push from "@/app/routes/helpers/Push";
 
-const booksRoutes = {
+export const booksRoutes = {
   path: "books",
   element: <Outlet />,
   children: [
@@ -20,8 +21,6 @@ const booksRoutes = {
       ),
     },
     { path: ":bookID", element: <BookPageOwner /> },
-    { path: "*", element: <Navigate to="/" replace /> },
+    { path: "*", element: <Push /> },
   ],
 };
-
-export default booksRoutes;

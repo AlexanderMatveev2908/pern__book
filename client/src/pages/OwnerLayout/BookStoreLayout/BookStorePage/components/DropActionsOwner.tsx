@@ -104,6 +104,10 @@ const DropActionsOwner: FC<PropsType> = ({ bookStore }) => {
 
             return nav("/owner/books/list");
           }
+
+          case KEY_MAP_STORE.ORDERS:
+            return nav("/owner/orders/list");
+
           default:
             return nav(labelsBookStore.get(key)!.path + bookStore?.id);
         }
