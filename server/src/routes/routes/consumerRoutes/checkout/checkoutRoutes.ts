@@ -3,6 +3,7 @@ import { wrapApp } from "../../../../middleware/general/wrapApp.js";
 import {
   getCartCheckout,
   getClientSecretOrder,
+  pollPaidOrder,
 } from "../../../../controllers/consumer/checkout/get.js";
 import {
   createOrder,
@@ -15,7 +16,7 @@ import { checkID } from "../../../../middleware/sharedValidators/ids.js";
 
 const checkoutRouter = express.Router();
 
-checkoutRouter.get("/", wrapApp(getCartCheckout));
+checkoutRouter.get("/cart", wrapApp(getCartCheckout));
 checkoutRouter.post("/", checkTotPrice, wrapApp(logJSON), wrapApp(createOrder));
 checkoutRouter.get("/:orderID", wrapApp(getClientSecretOrder));
 checkoutRouter.post(
@@ -23,6 +24,11 @@ checkoutRouter.post(
   checkID("orderID"),
   checkAddressCheckout,
   wrapApp(getAddressCheckout)
+);
+checkoutRouter.get(
+  "/poll/:orderID",
+  checkID("orderID"),
+  wrapApp(pollPaidOrder)
 );
 
 export default checkoutRouter;

@@ -57,7 +57,7 @@ export const getData = (obj: any, key: string) => obj?.[key] ?? null;
 export const getMsgErr = (data: any) =>
   data?.msg ||
   data?.message ||
-  "A Snorlax has fallen asleep blocking the road, try later 💤🛏️";
+  "A wild Slime ambushed the party! The server took critical damage. Try again after a short rest. 👻";
 
 export const canPushUser = (authState: AuthState) =>
   !authState.isLogged && !authState.loggingOut && !authState.pushedOut;

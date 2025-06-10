@@ -11,6 +11,7 @@ import { stripe } from "../../../config/stripe.js";
 import { formatFloat } from "../../../lib/utils/formatters.js";
 import Stripe from "stripe";
 import { __cg } from "../../../lib/utils/log.js";
+import { OrderStage } from "../../../types/all/orders.js";
 
 const isSecretOk = (status?: string) =>
   ["requires_payment_method", "requires_confirmation", "requires_action"].some(
@@ -101,4 +102,21 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
 
     return err500(res);
   }
+};
+
+export const pollPaidOrder = async (req: ReqApp, res: Response) => {
+  const { userID } = req;
+  const { orderID } = req.params;
+
+  const order = await Order.findOne({
+    where: {
+      id: orderID,
+      userID,
+      stage: OrderStage.PAID,
+    },
+  });
+
+  if (!order) return err404(res, { msg: "Order not found" });
+
+  return res200(res, { order, msg: "payment successful" });
 };
