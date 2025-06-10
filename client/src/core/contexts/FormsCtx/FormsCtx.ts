@@ -6,6 +6,7 @@ import {
   SearchBooksOwnerType,
   SearchBookStoreWorkerFormType,
   SearchBooksWorkerType,
+  SearchOrdersOrdersType,
   SearchStoreFormType,
 } from "./hooks/useFormsCtxProvider";
 
@@ -17,6 +18,7 @@ export type FormsCtxType = {
   createBookFormWorkerCtx: UseFormReturn<BookFormType>;
   formSearchBooksWorkerCtx: UseFormReturn<SearchBooksWorkerType>;
   formSearchBooksConsumerCtx: UseFormReturn<SearchBooksConsumerType>;
+  formSearchOrdersOwnerCtx: UseFormReturn<SearchOrdersOrdersType>;
 };
 
 export const FormsCtx = createContext<null | FormsCtxType>(null);

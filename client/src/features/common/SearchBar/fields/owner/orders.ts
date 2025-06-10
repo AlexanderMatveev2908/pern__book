@@ -48,9 +48,8 @@ export const ownerNumericFiltersOrders: NumericFilterSearch[] = addNestedIDs([
 ]) as NumericFilterSearch[];
 
 export const ownerSortersOrders = addSortFields([
-  {
-    ...createdUpdateAtFields,
-  },
+  ...createdUpdateAtFields,
+
   {
     label: "Avg rating",
     field: "ratingSort",
