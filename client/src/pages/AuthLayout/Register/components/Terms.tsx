@@ -1,4 +1,4 @@
-import { FC, useEffect, useRef } from "react";
+import { FC, useRef } from "react";
 import { FieldErrors } from "react-hook-form";
 import { FormSettersProps } from "@/types/types";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
@@ -11,25 +11,6 @@ type PropsType = {
 const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
   const checkRef = useRef<HTMLDivElement | null>(null);
 
-  useEffect(() => {
-    const animateChecky = (e: MouseEvent) => {
-      if (
-        checkRef.current &&
-        checkRef.current &&
-        checkRef.current.contains(e.target as Node)
-      ) {
-        checkRef.current.classList.remove(s.checky);
-        requestAnimationFrame(() => {
-          checkRef.current?.classList.add(s.checky);
-        });
-      }
-    };
-
-    document.addEventListener("click", animateChecky);
-
-    return () => document.removeEventListener("click", animateChecky);
-  }, []);
-
   const check = watch("terms");
 
   return (
@@ -37,10 +18,16 @@ const Terms: FC<PropsType> = ({ setValue, watch, errors }) => {
       <div
         role="checkbox"
         aria-checked={check}
-        aria-label="accept  and conditions"
-        onClick={() =>
-          setValue("terms", !watch("terms"), { shouldValidate: true })
-        }
+        aria-label="accept terms and conditions"
+        onClick={() => {
+          setValue("terms", !watch("terms"), { shouldValidate: true });
+
+          if (!checkRef.current) return;
+
+          checkRef.current.classList.remove(s.checky);
+          void checkRef.current.offsetWidth;
+          checkRef.current.classList.add(s.checky);
+        }}
         ref={checkRef}
         className={`${s.terms} min-w-[30px] min-h-[30px] rounded-xl relative el__flow cursor-pointer`}
         style={

@@ -1,7 +1,12 @@
 import { Response } from "express";
 import { res200 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
-import { err404, err422, err500 } from "../../../lib/responseClient/err.js";
+import {
+  err404,
+  err409,
+  err422,
+  err500,
+} from "../../../lib/responseClient/err.js";
 import { getCartWithTotPrice, getPopulatedOrder } from "./helpers/getters.js";
 import { Order } from "../../../models/all/Order.js";
 import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
@@ -39,6 +44,8 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
 
   const { order } = await getPopulatedOrder({ orderID, userID: userID! });
   if (!order) return err404(res, { msg: "order not found" });
+  if (order.stage !== OrderStage.PENDING)
+    return err409(res, { msg: "Conflict order status" });
 
   const { isValid } = checkAvailabilityStock({ order });
 
