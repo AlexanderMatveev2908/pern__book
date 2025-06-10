@@ -34,17 +34,6 @@ export const searchBarStore = generalFiltersStoreSchema
     workers: schemaInt(),
     managers: schemaInt(),
     employees: schemaInt(),
-
-    ...[
-      "createdAtSort",
-      "updatedAtSort",
-      "avgRatingSort",
-      "avgPriceSort",
-      "avgQtySort",
-    ].reduce((acc, curr) => {
-      acc[curr] = z.string().optional();
-      return acc;
-    }, {} as Record<string, z.ZodTypeAny>),
   })
   .superRefine((data, ctx) => {
     handleValidationAvgValsStore({ data, ctx });

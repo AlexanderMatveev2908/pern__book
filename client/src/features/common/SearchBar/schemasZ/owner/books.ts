@@ -1,7 +1,10 @@
 import { z } from "zod";
-import { itemsSchema, optInfoFromStore } from "../general/general.ts";
 import {
-  commonHandleRefineBooks,
+  superRefineQtyAndPrice,
+  itemsSchema,
+  optInfoFromStore,
+} from "../general/general.ts";
+import {
   generalFieldsSearchBooksSchema,
   generalOptSearchBookItem,
   handleYearRefine,
@@ -30,7 +33,9 @@ const itemSchema = itemsSchema({
 export const schemaSearchBooks = generalFieldsSearchBooksSchema
   .extend({
     items: z.array(itemSchema).optional(),
+
+    qtySort: z.string().optional(),
   })
   .superRefine((data, ctx) => {
-    commonHandleRefineBooks({ data, ctx });
+    superRefineQtyAndPrice({ data, ctx });
   });
