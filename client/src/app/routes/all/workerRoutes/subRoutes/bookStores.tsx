@@ -5,7 +5,7 @@ import BookStorePageWorker from "@/pages/WorkerLayout/BookStoreLayout/BookStoreP
 import UpdateBookStoreManager from "@/pages/WorkerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStoreManager";
 import { Navigate, Outlet } from "react-router-dom";
 
-const bookStoresWorkerRoutes = {
+export const bookStoresWorkerRoutes = {
   path: "book-stores",
   element: <Outlet />,
   children: [
@@ -35,5 +35,3 @@ const bookStoresWorkerRoutes = {
     },
   ],
 };
-
-export default bookStoresWorkerRoutes;

@@ -7,7 +7,7 @@ import Register from "@/pages/AuthLayout/Register/Register";
 import VerifyAccount from "@/pages/AuthLayout/VerifyAccount/VerifyAccount";
 import { Navigate } from "react-router-dom";
 
-const authRoutes = {
+export const authRoutes = {
   path: "auth",
   element: <AuthLayout />,
   children: [
@@ -26,5 +26,3 @@ const authRoutes = {
     { path: "*", element: <Navigate to="/" replace /> },
   ],
 };
-
-export default authRoutes;

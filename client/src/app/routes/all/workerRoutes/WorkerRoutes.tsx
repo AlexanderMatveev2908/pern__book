@@ -1,9 +1,9 @@
 import WorkerLayout from "@/app/layouts/WorkerLayout/WorkerLayout";
 import { Navigate } from "react-router-dom";
-import booksWorkerRoutes from "./subRoutes/books";
-import bookStoresWorkerRoutes from "./subRoutes/bookStores";
+import { bookStoresWorkerRoutes } from "./subRoutes/bookStores";
+import { booksWorkerRoutes } from "./subRoutes/books";
 
-const workerRoutes = {
+export const workerRoutes = {
   path: "worker",
   element: <WorkerLayout />,
   children: [
@@ -15,5 +15,3 @@ const workerRoutes = {
     },
   ],
 };
-
-export default workerRoutes;

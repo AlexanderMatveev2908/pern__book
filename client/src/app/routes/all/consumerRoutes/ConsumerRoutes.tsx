@@ -1,11 +1,11 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import cartRoutes from "./subRoutes/CartRoutes";
 import { Navigate, Outlet } from "react-router-dom";
 import BookListConsumer from "@/pages/ConsumerLayout/BooksLayout/BooksListConsumer/BookListConsumer";
 import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsumer/BookPageConsumer";
-import checkoutRoutes from "./subRoutes/CheckoutRoutes";
+import { cartRoutes } from "./subRoutes/cart";
+import { checkoutRoutes } from "./subRoutes/checkout";
 
-const consumerRoutes = {
+export const consumerRoutes = {
   path: "consumer",
   element: <Outlet />,
   children: [
@@ -35,5 +35,3 @@ const consumerRoutes = {
     checkoutRoutes,
   ],
 };
-
-export default consumerRoutes;

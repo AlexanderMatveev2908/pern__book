@@ -6,7 +6,7 @@ import SecurityPwd from "@/pages/UserLayout/SecurityPwd/SecurityPwd";
 import VerifyAccountLogged from "@/pages/UserLayout/VerifyAccountLogged/VerifyAccountLogged";
 import { Navigate } from "react-router-dom";
 
-const userRoutes = {
+export const userRoutes = {
   path: "user",
   element: <UserLayout />,
   children: [
@@ -36,5 +36,3 @@ const userRoutes = {
     },
   ],
 };
-
-export default userRoutes;

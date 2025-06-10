@@ -5,7 +5,7 @@ import UpdateBook from "@/pages/OwnerLayout/BooksLayout/UpdateBook/UpdateBook";
 import { Navigate, Outlet } from "react-router-dom";
 import BookPageOwner from "@/pages/OwnerLayout/BooksLayout/BookPage/BookPageOwner";
 
-const booksRoutes = {
+export const booksRoutes = {
   path: "books",
   element: <Outlet />,
   children: [
@@ -23,5 +23,3 @@ const booksRoutes = {
     { path: "*", element: <Navigate to="/" replace /> },
   ],
 };
-
-export default booksRoutes;

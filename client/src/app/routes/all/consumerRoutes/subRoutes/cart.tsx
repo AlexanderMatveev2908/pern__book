@@ -2,7 +2,7 @@ import CartLayout from "@/app/layouts/ConsumerLayout/subLayouts/CartLayout";
 import CartPage from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
 import { Navigate } from "react-router-dom";
 
-const cartRoutes = {
+export const cartRoutes = {
   path: "cart",
   element: <CartLayout />,
   children: [
@@ -17,5 +17,3 @@ const cartRoutes = {
     },
   ],
 };
-
-export default cartRoutes;

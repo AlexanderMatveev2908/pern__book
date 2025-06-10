@@ -3,7 +3,7 @@ import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import CheckoutPage from "@/pages/ConsumerLayout/CheckoutLayout/CheckoutPage/CheckoutPage";
 import { Navigate } from "react-router-dom";
 
-const checkoutRoutes = {
+export const checkoutRoutes = {
   path: "checkout",
   element: <CheckoutLayout />,
   children: [
@@ -22,5 +22,3 @@ const checkoutRoutes = {
     },
   ],
 };
-
-export default checkoutRoutes;

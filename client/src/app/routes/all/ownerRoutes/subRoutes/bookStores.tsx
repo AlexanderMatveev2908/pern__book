@@ -6,7 +6,7 @@ import CreateBooksStorePage from "@/pages/OwnerLayout/BookStoreLayout/CreateBook
 import { Navigate, Outlet } from "react-router-dom";
 import BookStorePageOwner from "@/pages/OwnerLayout/BookStoreLayout/BookStorePage/BookStorePageOwner";
 
-const bookStoreRoutes = {
+export const bookStoreRoutes = {
   path: "book-store",
   element: <Outlet />,
   children: [
@@ -38,5 +38,3 @@ const bookStoreRoutes = {
     { path: "*", element: <Navigate to="/" replace /> },
   ],
 };
-
-export default bookStoreRoutes;

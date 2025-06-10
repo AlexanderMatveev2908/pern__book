@@ -1,9 +1,9 @@
 import OwnerLayout from "@/app/layouts/OwnerLayout/OwnerLayout";
 import { Navigate } from "react-router-dom";
-import bookStoreRoutes from "./subRoutes/bookStores";
-import booksRoutes from "./subRoutes/books";
+import { bookStoreRoutes } from "./subRoutes/bookStores";
+import { booksRoutes } from "./subRoutes/books";
 
-const ownerRoutes = {
+export const ownerRoutes = {
   path: "owner",
   element: <OwnerLayout />,
   children: [
