@@ -1,21 +1,20 @@
 import express from "express";
-import { verifyAccessToken } from "../../middleware/protected/verifyAccessToken.js";
-import { wrapApp } from "../../middleware/general/wrapApp.js";
+import { wrapApp } from "../../../../middleware/general/wrapApp.js";
 import {
   getBooksList,
   getInfoBook,
   getMyBook,
   getPdf,
   getStoreInfo,
-} from "../../controllers/adminBooks/get.js";
-import { logJSON } from "../../lib/utils/log.js";
-import { createBook } from "../../controllers/adminBooks/post.js";
-import { multerMemoryStorage } from "../../middleware/multer/memoryStorage.js";
-import { validatePostPutBooks } from "../../middleware/sharedValidators/postPutBooks.js";
-import { updateBook } from "../../controllers/adminBooks/put.js";
-import { deleteBook } from "../../controllers/adminBooks/delete.js";
-import { validateGetBooksList } from "../../middleware/adminBooks/get.js";
-import { checkID } from "../../middleware/sharedValidators/ids.js";
+} from "../../../../controllers/adminBooks/get.js";
+import { multerMemoryStorage } from "../../../../middleware/multer/memoryStorage.js";
+import { logJSON } from "../../../../lib/utils/log.js";
+import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
+import { createBook } from "../../../../controllers/adminBooks/post.js";
+import { validateGetBooksList } from "../../../../middleware/adminBooks/get.js";
+import { checkID } from "../../../../middleware/sharedValidators/ids.js";
+import { updateBook } from "../../../../controllers/adminBooks/put.js";
+import { deleteBook } from "../../../../controllers/adminBooks/delete.js";
 
 const adminBookRouter = express.Router();
 
