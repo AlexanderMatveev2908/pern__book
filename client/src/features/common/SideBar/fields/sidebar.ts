@@ -5,7 +5,7 @@ import { v4 } from "uuid";
 import { RiAccountBoxLine, RiBookShelfFill } from "react-icons/ri";
 import { BriefcaseBusiness, MonitorCog, ShieldCheck } from "lucide-react";
 import { addArrIDs } from "@/core/lib/all/utils/ids";
-import { MdAddBusiness } from "react-icons/md";
+import { MdAddBusiness, MdOutlineShoppingCart } from "react-icons/md";
 import { HiLibrary } from "react-icons/hi";
 import { LabelDropType } from "@/types/types";
 import {
@@ -25,6 +25,11 @@ export const sideFieldsAllUsers: SideFieldType[] = [
     label: "Home",
     path: "/",
     icon: GoHome,
+  },
+  {
+    label: "Cart",
+    path: "/consumer/cart",
+    icon: MdOutlineShoppingCart,
   },
   {
     label: "Books",

@@ -83,6 +83,15 @@ const Sidebar: FC = () => {
     [user]
   );
 
+  const fieldsAllUsers = useMemo(
+    () =>
+      sideFieldsAllUsers.filter((el) => {
+        if (el.path === "/consumer/cart") return user?.cartCount;
+        return true;
+      }),
+    [user]
+  );
+
   return (
     <>
       <div
@@ -102,9 +111,22 @@ const Sidebar: FC = () => {
           )}
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
-            {sideFieldsAllUsers.map((el) => (
-              <SideLink key={el.id} {...{ el }} />
-            ))}
+            {fieldsAllUsers.map((el) =>
+              el.path === "/consumer/cart" ? (
+                <div
+                  key={el.id}
+                  className="w-full flex justify-start gap-6 items-center"
+                >
+                  <SideLink {...{ el }} />
+
+                  <div className="w-[35px] h-[35px] border-2 border-blue-600 rounded-xl p-3 flex justify-center items-center">
+                    <span className="txt__3">{user?.cartCount ?? 0}</span>
+                  </div>
+                </div>
+              ) : (
+                <SideLink key={el.id} {...{ el }} />
+              )
+            )}
 
             <SidebarDrop {...propsAccount} />
 
