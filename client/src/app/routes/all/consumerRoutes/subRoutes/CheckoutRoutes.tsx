@@ -1,6 +1,7 @@
 import CheckoutLayout from "@/app/layouts/ConsumerLayout/subLayouts/CheckoutLayout";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import CheckoutPage from "@/pages/ConsumerLayout/CheckoutLayout/CheckoutPage/CheckoutPage";
+import { Navigate } from "react-router-dom";
 
 const checkoutRoutes = {
   path: "checkout",
@@ -13,6 +14,11 @@ const checkoutRoutes = {
           <CheckoutPage />
         </SwapCtxProvider>
       ),
+    },
+
+    {
+      path: "*",
+      element: <Navigate to="/" replace />,
     },
   ],
 };

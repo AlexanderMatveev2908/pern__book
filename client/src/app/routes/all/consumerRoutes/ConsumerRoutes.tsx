@@ -1,6 +1,6 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import cartRoutes from "./subRoutes/CartRoutes";
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import BookListConsumer from "@/pages/ConsumerLayout/BooksLayout/BooksListConsumer/BookListConsumer";
 import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsumer/BookPageConsumer";
 import checkoutRoutes from "./subRoutes/CheckoutRoutes";
@@ -24,6 +24,10 @@ const consumerRoutes = {
         {
           path: ":bookID",
           element: <BookPageConsumer />,
+        },
+        {
+          path: "*",
+          element: <Navigate to="/" replace />,
         },
       ],
     },
