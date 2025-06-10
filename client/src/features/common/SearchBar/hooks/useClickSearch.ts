@@ -35,18 +35,7 @@ export const useClickSearch = ({
     setPagination,
     setInnerJoinedCat,
   } = ctx;
-  const { reset, getValues } = formCtx;
-
-  const handleSearch = useCallback(() => {
-    setIsPending({ el: "submit", val: true });
-
-    const data = cpyObj({
-      ...getValues(),
-      ...getDefValsPagination(0),
-    });
-
-    updateValsNoDebounce({ vals: data, triggerRtk, routeID });
-  }, [getValues, setIsPending, triggerRtk, routeID, updateValsNoDebounce]);
+  const { reset } = formCtx;
 
   const handleClear = useCallback(() => {
     setIsPending({ el: "clear", val: true });
@@ -85,7 +74,6 @@ export const useClickSearch = ({
   ]);
 
   return {
-    handleSearch,
     handleClear,
   };
 };

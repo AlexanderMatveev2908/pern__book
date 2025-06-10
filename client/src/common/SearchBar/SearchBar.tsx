@@ -23,7 +23,7 @@ import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/Buttons/ButtonsForm";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { cpyObj, getDefValsPagination, isStr } from "@/core/lib/lib";
+import { __cg, cpyObj, getDefValsPagination, isStr } from "@/core/lib/lib";
 import { REG_ID } from "@/core/config/regex";
 import { ZodEffects, ZodObject } from "zod";
 
@@ -32,7 +32,6 @@ import { ZodEffects, ZodObject } from "zod";
 // ? THE SEARCH BAR IS IN SOME WAY THE HEART OF APP AND I TRIED TO KEEP IT AS ORGANIZED AS POSSIBLE, SOME THINGS COULD BE BETTER DIVIDED FOLLOWING A MORE SPECIFIC MINDSET BUT WHERE POSSIBLE I PREFER ADD PROPS TO MY COMPONENTS INSTEAD OF COPY PASTING EXISTENT CODE INTO A NEW COMPONENT WITH JUST FEW CHANGES
 type PropsType = {
   hook?: TriggerRTK;
-  handleSave?: () => void;
   txtInputs?: FormFieldBasic[];
   filters?: FilterSearch[];
   sorters?: SorterSearch[];
@@ -44,7 +43,6 @@ type PropsType = {
 };
 
 const SearchBar: FC<PropsType> = ({
-  handleSave,
   txtInputs,
   filters,
   sorters,
@@ -56,21 +54,40 @@ const SearchBar: FC<PropsType> = ({
   schema,
 }) => {
   const [triggerRtk, res] = hook ?? ([() => null, {}] as any);
-
-  const routeID = useParams()?.[paramID ?? ""];
-
-  useWrapQueryAPI({ ...res } as any);
-
   const { isFetching } = res ?? {};
+
+  const formCtx = useFormContext();
+  const { watch, getValues, setFocus, handleSubmit } = formCtx;
   const ctx = useSearchCtx();
   const {
-    isPending,
+    updateValsNoDebounce,
     setIsPending,
+    isPending,
+
     preSubmit: { isPopulated, canMakeAPI },
   } = ctx;
 
-  const formCtx = useFormContext();
-  const { watch, getValues, setFocus } = formCtx;
+  const routeID = useParams()?.[paramID ?? ""];
+
+  const handleSave = handleSubmit(
+    (formData) => {
+      setIsPending({ el: "submit", val: true });
+
+      console.log(formData);
+      const data = {
+        ...formData,
+        ...getDefValsPagination(0),
+      };
+
+      updateValsNoDebounce({ vals: data, triggerRtk, routeID });
+    },
+    (errs) => {
+      __cg("err search", errs);
+      return errs;
+    }
+  );
+
+  useWrapQueryAPI({ ...res } as any);
 
   useFocus({ key: `items.${0}.val`, setFocus, delay: 500 });
 

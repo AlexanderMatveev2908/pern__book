@@ -25,6 +25,10 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
     innerJoinedCatCtx,
   } = useSearchCtx();
 
+  const {
+    preSubmit: { canMakeAPI },
+    setPreSubmit,
+  } = useSearchCtx();
   const { updateJoinCat } = useUpdateJoinCat();
 
   const mainCatRealTime = watch("mainCategories");
@@ -38,6 +42,8 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
 
       if (key === "mainCategories" && innerJoinCat)
         updateJoinCat({ value, el, setInnerJoinedCat });
+
+      if (!canMakeAPI) setPreSubmit({ el: "canMakeAPI", val: true });
 
       if (!Array.isArray(value)) {
         setValue(key, [el.val], {
@@ -63,6 +69,8 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
       innerJoinCat,
       updateJoinCat,
       setInnerJoinedCat,
+      setPreSubmit,
+      canMakeAPI,
     ]
   );
 
@@ -142,6 +150,9 @@ const ValsCol: FC<PropsType> = ({ innerJoinCat }) => {
                     };
 
                     const str = el.field.includes("min") ? "min" : "max";
+
+                    if (!canMakeAPI)
+                      setPreSubmit({ el: "canMakeAPI", val: true });
 
                     triggerRHF(el.field.replace(str, obj[str]));
                   },

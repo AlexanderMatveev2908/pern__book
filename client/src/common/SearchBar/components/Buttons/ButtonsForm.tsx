@@ -44,7 +44,7 @@ const ButtonsForm: FC<PropsType> = ({
     setFocus,
   } = formCtx;
 
-  const { handleClear, handleSearch } = useClickSearch({
+  const { handleClear } = useClickSearch({
     ctx,
     formCtx,
     txtInputs,
@@ -95,7 +95,6 @@ const ButtonsForm: FC<PropsType> = ({
               hasFormErrs,
               isPending: isPending.submit,
               isFetching: res?.isFetching,
-              handleSearch,
               styleTxt: s.txt,
             }}
           />

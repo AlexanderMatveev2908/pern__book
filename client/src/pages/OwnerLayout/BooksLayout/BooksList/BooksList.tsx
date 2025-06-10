@@ -25,13 +25,7 @@ const BooksList: FC = () => {
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
   const { innerJoinedCatCtx, setInnerJoinedCat } = useSearchCtx();
-  const { handleSubmit, watch } = formCtx;
-  const handleSave = handleSubmit(
-    () => {},
-    (errs) => {
-      return errs;
-    }
-  );
+  const { watch } = formCtx;
 
   const hook = booksSLiceAPI.endpoints.getAllBooks.useLazyQuery();
   const res = hook[1];
@@ -65,7 +59,6 @@ const BooksList: FC = () => {
               txtInputs: fieldsInputsBooks,
               filters: booksFilters,
               numericFilters: ownerBooksNumericFilters,
-              handleSave,
               sorters: ownerBooksSorters,
               // ? JUST A METAPHOR
               innerJoinCat: true,

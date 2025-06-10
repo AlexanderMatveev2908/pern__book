@@ -32,7 +32,7 @@ const BtnResults: FC<PropsType> = ({
     preSubmit: { hasFormErrs },
   } = ctx;
   const formCtx = useFormContext();
-  const { handleSearch, handleClear } = useClickSearch({
+  const { handleClear } = useClickSearch({
     ctx,
     formCtx,
     txtInputs,
@@ -53,7 +53,6 @@ const BtnResults: FC<PropsType> = ({
         <SearchBtn
           {...{
             isPending: isPending.submit,
-            handleSearch,
             hasFormErrs,
             labelTxt,
             styleTxt: s.txt,
