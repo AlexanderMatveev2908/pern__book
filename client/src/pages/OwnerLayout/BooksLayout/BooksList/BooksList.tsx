@@ -12,7 +12,6 @@ import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import PdfBtn from "./components/PdfBtn";
 import {
   fieldsInputsBooks,
-  ownerBooksFilters,
   ownerBooksNumericFilters,
   ownerBooksSorters,
 } from "@/features/common/SearchBar/fields/owner/books";
@@ -20,6 +19,7 @@ import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpda
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
 import BookItemOwner from "./components/BookItemOwner";
+import { booksFilters } from "@/features/common/SearchBar/fields/general/books";
 
 const BooksList: FC = () => {
   const { user } = useGetU();
@@ -63,7 +63,7 @@ const BooksList: FC = () => {
             {...({
               hook,
               txtInputs: fieldsInputsBooks,
-              filters: ownerBooksFilters,
+              filters: booksFilters,
               numericFilters: ownerBooksNumericFilters,
               handleSave,
               sorters: ownerBooksSorters,
