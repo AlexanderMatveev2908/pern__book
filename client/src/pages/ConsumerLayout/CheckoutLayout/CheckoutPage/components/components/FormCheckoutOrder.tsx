@@ -21,7 +21,7 @@ type PropsType = {
   order: OrderType;
 };
 
-const LeftPageForm: FC<PropsType> = ({
+const FormCheckoutOrder: FC<PropsType> = ({
   currForm,
   formCTX,
   handleSave,
@@ -76,4 +76,4 @@ const LeftPageForm: FC<PropsType> = ({
   );
 };
 
-export default LeftPageForm;
+export default FormCheckoutOrder;

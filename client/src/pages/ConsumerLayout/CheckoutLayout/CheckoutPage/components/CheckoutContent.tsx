@@ -20,7 +20,7 @@ import { __cg, isObjOk } from "@/core/lib/lib";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
-import LeftPageForm from "./components/LeftPageForm";
+import FormCheckoutOrder from "./components/FormCheckoutOrder";
 import { OrderType } from "@/types/all/orders";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import {
@@ -33,6 +33,7 @@ import Title from "@/components/elements/Title";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp } from "@/types/types";
+import DummyCards from "./components/DummyCards/DummyCards";
 
 type PropsType = {
   order: OrderType;
@@ -229,7 +230,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
     >
       <BriefSummary {...{ order: order! }} />
 
-      <LeftPageForm
+      <FormCheckoutOrder
         {...{
           currForm,
           formCTX,
@@ -246,7 +247,9 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
             <PaymentElement />
           </div>
         </div>
-      </LeftPageForm>
+      </FormCheckoutOrder>
+
+      <DummyCards />
     </div>
   );
 };
