@@ -31,6 +31,24 @@ export const baseOptItemSchemaStore = {
   },
 };
 
+export const optInfoFromStore = {
+  ID: {
+    reg: REG_ID,
+    minLen: 0,
+    maxLen: 36,
+  },
+  bookStoreID: {
+    reg: REG_ID,
+    minLen: 0,
+    maxLen: 36,
+  },
+  bookStoreName: {
+    reg: REG_STORE_NAME,
+    minLen: 0,
+    maxLen: 50,
+  },
+};
+
 export const schemaID = () =>
   z
     .string()
