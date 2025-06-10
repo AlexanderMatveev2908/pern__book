@@ -2,7 +2,7 @@ import CloseBtn from "@/components/elements/buttons/CloseBtn";
 import Title from "@/components/elements/Title";
 import { useAnimatePop } from "@/core/hooks/all/UI/useAnimatePop";
 import { SorterSearch } from "@/types/types";
-import { useRef, type FC } from "react";
+import { useEffect, useRef, type FC } from "react";
 import PairSort from "./PairSort";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
@@ -21,6 +21,21 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
     isPopup: sortBar,
     popRef,
   });
+
+  useEffect(() => {
+    const listen = (e: MouseEvent) => {
+      if (!popRef.current) return;
+
+      if (!popRef.current.contains(e.target as Node))
+        setBar({ el: "sortBar", val: false });
+    };
+
+    document.addEventListener("mousedown", listen);
+
+    return () => {
+      document.removeEventListener("mousedown", listen);
+    };
+  }, [setBar]);
 
   return (
     <div
