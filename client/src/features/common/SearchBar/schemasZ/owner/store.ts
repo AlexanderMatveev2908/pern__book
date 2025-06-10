@@ -3,7 +3,6 @@ import { z } from "zod";
 import {
   schemaInt,
   itemsSchema,
-  handleRefineItem,
   baseOptItemSchemaStore,
 } from "../general/general.ts";
 import { isValidNumber } from "@/core/lib/lib.ts";
@@ -23,11 +22,10 @@ const optItem = {
   },
 };
 
-const itemSchema = z
-  .object(itemsSchema(allowedKeys))
-  .superRefine((item, ctx) => {
-    handleRefineItem({ item, optItem, ctx });
-  });
+const itemSchema = itemsSchema({
+  allowedKeys,
+  optItem,
+});
 
 export const searchBarStore = generalFiltersStoreSchema
   .extend({
@@ -36,17 +34,6 @@ export const searchBarStore = generalFiltersStoreSchema
     workers: schemaInt(),
     managers: schemaInt(),
     employees: schemaInt(),
-
-    ...[
-      "createdAtSort",
-      "updatedAtSort",
-      "avgRatingSort",
-      "avgPriceSort",
-      "avgQtySort",
-    ].reduce((acc, curr) => {
-      acc[curr] = z.string().optional();
-      return acc;
-    }, {} as Record<string, z.ZodTypeAny>),
   })
   .superRefine((data, ctx) => {
     handleValidationAvgValsStore({ data, ctx });

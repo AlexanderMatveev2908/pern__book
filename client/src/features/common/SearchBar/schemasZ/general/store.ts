@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ratingRanges } from "@/features/common/SearchBar/fields/general";
+import { ratingRanges } from "@/features/common/SearchBar/fields/general/general";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, StoreOrderStage } from "@/types/all/orders";
 import { z } from "zod";
-import { schemaInt, schemaPrice } from "./general";
+import { generateZodSorters, schemaInt, schemaPrice } from "./general";
 import { isValidNumber } from "@/core/lib/lib";
 
 export const msgsFormStore = {
@@ -37,6 +37,14 @@ export const generalFiltersStoreSchema = z.object({
   maxAvgPrice: schemaPrice(),
   minAvgQty: schemaInt(),
   maxAvgQty: schemaInt(),
+
+  ...generateZodSorters([
+    "createdAtSort",
+    "updatedAtSort",
+    "avgRatingSort",
+    "avgPriceSort",
+    "avgQtySort",
+  ]),
 });
 
 export const handleValidationAvgValsStore = ({ data, ctx }: any) => {

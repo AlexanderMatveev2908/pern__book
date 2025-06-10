@@ -19,20 +19,10 @@ const seq = new Sequelize(process.env.URI_AIVEN!, {
   },
 });
 
-bindModels(seq);
-
-const connectDB = async () => await seq.authenticate();
+const connectDB = async () => {
+  await seq.authenticate();
+  bindModels(seq);
+};
 const syncDB = async () => seq.sync({ force: false, alter: true });
-// const syncDB = async () => await seq.sync({ force: true, alter: true });
 
 export { connectDB, syncDB, seq };
-
-// const seq = new Sequelize({
-//   dialect: "postgres",
-//   host: "localhost",
-//   username: "postgres",
-//   password: process.env.PWD_PG,
-//   database: "__0",
-//   logging: false,
-//   port: 5432,
-// });

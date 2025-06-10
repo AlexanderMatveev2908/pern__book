@@ -1,8 +1,10 @@
-import { REG_ID, REG_STORE_NAME } from "@/core/config/regex";
 import { z } from "zod";
-import { itemsSchema, handleRefineItem } from "../general/general.ts";
 import {
-  commonHandleRefineBooks,
+  superRefineQtyAndPrice,
+  itemsSchema,
+  optInfoFromStore,
+} from "../general/general.ts";
+import {
   generalFieldsSearchBooksSchema,
   generalOptSearchBookItem,
   handleYearRefine,
@@ -18,35 +20,22 @@ const allowedKeys = [
 ];
 
 const optItem = {
-  ID: {
-    reg: REG_ID,
-    minLen: 0,
-    maxLen: 36,
-  },
-  bookStoreID: {
-    reg: REG_ID,
-    minLen: 0,
-    maxLen: 36,
-  },
-  bookStoreName: {
-    reg: REG_STORE_NAME,
-    minLen: 0,
-    maxLen: 50,
-  },
+  ...optInfoFromStore,
   ...generalOptSearchBookItem,
 };
 
-const itemSchema = z
-  .object(itemsSchema(allowedKeys))
-  .superRefine((item, ctx) => {
-    handleRefineItem({ item, optItem, ctx });
-    handleYearRefine({ item, ctx });
-  });
+const itemSchema = itemsSchema({
+  allowedKeys,
+  optItem,
+  customValidateCB: handleYearRefine,
+});
 
 export const schemaSearchBooks = generalFieldsSearchBooksSchema
   .extend({
     items: z.array(itemSchema).optional(),
+
+    qtySort: z.string().optional(),
   })
   .superRefine((data, ctx) => {
-    commonHandleRefineBooks({ data, ctx });
+    superRefineQtyAndPrice({ data, ctx });
   });

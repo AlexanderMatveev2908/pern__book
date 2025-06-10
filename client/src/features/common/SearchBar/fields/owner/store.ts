@@ -7,17 +7,19 @@ import {
 import { v4 } from "uuid";
 import {
   addSortFields,
-  avgPriceFilter,
-  avgQtyFilter,
-  commonFieldsTxtInputsStore,
-  commonSortersStore,
   filtersCat,
   filtersDelivery,
   filtersOrders,
   filtersRating,
-  populateIdsSearchbarFields,
-} from "../general";
+} from "../general/general";
 import { FaUsers } from "react-icons/fa";
+import { addNestedIDs } from "@/core/lib/all/utils/ids";
+import {
+  avgPriceFilter,
+  avgQtyFilter,
+  commonFieldsTxtInputsStore,
+  commonSortersStore,
+} from "../general/bookstore";
 
 export const fieldsSearchStore: FormFieldBasic[] = [
   ...commonFieldsTxtInputsStore,
@@ -31,19 +33,12 @@ export const fieldsSearchStore: FormFieldBasic[] = [
   id: v4(),
 }));
 
-export const storeFilters: FilterSearch[] = [
+export const storeFilters: FilterSearch[] = addNestedIDs([
   filtersCat,
   filtersOrders,
   filtersDelivery,
   filtersRating,
-].map((el) => ({
-  ...el,
-  id: v4(),
-  fields: el.fields.map((el) => ({
-    ...el,
-    id: v4(),
-  })),
-}));
+]) as FilterSearch[];
 
 const noOfWorkers = {
   label: "Workers",
@@ -69,14 +64,12 @@ const noOfWorkers = {
   })),
 };
 
-export const numericFiltersStore = populateIdsSearchbarFields([
+export const numericFiltersStore = addNestedIDs([
   avgPriceFilter,
   avgQtyFilter,
   noOfWorkers,
 ]) as NumericFilterSearch[];
 
-export const sorterStore: SorterSearch[] = commonSortersStore.map((el) => ({
-  ...el,
-  id: v4(),
-  fields: addSortFields(),
-}));
+export const sorterStore: SorterSearch[] = addSortFields(
+  commonSortersStore
+) as SorterSearch[];

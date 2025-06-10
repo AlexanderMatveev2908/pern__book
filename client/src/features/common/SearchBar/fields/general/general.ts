@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { capt } from "@/core/lib/lib";
 import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType, StoreOrderStage } from "@/types/all/orders";
@@ -14,24 +13,6 @@ import { LuAlarmClock } from "react-icons/lu";
 import { MdOutlineCategory } from "react-icons/md";
 import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
-
-export const allUsersTxtFieldsInput = [
-  {
-    field: "title",
-    label: "Title",
-    place: "Book title...",
-  },
-  {
-    field: "author",
-    label: "Author",
-    place: "Author name...",
-  },
-  {
-    field: "year",
-    label: "Year",
-    place: "Year...",
-  },
-];
 
 export const filtersCat: Omit<FilterSearch, "id"> = {
   label: "Categories",
@@ -63,18 +44,18 @@ export const filtersDelivery: Omit<FilterSearch, "id"> = {
   })),
 };
 
-export const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
-  label: "Avg Price",
-  field: "avgPrice",
+export const priceFilters: Omit<NumericFilterSearch, "id"> = {
+  label: "Price",
+  field: "price",
   icon: TbPigMoney,
   fields: [
     {
-      label: "Min avg price",
-      field: "minAvgPrice",
+      label: "Min price",
+      field: "minPrice",
     },
     {
-      label: "Max avg price",
-      field: "maxAvgPrice",
+      label: "Max price",
+      field: "maxPrice",
     },
   ].map((el) => ({
     ...el,
@@ -82,18 +63,18 @@ export const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
   })),
 };
 
-export const avgQtyFilter: Omit<NumericFilterSearch, "id"> = {
-  label: "Avg quantity",
+export const qtyFilters: Omit<NumericFilterSearch, "id"> = {
+  label: "Quantity",
   icon: FaDatabase,
-  field: "avgQty",
+  field: "qty",
   fields: [
     {
-      field: "minAvgQty",
-      label: "Min avg quantity",
+      field: "minQty",
+      label: "Min quantity",
     },
     {
-      field: "maxAvgQty",
-      label: "Max avg quantity",
+      field: "maxQty",
+      label: "Max quantity",
     },
   ].map((el) => ({
     ...el,
@@ -113,47 +94,19 @@ export const filtersRating: Omit<FilterSearch, "id"> = {
   })),
 };
 
-export const addSortFields = () =>
-  ["ASC", "DESC"].map((el) => ({
-    val: el,
-    label: el,
-    id: v4(),
-    icon: el === "ASC" ? FaSortAmountUp : FaSortAmountDown,
-  }));
-
-export const populateIdsSearchbarFields = <T>(arr: T[]): T[] =>
+export const addSortFields = <T>(arr: T[]): T[] =>
   arr.map((el) => ({
     ...el,
     id: v4(),
-    fields: (el as any).fields.map((sub: any) => ({
-      ...sub,
+    fields: ["ASC", "DESC"].map((el) => ({
+      val: el,
+      label: el,
       id: v4(),
+      icon: el === "ASC" ? FaSortAmountUp : FaSortAmountDown,
     })),
   }));
 
-export const commonFieldsTxtInputsStore = [
-  {
-    field: "name",
-    label: "Name",
-  },
-  {
-    field: "country",
-    label: "Country",
-  },
-  {
-    field: "state",
-    label: "State",
-  },
-  {
-    field: "city",
-    label: "City",
-  },
-].map((el) => ({
-  ...el,
-  place: `Store ${el.field}...`,
-}));
-
-export const commonSortersStore = [
+export const createdUpdateAtFields = [
   {
     label: "Created at",
     field: "createdAtSort",
@@ -163,20 +116,5 @@ export const commonSortersStore = [
     label: "Updated at",
     field: "updatedAtSort",
     icon: LuAlarmClock,
-  },
-  {
-    label: "Avg rating",
-    field: "avgRatingSort",
-    icon: FaRegStar,
-  },
-  {
-    label: "Avg Price",
-    field: "avgPriceSort",
-    icon: TbPigMoney,
-  },
-  {
-    label: "Avg Quantity",
-    field: "avgQtySort",
-    icon: FaDatabase,
   },
 ];

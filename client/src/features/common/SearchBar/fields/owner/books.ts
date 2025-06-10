@@ -1,17 +1,9 @@
-import { captAll } from "@/core/lib/lib";
-import { categoriesBooks } from "@/types/all/books";
-import { FilterSearch, NumericFilterSearch } from "@/types/types";
-import { FaDatabase, FaRegStar } from "react-icons/fa";
-import { MdOutlineCategory } from "react-icons/md";
+import { NumericFilterSearch } from "@/types/types";
+import { FaDatabase } from "react-icons/fa";
 import { v4 } from "uuid";
-import { TbPigMoney } from "react-icons/tb";
-import { LuAlarmClock } from "react-icons/lu";
-import { CatBookStore } from "@/types/all/bookStore";
-import {
-  addSortFields,
-  allUsersTxtFieldsInput,
-  ratingRanges,
-} from "../general";
+import { addSortFields, priceFilters, qtyFilters } from "../general/general";
+import { addNestedIDs } from "@/core/lib/all/utils/ids";
+import { allUsersTxtFieldsInput, booksSorters } from "../general/books";
 
 export const fieldsInputsBooks = [
   ...allUsersTxtFieldsInput,
@@ -35,123 +27,16 @@ export const fieldsInputsBooks = [
   id: v4(),
 }));
 
-const filtersCat: Omit<FilterSearch, "id"> = {
-  label: "Main categories",
-  field: "mainCategories",
-  icon: MdOutlineCategory,
-  fields: Object.values(CatBookStore).map((el) => ({
-    val: el,
-    label: captAll(el),
-  })),
-};
-const filtersSubCat: Omit<FilterSearch, "id"> = {
-  label: "Sub categories",
-  field: "subCategories",
-  icon: MdOutlineCategory,
-  fields: categoriesBooks.map((el) => ({
-    val: el,
-    label: captAll(el),
-  })),
-};
+export const ownerBooksNumericFilters: NumericFilterSearch[] = addNestedIDs([
+  priceFilters,
+  qtyFilters,
+]) as NumericFilterSearch[];
 
-const filtersRating = {
-  label: "Avg rating",
-  field: "avgRating",
-  icon: FaRegStar,
-  fields: ratingRanges.map((el) => ({
-    val: el,
-    label: el,
-  })),
-};
-
-export const ownerBooksFilters = [filtersCat, filtersSubCat, filtersRating].map(
-  (el) => ({
-    ...el,
-    id: v4(),
-    fields: el.fields.map((el) => ({
-      ...el,
-      id: v4(),
-    })),
-  })
-);
-
-const priceFilters: Omit<NumericFilterSearch, "id"> = {
-  label: "Price",
-  field: "price",
-  icon: TbPigMoney,
-  fields: [
-    {
-      label: "Min price",
-      field: "minPrice",
-    },
-    {
-      label: "Max price",
-      field: "maxPrice",
-    },
-  ].map((el) => ({
-    ...el,
-    place: el.label + "...",
-  })),
-};
-
-const qtyFilters: Omit<NumericFilterSearch, "id"> = {
-  label: "Quantity",
-  icon: FaDatabase,
-  field: "qty",
-  fields: [
-    {
-      field: "minQty",
-      label: "Min quantity",
-    },
-    {
-      field: "maxQty",
-      label: "Max quantity",
-    },
-  ].map((el) => ({
-    ...el,
-    place: el.label + "...",
-  })),
-};
-
-export const ownerBooksNumericFilters = [priceFilters, qtyFilters].map(
-  (el) => ({
-    ...el,
-    id: v4(),
-    fields: el.fields.map((el) => ({
-      ...el,
-      id: v4(),
-    })),
-  })
-);
-
-export const ownerBooksSorters = [
-  {
-    label: "Created at",
-    field: "createdAtSort",
-    icon: LuAlarmClock,
-  },
-  {
-    label: "Updated at",
-    field: "updatedAtSort",
-    icon: LuAlarmClock,
-  },
-  {
-    label: "Avg rating",
-    field: "ratingSort",
-    icon: FaRegStar,
-  },
-  {
-    label: "Price",
-    field: "priceSort",
-    icon: TbPigMoney,
-  },
+export const ownerBooksSorters = addSortFields([
+  ...booksSorters,
   {
     label: "Quantity",
     field: "qtySort",
     icon: FaDatabase,
   },
-].map((el) => ({
-  ...el,
-  id: v4(),
-  fields: addSortFields(),
-}));
+]);

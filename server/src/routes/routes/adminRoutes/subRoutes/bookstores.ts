@@ -6,14 +6,14 @@ import { validateStore } from "../../../../middleware/adminStore/store.js";
 import { checkTeam } from "../../../../middleware/adminStore/checkTeam.js";
 import { validateGetBooksList } from "../../../../middleware/adminBooks/get.js";
 import { validateQueryListStores } from "../../../../middleware/adminStore/listStores.js";
-import { createBookStore } from "../../../../controllers/adminRoutes/adminBookStore/post.js";
+import { createBookStore } from "../../../../controllers/adminRoutes/bookstores/post.js";
 import {
   getAllStores,
   getMyStore,
-} from "../../../../controllers/adminRoutes/adminBookStore/get.js";
+} from "../../../../controllers/adminRoutes/bookstores/get.js";
 import { checkID } from "../../../../middleware/sharedValidators/ids.js";
-import { updateBookStore } from "../../../../controllers/adminRoutes/adminBookStore/put.js";
-import { deleteStore } from "../../../../controllers/adminRoutes/adminBookStore/delete.js";
+import { updateBookStore } from "../../../../controllers/adminRoutes/bookstores/put.js";
+import { deleteStore } from "../../../../controllers/adminRoutes/bookstores/delete.js";
 
 const adminExpressRouterStore = express.Router();
 

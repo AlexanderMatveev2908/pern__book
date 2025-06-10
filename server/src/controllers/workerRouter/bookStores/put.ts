@@ -15,7 +15,7 @@ import { User } from "../../../models/all/User.js";
 import {
   clearUnnecessary,
   handleAssetsCloud,
-} from "../../adminRoutes/adminBookStore/helpers/cloudUpload.js";
+} from "../../adminRoutes/bookstores/helpers/cloudUpload.js";
 
 export const updateStoreManager = async (
   req: ReqApp,
