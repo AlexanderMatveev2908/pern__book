@@ -14,6 +14,7 @@ import {
 } from "@/core/config/fieldsData/bookStores/cards";
 import InfoStoreObjProp from "./subComponents/InfoStoreObjProp";
 import InfoStoreMapProp from "./subComponents/InfoStoreMapProp";
+import { clampBy } from "@/core/lib/lib";
 
 type PropsType = {
   el?: BookStoreType;
@@ -82,13 +83,7 @@ const BookStorePage: FC<PropsType> = ({ el, isOwner }) => {
               className="w-full grid grid-cols-1 sm:flex justify-between items-center gap-y-1"
             >
               <div className="w-full">
-                <span
-                  className="txt__2 max-w-full clamp_txt"
-                  style={{
-                    lineClamp: 3,
-                    WebkitLineClamp: 3,
-                  }}
-                >
+                <span className="txt__2 max-w-full clamp_txt" {...clampBy(3)}>
                   {el.userEmail}
                 </span>
               </div>

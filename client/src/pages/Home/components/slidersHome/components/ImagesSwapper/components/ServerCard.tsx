@@ -1,4 +1,4 @@
-import { isStr } from "@/core/lib/lib";
+import { clampBy, isStr } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import { useEffect, useRef, useState, type FC } from "react";
 import s from "../ImagesSwapper.module.css";
@@ -17,10 +17,7 @@ const SpanTxt = ({
   clamp: number;
 }) => (
   <div className="w-full flex-1 justify-center items-start max-h-fit">
-    <span
-      className={`${fsz} clamp_txt text-center`}
-      style={{ lineClamp: clamp, WebkitLineClamp: clamp }}
-    >
+    <span className={`${fsz} clamp_txt text-center`} {...clampBy(clamp)}>
       {txt}
     </span>
   </div>

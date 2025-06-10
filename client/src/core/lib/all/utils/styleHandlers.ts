@@ -48,3 +48,10 @@ export const calcCurrBlock = ({
 
 export const calcBlockBySize = (page: number, blockSize: number) =>
   Math.floor(page / blockSize);
+
+export const clampBy = (num: number) => ({
+  style: {
+    lineClamp: num,
+    WebkitLineClamp: num,
+  },
+});

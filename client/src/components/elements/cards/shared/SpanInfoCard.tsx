@@ -1,3 +1,4 @@
+import { clampBy } from "@/core/lib/lib";
 import type { FC } from "react";
 import { IconType } from "react-icons/lib";
 
@@ -16,7 +17,9 @@ const SpanInfoCard: FC<PropsType> = ({ spanInfo, customStyleIcon }) => {
       {spanInfo.icon && (
         <spanInfo.icon className={`icon__sm ${customStyleIcon ?? ""}`} />
       )}
-      <span className="txt__3">{spanInfo.label}</span>
+      <span className="txt__3 clamp_txt" {...clampBy(2)}>
+        {spanInfo.label}
+      </span>
     </div>
   );
 };

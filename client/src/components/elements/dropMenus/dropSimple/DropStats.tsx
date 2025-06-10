@@ -2,6 +2,7 @@
 import DropHandler from "@/components/elements/dropMenus/DropHandler";
 import { tailwindBreak } from "@/core/config/breakpoints";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
+import { clampBy } from "@/core/lib/lib";
 import { FC, ReactNode, useEffect, useState } from "react";
 import { IconType } from "react-icons/lib";
 
@@ -99,13 +100,7 @@ const DropStats: FC<PropsType> = ({
               <div
                 className={`flex justify-start ${abs ? "min-w-[75px]" : ""}`}
               >
-                <span
-                  className="txt__2 clamp_txt"
-                  style={{
-                    lineClamp: 4,
-                    WebkitLineClamp: 4,
-                  }}
-                >
+                <span className="txt__2 clamp_txt" {...clampBy(4)}>
                   {el.label}
                 </span>
               </div>
@@ -113,10 +108,7 @@ const DropStats: FC<PropsType> = ({
               <div className="w-fit flex justify-end">
                 <span
                   className="txt__2 text-wrap clamp_txt text-right"
-                  style={{
-                    lineClamp: 3,
-                    WebkitLineClamp: 3,
-                  }}
+                  {...clampBy(3)}
                 >
                   {el?.val}
                 </span>

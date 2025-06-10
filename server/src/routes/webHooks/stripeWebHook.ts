@@ -10,6 +10,35 @@ import { Order } from "../../models/all/Order.js";
 import { getPopulatedOrder } from "../../controllers/consumer/checkout/helpers/getters.js";
 import { OrderStage } from "../../types/all/orders.js";
 import { OrderStore } from "../../models/all/OrderStore.js";
+import { OrderItemStore } from "../../models/all/OrderItem.js";
+import { Book } from "../../models/all/Book.js";
+import { tErr } from "../../stuff/quick.js";
+
+const handleRefund = async (id: string) => {
+  try {
+    const paymentIntent = await stripe.paymentIntents.retrieve(id);
+
+    const refunds = await stripe.refunds.list({ payment_intent: id });
+    const totRefunded = refunds.data.reduce(
+      (acc, curr) => acc + curr.amount,
+      0
+    );
+
+    if (totRefunded >= paymentIntent.amount) {
+      __cg("refund already done");
+      return;
+    }
+
+    const res = await stripe.refunds.create({
+      payment_intent: id,
+      reason: "duplicate",
+    });
+
+    __cg("refund", res);
+  } catch (err) {
+    __cg("refund err", err);
+  }
+};
 
 export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
   const sig = req.headers["stripe-signature"];
@@ -42,8 +71,47 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
       try {
         const { order } = await getPopulatedOrder({ orderID, userID });
 
-        if (!order || order.stage !== OrderStage.PENDING)
-          return res200(res, { received: true });
+        tErr();
+
+        if (!order || order.stage !== OrderStage.PENDING) {
+          await handleRefund(paymentIntent.id);
+          return err500(res);
+        }
+
+        let i = order.orderStores!.length - 1;
+
+        while (i >= 0) {
+          const currStore = order.orderStores![i];
+
+          let j = currStore.orderItemStores!.length - 1;
+
+          while (j >= 0) {
+            const currItem = currStore.orderItemStores![j];
+            const { book } = currItem;
+
+            if (book!.qty < currItem.qty) {
+              await t.rollback();
+              await handleRefund(paymentIntent.id);
+              return res200(res, { received: true, refunded: true });
+            }
+
+            await Book.update(
+              {
+                qty: book!.qty - currItem.qty,
+              },
+              {
+                where: {
+                  id: book!.id,
+                },
+                transaction: t,
+              }
+            );
+
+            j--;
+          }
+
+          i--;
+        }
 
         await Order.update(
           {
@@ -72,10 +140,11 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
         await t.commit();
       } catch (err) {
         await t.rollback();
+        await handleRefund(paymentIntent.id);
 
         __cg("deep deep problem ⚠️⚠️⚠️", err);
 
-        // ? not stripe fault, all mine he deserve 200 , i will handle by myself from here on
+        return res200(res, { received: true, refunded: true });
       }
 
       break;

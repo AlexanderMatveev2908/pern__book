@@ -2,7 +2,7 @@ import WrapSectionHome from "@/components/HOC/WrapSectionHome";
 import { useEffect, useState, type FC } from "react";
 import ImagesSwapper from "./components/ImagesSwapper/ImagesSwapper";
 import WrapBg from "./components/WrapBg";
-import { formatD, isArrOk, priceFormatter } from "@/core/lib/lib";
+import { clampBy, formatD, isArrOk, priceFormatter } from "@/core/lib/lib";
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { BookType } from "@/types/all/books";
 import { tailwindBreak } from "@/core/config/breakpoints";
@@ -55,13 +55,7 @@ const SlidersHome: FC<PropsType> = ({
           <ImagesSwapper {...{ books: booksRecent }}>
             {(el, i) => (
               <WrapBg key={ids[1][i]} {...{ h: hDate }}>
-                <span
-                  className="txt__2 text-center clamp_txt"
-                  style={{
-                    lineClamp: 2,
-                    WebkitLineClamp: 2,
-                  }}
-                >
+                <span className="txt__2 text-center clamp_txt" {...clampBy(2)}>
                   {formatD(el?.createdAt)}
                 </span>
               </WrapBg>
@@ -77,13 +71,7 @@ const SlidersHome: FC<PropsType> = ({
           <ImagesSwapper {...{ books: booksByPrice }}>
             {(el, i) => (
               <WrapBg key={ids[2][i]}>
-                <span
-                  className="txt__3 text-center clamp_txt"
-                  style={{
-                    lineClamp: 1,
-                    WebkitLineClamp: 1,
-                  }}
-                >
+                <span className="txt__3 text-center clamp_txt" {...clampBy(1)}>
                   {priceFormatter(el?.price)}
                 </span>
               </WrapBg>
