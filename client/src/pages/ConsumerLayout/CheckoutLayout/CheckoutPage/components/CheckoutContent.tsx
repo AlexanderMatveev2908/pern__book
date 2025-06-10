@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState, type FC } from "react";
-import BriefSummary from "./components/BriefSummary/BriefSummary";
 import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
 import {
   useFocus,
@@ -20,16 +19,11 @@ import { __cg, isObjOk } from "@/core/lib/lib";
 import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
-import LeftPageForm from "./components/LeftPageForm";
+import FormCheckoutOrder from "./components/FormCheckoutOrder";
 import { OrderType } from "@/types/all/orders";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import {
-  PaymentElement,
-  useElements,
-  useStripe,
-} from "@stripe/react-stripe-js";
+import { useElements, useStripe } from "@stripe/react-stripe-js";
 import s from "./CheckoutContent.module.css";
-import Title from "@/components/elements/Title";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp } from "@/types/types";
@@ -225,11 +219,9 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
 
   return (
     <div
-      className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10 xl:grid-cols-2`}
+      className={`${s.checkout_page} w-full grid grid-cols-1 justify-items-center gap-x-10 gap-y-10`}
     >
-      <BriefSummary {...{ order: order! }} />
-
-      <LeftPageForm
+      <FormCheckoutOrder
         {...{
           currForm,
           formCTX,
@@ -238,15 +230,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
           isLoading: isPending,
           order,
         }}
-      >
-        <div className="w-full grid gap-y-6 justify-items-center">
-          <Title {...{ title: "Card details", styleTxt: "txt__4" }} />
-
-          <div className="w-full max-w-[500px] sm:max-w-[600px] border-2 border-blue-600 rounded-xl ">
-            <PaymentElement />
-          </div>
-        </div>
-      </LeftPageForm>
+      />
     </div>
   );
 };
