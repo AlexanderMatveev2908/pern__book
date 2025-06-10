@@ -23,10 +23,6 @@ const BookStoreListWorker: FC = () => {
 
   const { user } = useGetU();
 
-  const { handleSubmit } = formCtx;
-
-  const handleSave = handleSubmit(() => {});
-
   const hook =
     bookStoresWorkerSliceAPI.endpoints.getAllStoresWorker.useLazyQuery();
   // eslint-disable-next-line
@@ -55,7 +51,6 @@ const BookStoreListWorker: FC = () => {
           <SearchBar
             {...({
               hook,
-              handleSave,
               txtInputs: fieldsSearchStoreWorker,
               filters: storeFiltersWorker,
               numericFilters: numericFiltersStoreWorker,

@@ -24,8 +24,6 @@ const BookStores: FC = () => {
   // ? I DECIDED TO HANDLE THE REQUEST OF DATA INSIDE BUTTONS OF SEARCH__BAR TO ENCAPSULATE LOGIC AND AVOID REPEATING SAME CODE WITH ALMOST NONE DIFFERENCES
 
   const { formOwnerStoresCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit } = formCtx;
-  const handleSave = handleSubmit(() => {});
 
   const hook = bookStoreSliceAPI.endpoints.getAllStores.useLazyQuery();
   // eslint-disable-next-line
@@ -51,7 +49,6 @@ const BookStores: FC = () => {
         <SearchBar
           {...({
             hook,
-            handleSave,
             txtInputs: fieldsSearchStore,
             filters: storeFilters,
             numericFilters: numericFiltersStore,

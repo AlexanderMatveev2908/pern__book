@@ -28,8 +28,7 @@ const BookListWorker: FC = () => {
   const [defVals, setDefVals] = useState<{ [key: string]: string[] }>({});
 
   const { formSearchBooksWorkerCtx: formCtx } = useFormCtxConsumer();
-  const { handleSubmit, watch } = formCtx;
-  const handleSave = handleSubmit(() => {});
+  const { watch } = formCtx;
 
   const storeID = useParams()?.bookStoreID;
   const canStay = REG_ID.test(storeID ?? "") && user?.isWorker;
@@ -85,7 +84,6 @@ const BookListWorker: FC = () => {
         <FormProvider {...formCtx}>
           <SearchBar
             {...({
-              handleSave,
               hook,
               txtInputs: fieldsInputsBooksWorker,
               filters: workerBooksFiltersBooks,
