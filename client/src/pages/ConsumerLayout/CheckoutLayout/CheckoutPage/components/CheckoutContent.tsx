@@ -47,8 +47,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
 
   const dispatch = useDispatch();
 
-  const [mutate, { isLoading }] =
-    checkoutSliceAPI.useSendAddressOrderMutation();
+  const [mutate] = checkoutSliceAPI.useSendAddressOrderMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
 
   const [triggerRTK, res] = checkoutSliceAPI.useLazyPollOrderQuery();
@@ -106,11 +105,16 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
 
   const handleSave = handleSubmit(
     async (data) => {
+      setIsPending(true);
+
       const res = await wrapMutationAPI({
         cbAPI: () => mutate({ data, orderID: order.id }),
         showToast: false,
       });
-      if (!res) return;
+      if (!res) {
+        setIsPending(false);
+        return;
+      }
 
       if ([stripe, elements].some((el) => !isObjOk(el))) {
         dispatch(
@@ -120,10 +124,9 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
             statusCode: 500,
           })
         );
+        setIsPending(false);
         return;
       }
-
-      setIsPending(true);
 
       try {
         const { error, paymentIntent } =
@@ -140,7 +143,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
               statusCode: 500,
             } as any)
           );
-          __cg("payment fail", error);
+          __cg("payment fail on service provider", error);
           return;
         }
 
@@ -232,7 +235,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
           formCTX,
           handleSave,
           isFormOk,
-          isLoading: isPending || isLoading,
+          isLoading: isPending,
           order,
         }}
       >
