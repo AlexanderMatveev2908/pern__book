@@ -12,6 +12,18 @@ import { isStr } from "@/core/lib/lib";
 import { FormFieldBasic } from "@/types/types";
 import { z } from "zod";
 
+export type ParamsItemSchemaType = {
+  allowedKeys: string[];
+  optItem: { [key: string]: { reg: RegExp; minLen?: number; maxLen?: number } };
+  customValidateCB?: ({
+    item,
+    ctx,
+  }: {
+    item: FormFieldBasic;
+    ctx: z.RefinementCtx;
+  }) => void;
+};
+
 export const baseOptItemSchemaStore = {
   name: {
     reg: REG_STORE_NAME,
@@ -76,13 +88,25 @@ export const schemaPrice = () =>
       message: "Invalid format price",
     });
 
-export const itemsSchema = (allowedKeys: string[]) => ({
-  field: z.enum(allowedKeys as [string, ...string[]]),
-  val: z.string().optional(),
-  id: z.string(),
-  label: z.string(),
-  place: z.string().optional(),
-});
+export const itemsSchema = ({
+  allowedKeys,
+  optItem,
+  customValidateCB,
+}: ParamsItemSchemaType) =>
+  z
+    .object({
+      field: z.enum(allowedKeys as [string, ...string[]]),
+      val: z.string().optional(),
+      id: z.string(),
+      label: z.string(),
+      place: z.string().optional(),
+    })
+    .superRefine((item, ctx) => {
+      handleRefineItem({ item, optItem, ctx });
+
+      if (typeof customValidateCB === "function")
+        customValidateCB({ item, ctx });
+    });
 
 export const handleRefineItem = ({
   item,

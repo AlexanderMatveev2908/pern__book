@@ -1,15 +1,11 @@
 import { v4 } from "uuid";
 import {
   addSortFields,
-  avgQtyFilter,
-  commonFieldsTxtInputsStore,
-  commonSortersStore,
   filtersCat,
   filtersDelivery,
   filtersOrders,
   filtersRating,
-  populateIdsSearchbarFields,
-} from "../general";
+} from "../general/general";
 import {
   FilterSearch,
   FormFieldBasic,
@@ -17,6 +13,12 @@ import {
   SorterSearch,
 } from "@/types/types";
 import { TbPigMoney } from "react-icons/tb";
+import {
+  avgQtyFilter,
+  commonFieldsTxtInputsStore,
+  commonSortersStore,
+} from "../general/bookstore";
+import { addNestedIDs } from "@/core/lib/all/utils/ids";
 
 export const fieldsSearchStoreWorker: FormFieldBasic[] =
   commonFieldsTxtInputsStore.map((el) => ({
@@ -57,15 +59,11 @@ const avgPriceFilter: Omit<NumericFilterSearch, "id"> = {
   })),
 };
 
-export const numericFiltersStoreWorker = populateIdsSearchbarFields([
+export const numericFiltersStoreWorker = addNestedIDs([
   avgPriceFilter,
   avgQtyFilter,
 ]) as NumericFilterSearch[];
 
-export const sorterStoreWorker: SorterSearch[] = commonSortersStore.map(
-  (el) => ({
-    ...el,
-    id: v4(),
-    fields: addSortFields(),
-  })
-);
+export const sorterStoreWorker: SorterSearch[] = addSortFields(
+  commonSortersStore
+) as SorterSearch[];

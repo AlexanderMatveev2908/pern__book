@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { handleRefineItem, itemsSchema } from "../general/general";
+import { itemsSchema } from "../general/general";
 import {
   generalFieldsSearchBooksSchema,
   generalOptSearchBookItem,
@@ -14,12 +14,11 @@ const optItem = {
   ...generalOptSearchBookItem,
 };
 
-const itemSchema = z
-  .object(itemsSchema(allowedKeys))
-  .superRefine((item, ctx) => {
-    handleRefineItem({ item, optItem, ctx });
-    handleYearRefine({ item, ctx });
-  });
+const itemSchema = itemsSchema({
+  allowedKeys,
+  optItem,
+  customValidateCB: handleYearRefine,
+});
 
 export const schemaConsumerBooks = generalFieldsSearchBooksSchema
   .omit({

@@ -7,6 +7,11 @@ const optItem = {
   ...optInfoFromStore,
 };
 
-const itemSchema = z.object(itemsSchema(allowedKeys));
+const itemSchema = itemsSchema({
+  allowedKeys,
+  optItem,
+});
 
-export const schemaOwnerOrders = z.object({});
+export const schemaOwnerOrders = z.object({
+  items: z.array(itemSchema).optional(),
+});

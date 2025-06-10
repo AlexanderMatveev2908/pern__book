@@ -1,9 +1,5 @@
 import { z } from "zod";
-import {
-  baseOptItemSchemaStore,
-  handleRefineItem,
-  itemsSchema,
-} from "../general/general";
+import { baseOptItemSchemaStore, itemsSchema } from "../general/general";
 import {
   generalFiltersStoreSchema,
   handleValidationAvgValsStore,
@@ -11,11 +7,10 @@ import {
 
 const allowedKeys = ["name", "country", "state", "city"];
 
-const itemSchema = z
-  .object(itemsSchema(allowedKeys))
-  .superRefine((item, ctx) => {
-    handleRefineItem({ item, optItem: { ...baseOptItemSchemaStore }, ctx });
-  });
+const itemSchema = itemsSchema({
+  allowedKeys,
+  optItem: { ...baseOptItemSchemaStore },
+});
 
 export const schemaWorkerStores = generalFiltersStoreSchema
   .extend({
