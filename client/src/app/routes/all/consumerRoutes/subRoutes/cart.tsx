@@ -1,6 +1,6 @@
 import CartLayout from "@/app/layouts/ConsumerLayout/subLayouts/CartLayout";
+import Push from "@/app/routes/helpers/Push";
 import CartPage from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
-import { Navigate } from "react-router-dom";
 
 export const cartRoutes = {
   path: "cart",
@@ -13,7 +13,7 @@ export const cartRoutes = {
 
     {
       path: "*",
-      element: <Navigate to="/" replace />,
+      element: <Push />,
     },
   ],
 };

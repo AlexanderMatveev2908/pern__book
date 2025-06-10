@@ -4,7 +4,7 @@ import ManageAccount from "@/pages/UserLayout/ManageAccount/ManageAccount";
 import ProfileSettings from "@/pages/UserLayout/ProfileSettings/ProfileSettings";
 import SecurityPwd from "@/pages/UserLayout/SecurityPwd/SecurityPwd";
 import VerifyAccountLogged from "@/pages/UserLayout/VerifyAccountLogged/VerifyAccountLogged";
-import { Navigate } from "react-router-dom";
+import Push from "../helpers/Push";
 
 export const userRoutes = {
   path: "user",
@@ -32,7 +32,7 @@ export const userRoutes = {
     },
     {
       path: "*",
-      element: <Navigate to="/" replace />,
+      element: <Push />,
     },
   ],
 };

@@ -4,8 +4,9 @@ import { EventApp } from "@/types/types";
 import { FC, useEffect, useRef } from "react";
 import { LuCircleCheckBig } from "react-icons/lu";
 import { useSelector } from "react-redux";
-import { Navigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import ErrIcon from "@/components/elements/ErrIcon";
+import Push from "@/app/routes/helpers/Push";
 
 const Notice: FC = () => {
   const from = useLocation().state?.from;
@@ -24,7 +25,7 @@ const Notice: FC = () => {
   }, [noticeState]);
 
   return !canStayNotice(from) ? (
-    <Navigate to="/" replace={true} />
+    <Push />
   ) : (
     <div className="p_page">
       <div className="w-full grid justify-items-center">

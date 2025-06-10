@@ -1,7 +1,7 @@
 import WorkerLayout from "@/app/layouts/WorkerLayout/WorkerLayout";
-import { Navigate } from "react-router-dom";
 import { bookStoresWorkerRoutes } from "./subRoutes/bookStores";
 import { booksWorkerRoutes } from "./subRoutes/books";
+import Push from "../../helpers/Push";
 
 export const workerRoutes = {
   path: "worker",
@@ -11,7 +11,7 @@ export const workerRoutes = {
     booksWorkerRoutes,
     {
       path: "*",
-      element: <Navigate to="/" replace />,
+      element: <Push />,
     },
   ],
 };

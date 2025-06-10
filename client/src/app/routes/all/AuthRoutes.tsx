@@ -5,7 +5,7 @@ import ForgotPwd from "@/pages/AuthLayout/ForgotPwd/ForgotPwd";
 import Login from "@/pages/AuthLayout/Login/Login";
 import Register from "@/pages/AuthLayout/Register/Register";
 import VerifyAccount from "@/pages/AuthLayout/VerifyAccount/VerifyAccount";
-import { Navigate } from "react-router-dom";
+import Push from "../helpers/Push";
 
 export const authRoutes = {
   path: "auth",
@@ -23,6 +23,6 @@ export const authRoutes = {
     { path: "verify-account", element: <VerifyAccount /> },
     { path: "forgot-pwd", element: <ForgotPwd /> },
     { path: "chose-new-pwd", element: <ChoseNewPwd /> },
-    { path: "*", element: <Navigate to="/" replace /> },
+    { path: "*", element: <Push /> },
   ],
 };

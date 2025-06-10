@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { FC, ReactNode } from "react";
-import { Navigate } from "react-router-dom";
 import { getMsgErr } from "@/core/lib/lib";
 import SpinnerPage from "../elements/spinners/SpinnerPage/SpinnerPage";
 import ErrIcon from "../elements/ErrIcon";
+import Push from "@/app/routes/helpers/Push";
 
 type PropsType = {
   canStay?: boolean;
@@ -50,10 +50,10 @@ const WrapPageAPI: FC<PropsType> = ({
       <SpinnerPage />
     </div>
   ) : !canStay ? (
-    <Navigate to="/" replace={true} />
+    <Push />
   ) : isError ? (
     push ? (
-      <Navigate to="/" replace={true} />
+      <Push />
     ) : (
       <div className="grid justify-items-center items-start gap-[50px] text-gray-300">
         <div className="h-fit flex flex-col items-center">

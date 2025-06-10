@@ -1,9 +1,10 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import { Navigate, Outlet } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 import BookListConsumer from "@/pages/ConsumerLayout/BooksLayout/BooksListConsumer/BookListConsumer";
 import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsumer/BookPageConsumer";
 import { cartRoutes } from "./subRoutes/cart";
 import { checkoutRoutes } from "./subRoutes/checkout";
+import Push from "../../helpers/Push";
 
 export const consumerRoutes = {
   path: "consumer",
@@ -27,7 +28,7 @@ export const consumerRoutes = {
         },
         {
           path: "*",
-          element: <Navigate to="/" replace />,
+          element: <Push />,
         },
       ],
     },

@@ -1,7 +1,7 @@
 import CheckoutLayout from "@/app/layouts/ConsumerLayout/subLayouts/CheckoutLayout";
+import Push from "@/app/routes/helpers/Push";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import CheckoutPage from "@/pages/ConsumerLayout/CheckoutLayout/CheckoutPage/CheckoutPage";
-import { Navigate } from "react-router-dom";
 
 export const checkoutRoutes = {
   path: "checkout",
@@ -18,7 +18,7 @@ export const checkoutRoutes = {
 
     {
       path: "*",
-      element: <Navigate to="/" replace />,
+      element: <Push />,
     },
   ],
 };
