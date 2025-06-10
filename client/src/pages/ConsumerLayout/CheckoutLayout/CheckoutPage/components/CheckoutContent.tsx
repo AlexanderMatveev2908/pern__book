@@ -2,7 +2,11 @@
 import { useEffect, useState, type FC } from "react";
 import BriefSummary from "./components/BriefSummary/BriefSummary";
 import { checkoutSliceAPI } from "@/features/ConsumerLayout/CheckoutLayout/checkoutSliceAPI";
-import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
+import {
+  useFocus,
+  useWrapMutationAPI,
+  useWrapQueryAPI,
+} from "@/core/hooks/hooks";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
 import {
@@ -46,6 +50,41 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
   const [mutate, { isLoading }] =
     checkoutSliceAPI.useSendAddressOrderMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
+
+  const [triggerRTK, res] = checkoutSliceAPI.useLazyPollOrderQuery();
+
+  useWrapQueryAPI({
+    ...res,
+    hideErr: true,
+  });
+
+  const handlePoll = async () => {
+    const MAX_COUNT = 10;
+    let count = 0;
+
+    let freshOrder: OrderType | null = null;
+
+    while (!isObjOk(freshOrder) && count < MAX_COUNT) {
+      try {
+        ({ order: freshOrder } =
+          (await triggerRTK({
+            orderID: order.id,
+          }).unwrap()) ?? {});
+
+        if (isObjOk(freshOrder)) break;
+      } catch (err: any) {
+        __cg(`err poll ${count}`, err);
+
+        count++;
+
+        if (count >= MAX_COUNT) return null;
+
+        await new Promise((res) => setTimeout(res, 2000));
+      }
+    }
+
+    return freshOrder;
+  };
 
   const ctx = useSwapCtxConsumer();
   const {
@@ -105,7 +144,20 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
           return;
         }
 
-        __cg("payment is cool", paymentIntent);
+        __cg("payment on client is cool", paymentIntent);
+
+        const freshOrder = await handlePoll();
+
+        if (!isObjOk(freshOrder)) {
+          dispatch(
+            openToast({
+              msg: "A wild Slime ambushed the party! The server took critical damage. Try again after a short rest. 👻",
+              type: EventApp.ERR,
+              statusCode: 500,
+            } as any)
+          );
+          return;
+        }
 
         dispatch(
           openToast({

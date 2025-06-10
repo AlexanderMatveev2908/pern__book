@@ -71,8 +71,6 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
       try {
         const { order } = await getPopulatedOrder({ orderID, userID });
 
-        tErr();
-
         if (!order || order.stage !== OrderStage.PENDING) {
           await handleRefund(paymentIntent.id);
           return err500(res);

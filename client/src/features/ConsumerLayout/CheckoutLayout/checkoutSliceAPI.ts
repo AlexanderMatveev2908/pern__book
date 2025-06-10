@@ -10,7 +10,7 @@ export const checkoutSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     getCartCheckout: builder.query<BaseResAPI<{ cart: CartType }>, void>({
       query: () => ({
-        url: B_URL,
+        url: `${B_URL}/cart`,
         method: "GET",
       }),
     }),
@@ -44,6 +44,16 @@ export const checkoutSliceAPI = apiSlice.injectEndpoints({
         url: `${B_URL}/address/${orderID}`,
         method: "POST",
         data,
+      }),
+    }),
+
+    pollOrder: builder.query<
+      BaseResAPI<{ order: OrderType }>,
+      { orderID: string }
+    >({
+      query: ({ orderID }) => ({
+        url: `${B_URL}/poll/${orderID}`,
+        method: "GET",
       }),
     }),
   }),
