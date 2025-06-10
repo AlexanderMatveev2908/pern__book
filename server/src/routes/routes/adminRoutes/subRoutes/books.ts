@@ -6,16 +6,16 @@ import { logJSON } from "../../../../lib/utils/log.js";
 import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
 import { validateGetBooksList } from "../../../../middleware/adminBooks/get.js";
 import { checkID } from "../../../../middleware/sharedValidators/ids.js";
-import { createBook } from "../../../../controllers/adminRoutes/adminBooks/post.js";
-import { updateBook } from "../../../../controllers/adminRoutes/adminBooks/put.js";
+import { createBook } from "../../../../controllers/adminRoutes/books/post.js";
+import { updateBook } from "../../../../controllers/adminRoutes/books/put.js";
 import {
   getBooksList,
   getInfoBook,
   getMyBook,
   getPdf,
   getStoreInfo,
-} from "../../../../controllers/adminRoutes/adminBooks/get.js";
-import { deleteBook } from "../../../../controllers/adminRoutes/adminBooks/delete.js";
+} from "../../../../controllers/adminRoutes/books/get.js";
+import { deleteBook } from "../../../../controllers/adminRoutes/books/delete.js";
 
 const adminBookRouter = express.Router();
 
