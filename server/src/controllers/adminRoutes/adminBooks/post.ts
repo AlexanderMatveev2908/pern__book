@@ -1,15 +1,12 @@
 import { Response } from "express";
-import { ReqApp } from "../../types/types.js";
-import { res200, res201 } from "../../lib/responseClient/res.js";
-import { BookStore } from "../../models/all/BookStore.js";
-import { err404, err500 } from "../../lib/responseClient/err.js";
-import { seq } from "../../config/db.js";
-import { CloudImg } from "../../types/all/cloud.js";
-import { uploadCloudMemory } from "../../lib/cloud/imagesMemory.js";
-import { delArrCloud, ResourceType } from "../../lib/cloud/delete.js";
-import { Book, BookInstance } from "../../models/all/Book.js";
-import { captAll } from "../../lib/utils/formatters.js";
-import { handleAddBook } from "../../lib/sharedHandlers/books/addBook.js";
+import { BookStore } from "../../../models/all/BookStore.js";
+import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { seq } from "../../../config/db.js";
+import { CloudImg } from "../../../types/all/cloud.js";
+import { handleAddBook } from "../../../lib/sharedHandlers/books/addBook.js";
+import { ReqApp } from "../../../types/types.js";
+import { res201 } from "../../../lib/responseClient/res.js";
+import { delArrCloud } from "../../../lib/cloud/delete.js";
 
 export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
   const { body } = req;
@@ -23,6 +20,7 @@ export const createBook = async (req: ReqApp, res: Response): Promise<any> => {
   if (!store) return err404(res, { msg: "Store not found" });
 
   const t = await seq.transaction();
+
   const images: CloudImg[] = [];
 
   try {

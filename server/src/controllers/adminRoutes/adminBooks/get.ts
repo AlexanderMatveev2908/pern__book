@@ -1,17 +1,17 @@
 import { Response } from "express";
-import { ReqApp } from "../../types/types.js";
-import { BookStore } from "../../models/all/BookStore.js";
-import { err404, err500 } from "../../lib/responseClient/err.js";
-import { res200, res204 } from "../../lib/responseClient/res.js";
-import { Book } from "../../models/all/Book.js";
-import { calcPagination } from "../../lib/query/pagination.js";
+import { BookStore } from "../../../models/all/BookStore.js";
+import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { res200, res204 } from "../../../lib/responseClient/res.js";
+import { ReqApp } from "../../../types/types.js";
+import { Book } from "../../../models/all/Book.js";
+import { Review } from "../../../models/all/Review.js";
 import { literal } from "sequelize";
-import { Review } from "../../models/all/Review.js";
-import { sortItems } from "../../lib/query/sort.js";
+import { calcRatingSqlBooks } from "../../../lib/query/general.js";
+import { sortItems } from "../../../lib/query/sort.js";
+import { calcPagination } from "../../../lib/query/pagination.js";
+import { __cg } from "../../../lib/utils/log.js";
 import PDFDocument from "pdfkit";
-import { makeBooksQ } from "../../lib/query/owner/books/query.js";
-import { calcRatingSqlBooks } from "../../lib/query/general.js";
-import { __cg } from "../../lib/utils/log.js";
+import { makeBooksQ } from "../../../lib/query/owner/books/query.js";
 
 export const getStoreInfo = async (
   req: ReqApp,

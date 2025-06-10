@@ -2,14 +2,14 @@ import {
   delArrCloud,
   delCloud,
   ResourceType,
-} from "../../../lib/cloud/delete.js";
-import { uploadImdDisk } from "../../../lib/cloud/imagesDisk.js";
-import { uploadVideoCloud } from "../../../lib/cloud/video.js";
-import { ImgBookStoreType } from "../../../models/all/img&video/ImgBookStore.js";
-import { VideoBookStoreType } from "../../../models/all/img&video/VideoBookStore.js";
+} from "../../../../lib/cloud/delete.js";
+import { uploadVideoCloud } from "../../../../lib/cloud/video.js";
+import { __cg } from "../../../../lib/utils/log.js";
+import { ImgBookStoreType } from "../../../../models/all/img&video/ImgBookStore.js";
+import { VideoBookStoreType } from "../../../../models/all/img&video/VideoBookStore.js";
 import fs from "fs";
-import { ReqApp } from "../../../types/types.js";
-import { __cg } from "../../../lib/utils/log.js";
+import { ReqApp } from "../../../../types/types.js";
+import { uploadImdDisk } from "../../../../lib/cloud/imagesDisk.js";
 
 export const clearUnnecessary = async (
   videoData: Partial<VideoBookStoreType> | null,

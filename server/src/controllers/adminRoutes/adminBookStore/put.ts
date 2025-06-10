@@ -1,28 +1,23 @@
 import { Response } from "express";
-import { ReqApp } from "../../types/types.js";
-import { res200 } from "../../lib/responseClient/res.js";
-import { BookStore, BookStoreInstance } from "../../models/all/BookStore.js";
+import { ReqApp } from "../../../types/types.js";
+import { BookStore, BookStoreInstance } from "../../../models/all/BookStore.js";
 import { clearUnnecessary, handleAssetsCloud } from "./helpers/cloudUpload.js";
-import { seq } from "../../config/db.js";
-import { err404, err500 } from "../../lib/responseClient/err.js";
-import {
-  addMandatoryKeys,
-  addOptKeys,
-  getStoreByID,
-  makeTeam,
-} from "./helpers/storeData.js";
-import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
-import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
-import { BookStoreUser } from "../../models/all/BookStoreUser.js";
+import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
+import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
+import { Book } from "../../../models/all/Book.js";
+import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
+import { seq } from "../../../config/db.js";
+import { User } from "../../../models/all/User.js";
+import { subcategories } from "../../../types/all/books.js";
+import { addMandatoryKeys, addOptKeys, makeTeam } from "./helpers/storeData.js";
 import { Op } from "sequelize";
-import { Book } from "../../models/all/Book.js";
-import { subcategories } from "../../types/all/books.js";
 import {
   deleteOldAssetsStore,
   handleGetDeletedAssetsStore,
   handleStoreAssetsPut,
-} from "../../lib/sharedHandlers/assetsHandlers/store.js";
-import { User } from "../../models/all/User.js";
+} from "../../../lib/sharedHandlers/assetsHandlers/store.js";
+import { res200 } from "../../../lib/responseClient/res.js";
 
 const choseRandom = () => Math.floor(Math.random() * 3);
 

@@ -1,10 +1,13 @@
 import { Op } from "sequelize";
-import { captAll } from "../../../lib/utils/formatters.js";
-import { BookStore, BookStoreInstance } from "../../../models/all/BookStore.js";
-import { ReqApp } from "../../../types/types.js";
-import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
-import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
-import { User } from "../../../models/all/User.js";
+import {
+  BookStore,
+  BookStoreInstance,
+} from "../../../../models/all/BookStore.js";
+import { captAll } from "../../../../lib/utils/formatters.js";
+import { User } from "../../../../models/all/User.js";
+import { ImgBookStore } from "../../../../models/all/img&video/ImgBookStore.js";
+import { VideoBookStore } from "../../../../models/all/img&video/VideoBookStore.js";
+import { ReqApp } from "../../../../types/types.js";
 
 const MANDATORY_KEYS = [
   "name",
