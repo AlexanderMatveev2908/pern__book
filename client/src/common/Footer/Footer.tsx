@@ -8,6 +8,7 @@ import {
   gitLinks,
 } from "@/features/common/Footer/fields/footer";
 import { HappyGhost } from "@/components/svgs";
+import { clampBy } from "@/core/lib/lib";
 
 const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
   <div className="w-full grid grid-cols-1 max-w-full gap-5 text-gray-300">
@@ -19,13 +20,7 @@ const WrapLink = ({ arg, title }: { arg: FooterLinkType[]; title: string }) => (
         className="w-full justify-start el__after_below flex max-w-full items-center gap-5 el__flow hover:text-blue-600"
       >
         <el.icon className="icon__md" />
-        <span
-          className="txt__2 clamp_txt"
-          style={{
-            lineClamp: 2,
-            WebkitLineClamp: 2,
-          }}
-        >
+        <span className="txt__2 clamp_txt" {...clampBy(2)}>
           {el.label}
         </span>
       </a>

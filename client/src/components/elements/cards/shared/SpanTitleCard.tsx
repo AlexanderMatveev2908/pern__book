@@ -1,3 +1,4 @@
+import { clampBy } from "@/core/lib/lib";
 import type { FC } from "react";
 import { IconType } from "react-icons/lib";
 
@@ -19,7 +20,7 @@ const SpanTitleCard: FC<PropsType> = ({ customStyleParent, label }) => {
       {label.icon && <label.icon className="icon__md" />}
 
       <div className="w-full flex justify-start items-center">
-        <span className="txt__4 clamp_txt" style={{ lineClamp: 1 }}>
+        <span className="txt__4 clamp_txt" {...clampBy(2)}>
           {label.label}
         </span>
       </div>

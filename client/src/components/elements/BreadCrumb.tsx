@@ -1,5 +1,5 @@
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { captAll, isObjOk } from "@/core/lib/lib";
+import { captAll, clampBy, isObjOk } from "@/core/lib/lib";
 import { FC, ReactNode } from "react";
 import { FaChevronRight } from "react-icons/fa";
 import { Link } from "react-router-dom";
@@ -36,13 +36,7 @@ const BreadCrumb: FC<PropsType> = ({ els }) => {
               to={curr.path}
               className="el__after_below el__flow hover:text-blue-600"
             >
-              <span
-                className="txt__3 clamp_txt"
-                style={{
-                  WebkitLineClamp: 1,
-                  lineClamp: 1,
-                }}
-              >
+              <span className="txt__3 clamp_txt" {...clampBy(1)}>
                 {captAll(curr.label)}
               </span>
             </Link>

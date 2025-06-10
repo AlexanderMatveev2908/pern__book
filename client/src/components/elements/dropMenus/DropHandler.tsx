@@ -1,3 +1,4 @@
+import { clampBy } from "@/core/lib/lib";
 import { FC } from "react";
 import { FaChevronDown } from "react-icons/fa";
 import { IconType } from "react-icons/lib";
@@ -36,10 +37,7 @@ const DropHandler: FC<PropsType> = ({
           className={`el__flow clamp_txt ${
             styleTxt ? styleTxt : size === "md" ? "txt__3" : "txt__2"
           }`}
-          style={{
-            lineClamp: 1,
-            WebkitLineClamp: 1,
-          }}
+          {...clampBy(1)}
         >
           {el.label}
         </span>

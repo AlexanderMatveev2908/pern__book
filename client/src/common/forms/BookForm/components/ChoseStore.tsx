@@ -2,7 +2,7 @@ import DropHandler from "@/components/elements/dropMenus/DropHandler";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import FocusAnchor from "@/components/forms/FocusAnchor";
 import { labelStore } from "@/core/config/fieldsData/labels/shared";
-import { isObjOk } from "@/core/lib/lib";
+import { clampBy, isObjOk } from "@/core/lib/lib";
 import { BookStoreType } from "@/types/all/bookStore";
 import { useEffect, useRef, useState, type FC } from "react";
 import { useFormContext } from "react-hook-form";
@@ -78,13 +78,7 @@ const ChoseStore: FC<PropsType> = ({ stores }) => {
                 setIsDropOpen(false);
               }}
             >
-              <span
-                className="clamp_txt txt__2"
-                style={{
-                  WebkitLineClamp: 2,
-                  lineClamp: 2,
-                }}
-              >
+              <span className="clamp_txt txt__2" {...clampBy(2)}>
                 {el?.name}
               </span>
             </li>

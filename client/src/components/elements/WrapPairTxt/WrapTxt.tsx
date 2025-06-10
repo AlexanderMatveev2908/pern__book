@@ -1,4 +1,4 @@
-import { capt } from "@/core/lib/lib";
+import { capt, clampBy } from "@/core/lib/lib";
 import type { FC } from "react";
 
 type PropsType = {
@@ -10,9 +10,7 @@ const WrapTxt: FC<PropsType> = ({ txt, customStyle }) => {
   return (
     <span
       className={`clamp_txt ${customStyle ?? "justify-self-center txt__2"}`}
-      style={{
-        lineClamp: 2,
-      }}
+      {...clampBy(2)}
     >
       {capt(txt + "")}
     </span>
