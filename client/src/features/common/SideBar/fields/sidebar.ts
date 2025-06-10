@@ -12,6 +12,7 @@ import {
   fieldsActionsAuth,
   userLoggedFieldsDrop,
 } from "../../../AuthLayout/fields/links";
+import { TbDatabaseSearch } from "react-icons/tb";
 
 export type SideFieldType = {
   id: string;
@@ -41,21 +42,21 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   id: v4(),
 }));
 
-export const fieldAccountNonLogged: LabelDropType = {
+export const labelAccountNonLogged: LabelDropType = {
   label: "Account",
   icon: RiAccountBoxLine,
 };
 export const sideFieldsNonLogged: SideFieldType[] =
   addArrIDs(fieldsActionsAuth);
 
-export const fieldAccountLogged: LabelDropType = {
+export const labelAccountLogged: LabelDropType = {
   label: "My Account",
   icon: ShieldCheck,
 };
 
 export const sideFieldsLogged = addArrIDs(userLoggedFieldsDrop);
 
-export const fieldAdminDrop: LabelDropType = {
+export const labelAdminDrop: LabelDropType = {
   label: "Admin area",
   icon: MonitorCog,
 };
@@ -81,6 +82,11 @@ export const sideFieldsAdmin: SideFieldType[] = addArrIDs([
     icon: FaPenFancy,
     path: "/owner/books/add-book",
   },
+  {
+    label: "My Orders",
+    icon: TbDatabaseSearch,
+    path: "/owner/orders/list",
+  },
   // {
   //   label: "My Team",
   //   icon: FaUsers,
@@ -93,9 +99,9 @@ export const ownerOnlyPaths = [
   "/owner/books/add-book",
 ];
 
-export const createStoreField = sideFieldsAdmin[0];
+export const labelCreateStore = sideFieldsAdmin[0];
 
-export const fieldWorkerDrop: LabelDropType = {
+export const labelWorkerDrop: LabelDropType = {
   label: "Worker area",
   icon: BriefcaseBusiness,
 };

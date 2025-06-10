@@ -13,11 +13,11 @@ import UserEmail from "./components/UserEmail";
 import SidebarDrop from "./components/SidebarDrop";
 import SideLogout from "./components/SideLogout";
 import {
-  createStoreField,
-  fieldAccountLogged,
-  fieldAccountNonLogged,
-  fieldAdminDrop,
-  fieldWorkerDrop,
+  labelCreateStore,
+  labelAccountLogged,
+  labelAccountNonLogged,
+  labelAdminDrop,
+  labelWorkerDrop,
   ownerOnlyPaths,
   sideFieldsAdmin,
   sideFieldsAllUsers,
@@ -66,7 +66,7 @@ const Sidebar: FC = () => {
               : el
           )
         : sideFieldsNonLogged,
-      label: authState.isLogged ? fieldAccountLogged : fieldAccountNonLogged,
+      label: authState.isLogged ? labelAccountLogged : labelAccountNonLogged,
     }),
     [authState.isLogged, user?.isVerified]
   );
@@ -77,6 +77,7 @@ const Sidebar: FC = () => {
         if (ownerOnlyPaths.includes(el.path)) return user?.isOwner;
         if (el.path === "/owner/team") return user?.hasWorkers;
         if (el.path === "/owner/books/list") return user?.hasBooks;
+        if (el.path === "/owner/orders/list") return user?.hasBusinessOrders;
 
         return true;
       }),
@@ -131,16 +132,16 @@ const Sidebar: FC = () => {
             <SidebarDrop {...propsAccount} />
 
             {authState.isLogged && (
-              <SidebarDrop {...{ label: fieldAdminDrop, arr: fieldsAdmin }}>
+              <SidebarDrop {...{ label: labelAdminDrop, arr: fieldsAdmin }}>
                 {user?.isVerified ? null : (
-                  <FakeSideLink {...{ el: createStoreField }} />
+                  <FakeSideLink {...{ el: labelCreateStore }} />
                 )}
               </SidebarDrop>
             )}
 
             {user?.isWorker && (
               <SidebarDrop
-                {...{ label: fieldWorkerDrop, arr: sideFieldsWorker }}
+                {...{ label: labelWorkerDrop, arr: sideFieldsWorker }}
               />
             )}
             {authState.isLogged && <SideLogout />}

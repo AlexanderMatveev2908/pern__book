@@ -34,6 +34,7 @@ export interface UserType {
   isOwner: boolean;
   isWorker: boolean;
   hasWorkers: boolean;
+  hasBusinessOrders: boolean;
   hasBooks: boolean;
 
   // ? consumer flags

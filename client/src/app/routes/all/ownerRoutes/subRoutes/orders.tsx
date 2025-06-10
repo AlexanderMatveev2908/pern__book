@@ -1,12 +1,17 @@
 import Push from "@/app/routes/helpers/Push";
+import OrdersList from "@/pages/OwnerLayout/OrdersLayout/OrdersList/OrdersList";
 import { Outlet } from "react-router-dom";
 
-export const ownerOrdersRoutes = {
+export const ordersRoutes = {
   path: "orders",
   element: <Outlet />,
   children: [
     {
-      path: "",
+      path: "list",
+      element: <OrdersList />,
+    },
+    {
+      path: "*",
       element: <Push />,
     },
   ],
