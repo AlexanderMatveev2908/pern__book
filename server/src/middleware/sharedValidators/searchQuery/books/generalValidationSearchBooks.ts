@@ -8,6 +8,7 @@ import { checkPrices, checkQty } from "../general/db.js";
 
 export const generalValidationSearchBooks = [
   ...checkPagination,
+
   check().custom((_, { req }) => {
     const q = req?.query ?? {};
     const params = Object.entries(q);
@@ -29,27 +30,21 @@ export const generalValidationSearchBooks = [
           +(v ?? "") > new Date().getFullYear())
       )
         throw new Error("Invalid year");
-
       if (k === "title" && !allOrNothingStr(REG_BOOK_TITLE, v))
         throw new Error("Invalid title");
-
       if (k === "author" && !allOrNothingStr(REG_NAME, v))
         throw new Error("Invalid author");
-
       if (k === "mainCategories") {
         for (const cat of currentMainCat) {
           if (!Object.values(CatBookStore).includes(cat as CatBookStore))
             throw new Error("Invalid category");
         }
       }
-
       if (k === "subCategories") {
         if (!currentMainCat?.length) continue;
-
         const currentSubCats = (Array.isArray(v) ? v : [v]).filter(
           (el) => !!el
         );
-
         const acceptedCat = Object.entries(subcategories)
           .filter(([k]) => currentMainCat?.includes(k))
           .flatMap(([_, v]) => v.map((sub) => sub));

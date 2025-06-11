@@ -18,5 +18,7 @@ export const checkPagination = [
       if (k.includes("ID") && !allOrNothingStr(REG_ID, v))
         throw new Error("Invalid ID");
     }
+
+    return true;
   }),
 ];
