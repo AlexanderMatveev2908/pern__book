@@ -4,7 +4,6 @@ import {
   createdUpdateAtFields,
   filtersCat,
   filtersDelivery,
-  filtersOrders,
   priceFilters,
   qtyFilters,
 } from "../general/general";
@@ -16,6 +15,7 @@ import {
 import { addNestedIDs } from "@/core/lib/all/utils/ids";
 import { FaDatabase } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
+import { filtersOrdersStage } from "../general/orders";
 
 export const fieldsInputOrders: FormFieldBasic[] = [
   {
@@ -38,7 +38,7 @@ export const fieldsInputOrders: FormFieldBasic[] = [
 
 export const filtersOrdersOwner: FilterSearch[] = addNestedIDs([
   filtersCat,
-  filtersOrders,
+  filtersOrdersStage,
   filtersDelivery,
 ]) as FilterSearch[];
 
