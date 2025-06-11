@@ -48,13 +48,13 @@ const TooltipCpy: FC<PropsType> = ({ txt, bd = true }) => {
         >
           {txt && (
             <div
-              className={`cursor-pointer flex w-full max-w-full el__flow overflow-x-auto ${
+              className={`cursor-pointer flex w-full max-w-full pt-2 el__flow overflow-x-auto ${
                 bd
                   ? "el__border_sm px-6 py-1 items-center"
                   : "hover:text-blue-600"
               }`}
             >
-              <span className={`txt__2 text-nowrap ${!bd ? "pb-3" : ""}`}>
+              <span className={`txt__2 text-nowrap ${!bd ? "pb-2" : ""}`}>
                 {txt}
               </span>
             </div>

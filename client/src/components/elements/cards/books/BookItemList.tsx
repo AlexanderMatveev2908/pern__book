@@ -13,7 +13,7 @@ type PropsType = {
 
 const BookItemList: FC<PropsType> = ({ el }) => {
   return (
-    <ItemList {...{ el }}>
+    <ItemList {...{ images: el?.images }}>
       <SpanInfoCard
         {...{
           spanInfo: {

@@ -17,6 +17,7 @@ import { schemaOwnerOrders } from "@/features/common/SearchBar/schemasZ/owner/or
 import { ownerOrdersSliceAPI } from "@/features/OwnerLayout/orders/ownerOrdersSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
+import OrderStoreItemOwner from "./components/OrderStoreItemOwner";
 
 const OrdersList: FC = () => {
   const { user } = useGetU();
@@ -59,7 +60,7 @@ const OrdersList: FC = () => {
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
           <div className="list_items_app">
             {isArr(orders) &&
-              orders!.map((o) => <div key={o.id} className=""></div>)}
+              orders!.map((o) => <OrderStoreItemOwner key={o.id} {...{ o }} />)}
           </div>
         </WrapperContentAPI>
       </div>

@@ -21,7 +21,7 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
       <div className="body_card">
         <SpanTitleCard {...{ label: labelBookTitle(el.title) }} />
 
-        <ItemList {...{ el }}>
+        <ItemList {...{ images: el?.images }}>
           <MainContentBookConsumer {...{ el }} />
         </ItemList>
       </div>

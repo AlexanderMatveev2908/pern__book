@@ -7,6 +7,7 @@ import { Order } from "../../../models/all/Order.js";
 import { OrderItemStore } from "../../../models/all/OrderItem.js";
 import { calcPagination } from "../../../lib/query/general/pagination.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import { Book } from "../../../models/all/Book.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -17,7 +18,6 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       {
         model: BookStore,
         as: "store",
-        required: true,
         where: {
           ownerID: userID,
         },
@@ -25,13 +25,17 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       {
         model: Order,
         as: "order",
-        required: true,
       },
       {
         model: OrderItemStore,
         as: "orderItemStores",
+        include: [
+          {
+            model: Book,
+            as: "book",
+          },
+        ],
         separate: true,
-        required: true,
       },
     ],
   });

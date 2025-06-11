@@ -46,7 +46,7 @@ export type OrderStoreType = {
   expectedArrival: number;
   stage: string;
 
-  orderItemStores: OrderItemStoreType[];
+  orderItemStores?: OrderItemStoreType[];
   store: BookStoreType;
 };
 
