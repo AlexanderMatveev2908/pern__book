@@ -6,12 +6,18 @@ import {
 import { DeliveryType } from "../../../../types/all/orders.js";
 
 export const checkPrices = (k: string, v: string) => {
-  if (["minPrice", "maxPrice"].includes(k) && !allOrNothingStr(REG_PRICE, v))
+  if (
+    ["minPrice", "maxPrice", "minAvgPrice", "maxAvgPrice"].includes(k) &&
+    !allOrNothingStr(REG_PRICE, v)
+  )
     throw new Error("Invalid price");
 };
 
 export const checkQty = (k: string, v: string) => {
-  if (["minQty", "maxQty"].includes(k) && !allOrNothingStr(REG_INT, v))
+  if (
+    ["minQty", "maxQty", "minAvgQty", "maxAvgQty"].includes(k) &&
+    !allOrNothingStr(REG_INT, v)
+  )
     throw new Error("Invalid quantity");
 };
 

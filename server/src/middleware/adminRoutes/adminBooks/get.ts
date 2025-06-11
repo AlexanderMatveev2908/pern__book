@@ -10,6 +10,7 @@ import { allOrNothingStr } from "../../../lib/dataStructures.js";
 export const validateGetBooksList = [
   ...generalValidationSearchBooks,
   ...generalValidatorSearchBooksBusiness,
+
   check("bookStoreName").custom((val) =>
     allOrNothingStr(REG_STORE_NAME, val)
       ? true
