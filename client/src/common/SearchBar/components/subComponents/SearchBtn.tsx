@@ -5,7 +5,6 @@ import { FaSearch } from "react-icons/fa";
 
 type PropsType = {
   isFetching: boolean;
-  handleSearch?: () => void;
   isPending: boolean;
   hasFormErrs: boolean;
   labelTxt?: null | string;
@@ -13,7 +12,6 @@ type PropsType = {
 };
 
 const SearchBtn: FC<PropsType> = ({
-  handleSearch,
   isPending,
   styleTxt,
   isFetching,
@@ -30,8 +28,6 @@ const SearchBtn: FC<PropsType> = ({
         Icon: FaSearch,
         isPending,
         isDisabled: isFetching || hasFormErrs,
-        handleClick:
-          typeof handleSearch === "function" ? handleSearch : undefined,
       }}
     />
   );

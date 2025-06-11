@@ -78,7 +78,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
       />
 
       <ul
-        className={`absolute z-60 bg-neutral-950 el__border_sm w-[250%] -left-[150%] top-14 transition-all duration-[0.4s] max-h-[150px] pr-1 overflow-y-auto scroll_app scroll_y ${
+        className={`absolute z-60 bg-neutral-950 el__border_sm max-w-[350px] min-w-[250px] -left-[200%] sm:-left-[250%] top-14 transition-all duration-[0.4s] max-h-[150px] pr-1 overflow-y-auto scroll_app scroll_y ${
           isDropOpen
             ? "opacity-100 translate-y-0"
             : "translate-y-[75px] opacity-0 pointer-events-none"
@@ -112,7 +112,7 @@ const DropInputs: FC<PropsType> = ({ txtInputs }) => {
 
               setIsDropOpen(false);
             }}
-            className="w-full hover:text-blue-600 el__flow cursor-pointer border-b-2 border-blue-600 p-2 last:border-b-0 el__flow"
+            className="w-full hover:text-blue-600 el__flow cursor-pointer border-b-2 border-blue-600 p-3 last:border-b-0 el__flow"
           >
             <span className="txt__3">{el.label}</span>
           </li>
