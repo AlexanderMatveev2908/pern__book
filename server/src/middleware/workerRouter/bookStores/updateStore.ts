@@ -9,6 +9,8 @@ import { handleValidator } from "../../../lib/middleware/handleValidator.js";
 export const validateUpdateStore = [
   check().custom((_, { req }) => {
     validateCommonFieldsStorePut(req);
+
+    return true;
   }),
 
   ...validateCommonFieldsStoreTxt,
