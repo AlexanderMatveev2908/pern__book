@@ -10,11 +10,6 @@ export const validateQueryOwnerOrders = [
 
   checkQueryFn("orderID"),
   checkQueryFn("bookStoreID"),
-  check("bookStoreName").custom((val) =>
-    allOrNothingStr(REG_STORE_NAME, val)
-      ? true
-      : Promise.reject("Invalid store name")
-  ),
 
   handleValidator(422),
 ];

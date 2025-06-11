@@ -8,8 +8,7 @@ export const checkID = (key: string) => [
   handleValidator(422),
 ];
 
-export const checkQueryFn = (key: string) => [
+export const checkQueryFn = (key: string) =>
   check(key).custom((v) =>
     allOrNothingStr(REG_ID, v) ? true : Promise.reject("Invalid ID")
-  ),
-];
+  );
