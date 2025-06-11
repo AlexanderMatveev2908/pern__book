@@ -4,7 +4,7 @@ import { CatBookStore } from "@/types/all/bookStore";
 import { DeliveryType } from "@/types/all/orders";
 
 export const commonSchemaOrders = z.object({
-  mainCategories: z
+  categories: z
     .array(z.enum(Object.values(CatBookStore) as [string, ...string[]]))
     .optional(),
 

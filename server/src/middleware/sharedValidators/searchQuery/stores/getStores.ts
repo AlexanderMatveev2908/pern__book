@@ -6,8 +6,10 @@ import {
   REG_STATE,
   REG_STORE_NAME,
 } from "../../../../config/regex.js";
+import { checkPagination } from "../general/pagination.js";
 
 export const generalValidatorGetStores = [
+  // ...checkPagination,
   check("name").custom((val) =>
     allOrNothingStr(REG_STORE_NAME, val)
       ? true

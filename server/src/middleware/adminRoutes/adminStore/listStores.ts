@@ -1,17 +1,9 @@
 import { check } from "express-validator";
-import { allOrNothingStr } from "../../lib/dataStructures.js";
-import {
-  REG_CITY,
-  REG_COUNTRY,
-  REG_ID,
-  REG_INT,
-  REG_PRICE,
-  REG_STATE,
-  REG_STORE_NAME,
-} from "../../config/regex.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
-import { checkPagination } from "../sharedValidators/pagination.js";
-import { generalValidatorGetStores } from "../sharedValidators/searchQuery/stores/getStores.js";
+import { allOrNothingStr } from "../../../lib/dataStructures.js";
+import { REG_ID, REG_INT, REG_PRICE } from "../../../config/regex.js";
+import { handleValidator } from "../../../lib/middleware/handleValidator.js";
+import { generalValidatorGetStores } from "../../sharedValidators/searchQuery/stores/getStores.js";
+import { checkDelivery } from "../../sharedValidators/searchQuery/general/db.js";
 
 export const validateQueryListStores = [
   ...generalValidatorGetStores,
@@ -20,7 +12,7 @@ export const validateQueryListStores = [
   ),
 
   check().custom((_, { req }) => {
-    const expectedArr = ["categories", "orders", "delivery", "avgRating"];
+    const expectedArr = ["categories", "orders", , "avgRating"];
     const expectedFloat = ["minAvgPrice", "maxAvgPrice"];
     const expectedInt = [
       "minAvgQty",
@@ -31,6 +23,8 @@ export const validateQueryListStores = [
     ];
 
     for (const pair in Object.entries(req?.query ?? {})) {
+      checkDelivery(pair[0], pair[1]);
+
       if (expectedArr.includes(pair[0]) && !Array.isArray(pair[1]))
         throw new Error("Invalid data structures of array");
       if (
@@ -51,17 +45,6 @@ export const validateQueryListStores = [
 
     return true;
   }),
-
-  check().custom((_, { req }) => {
-    for (const pair in Object.entries(req.query ?? {})) {
-      if (pair[0].includes("Sort") && !["ASC", "DESC"].includes(pair[1]))
-        throw new Error("Invalid sort val");
-    }
-
-    return true;
-  }),
-
-  ...checkPagination,
 
   handleValidator(422),
 ];

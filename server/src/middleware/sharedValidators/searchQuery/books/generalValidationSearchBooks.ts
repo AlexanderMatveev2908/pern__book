@@ -1,15 +1,10 @@
 import { check } from "express-validator";
-import { checkPagination } from "../../pagination.js";
+import { checkPagination } from "../general/pagination.js";
 import { allOrNothingStr } from "../../../../lib/dataStructures.js";
-import {
-  REG_BOOK_TITLE,
-  REG_ID,
-  REG_INT,
-  REG_NAME,
-  REG_PRICE,
-} from "../../../../config/regex.js";
+import { REG_BOOK_TITLE, REG_INT, REG_NAME } from "../../../../config/regex.js";
 import { CatBookStore } from "../../../../types/all/bookStore.js";
 import { subcategories } from "../../../../types/all/books.js";
+import { checkPrices, checkQty } from "../general/db.js";
 
 export const generalValidationSearchBooks = [
   ...checkPagination,
@@ -25,11 +20,7 @@ export const generalValidationSearchBooks = [
       const k = pair[0];
       const v = pair[1];
 
-      if (
-        ["minPrice", "maxPrice"].includes(k) &&
-        !allOrNothingStr(REG_PRICE, v)
-      )
-        throw new Error("Invalid price");
+      checkPrices(k, v);
 
       if (
         k === "year" &&
@@ -67,9 +58,6 @@ export const generalValidationSearchBooks = [
             throw new Error("Invalid subcategory");
         }
       }
-
-      if (k.includes("Sort") && !["ASC", "DESC"].includes(v))
-        throw new Error("Invalid sort");
     }
 
     return true;
@@ -85,11 +73,7 @@ export const generalValidatorSearchBooksBusiness = [
       const k = pair[0];
       const v = pair[1];
 
-      if (k.includes("ID") && !allOrNothingStr(REG_ID, v))
-        throw new Error("Invalid ID");
-
-      if (["minQty", "maxQty"].includes(k) && !allOrNothingStr(REG_INT, v))
-        throw new Error("Invalid quantity");
+      checkQty(k, v);
     }
 
     return true;
