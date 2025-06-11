@@ -1,4 +1,3 @@
-import { linksBookConsumer } from "@/features/ConsumerLayout/BooksLayout/fields/card";
 import { BookType } from "@/types/all/books";
 import { type FC } from "react";
 import { labelBookTitle } from "@/core/config/fieldsData/labels/shared";
@@ -21,13 +20,13 @@ const BookItemConsumer: FC<PropsType> = ({ el }) => {
       <div className="body_card">
         <SpanTitleCard {...{ label: labelBookTitle(el.title) }} />
 
-        <ItemList {...{ el }}>
+        <ItemList {...{ images: el?.images }}>
           <MainContentBookConsumer {...{ el }} />
         </ItemList>
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ ID: el.id, links: linksBookConsumer(el.id) }} />
+        <PairBtnsLink {...{ ids: [`/consumer/books/${el.id}`] }} />
 
         <ButtonsCart {...{ book: el, cart }} />
       </div>

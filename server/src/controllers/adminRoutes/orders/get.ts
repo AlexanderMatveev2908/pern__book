@@ -4,9 +4,11 @@ import { ReqApp } from "../../../types/types.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { Order } from "../../../models/all/Order.js";
-import { OrderItemStore } from "../../../models/all/OrderItem.js";
+import { OrderItemStore } from "../../../models/all/OrderItemStore.js";
 import { calcPagination } from "../../../lib/query/general/pagination.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import { Book } from "../../../models/all/Book.js";
+import { literal } from "sequelize";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -17,7 +19,6 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       {
         model: BookStore,
         as: "store",
-        required: true,
         where: {
           ownerID: userID,
         },
@@ -25,15 +26,32 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       {
         model: Order,
         as: "order",
-        required: true,
       },
       {
         model: OrderItemStore,
         as: "orderItemStores",
+        include: [
+          {
+            model: Book,
+            as: "book",
+          },
+        ],
         separate: true,
-        required: true,
       },
     ],
+
+    attributes: {
+      include: [
+        [
+          literal(`(
+          SELECT SUM(oi."qty")
+          FROM "order_items" AS oi
+          WHERE oi."orderStoreID" = "OrderStore".id
+          )::INT`),
+          "totItems",
+        ],
+      ],
+    },
   });
 
   const { paginated, totPages, nHits } = sortAndPaginate(req, orders);

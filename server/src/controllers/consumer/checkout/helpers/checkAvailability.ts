@@ -1,6 +1,6 @@
 import { __cg } from "../../../../lib/utils/log.js";
 import { OrderInstance } from "../../../../models/all/Order.js";
-import { OrderItemStoreInstance } from "../../../../models/all/OrderItem.js";
+import { OrderItemStoreInstance } from "../../../../models/all/OrderItemStore.js";
 
 export const checkAvailabilityStock = ({ order }: { order: OrderInstance }) => {
   let isValid = true;

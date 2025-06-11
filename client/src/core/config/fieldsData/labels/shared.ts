@@ -6,7 +6,9 @@ import { IoIosStats } from "react-icons/io";
 import { MdOutlineCategory, MdUpdate } from "react-icons/md";
 import { BsCartDash, BsCartPlus, BsCartX } from "react-icons/bs";
 import { BtnAct } from "@/types/types";
-import { FaBook } from "react-icons/fa";
+import { FaBook, FaLink } from "react-icons/fa";
+import { GrUpdate } from "react-icons/gr";
+import { v4 } from "uuid";
 
 export const manageDropLabelGeneral = {
   icon: AiFillInteraction,
@@ -79,3 +81,20 @@ export enum KEY_MAP_STORE {
   UPDATE = "UPDATE",
   DELETE = "DELETE",
 }
+
+export const linksCardApp = (ids?: (string | null)[]) =>
+  [
+    {
+      icon: FaLink,
+      label: "View more",
+      path: ids?.[0],
+    },
+    {
+      icon: GrUpdate,
+      label: "Update",
+      path: ids?.[1],
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));

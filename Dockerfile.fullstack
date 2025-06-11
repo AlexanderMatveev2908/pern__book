@@ -37,4 +37,6 @@ RUN yarn build
 
 COPY --from=client-build /app/client/dist /app/client/dist
 
+EXPOSE 3000
+
 CMD ["yarn", "start"]

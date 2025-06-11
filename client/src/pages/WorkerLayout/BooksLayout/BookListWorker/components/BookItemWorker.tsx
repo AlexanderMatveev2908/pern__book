@@ -1,5 +1,4 @@
 import ItemID from "@/components/elements/cards/shared/ItemID";
-import { linksBookCardWorker } from "@/features/WorkerLayout/Books/fields/card";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import BookItemList from "@/components/elements/cards/books/BookItemList";
@@ -20,7 +19,9 @@ const BookItemWorker: FC<PropsType> = ({ el }) => {
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ links: linksBookCardWorker(el.id) }} />
+        <PairBtnsLink
+          {...{ ids: [`/worker/books/${el.id}`, `/worker/books/put/${el.id}`] }}
+        />
       </div>
     </div>
   );

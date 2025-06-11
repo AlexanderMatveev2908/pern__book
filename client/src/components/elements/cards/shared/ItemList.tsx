@@ -1,21 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { isArrOk } from "@/core/lib/lib";
 import { useMemo, type FC } from "react";
 import ImagesItem from "../../imagesHandlers/ImagesItem/ImagesItem";
+import { AssetCloudType } from "@/types/types";
 
 type PropsType = {
   children: React.ReactNode;
-  el: any;
+  images?: AssetCloudType[] | null;
 };
 
-const ItemList: FC<PropsType> = ({ children, el }) => {
-  const hasImages = useMemo(() => isArrOk(el.images), [el]);
+const ItemList: FC<PropsType> = ({ children, images }) => {
+  const hasImages = useMemo(() => isArrOk(images), [images]);
 
   return (
     <div className="content">
       {hasImages && (
         <div className="images_wrapper">
-          <ImagesItem {...{ images: el.images }} />
+          <ImagesItem {...{ images }} />
         </div>
       )}
 

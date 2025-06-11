@@ -2,7 +2,6 @@ import ItemID from "@/components/elements/cards/shared/ItemID";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import BookItemList from "@/components/elements/cards/books/BookItemList";
-import { linksBookCard } from "@/features/OwnerLayout/books/fields/actions";
 import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 
 type PropsType = {
@@ -19,7 +18,11 @@ const BookItemOwner: FC<PropsType> = ({ el }) => {
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ links: linksBookCard(el.id) }} />
+        <PairBtnsLink
+          {...{
+            ids: [`/owner/books/${el.id}`, `/owner/books/update/${el.id}`],
+          }}
+        />
       </div>
     </div>
   );
