@@ -1,4 +1,4 @@
-import { ReqApp } from "../../types/types.js";
+import { ReqApp } from "../../../types/types.js";
 
 export const calcPagination = <T>({
   req,

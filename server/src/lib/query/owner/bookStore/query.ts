@@ -1,6 +1,6 @@
 import { literal, Op, QueryOptions, WhereOptions } from "sequelize";
 import { ReqApp, UserRole } from "../../../../types/types.js";
-import { handleQueryDelivery } from "../../general.js";
+import { handleQueryDelivery } from "../../general/general.js";
 
 const makeRoleSql = (
   role: UserRole,

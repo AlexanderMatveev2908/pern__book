@@ -6,12 +6,12 @@ import { ReqApp } from "../../../types/types.js";
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { literal } from "sequelize";
-import { calcRatingSqlBooks } from "../../../lib/query/general.js";
-import { sortItems } from "../../../lib/query/sort.js";
-import { calcPagination } from "../../../lib/query/pagination.js";
 import { __cg } from "../../../lib/utils/log.js";
 import PDFDocument from "pdfkit";
 import { makeBooksQ } from "../../../lib/query/owner/books/query.js";
+import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
+import { sortItems } from "../../../lib/query/general/sort.js";
+import { calcPagination } from "../../../lib/query/general/pagination.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
