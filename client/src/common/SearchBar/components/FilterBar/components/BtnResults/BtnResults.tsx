@@ -1,10 +1,13 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { FormFieldBasic } from "@/types/types";
+import { BtnAct, FormFieldBasic } from "@/types/types";
 import { useMemo, type FC } from "react";
-import SearchBtn from "../../../subComponents/SearchBtn";
-import CLearBtn from "../../../subComponents/ClearBtn";
 import s from "./BtnResults.module.css";
+import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch";
+import { useFormContext } from "react-hook-form";
+import { MdClear } from "react-icons/md";
+import Button from "@/components/elements/buttons/Button/Button";
+import { FaSearch } from "react-icons/fa";
 
 type PropsType = {
   res: any;
@@ -29,35 +32,49 @@ const BtnResults: FC<PropsType> = ({
     isPending,
     preSubmit: { hasFormErrs },
   } = ctx;
+  const formCtx = useFormContext();
 
   const labelTxt = useMemo(
     () => `${nHits} Result${!nHits || nHits > 1 ? "s" : ""}`,
     [nHits]
   );
 
+  const { handleClear } = useClickSearch({
+    ctx,
+    formCtx,
+    txtInputs,
+    triggerRtk,
+    routeID,
+    defVals,
+    innerJoinCat,
+  });
+
   return (
     <div className="p-3 border-t-[3px] h-[75px] border-blue-600 absolute bottom-0 left-0 w-full z-60 bg-neutral-950 items-center grid grid-cols-2 justify-items-center">
       <div className={`${s.btn_secondary} w-full `}>
-        <SearchBtn
+        <Button
           {...{
-            isPending: isPending.submit,
-            hasFormErrs,
-            labelTxt,
+            label: labelTxt ?? "Search",
             styleTxt: s.txt,
-            isFetching: res?.isFetching,
+            type: "submit",
+            act: BtnAct.DO,
+            Icon: FaSearch,
+            isPending: isPending.submit,
+            isDisabled: res?.isFetching || hasFormErrs,
           }}
         />
       </div>
       <div className={`${s.btn_secondary} w-full `}>
-        <CLearBtn
+        <Button
           {...{
+            label: "Clear",
             styleTxt: s.txt,
-            res,
-            triggerRtk,
-            defVals,
-            routeID,
-            txtInputs,
-            innerJoinCat,
+            type: "button",
+            act: BtnAct.DEL,
+            Icon: MdClear,
+            handleClick: handleClear,
+            isPending: isPending?.clear,
+            isDisabled: res?.isFetching,
           }}
         />
       </div>

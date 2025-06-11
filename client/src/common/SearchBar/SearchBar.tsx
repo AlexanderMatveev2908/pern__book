@@ -7,10 +7,10 @@ import {
   SorterSearch,
   TriggerRTK,
 } from "@/types/types";
-import TxtInputs from "./components/TxtInputs/TxtInputs";
+import TxtInputs from "./components/TxtInputs";
 import BgBlack from "./components/BgBlack";
 import FilterBar from "./components/FilterBar/FilterBar";
-import SkeletonBar from "./SkeletonBar/SkeletonBar";
+import SkeletonBar from "./components/SkeletonBar/SkeletonBar";
 import { useLocation, useParams } from "react-router-dom";
 import { calcSearchbarID } from "@/core/lib/all/utils/ids";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
@@ -19,7 +19,7 @@ import { usePopulateSearch } from "@/features/common/SearchBar/hooks/usePopulate
 import { useDebounceSearch } from "@/features/common/SearchBar/hooks/useDebounceSearch";
 import { useHandleErrSearch } from "@/features/common/SearchBar/hooks/useHandleErrSearch";
 import { useFormContext } from "react-hook-form";
-import SortDrop from "./components/SortPop/SortDrop";
+import SortDrop from "./components/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
 import ButtonsForm from "./components/ButtonsForm/ButtonsForm";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
