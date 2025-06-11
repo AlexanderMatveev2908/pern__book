@@ -10,8 +10,7 @@ import { __cg } from "../../../lib/utils/log.js";
 import PDFDocument from "pdfkit";
 import { makeBooksQ } from "../../../lib/query/owner/books/query.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
-import { sortItems } from "../../../lib/query/general/sort.js";
-import { calcPagination } from "../../../lib/query/general/pagination.js";
+import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -123,12 +122,7 @@ export const getBooksList = async (
     having: queryAfterPipe,
   });
 
-  const nHits = books.length;
-  if (!nHits) return res204(res);
-
-  const { sorted } = sortItems(req, books);
-
-  const { totPages, paginated } = calcPagination({ req, nHits, els: sorted });
+  const { paginated, nHits, totPages } = sortAndPaginate(req, books);
 
   return res200(res, { books: paginated, nHits, totPages });
 };

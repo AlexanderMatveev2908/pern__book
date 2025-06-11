@@ -18,8 +18,7 @@ import {
   countOrdersStores,
   countStatsBooksFoStore,
 } from "../../../lib/query/general/bookstores.js";
-import { sortItems } from "../../../lib/query/general/sort.js";
-import { calcPagination } from "../../../lib/query/general/pagination.js";
+import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 
 const countWorkSql = (role: UserRole): Literal =>
   literal(`(
@@ -192,16 +191,7 @@ export const getAllStores = async (
     // order: sorters,
   });
 
-  const nHits = bookStores.length;
-  if (!nHits) return res204(res);
-
-  const { sorted } = sortItems(req, bookStores);
-
-  const { paginated, totPages } = calcPagination({
-    req,
-    nHits,
-    els: sorted,
-  });
+  const { nHits, totPages, paginated } = sortAndPaginate(req, bookStores);
 
   return res200(res, { bookStores: paginated, nHits, totPages });
 };

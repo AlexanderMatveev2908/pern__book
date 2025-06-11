@@ -7,8 +7,7 @@ import { makeQueryBooksConsumer } from "../../../lib/query/consumer/books.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
-import { sortItems } from "../../../lib/query/general/sort.js";
-import { calcPagination } from "../../../lib/query/general/pagination.js";
+import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 
 const withImages = {
   [Op.and]: [
@@ -108,11 +107,7 @@ export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
     },
   });
 
-  const nHits = books.length;
-  if (!nHits) return res204(res);
-
-  const { sorted } = sortItems(req, books);
-  const { totPages, paginated } = calcPagination({ req, nHits, els: sorted });
+  const { paginated, totPages, nHits } = sortAndPaginate(req, books);
 
   return res200(res, { totPages, nHits, books: paginated });
 };
