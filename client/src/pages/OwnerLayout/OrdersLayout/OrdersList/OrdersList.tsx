@@ -1,9 +1,12 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/SearchBar/SearchBar";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { isArr } from "@/core/lib/lib";
 import {
   fieldsInputOrders,
   filtersOrdersOwner,
@@ -19,6 +22,8 @@ const OrdersList: FC = () => {
   const { user } = useGetU();
 
   const hook = ownerOrdersSliceAPI.useLazyGetOwnerOrdersListQuery();
+  const [_, res] = hook;
+  const { data: { orders } = {} } = res ?? {};
 
   const { formSearchOrdersOwnerCtx: formCtx } = useFormCtxConsumer();
 
@@ -46,11 +51,17 @@ const OrdersList: FC = () => {
               filters: filtersOrdersOwner,
               numericFilters: ownerNumericFiltersOrders,
               sorters: ownerSortersOrders,
-              // ? JUST A METAPHOR
               schema: schemaOwnerOrders,
             } as any)}
           />
         </FormProvider>
+
+        <WrapperContentAPI {...({ formCtx, hook } as any)}>
+          <div className="list_items_app">
+            {isArr(orders) &&
+              orders!.map((o) => <div key={o.id} className=""></div>)}
+          </div>
+        </WrapperContentAPI>
       </div>
     </WrapPageAPI>
   );

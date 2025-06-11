@@ -1,16 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { FC } from "react";
-import { FormFieldBasic, NumericFilterSearch } from "@/types/types";
+import { BtnAct, FormFieldBasic, NumericFilterSearch } from "@/types/types";
 import { IoFilter } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
 import { makeDelay } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
 import DropInputs from "./components/DropInputs";
-import SearchBtn from "../subComponents/SearchBtn";
-import CLearBtn from "../subComponents/ClearBtn";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import s from "./ButtonsForm.module.css";
+import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch";
+import Button from "@/components/elements/buttons/Button/Button";
+import { MdClear } from "react-icons/md";
+import { FaSearch } from "react-icons/fa";
 
 type PropsType = {
   txtInputs?: FormFieldBasic[];
@@ -42,6 +44,16 @@ const ButtonsForm: FC<PropsType> = ({
     formState: { errors },
     setFocus,
   } = formCtx;
+
+  const { handleClear } = useClickSearch({
+    ctx,
+    formCtx,
+    txtInputs,
+    triggerRtk,
+    routeID,
+    defVals,
+    innerJoinCat,
+  });
 
   return (
     <div
@@ -79,29 +91,31 @@ const ButtonsForm: FC<PropsType> = ({
 
       <div className="w-full grid grid-cols-2 gap-x-10 items-center">
         <div className={`${s.btn_main} w-full justify-self-center `}>
-          <SearchBtn
+          <Button
             {...{
-              hasFormErrs,
-              isPending: isPending.submit,
-              isFetching: res?.isFetching,
+              label: "Search",
               styleTxt: s.txt,
+              type: "submit",
+              act: BtnAct.DO,
+              Icon: FaSearch,
+              isPending: isPending.submit,
+              isDisabled: res?.isFetching || hasFormErrs,
             }}
           />
         </div>
         <div
           className={`${s.btn_main} w-full  sm:justify-self-center justify-self-end`}
         >
-          <CLearBtn
+          <Button
             {...{
+              label: "Clear",
               styleTxt: s.txt,
-
-              res,
-              triggerRtk,
-
-              routeID,
-              defVals,
-              innerJoinCat,
-              txtInputs,
+              type: "button",
+              act: BtnAct.DEL,
+              Icon: MdClear,
+              handleClick: handleClear,
+              isPending: isPending?.clear,
+              isDisabled: res?.isFetching,
             }}
           />
         </div>

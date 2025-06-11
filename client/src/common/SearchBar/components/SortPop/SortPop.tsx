@@ -3,7 +3,7 @@ import Title from "@/components/elements/Title";
 import { useAnimatePop } from "@/core/hooks/all/UI/useAnimatePop";
 import { SorterSearch } from "@/types/types";
 import { useEffect, useRef, type FC } from "react";
-import PairSort from "./PairSort";
+import PairSort from "./components/PairSort";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 
 type PropsType = {
