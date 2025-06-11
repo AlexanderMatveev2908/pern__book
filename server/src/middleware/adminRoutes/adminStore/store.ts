@@ -1,19 +1,13 @@
-import { check, ExpressValidator } from "express-validator";
-import {
-  REG_CLOUD,
-  REG_PHONE,
-  REG_PRICE,
-  REG_STORE_DESC,
-  REG_STORE_NAME,
-} from "../../config/regex.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { check } from "express-validator";
+import { REG_STORE_NAME } from "../../../config/regex.js";
+import { handleValidator } from "../../../lib/middleware/handleValidator.js";
 import validator from "validator";
-import { validateAddress } from "../sharedValidators/address.js";
-import { UserRole } from "../../types/types.js";
+import { validateAddress } from "../../sharedValidators/address.js";
+import { UserRole } from "../../../types/types.js";
 import {
   validateCommonFieldsStorePut,
   validateCommonFieldsStoreTxt,
-} from "../sharedValidators/commonFieldsStore.js";
+} from "../../sharedValidators/commonFieldsStore.js";
 
 export const validateStore = [
   check("name")

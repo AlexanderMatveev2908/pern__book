@@ -6,8 +6,13 @@ import {
   REG_STATE,
   REG_STORE_NAME,
 } from "../../../../config/regex.js";
+import { checkPagination } from "../general/pagination.js";
+import { checkCategories } from "../general/cat.js";
+import { checkDelivery, checkPrices, checkQty } from "../general/db.js";
+import { checkOrdersStage } from "../general/orders.js";
 
 export const generalValidatorGetStores = [
+  ...checkPagination,
   check("name").custom((val) =>
     allOrNothingStr(REG_STORE_NAME, val)
       ? true
@@ -22,4 +27,20 @@ export const generalValidatorGetStores = [
   check("city").custom((val) =>
     allOrNothingStr(REG_CITY, val) ? true : Promise.reject("Invalid city")
   ),
+
+  check().custom((_, { req }) => {
+    const q = req?.query ?? {};
+
+    for (const k in q) {
+      const v = q[k];
+
+      checkCategories(k, v);
+      checkDelivery(k, v);
+      checkPrices(k, v);
+      checkQty(k, v);
+      checkOrdersStage(k, v);
+    }
+
+    return true;
+  }),
 ];

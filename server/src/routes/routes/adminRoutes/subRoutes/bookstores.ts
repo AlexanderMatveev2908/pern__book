@@ -2,10 +2,9 @@ import express from "express";
 import { multerDiskStorage } from "../../../../middleware/multer/diskStorage.js";
 import { logJSON } from "../../../../lib/utils/log.js";
 import { wrapApp } from "../../../../middleware/general/wrapApp.js";
-import { validateStore } from "../../../../middleware/adminStore/store.js";
-import { checkTeam } from "../../../../middleware/adminStore/checkTeam.js";
-import { validateGetBooksList } from "../../../../middleware/adminBooks/get.js";
-import { validateQueryListStores } from "../../../../middleware/adminStore/listStores.js";
+import { validateStore } from "../../../../middleware/adminRoutes/adminStore/store.js";
+import { checkTeam } from "../../../../middleware/adminRoutes/adminStore/checkTeam.js";
+import { validateQueryListStores } from "../../../../middleware/adminRoutes/adminStore/listStores.js";
 import { createBookStore } from "../../../../controllers/adminRoutes/bookstores/post.js";
 import {
   getAllStores,
@@ -26,12 +25,7 @@ adminExpressRouterStore
     checkTeam,
     wrapApp(createBookStore)
   )
-  .get(
-    wrapApp(logJSON),
-    validateGetBooksList,
-    validateQueryListStores,
-    wrapApp(getAllStores)
-  );
+  .get(wrapApp(logJSON), validateQueryListStores, wrapApp(getAllStores));
 
 adminExpressRouterStore
   .route("/:bookStoreID")
