@@ -1,6 +1,6 @@
 import { check } from "express-validator";
 import { REG_INT } from "../../config/regex.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 
 export const checkCartItemQty = (min: number) => [
   check("qty")

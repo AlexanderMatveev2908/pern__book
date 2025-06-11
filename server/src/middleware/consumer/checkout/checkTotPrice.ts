@@ -1,5 +1,5 @@
 import { check } from "express-validator";
-import { handleValidator } from "../../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../../sharedValidators/handleValidator.js";
 
 export const checkTotPrice = [
   check("totPrice")

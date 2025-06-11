@@ -4,7 +4,7 @@ import {
   generalValidatorSearchBooksBusiness,
 } from "../../sharedValidators/searchQuery/books/generalValidationSearchBooks.js";
 import { REG_STORE_NAME } from "../../../config/regex.js";
-import { handleValidator } from "../../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../../sharedValidators/handleValidator.js";
 import { allOrNothingStr } from "../../../lib/dataStructures.js";
 
 export const validateGetBooksList = [

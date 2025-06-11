@@ -1,6 +1,6 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { __cg } from "../utils/log.js";
+import { __cg } from "../../lib/utils/log.js";
 
 export const handleValidator =
   (statusCode: number) =>

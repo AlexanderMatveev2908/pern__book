@@ -1,7 +1,7 @@
 import { check } from "express-validator";
 import { REG_ID } from "../../config/regex.js";
 import { KEY_ACTION_CART } from "../../types/all/cart.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 
 export const checkCartCLick = [
   check("bookID").matches(REG_ID).withMessage("invalid book id"),

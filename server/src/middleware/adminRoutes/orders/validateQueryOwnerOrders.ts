@@ -1,5 +1,5 @@
 import { check } from "express-validator";
-import { handleValidator } from "../../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../../sharedValidators/handleValidator.js";
 import { REG_ID, REG_STORE_NAME } from "../../../config/regex.js";
 import { allOrNothingStr } from "../../../lib/dataStructures.js";
 

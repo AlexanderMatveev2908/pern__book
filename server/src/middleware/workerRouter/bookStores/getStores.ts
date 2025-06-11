@@ -1,4 +1,4 @@
-import { handleValidator } from "../../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../../sharedValidators/handleValidator.js";
 import { checkPagination } from "../../sharedValidators/searchQuery/general/pagination.js";
 import { generalValidatorGetStores } from "../../sharedValidators/searchQuery/stores/getStores.js";
 

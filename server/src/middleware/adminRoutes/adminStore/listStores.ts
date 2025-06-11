@@ -1,7 +1,7 @@
 import { check } from "express-validator";
 import { allOrNothingStr } from "../../../lib/dataStructures.js";
 import { REG_INT } from "../../../config/regex.js";
-import { handleValidator } from "../../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../../sharedValidators/handleValidator.js";
 import { generalValidatorGetStores } from "../../sharedValidators/searchQuery/stores/getStores.js";
 import { checkDelivery } from "../../sharedValidators/searchQuery/general/db.js";
 

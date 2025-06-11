@@ -1,5 +1,5 @@
 import { check } from "express-validator";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 import { validateEventToken } from "../sharedValidators/events.js";
 import { validateVerifyToken } from "../sharedValidators/verifyToken.js";
 import { REG_ID } from "../../config/regex.js";
