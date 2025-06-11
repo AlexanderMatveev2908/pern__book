@@ -7,7 +7,7 @@ export const handleValidator =
   (req: Request, res: Response, next: NextFunction): any => {
     const errors = validationResult(req);
 
-    __cg("handleValidator", errors);
+    __cg("handleValidator", errors.array());
 
     if (!errors.isEmpty()) {
       return res.status(statusCode).json({

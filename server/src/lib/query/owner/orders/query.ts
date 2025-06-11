@@ -1,5 +1,6 @@
 import { Op, WhereOptions } from "sequelize";
 import { ReqApp } from "../../../../types/types.js";
+import { parseArrFromStr } from "../../../dataStructures.js";
 
 export const makeQueryOrdersOwner = (req: ReqApp) => {
   const { userID } = req;
@@ -32,6 +33,16 @@ export const makeQueryOrdersOwner = (req: ReqApp) => {
           [Op.iLike]: `%${v}%`,
         };
         break;
+
+      case "categories": {
+        const parsed = parseArrFromStr(v as string | string[]);
+
+        queryBookStore.categories = {
+          [Op.contains]: parsed,
+        };
+
+        break;
+      }
 
       default:
         break;
