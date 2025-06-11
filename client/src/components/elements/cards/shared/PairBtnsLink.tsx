@@ -1,16 +1,20 @@
-import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { BtnIconLinkType } from "@/types/types";
-import type { FC } from "react";
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { useMemo, type FC } from "react";
 import ButtonLink from "../../buttons/ButtonLink";
+import { linksCardApp } from "@/core/config/fieldsData/labels/shared";
+import { isStr } from "@/core/lib/lib";
 
 type PropsType = {
-  links: BtnIconLinkType[];
+  ids?: (string | null)[];
 };
 
-const PairBtnsLink: FC<PropsType> = ({ links }) => {
-  const ids = useCreateIds({ lengths: [links.length] });
+const PairBtnsLink: FC<PropsType> = ({ ids }) => {
+  const links = useMemo(
+    () => linksCardApp(ids).filter((el) => isStr(el.path)),
+    [ids]
+  );
 
-  return (
+  return !ids?.length ? null : (
     <div
       className="w-full grid gap-y-3 justify-items-center items-center gap-x-8"
       style={{
@@ -18,7 +22,7 @@ const PairBtnsLink: FC<PropsType> = ({ links }) => {
       }}
     >
       {links.map((el, i) => (
-        <ButtonLink key={ids[0][i]} {...{ el }} />
+        <ButtonLink key={ids![i]} {...({ el } as any)} />
       ))}
     </div>
   );

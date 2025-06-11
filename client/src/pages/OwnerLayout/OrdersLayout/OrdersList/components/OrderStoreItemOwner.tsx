@@ -1,5 +1,6 @@
 import OrderStoreItem from "@/components/elements/cards/orders/OrderStoreItem";
 import ItemID from "@/components/elements/cards/shared/ItemID";
+import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 import { OrderStoreType } from "@/types/all/orders";
 import type { FC } from "react";
 
@@ -14,6 +15,14 @@ const OrderStoreItemOwner: FC<PropsType> = ({ o }) => {
         <ItemID {...{ ID: o.id }} />
 
         <OrderStoreItem {...{ o }} />
+      </div>
+
+      <div className="footer_card">
+        <PairBtnsLink
+          {...{
+            ids: [`/owner/orders/${o.id}`, `/owner/orders/patch/${o.id}`],
+          }}
+        />
       </div>
     </div>
   );

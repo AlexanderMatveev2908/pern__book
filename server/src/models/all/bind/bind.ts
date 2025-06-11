@@ -15,7 +15,7 @@ import { defineTestClass } from "../Test.js";
 import { defineCart } from "../Cart.js";
 import { defineCartItem } from "../CartItem.js";
 import { defineOrderStore } from "../OrderStore.js";
-import { defineOrderItemStore } from "../OrderItem.js";
+import { defineOrderItemStore } from "../OrderItemStore.js";
 
 export const bindModels = (seq: Sequelize) => {
   const User = defineUser(seq);

@@ -10,7 +10,7 @@ import { Order } from "../../models/all/Order.js";
 import { getPopulatedOrder } from "../../controllers/consumer/checkout/helpers/getters.js";
 import { OrderStage } from "../../types/all/orders.js";
 import { OrderStore } from "../../models/all/OrderStore.js";
-import { OrderItemStore } from "../../models/all/OrderItem.js";
+import { OrderItemStore } from "../../models/all/OrderItemStore.js";
 import { Book } from "../../models/all/Book.js";
 import { tErr } from "../../stuff/quick.js";
 

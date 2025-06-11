@@ -1,5 +1,4 @@
 import ItemID from "@/components/elements/cards/shared/ItemID";
-import { linksCardStore } from "@/features/OwnerLayout/bookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import StoreItemList from "@/components/elements/cards/bookstore/StoreItemList";
@@ -19,7 +18,14 @@ const BookStoreItemOwner: FC<PropsType> = ({ el }) => {
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ links: linksCardStore(el.id) }} />
+        <PairBtnsLink
+          {...{
+            ids: [
+              `/owner/book-store/${el.id}`,
+              `/owner/book-store/update/${el.id}`,
+            ],
+          }}
+        />
       </div>
     </div>
   );

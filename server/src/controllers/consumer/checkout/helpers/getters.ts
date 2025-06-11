@@ -5,7 +5,7 @@ import { CartItem } from "../../../../models/all/CartItem.js";
 import { Cart } from "../../../../models/all/Cart.js";
 import { Order } from "../../../../models/all/Order.js";
 import { OrderStore } from "../../../../models/all/OrderStore.js";
-import { OrderItemStore } from "../../../../models/all/OrderItem.js";
+import { OrderItemStore } from "../../../../models/all/OrderItemStore.js";
 
 export const getCartWithTotPrice = async (userID: string) => {
   const cart = await Cart.findOne({

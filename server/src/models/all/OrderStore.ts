@@ -1,6 +1,6 @@
 import { DataTypes, Model, Sequelize } from "sequelize";
 import { refSql, schemaID } from "./utils/helpers.js";
-import { OrderItemStoreInstance } from "./OrderItem.js";
+import { OrderItemStoreInstance } from "./OrderItemStore.js";
 import { BookStoreInstance } from "./BookStore.js";
 
 export class OrderStore extends Model {

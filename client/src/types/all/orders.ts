@@ -47,7 +47,8 @@ export type OrderStoreType = {
   stage: string;
 
   orderItemStores?: OrderItemStoreType[];
-  store: BookStoreType;
+  store?: BookStoreType;
+  totItems?: number;
 };
 
 export type OrderType = {

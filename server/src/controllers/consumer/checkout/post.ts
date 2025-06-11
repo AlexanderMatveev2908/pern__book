@@ -17,7 +17,7 @@ import { CloudImg } from "../../../types/all/cloud.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";
 import { formatFloat } from "../../../lib/utils/formatters.js";
 import { reUploadImg } from "../../../lib/cloud/reUploadExisting.js";
-import { OrderItemStore } from "../../../models/all/OrderItem.js";
+import { OrderItemStore } from "../../../models/all/OrderItemStore.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
 import { Cart } from "../../../models/all/Cart.js";
 import { checkAvailabilityStock } from "./helpers/checkAvailability.js";

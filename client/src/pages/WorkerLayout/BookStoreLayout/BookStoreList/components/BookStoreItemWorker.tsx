@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { linksCardStoreWorker } from "@/features/WorkerLayout/BookStores/fields/card";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
@@ -14,10 +13,12 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
   const [{ bookStoreUser: { role } = {} } = {}] = el?.team ?? ([] as any);
 
   const filtered = useMemo(
-    () =>
-      linksCardStoreWorker(el.id).filter((lin) =>
-        lin.label === "Update" ? role === UserRole.MANAGER : lin
-      ),
+    () => [
+      `/worker/book-stores/${el.id}`,
+      ...(role === UserRole.MANAGER
+        ? [`/worker/book-stores/update/${el.id}`]
+        : [null]),
+    ],
     [role, el.id]
   );
 
@@ -28,7 +29,7 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ links: filtered }} />
+        <PairBtnsLink {...{ ids: filtered }} />
       </div>
     </div>
   );
