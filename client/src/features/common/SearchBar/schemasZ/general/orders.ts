@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { generateZodSorters, schemaInt, schemaPrice } from "./general";
 import { CatBookStore } from "@/types/all/bookStore";
-import { DeliveryType } from "@/types/all/orders";
+import { DeliveryType, StoreOrderStage } from "@/types/all/orders";
 
 export const commonSchemaOrders = z.object({
   categories: z
@@ -17,6 +17,10 @@ export const commonSchemaOrders = z.object({
 
   minPrice: schemaPrice(),
   maxPrice: schemaPrice(),
+
+  stage: z
+    .array(z.enum(Object.values(StoreOrderStage) as [string, ...string[]]))
+    .optional(),
 
   ...generateZodSorters([
     "createdAtSort",

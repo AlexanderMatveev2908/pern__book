@@ -1,7 +1,7 @@
 import { check } from "express-validator";
 import { validateAddress } from "../sharedValidators/address.js";
 import { validateName } from "../sharedValidators/validatorsUser.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 
 export const validateProfile = [
   check().custom((_, { req }) => {

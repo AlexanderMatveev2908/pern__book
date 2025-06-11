@@ -1,4 +1,4 @@
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 import { generalValidationSearchBooks } from "../sharedValidators/searchQuery/books/generalValidationSearchBooks.js";
 
 export const checkBooksSearchConsumer = [

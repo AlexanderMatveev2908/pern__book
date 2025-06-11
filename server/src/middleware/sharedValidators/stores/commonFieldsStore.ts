@@ -1,9 +1,22 @@
 import { check } from "express-validator";
-import { REG_CLOUD, REG_PRICE, REG_STORE_DESC } from "../../config/regex.js";
+import {
+  REG_CLOUD,
+  REG_PRICE,
+  REG_STORE_DESC,
+  REG_STORE_NAME,
+} from "../../../config/regex.js";
+import { allOrNothingStr } from "../../../lib/dataStructures.js";
 
 const MAX_MB_IMG = 1024 * 1024 * 5;
 // ? COULD BE TOO MUCH FOR HOST PLATFORM SO SERVER COULD EASILY CRASH
 const MAX_MB_VID = 1024 * 1024 * 50;
+
+export const checkStoreName = () =>
+  check("bookStoreName").custom((val) =>
+    allOrNothingStr(REG_STORE_NAME, val)
+      ? true
+      : Promise.reject("Invalid store name")
+  );
 
 export const validateCommonFieldsStorePut = (req: any) => {
   const images = req.files?.images as Express.Multer.File[] | undefined;

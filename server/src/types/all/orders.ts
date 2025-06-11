@@ -1,5 +1,4 @@
 export enum StoreOrderStage {
-  PENDING = "pending",
   PAID = "paid",
   PROCESSING = "processing",
   SHIPPED = "shipped",

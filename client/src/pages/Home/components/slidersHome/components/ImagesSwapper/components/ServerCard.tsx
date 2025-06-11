@@ -65,7 +65,7 @@ const ServerCard: FC<PropsType> = ({ el }) => {
       className={`${s.server} flex flex-col items-center justify-start p-3 gap-2 md:gap-5 max-h-full`}
     >
       <div className="w-full flex flex-col justify-start items-center gap-3 max-h-full">
-        <SpanTxt {...{ txt: el.author, fsz: "txt__4", clamp: 1 }} />
+        <SpanTxt {...{ txt: el.author, fsz: "txt__4", clamp: 2 }} />
         <SpanTxt {...{ txt: el.title, fsz: "txt__3", clamp: 2 }} />
 
         <span ref={refTxt} className="txt__2 max-h-full overflow-hidden">

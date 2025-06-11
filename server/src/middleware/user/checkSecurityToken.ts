@@ -1,4 +1,4 @@
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 import { validateVerifyToken } from "../sharedValidators/verifyToken.js";
 
 export const checkSecurityToken = [

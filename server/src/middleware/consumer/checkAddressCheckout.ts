@@ -1,4 +1,4 @@
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 import { validateAddress } from "../sharedValidators/address.js";
 
 export const checkAddressCheckout = [

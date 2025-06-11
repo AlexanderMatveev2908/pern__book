@@ -4,7 +4,7 @@ import {
   validateName,
   validatePassword,
 } from "../sharedValidators/validatorsUser.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+import { handleValidator } from "../sharedValidators/handleValidator.js";
 
 export const validateRegister = [
   ...validateName,

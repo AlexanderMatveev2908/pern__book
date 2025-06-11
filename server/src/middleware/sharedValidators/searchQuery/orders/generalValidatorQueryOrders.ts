@@ -2,6 +2,8 @@ import { check } from "express-validator";
 import { checkDelivery, checkPrices, checkQty } from "../general/db.js";
 import { checkPagination } from "../general/pagination.js";
 import { checkCategories } from "../general/cat.js";
+import { parseArrFromStr } from "../../../../lib/dataStructures.js";
+import { StoreOrderStage } from "../../../../types/all/orders.js";
 
 export const generalValidatorQueryOrders = [
   ...checkPagination,
@@ -16,6 +18,18 @@ export const generalValidatorQueryOrders = [
       checkDelivery(k, v);
       checkPrices(k, v);
       checkQty(k, v);
+
+      if (k === "stage") {
+        if (
+          parseArrFromStr(v as string | string[]).some(
+            (el) =>
+              !Object.values(StoreOrderStage).includes(el as StoreOrderStage)
+          )
+        )
+          throw new Error("Invalid order stage");
+      }
     }
+
+    return true;
   }),
 ];

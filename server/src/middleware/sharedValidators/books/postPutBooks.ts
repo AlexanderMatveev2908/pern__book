@@ -7,9 +7,9 @@ import {
   REG_NAME,
   REG_PRICE,
   REG_STORE_DESC,
-} from "../../config/regex.js";
-import { subCat } from "../../types/all/books.js";
-import { handleValidator } from "../../lib/middleware/handleValidator.js";
+} from "../../../config/regex.js";
+import { handleValidator } from "../handleValidator.js";
+import { subCat } from "../../../types/all/books.js";
 
 // ? 1 Kb = 1024 bytes
 //  ? 1 Mb = 1024 Kb

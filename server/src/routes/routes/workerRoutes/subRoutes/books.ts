@@ -8,11 +8,11 @@ import {
 import { multerMemoryStorage } from "../../../../middleware/multer/memoryStorage.js";
 import { logJSON } from "../../../../lib/utils/log.js";
 import { addBookWorker } from "../../../../controllers/workerRouter/books/post.js";
-import { validatePostPutBooks } from "../../../../middleware/sharedValidators/postPutBooks.js";
 import { checkID } from "../../../../middleware/sharedValidators/ids.js";
 import { updateBookWorker } from "../../../../controllers/workerRouter/books/put.js";
 import { deleteBookWorker } from "../../../../controllers/workerRouter/books/delete.js";
 import { checkSearchBooksWorker } from "../../../../middleware/workerRouter/books/checkSearchBooksWorker.js";
+import { validatePostPutBooks } from "../../../../middleware/sharedValidators/books/postPutBooks.js";
 
 const workerBooksRouter = express.Router();
 

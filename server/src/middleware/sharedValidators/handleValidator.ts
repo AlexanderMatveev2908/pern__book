@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from "express";
 import { validationResult } from "express-validator";
-import { __cg } from "../utils/log.js";
+import { __cg } from "../../lib/utils/log.js";
 
 export const handleValidator =
   (statusCode: number) =>
   (req: Request, res: Response, next: NextFunction): any => {
     const errors = validationResult(req);
 
-    __cg("handleValidator", errors);
+    __cg("handleValidator", errors.array());
 
     if (!errors.isEmpty()) {
       return res.status(statusCode).json({
