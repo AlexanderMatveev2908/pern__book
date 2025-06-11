@@ -14,7 +14,7 @@ import {
   NumericFilterSearch,
 } from "@/types/types";
 import { addNestedIDs } from "@/core/lib/all/utils/ids";
-import { FaRegStar } from "react-icons/fa";
+import { FaDatabase } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
 
 export const fieldsInputOrders: FormFieldBasic[] = [
@@ -51,13 +51,13 @@ export const ownerSortersOrders = addSortFields([
   ...createdUpdateAtFields,
 
   {
-    label: "Avg rating",
-    field: "ratingSort",
-    icon: FaRegStar,
-  },
-  {
     label: "Price",
     field: "priceSort",
     icon: TbPigMoney,
+  },
+  {
+    label: "Quantity",
+    field: "qtySort",
+    icon: FaDatabase,
   },
 ]);

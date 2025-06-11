@@ -21,7 +21,7 @@ import { useHandleErrSearch } from "@/features/common/SearchBar/hooks/useHandleE
 import { useFormContext } from "react-hook-form";
 import SortDrop from "./components/SortPop/SortDrop";
 import SortPop from "./components/SortPop/SortPop";
-import ButtonsForm from "./components/Buttons/ButtonsForm";
+import ButtonsForm from "./components/ButtonsForm/ButtonsForm";
 import { useFocus, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { __cg, cpyObj, getDefValsPagination, isStr } from "@/core/lib/lib";
 import { REG_ID } from "@/core/config/regex";

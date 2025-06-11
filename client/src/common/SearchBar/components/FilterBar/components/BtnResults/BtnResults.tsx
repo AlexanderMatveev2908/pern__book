@@ -1,11 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch";
 import { FormFieldBasic } from "@/types/types";
 import { useMemo, type FC } from "react";
-import { useFormContext } from "react-hook-form";
-import SearchBtn from "../../../Buttons/components/SearchBtn";
-import CLearBtn from "../../../Buttons/components/ClearBtn";
+import SearchBtn from "../../../subComponents/SearchBtn";
+import CLearBtn from "../../../subComponents/ClearBtn";
 import s from "./BtnResults.module.css";
 
 type PropsType = {
@@ -31,16 +29,6 @@ const BtnResults: FC<PropsType> = ({
     isPending,
     preSubmit: { hasFormErrs },
   } = ctx;
-  const formCtx = useFormContext();
-  const { handleClear } = useClickSearch({
-    ctx,
-    formCtx,
-    txtInputs,
-    triggerRtk,
-    routeID,
-    defVals,
-    innerJoinCat,
-  });
 
   const labelTxt = useMemo(
     () => `${nHits} Result${!nHits || nHits > 1 ? "s" : ""}`,
@@ -63,10 +51,13 @@ const BtnResults: FC<PropsType> = ({
       <div className={`${s.btn_secondary} w-full `}>
         <CLearBtn
           {...{
-            handleClear,
-            isPending: isPending.clear,
             styleTxt: s.txt,
-            isFetching: res?.isFetching,
+            res,
+            triggerRtk,
+            defVals,
+            routeID,
+            txtInputs,
+            innerJoinCat,
           }}
         />
       </div>

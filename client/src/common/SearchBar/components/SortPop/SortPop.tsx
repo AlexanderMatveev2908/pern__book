@@ -24,7 +24,7 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
 
   useEffect(() => {
     const listen = (e: MouseEvent) => {
-      if (!popRef.current) return;
+      if (!popRef.current || !sortBar) return;
 
       if (!popRef.current.contains(e.target as Node))
         setBar({ el: "sortBar", val: false });
@@ -35,7 +35,7 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
     return () => {
       document.removeEventListener("mousedown", listen);
     };
-  }, [setBar]);
+  }, [setBar, sortBar]);
 
   return (
     <div

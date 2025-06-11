@@ -6,10 +6,9 @@ import { IoFilter } from "react-icons/io5";
 import { useFormContext } from "react-hook-form";
 import { makeDelay } from "@/core/lib/lib";
 import ErrorFormField from "@/components/forms/Errors/ErrorFormField";
-import { useClickSearch } from "@/features/common/SearchBar/hooks/useClickSearch";
-import DropInputs from "../TxtInputs/DropInputs";
-import SearchBtn from "./components/SearchBtn";
-import CLearBtn from "./components/ClearBtn";
+import DropInputs from "./components/DropInputs";
+import SearchBtn from "../subComponents/SearchBtn";
+import CLearBtn from "../subComponents/ClearBtn";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import s from "./ButtonsForm.module.css";
 
@@ -43,16 +42,6 @@ const ButtonsForm: FC<PropsType> = ({
     formState: { errors },
     setFocus,
   } = formCtx;
-
-  const { handleClear } = useClickSearch({
-    ctx,
-    formCtx,
-    txtInputs,
-    triggerRtk,
-    routeID,
-    defVals,
-    innerJoinCat,
-  });
 
   return (
     <div
@@ -100,14 +89,19 @@ const ButtonsForm: FC<PropsType> = ({
           />
         </div>
         <div
-          className={`${s.btn_main} w-full   sm:justify-self-center   justify-self-end`}
+          className={`${s.btn_main} w-full  sm:justify-self-center justify-self-end`}
         >
           <CLearBtn
             {...{
-              isFetching: res?.isFetching,
-              handleClear,
-              isPending: isPending.clear,
               styleTxt: s.txt,
+
+              res,
+              triggerRtk,
+
+              routeID,
+              defVals,
+              innerJoinCat,
+              txtInputs,
             }}
           />
         </div>
