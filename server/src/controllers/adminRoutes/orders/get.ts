@@ -1,10 +1,12 @@
 import { Response } from "express";
-import { res200 } from "../../../lib/responseClient/res.js";
+import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { Order } from "../../../models/all/Order.js";
 import { OrderItemStore } from "../../../models/all/OrderItem.js";
+import { calcPagination } from "../../../lib/query/general/pagination.js";
+import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -34,5 +36,7 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
     ],
   });
 
-  return res200(res, { orders });
+  const { paginated, totPages, nHits } = sortAndPaginate(req, orders);
+
+  return res200(res, { orders: paginated, totPages, nHits });
 };

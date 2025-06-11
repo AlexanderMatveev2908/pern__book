@@ -1,11 +1,10 @@
-import { Op, WhereOptions } from "sequelize";
+import { WhereOptions } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
-import { parseArrFromStr } from "../../dataStructures.js";
+import { handleQueryDelivery } from "../general/general.js";
 import {
   handleCommonQueryBooks,
   handleQueryAvgRatingBooks,
-  handleQueryDelivery,
-} from "../general.js";
+} from "../general/books.js";
 
 export const makeQueryBooksConsumer = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};

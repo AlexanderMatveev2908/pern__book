@@ -7,17 +7,16 @@ import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js"
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
 import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
-import { calcPagination } from "../../../lib/query/pagination.js";
 import { FindAttributeOptions, Op } from "sequelize";
 import { err404 } from "../../../lib/responseClient/err.js";
-import { sortItems } from "../../../lib/query/sort.js";
+import { OrderStore } from "../../../models/all/OrderStore.js";
+import { User } from "../../../models/all/User.js";
 import {
   calcRatingSqlStores,
   countOrdersStores,
   countStatsBooksFoStore,
-} from "../../../lib/query/general.js";
-import { OrderStore } from "../../../models/all/OrderStore.js";
-import { User } from "../../../models/all/User.js";
+} from "../../../lib/query/general/bookstores.js";
+import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 
 // ? I AM AWARE OF THE FACT THAT I REPEATED SAME SQL QUERY MANY TIMES, IN OTHERS FILES I MADE FUNCTIONS TO NOT DO IT, HERE THE QUERY TART BEING MORE NESTED SO MORE INTERESTING AND TO LEARN MORE ABOUT NESTED QUERIES REPEATING IT HELP ME MEMORIZE THE STRUCTURE
 
@@ -152,16 +151,7 @@ export const getAllStoresWorker = async (
     having: queryAfterPipe,
   });
 
-  const nHits = bookStores.length;
-  if (!nHits) return res204(res);
-
-  const { sorted } = sortItems(req, bookStores);
-
-  const { paginated, totPages } = calcPagination({
-    req,
-    nHits,
-    els: sorted,
-  });
+  const { nHits, totPages, paginated } = sortAndPaginate(req, bookStores);
 
   return res200(res, { msg: "✌🏼", nHits, bookStores: paginated, totPages });
 };

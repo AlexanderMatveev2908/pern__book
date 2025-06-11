@@ -1,10 +1,5 @@
 import { Response } from "express";
 import { literal } from "sequelize";
-import {
-  calcRatingSqlStores,
-  countOrdersStores,
-  countStatsBooksFoStore,
-} from "../../../lib/query/general.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
@@ -17,9 +12,13 @@ import { err404 } from "../../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { ReqApp, UserRole } from "../../../types/types.js";
-import { sortItems } from "../../../lib/query/sort.js";
-import { calcPagination } from "../../../lib/query/pagination.js";
 import { createStoreQ } from "../../../lib/query/owner/bookStore/query.js";
+import {
+  calcRatingSqlStores,
+  countOrdersStores,
+  countStatsBooksFoStore,
+} from "../../../lib/query/general/bookstores.js";
+import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 
 const countWorkSql = (role: UserRole): Literal =>
   literal(`(
@@ -192,16 +191,7 @@ export const getAllStores = async (
     // order: sorters,
   });
 
-  const nHits = bookStores.length;
-  if (!nHits) return res204(res);
-
-  const { sorted } = sortItems(req, bookStores);
-
-  const { paginated, totPages } = calcPagination({
-    req,
-    nHits,
-    els: sorted,
-  });
+  const { nHits, totPages, paginated } = sortAndPaginate(req, bookStores);
 
   return res200(res, { bookStores: paginated, nHits, totPages });
 };

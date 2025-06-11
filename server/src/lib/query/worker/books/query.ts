@@ -3,7 +3,7 @@ import { ReqApp } from "../../../../types/types.js";
 import {
   handleCommonQueryBooks,
   handleQueryAvgRatingBooks,
-} from "../../general.js";
+} from "../../general/books.js";
 
 export const makeQueryBooksWorker = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};
