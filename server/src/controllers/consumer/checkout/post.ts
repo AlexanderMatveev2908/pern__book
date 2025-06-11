@@ -22,7 +22,6 @@ import { delArrCloud } from "../../../lib/cloud/delete.js";
 import { Cart } from "../../../models/all/Cart.js";
 import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
 import { deleteOrder } from "./helpers/deleteOrder.js";
-import { OrderStage, StoreOrderStage } from "../../../types/all/orders.js";
 
 export const createOrder = async (req: ReqApp, res: Response) => {
   const {
@@ -41,7 +40,7 @@ export const createOrder = async (req: ReqApp, res: Response) => {
 
   const totAmountFormatted = formatFloat(amountSeenBuUser);
 
-  if (cart.totPrice !== totAmountFormatted)
+  if (+cart.totPrice !== totAmountFormatted)
     return err422(res, {
       msg: "amount not match, some items may have become unavailable",
     });

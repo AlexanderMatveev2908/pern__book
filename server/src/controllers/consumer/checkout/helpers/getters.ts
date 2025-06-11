@@ -40,22 +40,26 @@ export const getCartWithTotPrice = async (userID: string) => {
       include: [
         [
           literal(`(
-            SELECT
-              COALESCE(SUM(
-              b.price * ci.qty +
-              CASE
-                WHEN (b.price * ci.qty) < bs."freeDeliveryAmount"
-                THEN bs."deliveryPrice"
-                ELSE 0
-              END
-              ), 0)::FLOAT
+            SELECT COALESCE(SUM(
+              sub.total + sub.delivery
+            ), 0)::FLOAT
+            FROM (
+              SELECT
+                SUM(b.price * ci.qty) AS total,
+                CASE 
+                  WHEN SUM(b.price * ci.qty) < bs."freeDeliveryAmount"
+                  THEN bs."deliveryPrice"
+                  ELSE 0
+                END AS delivery
             FROM "cart_items" AS ci
             INNER JOIN "books" AS b ON ci."bookID" = b.id
             INNER JOIN "book_stores" AS bs ON b."bookStoreID" = bs.id
-            WHERE ci."cartID" = "Cart"."id"
-            AND bs."deletedAt" IS NULL
-            AND b."deletedAt" IS NULL
-            )`),
+            WHERE ci."cartID" = "Cart".id
+              AND bs."deletedAt" IS NULL
+              AND b."deletedAt" IS NULL
+            GROUP BY bs.id
+            ) AS sub
+          )`),
           "totPrice",
         ],
       ],
