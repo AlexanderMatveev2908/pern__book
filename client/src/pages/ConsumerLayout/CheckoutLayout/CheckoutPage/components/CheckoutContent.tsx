@@ -30,9 +30,10 @@ import { EventApp } from "@/types/types";
 
 type PropsType = {
   order: OrderType;
+  refetchOrder: () => void;
 };
 
-const CheckoutContent: FC<PropsType> = ({ order }) => {
+const CheckoutContent: FC<PropsType> = ({ order, refetchOrder }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isPending, setIsPending] = useState(false);
@@ -106,6 +107,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
         showToast: false,
       });
       if (!res) {
+        refetchOrder();
         setIsPending(false);
         return;
       }
@@ -146,6 +148,7 @@ const CheckoutContent: FC<PropsType> = ({ order }) => {
         const freshOrder = await handlePoll();
 
         if (!isObjOk(freshOrder)) {
+          refetchOrder();
           dispatch(
             openToast({
               msg: "A wild Slime ambushed the party! The server took critical damage. Try again after a short rest. 👻",
