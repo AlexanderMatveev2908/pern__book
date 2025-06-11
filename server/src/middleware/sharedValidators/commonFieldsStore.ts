@@ -1,6 +1,5 @@
 import { check } from "express-validator";
 import { REG_CLOUD, REG_PRICE, REG_STORE_DESC } from "../../config/regex.js";
-import { ReqApp } from "../../types/types.js";
 
 const MAX_MB_IMG = 1024 * 1024 * 5;
 // ? COULD BE TOO MUCH FOR HOST PLATFORM SO SERVER COULD EASILY CRASH
