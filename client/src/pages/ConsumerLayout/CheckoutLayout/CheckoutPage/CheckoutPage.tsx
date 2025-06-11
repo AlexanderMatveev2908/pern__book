@@ -25,6 +25,8 @@ const CheckoutPage: FC = () => {
   );
   useWrapQueryAPI({ ...res });
 
+  const { refetch } = res;
+
   const { data: { order, clientSecret } = {} } = res ?? [];
 
   return (
@@ -76,7 +78,7 @@ const CheckoutPage: FC = () => {
             },
           }}
         >
-          <CheckoutContent {...{ order: order! }} />
+          <CheckoutContent {...{ order: order!, refetchOrder: refetch }} />
         </Elements>
       )}
     </WrapPageAPI>
