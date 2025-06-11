@@ -148,7 +148,12 @@ export const schemaBookStore = z
       .refine((val) => !val?.trim().length || val.trim().length < 10, {
         message: "A price must be less than 10 chars",
       }),
-    deliveryTime: z.string().regex(REG_INT, "Invalid day format"),
+    deliveryTime: z
+      .string()
+      .min(1, "Delivery time is required")
+      .max(3, "Max length exceeded")
+      .regex(REG_INT, "Invalid day format"),
+
     items: z.array(schemaItemUser).optional(),
   })
 
