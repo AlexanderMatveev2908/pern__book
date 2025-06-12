@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { literal } from "sequelize";
+import { literal, OrderItem } from "sequelize";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
@@ -177,11 +177,55 @@ export const getAllStores = async (
     group: ["BookStore.id"],
     having: queryAfterPipe,
 
-    ...extractSorters(req),
     ...extractOffset(req),
+
+    order: [
+      ...((req?.query?.avgRatingSort
+        ? [
+            [
+              literal(`(
+            SELECT ROUND(COALESCE(AVG(r.rating), 0.0), 1)
+            FROM "reviews" AS r
+            INNER JOIN "books" AS b
+            ON r."bookID" = b.id
+            WHERE b."bookStoreID" = "BookStore".id  
+            )`),
+              req.query.avgRatingSort,
+            ],
+          ]
+        : []) as OrderItem[]),
+
+      ...((req?.query?.avgQtySort
+        ? [
+            [
+              literal(`(
+            SELECT COALESCE(AVG(b.qty), 0)
+            FROM "books" AS b
+            WHERE b."bookStoreID" = "BookStore".id  
+            AND b."deletedAt" IS NULL
+            )`),
+              req.query.avgQtySort,
+            ],
+          ]
+        : []) as OrderItem[]),
+
+      ...((req?.query?.avgPriceSort
+        ? [
+            [
+              literal(`(
+            SELECT COALESCE(AVG(b.price), 0)
+            FROM "books" AS b
+            WHERE b."bookStoreID" = "BookStore".id  
+            AND b."deletedAt" IS NULL
+            )`),
+              req.query.avgPriceSort,
+            ],
+          ]
+        : []) as OrderItem[]),
+    ],
   });
 
-  const { totPages, nHits } = extractNoHits(req, count);
+  const { totPages, nHits } = extractNoHits(req, count as any);
 
   return res200(res, { bookStores, nHits, totPages });
 };
