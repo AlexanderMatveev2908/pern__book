@@ -38,11 +38,13 @@ export const extractOffset = (req: ReqApp) => ({
 
 export const extractNoHits = <T>(
   req: ReqApp,
-  count: T[]
+  count: T[] | number
 ): {
   nHits: number;
   totPages: number;
 } => ({
-  nHits: count.length,
-  totPages: Math.ceil(count.length / +req.query.limit!),
+  nHits: Array.isArray(count) ? count.length : count,
+  totPages: Math.ceil(
+    (typeof count === "number" ? count : count.length) / +req.query.limit!
+  ),
 });
