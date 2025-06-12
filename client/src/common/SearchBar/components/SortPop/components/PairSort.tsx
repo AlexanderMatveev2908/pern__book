@@ -1,29 +1,19 @@
 import BtnCheckBox from "@/components/forms/inputs/BtnCheckBox/BtnCheckBox";
-import { ParamsPreSubmit } from "@/core/contexts/SearchCtx/reducer/actions";
 import { SorterSearch } from "@/types/types";
 import { useCallback, type FC } from "react";
 import { useFormContext } from "react-hook-form";
 
 type PropsType = {
   el: SorterSearch;
-  canMakeAPI: boolean;
-  setPreSubmit: (val: ParamsPreSubmit) => void;
+  handleClick: (val: string, el: SorterSearch) => void;
 };
 
-const PairSort: FC<PropsType> = ({ el, canMakeAPI, setPreSubmit }) => {
-  const { setValue, getValues, watch } = useFormContext();
+const PairSort: FC<PropsType> = ({ el, handleClick }) => {
+  const { watch } = useFormContext();
 
   const getIsIn = useCallback(
     (val: string) => watch(el.field) === val,
     [el.field, watch]
-  );
-  const handleClick = useCallback(
-    (val: string) => {
-      const currVal = getValues(el.field);
-
-      setValue(el.field, currVal !== val ? val : "", { shouldValidate: true });
-    },
-    [el.field, getValues, setValue]
   );
 
   return (
@@ -44,9 +34,7 @@ const PairSort: FC<PropsType> = ({ el, canMakeAPI, setPreSubmit }) => {
                 Icon: field.icon,
                 isIn: getIsIn(field.val),
                 handleClick: () => {
-                  if (!canMakeAPI)
-                    setPreSubmit({ el: "canMakeAPI", val: true });
-                  handleClick(field.val);
+                  handleClick(field.val, el);
                 },
               }}
             />

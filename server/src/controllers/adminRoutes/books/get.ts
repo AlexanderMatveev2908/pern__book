@@ -5,12 +5,14 @@ import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
-import { literal } from "sequelize";
+import { literal, OrderItem } from "sequelize";
 import { __cg } from "../../../lib/utils/log.js";
 import PDFDocument from "pdfkit";
 import { makeBooksQ } from "../../../lib/query/owner/books/query.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
+import { sortByTimeStamps } from "../../../lib/query/general/sort.js";
 
 export const getStoreInfo = async (
   req: ReqApp,
@@ -96,7 +98,7 @@ export const getBooksList = async (
 ): Promise<any> => {
   const { queryBooks, queryStores, queryAfterPipe } = makeBooksQ(req);
 
-  const books = await Book.findAll({
+  const { rows: books, count } = await Book.findAndCountAll({
     where: queryBooks,
     include: [
       {
@@ -109,9 +111,10 @@ export const getBooksList = async (
       {
         model: Review,
         as: "reviews",
+        separate: true,
       },
     ],
-    group: ["Book.id", "store.id", "reviews.id"],
+    group: ["Book.id", "store.id"],
     attributes: {
       include: [
         [literal(`"store"."categories"`), "mainCategories"],
@@ -120,11 +123,35 @@ export const getBooksList = async (
       ],
     },
     having: queryAfterPipe,
+
+    order: [
+      ...sortByTimeStamps(req),
+
+      ...((req.query?.avgRatingSort
+        ? [
+            [
+              literal(`(
+          SELECT ROUND(COALESCE(AVG(r.rating), 0.0), 1)
+          FROM "reviews" AS r
+          WHERE r."bookID" = "Book".id
+          AND r."deletedAt" IS NULL
+          )`),
+              req.query.avgRatingSort,
+            ],
+          ]
+        : []) as OrderItem[]),
+
+      ...((req.query?.priceSort
+        ? [["price", req.query.priceSort]]
+        : []) as OrderItem[]),
+    ],
+
+    ...extractOffset(req),
   });
 
-  const { paginated, nHits, totPages } = sortAndPaginate(req, books);
+  const { nHits, totPages } = extractNoHits(req, count);
 
-  return res200(res, { books: paginated, nHits, totPages });
+  return res200(res, { books, nHits, totPages });
 };
 
 export const getPdf = async (req: ReqApp, res: Response): Promise<any> => {

@@ -189,7 +189,7 @@ const SearchBar: FC<PropsType> = ({
             defVals,
           }}
         />
-        <SortPop {...{ sorters }} />
+        <SortPop {...{ sorters, triggerRtk, routeID }} />
 
         <TxtInputs {...{ triggerRtk, txtInputs, routeID }}>
           <ButtonsForm

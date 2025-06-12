@@ -24,6 +24,7 @@ import {
   extractOffset,
   extractSorters,
 } from "../../../lib/utils/formatters.js";
+import { sortByTimeStamps } from "../../../lib/query/general/sort.js";
 
 const countWorkSql = (role: UserRole): Literal =>
   literal(`(
@@ -180,8 +181,9 @@ export const getAllStores = async (
     ...extractOffset(req),
 
     order: [
-      ...((req?.query?.avgRatingSort
+      ...((req.query?.avgRatingSort
         ? [
+            ...sortByTimeStamps(req),
             [
               literal(`(
             SELECT ROUND(COALESCE(AVG(r.rating), 0.0), 1)

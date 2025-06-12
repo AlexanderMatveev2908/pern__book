@@ -6,6 +6,7 @@
 // ) => {
 //   if (i >= sorters.length) return 0;
 
+import { OrderItem } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
 
 //   const [k, v] = sorters[i];
@@ -74,3 +75,12 @@ export const sortItems = (req: ReqApp, items: any[]): any => {
     sorted,
   };
 };
+
+export const sortByTimeStamps = (req: ReqApp) => [
+  ...((req.query?.createdAtSort
+    ? [["createdAt", req.query.createdAtSort]]
+    : []) as OrderItem[]),
+  ...((req.query?.updatedAtSort
+    ? [["updatedAt", req.query.updatedAtSort]]
+    : []) as OrderItem[]),
+];
