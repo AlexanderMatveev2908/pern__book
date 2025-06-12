@@ -8,7 +8,7 @@ import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxCon
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { isArr } from "@/core/lib/lib";
 import {
-  fieldsInputOrders,
+  fieldsInputOrdersOwner,
   filtersOrdersOwner,
   ownerNumericFiltersOrders,
   ownerSortersOrders,
@@ -48,7 +48,7 @@ const OrdersList: FC = () => {
           <SearchBar
             {...({
               hook,
-              txtInputs: fieldsInputOrders,
+              txtInputs: fieldsInputOrdersOwner,
               filters: filtersOrdersOwner,
               numericFilters: ownerNumericFiltersOrders,
               sorters: ownerSortersOrders,
