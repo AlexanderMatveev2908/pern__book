@@ -19,6 +19,11 @@ import {
   countStatsBooksFoStore,
 } from "../../../lib/query/general/bookstores.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import {
+  extractNoHits,
+  extractOffset,
+  extractSorters,
+} from "../../../lib/utils/formatters.js";
 
 const countWorkSql = (role: UserRole): Literal =>
   literal(`(
@@ -120,28 +125,21 @@ export const getAllStores = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  const { userID } = req;
-
-  const count = await BookStore.count({
-    where: {
-      ownerID: userID,
-    },
-  });
-  if (!count) return res204(res);
-
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
 
-  const bookStores = await BookStore.findAll({
+  const { rows: bookStores, count } = await BookStore.findAndCountAll({
     where: queryStore,
 
     include: [
       {
         model: ImgBookStore,
         as: "images",
+        separate: true,
       },
       {
         model: OrderStore,
         as: "orders",
+        separate: true,
         where: queryOrders,
         // ? WITHOUT REQUIRED IT WOULD BE A LEFT JOIN WHERE WE GET ALL DATA EVEN INNER MODELS DOES NOT MATCH OPT, WITH REQUIRED IT IS AN INNER JOIN AND INNER DATA MUST MATCH AND RESPECT PARAMS PROVIDED
         required: !!Object.keys(queryOrders).length,
@@ -176,24 +174,16 @@ export const getAllStores = async (
     attributes: {
       include: myCoolSql,
     } as any,
-    group: [
-      "BookStore.id",
-      "images.id",
-      "orders.id",
-      // "books->reviews.id",
-      // "books.id",
-      "team.id",
-      "team->BookStoreUser.id",
-    ],
+    group: ["BookStore.id"],
     having: queryAfterPipe,
-    // limit: 2,
-    // offset: 3,
-    // order: sorters,
+
+    ...extractSorters(req),
+    ...extractOffset(req),
   });
 
-  const { nHits, totPages, paginated } = sortAndPaginate(req, bookStores);
+  const { totPages, nHits } = extractNoHits(req, count);
 
-  return res200(res, { bookStores: paginated, nHits, totPages });
+  return res200(res, { bookStores, nHits, totPages });
 };
 
 /*
