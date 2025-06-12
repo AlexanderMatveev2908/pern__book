@@ -38,7 +38,8 @@ export const makeQueryBooksConsumer = (req: ReqApp) => {
       case "delivery":
         handleQueryDelivery({
           val: v as string | string[],
-          storeQ: queryStores,
+          query: queryStores,
+          key: "deliveryPrice",
         });
         break;
 

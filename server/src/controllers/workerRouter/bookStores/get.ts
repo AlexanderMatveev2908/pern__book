@@ -6,7 +6,7 @@ import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
 import { Book } from "../../../models/all/Book.js";
 import { Review } from "../../../models/all/Review.js";
-import { queryStoresWorker } from "../../../lib/query/worker/bookStores/query.js";
+import { queryStoresWorker } from "../../../lib/query/worker/bookStores.js";
 import { FindAttributeOptions, literal, Op, OrderItem } from "sequelize";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";

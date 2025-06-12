@@ -8,7 +8,7 @@ import { Review } from "../../../models/all/Review.js";
 import { literal, OrderItem } from "sequelize";
 import { __cg } from "../../../lib/utils/log.js";
 import PDFDocument from "pdfkit";
-import { makeBooksQ } from "../../../lib/query/owner/books/query.js";
+import { makeBooksQ } from "../../../lib/query/owner/books.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";

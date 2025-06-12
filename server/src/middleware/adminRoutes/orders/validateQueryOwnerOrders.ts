@@ -1,12 +1,10 @@
-import { check } from "express-validator";
 import { handleValidator } from "../../sharedValidators/handleValidator.js";
-import { REG_ID, REG_STORE_NAME } from "../../../config/regex.js";
-import { allOrNothingStr } from "../../../lib/dataStructures.js";
 import { generalValidatorQueryOrders } from "../../sharedValidators/searchQuery/orders/generalValidatorQueryOrders.js";
 import { checkQueryFn } from "../../sharedValidators/ids.js";
+import { checkCategories } from "../../sharedValidators/searchQuery/general/cat.js";
 
 export const validateQueryOwnerOrders = [
-  ...generalValidatorQueryOrders,
+  ...generalValidatorQueryOrders([(k, v) => checkCategories(k, v)]),
 
   checkQueryFn("orderID"),
   checkQueryFn("bookStoreID"),

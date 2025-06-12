@@ -1,4 +1,5 @@
 import { AssetCloudType } from "./images";
+import { BookStoreUserType } from "./JunctionStoreUser";
 import { UserRole } from "./user";
 
 export enum CatBookStore {
@@ -36,6 +37,8 @@ export interface TeamItem {
   role: UserRole;
   userID: string;
   bookStoreID: string;
+
+  bookStoreUser?: BookStoreUserType;
 }
 
 export interface BookStoreType {

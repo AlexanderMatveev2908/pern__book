@@ -5,7 +5,7 @@ import { err404 } from "../../../lib/responseClient/err.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { Book } from "../../../models/all/Book.js";
 import { Op } from "sequelize";
-import { makeQueryBooksWorker } from "../../../lib/query/worker/books/query.js";
+import { makeQueryBooksWorker } from "../../../lib/query/worker/books.js";
 import { User } from "../../../models/all/User.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
