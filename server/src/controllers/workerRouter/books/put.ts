@@ -57,9 +57,17 @@ export const updateBookWorker = async (
   const [{ bookStoreUser: { role } = {} } = {}]: any =
     bookObj?.store?.team ?? [];
 
-  for (const key in body) {
-    if (key === "images") continue;
+  const keysBook = [
+    "title",
+    "author",
+    "description",
+    "year",
+    "qty",
+    "categories",
+    "price",
+  ];
 
+  for (const key of keysBook) {
     const valBook = bookObj[key as keyof BookInstance];
     const valBody = body[key];
 
@@ -85,7 +93,7 @@ export const updateBookWorker = async (
           break;
       }
     } else {
-      (bookObj as any)[key] = valBody;
+      (bookObj as any)[key] = valBody || (key === "qty" ? 0 : null);
     }
   }
 

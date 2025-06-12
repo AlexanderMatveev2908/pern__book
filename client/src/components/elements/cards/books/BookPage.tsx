@@ -53,7 +53,7 @@ const BookPage: FC<PropsType> = ({ el, isOwner }) => {
             }}
           >
             <li className="w-full flex justify-start pr-5">
-              <span className="txt__2">{el?.description ?? "N/A"}</span>
+              <span className="txt__2">{el?.description || "N/A"}</span>
             </li>
           </DropStats>
         </div>

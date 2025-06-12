@@ -26,15 +26,17 @@ const InfoStoreFromBook: FC<PropsType> = ({ el, isOwner, listen }) => {
       }}
     >
       {isOwner && (
-        <div className="w-full flex justify-start items-center gap-5 relative">
+        <div className="w-full flex justify-start items-center gap-5">
           <div className="w-full flex justify-start items-center gap-5 ">
             <FaDatabase className="icon__md" />
             <span className="txt__3">Store ID</span>
           </div>
 
-          <TooltipCpy
-            {...{ txt: el?.bookStoreID, bd: false, align: "right-0" }}
-          />
+          <div className="relative min-w-0 flex justify-center">
+            <TooltipCpy
+              {...{ txt: el?.bookStoreID, bd: false, align: "right-0" }}
+            />
+          </div>
         </div>
       )}
 
