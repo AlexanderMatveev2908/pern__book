@@ -9,6 +9,11 @@ import { makeQueryBooksWorker } from "../../../lib/query/worker/books/query.js";
 import { User } from "../../../models/all/User.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
+import {
+  sortByTimeStamps,
+  wrapRawSort,
+} from "../../../lib/query/general/sort.js";
 
 export const getInfoStore = async (
   req: ReqApp,
@@ -107,7 +112,7 @@ export const getBookListWorker = async (
 
   const { queryBooks, queryStores } = makeQueryBooksWorker(req);
 
-  const books = await Book.findAll({
+  const { rows: books, count } = await Book.findAndCountAll({
     where: queryBooks,
     include: [
       {
@@ -137,9 +142,34 @@ export const getBookListWorker = async (
     attributes: {
       include: [...calcRatingSqlBooks()],
     },
+
+    order: [
+      ...sortByTimeStamps(req),
+      ...wrapRawSort(
+        req,
+        "avgRatingSort"
+      )(`(
+        SELECT "reviews" AS r
+        WHERE r."bookID" = "Book".id
+        AND r."deletedAt" IS NULL
+        )`),
+      ...wrapRawSort(
+        req,
+        "priceSort"
+      )(`
+        "Book".price
+        `),
+      ...wrapRawSort(
+        req,
+        "qtySort"
+      )(`
+        "Book".qty
+        `),
+    ],
+    ...extractOffset(req),
   });
 
-  const { paginated, totPages, nHits } = sortAndPaginate(req, books);
+  const { totPages, nHits } = extractNoHits(req, count);
 
-  return res200(res, { books: paginated, totPages, nHits });
+  return res200(res, { books, totPages, nHits });
 };
