@@ -51,7 +51,6 @@ export const calcBlockBySize = (page: number, blockSize: number) =>
 
 export const clampBy = (num: number) => ({
   style: {
-    lineClamp: num,
     WebkitLineClamp: num,
   },
 });

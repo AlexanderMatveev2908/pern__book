@@ -99,4 +99,6 @@ export const validatePostPutBooks = [
 
       return true;
     }),
+
+  handleValidator(422),
 ];
