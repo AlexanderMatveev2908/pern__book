@@ -6,8 +6,10 @@
 // ) => {
 //   if (i >= sorters.length) return 0;
 
-import { OrderItem } from "sequelize";
+import { literal } from "sequelize";
 import { ReqApp } from "../../../types/types.js";
+import { Literal } from "sequelize/lib/utils";
+import { OrderItem } from "sequelize";
 
 //   const [k, v] = sorters[i];
 
@@ -84,3 +86,8 @@ export const sortByTimeStamps = (req: ReqApp) => [
     ? [["updatedAt", req.query.updatedAtSort]]
     : []) as OrderItem[]),
 ];
+
+export const wrapRawSort = (req: ReqApp, key?: string) => (a: string) =>
+  (req.query?.[key as string]
+    ? [[literal(a), req.query[key as string]]]
+    : []) as OrderItem[];
