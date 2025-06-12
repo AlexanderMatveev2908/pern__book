@@ -1,13 +1,15 @@
 import { Response } from "express";
 import { ReqApp } from "../../../types/types.js";
 import { Book } from "../../../models/all/Book.js";
-import { literal, Op, where } from "sequelize";
+import { literal, Op, OrderItem, where } from "sequelize";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { makeQueryBooksConsumer } from "../../../lib/query/consumer/books.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { calcRatingSqlBooks } from "../../../lib/query/general/books.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
+import { sortByTimeStamps } from "../../../lib/query/general/sort.js";
 
 const withImages = {
   [Op.and]: [
@@ -92,7 +94,7 @@ export const getBooksByBestReviews = async (req: ReqApp, res: Response) => {
 export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
   const { queryBooks, queryStores } = makeQueryBooksConsumer(req);
 
-  const books = await Book.findAll({
+  const { rows: books, count } = await Book.findAndCountAll({
     where: queryBooks,
     include: [
       {
@@ -105,11 +107,35 @@ export const getAllBooksConsumer = async (req: ReqApp, res: Response) => {
     attributes: {
       include: [...calcRatingSqlBooks()],
     },
+
+    order: [
+      ...sortByTimeStamps(req),
+
+      ...((req.query?.ratingSort
+        ? [
+            [
+              literal(`(
+            SELECT COALESCE(AVG(r.rating), 0)
+            FROM "reviews" AS r
+            WHERE r."bookID" = "Book".id
+            AND r."deletedAt" IS NULL
+          )`),
+              req.query.ratingSort,
+            ],
+          ]
+        : []) as OrderItem[]),
+
+      ...((req.query?.priceSort
+        ? [["price", req.query.priceSort]]
+        : []) as OrderItem[]),
+    ],
+
+    ...extractOffset(req),
   });
 
-  const { paginated, totPages, nHits } = sortAndPaginate(req, books);
+  const { nHits, totPages } = extractNoHits(req, count as any);
 
-  return res200(res, { totPages, nHits, books: paginated });
+  return res200(res, { totPages, nHits, books });
 };
 
 export const getSingleBookConsumer = async (req: ReqApp, res: Response) => {
