@@ -18,6 +18,12 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { queryAfterPipe, queryStoreOrders, queryBookStore } =
     makeQueryOrdersOwner(req);
 
+  const sorters = Object.entries(req.query ?? {})
+    .filter((pair) => pair[0].includes("Sort"))
+    .map((pair) => [pair[0].replace("Sort", ""), pair[1]]);
+
+  console.log(sorters);
+
   const { rows: orders, count: nHits } = await OrderStore.findAndCountAll({
     where: queryStoreOrders,
     include: [
@@ -67,6 +73,8 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
         ],
       ],
     },
+
+    order: [...(sorters as [string, string][])],
 
     offset: +req.query.page! * +req.query.limit!,
     limit: +req.query.limit!,

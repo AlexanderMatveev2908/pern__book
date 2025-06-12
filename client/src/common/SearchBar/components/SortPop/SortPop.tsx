@@ -15,6 +15,8 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
   const {
     setBar,
     bars: { sortBar },
+    preSubmit: { canMakeAPI },
+    setPreSubmit,
   } = useSearchCtx();
 
   useAnimatePop({
@@ -54,7 +56,7 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
 
       <div className="overflow-y-auto scroll_y scroll_app  w-full h-fit max-h-full flex-1 grid grid-cols-1 py-4 pb-8 items-start gap-5">
         {(sorters ?? []).map((el) => (
-          <PairSort key={el.id} {...{ el }} />
+          <PairSort key={el.id} {...{ el, canMakeAPI, setPreSubmit }} />
         ))}
       </div>
     </div>
