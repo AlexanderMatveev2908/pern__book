@@ -25,7 +25,7 @@ export const commonSchemaOrders = z.object({
   ...generateZodSorters([
     "createdAtSort",
     "updatedAtSort",
-    "priceSort",
-    "qtySort",
+    "totAmountSort",
+    "totItemsSort",
   ]),
 });

@@ -1,7 +1,10 @@
 import { Response } from "express";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
-import { OrderStore } from "../../../models/all/OrderStore.js";
+import {
+  OrderStore,
+  OrderStoreInstance,
+} from "../../../models/all/OrderStore.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { Order } from "../../../models/all/Order.js";
 import { OrderItemStore } from "../../../models/all/OrderItemStore.js";
@@ -12,10 +15,10 @@ import { literal, Op, where } from "sequelize";
 import { makeQueryOrdersOwner } from "../../../lib/query/owner/orders/query.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
-  const { queryOrders, queryAfterPipe, queryStoreOrders, queryBookStore } =
+  const { queryAfterPipe, queryStoreOrders, queryBookStore } =
     makeQueryOrdersOwner(req);
 
-  const orders = await OrderStore.findAll({
+  const { rows: orders, count: nHits } = await OrderStore.findAndCountAll({
     where: queryStoreOrders,
     include: [
       {
@@ -54,11 +57,22 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
           )::INT`),
           "totItems",
         ],
+        [
+          literal(`(
+            SELECT SUM(o."amount" + o."delivery")
+            FROM "orders_stores" AS o
+            WHERE o."id" = "OrderStore".id
+            )::FLOAT`),
+          "totAmount",
+        ],
       ],
     },
+
+    offset: +req.query.page! * +req.query.limit!,
+    limit: +req.query.limit!,
   });
 
-  const { paginated, totPages, nHits } = sortAndPaginate(req, orders);
+  const totPages = Math.ceil(nHits.length / +req.query.limit!);
 
-  return res200(res, { orders: paginated, totPages, nHits });
+  return res200(res, { orders, totPages, nHits: nHits.length });
 };

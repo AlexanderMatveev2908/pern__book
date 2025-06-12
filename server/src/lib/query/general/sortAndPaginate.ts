@@ -4,7 +4,8 @@ import { sortItems } from "./sort.js";
 
 export const sortAndPaginate = <T>(
   req: ReqApp,
-  items: T[]
+  items: T[],
+  customSort?: (req: ReqApp, items: T[]) => T[]
 ): {
   nHits: number;
   totPages: number;
@@ -18,7 +19,10 @@ export const sortAndPaginate = <T>(
       paginated: [],
     };
 
-  const { sorted } = sortItems(req, items);
+  const { sorted } =
+    typeof customSort === "function"
+      ? customSort(req, items)
+      : sortItems(req, items);
 
   const { paginated, totPages } = calcPagination({
     req,
