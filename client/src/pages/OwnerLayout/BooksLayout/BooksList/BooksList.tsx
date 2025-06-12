@@ -67,7 +67,7 @@ const BooksList: FC = () => {
           />
         </FormProvider>
 
-        {!isLoading && !isFetching && books?.length && <PdfBtn />}
+        {!isLoading && !isFetching && !!books?.length && <PdfBtn />}
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
           <div className="list_items_app">

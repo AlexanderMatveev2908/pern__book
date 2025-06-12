@@ -23,7 +23,7 @@ export const actionsBookStoreWorker = [
     originalKey: KEY_MAP_STORE.ORDERS,
     label: "Orders",
     icon: TbTruckDelivery,
-    path: "/",
+    path: "/worker/orders/list",
   },
   {
     originalKey: KEY_MAP_STORE.REVIEWS,

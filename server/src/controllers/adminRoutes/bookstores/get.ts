@@ -1,5 +1,5 @@
 import { Response } from "express";
-import { literal } from "sequelize";
+import { literal, OrderItem } from "sequelize";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
@@ -19,6 +19,12 @@ import {
   countStatsBooksFoStore,
 } from "../../../lib/query/general/bookstores.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
+import {
+  extractNoHits,
+  extractOffset,
+  extractSorters,
+} from "../../../lib/utils/formatters.js";
+import { sortByTimeStamps } from "../../../lib/query/general/sort.js";
 
 const countWorkSql = (role: UserRole): Literal =>
   literal(`(
@@ -120,28 +126,21 @@ export const getAllStores = async (
   req: ReqApp,
   res: Response
 ): Promise<any> => {
-  const { userID } = req;
-
-  const count = await BookStore.count({
-    where: {
-      ownerID: userID,
-    },
-  });
-  if (!count) return res204(res);
-
   const { queryStore, queryOrders, queryAfterPipe } = createStoreQ(req);
 
-  const bookStores = await BookStore.findAll({
+  const { rows: bookStores, count } = await BookStore.findAndCountAll({
     where: queryStore,
 
     include: [
       {
         model: ImgBookStore,
         as: "images",
+        separate: true,
       },
       {
         model: OrderStore,
         as: "orders",
+        separate: true,
         where: queryOrders,
         // ? WITHOUT REQUIRED IT WOULD BE A LEFT JOIN WHERE WE GET ALL DATA EVEN INNER MODELS DOES NOT MATCH OPT, WITH REQUIRED IT IS AN INNER JOIN AND INNER DATA MUST MATCH AND RESPECT PARAMS PROVIDED
         required: !!Object.keys(queryOrders).length,
@@ -176,24 +175,61 @@ export const getAllStores = async (
     attributes: {
       include: myCoolSql,
     } as any,
-    group: [
-      "BookStore.id",
-      "images.id",
-      "orders.id",
-      // "books->reviews.id",
-      // "books.id",
-      "team.id",
-      "team->BookStoreUser.id",
-    ],
+    group: ["BookStore.id"],
     having: queryAfterPipe,
-    // limit: 2,
-    // offset: 3,
-    // order: sorters,
+
+    ...extractOffset(req),
+
+    order: [
+      ...((req.query?.avgRatingSort
+        ? [
+            ...sortByTimeStamps(req),
+            [
+              literal(`(
+            SELECT ROUND(COALESCE(AVG(r.rating), 0.0), 1)
+            FROM "reviews" AS r
+            INNER JOIN "books" AS b
+            ON r."bookID" = b.id
+            WHERE b."bookStoreID" = "BookStore".id  
+            )`),
+              req.query.avgRatingSort,
+            ],
+          ]
+        : []) as OrderItem[]),
+
+      ...((req?.query?.avgQtySort
+        ? [
+            [
+              literal(`(
+            SELECT COALESCE(AVG(b.qty), 0)
+            FROM "books" AS b
+            WHERE b."bookStoreID" = "BookStore".id  
+            AND b."deletedAt" IS NULL
+            )`),
+              req.query.avgQtySort,
+            ],
+          ]
+        : []) as OrderItem[]),
+
+      ...((req?.query?.avgPriceSort
+        ? [
+            [
+              literal(`(
+            SELECT COALESCE(AVG(b.price), 0)
+            FROM "books" AS b
+            WHERE b."bookStoreID" = "BookStore".id  
+            AND b."deletedAt" IS NULL
+            )`),
+              req.query.avgPriceSort,
+            ],
+          ]
+        : []) as OrderItem[]),
+    ],
   });
 
-  const { nHits, totPages, paginated } = sortAndPaginate(req, bookStores);
+  const { totPages, nHits } = extractNoHits(req, count as any);
 
-  return res200(res, { bookStores: paginated, nHits, totPages });
+  return res200(res, { bookStores, nHits, totPages });
 };
 
 /*

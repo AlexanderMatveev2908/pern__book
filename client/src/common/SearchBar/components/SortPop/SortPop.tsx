@@ -1,21 +1,31 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import CloseBtn from "@/components/elements/buttons/CloseBtn";
 import Title from "@/components/elements/Title";
 import { useAnimatePop } from "@/core/hooks/all/UI/useAnimatePop";
-import { SorterSearch } from "@/types/types";
-import { useEffect, useRef, type FC } from "react";
+import { SorterSearch, TriggerRTK } from "@/types/types";
+import { useCallback, useEffect, useRef, type FC } from "react";
 import PairSort from "./components/PairSort";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
+import { useFormContext } from "react-hook-form";
+import { cpyObj, getDefValsPagination, saveStorage } from "@/core/lib/lib";
+import { useGetSearchKeysStorage } from "@/features/common/SearchBar/hooks/useGetSearchKeysStorage";
 
 type PropsType = {
   sorters?: SorterSearch[];
+  triggerRtk: TriggerRTK[0];
+  routeID?: string;
 };
 
-const SortPop: FC<PropsType> = ({ sorters }) => {
+const SortPop: FC<PropsType> = ({ sorters, triggerRtk, routeID }) => {
   const popRef = useRef<HTMLDivElement | null>(null);
   const {
     setBar,
     bars: { sortBar },
+    updateValsNoDebounce,
+    setPagination,
+    oldVals,
   } = useSearchCtx();
+  const { setValue, getValues } = useFormContext();
 
   useAnimatePop({
     isPopup: sortBar,
@@ -37,6 +47,56 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
     };
   }, [setBar, sortBar]);
 
+  const { keyStorage } = useGetSearchKeysStorage();
+
+  const handleClick = useCallback(
+    (val: string, el: SorterSearch) => {
+      // const obj = {
+      //   ASC: "DESC",
+      //   DESC: "ASC",
+      // };
+
+      // const currVal = getValues(el.field);
+
+      // const updatedVal = obj[currVal as "ASC" | "DESC"] || val;
+
+      const currVal = getValues(el.field);
+      const updatedVal = currVal === val ? "" : val;
+
+      const allUpdatedVals = {
+        ...cpyObj(getValues()),
+        [el.field]: updatedVal,
+        ...getDefValsPagination(0),
+      };
+
+      updateValsNoDebounce({
+        triggerRtk: triggerRtk as any,
+        vals: allUpdatedVals,
+        routeID,
+      });
+
+      oldVals.current = allUpdatedVals;
+      saveStorage({
+        key: keyStorage as any,
+        data: allUpdatedVals,
+      });
+
+      setPagination({ el: "page", val: 0 });
+
+      setValue(el.field, updatedVal, { shouldValidate: true });
+    },
+    [
+      getValues,
+      setValue,
+      triggerRtk,
+      updateValsNoDebounce,
+      setPagination,
+      routeID,
+      oldVals,
+      keyStorage,
+    ]
+  );
+
   return (
     <div
       ref={popRef}
@@ -54,7 +114,7 @@ const SortPop: FC<PropsType> = ({ sorters }) => {
 
       <div className="overflow-y-auto scroll_y scroll_app  w-full h-fit max-h-full flex-1 grid grid-cols-1 py-4 pb-8 items-start gap-5">
         {(sorters ?? []).map((el) => (
-          <PairSort key={el.id} {...{ el }} />
+          <PairSort key={el.id} {...{ el, handleClick }} />
         ))}
       </div>
     </div>

@@ -51,13 +51,13 @@ export const ownerSortersOrders = addSortFields([
   ...createdUpdateAtFields,
 
   {
-    label: "Price",
-    field: "priceSort",
+    label: "Total amount",
+    field: "totAmountSort",
     icon: TbPigMoney,
   },
   {
-    label: "Quantity",
-    field: "qtySort",
+    label: "Total quantity",
+    field: "totItemsSort",
     icon: FaDatabase,
   },
 ]);

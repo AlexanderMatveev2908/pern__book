@@ -5,22 +5,15 @@ import { useFormContext } from "react-hook-form";
 
 type PropsType = {
   el: SorterSearch;
+  handleClick: (val: string, el: SorterSearch) => void;
 };
 
-const PairSort: FC<PropsType> = ({ el }) => {
-  const { setValue, getValues, watch } = useFormContext();
+const PairSort: FC<PropsType> = ({ el, handleClick }) => {
+  const { watch } = useFormContext();
 
   const getIsIn = useCallback(
     (val: string) => watch(el.field) === val,
     [el.field, watch]
-  );
-  const handleClick = useCallback(
-    (val: string) => {
-      const currVal = getValues(el.field);
-
-      setValue(el.field, currVal !== val ? val : "", { shouldValidate: true });
-    },
-    [el.field, getValues, setValue]
   );
 
   return (
@@ -40,7 +33,9 @@ const PairSort: FC<PropsType> = ({ el }) => {
               {...{
                 Icon: field.icon,
                 isIn: getIsIn(field.val),
-                handleClick: () => handleClick(field.val),
+                handleClick: () => {
+                  handleClick(field.val, el);
+                },
               }}
             />
           </div>

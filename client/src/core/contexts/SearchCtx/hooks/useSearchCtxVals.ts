@@ -23,7 +23,7 @@ type Params = {
   dispatch: React.ActionDispatch<[action: SearchCtxActionsType]>;
 };
 
-type ParamsUpdateNoDebounce = {
+export type ParamsUpdateNoDebounce = {
   vals: ArgsSearchType;
   triggerRtk: TriggerRTK[0];
   routeID?: string;
@@ -82,7 +82,7 @@ export const useSearchCtxVals = ({
       if (vals === oldVals.current)
         throw new Error("memory reference ctx fn 😡");
 
-      triggerRtk({
+      triggerRtk?.({
         vals: {
           ...(vals as ResPaginationAPI<ArgsSearchType>),
           // ? JUST A BRUTE FORCE FETCH IF U WANT
