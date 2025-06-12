@@ -13,16 +13,15 @@ import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 import { Book } from "../../../models/all/Book.js";
 import { literal, Op, where } from "sequelize";
 import { makeQueryOrdersOwner } from "../../../lib/query/owner/orders/query.js";
+import {
+  extractNoHits,
+  extractOffset,
+  extractSorters,
+} from "../../../lib/utils/formatters.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { queryAfterPipe, queryStoreOrders, queryBookStore } =
     makeQueryOrdersOwner(req);
-
-  const sorters = Object.entries(req.query ?? {})
-    .filter((pair) => pair[0].includes("Sort"))
-    .map((pair) => [pair[0].replace("Sort", ""), pair[1]]);
-
-  console.log(sorters);
 
   const { rows: orders, count: nHits } = await OrderStore.findAndCountAll({
     where: queryStoreOrders,
@@ -74,13 +73,12 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       ],
     },
 
-    order: [...(sorters as [string, string][])],
+    order: [...(extractSorters(req) as [string, string][])],
 
-    offset: +req.query.page! * +req.query.limit!,
-    limit: +req.query.limit!,
+    ...extractOffset(req),
   });
 
-  const totPages = Math.ceil(nHits.length / +req.query.limit!);
+  const totPages = extractNoHits(req, nHits);
 
   return res200(res, { orders, totPages, nHits: nHits.length });
 };
