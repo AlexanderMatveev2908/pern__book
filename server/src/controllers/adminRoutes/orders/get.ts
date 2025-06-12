@@ -8,11 +8,11 @@ import { OrderItemStore } from "../../../models/all/OrderItemStore.js";
 import { calcPagination } from "../../../lib/query/general/pagination.js";
 import { sortAndPaginate } from "../../../lib/query/general/sortAndPaginate.js";
 import { Book } from "../../../models/all/Book.js";
-import { literal } from "sequelize";
+import { literal, Op, where } from "sequelize";
 import { makeQueryOrdersOwner } from "../../../lib/query/owner/orders/query.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
-  const { queryOrders, queryStoreOrders, queryBookStore } =
+  const { queryOrders, queryAfterPipe, queryStoreOrders, queryBookStore } =
     makeQueryOrdersOwner(req);
 
   const orders = await OrderStore.findAll({
@@ -39,6 +39,10 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
         separate: true,
       },
     ],
+
+    group: ["OrderStore.id", "store.id", "order.id"],
+
+    having: queryAfterPipe,
 
     attributes: {
       include: [

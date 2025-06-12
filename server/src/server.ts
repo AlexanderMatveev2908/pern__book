@@ -17,9 +17,9 @@ import routerWebhook from "./routes/webHooks.js";
 const app = express();
 const PORT = process.env.PORT ? +process.env.PORT : 3000;
 
-app.set("trust proxy", true);
-
 const server = http.createServer(app);
+
+app.set("trust proxy", true);
 
 app.use("/api/v1/webhooks", routerWebhook);
 
@@ -48,9 +48,13 @@ const start = async () => {
     // await syncDB();
 
     await new Promise<void>((res, rej) => {
-      server.once("error", rej);
-      server.listen(PORT, "0.0.0.0", res);
-    }).then(() => console.log(`=> Server running on ${PORT}...`));
+      server.listen(PORT, "0.0.0.0", () => {
+        console.log(`=> Server listening on port ${PORT} 👻`);
+        res();
+      });
+
+      server.on("error", rej);
+    });
   } catch (err: any) {
     console.log({
       err: err.message,

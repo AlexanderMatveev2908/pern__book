@@ -58,6 +58,4 @@ export const addBookWorker = async (
 
     return err500(res);
   }
-
-  return res201(res, { msg: "Book created" });
 };

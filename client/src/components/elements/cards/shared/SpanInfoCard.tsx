@@ -11,6 +11,8 @@ type PropsType = {
   customStyleTxt?: string;
   customStyleIcon?: string;
   customStyleParent?: string;
+
+  children?: React.ReactNode | React.ReactNode[] | null;
 };
 
 const SpanInfoCard: FC<PropsType> = ({
@@ -18,6 +20,7 @@ const SpanInfoCard: FC<PropsType> = ({
   customStyleIcon,
   customStyleParent,
   customStyleTxt,
+  children,
 }) => {
   return (
     <div
@@ -28,6 +31,8 @@ const SpanInfoCard: FC<PropsType> = ({
       {spanInfo.icon && (
         <spanInfo.icon className={`icon__sm ${customStyleIcon ?? ""}`} />
       )}
+      {children}
+
       <span
         className={`${customStyleTxt ?? "txt__3"} clamp_txt`}
         {...clampBy(2)}
