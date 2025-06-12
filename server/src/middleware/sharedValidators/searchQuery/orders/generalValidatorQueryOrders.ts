@@ -5,7 +5,9 @@ import { checkCategories } from "../general/cat.js";
 import { parseArrFromStr } from "../../../../lib/dataStructures.js";
 import { StoreOrderStage } from "../../../../types/all/orders.js";
 
-export const generalValidatorQueryOrders = [
+export const generalValidatorQueryOrders = (
+  cbs?: [(k: string, v: string) => void]
+) => [
   ...checkPagination,
 
   check().custom((_, { req }) => {
@@ -14,10 +16,11 @@ export const generalValidatorQueryOrders = [
     for (const k in q) {
       const v = q[k];
 
-      checkCategories(k, v);
       checkDelivery(k, v);
       checkPrices(k, v);
       checkQty(k, v);
+
+      if (cbs?.length) for (const cb of cbs) cb(k, v);
 
       if (k === "stage") {
         if (
