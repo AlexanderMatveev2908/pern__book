@@ -142,7 +142,11 @@ export const getBooksList = async (
         : []) as OrderItem[]),
 
       ...((req.query?.priceSort
-        ? [["price", req.query.priceSort]]
+        ? [["qty", req.query.priceSort]]
+        : []) as OrderItem[]),
+
+      ...((req.query?.qtySort
+        ? [["qty", req.query.qtySort]]
         : []) as OrderItem[]),
     ],
 
