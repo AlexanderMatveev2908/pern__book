@@ -1,9 +1,9 @@
 import { Op, WhereOptions } from "sequelize";
-import { ReqApp } from "../../../../types/types.js";
+import { ReqApp } from "../../../types/types.js";
 import {
   handleCommonQueryBooks,
   handleQueryAvgRatingBooks,
-} from "../../general/books.js";
+} from "../general/books.js";
 
 export const makeQueryBooksWorker = (req: ReqApp) => {
   const queryBooks: WhereOptions = {};

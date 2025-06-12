@@ -1,7 +1,8 @@
 import { literal, Op, where, WhereOptions } from "sequelize";
-import { ReqApp } from "../../../../types/types.js";
-import { parseArrFromStr } from "../../../dataStructures.js";
-import { findVal } from "../../../utils/formatters.js";
+import { ReqApp } from "../../../types/types.js";
+import { parseArrFromStr } from "../../dataStructures.js";
+import { findVal } from "../../utils/formatters.js";
+import { handleQueryDelivery } from "../general/general.js";
 
 export const makeQueryOrdersOwner = (req: ReqApp) => {
   const { userID } = req;
@@ -56,18 +57,11 @@ export const makeQueryOrdersOwner = (req: ReqApp) => {
       }
 
       case "delivery": {
-        const cond: WhereOptions = [];
-        const parsed = parseArrFromStr(v as string | string[]);
-
-        if (findVal(parsed, "free_delivery"))
-          cond.push({ delivery: { [Op.lte]: 0 } });
-        if (findVal(parsed, "delivery_charged"))
-          cond.push({ delivery: { [Op.gt]: 0 } });
-
-        queryStoreOrders[Op.or as any] = [
-          ...(queryStoreOrders[Op.or as any] ?? []),
-          ...cond,
-        ];
+        handleQueryDelivery({
+          val: v as string | string[],
+          query: queryStoreOrders,
+          key: "delivery",
+        });
 
         break;
       }

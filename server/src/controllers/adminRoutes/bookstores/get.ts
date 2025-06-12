@@ -12,7 +12,7 @@ import { err404 } from "../../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
 import { res200, res204 } from "../../../lib/responseClient/res.js";
 import { ReqApp, UserRole } from "../../../types/types.js";
-import { createStoreQ } from "../../../lib/query/owner/bookStore/query.js";
+import { createStoreQ } from "../../../lib/query/owner/bookStore.js";
 import {
   calcRatingSqlStores,
   countOrdersStores,

@@ -1,6 +1,6 @@
 import { literal, Op, QueryOptions, WhereOptions } from "sequelize";
-import { ReqApp, UserRole } from "../../../../types/types.js";
-import { handleQueryDelivery } from "../../general/general.js";
+import { ReqApp, UserRole } from "../../../types/types.js";
+import { handleQueryDelivery } from "../general/general.js";
 
 const makeRoleSql = (
   role: UserRole,
@@ -53,7 +53,8 @@ export const createStoreQ = (req: ReqApp) => {
       case "delivery":
         handleQueryDelivery({
           val: val as string | string[],
-          storeQ: queryStore,
+          query: queryStore,
+          key: "deliveryPrice",
         });
         break;
 

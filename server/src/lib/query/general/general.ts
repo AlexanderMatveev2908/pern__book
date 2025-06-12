@@ -5,30 +5,32 @@ import { StoreOrderStage } from "../../../types/all/orders.js";
 
 export const handleQueryDelivery = ({
   val,
-  storeQ,
+  query,
+  key,
 }: {
   val: string | string[];
-  storeQ: WhereOptions;
+  query: WhereOptions;
+  key: string;
 }) => {
   const deliveryConditions: WhereOptions = [];
 
   if (findVal(val, "free_delivery"))
     deliveryConditions.push({
-      deliveryPrice: {
+      [key]: {
         [Op.lte]: 0,
       },
     });
 
   if (findVal(val, "delivery_charged"))
     deliveryConditions.push({
-      deliveryPrice: {
+      [key]: {
         [Op.gt]: 0,
       },
     });
 
   if (deliveryConditions.length)
-    (storeQ as any)[Op.or as any] = [
-      ...((storeQ as any)[Op.or as any] ?? []),
+    (query as any)[Op.or as any] = [
+      ...((query as any)[Op.or as any] ?? []),
       ...deliveryConditions,
     ];
 };

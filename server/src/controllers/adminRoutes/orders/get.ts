@@ -10,7 +10,7 @@ import { Order } from "../../../models/all/Order.js";
 import { OrderItemStore } from "../../../models/all/OrderItemStore.js";
 import { Book } from "../../../models/all/Book.js";
 import { literal, Op, where } from "sequelize";
-import { makeQueryOrdersOwner } from "../../../lib/query/owner/orders/query.js";
+import { makeQueryOrdersOwner } from "../../../lib/query/owner/orders.js";
 import {
   extractNoHits,
   extractOffset,

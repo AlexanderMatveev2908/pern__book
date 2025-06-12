@@ -1,7 +1,7 @@
 import { literal, Op, WhereOptions } from "sequelize";
-import { ReqApp } from "../../../../types/types.js";
-import { parseArrFromStr } from "../../../dataStructures.js";
-import { handleQueryDelivery } from "../../general/general.js";
+import { ReqApp } from "../../../types/types.js";
+import { parseArrFromStr } from "../../dataStructures.js";
+import { handleQueryDelivery } from "../general/general.js";
 
 export const queryStoresWorker = (req: ReqApp) => {
   const queryStores: WhereOptions = {};
@@ -28,7 +28,8 @@ export const queryStoresWorker = (req: ReqApp) => {
       case "delivery":
         handleQueryDelivery({
           val: v as string | string[],
-          storeQ: queryStores,
+          query: queryStores,
+          key: "deliveryPrice",
         });
         break;
 
