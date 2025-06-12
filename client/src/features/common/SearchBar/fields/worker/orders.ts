@@ -1,34 +1,25 @@
-import { v4 } from "uuid";
-import {
-  addSortFields,
-  createdUpdateAtFields,
-  filtersCat,
-  filtersDelivery,
-  priceFilters,
-  qtyFilters,
-} from "../general/general";
 import {
   FilterSearch,
   FormFieldBasic,
   NumericFilterSearch,
 } from "@/types/types";
-import { addNestedIDs } from "@/core/lib/all/utils/ids";
-import { FaDatabase } from "react-icons/fa";
-import { TbPigMoney } from "react-icons/tb";
+import { v4 } from "uuid";
 import { filtersOrdersStage } from "../general/orders";
+import {
+  addSortFields,
+  createdUpdateAtFields,
+  filtersDelivery,
+  priceFilters,
+  qtyFilters,
+} from "../general/general";
+import { addNestedIDs } from "@/core/lib/all/utils/ids";
+import { TbPigMoney } from "react-icons/tb";
+import { FaDatabase } from "react-icons/fa";
 
-export const fieldsInputOrdersOwner: FormFieldBasic[] = [
+export const fieldsInputOrdersWorker: FormFieldBasic[] = [
   {
     field: "ID",
     label: "order ID",
-  },
-  {
-    field: "bookStoreID",
-    label: "bookstore ID",
-  },
-  {
-    field: "bookStoreName",
-    label: "bookstore name",
   },
 ].map((el) => ({
   ...el,
@@ -36,18 +27,17 @@ export const fieldsInputOrdersOwner: FormFieldBasic[] = [
   place: el.label + "...",
 }));
 
-export const filtersOrdersOwner: FilterSearch[] = addNestedIDs([
-  filtersCat,
+export const filtersOrdersWorker: FilterSearch[] = addNestedIDs([
   filtersOrdersStage,
   filtersDelivery,
 ]) as FilterSearch[];
 
-export const ownerNumericFiltersOrders: NumericFilterSearch[] = addNestedIDs([
+export const numericFiltersOrdersWorker: NumericFilterSearch[] = addNestedIDs([
   priceFilters,
   qtyFilters,
 ]) as NumericFilterSearch[];
 
-export const ownerSortersOrders = addSortFields([
+export const sortersOrdersWorker = addSortFields([
   ...createdUpdateAtFields,
 
   {

@@ -4,7 +4,7 @@ import { FilterSearch } from "@/types/types";
 import { TbTruckDelivery } from "react-icons/tb";
 
 export const filtersOrdersStage: Omit<FilterSearch, "id"> = {
-  label: "Orders",
+  label: "Stage",
   field: "stage",
   icon: TbTruckDelivery,
   fields: Object.values(StoreOrderStage).map((el) => ({

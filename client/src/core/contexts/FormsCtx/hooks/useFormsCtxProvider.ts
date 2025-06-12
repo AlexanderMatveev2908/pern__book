@@ -8,6 +8,7 @@ import { schemaConsumerBooks } from "@/features/common/SearchBar/schemasZ/consum
 import { schemaWorkerStores } from "@/features/common/SearchBar/schemasZ/worker/stores";
 import { searchBooksWorkerSchema } from "@/features/common/SearchBar/schemasZ/worker/books";
 import { schemaOwnerOrders } from "@/features/common/SearchBar/schemasZ/owner/orders";
+import { schemaOrdersWorker } from "@/features/common/SearchBar/schemasZ/worker/orders";
 
 export type SearchStoreFormType = z.infer<typeof searchBarStore>;
 export type BookFormType = z.infer<typeof schemaBookForm>;
@@ -16,6 +17,7 @@ export type SearchBookStoreWorkerFormType = z.infer<typeof schemaWorkerStores>;
 export type SearchBooksWorkerType = z.infer<typeof searchBooksWorkerSchema>;
 export type SearchBooksConsumerType = z.infer<typeof schemaConsumerBooks>;
 export type SearchOrdersOrdersType = z.infer<typeof schemaOwnerOrders>;
+export type SearchOrdersWorkerType = z.infer<typeof schemaOrdersWorker>;
 
 export const useFormsCtxProvider = () => {
   const formOwnerStoresCtx = useForm<SearchStoreFormType>({
@@ -58,6 +60,11 @@ export const useFormsCtxProvider = () => {
     resolver: zodResolver(schemaOwnerOrders),
   });
 
+  const formSearchOrdersWorkerCtx = useForm<SearchOrdersWorkerType>({
+    mode: "onChange",
+    resolver: zodResolver(schemaOrdersWorker),
+  });
+
   return {
     formOwnerStoresCtx,
     createBookFormCtx,
@@ -67,5 +74,6 @@ export const useFormsCtxProvider = () => {
     formSearchBooksWorkerCtx,
     formSearchBooksConsumerCtx,
     formSearchOrdersOwnerCtx,
+    formSearchOrdersWorkerCtx,
   };
 };
