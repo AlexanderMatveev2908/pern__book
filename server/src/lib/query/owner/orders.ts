@@ -3,6 +3,7 @@ import { ReqApp } from "../../../types/types.js";
 import { parseArrFromStr } from "../../dataStructures.js";
 import { findVal } from "../../utils/formatters.js";
 import { handleQueryDelivery } from "../general/general.js";
+import { handleQtyPriceOrdersQuery } from "../general/orders.js";
 
 export const makeQueryOrdersOwner = (req: ReqApp) => {
   const { userID } = req;
@@ -66,52 +67,12 @@ export const makeQueryOrdersOwner = (req: ReqApp) => {
         break;
       }
 
-      case "minPrice": {
-        queryAfterPipe[Op.and as any] = [
-          ...(queryAfterPipe[Op.and as any] ?? []),
-          literal(
-            `SUM("OrderStore"."amount" + "OrderStore"."delivery") >= ${v}`
-          ),
-        ];
-
+      case "minPrice":
+      case "maxPrice":
+      case "minQty":
+      case "maxQty":
+        handleQtyPriceOrdersQuery(k, v as string, queryAfterPipe);
         break;
-      }
-
-      case "maxPrice": {
-        queryAfterPipe[Op.and as any] = [
-          ...(queryAfterPipe[Op.and as any] ?? []),
-          literal(
-            `SUM("OrderStore"."amount" + "OrderStore"."delivery") <= ${v}`
-          ),
-        ];
-
-        break;
-      }
-
-      case "minQty": {
-        queryAfterPipe[Op.and as any] = [
-          ...(queryAfterPipe[Op.and as any] ?? []),
-          literal(`(
-            SELECT SUM(oi.qty)
-            FROM "order_items" AS oi
-            WHERE oi."orderStoreID" = "OrderStore"."id"
-            ) >= ${v}`),
-        ];
-
-        break;
-      }
-      case "maxQty": {
-        queryAfterPipe[Op.and as any] = [
-          ...(queryAfterPipe[Op.and as any] ?? []),
-          literal(`(
-            SELECT SUM(oi.qty)
-            FROM "order_items" AS oi
-            WHERE oi."orderStoreID" = "OrderStore"."id"
-            ) <= ${v}`),
-        ];
-
-        break;
-      }
 
       default:
         break;

@@ -3,6 +3,7 @@ import { ReqApp } from "../../../types/types.js";
 import { parseArrFromStr } from "../../dataStructures.js";
 import { findVal } from "../../utils/formatters.js";
 import { handleQueryDelivery } from "../general/general.js";
+import { handleQtyPriceOrdersQuery } from "../general/orders.js";
 
 export const makeQueryOrdersWorker = (req: ReqApp) => {
   const { bookStoreID } = req.params;
@@ -11,6 +12,7 @@ export const makeQueryOrdersWorker = (req: ReqApp) => {
   const queryStoreOrder: WhereOptions = {
     bookStoreID,
   };
+  const queryAfterPipe: WhereOptions = {};
 
   for (const k in q) {
     const v = q[k];
@@ -37,6 +39,13 @@ export const makeQueryOrdersWorker = (req: ReqApp) => {
         break;
       }
 
+      case "minPrice":
+      case "maxPrice":
+      case "minQty":
+      case "maxQty":
+        handleQtyPriceOrdersQuery(k, v as string, queryAfterPipe);
+        break;
+
       default:
         break;
     }
@@ -44,5 +53,6 @@ export const makeQueryOrdersWorker = (req: ReqApp) => {
 
   return {
     queryStoreOrder,
+    queryAfterPipe,
   };
 };

@@ -12,7 +12,7 @@ import { makeQueryOrdersWorker } from "../../../lib/query/worker/orders.js";
 export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { userID } = req;
 
-  const { queryStoreOrder } = makeQueryOrdersWorker(req);
+  const { queryStoreOrder, queryAfterPipe } = makeQueryOrdersWorker(req);
 
   const { rows: orders, count } = await OrderStore.findAndCountAll({
     where: queryStoreOrder,
@@ -45,11 +45,15 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
       },
     ],
 
+    group: ["OrderStore.id", "store.id"],
+
+    having: queryAfterPipe,
+
     attributes: {
       include: [
         [
           literal(`(
-        SELECT COUNT(oi.id)
+        SELECT SUM(oi.qty)
         FROM "order_items" AS oi
         WHERE oi."orderStoreID" = "OrderStore"."id"          
           )`),
