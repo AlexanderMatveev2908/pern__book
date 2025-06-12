@@ -31,11 +31,11 @@ import { ZodEffects, ZodObject } from "zod";
 
 // ? THE SEARCH BAR IS IN SOME WAY THE HEART OF APP AND I TRIED TO KEEP IT AS ORGANIZED AS POSSIBLE, SOME THINGS COULD BE BETTER DIVIDED FOLLOWING A MORE SPECIFIC MINDSET BUT WHERE POSSIBLE I PREFER ADD PROPS TO MY COMPONENTS INSTEAD OF COPY PASTING EXISTENT CODE INTO A NEW COMPONENT WITH JUST FEW CHANGES
 type PropsType = {
-  hook?: TriggerRTK;
-  txtInputs?: FormFieldBasic[];
-  filters?: FilterSearch[];
-  sorters?: SorterSearch[];
-  numericFilters?: NumericFilterSearch[];
+  hook: TriggerRTK;
+  txtInputs: FormFieldBasic[];
+  filters: FilterSearch[];
+  sorters: SorterSearch[];
+  numericFilters: NumericFilterSearch[];
   innerJoinCat?: boolean;
   paramID?: string;
   defVals?: any;
