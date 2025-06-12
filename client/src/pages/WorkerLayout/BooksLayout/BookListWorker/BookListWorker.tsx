@@ -21,6 +21,7 @@ import BookItemWorker from "./components/BookItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
+import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
 
 const BookListWorker: FC = () => {
   const { user } = useGetU();
@@ -58,27 +59,33 @@ const BookListWorker: FC = () => {
         canStay,
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            {
-              label: decapt(
-                ((books?.[0]?.store?.team as any)?.[0]?.bookStoreUser
-                  ?.role as any) ?? "worker"
-              ),
-              path: "#",
-            },
-            {
-              label: "books",
-              path: "#",
-            },
-            {
-              label: books?.[0]?.store?.name ?? "Book store",
-              path: `/worker/book-stores/${storeID}`,
-            },
-          ],
-        }}
-      />
+      {res?.isLoading ? (
+        <div className="w-full flex justify-start mt-5">
+          <SpinnerBtn />
+        </div>
+      ) : (
+        <BreadCrumb
+          {...{
+            els: [
+              {
+                label: decapt(
+                  ((books?.[0]?.store?.team as any)?.[0]?.bookStoreUser
+                    ?.role as any) ?? "worker"
+                ),
+                path: "#",
+              },
+              {
+                label: "books",
+                path: "#",
+              },
+              {
+                label: books?.[0]?.store?.name ?? "Book store",
+                path: `/worker/book-stores/${storeID}`,
+              },
+            ],
+          }}
+        />
+      )}
 
       <div className="p_page -mb-[175px]">
         <FormProvider {...formCtx}>

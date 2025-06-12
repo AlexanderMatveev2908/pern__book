@@ -25,8 +25,10 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
             model: User,
             as: "team",
             where: { id: userID },
+            attributes: ["id"],
             required: true,
             through: {
+              as: "bookStoreUser",
               where: {
                 userID,
               },
