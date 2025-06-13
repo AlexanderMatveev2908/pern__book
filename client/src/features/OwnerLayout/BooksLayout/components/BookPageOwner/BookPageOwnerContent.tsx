@@ -1,16 +1,16 @@
-import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
-import { type FC } from "react";
+import type { FC } from "react";
 import { useParams } from "react-router-dom";
-import DropActionsBook from "./components/DropActionsBook";
+import { booksSLiceAPI } from "../../booksSliceAPI";
+import { useWrapQueryAPI } from "@/core/hooks/hooks";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import Title from "@/components/elements/Title";
+import DropActionsBook from "@/features/OwnerLayout/BooksLayout/components/BookPageOwner/components/DropActionsBook";
 import BookPage from "@/components/elements/cards/books/BookPage";
 
-const BookPageOwner: FC = () => {
+const BookPageOwnerContent: FC = () => {
   const { bookID = "" } = useParams();
   const itPass = REG_ID.test(bookID);
 
@@ -46,4 +46,4 @@ const BookPageOwner: FC = () => {
   );
 };
 
-export default BookPageOwner;
+export default BookPageOwnerContent;
