@@ -43,7 +43,7 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: formatD(+o!.order!.orderedAt!),
+            label: formatD(+(o.order?.orderedAt ?? 0)),
             icon: TbDatabaseCog,
           },
         }}
