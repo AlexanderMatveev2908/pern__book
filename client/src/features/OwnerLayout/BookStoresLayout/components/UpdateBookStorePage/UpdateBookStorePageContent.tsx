@@ -1,59 +1,48 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
-import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useCallback, useMemo, type FC } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import {
+  useGetBookStoreQuery,
+  useUpdateBookStoreMutation,
+} from "../../bookStoreSliceAPI";
 import {
   useFocus,
   useWrapMutationAPI,
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useMemo } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
-import { isSameData } from "@/core/lib/lib";
-import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
+import { FormBookStoreType } from "../CreateBooksStorePage/CreateBooksStorePageContent";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { BookStoreType } from "@/types/all/bookStore";
-import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import {
-  useGetBookStoreQuery,
-  useUpdateBookStoreMutation,
-} from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
-import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
-import BreadCrumb from "@/components/elements/BreadCrumb";
 import {
   fieldsSwapStore,
   mandatoryKeysStore,
   optKeysStore,
 } from "@/core/config/fieldsData/bookStores/forms";
+import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
+import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
+import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
+import { BookStoreType } from "@/types/all/bookStore";
+import {
+  processImages,
+  processNumberToString,
+  processPrice,
+  processTeam,
+  processVideo,
+} from "./utils";
+import { isSameData } from "@/core/lib/lib";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import BreadCrumb from "@/components/elements/BreadCrumb";
+import Title from "@/components/elements/Title";
+import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
-import { FormBookStoreType } from "@/features/OwnerLayout/BookStoresLayout/components/CreateBooksStorePage/CreateBooksStorePageContent";
 
-const processTeam = (team: any[]) =>
-  team?.length
-    ? team.map((el: any) => ({ email: el.userEmail, role: el.role }))
-    : [];
-
-const processVideo = (video: any) => video?.url ?? null;
-
-const processImages = (images: any[]) => images?.map((el: any) => el.url) ?? [];
-
-const processPrice = (value: any) => {
-  const numVal = +(value ?? "0");
-  return numVal ? value : null;
-};
-
-const processNumberToString = (value: number) => {
-  return value + "";
-};
-
-const UpdateBookStore: FC = () => {
+const UpdateBookStorePageContent: FC = () => {
   const nav = useNavigate();
 
   const { user } = useGetU();
@@ -208,4 +197,4 @@ const UpdateBookStore: FC = () => {
   );
 };
 
-export default UpdateBookStore;
+export default UpdateBookStorePageContent;
