@@ -23,7 +23,7 @@ Welcome to my project! This time, I decided to create an app based on books, dur
 - **Express** as the backend web framework
 - **Nodemailer** to send verification and transactional emails
 - **Argon2** for password hashing
-- **JWE**, **JWT**, and **AES-CBC-HMAC** used respectively for refresh tokens, access tokens, and verifications tokens
+- **JWE**, **JWT**, and **CBC-HMAC** used respectively for refresh tokens, access tokens, and verifications tokens
 - **PostgreSQL** as the relational database
 
 ## PostgreSQL as the relational database
