@@ -1,7 +1,7 @@
 import MainLayout from "@/app/layouts/MainLayout";
 import ownerRoutes from "./all/ownerRoutes/OwnerRoutes";
 import Notice from "@/pages/NoticePage";
-import VerifyCb from "@/pages/VerifyCb/VerifyCb";
+import VerifyCbPage from "@/pages/VerifyCbPage";
 import { authRoutes } from "./all/AuthRoutes";
 import { userRoutes } from "./all/UserRoutes";
 import { workerRoutes } from "./all/workerRoutes/WorkerRoutes";
@@ -25,7 +25,7 @@ export const appRoutes = [
       consumerRoutes,
 
       { path: "notice", element: <Notice /> },
-      { path: "verify-cb", element: <VerifyCb /> },
+      { path: "verify-cb", element: <VerifyCbPage /> },
 
       { path: "*", element: <Push /> },
     ],
