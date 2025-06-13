@@ -3,7 +3,7 @@ import AuthLayout from "@/app/layouts/AuthLayout";
 import ChoseNewPwd from "@/pages/AuthLayout/ChoseNewPwd/ChoseNewPwd";
 import ForgotPwd from "@/pages/AuthLayout/ForgotPwd/ForgotPwd";
 import Login from "@/pages/AuthLayout/Login/Login";
-import Register from "@/pages/AuthLayout/Register/Register";
+import RegisterPage from "@/pages/AuthLayout/RegisterPage";
 import VerifyAccount from "@/pages/AuthLayout/VerifyAccount/VerifyAccount";
 import Push from "../helpers/Push";
 
@@ -15,7 +15,7 @@ export const authRoutes = {
       path: "register",
       element: (
         <SwapCtxProvider>
-          <Register />
+          <RegisterPage />
         </SwapCtxProvider>
       ),
     },
