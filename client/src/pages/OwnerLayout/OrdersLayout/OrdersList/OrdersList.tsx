@@ -14,7 +14,7 @@ import {
   ownerSortersOrders,
 } from "@/features/common/SearchBar/fields/owner/orders";
 import { schemaOwnerOrders } from "@/features/common/SearchBar/schemasZ/owner/orders";
-import { ownerOrdersSliceAPI } from "@/features/OwnerLayout/orders/ownerOrdersSliceAPI";
+import { ownerOrdersSliceAPI } from "@/features/OwnerLayout/OrdersLayout/ownerOrdersSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import OrderStoreItemOwner from "./components/OrderStoreItemOwner";

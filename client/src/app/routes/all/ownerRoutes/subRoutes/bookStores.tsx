@@ -2,7 +2,7 @@ import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import BookStores from "@/pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
 import UpdateBookStore from "@/pages/OwnerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStore";
-import CreateBooksStorePage from "@/pages/OwnerLayout/BookStoreLayout/CreateBooksStore/CreateBooksStorePage";
+import CreateBooksStorePage from "@/pages/OwnerLayout/BookStoreLayout/CreateBooksStorePage";
 import { Outlet } from "react-router-dom";
 import BookStorePageOwner from "@/pages/OwnerLayout/BookStoreLayout/BookStorePage/BookStorePageOwner";
 import Push from "@/app/routes/helpers/Push";

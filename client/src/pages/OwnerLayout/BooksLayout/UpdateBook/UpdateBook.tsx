@@ -12,7 +12,7 @@ import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
 import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
-import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { type FC } from "react";
 import { FormProvider, useForm } from "react-hook-form";

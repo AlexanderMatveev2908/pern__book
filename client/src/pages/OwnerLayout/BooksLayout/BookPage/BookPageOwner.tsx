@@ -3,7 +3,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
 import { type FC } from "react";
 import { useParams } from "react-router-dom";
 import DropActionsBook from "./components/DropActionsBook";

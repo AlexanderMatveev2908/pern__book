@@ -12,7 +12,7 @@ import { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import { bookStoreSliceAPI } from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
 import { isArr } from "@/core/lib/lib";
 import BookStoreItemOwner from "./components/BookStoreItem";
 import BreadCrumb from "@/components/elements/BreadCrumb";

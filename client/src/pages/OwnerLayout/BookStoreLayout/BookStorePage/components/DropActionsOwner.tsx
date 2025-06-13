@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { countW } from "@/core/lib/lib";
-import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import { bookStoreSliceAPI } from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
 import { DispatchType } from "@/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BtnAct, BtnPopupKeys, UserType } from "@/types/types";
@@ -18,7 +18,7 @@ import { fieldsInputsBooks } from "@/features/common/SearchBar/fields/owner/book
 import {
   actionsBookStoreAdmin,
   labelsBookStore,
-} from "@/features/OwnerLayout/bookStores/fields/actions";
+} from "@/features/OwnerLayout/BookStoresLayout/fields/actions";
 import {
   closePopup,
   loadPop,

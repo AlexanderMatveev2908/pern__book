@@ -12,7 +12,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { FC, useCallback, useMemo } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
-import { FormBookStoreType } from "../CreateBooksStore/CreateBooksStorePage";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
 import { isSameData } from "@/core/lib/lib";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
@@ -24,7 +23,7 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 import {
   useGetBookStoreQuery,
   useUpdateBookStoreMutation,
-} from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+} from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
 import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import {
@@ -34,6 +33,7 @@ import {
 } from "@/core/config/fieldsData/bookStores/forms";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import { UserRole } from "@/types/types";
+import { FormBookStoreType } from "@/features/OwnerLayout/BookStoresLayout/components/CreateBooksStorePage/CreateBooksStorePageContent";
 
 const processTeam = (team: any[]) =>
   team?.length

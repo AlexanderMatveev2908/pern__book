@@ -6,7 +6,7 @@ import { middlewareErrors } from "./middleware/middlewareErrors";
 import sidebarSlice from "@/features/common/Header/headerSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import popupSlice from "@/features/common/Popup/popupSlice";
-import bookStoreSlice from "@/features/OwnerLayout/bookStores/bookStoreSlice";
+import bookStoreSlice from "@/features/OwnerLayout/BookStoresLayout/bookStoreSlice";
 import dummySlice from "@/features/dummy/dummySLice";
 
 export const store = configureStore({
