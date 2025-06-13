@@ -23,7 +23,7 @@ const schema = z.object({
 
 export type PwdSecurityForm = z.infer<typeof schema>;
 
-const SecurityPwdPageContent: FC = () => {
+const SecurityPwd: FC = () => {
   const { state } = useLocation();
   const { from } = state ?? {};
   const nav = useNavigate();
@@ -107,4 +107,4 @@ const SecurityPwdPageContent: FC = () => {
   );
 };
 
-export default SecurityPwdPageContent;
+export default SecurityPwd;

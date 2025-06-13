@@ -4,7 +4,7 @@ import {
   fieldsSwapProfile,
   keysHeaderProfile,
 } from "@/features/UserLayout/fields/profile";
-import { UserProfileForm } from "../components/ProfileSettingsPage/ProfileSettingsPageContent";
+import { UserProfileForm } from "../pages/ProfileSettings/ProfileSettings";
 
 type Params = {
   errors: FieldErrors;

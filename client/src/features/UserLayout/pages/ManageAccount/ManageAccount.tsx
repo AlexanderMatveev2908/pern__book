@@ -13,12 +13,12 @@ import {
   ActionsManageAccount,
   titlesFormsManage,
 } from "../../fields/manageAccount";
-import ChangeEmail from "@/features/UserLayout/components/ManageAccountPage/components/ChangeEmail";
-import ResetPwd from "@/features/UserLayout/components/ManageAccountPage/components/ResetPwd";
-import DeleteAccount from "@/features/UserLayout/components/ManageAccountPage/components/DeleteAccount";
 import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
+import ChangeEmail from "./components/ChangeEmail";
+import ResetPwd from "./components/ResetPwd";
+import DeleteAccount from "./components/DeleteAccount";
 
-const ManageAccountPageContent: FC = () => {
+const ManageAccount: FC = () => {
   // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap
   const [currForm, setCurrForm] = useState(0);
   const [currSwapState, setSwapState] = useState<SwapModeType | null>(null);
@@ -107,4 +107,4 @@ const ManageAccountPageContent: FC = () => {
   );
 };
 
-export default ManageAccountPageContent;
+export default ManageAccount;

@@ -1,7 +1,7 @@
 import apiSlice from "@/store/apiSlice";
 import { TagsAPI, UserType } from "@/types/types";
 import { catchErr } from "@/core/lib/lib";
-import { PwdSecurityForm } from "./components/SecurityPwdPage/SecurityPwdPageContent";
+import { PwdSecurityForm } from "./pages/SecurityPwd/SecurityPwd";
 
 export const userSliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

@@ -27,15 +27,15 @@ import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp, UserType } from "@/types/types";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Title from "@/components/elements/Title";
-import HeaderUserProfile from "@/features/UserLayout/components/ProfileSettingsPage/components/HeaderUserProfile/HeaderUserProfile";
-import BodyUserProfile from "@/features/UserLayout/components/ProfileSettingsPage/components/BodyUserProfile/BodyUserProfile";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
+import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
+import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
-const ProfileSettingsPageContent: FC = () => {
+const ProfileSettings: FC = () => {
   const [eventClose, setEventClose] = useState(false);
 
   const dispatch = useDispatch();
@@ -173,4 +173,4 @@ const ProfileSettingsPageContent: FC = () => {
   );
 };
 
-export default ProfileSettingsPageContent;
+export default ProfileSettings;

@@ -4,7 +4,7 @@ import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import ThumbForm from "./ThumbForm";
 import { fieldsProfileHeader } from "@/features/UserLayout/fields/profile";
-import { UserProfileForm } from "../../ProfileSettingsPageContent";
+import { UserProfileForm } from "../../ProfileSettings";
 // import my_thumb from "../../../../config/assetsDev/thumb/thumb.avif";
 
 type PropsType = {

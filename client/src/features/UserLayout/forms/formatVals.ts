@@ -2,7 +2,7 @@ import {
   appendKey,
   parseNullPost,
 } from "../../../core/lib/all/utils/formatters";
-import { UserProfileForm } from "../components/ProfileSettingsPage/ProfileSettingsPageContent";
+import { UserProfileForm } from "../pages/ProfileSettings/ProfileSettings";
 
 export const makeFormDataProfile = (
   formDataHook: UserProfileForm

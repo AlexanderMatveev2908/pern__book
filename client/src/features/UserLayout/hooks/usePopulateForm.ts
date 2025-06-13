@@ -3,7 +3,7 @@ import { isObjOk } from "@/core/lib/lib";
 import { FormSettersProps, UserType } from "@/types/types";
 import { useEffect } from "react";
 import { UseFormGetValues } from "react-hook-form";
-import { UserProfileForm } from "../components/ProfileSettingsPage/ProfileSettingsPageContent";
+import { UserProfileForm } from "../pages/ProfileSettings/ProfileSettings";
 
 type Params = {
   getValues: UseFormGetValues<any>;
