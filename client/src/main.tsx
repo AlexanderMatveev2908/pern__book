@@ -4,7 +4,7 @@ import "./style/index.css";
 import App from "./app/App.tsx";
 import { BrowserRouter } from "react-router-dom";
 import { Provider } from "react-redux";
-import { store } from "./store/store.ts";
+import { store } from "./core/store/store.ts";
 import FormsCtxProvider from "./core/contexts/FormsCtx/FormsCtxProvider.tsx";
 
 createRoot(document.getElementById("root")!).render(

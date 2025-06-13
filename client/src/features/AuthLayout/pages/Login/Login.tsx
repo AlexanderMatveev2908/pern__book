@@ -10,13 +10,13 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ParamsLoginAPI, useLoginUserMutation } from "../../authSliceAPI";
 import { isFormValid } from "@/core/lib/lib";
-import apiSlice from "@/store/apiSlice";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import PwdField from "@/components/forms/inputs/PwdField/PwdField";
 import Button from "@/components/elements/buttons/Button/Button";
 import { emailField, passwordField } from "../../fields/auth";
+import apiSlice from "@/core/store/api/apiSlice";
 
 const schema = z
   .object({

@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { catchErr } from "@/core/lib/lib";
-import apiSlice from "@/store/apiSlice";
 import { TagsAPI } from "@/types/types";
 import { setAllItems } from "./dummySLice";
+import apiSlice from "@/core/store/api/apiSlice";
 
 export const dummySliceAPI = apiSlice.injectEndpoints({
   endpoints: (builder) => ({

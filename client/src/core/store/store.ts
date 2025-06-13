@@ -1,13 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
-import apiSlice from "./apiSlice";
 import authSlice from "@/features/AuthLayout/authSlice";
-import { middlewareErrors } from "./middleware/middlewareErrors";
+import { middlewareErrors } from "./api/middleware/middlewareErrors";
 import sidebarSlice from "@/features/common/Header/headerSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import popupSlice from "@/features/common/Popup/popupSlice";
 import bookStoreSlice from "@/features/OwnerLayout/BookStoresLayout/bookStoreSlice";
 import dummySlice from "@/features/dummy/dummySLice";
 import noticeSlice from "@/features/Notice/noticeSlice";
+import apiSlice from "./api/apiSlice";
 
 export const store = configureStore({
   reducer: {

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeParams } from "@/core/lib/all/forms/processVals/general";
 import { isArrOk } from "@/core/lib/lib";
-import apiSlice from "@/store/apiSlice";
+import apiSlice from "@/core/store/api/apiSlice";
 import { OrderStoreType } from "@/types/all/orders";
 import {
   BaseResAPI,

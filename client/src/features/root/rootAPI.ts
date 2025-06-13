@@ -1,4 +1,4 @@
-import apiSlice from "@/store/apiSlice";
+import apiSlice from "@/core/store/api/apiSlice";
 import { BookType } from "@/types/all/books";
 import { CartType } from "@/types/all/Cart";
 import { BaseResAPI, TagsAPI } from "@/types/types";

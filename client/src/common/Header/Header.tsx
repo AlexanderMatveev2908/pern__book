@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { useDispatch, useSelector } from "react-redux";
-import { DispatchType } from "../../store/store";
+import { DispatchType } from "../../core/store/store";
 import { IoCloseSharp } from "react-icons/io5";
 import { getSIde, toggleSide } from "../../features/common/Header/headerSlice";
 import DropDown from "./components/DropDown";

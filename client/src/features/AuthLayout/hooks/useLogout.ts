@@ -4,7 +4,7 @@ import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { setLoggingOut } from "@/features/AuthLayout/authSlice";
 import { removeStorage } from "@/core/lib/lib";
-import { clearAuthAxios } from "@/store/baseAxiosQuery";
+import { clearAuthAxios } from "@/core/store/api/baseAxiosQuery";
 import { useWrapMutationAPI } from "../../../core/hooks/all/wrappers/useWrapMutationAPI";
 
 export const useLogout = () => {

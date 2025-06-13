@@ -1,6 +1,6 @@
 import { FC, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { DispatchType } from "../../store/store";
+import { DispatchType } from "../../core/store/store";
 import {
   getSIde,
   setIsSideOpen,

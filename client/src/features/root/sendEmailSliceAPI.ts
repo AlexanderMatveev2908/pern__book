@@ -1,4 +1,4 @@
-import apiSlice from "@/store/apiSlice";
+import apiSlice from "@/core/store/api/apiSlice";
 import { SendMailEnd } from "@/types/types";
 
 export interface ParamsSendEmail {

@@ -1,10 +1,10 @@
 import { isRefreshing } from "@/core/lib/lib";
 import authSlice from "@/features/AuthLayout/authSlice";
 import { isRejectedWithValue } from "@reduxjs/toolkit";
-import { handle401, handleLogoutWithAccessExp } from "./handle401";
-import { handleErr403 } from "./handle403";
-import { handle429 } from "./handle429";
+import { handle401, handleLogoutWithAccessExp } from "./handlers/handle401";
+import { handleErr403 } from "./handlers/handle403";
 import { AxiosResponse } from "axios";
+import { handle429 } from "./handlers/handle429";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const middlewareErrors =

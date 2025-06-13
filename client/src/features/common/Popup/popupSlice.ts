@@ -1,4 +1,4 @@
-import { RootStateType } from "@/store/store";
+import { RootStateType } from "@/core/store/store";
 import {
   BtnAct,
   BtnPopupPayloadType,

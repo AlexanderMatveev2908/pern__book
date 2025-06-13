@@ -2,7 +2,7 @@
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { countW } from "@/core/lib/lib";
 import { bookStoreSliceAPI } from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
-import { DispatchType } from "@/store/store";
+import { DispatchType } from "@/core/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BtnAct, BtnPopupKeys, UserType } from "@/types/types";
 import { FC, useMemo } from "react";
