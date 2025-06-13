@@ -1,24 +1,24 @@
-import BookForm from "@/common/forms/BookForm/BookForm";
+import { REG_ID } from "@/core/config/regex";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import type { FC } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { booksSLiceAPI } from "../../booksSliceAPI";
+import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { useMixVars } from "@/core/hooks/all/api/useMixVars";
+import { FormProvider, useForm } from "react-hook-form";
+import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
+import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
+import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
+import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
+import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { REG_ID } from "@/core/config/regex";
-import { BookFormType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
-import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
-import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBookForm";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useMixVars } from "@/core/hooks/all/api/useMixVars";
-import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
-import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
-import { schemaBookForm } from "@/core/lib/all/forms/schemaZ/books";
-import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { type FC } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useNavigate, useParams } from "react-router-dom";
+import BookForm from "@/common/forms/BookForm/BookForm";
 
-const UpdateBook: FC = () => {
+const UpdateBookPageOwnerContent: FC = () => {
   const nav = useNavigate();
 
   const { bookID } = useParams() ?? {};
@@ -128,4 +128,4 @@ const UpdateBook: FC = () => {
   );
 };
 
-export default UpdateBook;
+export default UpdateBookPageOwnerContent;

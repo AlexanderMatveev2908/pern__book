@@ -1,18 +1,18 @@
-import BookForm from "@/common/forms/BookForm/BookForm";
-import BreadCrumb from "@/components/elements/BreadCrumb";
-import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
-import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
-import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
-import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
-import { type FC } from "react";
-import { FormProvider } from "react-hook-form";
+import type { FC } from "react";
 import { useNavigate } from "react-router-dom";
+import { booksSLiceAPI } from "../../booksSliceAPI";
+import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
+import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
+import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import BreadCrumb from "@/components/elements/BreadCrumb";
+import Title from "@/components/elements/Title";
+import { FormProvider } from "react-hook-form";
+import BookForm from "@/common/forms/BookForm/BookForm";
 
-const CreateBook: FC = () => {
+const CreateBookOwnerPageContent: FC = () => {
   const nav = useNavigate();
 
   const { createBookFormCtx: formCtx } = useFormCtxConsumer();
@@ -83,4 +83,4 @@ const CreateBook: FC = () => {
   );
 };
 
-export default CreateBook;
+export default CreateBookOwnerPageContent;
