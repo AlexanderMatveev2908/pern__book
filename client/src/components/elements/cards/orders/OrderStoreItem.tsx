@@ -11,8 +11,6 @@ type PropsType = {
 };
 
 const OrderStoreItem: FC<PropsType> = ({ o }) => {
-  console.log(o.order?.orderedAt);
-
   const images = useMemo(
     () =>
       (o?.orderItemStores ?? [])

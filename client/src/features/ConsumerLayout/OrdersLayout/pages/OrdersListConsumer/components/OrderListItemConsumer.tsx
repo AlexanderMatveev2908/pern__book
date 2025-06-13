@@ -4,6 +4,7 @@ import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
 import { priceFormatter } from "@/core/lib/lib";
 import { OrderType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
+import { FaDatabase } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
 
 type PropsType = {
@@ -32,6 +33,15 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
               spanInfo: {
                 icon: TbPigMoney,
                 label: priceFormatter(+o.amount - +o.discount),
+              },
+            }}
+          />
+
+          <SpanInfoCard
+            {...{
+              spanInfo: {
+                icon: FaDatabase,
+                label: o.totItems,
               },
             }}
           />

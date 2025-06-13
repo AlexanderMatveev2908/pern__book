@@ -4,6 +4,9 @@ import { err422, err500 } from "../../../lib/responseClient/err.js";
 import fs from "fs";
 import { __cg } from "../../../lib/utils/log.js";
 import { User } from "../../../models/all/User.js";
+import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
+import { BookStore } from "../../../models/all/BookStore.js";
+import { Op } from "sequelize";
 
 export const clearMemoryDisk = async (req: ReqApp) => {
   const images = (req?.files as { [fieldname: string]: Express.Multer.File[] })
@@ -35,6 +38,7 @@ export const checkTeam = async (
   res: Response,
   next: NextFunction
 ): Promise<any> => {
+  const { userID } = req;
   const bodyData = req.body;
 
   const team = bodyData?.items;
@@ -49,8 +53,37 @@ export const checkTeam = async (
 
   try {
     const users = await User.findAll({
-      where: { email: team.map((t) => t.email) },
+      where: {
+        email: {
+          [Op.in]: team.map((t) => t.email),
+        },
+      },
     });
+
+    const nHits = await BookStore.count({
+      where: {
+        ownerID: {
+          [Op.in]: users.map((u) => u.id),
+        },
+      },
+      include: [
+        {
+          model: User,
+          as: "team",
+          required: true,
+          where: {
+            id: userID,
+          },
+        },
+      ],
+    });
+
+    if (nHits) {
+      await clearMemoryDisk(req);
+      return err422(res, {
+        msg: "You can not hire your boss 🥸",
+      });
+    }
 
     const rightEmails = new Set(users.map((u) => u.email));
     if (users.length !== team.length) {
@@ -86,6 +119,7 @@ export const checkTeam = async (
 
     return next();
   } catch (err: any) {
+    console.log(err);
     return err500(res);
   }
 };
