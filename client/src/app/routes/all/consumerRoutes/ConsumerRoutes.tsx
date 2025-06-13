@@ -1,7 +1,7 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import { Outlet } from "react-router-dom";
-import BookListConsumer from "@/pages/ConsumerLayout/BooksLayout/BooksListConsumer/BookListConsumer";
-import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsumer/BookPageConsumer";
+import BookListConsumer from "@/features/ConsumerLayout/BooksLayout/pages/BooksListConsumer/BookListConsumer";
+import BookPageConsumer from "@/features/ConsumerLayout/BooksLayout/pages/BookPageConsumer/BookPageConsumer";
 import { cartRoutes } from "./subRoutes/cart";
 import { checkoutRoutes } from "./subRoutes/checkout";
 import Push from "../../helpers/Push";

@@ -1,4 +1,4 @@
-import { FormBookStoreType } from "@/features/OwnerLayout/BookStoresLayout/components/CreateBooksStorePage/CreateBooksStorePageContent";
+import { FormBookStoreType } from "@/features/OwnerLayout/BookStoresLayout/pages/CreateBooksStoreOwner/CreateBooksStoreOwner";
 
 export const makeFormDataStore = (
   formDataHook: FormBookStoreType

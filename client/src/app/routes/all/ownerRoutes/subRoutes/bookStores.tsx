@@ -1,11 +1,11 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
-import BookStoresListPage from "@/pages/OwnerLayout/BookStoreLayout/BookStoresListPage";
-import UpdateBookStorePage from "@/pages/OwnerLayout/BookStoreLayout/UpdateBookStorePage";
-import CreateBooksStorePage from "@/pages/OwnerLayout/BookStoreLayout/CreateBooksStorePage";
 import { Outlet } from "react-router-dom";
-import BookStorePageOwner from "@/pages/OwnerLayout/BookStoreLayout/BookStorePageOwner";
 import Push from "@/app/routes/helpers/Push";
+import BookStoresListOwner from "@/features/OwnerLayout/BookStoresLayout/pages/BookStoresListOwner/BookStoresListOwner";
+import CreateBooksStoreOwner from "@/features/OwnerLayout/BookStoresLayout/pages/CreateBooksStoreOwner/CreateBooksStoreOwner";
+import UpdateBookStoreOwner from "@/features/OwnerLayout/BookStoresLayout/pages/UpdateBookStoreOwner/UpdateBookStoreOwner";
+import BookStorePageOwner from "@/features/OwnerLayout/BookStoresLayout/pages/BookStorePageOwner/BookStorePageOwner";
 
 export const bookStoreRoutes = {
   path: "book-store",
@@ -15,7 +15,7 @@ export const bookStoreRoutes = {
       path: "book-stores",
       element: (
         <SearchCtxProvider>
-          <BookStoresListPage />
+          <BookStoresListOwner />
         </SearchCtxProvider>
       ),
     },
@@ -23,7 +23,7 @@ export const bookStoreRoutes = {
       path: "create",
       element: (
         <SwapCtxProvider>
-          <CreateBooksStorePage />
+          <CreateBooksStoreOwner />
         </SwapCtxProvider>
       ),
     },
@@ -32,7 +32,7 @@ export const bookStoreRoutes = {
       path: "update/:bookStoreID",
       element: (
         <SwapCtxProvider>
-          <UpdateBookStorePage />
+          <UpdateBookStoreOwner />
         </SwapCtxProvider>
       ),
     },

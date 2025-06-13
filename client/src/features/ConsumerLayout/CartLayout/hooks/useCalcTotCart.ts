@@ -1,5 +1,5 @@
 import { calcTotPriceCart, getDeliveryPrice } from "@/core/lib/all/utils/calc";
-import { CartItemsGroupedType } from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
+import { CartItemsGroupedType } from "@/features/ConsumerLayout/CartLayout/pages/CartPage/CartPage";
 import { useMemo } from "react";
 
 type Params = {
