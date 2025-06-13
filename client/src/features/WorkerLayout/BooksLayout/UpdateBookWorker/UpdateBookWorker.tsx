@@ -12,7 +12,7 @@ import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
 import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
 import { isObjOk } from "@/core/lib/lib";
-import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
+import { booksSliceWorkerAPI } from "@/features/WorkerLayout/BooksLayout/booksSliceWorkerAPI";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useEffect, type FC } from "react";

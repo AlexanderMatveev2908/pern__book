@@ -1,9 +1,9 @@
 import Push from "@/app/routes/helpers/Push";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import BookListWorker from "@/pages/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
-import BookPageWorker from "@/pages/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
-import CreateBookWorker from "@/pages/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
-import UpdateBookWorker from "@/pages/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
+import BookListWorker from "@/features/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
+import BookPageWorker from "@/features/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
+import CreateBookWorker from "@/features/WorkerLayout/BooksLayout/CreateBookWorker/CreateBookWorker";
+import UpdateBookWorker from "@/features/WorkerLayout/BooksLayout/UpdateBookWorker/UpdateBookWorker";
 import { Outlet } from "react-router-dom";
 
 export const booksWorkerRoutes = {

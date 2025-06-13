@@ -4,7 +4,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { decapt, isObjOk } from "@/core/lib/lib";
-import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
+import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStoresLayout/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import ActionsWorker from "./components/ActionsWorker";

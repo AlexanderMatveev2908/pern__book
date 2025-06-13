@@ -13,7 +13,7 @@ import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxCon
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
 import { decapt, isArr } from "@/core/lib/lib";
-import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
+import { booksSliceWorkerAPI } from "@/features/WorkerLayout/BooksLayout/booksSliceWorkerAPI";
 import { useEffect, useState, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useParams } from "react-router-dom";

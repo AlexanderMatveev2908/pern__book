@@ -10,7 +10,7 @@ import {
 } from "@/features/common/SearchBar/fields/worker/store";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { isArr } from "@/core/lib/lib";
-import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
+import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStoresLayout/bookStoresWorkerSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookStoreItemWorker from "./components/BookStoreItemWorker";

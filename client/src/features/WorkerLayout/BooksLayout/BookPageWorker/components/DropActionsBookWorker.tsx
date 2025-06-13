@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels/shared";
-import { actionsBookPageWorker } from "@/features/WorkerLayout/Books/fields/actions";
+import { actionsBookPageWorker } from "@/features/WorkerLayout/BooksLayout/fields/actions";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
-import { booksSliceWorkerAPI } from "@/features/WorkerLayout/Books/booksSliceWorkerAPI";
+import { booksSliceWorkerAPI } from "@/features/WorkerLayout/BooksLayout/booksSliceWorkerAPI";
 import { BookType } from "@/types/all/books";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";

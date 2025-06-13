@@ -10,7 +10,7 @@ import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
 import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
 import { isObjOk, isSameData } from "@/core/lib/lib";
-import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStores/bookStoresWorkerSliceAPI";
+import { bookStoresWorkerSliceAPI } from "@/features/WorkerLayout/BookStoresLayout/bookStoresWorkerSliceAPI";
 import { AssetCloudType, UserRole } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useCallback, type FC } from "react";

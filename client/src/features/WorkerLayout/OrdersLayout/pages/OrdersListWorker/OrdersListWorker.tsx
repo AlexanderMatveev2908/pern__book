@@ -14,7 +14,7 @@ import {
   sortersOrdersWorker,
 } from "@/features/common/SearchBar/fields/worker/orders";
 import { schemaOrdersWorker } from "@/features/common/SearchBar/schemasZ/worker/orders";
-import { ordersWorkerSliceAPI } from "@/features/WorkerLayout/Orders/ordersWorkerSliceAPI";
+import { ordersWorkerSliceAPI } from "@/features/WorkerLayout/OrdersLayout/ordersWorkerSliceAPI";
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import OrderStoreItemWorker from "./components/OrderStoreItemWorker";

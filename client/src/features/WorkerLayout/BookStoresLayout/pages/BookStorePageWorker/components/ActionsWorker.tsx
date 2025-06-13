@@ -4,7 +4,7 @@ import {
   KEY_MAP_STORE,
   manageDropLabelGeneral,
 } from "@/core/config/fieldsData/labels/shared";
-import { actionsBookStoreWorker } from "@/features/WorkerLayout/BookStores/fields/actions";
+import { actionsBookStoreWorker } from "@/features/WorkerLayout/BookStoresLayout/fields/actions";
 import { BookStoreType } from "@/types/all/bookStore";
 import { UserRole } from "@/types/types";
 import { useMemo, type FC } from "react";
