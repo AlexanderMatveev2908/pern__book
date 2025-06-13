@@ -5,7 +5,7 @@ import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { isArr } from "@/core/lib/lib";
-import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
 import { type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";

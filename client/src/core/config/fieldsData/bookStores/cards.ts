@@ -7,7 +7,7 @@ import { RiTeamFill } from "react-icons/ri";
 import { v4 } from "uuid";
 import { MdConnectWithoutContact } from "react-icons/md";
 import { CiTextAlignJustify } from "react-icons/ci";
-import { genValsRating } from "@/features/OwnerLayout/fields/general";
+import { genValsRating } from "@/features/OwnerLayout/shared/fields/general";
 
 export const statsBooks = (bookStore?: BookStoreType) =>
   [

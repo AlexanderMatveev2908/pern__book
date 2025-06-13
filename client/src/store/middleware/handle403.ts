@@ -1,4 +1,4 @@
-import noticeSlice from "@/features/Notice/noticeSlice";
+import noticeSlice from "@/features/NoticePage/noticeSlice";
 import {
   AllowedFromApp,
   EventApp,

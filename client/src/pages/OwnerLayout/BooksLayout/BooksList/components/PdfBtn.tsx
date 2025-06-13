@@ -2,7 +2,7 @@
 import ButtonIcon from "@/components/elements/buttons/ButtonIcon/ButtonIcon";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { __cg } from "@/core/lib/lib";
-import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
+import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
 import { type FC } from "react";
 import { FaFilePdf } from "react-icons/fa";
 

@@ -1,7 +1,7 @@
 import { useEffect, useRef, type FC } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import { getNoticeState } from "../Notice/noticeSlice";
+import { getNoticeState } from "./noticeSlice";
 import { canStayNotice } from "@/core/lib/lib";
 import Push from "@/app/routes/helpers/Push";
 import { EventApp } from "@/types/types";

@@ -5,6 +5,6 @@ export * from "./all/wrappers/useWrapMutationAPI.js";
 export * from "./all/wrappers/useWrapQueryAPI.js";
 export * from "../../features/AuthLayout/hooks/useLogout.js";
 export * from "../../features/UserLayout/hooks/usePopulateForm.js";
-export * from "../../features/Notice/hooks/useNotice.js";
+export * from "../../features/NoticePage/hooks/useNotice.js";
 export * from "./all/api/useClearCacheItem";
 export * from "./all/UI/useFocus.js";

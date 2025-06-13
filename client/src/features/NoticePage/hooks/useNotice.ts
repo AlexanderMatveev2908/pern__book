@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setNotice } from "@/features/Notice/noticeSlice";
+import { setNotice } from "@/features/NoticePage/noticeSlice";
 import { saveStorage } from "@/core/lib/lib";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";

@@ -1,30 +1,30 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { countW } from "@/core/lib/lib";
-import { bookStoreSliceAPI } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
+import { bookStoreSliceAPI } from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
 import { DispatchType } from "@/store/store";
 import { BookStoreType } from "@/types/all/bookStore";
 import { BtnAct, BtnPopupKeys, UserType } from "@/types/types";
 import { FC, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import {
-  KEY_MAP_STORE,
-  manageDropLabelGeneral,
-} from "../../../../../core/config/fieldsData/labels/shared";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { v4 } from "uuid";
 import { fieldsInputsBooks } from "@/features/common/SearchBar/fields/owner/books";
 import {
   actionsBookStoreAdmin,
   labelsBookStore,
-} from "@/features/OwnerLayout/bookStores/fields/actions";
+} from "@/features/OwnerLayout/BookStoresLayout/fields/actions";
 import {
   closePopup,
   loadPop,
   openPopup,
 } from "@/features/common/Popup/popupSlice";
 import DropActionsMapObj from "@/components/elements/dropMenus/dropActionsHOC/DropActionsMapObj";
+import {
+  KEY_MAP_STORE,
+  manageDropLabelGeneral,
+} from "@/core/config/fieldsData/labels/shared";
 
 type PropsType = {
   bookStore?: BookStoreType;

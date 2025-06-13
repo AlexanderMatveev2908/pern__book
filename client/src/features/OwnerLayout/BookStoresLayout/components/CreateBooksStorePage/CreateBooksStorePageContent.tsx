@@ -1,27 +1,27 @@
-import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
-import Title from "@/components/elements/Title";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
-import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useEffect } from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useEffect, type FC } from "react";
+import { useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { useCreateBookStoreMutation } from "../../bookStoreSliceAPI";
+import { schemaBookStore } from "@/core/lib/all/forms/schemaZ/bookStore";
+import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
-import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import { useNavigate } from "react-router-dom";
-import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useCreateBookStoreMutation } from "@/features/OwnerLayout/bookStores/bookStoreSliceAPI";
-import BreadCrumb from "@/components/elements/BreadCrumb";
 import { fieldsSwapStore } from "@/core/config/fieldsData/bookStores/forms";
+import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
+import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import BreadCrumb from "@/components/elements/BreadCrumb";
+import Title from "@/components/elements/Title";
+import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
-const CreateBooksStore: FC = () => {
+const CreateBooksStorePageContent: FC = () => {
   const nav = useNavigate();
   const { user } = useGetU();
 
@@ -106,6 +106,7 @@ const CreateBooksStore: FC = () => {
       },
     ]);
   }, [setValue]);
+
   return (
     <WrapPageAPI {...{ canStay: user?.isVerified }}>
       <BreadCrumb
@@ -132,4 +133,5 @@ const CreateBooksStore: FC = () => {
     </WrapPageAPI>
   );
 };
-export default CreateBooksStore;
+
+export default CreateBooksStorePageContent;

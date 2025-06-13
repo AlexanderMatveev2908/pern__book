@@ -2,8 +2,8 @@
 import DropActionsObj from "@/components/elements/dropMenus/dropActionsHOC/DropActionsObj";
 import { manageDropLabelGeneral } from "@/core/config/fieldsData/labels/shared";
 import { useDeleteBook } from "@/core/hooks/all/forms/books/useDeleteBook";
-import { booksSLiceAPI } from "@/features/OwnerLayout/books/booksSliceAPI";
-import { actionsBookPage } from "@/features/OwnerLayout/books/fields/actions";
+import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
+import { actionsBookPage } from "@/features/OwnerLayout/BooksLayout/fields/actions";
 import { BookType } from "@/types/all/books";
 import { useMemo, type FC } from "react";
 import { useNavigate } from "react-router-dom";
