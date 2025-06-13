@@ -1,6 +1,6 @@
 import CartLayout from "@/app/layouts/ConsumerLayout/subLayouts/CartLayout";
 import Push from "@/app/routes/helpers/Push";
-import CartPage from "@/pages/ConsumerLayout/CartLayout/CartPage/CartPage";
+import CartPage from "@/features/ConsumerLayout/CartLayout/pages/CartPage/CartPage";
 
 export const cartRoutes = {
   path: "cart",
