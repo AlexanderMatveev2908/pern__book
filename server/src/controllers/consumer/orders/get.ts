@@ -8,6 +8,7 @@ import { Book } from "../../../models/all/Book.js";
 import { BookStore } from "../../../models/all/BookStore.js";
 import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
 import { literal } from "sequelize";
+import { err404 } from "../../../lib/responseClient/err.js";
 
 export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -69,4 +70,36 @@ export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
     nHits,
     totPages,
   });
+};
+
+export const getOrderConsumer = async (req: ReqApp, res: Response) => {
+  const { userID } = req;
+  const { orderID } = req.params;
+
+  const order = await Order.findOne({
+    where: {
+      id: orderID,
+      userID,
+    },
+    include: [
+      {
+        model: OrderStore,
+        as: "orderStores",
+        separate: true,
+        required: true,
+        include: [
+          {
+            model: OrderItemStore,
+            as: "orderItemStores",
+            separate: true,
+            required: true,
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!order) return err404(res, { msg: "Order not found" });
+
+  return res200(res, { order });
 };

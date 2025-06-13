@@ -33,5 +33,7 @@ export const consumerRoutes = {
     cartRoutes,
     checkoutRoutes,
     ordersConsumerRoutes,
+
+    FB_404(),
   ],
 };
