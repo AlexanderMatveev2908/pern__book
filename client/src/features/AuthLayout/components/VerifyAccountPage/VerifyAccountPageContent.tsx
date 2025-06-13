@@ -2,9 +2,9 @@ import EmailForm from "@/common/forms/EmailForm/EmailForm";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import { useEmailVerifyAccount } from "@/core/hooks/all/forms/email/useEmailVerifyAccount";
 import { SendMailEnd } from "@/types/types";
-import { FC } from "react";
+import type { FC } from "react";
 
-const VerifyAccount: FC = () => {
+const VerifyAccountPageContent: FC = () => {
   const { isLoading, handleSave, form } = useEmailVerifyAccount(
     SendMailEnd.VERIFY_ACCOUNT
   );
@@ -16,4 +16,4 @@ const VerifyAccount: FC = () => {
   );
 };
 
-export default VerifyAccount;
+export default VerifyAccountPageContent;

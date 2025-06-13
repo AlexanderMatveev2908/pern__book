@@ -4,7 +4,7 @@ import ChoseNewPwd from "@/pages/AuthLayout/ChoseNewPwd/ChoseNewPwd";
 import ForgotPwd from "@/pages/AuthLayout/ForgotPwd/ForgotPwd";
 import LoginPage from "@/pages/AuthLayout/LoginPage";
 import RegisterPage from "@/pages/AuthLayout/RegisterPage";
-import VerifyAccount from "@/pages/AuthLayout/VerifyAccount/VerifyAccount";
+import VerifyAccountPage from "@/pages/AuthLayout/VerifyAccountPage";
 import Push from "../helpers/Push";
 
 export const authRoutes = {
@@ -20,7 +20,7 @@ export const authRoutes = {
       ),
     },
     { path: "login", element: <LoginPage /> },
-    { path: "verify-account", element: <VerifyAccount /> },
+    { path: "verify-account", element: <VerifyAccountPage /> },
     { path: "forgot-pwd", element: <ForgotPwd /> },
     { path: "chose-new-pwd", element: <ChoseNewPwd /> },
     { path: "*", element: <Push /> },
