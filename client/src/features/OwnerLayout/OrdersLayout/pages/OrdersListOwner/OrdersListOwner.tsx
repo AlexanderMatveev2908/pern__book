@@ -19,7 +19,7 @@ import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import OrderStoreItemOwner from "./components/OrderStoreItemOwner";
 
-const OrdersList: FC = () => {
+const OrdersListOwner: FC = () => {
   const { user } = useGetU();
 
   const hook = ownerOrdersSliceAPI.useLazyGetOwnerOrdersListQuery();
@@ -68,4 +68,4 @@ const OrdersList: FC = () => {
   );
 };
 
-export default OrdersList;
+export default OrdersListOwner;

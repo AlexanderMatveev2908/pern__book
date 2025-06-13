@@ -1,8 +1,8 @@
 import Push from "@/app/routes/helpers/Push";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import OrderPageOwner from "@/pages/OwnerLayout/OrdersLayout/OrderPage/OrderPageOwner";
-import OrdersList from "@/pages/OwnerLayout/OrdersLayout/OrdersList/OrdersList";
-import UpdateOrderOwner from "@/pages/OwnerLayout/OrdersLayout/UpdateOrder/UpdateOrderOwner";
+import OrderPageOwner from "@/features/OwnerLayout/OrdersLayout/pages/OrderPageOwner/OrderPageOwner";
+import OrdersListOwner from "@/features/OwnerLayout/OrdersLayout/pages/OrdersListOwner/OrdersListOwner";
+import UpdateOrderOwner from "@/features/OwnerLayout/OrdersLayout/pages/UpdateOrderOwner/UpdateOrderOwner";
 import { Outlet } from "react-router-dom";
 
 export const ordersRoutes = {
@@ -13,7 +13,7 @@ export const ordersRoutes = {
       path: "list",
       element: (
         <SearchCtxProvider>
-          <OrdersList />
+          <OrdersListOwner />
         </SearchCtxProvider>
       ),
     },
