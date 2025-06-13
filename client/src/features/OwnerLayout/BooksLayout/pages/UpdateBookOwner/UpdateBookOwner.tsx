@@ -18,7 +18,7 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import BookForm from "@/common/forms/BookForm/BookForm";
 
-const UpdateBookPageOwnerContent: FC = () => {
+const UpdateBookOwner: FC = () => {
   const nav = useNavigate();
 
   const { bookID } = useParams() ?? {};
@@ -128,4 +128,4 @@ const UpdateBookPageOwnerContent: FC = () => {
   );
 };
 
-export default UpdateBookPageOwnerContent;
+export default UpdateBookOwner;

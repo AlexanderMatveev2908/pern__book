@@ -13,7 +13,7 @@ import {
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
 import { useMakeSchemaXStore } from "@/core/hooks/all/forms/bookStore/useMakeSchemaXStore";
-import { FormBookStoreType } from "../CreateBooksStorePage/CreateBooksStorePageContent";
+import { FormBookStoreType } from "../CreateBooksStoreOwner/CreateBooksStoreOwner";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
@@ -42,7 +42,7 @@ import Title from "@/components/elements/Title";
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
 
-const UpdateBookStorePageContent: FC = () => {
+const UpdateBookStoreOwner: FC = () => {
   const nav = useNavigate();
 
   const { user } = useGetU();
@@ -197,4 +197,4 @@ const UpdateBookStorePageContent: FC = () => {
   );
 };
 
-export default UpdateBookStorePageContent;
+export default UpdateBookStoreOwner;

@@ -4,7 +4,7 @@ import {
   optKeysStore,
 } from "@/core/config/fieldsData/bookStores/forms";
 import { isObjOk } from "@/core/lib/lib";
-import { FormBookStoreType } from "@/features/OwnerLayout/BookStoresLayout/components/CreateBooksStorePage/CreateBooksStorePageContent";
+import { FormBookStoreType } from "@/features/OwnerLayout/BookStoresLayout/pages/CreateBooksStoreOwner/CreateBooksStoreOwner";
 import { BookStoreType } from "@/types/all/bookStore";
 import { useEffect } from "react";
 import { UseFormSetValue } from "react-hook-form";

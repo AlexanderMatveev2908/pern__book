@@ -21,7 +21,7 @@ import { UserRole } from "@/types/types";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
-const CreateBooksStorePageContent: FC = () => {
+const CreateBooksStoreOwner: FC = () => {
   const nav = useNavigate();
   const { user } = useGetU();
 
@@ -134,4 +134,4 @@ const CreateBooksStorePageContent: FC = () => {
   );
 };
 
-export default CreateBooksStorePageContent;
+export default CreateBooksStoreOwner;

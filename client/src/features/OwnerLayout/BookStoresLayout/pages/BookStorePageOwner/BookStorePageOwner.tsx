@@ -14,7 +14,7 @@ import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/Imag
 import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
 import DropActionsOwner from "./components/DropActionsOwner";
 
-const BookStorePageOwnerContent: FC = () => {
+const BookStorePageOwner: FC = () => {
   const { bookStoreID } = useParams() ?? {};
   const itPass = useMemo(() => REG_ID.test(bookStoreID ?? ""), [bookStoreID]);
   const { user } = useGetU();
@@ -81,4 +81,4 @@ const BookStorePageOwnerContent: FC = () => {
   );
 };
 
-export default BookStorePageOwnerContent;
+export default BookStorePageOwner;

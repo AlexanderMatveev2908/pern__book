@@ -7,10 +7,10 @@ import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
-import DropActionsBook from "@/features/OwnerLayout/BooksLayout/components/BookPageOwner/components/DropActionsBook";
+import DropActionsBook from "@/features/OwnerLayout/BooksLayout/pages/BookPageOwner/components/DropActionsBook";
 import BookPage from "@/components/elements/cards/books/BookPage";
 
-const BookPageOwnerContent: FC = () => {
+const BookPageOwner: FC = () => {
   const { bookID = "" } = useParams();
   const itPass = REG_ID.test(bookID);
 
@@ -46,4 +46,4 @@ const BookPageOwnerContent: FC = () => {
   );
 };
 
-export default BookPageOwnerContent;
+export default BookPageOwner;

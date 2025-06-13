@@ -12,7 +12,7 @@ import Title from "@/components/elements/Title";
 import { FormProvider } from "react-hook-form";
 import BookForm from "@/common/forms/BookForm/BookForm";
 
-const CreateBookOwnerPageContent: FC = () => {
+const CreateBookOwner: FC = () => {
   const nav = useNavigate();
 
   const { createBookFormCtx: formCtx } = useFormCtxConsumer();
@@ -83,4 +83,4 @@ const CreateBookOwnerPageContent: FC = () => {
   );
 };
 
-export default CreateBookOwnerPageContent;
+export default CreateBookOwner;

@@ -15,10 +15,10 @@ import {
 } from "@/features/common/SearchBar/fields/owner/store";
 import { searchBarStore } from "@/features/common/SearchBar/schemasZ/owner/store";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
-import BookStoreItemOwner from "@/features/OwnerLayout/BookStoresLayout/components/BookStoresListPage/components/BookStoreItem";
+import BookStoreItemOwner from "@/features/OwnerLayout/BookStoresLayout/pages/BookStoresListOwner/components/BookStoreItem";
 import { isArr } from "@/core/lib/lib";
 
-const BookStoresListPageContent: FC = () => {
+const BookStoresListOwner: FC = () => {
   const { user } = useGetU();
 
   // ? I DECIDED TO HANDLE THE REQUEST OF DATA INSIDE BUTTONS OF SEARCH__BAR TO ENCAPSULATE LOGIC AND AVOID REPEATING SAME CODE WITH ALMOST NONE DIFFERENCES
@@ -70,4 +70,4 @@ const BookStoresListPageContent: FC = () => {
   );
 };
 
-export default BookStoresListPageContent;
+export default BookStoresListOwner;

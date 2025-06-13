@@ -18,10 +18,10 @@ import { booksFilters } from "@/features/common/SearchBar/fields/general/books";
 import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { isArr } from "@/core/lib/lib";
-import BookItemOwner from "@/features/OwnerLayout/BooksLayout/components/BooksListOwnerPage/components/BookItemOwner";
-import PdfBtn from "@/features/OwnerLayout/BooksLayout/components/BooksListOwnerPage/components/PdfBtn";
+import BookItemOwner from "@/features/OwnerLayout/BooksLayout/pages/BooksListOwner/components/BookItemOwner";
+import PdfBtn from "@/features/OwnerLayout/BooksLayout/pages/BooksListOwner/components/PdfBtn";
 
-const BooksListOwnerPageContent: FC = () => {
+const BooksListOwner: FC = () => {
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
   const { innerJoinedCatCtx, setInnerJoinedCat } = useSearchCtx();
@@ -81,4 +81,4 @@ const BooksListOwnerPageContent: FC = () => {
   );
 };
 
-export default BooksListOwnerPageContent;
+export default BooksListOwner;
