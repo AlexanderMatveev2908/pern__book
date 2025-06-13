@@ -1,6 +1,6 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
-import BookStores from "@/pages/OwnerLayout/BookStoreLayout/BookStores/BookStores";
+import BookStoresListPage from "@/pages/OwnerLayout/BookStoreLayout/BookStoresListPage";
 import UpdateBookStore from "@/pages/OwnerLayout/BookStoreLayout/UpdateBookStore/UpdateBookStore";
 import CreateBooksStorePage from "@/pages/OwnerLayout/BookStoreLayout/CreateBooksStorePage";
 import { Outlet } from "react-router-dom";
@@ -15,7 +15,7 @@ export const bookStoreRoutes = {
       path: "book-stores",
       element: (
         <SearchCtxProvider>
-          <BookStores />
+          <BookStoresListPage />
         </SearchCtxProvider>
       ),
     },

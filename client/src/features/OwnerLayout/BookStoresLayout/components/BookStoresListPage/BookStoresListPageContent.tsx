@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/SearchBar/SearchBar";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import type { FC } from "react";
+import { bookStoreSliceAPI } from "../../bookStoreSliceAPI";
+import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import BreadCrumb from "@/components/elements/BreadCrumb";
+import { FormProvider } from "react-hook-form";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import {
   fieldsSearchStore,
   numericFiltersStore,
   sorterStore,
   storeFilters,
 } from "@/features/common/SearchBar/fields/owner/store";
-import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { FC } from "react";
-import { FormProvider } from "react-hook-form";
-import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { bookStoreSliceAPI } from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
-import { isArr } from "@/core/lib/lib";
-import BookStoreItemOwner from "./components/BookStoreItem";
-import BreadCrumb from "@/components/elements/BreadCrumb";
 import { searchBarStore } from "@/features/common/SearchBar/schemasZ/owner/store";
+import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
+import BookStoreItemOwner from "@/features/OwnerLayout/BookStoresLayout/components/BookStoresListPage/components/BookStoreItem";
+import { isArr } from "@/core/lib/lib";
 
-const BookStores: FC = () => {
+const BookStoresListPageContent: FC = () => {
   const { user } = useGetU();
 
   // ? I DECIDED TO HANDLE THE REQUEST OF DATA INSIDE BUTTONS OF SEARCH__BAR TO ENCAPSULATE LOGIC AND AVOID REPEATING SAME CODE WITH ALMOST NONE DIFFERENCES
@@ -70,4 +70,4 @@ const BookStores: FC = () => {
   );
 };
 
-export default BookStores;
+export default BookStoresListPageContent;
