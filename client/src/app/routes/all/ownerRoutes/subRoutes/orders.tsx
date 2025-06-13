@@ -1,4 +1,4 @@
-import Push from "@/app/routes/helpers/Push";
+import { FB_404 } from "@/app/routes/helpers/FB";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import OrderPageOwner from "@/features/OwnerLayout/OrdersLayout/pages/OrderPageOwner/OrderPageOwner";
 import OrdersListOwner from "@/features/OwnerLayout/OrdersLayout/pages/OrdersListOwner/OrdersListOwner";
@@ -25,9 +25,6 @@ export const ordersRoutes = {
       path: "patch/:orderID",
       element: <UpdateOrderOwner />,
     },
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };

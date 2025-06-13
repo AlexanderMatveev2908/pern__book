@@ -1,10 +1,10 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import UserLayout from "@/app/layouts/UserLayout";
-import Push from "../helpers/Push";
 import VerifyAccountLogged from "@/features/UserLayout/pages/VerifyAccountLogged/VerifyAccountLogged";
 import ProfileSettings from "@/features/UserLayout/pages/ProfileSettings/ProfileSettings";
 import ManageAccount from "@/features/UserLayout/pages/ManageAccount/ManageAccount";
 import SecurityPwd from "@/features/UserLayout/pages/SecurityPwd/SecurityPwd";
+import { FB_404 } from "../helpers/FB";
 
 export const userRoutes = {
   path: "user",
@@ -30,9 +30,6 @@ export const userRoutes = {
       path: "security",
       element: <SecurityPwd />,
     },
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };

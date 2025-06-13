@@ -4,8 +4,8 @@ import BookListConsumer from "@/features/ConsumerLayout/BooksLayout/pages/BooksL
 import BookPageConsumer from "@/features/ConsumerLayout/BooksLayout/pages/BookPageConsumer/BookPageConsumer";
 import { cartRoutes } from "./subRoutes/cart";
 import { checkoutRoutes } from "./subRoutes/checkout";
-import Push from "../../helpers/Push";
 import { ordersConsumerRoutes } from "./subRoutes/orders";
+import { FB_404 } from "../../helpers/FB";
 
 export const consumerRoutes = {
   path: "consumer",
@@ -27,10 +27,7 @@ export const consumerRoutes = {
           path: ":bookID",
           element: <BookPageConsumer />,
         },
-        {
-          path: "*",
-          element: <Push />,
-        },
+        FB_404(),
       ],
     },
     cartRoutes,

@@ -1,10 +1,10 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import { Outlet } from "react-router-dom";
-import Push from "@/app/routes/helpers/Push";
 import CreateBookOwner from "@/features/OwnerLayout/BooksLayout/pages/CreateBookOwner/CreateBookOwner";
 import UpdateBookOwner from "@/features/OwnerLayout/BooksLayout/pages/UpdateBookOwner/UpdateBookOwner";
 import BooksListOwner from "@/features/OwnerLayout/BooksLayout/pages/BooksListOwner/BooksListOwner";
 import BookPageOwner from "@/features/OwnerLayout/BooksLayout/pages/BookPageOwner/BookPageOwner";
+import { FB_404 } from "@/app/routes/helpers/FB";
 
 export const booksRoutes = {
   path: "books",
@@ -21,6 +21,6 @@ export const booksRoutes = {
       ),
     },
     { path: ":bookID", element: <BookPageOwner /> },
-    { path: "*", element: <Push /> },
+    FB_404(),
   ],
 };

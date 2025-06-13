@@ -1,5 +1,5 @@
 import CartLayout from "@/app/layouts/ConsumerLayout/subLayouts/CartLayout";
-import Push from "@/app/routes/helpers/Push";
+import { FB_404 } from "@/app/routes/helpers/FB";
 import CartPage from "@/features/ConsumerLayout/CartLayout/pages/CartPage/CartPage";
 
 export const cartRoutes = {
@@ -11,9 +11,6 @@ export const cartRoutes = {
       element: <CartPage />,
     },
 
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };
