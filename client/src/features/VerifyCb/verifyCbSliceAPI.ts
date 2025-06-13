@@ -8,7 +8,7 @@ export interface ParamsVerifyCB {
   event: TokenEventType;
 }
 
-const verifyCbAPI = apiSlice.injectEndpoints({
+const VerifyCb = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     verifyAccount: builder.mutation({
       query: (params: ParamsVerifyCB) => ({
@@ -46,4 +46,4 @@ export const {
   useVerifyAccountMutation,
   useVerifyEmailForgotPwdMutation,
   useVerifyNewEmailMutation,
-} = verifyCbAPI;
+} = VerifyCb;

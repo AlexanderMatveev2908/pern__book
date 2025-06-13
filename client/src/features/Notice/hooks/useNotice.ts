@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { setNotice } from "@/features/NoticePage/noticeSlice";
 import { saveStorage } from "@/core/lib/lib";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { setNotice } from "../noticeSlice";
 
 export const useNotice = () => {
   const nav = useNavigate();

@@ -1,4 +1,3 @@
-import noticeSlice from "@/features/NoticePage/noticeSlice";
 import {
   AllowedFromApp,
   EventApp,
@@ -9,6 +8,7 @@ import { formatMsgCode, getMsgErr, goTo, saveStorage } from "@/core/lib/lib";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import { AxiosResponse } from "axios";
 import { MiddlewareAPI } from "@reduxjs/toolkit";
+import noticeSlice from "@/features/Notice/noticeSlice";
 
 export const formattedMessagesVerify = Object.values(MsgCheckToken).map((msg) =>
   formatMsgCode(msg)

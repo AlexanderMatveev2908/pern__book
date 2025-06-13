@@ -4,7 +4,7 @@ import { RootStateType } from "@/store/store";
 import { EventApp, StorageKeys } from "@/types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-interface NoticeState {
+export interface NoticeState {
   status: number;
   notice: string;
   type: EventApp;

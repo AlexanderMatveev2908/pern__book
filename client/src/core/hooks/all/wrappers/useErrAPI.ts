@@ -4,8 +4,8 @@ import { EventApp } from "@/types/types";
 import { useCallback } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useNotice } from "../../../../features/NoticePage/hooks/useNotice";
 import { AxiosResponse } from "axios";
+import { useNotice } from "../../hooks";
 
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const useErrAPI = () => {

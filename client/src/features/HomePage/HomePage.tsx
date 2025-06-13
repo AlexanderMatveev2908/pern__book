@@ -2,14 +2,14 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
 import { rootAPI } from "@/features/root/rootAPI";
-import CardInfo from "@/features/HomePage/components/components/CardInfo/CardInfo";
-import SlidersHome from "@/features/HomePage/components/components/slidersHome/SlidersHome";
+import CardInfo from "@/features/HomePage/components/CardInfo/CardInfo";
+import SlidersHome from "@/features/HomePage/components/slidersHome/SlidersHome";
 import { argSNAS, infosAppHome } from "@/features/HomePage/fields/infoApp";
 import apiSlice from "@/store/apiSlice";
 import { useEffect, type FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
-const HomePageContent: FC = () => {
+const HomePage: FC = () => {
   const authState = useSelector(getAuthState);
   const dispatch = useDispatch();
 
@@ -52,4 +52,4 @@ const HomePageContent: FC = () => {
   );
 };
 
-export default HomePageContent;
+export default HomePage;

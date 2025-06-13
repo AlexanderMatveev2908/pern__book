@@ -1,5 +1,5 @@
 import { REG_ID, REG_TOK } from "@/core/config/regex";
-import { ParamsVerifyCB } from "@/features/VerifyCbPage/verifyCbSliceAPI";
+import { ParamsVerifyCB } from "@/features/VerifyCb/verifyCbSliceAPI";
 import { NestedIndexProp, TokenEventType } from "@/types/types";
 import { AxiosError } from "axios";
 

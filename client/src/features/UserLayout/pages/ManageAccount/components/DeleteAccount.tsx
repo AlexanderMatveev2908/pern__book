@@ -4,7 +4,7 @@ import {
   loadPop,
   openPopup,
 } from "@/features/common/Popup/popupSlice";
-import { useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { BtnAct, BtnPopupKeys, StorageKeys } from "@/types/types";
 import { Trash2 } from "lucide-react";
 import { FC } from "react";
@@ -15,6 +15,7 @@ import apiSlice from "@/store/apiSlice";
 import { clearAuthAxios } from "@/store/baseAxiosQuery";
 import { useDeleteAccountMutation } from "@/features/UserLayout/userSliceAPI";
 import { useHandleDangerAccount } from "@/features/UserLayout/hooks/useHandleDangerAccount";
+import { useNotice } from "@/features/Notice/hooks/useNotice";
 
 const el = {
   icon: Trash2,

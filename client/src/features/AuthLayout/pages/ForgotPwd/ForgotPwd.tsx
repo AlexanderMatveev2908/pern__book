@@ -2,8 +2,9 @@
 import EmailForm from "@/common/forms/EmailForm/EmailForm";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import { useMakeFormEmail } from "@/core/hooks/all/forms/email/useMakeFormEmail";
-import { useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { makeNoticeTxt } from "@/core/lib/lib";
+import { useNotice } from "@/features/Notice/hooks/useNotice";
 import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
 import { SendMailEnd } from "@/types/types";
 import type { FC } from "react";

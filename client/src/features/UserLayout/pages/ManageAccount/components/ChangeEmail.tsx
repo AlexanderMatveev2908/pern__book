@@ -5,13 +5,14 @@ import { FC, useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { StorageKeys } from "@/types/types";
-import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useFocus, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { useUpdateEmailMutation } from "@/features/UserLayout/userSliceAPI";
 import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useHandleDangerAccount } from "@/features/UserLayout/hooks/useHandleDangerAccount";
 import { newEmailField } from "@/features/UserLayout/fields/manageAccount";
+import { useNotice } from "@/features/Notice/hooks/useNotice";
 
 type PropsType = {
   cond: boolean;
