@@ -88,6 +88,8 @@ const Sidebar: FC = () => {
     () =>
       sideFieldsAllUsers.filter((el) => {
         if (el.path === "/consumer/cart") return user?.cartCount;
+        else if (el.path === "/consumer/orders/list")
+          return user?.hasConsumerOrders;
         return true;
       }),
     [user]

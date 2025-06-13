@@ -20,7 +20,7 @@ const OrderStoreItemWorker: FC<PropsType> = ({ o }) => {
       <div className="footer_card">
         <PairBtnsLink
           {...{
-            ids: [`/worker/orders/${o.id}`, `/worker/orders/patch/${o.id}`],
+            ids: [`/worker/orders/${o.id}`],
           }}
         />
       </div>

@@ -5,6 +5,7 @@ import BookPageConsumer from "@/pages/ConsumerLayout/BooksLayout/BookPageConsume
 import { cartRoutes } from "./subRoutes/cart";
 import { checkoutRoutes } from "./subRoutes/checkout";
 import Push from "../../helpers/Push";
+import { ordersConsumerRoutes } from "./subRoutes/orders";
 
 export const consumerRoutes = {
   path: "consumer",
@@ -34,5 +35,6 @@ export const consumerRoutes = {
     },
     cartRoutes,
     checkoutRoutes,
+    ordersConsumerRoutes,
   ],
 };

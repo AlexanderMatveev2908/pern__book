@@ -1,24 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { FC, useEffect, useMemo } from "react";
+import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
+import { useEffect, useMemo, type FC } from "react";
+import { useNavigate } from "react-router-dom";
+import { clearNavigating, getAuthState } from "../../authSlice";
+import { useDispatch, useSelector } from "react-redux";
 import { z } from "zod";
+import { schemaLogin } from "../../forms/auth";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
-import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { ParamsLoginAPI, useLoginUserMutation } from "../../authSliceAPI";
+import { isFormValid } from "@/core/lib/lib";
 import apiSlice from "@/store/apiSlice";
-import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
-import { isFormValid, schemaLogin } from "@/core/lib/lib";
-import { clearNavigating, getAuthState } from "@/features/AuthLayout/authSlice";
-import {
-  ParamsLoginAPI,
-  useLoginUserMutation,
-} from "@/features/AuthLayout/authSliceAPI";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
-import PwdField from "@/components/forms/inputs/PwdField/PwdField";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
+import PwdField from "@/components/forms/inputs/PwdField/PwdField";
 import Button from "@/components/elements/buttons/Button/Button";
-import { emailField, passwordField } from "@/features/AuthLayout/fields/auth";
+import { emailField, passwordField } from "../../fields/auth";
 
 const schema = z
   .object({
@@ -39,7 +37,7 @@ const schema = z
 
 export type LoginFormType = z.infer<typeof schema>;
 
-const Login: FC = () => {
+const LoginPageContent: FC = () => {
   const navigate = useNavigate();
 
   const { wrapMutationAPI } = useWrapMutationAPI();
@@ -89,6 +87,7 @@ const Login: FC = () => {
       dispatch(apiSlice.util.resetApiState());
     }
   }, [authState.pushedOut, dispatch]);
+
   return (
     <WrapperAuthPage {...{ title: "login" }}>
       <div className="p_form__1">
@@ -126,4 +125,5 @@ const Login: FC = () => {
     </WrapperAuthPage>
   );
 };
-export default Login;
+
+export default LoginPageContent;

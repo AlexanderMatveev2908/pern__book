@@ -106,6 +106,19 @@ export const getUserProfile = async (
           )`),
           "hasBusinessOrders",
         ],
+
+        [
+          literal(`(
+        EXISTS 
+        (
+        SELECT 1 
+        FROM "orders" AS o
+        WHERE o."userID" = "User"."id"
+        AND o."deletedAt" IS NULL
+        )  
+          )`),
+          "hasConsumerOrders",
+        ],
       ],
     },
     // include is like populate in mongoose ODM( object data modelling instead of object relational mapping) that allow u to get the data referenced by id after `populate` that field with real data and not just leaving the id as string

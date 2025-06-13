@@ -1,11 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { login } from "@/features/AuthLayout/authSlice";
-import {
-  RegisterParamsAPI,
-  useRegisterUserMutation,
-} from "@/features/AuthLayout/authSliceAPI";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
-import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
+import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
+import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import {
   useFocus,
   useNotice,
@@ -13,31 +8,34 @@ import {
   useWrapMutationAPI,
 } from "@/core/hooks/hooks";
 import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
-import { isObjOk, makeNoticeTxt, schemaRegister } from "@/core/lib/lib";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useCallback, useEffect } from "react";
-import { useForm } from "react-hook-form";
+import { useCallback, useEffect, type FC } from "react";
+import { schemaRegister } from "../../forms/auth";
 import { useDispatch } from "react-redux";
-import { z } from "zod";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { isObjOk, makeNoticeTxt } from "@/core/lib/lib";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import {
   fieldsAuth__0,
   fieldsAuth__1,
   swapFieldsByAreaAuth,
-} from "@/features/AuthLayout/fields/auth";
-import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
-import BreadCrumbForm from "@/components/forms/layouts/BreadCrumbForm";
+} from "../../fields/auth";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
+import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
 import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
-import Terms from "./components/Terms";
+import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
+import Terms from "./Terms";
 import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 import Button from "@/components/elements/buttons/Button/Button";
-import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
-import PairPwd from "@/components/forms/layouts/PairPwd/PairPwd";
-import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { RegisterParamsAPI, useRegisterUserMutation } from "../../authSliceAPI";
+import { login } from "../../authSlice";
+import { z } from "zod";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 
-const Register: FC = () => {
+const RegisterPageContent: FC = () => {
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
@@ -206,4 +204,4 @@ const Register: FC = () => {
   );
 };
 
-export default Register;
+export default RegisterPageContent;

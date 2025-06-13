@@ -20,7 +20,7 @@ const OrderStoreItemOwner: FC<PropsType> = ({ o }) => {
       <div className="footer_card">
         <PairBtnsLink
           {...{
-            ids: [`/owner/orders/${o.id}`, `/owner/orders/patch/${o.id}`],
+            ids: [`/owner/orders/${o.id}`],
           }}
         />
       </div>
