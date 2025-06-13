@@ -1,14 +1,14 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
+import EmailForm from "@/common/forms/EmailForm/EmailForm";
+import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
+import { useMakeFormEmail } from "@/core/hooks/all/forms/email/useMakeFormEmail";
 import { useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { makeNoticeTxt } from "@/core/lib/lib";
+import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
 import { SendMailEnd } from "@/types/types";
-import { FC } from "react";
-import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
-import EmailForm from "@/common/forms/EmailForm/EmailForm";
-import { useMakeFormEmail } from "@/core/hooks/all/forms/email/useMakeFormEmail";
+import type { FC } from "react";
 
-const ForgotPwd: FC = () => {
+const ForgotPwdPageContent: FC = () => {
   const form = useMakeFormEmail();
   const { handleSubmit, reset } = form;
 
@@ -41,4 +41,5 @@ const ForgotPwd: FC = () => {
     </WrapperAuthPage>
   );
 };
-export default ForgotPwd;
+
+export default ForgotPwdPageContent;
