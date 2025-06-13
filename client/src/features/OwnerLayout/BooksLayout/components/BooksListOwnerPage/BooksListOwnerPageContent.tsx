@@ -1,27 +1,27 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import SearchBar from "@/common/SearchBar/SearchBar";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { isArr } from "@/core/lib/lib";
-import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
-import { type FC } from "react";
-import { FormProvider } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
-import PdfBtn from "./components/PdfBtn";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
+import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
+import type { FC } from "react";
+import { booksSLiceAPI } from "../../booksSliceAPI";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import BreadCrumb from "@/components/elements/BreadCrumb";
+import { FormProvider } from "react-hook-form";
+import SearchBar from "@/common/SearchBar/SearchBar";
 import {
   fieldsInputsBooks,
   ownerBooksNumericFilters,
   ownerBooksSorters,
 } from "@/features/common/SearchBar/fields/owner/books";
-import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
-import BreadCrumb from "@/components/elements/BreadCrumb";
-import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
-import BookItemOwner from "./components/BookItemOwner";
 import { booksFilters } from "@/features/common/SearchBar/fields/general/books";
+import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
+import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
+import { isArr } from "@/core/lib/lib";
+import BookItemOwner from "@/features/OwnerLayout/BooksLayout/components/BooksListOwnerPage/components/BookItemOwner";
+import PdfBtn from "@/features/OwnerLayout/BooksLayout/components/BooksListOwnerPage/components/PdfBtn";
 
-const BooksList: FC = () => {
+const BooksListOwnerPageContent: FC = () => {
   const { user } = useGetU();
   const { formOwnerBooksCtx: formCtx } = useFormCtxConsumer();
   const { innerJoinedCatCtx, setInnerJoinedCat } = useSearchCtx();
@@ -36,6 +36,7 @@ const BooksList: FC = () => {
     innerJoinedCatCtx,
     setInnerJoinedCat,
   });
+
   return (
     <WrapPageAPI
       {...{
@@ -80,4 +81,4 @@ const BooksList: FC = () => {
   );
 };
 
-export default BooksList;
+export default BooksListOwnerPageContent;

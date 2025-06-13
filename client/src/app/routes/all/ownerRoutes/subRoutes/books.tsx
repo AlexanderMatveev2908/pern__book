@@ -1,5 +1,5 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import BooksList from "@/pages/OwnerLayout/BooksLayout/BooksList/BooksList";
+import BooksList from "@/pages/OwnerLayout/BooksLayout/BooksListOwnerPage";
 import CreateBookOwnerPage from "@/pages/OwnerLayout/BooksLayout/CreateBookOwnerPage";
 import UpdateBookPageOwner from "@/pages/OwnerLayout/BooksLayout/UpdateBookPageOwner";
 import { Outlet } from "react-router-dom";
