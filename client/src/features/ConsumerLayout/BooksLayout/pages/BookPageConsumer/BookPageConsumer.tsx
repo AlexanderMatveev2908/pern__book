@@ -38,7 +38,7 @@ const BookPageConsumer: FC = () => {
         {...{
           els: [
             { label: "search", path: "#" },
-            { label: "books", path: "/consumer/books" },
+            { label: "books", path: "/consumer/books/list" },
             { label: book?.title ?? "book", path: "#" },
           ],
         }}

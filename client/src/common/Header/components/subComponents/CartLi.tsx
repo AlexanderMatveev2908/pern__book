@@ -10,7 +10,7 @@ type PropsType = {
 const CartLi: FC<PropsType> = ({ cartCount, setIsOpen }) => {
   return (
     <Link
-      to="/consumer/cart"
+      to="/consumer/cart/summary"
       onClick={() => setIsOpen(false)}
       className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
     >

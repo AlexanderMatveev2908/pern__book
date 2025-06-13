@@ -7,7 +7,7 @@ export const cartRoutes = {
   element: <CartLayout />,
   children: [
     {
-      index: true,
+      path: "summary",
       element: <CartPage />,
     },
 
