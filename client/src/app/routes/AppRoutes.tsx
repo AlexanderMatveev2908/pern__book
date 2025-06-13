@@ -31,5 +31,5 @@ export const appRoutes = [
     ],
   },
 
-  FB_404(),
+  FB_404({ path: "*" }),
 ];

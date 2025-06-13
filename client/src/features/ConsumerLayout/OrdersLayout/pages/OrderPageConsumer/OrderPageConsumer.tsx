@@ -5,8 +5,13 @@ import { useMemo, type FC } from "react";
 import { useParams } from "react-router-dom";
 import { ordersConsumerSliceAPI } from "../../ordersConsumerSliceAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { isObjOk } from "@/core/lib/lib";
+import { formatD, isObjOk, priceFormatter } from "@/core/lib/lib";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { TbPigMoney } from "react-icons/tb";
+import { LuCalendarDays } from "react-icons/lu";
+import SpanPageInfo from "@/components/elements/cards/shared/SpanPageInfo";
+import HeaderOrderPage from "./components/HeaderOrderPage/HeaderOrderPage";
+import { OrderType } from "@/types/all/orders";
 
 const OrderPageConsumer: FC = () => {
   const { user } = useGetU();
@@ -27,16 +32,22 @@ const OrderPageConsumer: FC = () => {
   const { data: { order } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI {...{ canStay, ...res, isSuccess: isObjOk(order) }}>
+    <WrapPageAPI {...{ canStay, ...res }}>
       <BreadCrumb
         {...{
           els: [
             { label: "search", path: "#" },
-            { label: "orders", path: "/consumer/orders" },
+            { label: "orders", path: "/consumer/orders/list" },
             { label: order?.id ?? "ID", path: "#" },
           ],
         }}
       />
+
+      {isObjOk(order) && (
+        <div className="w-full grid grid-1 gap-6 mt-6">
+          <HeaderOrderPage {...{ o: order as OrderType }} />
+        </div>
+      )}
     </WrapPageAPI>
   );
 };
