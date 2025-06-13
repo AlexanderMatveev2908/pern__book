@@ -1,8 +1,8 @@
 import WorkerLayout from "@/app/layouts/WorkerLayout/WorkerLayout";
 import { bookStoresWorkerRoutes } from "./subRoutes/bookStores";
 import { booksWorkerRoutes } from "./subRoutes/books";
-import Push from "../../helpers/Push";
 import { ordersWorkerRoutes } from "./subRoutes/orders";
+import { FB_404 } from "../../helpers/FB";
 
 export const workerRoutes = {
   path: "worker",
@@ -11,9 +11,6 @@ export const workerRoutes = {
     bookStoresWorkerRoutes,
     booksWorkerRoutes,
     ordersWorkerRoutes,
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };

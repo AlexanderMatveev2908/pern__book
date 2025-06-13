@@ -1,4 +1,4 @@
-import Push from "@/app/routes/helpers/Push";
+import { FB_404 } from "@/app/routes/helpers/FB";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import BookListWorker from "@/features/WorkerLayout/BooksLayout/BookListWorker/BookListWorker";
 import BookPageWorker from "@/features/WorkerLayout/BooksLayout/BookPageWorker/BookPageWorker";
@@ -30,9 +30,6 @@ export const booksWorkerRoutes = {
       path: "put/:bookID",
       element: <UpdateBookWorker />,
     },
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };

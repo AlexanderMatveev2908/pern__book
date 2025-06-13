@@ -1,5 +1,5 @@
 import CheckoutLayout from "@/app/layouts/ConsumerLayout/subLayouts/CheckoutLayout";
-import Push from "@/app/routes/helpers/Push";
+import { FB_404 } from "@/app/routes/helpers/FB";
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import CheckoutPage from "@/features/ConsumerLayout/CheckoutLayout/pages/CheckoutPage/CheckoutPage";
 
@@ -16,9 +16,6 @@ export const checkoutRoutes = {
       ),
     },
 
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };

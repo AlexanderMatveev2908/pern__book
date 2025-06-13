@@ -8,6 +8,7 @@ import { User } from "../../../models/all/User.js";
 import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
 import { literal } from "sequelize";
 import { makeQueryOrdersWorker } from "../../../lib/query/worker/orders.js";
+import { Order } from "../../../models/all/Order.js";
 
 export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -17,6 +18,11 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { rows: orders, count } = await OrderStore.findAndCountAll({
     where: queryStoreOrder,
     include: [
+      {
+        model: Order,
+        as: "order",
+        required: true,
+      },
       {
         model: BookStore,
         as: "store",
@@ -45,7 +51,7 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
       },
     ],
 
-    group: ["OrderStore.id", "store.id"],
+    group: ["OrderStore.id", "store.id", "order.id"],
 
     having: queryAfterPipe,
 

@@ -5,14 +5,13 @@ import SpanInfoCard from "../shared/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
 import { TbDatabaseCog, TbPigMoney } from "react-icons/tb";
 import { formatD, priceFormatter } from "@/core/lib/lib";
+import { IoBagCheckOutline } from "react-icons/io5";
 
 type PropsType = {
   o: OrderStoreType;
 };
 
 const OrderStoreItem: FC<PropsType> = ({ o }) => {
-  console.log(o.order?.orderedAt);
-
   const images = useMemo(
     () =>
       (o?.orderItemStores ?? [])
@@ -43,8 +42,8 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: formatD(+o!.order!.orderedAt!),
-            icon: TbDatabaseCog,
+            label: formatD(+(o.order?.orderedAt ?? 0)),
+            icon: IoBagCheckOutline,
           },
         }}
       />

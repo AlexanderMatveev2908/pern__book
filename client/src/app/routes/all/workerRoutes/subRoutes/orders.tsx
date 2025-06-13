@@ -1,4 +1,4 @@
-import Push from "@/app/routes/helpers/Push";
+import { FB_404 } from "@/app/routes/helpers/FB";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import OrdersListWorker from "@/features/WorkerLayout/OrdersLayout/pages/OrdersListWorker/OrdersListWorker";
 import { Outlet } from "react-router-dom";
@@ -15,9 +15,6 @@ export const ordersWorkerRoutes = {
         </SearchCtxProvider>
       ),
     },
-    {
-      path: "*",
-      element: <Push />,
-    },
+    FB_404(),
   ],
 };

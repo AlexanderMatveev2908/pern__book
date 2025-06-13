@@ -1,9 +1,12 @@
 import ItemID from "@/components/elements/cards/shared/ItemID";
 import ItemList from "@/components/elements/cards/shared/ItemList";
+import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
-import { priceFormatter } from "@/core/lib/lib";
+import { formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
+import { FaDatabase } from "react-icons/fa";
+import { IoBagCheckOutline } from "react-icons/io5";
 import { TbPigMoney } from "react-icons/tb";
 
 type PropsType = {
@@ -35,7 +38,29 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
               },
             }}
           />
+
+          <SpanInfoCard
+            {...{
+              spanInfo: {
+                icon: FaDatabase,
+                label: o.totItems,
+              },
+            }}
+          />
+
+          <SpanInfoCard
+            {...{
+              spanInfo: {
+                icon: IoBagCheckOutline,
+                label: formatD(+o.orderedAt!),
+              },
+            }}
+          />
         </ItemList>
+      </div>
+
+      <div className="footer_card">
+        <PairBtnsLink {...{ ids: [`/consumer/orders/${o.id}`] }} />
       </div>
     </div>
   );

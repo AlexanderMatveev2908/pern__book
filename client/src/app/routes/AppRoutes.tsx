@@ -4,10 +4,10 @@ import { authRoutes } from "./all/AuthRoutes";
 import { userRoutes } from "./all/UserRoutes";
 import { workerRoutes } from "./all/workerRoutes/WorkerRoutes";
 import { consumerRoutes } from "./all/consumerRoutes/ConsumerRoutes";
-import Push from "./helpers/Push";
 import Notice from "@/features/Notice/Notice";
 import VerifyCb from "@/features/VerifyCb/VerifyCb";
 import HomePage from "@/features/HomePage/HomePage";
+import { FB_404 } from "./helpers/FB";
 
 export const appRoutes = [
   {
@@ -27,9 +27,9 @@ export const appRoutes = [
       { path: "notice", element: <Notice /> },
       { path: "verify-cb", element: <VerifyCb /> },
 
-      { path: "*", element: <Push /> },
+      FB_404(),
     ],
   },
 
-  { path: "*", element: <Push /> },
+  FB_404(),
 ];
