@@ -19,6 +19,7 @@ import Title from "@/components/elements/Title";
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
 import { doLorem } from "@/core/lib/all/utils/place";
+import { makeRandomMinMax } from "@/core/lib/lib";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -42,11 +43,10 @@ const CreateBooksStoreOwner: FC = () => {
       street: "",
       zipCode: "",
       phone: "",
-      name: "store__t0",
-      categories: ["literature & fiction", "philosophy"],
-      deliveryTime: "14",
-      deliveryPrice: "75",
-      freeDeliveryAmount: "100",
+      name: "store__",
+      deliveryTime: makeRandomMinMax(1, 50).toFixed(0),
+      deliveryPrice: makeRandomMinMax(10, 100).toFixed(2),
+      freeDeliveryAmount: makeRandomMinMax(20, 200).toFixed(2),
       description: doLorem(50),
     },
   });

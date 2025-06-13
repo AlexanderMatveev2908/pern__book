@@ -3,15 +3,16 @@ import { useMemo, type FC } from "react";
 import ItemList from "../shared/ItemList";
 import SpanInfoCard from "../shared/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
-import { TbDatabaseCog, TbPigMoney, TbTruckDelivery } from "react-icons/tb";
-import { priceFormatter } from "@/core/lib/lib";
-import { FaDatabase } from "react-icons/fa";
+import { TbDatabaseCog, TbPigMoney } from "react-icons/tb";
+import { formatD, priceFormatter } from "@/core/lib/lib";
 
 type PropsType = {
   o: OrderStoreType;
 };
 
 const OrderStoreItem: FC<PropsType> = ({ o }) => {
+  console.log(o.order?.orderedAt);
+
   const images = useMemo(
     () =>
       (o?.orderItemStores ?? [])
@@ -42,22 +43,11 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: priceFormatter(+o.delivery, "Free Delivery"),
-            icon: TbTruckDelivery,
+            label: formatD(+o!.order!.orderedAt!),
+            icon: TbDatabaseCog,
           },
         }}
       />
-
-      <SpanInfoCard
-        {...{
-          spanInfo: {
-            label: o!.totItems,
-            icon: FaDatabase,
-          },
-        }}
-      >
-        <span className="txt__3 clamp_txt">Tot Quantity</span>
-      </SpanInfoCard>
 
       <SpanInfoCard
         {...{
