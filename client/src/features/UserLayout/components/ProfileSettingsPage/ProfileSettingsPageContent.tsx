@@ -1,44 +1,41 @@
-import {
-  useFocus,
-  usePopulateProfile,
-  useWrapMutationAPI,
-} from "@/core/hooks/hooks";
+import { useCallback, useState, type FC } from "react";
+import { z } from "zod";
+import { schemaProfile } from "../../forms/schema";
+import { useDispatch } from "react-redux";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
+import { useUpdateProfileMutation } from "../../userSliceAPI";
+import { allProfileKeys, fieldsSwapProfile } from "../../fields/profile";
 import {
   isObjOk,
   isSameData,
   makeDelay,
   makeObj,
   preSubmitCheckProfile,
-  schemaProfile,
 } from "@/core/lib/lib";
-import { useCallback, useState } from "react";
-import { FormProvider, useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useCLearTab } from "@/core/hooks/all/UI/useClearTab";
-import { EventApp, UserType } from "@/types/types";
-import { useUpdateProfileMutation } from "@/features/UserLayout/userSliceAPI";
-import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
-import { openToast } from "@/features/common/Toast/toastSlice";
-import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
-import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
-import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import Button from "@/components/elements/buttons/Button/Button";
-import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { makeFormDataProfile } from "@/features/UserLayout/forms/formatVals";
-import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
 import {
-  allProfileKeys,
-  fieldsSwapProfile,
-} from "@/features/UserLayout/fields/profile";
+  useFocus,
+  usePopulateProfile,
+  useWrapMutationAPI,
+} from "@/core/hooks/hooks";
+import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
+import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
+import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
+import { makeFormDataProfile } from "../../forms/formatVals";
+import { openToast } from "@/features/common/Toast/toastSlice";
+import { EventApp, UserType } from "@/types/types";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import Title from "@/components/elements/Title";
+import HeaderUserProfile from "@/features/UserLayout/components/ProfileSettingsPage/components/HeaderUserProfile/HeaderUserProfile";
+import BodyUserProfile from "@/features/UserLayout/components/ProfileSettingsPage/components/BodyUserProfile/BodyUserProfile";
+import Button from "@/components/elements/buttons/Button/Button";
+import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
+import { useGetU } from "@/core/hooks/all/api/useGetU";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
-const ProfileSettings = () => {
+const ProfileSettingsPageContent: FC = () => {
   const [eventClose, setEventClose] = useState(false);
 
   const dispatch = useDispatch();
@@ -150,7 +147,6 @@ const ProfileSettings = () => {
   };
 
   return (
-    // <ProfileCtxProvider>
     <WrapPageAPI {...{ isLoading, isError, error, isSuccess: isObjOk(user) }}>
       <Title {...{ title: "my profile" }} />
       <FormProvider {...formCtx}>
@@ -174,7 +170,7 @@ const ProfileSettings = () => {
         </form>
       </FormProvider>
     </WrapPageAPI>
-    // </ProfileCtxProvider>
   );
 };
-export default ProfileSettings;
+
+export default ProfileSettingsPageContent;

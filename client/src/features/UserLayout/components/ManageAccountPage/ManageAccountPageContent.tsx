@@ -1,24 +1,24 @@
-import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
-import { getAuthState } from "@/features/AuthLayout/authSlice";
-import { useShowPwd } from "@/core/hooks/hooks";
-import { makeDelay } from "@/core/lib/lib";
-import { AllowedFromApp } from "@/types/types";
-import { FC, useCallback, useState } from "react";
-import { useSelector } from "react-redux";
-import { useLocation } from "react-router-dom";
-import ChangeEmail from "./components/ChangeEmail";
-import ResetPwd from "./components/ResetPwd";
-import DeleteAccount from "./components/DeleteAccount";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
-import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
+import WrapperManageAccount from "@/components/HOC/WrapperManageAccount";
 import { SwapModeType } from "@/core/contexts/SwapCtx/ctx/initState";
+import { useShowPwd } from "@/core/hooks/hooks";
+import { makeDelay } from "@/core/lib/lib";
+import { getAuthState } from "@/features/AuthLayout/authSlice";
+import { AllowedFromApp } from "@/types/types";
+import { useCallback, useState, type FC } from "react";
+import { useSelector } from "react-redux";
+import { useLocation } from "react-router-dom";
 import {
   ActionsManageAccount,
   titlesFormsManage,
-} from "@/features/UserLayout/fields/manageAccount";
+} from "../../fields/manageAccount";
+import ChangeEmail from "@/features/UserLayout/components/ManageAccountPage/components/ChangeEmail";
+import ResetPwd from "@/features/UserLayout/components/ManageAccountPage/components/ResetPwd";
+import DeleteAccount from "@/features/UserLayout/components/ManageAccountPage/components/DeleteAccount";
+import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 
-const ManageAccount: FC = () => {
+const ManageAccountPageContent: FC = () => {
   // no need use a hook validate swap, user can do anything there are not wrong actions or inputs that should not allow u not go next swap
   const [currForm, setCurrForm] = useState(0);
   const [currSwapState, setSwapState] = useState<SwapModeType | null>(null);
@@ -106,4 +106,5 @@ const ManageAccount: FC = () => {
     </WrapPageAPI>
   );
 };
-export default ManageAccount;
+
+export default ManageAccountPageContent;

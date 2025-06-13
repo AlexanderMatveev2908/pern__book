@@ -3,9 +3,9 @@ import EmailForm from "@/common/forms/EmailForm/EmailForm";
 import Title from "@/components/elements/Title";
 import { useEmailVerifyAccount } from "@/core/hooks/all/forms/email/useEmailVerifyAccount";
 import { SendMailEnd } from "@/types/types";
-import { FC } from "react";
+import type { FC } from "react";
 
-const VerifyAccountLogged: FC = () => {
+const VerifyAccountLoggedPageContent: FC = () => {
   const { isLoading, handleSave, form } = useEmailVerifyAccount(
     SendMailEnd.VERIFY_ACCOUNT_LOGGED
   );
@@ -18,4 +18,4 @@ const VerifyAccountLogged: FC = () => {
   );
 };
 
-export default VerifyAccountLogged;
+export default VerifyAccountLoggedPageContent;

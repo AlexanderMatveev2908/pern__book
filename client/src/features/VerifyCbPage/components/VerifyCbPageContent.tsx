@@ -1,16 +1,16 @@
+import { useWrapMutationAPI } from "@/core/hooks/hooks";
+import { checkQueryAuth, isObjOk } from "@/core/lib/lib";
+import { useCallback, useEffect, useMemo, useRef, type FC } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   useVerifyAccountMutation,
   useVerifyEmailForgotPwdMutation,
   useVerifyNewEmailMutation,
-} from "@/features/VerifyCb/verifyCbSliceAPI";
-import { useWrapMutationAPI } from "@/core/hooks/hooks";
-import { checkQueryAuth, isObjOk } from "@/core/lib/lib";
+} from "../verifyCbSliceAPI";
 import { AllowedFromApp, TokenEventType } from "@/types/types";
-import { FC, useCallback, useEffect, useMemo, useRef } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 
-const VerifyCb: FC = () => {
+const VerifyCbPageContent: FC = () => {
   const [searchParams] = useSearchParams();
   const hasRun = useRef<boolean>(false);
   const navigate = useNavigate();
@@ -89,4 +89,5 @@ const VerifyCb: FC = () => {
 
   return <WrapPageAPI {...{ isLoading: true, canStay: !!params }} />;
 };
-export default VerifyCb;
+
+export default VerifyCbPageContent;

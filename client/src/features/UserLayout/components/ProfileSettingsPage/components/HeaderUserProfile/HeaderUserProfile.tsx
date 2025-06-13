@@ -3,8 +3,8 @@ import { UserType } from "@/types/types";
 import { FC } from "react";
 import { useFormContext } from "react-hook-form";
 import ThumbForm from "./ThumbForm";
-import { UserProfileForm } from "../../ProfileSettings";
 import { fieldsProfileHeader } from "@/features/UserLayout/fields/profile";
+import { UserProfileForm } from "../../ProfileSettingsPageContent";
 // import my_thumb from "../../../../config/assetsDev/thumb/thumb.avif";
 
 type PropsType = {

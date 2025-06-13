@@ -1,10 +1,10 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import UserLayout from "@/app/layouts/UserLayout";
-import ManageAccount from "@/pages/UserLayout/ManageAccount/ManageAccount";
-import ProfileSettings from "@/pages/UserLayout/ProfileSettings/ProfileSettings";
-import SecurityPwd from "@/pages/UserLayout/SecurityPwd/SecurityPwd";
-import VerifyAccountLogged from "@/pages/UserLayout/VerifyAccountLogged/VerifyAccountLogged";
+import ManageAccountPage from "@/pages/UserLayout/ManageAccountPage";
+import SecurityPwdPage from "@/pages/UserLayout/SecurityPwdPage";
+import VerifyAccountLoggedPage from "@/pages/UserLayout/VerifyAccountLoggedPage";
 import Push from "../helpers/Push";
+import ProfileSettingsPage from "@/pages/UserLayout/ProfileSettingsPage";
 
 export const userRoutes = {
   path: "user",
@@ -12,23 +12,23 @@ export const userRoutes = {
   children: [
     {
       path: "verify-account",
-      element: <VerifyAccountLogged />,
+      element: <VerifyAccountLoggedPage />,
     },
     {
       path: "profile-settings",
       element: (
         <SwapCtxProvider>
-          <ProfileSettings />
+          <ProfileSettingsPage />
         </SwapCtxProvider>
       ),
     },
     {
       path: "manage-account",
-      element: <ManageAccount />,
+      element: <ManageAccountPage />,
     },
     {
       path: "security",
-      element: <SecurityPwd />,
+      element: <SecurityPwdPage />,
     },
     {
       path: "*",
