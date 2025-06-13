@@ -1,6 +1,6 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import UserLayout from "@/app/layouts/UserLayout";
-import ManageAccount from "@/pages/UserLayout/ManageAccount/ManageAccount";
+import ManageAccountPage from "@/pages/UserLayout/ManageAccountPage";
 import SecurityPwd from "@/pages/UserLayout/SecurityPwd/SecurityPwd";
 import VerifyAccountLogged from "@/pages/UserLayout/VerifyAccountLogged/VerifyAccountLogged";
 import Push from "../helpers/Push";
@@ -24,7 +24,7 @@ export const userRoutes = {
     },
     {
       path: "manage-account",
-      element: <ManageAccount />,
+      element: <ManageAccountPage />,
     },
     {
       path: "security",
