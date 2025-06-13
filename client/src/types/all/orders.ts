@@ -66,5 +66,7 @@ export type OrderType = {
   zipCod: string;
   phone: string;
 
+  totItems?: number;
+
   orderStores?: OrderStoreType[];
 };

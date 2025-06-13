@@ -20,6 +20,7 @@ import {
 import { ordersConsumerSliceAPI } from "@/features/ConsumerLayout/OrdersLayout/ordersConsumerSliceAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { isArrOk } from "@/core/lib/lib";
+import OrderListItemConsumer from "./components/OrderListItemConsumer";
 
 const OrdersListConsumer: FC = () => {
   const { user } = useGetU();
@@ -59,7 +60,13 @@ const OrdersListConsumer: FC = () => {
         </FormProvider>
 
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          {isArrOk(orders) && <div className="list_items_app"></div>}
+          {isArrOk(orders) && (
+            <div className="list_items_app">
+              {orders!.map((o) => (
+                <OrderListItemConsumer key={o.id} {...{ o }} />
+              ))}
+            </div>
+          )}
         </WrapperContentAPI>
       </div>
     </WrapPageAPI>

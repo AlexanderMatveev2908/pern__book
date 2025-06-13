@@ -18,6 +18,9 @@ import { Cart } from "../../models/all/Cart.js";
 import { CartItem } from "../../models/all/CartItem.js";
 import { User, UserInstance } from "../../models/all/User.js";
 import { Token } from "../../models/all/Token.js";
+import { Order } from "../../models/all/Order.js";
+import { OrderStore } from "../../models/all/OrderStore.js";
+import { OrderItemStore } from "../../models/all/OrderItemStore.js";
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -62,6 +65,10 @@ export const deleteAccount = async (
         as: "thumb",
       },
       {
+        model: Order,
+        as: "orders",
+      },
+      {
         model: Cart,
         as: "cart",
         include: [
@@ -74,6 +81,18 @@ export const deleteAccount = async (
       {
         model: BookStore,
         as: "stores",
+        include: [
+          {
+            model: OrderStore,
+            as: "orderStores",
+            include: [
+              {
+                model: OrderItemStore,
+                as: "orderItemStores",
+              },
+            ],
+          },
+        ],
       },
     ],
   })) as UserInstance;
