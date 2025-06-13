@@ -118,7 +118,7 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
           },
           {
             where: {
-              id: order.id,
+              id: orderID,
             },
             transaction: t,
           }

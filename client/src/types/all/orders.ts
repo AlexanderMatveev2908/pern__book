@@ -49,6 +49,8 @@ export type OrderStoreType = {
   orderItemStores?: OrderItemStoreType[];
   store?: BookStoreType;
   totItems?: number;
+
+  order?: OrderType;
 };
 
 export type OrderType = {
@@ -67,6 +69,7 @@ export type OrderType = {
   phone: string;
 
   totItems?: number;
+  orderedAt?: number;
 
   orderStores?: OrderStoreType[];
 };

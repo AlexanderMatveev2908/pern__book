@@ -95,12 +95,17 @@ export const makeNum = (type: "min" | "max", txt?: string) => {
   return isNaN(formatted) ? (type === "min" ? 0 : Infinity) : formatted;
 };
 
-export const formatD = (date: string | Date) =>
-  new Intl.DateTimeFormat("en-US", {
+export const formatD = (date: string | Date | number) => {
+  let parsed = new Date(date);
+
+  if (isNaN(parsed.getTime())) parsed = new Date(0);
+
+  return new Intl.DateTimeFormat("en-US", {
     year: "numeric",
     month: "short",
     day: "numeric",
     hour: "numeric",
     minute: "numeric",
     weekday: "short",
-  }).format(new Date(date));
+  }).format(new Date(parsed));
+};

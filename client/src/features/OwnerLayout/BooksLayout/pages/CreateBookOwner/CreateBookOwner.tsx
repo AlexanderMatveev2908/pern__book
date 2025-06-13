@@ -30,14 +30,12 @@ const CreateBookOwner: FC = () => {
   useEffect(() => {
     if (isArrOk(stores)) {
       formCtx.reset({
-        bookStoreID: stores?.[0].id,
-        year: "1900",
-        title: "store__t0__book_0",
-        author: "store__t0__author_0",
+        year: makeRandomMinMax(1450, new Date().getFullYear()).toFixed(0),
+        title: "",
+        author: "",
         description: doLorem(50),
         price: makeRandomMinMax(1, 50).toFixed(2),
         qty: makeRandomMinMax(1, 100).toFixed(0),
-        categories: ["classics", "existentialism", "stoicism"],
       });
     }
   }, [formCtx, stores]);
