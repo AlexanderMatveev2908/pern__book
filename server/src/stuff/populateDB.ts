@@ -57,27 +57,3 @@ export const populateDB = async () => {
   );
   await User.bulkCreate(safeUsers);
 };
-
-export const resetEmailJunction = async () => {
-  await User.update(
-    {
-      email: "tyler@gmail.com",
-    },
-    {
-      where: {
-        email: "matveevalexander470@gmail.com",
-      },
-    }
-  );
-
-  await BookStoreUser.update(
-    {
-      userEmail: "tyler@gmail.com",
-    },
-    {
-      where: {
-        userEmail: "matveevalexander470@gmail.com",
-      },
-    }
-  );
-};

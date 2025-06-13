@@ -1,6 +1,6 @@
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import type { FC } from "react";
+import { useEffect, type FC } from "react";
 import { useNavigate } from "react-router-dom";
 import { booksSLiceAPI } from "../../booksSliceAPI";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
@@ -11,6 +11,8 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import { FormProvider } from "react-hook-form";
 import BookForm from "@/common/forms/BookForm/BookForm";
+import { isArrOk, makeRandomMinMax } from "@/core/lib/lib";
+import { doLorem } from "@/core/lib/all/utils/place";
 
 const CreateBookOwner: FC = () => {
   const nav = useNavigate();
@@ -24,6 +26,21 @@ const CreateBookOwner: FC = () => {
       refetchOnMountOrArgChange: true,
     }) ?? {};
   const { data: { stores } = {} } = res;
+
+  useEffect(() => {
+    if (isArrOk(stores)) {
+      formCtx.reset({
+        bookStoreID: stores?.[0].id,
+        year: "1900",
+        title: "store__t0__book_0",
+        author: "store__t0__author_0",
+        description: doLorem(50),
+        price: makeRandomMinMax(1, 50).toFixed(2),
+        qty: makeRandomMinMax(1, 100).toFixed(0),
+        categories: ["classics", "existentialism", "stoicism"],
+      });
+    }
+  }, [formCtx, stores]);
 
   useWrapQueryAPI({ ...res });
 

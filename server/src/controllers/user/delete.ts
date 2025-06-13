@@ -22,15 +22,12 @@ import { Order } from "../../models/all/Order.js";
 import { OrderStore } from "../../models/all/OrderStore.js";
 import { OrderItemStore } from "../../models/all/OrderItemStore.js";
 import { __cg } from "../../lib/utils/log.js";
-import { StoreOrderStage } from "../../types/all/orders.js";
+import {
+  acceptedStageDeleteAccount,
+  StoreOrderStage,
+} from "../../types/all/orders.js";
 import { isArrOkSoft, isSoftObjOk } from "../../lib/dataStructures.js";
 import { CloudAsset } from "../../types/all/cloud.js";
-
-const acceptedStages = [
-  StoreOrderStage.CANCELLED,
-  StoreOrderStage.COMPLETED,
-  StoreOrderStage.REFUNDED,
-];
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -143,7 +140,7 @@ export const deleteAccount = async (
     for (const o of user.orders) {
       if (o.orderStores?.length) {
         for (const os of o.orderStores) {
-          if (!acceptedStages.includes(os.stage as StoreOrderStage))
+          if (!acceptedStageDeleteAccount.includes(os.stage as StoreOrderStage))
             return err409(res, {
               msg: "you can't delete your account because you have pending orders to receive",
             });
@@ -156,7 +153,7 @@ export const deleteAccount = async (
     for (const bs of user.bookStores) {
       if (bs.orders?.length) {
         for (const os of bs.orders) {
-          if (!acceptedStages.includes(os.stage as StoreOrderStage))
+          if (!acceptedStageDeleteAccount.includes(os.stage as StoreOrderStage))
             return err409(res, {
               msg: "you can't delete your account because you have pending orders to deliver",
             });
@@ -183,6 +180,16 @@ export const deleteAccount = async (
       await user.thumb.destroy({ transaction: t });
     }
 
+    if (isArrOkSoft(user.cart?.items)) {
+      await CartItem.destroy({
+        where: {
+          cartID: user.cart!.id!,
+        },
+        transaction: t,
+      });
+
+      await user.cart?.destroy({ transaction: t });
+    }
     if (isArrOkSoft(user.bookStores)) {
       for (const s of user!.bookStores!) {
         if (isArrOkSoft(s.images)) {
@@ -266,6 +273,8 @@ export const deleteAccount = async (
         transaction: t,
       });
     }
+
+    await user.destroy({ transaction: t });
 
     await t.commit();
 

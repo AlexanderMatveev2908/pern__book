@@ -24,7 +24,7 @@ export const defineOrderStore = (seq: Sequelize) =>
       ...schemaID(),
 
       orderID: refSql("orders"),
-      bookStoreID: refSql("book_stores"),
+      bookStoreID: refSql("book_stores", { allowNull: true }),
 
       amount: {
         type: DataTypes.DECIMAL(10, 2),

@@ -18,6 +18,8 @@ export class Order extends Model {
   zipCod?: string;
   phone?: string;
 
+  orderedAt?: number;
+
   orderStores?: OrderStoreInstance[];
   clientSecret?: string;
 }
@@ -56,6 +58,11 @@ export const defineOrder = (seq: Sequelize) =>
         type: DataTypes.DECIMAL(10, 2),
         allowNull: false,
         defaultValue: 0,
+      },
+
+      orderedAt: {
+        type: DataTypes.BIGINT,
+        allowNull: true,
       },
     },
     {
