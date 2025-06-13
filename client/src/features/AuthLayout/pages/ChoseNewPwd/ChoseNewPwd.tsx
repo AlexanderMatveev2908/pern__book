@@ -24,7 +24,7 @@ const schema = z
 
 type NewPwdFormType = z.infer<typeof schema>;
 
-const ChoseNewPwdPageContent: FC = () => {
+const ChoseNewPwd: FC = () => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
 
@@ -88,4 +88,4 @@ const ChoseNewPwdPageContent: FC = () => {
   );
 };
 
-export default ChoseNewPwdPageContent;
+export default ChoseNewPwd;

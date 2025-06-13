@@ -8,7 +8,7 @@ import { useSendEmailMutation } from "@/features/root/sendEmailSliceAPI";
 import { SendMailEnd } from "@/types/types";
 import type { FC } from "react";
 
-const ForgotPwdPageContent: FC = () => {
+const ForgotPwd: FC = () => {
   const form = useMakeFormEmail();
   const { handleSubmit, reset } = form;
 
@@ -42,4 +42,4 @@ const ForgotPwdPageContent: FC = () => {
   );
 };
 
-export default ForgotPwdPageContent;
+export default ForgotPwd;

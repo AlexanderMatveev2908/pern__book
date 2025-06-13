@@ -37,7 +37,7 @@ const schema = z
 
 export type LoginFormType = z.infer<typeof schema>;
 
-const LoginPageContent: FC = () => {
+const Login: FC = () => {
   const navigate = useNavigate();
 
   const { wrapMutationAPI } = useWrapMutationAPI();
@@ -126,4 +126,4 @@ const LoginPageContent: FC = () => {
   );
 };
 
-export default LoginPageContent;
+export default Login;

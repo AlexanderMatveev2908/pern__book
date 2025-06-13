@@ -4,7 +4,7 @@ import { useEmailVerifyAccount } from "@/core/hooks/all/forms/email/useEmailVeri
 import { SendMailEnd } from "@/types/types";
 import type { FC } from "react";
 
-const VerifyAccountPageContent: FC = () => {
+const VerifyAccount: FC = () => {
   const { isLoading, handleSave, form } = useEmailVerifyAccount(
     SendMailEnd.VERIFY_ACCOUNT
   );
@@ -16,4 +16,4 @@ const VerifyAccountPageContent: FC = () => {
   );
 };
 
-export default VerifyAccountPageContent;
+export default VerifyAccount;

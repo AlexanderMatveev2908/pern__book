@@ -35,7 +35,7 @@ import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 
-const RegisterPageContent: FC = () => {
+const Register: FC = () => {
   const { mainPwd, confirmPwd, closeAllPwd } = useShowPwd();
   const { wrapMutationAPI } = useWrapMutationAPI();
   const { makeNoticeCombo } = useNotice();
@@ -204,4 +204,4 @@ const RegisterPageContent: FC = () => {
   );
 };
 
-export default RegisterPageContent;
+export default Register;

@@ -1,11 +1,11 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import AuthLayout from "@/app/layouts/AuthLayout";
-import ChoseNewPwdPage from "@/pages/AuthLayout/ChoseNewPwdPage";
-import ForgotPwdPage from "@/pages/AuthLayout/ForgotPwdPage";
-import LoginPage from "@/pages/AuthLayout/LoginPage";
-import RegisterPage from "@/pages/AuthLayout/RegisterPage";
-import VerifyAccountPage from "@/pages/AuthLayout/VerifyAccountPage";
 import Push from "../helpers/Push";
+import Login from "@/features/AuthLayout/pages/Login/Login";
+import ForgotPwd from "@/features/AuthLayout/pages/ForgotPwd/ForgotPwd";
+import VerifyAccount from "@/features/AuthLayout/pages/VerifyAccount/VerifyAccount";
+import ChoseNewPwd from "@/features/AuthLayout/pages/ChoseNewPwd/ChoseNewPwd";
+import Register from "@/features/AuthLayout/pages/Register/Register";
 
 export const authRoutes = {
   path: "auth",
@@ -15,14 +15,14 @@ export const authRoutes = {
       path: "register",
       element: (
         <SwapCtxProvider>
-          <RegisterPage />
+          <Register />
         </SwapCtxProvider>
       ),
     },
-    { path: "login", element: <LoginPage /> },
-    { path: "verify-account", element: <VerifyAccountPage /> },
-    { path: "forgot-pwd", element: <ForgotPwdPage /> },
-    { path: "chose-new-pwd", element: <ChoseNewPwdPage /> },
+    { path: "login", element: <Login /> },
+    { path: "verify-account", element: <VerifyAccount /> },
+    { path: "forgot-pwd", element: <ForgotPwd /> },
+    { path: "chose-new-pwd", element: <ChoseNewPwd /> },
     { path: "*", element: <Push /> },
   ],
 };
