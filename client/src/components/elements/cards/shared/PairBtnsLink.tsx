@@ -16,9 +16,12 @@ const PairBtnsLink: FC<PropsType> = ({ ids }) => {
 
   return !ids?.length ? null : (
     <div
-      className="w-full grid gap-y-3 justify-items-center items-center gap-x-8"
+      className={`${
+        ids.length > 1 ? "justify-items-center " : "justify-items-center"
+      } w-full grid gap-y-3 items-center gap-x-8`}
       style={{
-        gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        gridTemplateColumns:
+          ids.length > 1 ? "repeat(auto-fit, minmax(200px, 1fr))" : "1fr",
       }}
     >
       {links.map((el, i) => (

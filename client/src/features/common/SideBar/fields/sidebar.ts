@@ -33,6 +33,11 @@ export const sideFieldsAllUsers: SideFieldType[] = [
     icon: MdOutlineShoppingCart,
   },
   {
+    label: "My Orders",
+    icon: TbDatabaseSearch,
+    path: "/consumer/orders/list",
+  },
+  {
     label: "Books",
     path: "/consumer/books",
     icon: FaBook,

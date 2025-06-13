@@ -39,6 +39,7 @@ export interface UserType {
 
   // ? consumer flags
   cartCount: number;
+  hasConsumerOrders: boolean;
 }
 
 export interface AuthState {
