@@ -4,7 +4,7 @@ import BookStoresListPage from "@/pages/OwnerLayout/BookStoreLayout/BookStoresLi
 import UpdateBookStorePage from "@/pages/OwnerLayout/BookStoreLayout/UpdateBookStorePage";
 import CreateBooksStorePage from "@/pages/OwnerLayout/BookStoreLayout/CreateBooksStorePage";
 import { Outlet } from "react-router-dom";
-import BookStorePageOwner from "@/pages/OwnerLayout/BookStoreLayout/BookStorePage/BookStorePageOwner";
+import BookStorePageOwner from "@/pages/OwnerLayout/BookStoreLayout/BookStorePageOwner";
 import Push from "@/app/routes/helpers/Push";
 
 export const bookStoreRoutes = {

@@ -1,21 +1,20 @@
-import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
-import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import { FC, useMemo } from "react";
-import { useParams } from "react-router-dom";
-import DropActionsOwner from "./components/DropActionsOwner";
-import { isObjOk } from "@/core/lib/lib";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
-import { useGetBookStoreQuery } from "@/features/OwnerLayout/BookStoresLayout/bookStoreSliceAPI";
-import { useClearCacheItem } from "@/core/hooks/all/api/useClearCacheItem";
+import { useMemo, type FC } from "react";
+import { useParams } from "react-router-dom";
+import { useGetBookStoreQuery } from "../../bookStoreSliceAPI";
+import { useClearCacheItem, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
+import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
+import { isObjOk } from "@/core/lib/lib";
+import Title from "@/components/elements/Title";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
+import DropActionsOwner from "./components/DropActionsOwner";
 
-const BookStorePageOwner: FC = () => {
+const BookStorePageOwnerContent: FC = () => {
   const { bookStoreID } = useParams() ?? {};
   const itPass = useMemo(() => REG_ID.test(bookStoreID ?? ""), [bookStoreID]);
   const { user } = useGetU();
@@ -82,20 +81,4 @@ const BookStorePageOwner: FC = () => {
   );
 };
 
-export default BookStorePageOwner;
-
-/*
-     <div className="w-full grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-x-10 gap-y-5">
-          {[...statsStore([0], bookStore?.team, [0]).entries()].map((el, i) => {
-            return (
-              <DropStats
-                key={ids[i]}
-                {...{
-                  el: labelsBookStore.get(el[0]),
-                  fields: el[0] === KEY_MAP_STORE.TEAM ? null : el[1].fields,
-                }}
-              ></DropStats>
-            );
-          })}
-        </div>
-        */
+export default BookStorePageOwnerContent;
