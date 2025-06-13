@@ -1,7 +1,7 @@
 import OrdersLayout from "@/app/layouts/ConsumerLayout/subLayouts/OrdersLayout";
 import Push from "@/app/routes/helpers/Push";
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
-import OrderPageConsumer from "@/pages/ConsumerLayout/OrdersLayout/OrderPage/OrderPageConsumer";
+import OrdersListConsumer from "@/pages/ConsumerLayout/OrdersLayout/OrdersList/OrdersListConsumer";
 
 export const ordersConsumerRoutes = {
   path: "orders",
@@ -11,7 +11,7 @@ export const ordersConsumerRoutes = {
       path: "list",
       element: (
         <SearchCtxProvider>
-          <OrderPageConsumer />
+          <OrdersListConsumer />
         </SearchCtxProvider>
       ),
     },
