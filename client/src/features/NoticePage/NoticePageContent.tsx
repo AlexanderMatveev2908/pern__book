@@ -1,14 +1,14 @@
-import { getNoticeState } from "@/features/Notice/noticeSlice";
-import { canStayNotice } from "@/core/lib/lib";
-import { EventApp } from "@/types/types";
-import { FC, useEffect, useRef } from "react";
-import { LuCircleCheckBig } from "react-icons/lu";
+import { useEffect, useRef, type FC } from "react";
 import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
-import ErrIcon from "@/components/elements/ErrIcon";
+import { getNoticeState } from "../Notice/noticeSlice";
+import { canStayNotice } from "@/core/lib/lib";
 import Push from "@/app/routes/helpers/Push";
+import { EventApp } from "@/types/types";
+import { LuCircleCheckBig } from "react-icons/lu";
+import ErrIcon from "@/components/elements/ErrIcon";
 
-const Notice: FC = () => {
+const NoticePageContent: FC = () => {
   const from = useLocation().state?.from;
 
   const runRef = useRef<boolean>(false);
@@ -51,4 +51,5 @@ const Notice: FC = () => {
     </div>
   );
 };
-export default Notice;
+
+export default NoticePageContent;

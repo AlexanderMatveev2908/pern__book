@@ -1,7 +1,7 @@
 import MainLayout from "@/app/layouts/MainLayout";
 import HomePage from "@/pages/Home/HomePage";
 import ownerRoutes from "./all/ownerRoutes/OwnerRoutes";
-import Notice from "@/pages/Notice/NoticePage";
+import Notice from "@/pages/NoticePage";
 import VerifyCb from "@/pages/VerifyCb/VerifyCb";
 import { authRoutes } from "./all/AuthRoutes";
 import { userRoutes } from "./all/UserRoutes";
