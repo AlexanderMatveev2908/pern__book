@@ -1,6 +1,6 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import AuthLayout from "@/app/layouts/AuthLayout";
-import ChoseNewPwd from "@/pages/AuthLayout/ChoseNewPwd/ChoseNewPwd";
+import ChoseNewPwdPage from "@/pages/AuthLayout/ChoseNewPwdPage";
 import ForgotPwdPage from "@/pages/AuthLayout/ForgotPwdPage";
 import LoginPage from "@/pages/AuthLayout/LoginPage";
 import RegisterPage from "@/pages/AuthLayout/RegisterPage";
@@ -22,7 +22,7 @@ export const authRoutes = {
     { path: "login", element: <LoginPage /> },
     { path: "verify-account", element: <VerifyAccountPage /> },
     { path: "forgot-pwd", element: <ForgotPwdPage /> },
-    { path: "chose-new-pwd", element: <ChoseNewPwd /> },
+    { path: "chose-new-pwd", element: <ChoseNewPwdPage /> },
     { path: "*", element: <Push /> },
   ],
 };

@@ -1,13 +1,13 @@
-import { useChoseNewPwdMutation } from "@/features/AuthLayout/authSliceAPI";
 import { useFocus, useNotice, useWrapMutationAPI } from "@/core/hooks/hooks";
 import { checkQueryAuth, isUnHandledErr, schemaPwd } from "@/core/lib/lib";
 import { AllowedFromApp } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { AxiosResponse } from "axios";
-import { FC, useCallback, useMemo } from "react";
+import { useCallback, useMemo, type FC } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { z } from "zod";
+import { useChoseNewPwdMutation } from "../../authSliceAPI";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import NewPwdForm from "@/common/forms/NewPwdForm/NewPwdForm";
@@ -24,7 +24,7 @@ const schema = z
 
 type NewPwdFormType = z.infer<typeof schema>;
 
-const ChoseNewPwd: FC = () => {
+const ChoseNewPwdPageContent: FC = () => {
   const [searchParams] = useSearchParams();
   const location = useLocation();
 
@@ -88,4 +88,4 @@ const ChoseNewPwd: FC = () => {
   );
 };
 
-export default ChoseNewPwd;
+export default ChoseNewPwdPageContent;
