@@ -1,21 +1,21 @@
-import { setCanManageAccount } from "@/features/AuthLayout/authSlice";
-import { useGetRightManageAccountMutation } from "@/features/UserLayout/userSliceAPI";
 import { useFocus, useShowPwd, useWrapMutationAPI } from "@/core/hooks/hooks";
-import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import { saveStorage, schemaPwd } from "@/core/lib/lib";
-import { AllowedFromApp, StorageKeys } from "@/types/types";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { FC, useMemo } from "react";
+import { useMemo, type FC } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { z } from "zod";
+import { useGetRightManageAccountMutation } from "../../userSliceAPI";
+import { AllowedFromApp, StorageKeys } from "@/types/types";
+import { setCanManageAccount } from "@/features/AuthLayout/authSlice";
 import { LinksLoggedDrop } from "@/features/AuthLayout/fields/links";
-import { passwordField } from "@/features/AuthLayout/fields/auth";
-import PwdField from "@/components/forms/inputs/PwdField/PwdField";
-import Button from "@/components/elements/buttons/Button/Button";
 import Title from "@/components/elements/Title";
 import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
+import PwdField from "@/components/forms/inputs/PwdField/PwdField";
+import Button from "@/components/elements/buttons/Button/Button";
+import { passwordField } from "@/features/AuthLayout/fields/auth";
 
 const schema = z.object({
   ...schemaPwd(),
@@ -23,7 +23,7 @@ const schema = z.object({
 
 export type PwdSecurityForm = z.infer<typeof schema>;
 
-const SecurityPwd: FC = () => {
+const SecurityPwdPageContent: FC = () => {
   const { state } = useLocation();
   const { from } = state ?? {};
   const nav = useNavigate();
@@ -107,4 +107,4 @@ const SecurityPwd: FC = () => {
   );
 };
 
-export default SecurityPwd;
+export default SecurityPwdPageContent;

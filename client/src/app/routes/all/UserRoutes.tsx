@@ -1,7 +1,7 @@
 import SwapCtxProvider from "@/core/contexts/SwapCtx/SwapAddressProvider";
 import UserLayout from "@/app/layouts/UserLayout";
 import ManageAccountPage from "@/pages/UserLayout/ManageAccountPage";
-import SecurityPwd from "@/pages/UserLayout/SecurityPwd/SecurityPwd";
+import SecurityPwdPage from "@/pages/UserLayout/SecurityPwdPage";
 import VerifyAccountLogged from "@/pages/UserLayout/VerifyAccountLogged/VerifyAccountLogged";
 import Push from "../helpers/Push";
 import ProfileSettingsPage from "@/pages/UserLayout/ProfileSettingsPage";
@@ -28,7 +28,7 @@ export const userRoutes = {
     },
     {
       path: "security",
-      element: <SecurityPwd />,
+      element: <SecurityPwdPage />,
     },
     {
       path: "*",
