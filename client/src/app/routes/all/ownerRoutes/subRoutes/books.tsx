@@ -1,6 +1,6 @@
 import SearchCtxProvider from "@/core/contexts/SearchCtx/SearchCtxProvider";
 import BooksList from "@/pages/OwnerLayout/BooksLayout/BooksList/BooksList";
-import CreateBook from "@/pages/OwnerLayout/BooksLayout/CreateBook/CreateBook";
+import CreateBookOwnerPage from "@/pages/OwnerLayout/BooksLayout/CreateBookOwnerPage";
 import UpdateBookPageOwner from "@/pages/OwnerLayout/BooksLayout/UpdateBookPageOwner";
 import { Outlet } from "react-router-dom";
 import BookPageOwner from "@/pages/OwnerLayout/BooksLayout/BookPageOwner";
@@ -10,7 +10,7 @@ export const booksRoutes = {
   path: "books",
   element: <Outlet />,
   children: [
-    { path: "add-book", element: <CreateBook /> },
+    { path: "add-book", element: <CreateBookOwnerPage /> },
     { path: "update/:bookID", element: <UpdateBookPageOwner /> },
     {
       path: "list",
