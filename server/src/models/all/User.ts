@@ -14,6 +14,8 @@ import { captAll } from "../../lib/utils/formatters.js";
 import { schemaAddress, schemaID } from "./utils/helpers.js";
 import { CartInstance } from "./Cart.js";
 import { BookStoreInstance } from "./BookStore.js";
+import { OrderInstance } from "./Order.js";
+import { BookStoreUserInstance } from "./BookStoreUser.js";
 
 export class User extends Model {
   id!: string;
@@ -37,8 +39,11 @@ export class User extends Model {
 
   thumb?: ThumbInstance;
 
-  stores?: BookStoreInstance[];
+  stores?: BookStoreUserInstance[];
+  bookStores?: BookStoreInstance[];
   cart?: CartInstance;
+
+  orders?: OrderInstance[];
 
   async existUser(this: User) {
     return await User.findOne({

@@ -3,7 +3,7 @@ import { MsgCheckToken, ReqApp, TokenEventType } from "../../types/types.js";
 import { Op } from "sequelize";
 import { res200, res204 } from "../../lib/responseClient/res.js";
 import { checkCbcHmac } from "../../lib/hashEncryptSign/cbcHmac.js";
-import { err401, err500 } from "../../lib/responseClient/err.js";
+import { err401, err409, err500 } from "../../lib/responseClient/err.js";
 import { formatMsgApp } from "../../lib/utils/formatters.js";
 import { clearCookie } from "../../lib/hashEncryptSign/JWE.js";
 import { seq } from "../../config/db.js";
@@ -21,6 +21,16 @@ import { Token } from "../../models/all/Token.js";
 import { Order } from "../../models/all/Order.js";
 import { OrderStore } from "../../models/all/OrderStore.js";
 import { OrderItemStore } from "../../models/all/OrderItemStore.js";
+import { __cg } from "../../lib/utils/log.js";
+import { StoreOrderStage } from "../../types/all/orders.js";
+import { isArrOkSoft, isSoftObjOk } from "../../lib/dataStructures.js";
+import { CloudAsset } from "../../types/all/cloud.js";
+
+const acceptedStages = [
+  StoreOrderStage.CANCELLED,
+  StoreOrderStage.COMPLETED,
+  StoreOrderStage.REFUNDED,
+];
 
 export const clearManageToken = async (
   req: ReqApp,
@@ -67,6 +77,12 @@ export const deleteAccount = async (
       {
         model: Order,
         as: "orders",
+        include: [
+          {
+            model: OrderStore,
+            as: "orderStores",
+          },
+        ],
       },
       {
         model: Cart,
@@ -80,11 +96,27 @@ export const deleteAccount = async (
       },
       {
         model: BookStore,
-        as: "stores",
+        as: "bookStores",
         include: [
           {
+            model: User,
+            as: "team",
+          },
+          {
+            model: Book,
+            as: "books",
+          },
+          {
+            model: ImgBookStore,
+            as: "images",
+          },
+          {
+            model: VideoBookStore,
+            as: "video",
+          },
+          {
             model: OrderStore,
-            as: "orderStores",
+            as: "orders",
             include: [
               {
                 model: OrderItemStore,
@@ -103,32 +135,35 @@ export const deleteAccount = async (
     token,
     del: false,
   });
+
   if (canProceed !== MsgCheckToken.OK)
     return err401(res, { msg: formatMsgApp(canProceed) });
 
-  const stores = await BookStore.findAll({
-    where: {
-      ownerID: user.id,
-    },
-    include: [
-      {
-        model: ImgBookStore,
-        as: "images",
-      },
-      {
-        model: VideoBookStore,
-        as: "video",
-      },
-      {
-        model: User,
-        as: "team",
-      },
-      {
-        model: Book,
-        as: "books",
-      },
-    ],
-  });
+  if (user.orders?.length) {
+    for (const o of user.orders) {
+      if (o.orderStores?.length) {
+        for (const os of o.orderStores) {
+          if (!acceptedStages.includes(os.stage as StoreOrderStage))
+            return err409(res, {
+              msg: "you can't delete your account because you have pending orders to receive",
+            });
+        }
+      }
+    }
+  }
+
+  if (user.bookStores?.length) {
+    for (const bs of user.bookStores) {
+      if (bs.orders?.length) {
+        for (const os of bs.orders) {
+          if (!acceptedStages.includes(os.stage as StoreOrderStage))
+            return err409(res, {
+              msg: "you can't delete your account because you have pending orders to deliver",
+            });
+        }
+      }
+    }
+  }
 
   const idsCloudImg: string[] = [];
   const idsCloudVideo: string[] = [];
@@ -148,64 +183,89 @@ export const deleteAccount = async (
       await user.thumb.destroy({ transaction: t });
     }
 
-    if (stores.length) {
-      for (const el of stores) {
-        if (el.images?.length) {
-          for (const img of el.images) {
-            idsCloudImg.push(img.publicID);
-            await img.destroy({ transaction: t });
-          }
+    if (isArrOkSoft(user.bookStores)) {
+      for (const s of user!.bookStores!) {
+        if (isArrOkSoft(s.images)) {
+          idsCloudImg.push(...s!.images!.flatMap((img) => img.publicID));
+          await ImgBookStore.destroy({
+            where: {
+              bookStoreID: s.id,
+            },
+            transaction: t,
+          });
         }
-        if (typeof el.video === "object" && el.video !== null) {
-          idsCloudVideo.push(el.video.publicID);
-          await el.video.destroy({ transaction: t });
+
+        if (isSoftObjOk(s.video)) {
+          idsCloudVideo.push(s!.video!.publicID as string);
+          await s!.video!.destroy({ transaction: t });
         }
-        if (el.books?.length) {
-          for (const b of el.books) {
-            if (b.images?.length)
-              idsCloudImg.push(...b.images.map((img) => img.publicID));
+
+        if (isArrOkSoft(s.books)) {
+          for (const b of s.books!) {
+            if (isArrOkSoft(b?.images)) {
+              idsCloudImg.push(...b!.images!.flatMap((img) => img.publicID));
+            }
+
             await b.destroy({ transaction: t });
           }
         }
-        if (el.team?.length) {
-          for (const jun of el.team) {
-            await BookStoreUser.destroy({
-              where: {
-                userID: jun.id,
-              },
-              transaction: t,
-            });
-          }
+
+        if (isArrOkSoft(s.team)) {
+          await BookStoreUser.destroy({
+            where: {
+              bookStoreID: s.id,
+            },
+            transaction: t,
+          });
         }
 
-        await el.update(
-          { ownerID: null, deletedAt: new Date() },
+        // ? ORDER AS ORDER STORE(ONE OR MORE THAT CREATE THE BIGGER ONE) OF ORDER(THE BIG ONE OF USER)
+        if (isArrOkSoft(s.orders)) {
+          await OrderStore.update(
+            {
+              bookStoreID: null,
+            },
+            {
+              where: {
+                bookStoreID: s.id,
+              },
+              transaction: t,
+            }
+          );
+        }
+
+        await s.update(
+          {
+            ownerID: null,
+            deletedAt: Date.now(),
+          },
           { transaction: t }
         );
       }
     }
 
-    if (user?.stores?.length)
+    if (isArrOkSoft(user.orders)) {
+      await Order.update(
+        {
+          userID: null,
+        },
+        {
+          where: {
+            userID: user.id,
+          },
+          transaction: t,
+        }
+      );
+    }
+
+    if (isArrOkSoft(user.stores)) {
       await BookStoreUser.destroy({
         where: {
           userID: user.id,
         },
         transaction: t,
       });
-
-    if (user?.cart) {
-      if (user.cart?.items?.length)
-        await CartItem.destroy({
-          where: {
-            cartID: user.cart.id,
-          },
-          transaction: t,
-        });
-
-      await user.cart.destroy({ transaction: t });
     }
-
-    await user.destroy({ transaction: t });
 
     await t.commit();
 
@@ -214,11 +274,11 @@ export const deleteAccount = async (
 
     clearCookie(res);
 
-    return res200(res, { msg: "account deleted" });
-  } catch (err: any) {
-    console.log(err);
-
+    return res200(res, { msg: "Account deleted" });
+  } catch (err) {
     await t.rollback();
+
+    __cg("err deletion account", err);
 
     return err500(res);
   }

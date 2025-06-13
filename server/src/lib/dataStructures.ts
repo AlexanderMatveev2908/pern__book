@@ -2,6 +2,10 @@ export const isObjOk = (obj: any, valsCb?: (val: any) => boolean) =>
   !!Object.keys(obj ?? {}).length &&
   Object.values(obj ?? {}).every(valsCb ?? ((val) => val || val !== undefined));
 
+export const isSoftObjOk = (obj: any) =>
+  !!Object.keys(obj ?? {}).length &&
+  Object.values(obj ?? {}).some((val) => val || val !== undefined);
+
 export const isObjErrOk = (obj: any) => isObjOk(obj) && obj?.msg;
 
 export const parseNull = (str: string) => (str === "_" ? null : str);
@@ -37,6 +41,9 @@ export const isArrEq = (arr_1: any[], arr_2: any[]) => {
 
 export const isArrOk = (arr?: any) =>
   Array.isArray(arr) && !!arr.length && arr.every((el) => isObjOk(el));
+
+export const isArrOkSoft = (arr?: any) =>
+  Array.isArray(arr) && !!arr.length && arr.every((el) => isSoftObjOk(el));
 
 export const isLenStr = (str: string | undefined, minLen: number) =>
   (str?.trim()?.length ?? 0) >= minLen;
