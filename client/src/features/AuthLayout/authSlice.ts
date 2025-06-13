@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { AuthState } from "../../types/all/user";
-import { RootStateType } from "../../store/store";
+import { RootStateType } from "../../core/store/store";
 import { getStorage } from "@/core/lib/lib";
 import { StorageKeys } from "@/types/types";
 

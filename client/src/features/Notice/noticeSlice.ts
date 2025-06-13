@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { getStorage } from "@/core/lib/lib";
-import { RootStateType } from "@/store/store";
+import { RootStateType } from "@/core/store/store";
 import { EventApp, StorageKeys } from "@/types/types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 

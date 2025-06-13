@@ -1,4 +1,5 @@
 export enum StoreOrderStage {
+  PENDING = "pending",
   PAID = "paid",
   PROCESSING = "processing",
   SHIPPED = "shipped",
@@ -7,6 +8,13 @@ export enum StoreOrderStage {
   CANCELLED = "cancelled",
   REFUNDED = "refunded",
 }
+
+export const acceptedStageDeleteAccount = [
+  StoreOrderStage.PENDING,
+  StoreOrderStage.CANCELLED,
+  StoreOrderStage.REFUNDED,
+  StoreOrderStage.COMPLETED,
+];
 
 export enum OrderStage {
   PENDING = "pending",

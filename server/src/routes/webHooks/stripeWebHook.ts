@@ -114,6 +114,7 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
         await Order.update(
           {
             stage: OrderStage.PAID,
+            orderedAt: Date.now(),
           },
           {
             where: {

@@ -18,6 +18,7 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
+import { doLorem } from "@/core/lib/all/utils/place";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -41,9 +42,12 @@ const CreateBooksStoreOwner: FC = () => {
       street: "",
       zipCode: "",
       phone: "",
-      name: "",
-      categories: [],
-      deliveryTime: "",
+      name: "store__t0",
+      categories: ["literature & fiction", "philosophy"],
+      deliveryTime: "14",
+      deliveryPrice: "75",
+      freeDeliveryAmount: "100",
+      description: doLorem(50),
     },
   });
 
@@ -100,9 +104,17 @@ const CreateBooksStoreOwner: FC = () => {
 
   useEffect(() => {
     setValue("items", [
+      // {
+      //   email: "",
+      //   role: null,
+      // },
       {
-        email: "",
-        role: null,
+        email: "john@gmail.com",
+        role: UserRole.MANAGER,
+      },
+      {
+        email: "jane@gmail.com",
+        role: UserRole.EMPLOYEE,
       },
     ]);
   }, [setValue]);

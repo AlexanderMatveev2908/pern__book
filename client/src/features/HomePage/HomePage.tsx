@@ -5,9 +5,9 @@ import { rootAPI } from "@/features/root/rootAPI";
 import CardInfo from "@/features/HomePage/components/CardInfo/CardInfo";
 import SlidersHome from "@/features/HomePage/components/slidersHome/SlidersHome";
 import { argSNAS, infosAppHome } from "@/features/HomePage/fields/infoApp";
-import apiSlice from "@/store/apiSlice";
 import { useEffect, type FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import apiSlice from "@/core/store/api/apiSlice";
 
 const HomePage: FC = () => {
   const authState = useSelector(getAuthState);

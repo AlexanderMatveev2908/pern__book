@@ -1,10 +1,10 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { KEY_ACTION_CART } from "@/core/config/fieldsData/labels/shared";
 import { __cg, catchErr, isArrOk } from "@/core/lib/lib";
-import apiSlice from "@/store/apiSlice";
 import { BaseResAPI, TagsAPI } from "@/types/types";
 import { CartType } from "@/types/all/Cart";
 import { rootAPI } from "@/features/root/rootAPI";
+import apiSlice from "@/core/store/api/apiSlice";
 
 const B_URL = "/consumer/cart";
 

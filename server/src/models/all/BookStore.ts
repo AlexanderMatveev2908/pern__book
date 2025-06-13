@@ -7,6 +7,7 @@ import { VideoBookStoreType } from "./img&video/VideoBookStore.js";
 import { BookStoreUserInstance } from "./BookStoreUser.js";
 import { BookInstance } from "./Book.js";
 import { refSql, schemaAddress, schemaID } from "./utils/helpers.js";
+import { OrderStoreInstance } from "./OrderStore.js";
 
 export interface TeamType {
   email: string;
@@ -41,6 +42,8 @@ export class BookStore extends Model {
   team?: BookStoreUserInstance[];
   images?: ImgBookStoreType[];
   video?: VideoBookStoreType;
+
+  orders?: OrderStoreInstance[];
 
   books?: BookInstance[];
 }

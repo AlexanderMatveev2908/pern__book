@@ -18,7 +18,7 @@ export const clearDB = async () => {
 
       await syncDB();
 
-      populateDB();
+      await populateDB();
     } catch (err) {}
   });
 };

@@ -39,11 +39,11 @@ if (!isDev) {
 }
 app.use(errMiddleware);
 
-// clearDB();
-
 const start = async () => {
   try {
     await connectDB();
+
+    await clearDB();
 
     // await syncDB();
 

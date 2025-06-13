@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { DispatchType, store } from "@/store/store";
+import { DispatchType, store } from "@/core/store/store";
 import { TagsAPI } from "@/types/types";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";

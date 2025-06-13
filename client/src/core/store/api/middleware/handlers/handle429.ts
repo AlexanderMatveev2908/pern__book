@@ -1,11 +1,11 @@
 import authSlice from "@/features/AuthLayout/authSlice";
 import { getMsgErr, goTo, removeStorage, saveStorage } from "@/core/lib/lib";
 import { AllowedFromApp, EventApp, StorageKeys } from "@/types/types";
-import apiSlice from "../apiSlice";
 import toastSlice from "@/features/common/Toast/toastSlice";
 import { AxiosResponse } from "axios";
 import { MiddlewareAPI } from "@reduxjs/toolkit";
 import noticeSlice from "@/features/Notice/noticeSlice";
+import apiSlice from "../../apiSlice";
 
 export const handle429 = (store: MiddlewareAPI, err: AxiosResponse) => {
   const { data, status } = err;

@@ -1,7 +1,7 @@
 import { SearchOrdersWorkerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/processVals/general";
 import { isArrOk } from "@/core/lib/lib";
-import apiSlice from "@/store/apiSlice";
+import apiSlice from "@/core/store/api/apiSlice";
 import { OrderStoreType } from "@/types/all/orders";
 import {
   BaseResAPI,

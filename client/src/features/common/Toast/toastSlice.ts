@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { RootStateType } from "../../../store/store";
+import { RootStateType } from "../../../core/store/store";
 import { EventApp } from "@/types/types";
 
 export interface ToastType {

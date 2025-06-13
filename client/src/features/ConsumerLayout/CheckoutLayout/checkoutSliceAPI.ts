@@ -1,8 +1,8 @@
-import apiSlice from "@/store/apiSlice";
 import { CartType } from "@/types/all/Cart";
 import { BaseResAPI } from "@/types/types";
 import { CheckoutAddressType } from "./forms/schema";
 import { OrderType } from "@/types/all/orders";
+import apiSlice from "@/core/store/api/apiSlice";
 
 const B_URL = "/consumer/checkout";
 
