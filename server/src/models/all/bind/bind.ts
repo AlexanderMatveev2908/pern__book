@@ -86,11 +86,11 @@ export const bindModels = (seq: Sequelize) => {
   });
   BookStoreUser.belongsTo(User, {
     foreignKey: "userID",
-    as: "storeJunction",
+    as: "member",
   });
   BookStoreUser.belongsTo(BookStore, {
     foreignKey: "bookStoreID",
-    as: "bookStoreJunction",
+    as: "store",
   });
 
   Order.belongsTo(User, {

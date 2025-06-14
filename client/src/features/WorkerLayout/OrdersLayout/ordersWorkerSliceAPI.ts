@@ -19,7 +19,7 @@ export const ordersWorkerSliceAPI = apiSlice.injectEndpoints({
       ReqQueryAPI<{ vals: SearchOrdersWorkerType; routeID: string }>
     >({
       query: ({ vals, routeID }) => ({
-        url: `${B_URL}/${routeID}?${makeParams(vals)}`,
+        url: `${B_URL}/list/${routeID}?${makeParams(vals)}`,
         method: "GET",
       }),
       providesTags: (res) => [
@@ -35,6 +35,17 @@ export const ordersWorkerSliceAPI = apiSlice.injectEndpoints({
           id: "LIST",
         },
       ],
+    }),
+
+    getWorkerOrder: builder.query<
+      BaseResAPI<{ order: OrderStoreType }>,
+      { orderID: string }
+    >({
+      query: ({ orderID }) => ({
+        url: `${B_URL}/${orderID}`,
+        method: "GET",
+      }),
+      providesTags: [TagsAPI.ORDER_WORKER],
     }),
   }),
 });
