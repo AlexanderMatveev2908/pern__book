@@ -5,7 +5,7 @@ import SpanInfoCard from "../shared/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
 import { TbDatabaseCog, TbPigMoney } from "react-icons/tb";
 import { formatD, priceFormatter } from "@/core/lib/lib";
-import { IoBagCheckOutline } from "react-icons/io5";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 
 type PropsType = {
   o: OrderStoreType;
@@ -43,7 +43,7 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
         {...{
           spanInfo: {
             label: formatD(+(o.order?.orderedAt ?? 0)),
-            icon: IoBagCheckOutline,
+            icon: MdOutlineShoppingCartCheckout,
           },
         }}
       />

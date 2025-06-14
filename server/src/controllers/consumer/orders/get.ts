@@ -97,6 +97,21 @@ export const getOrderConsumer = async (req: ReqApp, res: Response) => {
         ],
       },
     ],
+
+    attributes: {
+      include: [
+        [
+          literal(`(
+          SELECT SUM(oi.qty)
+          FROM "orders_stores" AS os
+          INNER JOIN "order_items" AS oi
+          ON os."id" = oi."orderStoreID"
+          WHERE os."orderID" = "Order"."id"
+          )`),
+          "totItems",
+        ],
+      ],
+    },
   });
 
   if (!order) return err404(res, { msg: "Order not found" });
