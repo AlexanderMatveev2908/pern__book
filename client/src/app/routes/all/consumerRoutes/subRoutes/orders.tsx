@@ -20,6 +20,7 @@ export const ordersConsumerRoutes = {
       path: ":orderID",
       element: <OrderPageConsumer />,
     },
+
     FB_404(),
   ],
 };

@@ -35,5 +35,17 @@ export const ordersConsumerSliceAPI = apiSlice.injectEndpoints({
         },
       ],
     }),
+
+    getOrderConsumer: builder.query<
+      BaseResAPI<{ order: OrderType }>,
+      { orderID: string }
+    >({
+      query: ({ orderID }) => ({
+        url: `${B_URL}/${orderID}`,
+        method: "GET",
+      }),
+
+      providesTags: [TagsAPI.ORDER_CONSUMER],
+    }),
   }),
 });

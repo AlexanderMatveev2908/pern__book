@@ -6,7 +6,7 @@ import { formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
 import { FaDatabase } from "react-icons/fa";
-import { IoBagCheckOutline } from "react-icons/io5";
+import { MdOutlineShoppingCartCheckout } from "react-icons/md";
 import { TbPigMoney } from "react-icons/tb";
 
 type PropsType = {
@@ -51,7 +51,7 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
           <SpanInfoCard
             {...{
               spanInfo: {
-                icon: IoBagCheckOutline,
+                icon: MdOutlineShoppingCartCheckout,
                 label: formatD(+o.orderedAt!),
               },
             }}

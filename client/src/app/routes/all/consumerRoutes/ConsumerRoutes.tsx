@@ -16,7 +16,7 @@ export const consumerRoutes = {
       element: <Outlet />,
       children: [
         {
-          index: true,
+          path: "list",
           element: (
             <SearchCtxProvider>
               <BookListConsumer />
@@ -33,5 +33,7 @@ export const consumerRoutes = {
     cartRoutes,
     checkoutRoutes,
     ordersConsumerRoutes,
+
+    FB_404(),
   ],
 };

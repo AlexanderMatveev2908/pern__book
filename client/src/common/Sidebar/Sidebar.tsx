@@ -87,7 +87,7 @@ const Sidebar: FC = () => {
   const fieldsAllUsers = useMemo(
     () =>
       sideFieldsAllUsers.filter((el) => {
-        if (el.path === "/consumer/cart") return user?.cartCount;
+        if (el.path === "/consumer/cart/summary") return user?.cartCount;
         else if (el.path === "/consumer/orders/list")
           return user?.hasConsumerOrders;
         return true;
@@ -115,7 +115,7 @@ const Sidebar: FC = () => {
 
           <div className={`grid gap-5 px-5 ${isLogged ? "" : "pt-5"}`}>
             {fieldsAllUsers.map((el) =>
-              el.path === "/consumer/cart" ? (
+              el.path === "/consumer/cart/summary" ? (
                 <div
                   key={el.id}
                   className="w-full flex justify-start gap-6 items-center"

@@ -14,9 +14,7 @@ export const clearDB = async () => {
         resource_type: "video",
       });
 
-      await seq.drop({ cascade: true });
-
-      await syncDB();
+      await seq.sync({ force: true });
 
       await populateDB();
     } catch (err) {}

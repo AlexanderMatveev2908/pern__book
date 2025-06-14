@@ -29,7 +29,7 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   },
   {
     label: "Cart",
-    path: "/consumer/cart",
+    path: "/consumer/cart/summary",
     icon: MdOutlineShoppingCart,
   },
   {
@@ -39,7 +39,7 @@ export const sideFieldsAllUsers: SideFieldType[] = [
   },
   {
     label: "Books",
-    path: "/consumer/books",
+    path: "/consumer/books/list",
     icon: FaBook,
   },
 ].map((el) => ({

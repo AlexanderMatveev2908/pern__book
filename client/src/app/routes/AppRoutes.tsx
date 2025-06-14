@@ -27,9 +27,9 @@ export const appRoutes = [
       { path: "notice", element: <Notice /> },
       { path: "verify-cb", element: <VerifyCb /> },
 
-      FB_404(),
+      FB_404({ path: "*" }),
     ],
   },
 
-  FB_404(),
+  FB_404({ path: "*" }),
 ];

@@ -12,10 +12,9 @@ type PropsType = {
 };
 
 const BreadCrumb: FC<PropsType> = ({ els }) => {
+  // ? double ids for last arg cause i push 2 chevrons
   const ids = useCreateIds({
-    lengths: Array.from({ length: 3 }, (_, i) =>
-      i === (els?.length ?? 0) - 1 ? (els?.length ?? 1) * 2 : els?.length ?? 0
-    ),
+    lengths: Array.from({ length: 3 }, () => els?.length),
   });
 
   return (
