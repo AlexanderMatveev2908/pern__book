@@ -1,6 +1,6 @@
 import ItemList from "@/components/elements/cards/shared/ItemList";
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
-import SpanTitleCard from "@/components/elements/cards/shared/SpanTitleCard";
+import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
+import SpanTitleCard from "@/components/elements/cards/shared/spans/SpanTitleCard";
 import { priceFormatter } from "@/core/lib/lib";
 import { OrderItemStoreType } from "@/types/all/orders";
 import type { FC } from "react";
@@ -18,7 +18,7 @@ const OrderItemConsumer: FC<PropsType> = ({ ois }) => {
         <SpanTitleCard
           {...{
             label: {
-              label: ois?.book?.title ?? "N/A",
+              label: ois.title,
               icon: FaBook,
             },
           }}
@@ -29,7 +29,7 @@ const OrderItemConsumer: FC<PropsType> = ({ ois }) => {
             {...{
               spanInfo: {
                 icon: FaPenFancy,
-                label: ois?.book?.author,
+                label: ois!.author,
               },
             }}
           />

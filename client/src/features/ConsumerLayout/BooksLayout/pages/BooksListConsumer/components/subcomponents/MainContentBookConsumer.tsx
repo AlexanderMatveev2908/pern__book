@@ -1,5 +1,5 @@
 import RatingItem from "@/components/elements/cards/shared/rating/RatingItem";
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
+import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
 import { priceFormatter } from "@/core/lib/lib";
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";

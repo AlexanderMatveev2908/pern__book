@@ -2,7 +2,7 @@ import Title from "@/components/elements/Title";
 import type { FC } from "react";
 import { dummyCards, legend } from "./fields";
 import WrapToolTipCard from "./components/WrapToolTipCard";
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
+import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
 
 const DummyCards: FC = () => {
   return (

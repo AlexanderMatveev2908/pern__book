@@ -9,7 +9,7 @@ export enum StoreOrderStage {
   REFUNDED = "refunded",
 }
 
-export const acceptedStageDeleteAccount = [
+export const acceptedStageDeleteStore = [
   StoreOrderStage.PENDING,
   StoreOrderStage.CANCELLED,
   StoreOrderStage.REFUNDED,

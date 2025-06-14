@@ -1,7 +1,7 @@
 import { BookType } from "@/types/all/books";
 import type { FC } from "react";
 import ItemList from "../shared/ItemList";
-import SpanInfoCard from "../shared/SpanInfoCard";
+import SpanInfoCard from "../shared/spans/SpanInfoCard";
 import { FaBook, FaDatabase, FaPenFancy } from "react-icons/fa";
 import { HiLibrary } from "react-icons/hi";
 import { TbPigMoney } from "react-icons/tb";

@@ -6,8 +6,6 @@ Welcome to my project! This time, I decided to create an app based on books, dur
 
 ## 🚀 Main Technologies
 
-### 🚀 Main Technologies
-
 - **Vite** as the web bundler
 - **React** as the main library (or framework, depending on your point of view 🤔)
 - **React Router DOM** for routing and page navigation

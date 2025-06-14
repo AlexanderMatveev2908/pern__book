@@ -1,4 +1,4 @@
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
+import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
 import WrapPairTxt from "@/components/elements/WrapPairTxt/WrapPairTxt";
 import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { priceFormatter } from "@/core/lib/lib";

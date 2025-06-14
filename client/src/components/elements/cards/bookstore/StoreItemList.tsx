@@ -1,6 +1,6 @@
 import { BookStoreType } from "@/types/all/bookStore";
 import { type FC } from "react";
-import SpanInfoCard from "../shared/SpanInfoCard";
+import SpanInfoCard from "../shared/spans/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
 import { FaCity, FaDatabase } from "react-icons/fa";
 import ItemList from "../shared/ItemList";

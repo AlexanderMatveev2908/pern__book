@@ -70,8 +70,8 @@ const OrdersListWorker: FC = () => {
         >
           <div className="list_items_app">
             {isArrOk(orders) &&
-              orders?.map((o) => (
-                <OrderStoreItemWorker key={o.id} {...{ o }} />
+              orders?.map((os) => (
+                <OrderStoreItemWorker key={os.id} {...{ os }} />
               ))}
           </div>
         </WrapperContentAPI>

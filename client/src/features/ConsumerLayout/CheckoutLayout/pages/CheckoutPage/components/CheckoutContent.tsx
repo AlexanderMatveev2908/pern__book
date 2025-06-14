@@ -27,6 +27,7 @@ import s from "./CheckoutContent.module.css";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp } from "@/types/types";
+import { useNavigate } from "react-router-dom";
 
 type PropsType = {
   order: OrderType;
@@ -37,6 +38,8 @@ const CheckoutContent: FC<PropsType> = ({ order, refetchOrder }) => {
   const stripe = useStripe();
   const elements = useElements();
   const [isPending, setIsPending] = useState(false);
+
+  const nav = useNavigate();
 
   const { user } = useGetU();
 
@@ -166,6 +169,8 @@ const CheckoutContent: FC<PropsType> = ({ order, refetchOrder }) => {
             statusCode: 200,
           })
         );
+
+        nav(`/consumer/orders/${freshOrder!.id}`, { replace: true });
       } catch (err) {
         __cg("deep dummy error", err);
         dispatch(
