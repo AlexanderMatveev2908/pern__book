@@ -45,14 +45,14 @@ export const getClientSecretOrder = async (req: ReqApp, res: Response) => {
   const { order } = await getPopulatedOrder({ orderID, userID: userID! });
 
   if (!order) return err404(res, { msg: "order not found" });
+  if (order!.orderStores!.some((os) => os.store?.isSoftDeleted()))
+    return err409(res, { msg: "One or more store has closed his activity" });
   if (
     order.orderStores!.some((os) =>
       os.orderItemStores!.some((ois) => ois.book!.isSoftDeleted())
     )
   )
     return err409(res, { msg: "One or more items are no longer available" });
-  if (order!.orderStores!.some((os) => os.store?.isSoftDeleted()))
-    return err409(res, { msg: "Some store has closed his activity" });
   if (order.stage !== OrderStage.PENDING)
     return err409(res, { msg: "Conflict order status" });
 

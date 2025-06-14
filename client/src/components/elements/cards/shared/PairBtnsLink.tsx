@@ -6,7 +6,7 @@ import { isStr } from "@/core/lib/lib";
 
 type PropsType = {
   ids?: (string | null)[];
-  customStyleBtns?: string[];
+  customStyleBtns?: string[] | null;
 };
 
 const PairBtnsLink: FC<PropsType> = ({ ids, customStyleBtns }) => {
