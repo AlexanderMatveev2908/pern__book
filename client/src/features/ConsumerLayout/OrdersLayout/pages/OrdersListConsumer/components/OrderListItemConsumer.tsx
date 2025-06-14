@@ -2,7 +2,7 @@ import ItemID from "@/components/elements/cards/shared/spans/ItemID";
 import ItemList from "@/components/elements/cards/shared/ItemList";
 import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
-import { capt, formatD, priceFormatter } from "@/core/lib/lib";
+import { capt, formatD, isObjOk, priceFormatter } from "@/core/lib/lib";
 import { OrderType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
 import { FaDatabase } from "react-icons/fa";
@@ -24,8 +24,17 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
     [o]
   );
 
+  const isAvailable = useMemo(
+    () => o!.orderStores!.every((os) => isObjOk(os.store)),
+    [o]
+  );
+
   return (
-    <div className="card">
+    <div
+      className={`card ${
+        isAvailable ? "border-neutral-800" : "border-red-600"
+      }`}
+    >
       <div className="body_card">
         <ItemID {...{ ID: o.id }} />
 
@@ -71,7 +80,12 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ ids: [`/consumer/orders/${o.id}`] }} />
+        <PairBtnsLink
+          {...{
+            ids: [`/consumer/orders/${o.id}`],
+            customStyleBtns: ["border-red-600 hover:bg-red-600"],
+          }}
+        />
       </div>
     </div>
   );

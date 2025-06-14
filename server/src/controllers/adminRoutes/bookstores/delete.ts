@@ -103,18 +103,6 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
         },
         transaction: t,
       });
-    if (bookStore?.orders?.length)
-      await OrderStore.update(
-        {
-          bookStoreID: null,
-        },
-        {
-          where: {
-            bookStoreID: bookStore.id,
-          },
-          transaction: t,
-        }
-      );
 
     await bookStore.destroy({ transaction: t });
 

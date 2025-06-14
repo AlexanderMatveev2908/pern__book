@@ -1,9 +1,10 @@
+import ErrCard from "@/components/elements/cards/shared/ErrCard";
 import ItemList from "@/components/elements/cards/shared/ItemList";
 import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
 import SpanTitleCard from "@/components/elements/cards/shared/spans/SpanTitleCard";
-import { priceFormatter } from "@/core/lib/lib";
+import { isObjOk, priceFormatter } from "@/core/lib/lib";
 import { OrderItemStoreType } from "@/types/all/orders";
-import type { FC } from "react";
+import { useMemo, type FC } from "react";
 import { FaBook, FaDatabase, FaPenFancy } from "react-icons/fa";
 import { TbPigMoney } from "react-icons/tb";
 
@@ -12,8 +13,11 @@ type PropsType = {
 };
 
 const OrderItemConsumer: FC<PropsType> = ({ ois }) => {
+  const isOutOfStock = useMemo(() => ois?.qty > (ois?.book?.qty ?? 0), [ois]);
+  const isDeleted = useMemo(() => !isObjOk(ois?.book), [ois]);
+
   return (
-    <div className="card">
+    <div className={`card border-neutral-800`}>
       <div className="body_card">
         <SpanTitleCard
           {...{
@@ -51,6 +55,18 @@ const OrderItemConsumer: FC<PropsType> = ({ ois }) => {
               },
             }}
           />
+
+          {isDeleted || isOutOfStock ? (
+            <ErrCard
+              {...{
+                msg: isDeleted
+                  ? "This item has been removed from stock"
+                  : "Item not currently available",
+              }}
+            />
+          ) : (
+            <div className=""></div>
+          )}
         </ItemList>
       </div>
     </div>

@@ -23,7 +23,7 @@ const BookStoreItemWorker: FC<PropsType> = ({ el }) => {
   );
 
   return (
-    <div className="card">
+    <div className="card border-neutral-800">
       <div className="body_card">
         <StoreItemList {...{ el, links: filtered }} />
       </div>

@@ -88,21 +88,25 @@ export const getPopulatedOrder = async ({
         as: "orderStores",
         required: true,
         separate: true,
+        paranoid: false,
         include: [
           {
             model: BookStore,
             as: "store",
             required: true,
+            paranoid: false,
           },
           {
             model: OrderItemStore,
             as: "orderItemStores",
             required: true,
+            paranoid: false,
             include: [
               {
                 model: Book,
                 as: "book",
                 required: true,
+                paranoid: false,
               },
             ],
           },

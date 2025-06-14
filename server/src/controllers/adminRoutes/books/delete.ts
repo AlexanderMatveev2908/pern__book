@@ -36,18 +36,6 @@ export const deleteBook = async (req: ReqApp, res: Response): Promise<any> => {
   try {
     await book.destroy({ transaction: t });
 
-    await OrderItemStore.update(
-      {
-        bookID: null,
-      },
-      {
-        where: {
-          bookID,
-        },
-        transaction: t,
-      }
-    );
-
     await t.commit();
 
     if (book.images?.length)

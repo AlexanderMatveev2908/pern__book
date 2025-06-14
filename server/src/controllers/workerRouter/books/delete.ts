@@ -52,18 +52,6 @@ export const deleteBookWorker = async (req: ReqApp, res: Response) => {
       transaction: t,
     });
 
-    await OrderItemStore.update(
-      {
-        bookID: null,
-      },
-      {
-        where: {
-          bookID,
-        },
-        transaction: t,
-      }
-    );
-
     await t.commit();
 
     if (book.images?.length)
