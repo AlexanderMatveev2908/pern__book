@@ -1,6 +1,7 @@
 import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderStoreType } from "@/types/all/orders";
+import { Truck } from "lucide-react";
 import {
   FaDatabase,
   FaRegCalendarAlt,
@@ -28,6 +29,11 @@ export const fieldsOrderStore = (os: OrderStoreType) =>
       label: "Total amount",
       icon: TbPigMoney,
       val: priceFormatter(+os.amount + +os.delivery),
+    },
+    {
+      label: "Delivery price",
+      icon: Truck,
+      val: priceFormatter(os.delivery, "Free Delivery"),
     },
     {
       label: "Total items",

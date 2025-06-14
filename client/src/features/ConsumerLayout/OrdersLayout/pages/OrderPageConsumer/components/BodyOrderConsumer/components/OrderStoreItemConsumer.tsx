@@ -2,7 +2,7 @@ import SpanPageInfo from "@/components/elements/cards/shared/spans/SpanPageInfo"
 import { fieldsBodyOrderStore } from "@/features/ConsumerLayout/OrdersLayout/fields/orderPageConsumer";
 import { OrderStoreType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
-import OrderItemConsumer from "./components/OrderItemConsumer";
+import OrderItemList from "../../../../../../../../components/elements/cards/orders/OrderItemList";
 import { isObjOk } from "@/core/lib/lib";
 import ErrCard from "@/components/elements/cards/shared/ErrCard";
 
@@ -49,7 +49,7 @@ const OrderStoreItemConsumer: FC<PropsType> = ({ os, hasBeenOrdered }) => {
 
       <div className="list_items_app">
         {(os?.orderItemStores ?? []).map((ois) => (
-          <OrderItemConsumer key={ois.id} {...{ ois, hasBeenOrdered }} />
+          <OrderItemList key={ois.id} {...{ ois, hasBeenOrdered }} />
         ))}
       </div>
     </div>

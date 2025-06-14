@@ -1,6 +1,6 @@
 import { OrderType } from "@/types/all/orders";
 import type { FC } from "react";
-import { fieldsAddressOrder } from "../../../fields/orderPageConsumer";
+import { fieldsAddressOrder } from "../../../../features/ConsumerLayout/OrdersLayout/fields/orderPageConsumer";
 import SpanPageInfo from "@/components/elements/cards/shared/spans/SpanPageInfo";
 
 type PropsType = {

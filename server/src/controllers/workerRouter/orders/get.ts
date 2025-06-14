@@ -9,6 +9,7 @@ import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
 import { literal } from "sequelize";
 import { makeQueryOrdersWorker } from "../../../lib/query/worker/orders.js";
 import { Order } from "../../../models/all/Order.js";
+import { hidePendingOrders } from "../../../lib/query/general/orders.js";
 
 export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -22,6 +23,7 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
         model: Order,
         as: "order",
         required: true,
+        where: hidePendingOrders("o"),
       },
       {
         model: BookStore,

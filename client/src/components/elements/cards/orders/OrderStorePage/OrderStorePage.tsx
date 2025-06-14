@@ -1,7 +1,9 @@
-import { OrderStoreType } from "@/types/all/orders";
+import { OrderStoreType, OrderType } from "@/types/all/orders";
 import type { FC } from "react";
 import { fieldsOrderStore } from "./fields";
 import SpanPageInfo from "../../shared/spans/SpanPageInfo";
+import SpanAddressOrder from "../SpanAddressOrder";
+import OrderItemList from "../OrderItemList";
 
 type PropsType = {
   os: OrderStoreType;
@@ -18,6 +20,19 @@ const OrderStorePage: FC<PropsType> = ({ os }) => {
               el,
               txt: "txt__3",
               styleParent: "grid-cols-[repeat(auto-fit,minmax(150px,1fr))]",
+            }}
+          />
+        ))}
+      </div>
+
+      <SpanAddressOrder {...{ o: os.order as OrderType }} />
+
+      <div className="list_items_app">
+        {os!.orderItemStores!.map((ois) => (
+          <OrderItemList
+            {...{
+              ois,
+              hasBeenOrdered: typeof os.order!.orderedAt === "string",
             }}
           />
         ))}

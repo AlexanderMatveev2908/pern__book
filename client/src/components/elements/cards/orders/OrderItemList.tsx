@@ -13,7 +13,7 @@ type PropsType = {
   hasBeenOrdered?: boolean;
 };
 
-const OrderItemConsumer: FC<PropsType> = ({ ois, hasBeenOrdered }) => {
+const OrderItemList: FC<PropsType> = ({ ois, hasBeenOrdered }) => {
   const isOutOfStock = useMemo(
     () => ois?.qty > (ois?.book?.qty ?? 0) && !hasBeenOrdered,
     [ois, hasBeenOrdered]
@@ -80,4 +80,4 @@ const OrderItemConsumer: FC<PropsType> = ({ ois, hasBeenOrdered }) => {
   );
 };
 
-export default OrderItemConsumer;
+export default OrderItemList;
