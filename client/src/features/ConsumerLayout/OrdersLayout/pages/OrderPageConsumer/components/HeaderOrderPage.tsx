@@ -1,7 +1,7 @@
 import SpanPageInfo from "@/components/elements/cards/shared/SpanPageInfo";
 import { OrderType } from "@/types/all/orders";
 import type { FC } from "react";
-import { fieldsHeaderOrder } from "../../../fields/orderPage";
+import { fieldsHeaderOrder } from "../../../fields/orderPageConsumer";
 
 type PropsType = {
   o: OrderType;

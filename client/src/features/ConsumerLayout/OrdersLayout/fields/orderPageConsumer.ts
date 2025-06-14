@@ -1,6 +1,7 @@
 import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { capt, formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderStoreType, OrderType } from "@/types/all/orders";
+import { CiDeliveryTruck } from "react-icons/ci";
 import { FaDatabase } from "react-icons/fa";
 import { HiMiniBuildingLibrary } from "react-icons/hi2";
 import { LuCalendarDays } from "react-icons/lu";
@@ -60,6 +61,11 @@ export const fieldsBodyOrderStore = (os: OrderStoreType) =>
       icon: TbTruckDelivery,
       label: "Expected Delivery",
       val: getExpectedDeliveredDay({ daysToAdd: os?.store?.deliveryTime ?? 0 }),
+    },
+    {
+      icon: CiDeliveryTruck,
+      label: "Delivery price",
+      val: priceFormatter(+os.delivery, "Free delivery"),
     },
   ].map((el) => ({
     ...el,

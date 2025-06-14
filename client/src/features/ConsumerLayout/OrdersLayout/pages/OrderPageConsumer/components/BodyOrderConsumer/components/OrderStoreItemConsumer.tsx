@@ -1,7 +1,8 @@
 import SpanPageInfo from "@/components/elements/cards/shared/SpanPageInfo";
-import { fieldsBodyOrderStore } from "@/features/ConsumerLayout/OrdersLayout/fields/orderPage";
+import { fieldsBodyOrderStore } from "@/features/ConsumerLayout/OrdersLayout/fields/orderPageConsumer";
 import { OrderStoreType } from "@/types/all/orders";
 import type { FC } from "react";
+import OrderItemConsumer from "./components/OrderItemConsumer";
 
 type PropsType = {
   os: OrderStoreType;
@@ -25,6 +26,12 @@ const OrderStoreItemConsumer: FC<PropsType> = ({ os }) => {
               styleParent: "grid-cols-[repeat(auto-fit,minmax(175px,1fr))]",
             }}
           />
+        ))}
+      </div>
+
+      <div className="list_items_app">
+        {(os?.orderItemStores ?? []).map((ois) => (
+          <OrderItemConsumer key={ois.id} {...{ ois }} />
         ))}
       </div>
     </div>

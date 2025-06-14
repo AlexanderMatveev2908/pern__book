@@ -26,8 +26,6 @@ Welcome to my project! This time, I decided to create an app based on books, dur
 - **JWE**, **JWT**, and **CBC-HMAC** used respectively for refresh tokens, access tokens, and verifications tokens
 - **PostgreSQL** as the relational database
 
-## PostgreSQL as the relational database
-
 ## 📆 Tooling & Architecture Notes
 
 - I use **Yarn Berry (v4)** instead of npm because it's faster for setups.

@@ -28,13 +28,7 @@ export const getNumBtns = () =>
     : 2;
 
 export const setLimitCards = () =>
-  window.innerWidth > 1800
-    ? 4
-    : window.innerWidth > 1500
-    ? 3
-    : window.innerWidth > 1000
-    ? 2
-    : 1;
+  window.innerWidth > 1200 ? 4 : window.innerWidth > 1000 ? 2 : 1;
 
 export const calcCurrBlock = ({
   i,
