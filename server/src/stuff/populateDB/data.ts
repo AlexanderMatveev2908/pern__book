@@ -1,4 +1,8 @@
+import { BookStoreInstance } from "../../models/all/BookStore.js";
+import { UserInstance } from "../../models/all/User.js";
+import { subcategories } from "../../types/all/books.js";
 import { CatBookStore } from "../../types/all/bookStore.js";
+import { doLorem, makeRandomMinMax, pickRandom } from "./placeHolders.js";
 
 export const commonFields = {
   isVerified: true,
@@ -47,3 +51,34 @@ export const users = [
 }));
 
 export const catStores = Object.values(CatBookStore);
+
+export const getValidCat = (mainCat: CatBookStore[]) => {
+  const allowed = Object.entries(subcategories)
+    .filter(([k, v]) => mainCat.some((el) => el === k))
+    .flatMap(([_, v]) => v);
+
+  const random = Array.from({ length: 3 }, () => pickRandom(allowed));
+
+  return random;
+};
+
+export const fillDefVals = ({
+  min,
+  max,
+  u,
+  store,
+}: {
+  min: number;
+  max: number;
+  u: UserInstance;
+  store: BookStoreInstance;
+}) => ({
+  bookStoreID: store!.id,
+  description: doLorem(20),
+  year: makeRandomMinMax(min, max).toFixed(0),
+  price: makeRandomMinMax(1, 50).toFixed(2),
+  qty: makeRandomMinMax(1, 50).toFixed(0),
+  createdBy: u.email,
+  lastUpdatedBy: u.email,
+  categories: getValidCat(store!.categories),
+});

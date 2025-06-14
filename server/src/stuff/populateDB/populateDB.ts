@@ -1,4 +1,3 @@
-import { fileURLToPath } from "url";
 import { seq } from "../../config/db.js";
 import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { __cg } from "../../lib/utils/log.js";
@@ -6,38 +5,10 @@ import { BookStore } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { User } from "../../models/all/User.js";
 import { UserRole } from "../../types/types.js";
-import path from "path";
-import fs from "fs/promises";
 import { doLorem, makeRandomMinMax, pickRandom } from "./placeHolders.js";
-import { catStores, users } from "./data.js";
-
-export const getAssetsPath = () =>
-  path.join(
-    path.dirname(fileURLToPath(import.meta.url)),
-    "../..",
-    "./assets_dev/books"
-  );
-
-export const createBooks = async () => {
-  const booksDir = getAssetsPath();
-
-  const authors = await fs.readdir(booksDir);
-
-  for (const a of authors) {
-    const authorDir = path.join(booksDir, a);
-    const stat = await fs.stat(authorDir);
-
-    if (!stat.isDirectory()) continue;
-
-    const imgDirs = await fs.readdir(authorDir);
-
-    for (const imgD of imgDirs) {
-      const fullPathImg = path.join(authorDir, imgD);
-
-      console.log(fullPathImg);
-    }
-  }
-};
+import { catStores, fillDefVals, getValidCat, users } from "./data.js";
+import { Book } from "../../models/all/Book.js";
+import { createBooksAssets } from "./helpers.js";
 
 export const populateDB = async () => {
   const safeUsers = await Promise.all(
@@ -101,6 +72,30 @@ export const populateDB = async () => {
             { transaction: t }
           );
 
+          const { uploaded, images } = await createBooksAssets([
+            "virginia_woolf",
+          ]);
+
+          let i = 0;
+
+          while (i < uploaded.length) {
+            await Book.create(
+              {
+                title: images[i].title,
+                author: "virginia_woolf",
+                ...fillDefVals({ min: 1900, max: 1942, u, store: store! }),
+                images: [
+                  {
+                    url: uploaded[i].url,
+                    publicID: uploaded[i].publicID,
+                  },
+                ],
+              },
+              { transaction: t }
+            );
+            i++;
+          }
+
           break;
         }
 
@@ -121,6 +116,31 @@ export const populateDB = async () => {
             },
             { transaction: t }
           );
+
+          const { uploaded, images } = await createBooksAssets([
+            "hernest_hemingway",
+          ]);
+
+          let i = 0;
+
+          while (i < uploaded.length) {
+            await Book.create(
+              {
+                title: images[i].title,
+                author: "hernest_hemingway",
+                ...fillDefVals({ min: 1920, max: 1961, u, store: store! }),
+                images: [
+                  {
+                    url: uploaded[i].url,
+                    publicID: uploaded[i].publicID,
+                  },
+                ],
+              },
+              { transaction: t }
+            );
+
+            i++;
+          }
 
           break;
         }

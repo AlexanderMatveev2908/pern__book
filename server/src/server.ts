@@ -1,7 +1,7 @@
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
-import { connectDB, syncDB } from "./config/db.js";
+import { connectDB } from "./config/db.js";
 import { isDev } from "./config/env.js";
 import routerApp from "./routes/route.js";
 import { getDirClient } from "./lib/utils/utils.js";
@@ -11,11 +11,6 @@ import cookieParser from "cookie-parser";
 import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
 import { clearDB } from "./stuff/clear.js";
-import {
-  createBooks,
-  getAssetsPath,
-  populateDB,
-} from "./stuff/populateDB/populateDB.js";
 import routerWebhook from "./routes/webHooks.js";
 
 const app = express();
@@ -42,9 +37,6 @@ if (!isDev) {
   });
 }
 app.use(errMiddleware);
-
-// getAssetsPath();
-createBooks();
 
 const start = async () => {
   try {
