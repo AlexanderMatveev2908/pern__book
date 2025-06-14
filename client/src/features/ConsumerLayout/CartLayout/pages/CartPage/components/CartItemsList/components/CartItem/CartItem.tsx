@@ -4,7 +4,7 @@ import { CartItemType } from "@/types/all/Cart";
 import { useMemo, type FC } from "react";
 import FormQty from "../subComponents/FormQty/FormQty";
 import SummaryPriceItem from "../subComponents/SummaryPriceItem";
-import SpanTitleCard from "@/components/elements/cards/shared/SpanTitleCard";
+import SpanTitleCard from "@/components/elements/cards/shared/spans/SpanTitleCard";
 import { FaBook } from "react-icons/fa";
 import s from "./CartItem.module.css";
 import { MdError } from "react-icons/md";

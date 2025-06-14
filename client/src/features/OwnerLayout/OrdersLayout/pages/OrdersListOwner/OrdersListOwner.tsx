@@ -60,7 +60,9 @@ const OrdersListOwner: FC = () => {
         <WrapperContentAPI {...({ formCtx, hook } as any)}>
           <div className="list_items_app">
             {isArr(orders) &&
-              orders!.map((o) => <OrderStoreItemOwner key={o.id} {...{ o }} />)}
+              orders!.map((os) => (
+                <OrderStoreItemOwner key={os.id} {...{ os }} />
+              ))}
           </div>
         </WrapperContentAPI>
       </div>

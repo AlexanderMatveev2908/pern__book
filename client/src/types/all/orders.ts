@@ -30,6 +30,7 @@ export type OrderItemStoreType = {
   orderStoreID: string;
   bookID: string;
   title: string;
+  author: string;
   qty: number;
   price: number;
   images: AssetCloudType[] | null;
@@ -46,6 +47,8 @@ export type OrderStoreType = {
   expectedArrival: number;
   stage: string;
 
+  bookStoreName: string;
+
   orderItemStores?: OrderItemStoreType[];
   store?: BookStoreType;
   totItems?: number;
@@ -61,11 +64,11 @@ export type OrderType = {
   stage: OrderStage;
   userID?: string;
 
-  county: string;
+  country: string;
   state: string;
   city: string;
   street: string;
-  zipCod: string;
+  zipCode: string;
   phone: string;
 
   totItems?: number;

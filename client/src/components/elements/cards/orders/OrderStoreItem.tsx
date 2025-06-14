@@ -1,23 +1,23 @@
 import { OrderStoreType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
 import ItemList from "../shared/ItemList";
-import SpanInfoCard from "../shared/SpanInfoCard";
+import SpanInfoCard from "../shared/spans/SpanInfoCard";
 import { HiLibrary } from "react-icons/hi";
 import { TbDatabaseCog, TbPigMoney } from "react-icons/tb";
 import { formatD, priceFormatter } from "@/core/lib/lib";
 import { LuCalendarDays } from "react-icons/lu";
 
 type PropsType = {
-  o: OrderStoreType;
+  os: OrderStoreType;
 };
 
-const OrderStoreItem: FC<PropsType> = ({ o }) => {
+const OrderStoreItem: FC<PropsType> = ({ os }) => {
   const images = useMemo(
     () =>
-      (o?.orderItemStores ?? [])
+      (os?.orderItemStores ?? [])
         .flatMap((oi) => oi.images?.[0])
         .filter((el) => !!el),
-    [o]
+    [os]
   );
 
   return (
@@ -25,7 +25,7 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: o!.store!.name,
+            label: os.bookStoreName,
             icon: HiLibrary,
           },
         }}
@@ -33,7 +33,7 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: priceFormatter(+o.amount + +o.delivery),
+            label: priceFormatter(+os.amount + +os.delivery),
             icon: TbPigMoney,
           },
         }}
@@ -42,7 +42,7 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: formatD(+(o.order?.orderedAt ?? 0)),
+            label: formatD(+os.order!.orderedAt!),
             icon: LuCalendarDays,
           },
         }}
@@ -51,7 +51,7 @@ const OrderStoreItem: FC<PropsType> = ({ o }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: o!.stage,
+            label: os!.stage,
             icon: TbDatabaseCog,
           },
         }}

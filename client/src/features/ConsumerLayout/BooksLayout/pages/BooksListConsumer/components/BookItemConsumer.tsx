@@ -1,7 +1,7 @@
 import { BookType } from "@/types/all/books";
 import { type FC } from "react";
 import { labelBookTitle } from "@/core/config/fieldsData/labels/shared";
-import SpanTitleCard from "@/components/elements/cards/shared/SpanTitleCard";
+import SpanTitleCard from "@/components/elements/cards/shared/spans/SpanTitleCard";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 import MainContentBookConsumer from "./subcomponents/MainContentBookConsumer";

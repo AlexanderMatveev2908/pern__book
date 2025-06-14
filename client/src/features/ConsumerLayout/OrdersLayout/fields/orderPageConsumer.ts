@@ -40,7 +40,7 @@ export const fieldsBodyOrderStore = (os: OrderStoreType) =>
     {
       icon: HiMiniBuildingLibrary,
       label: "Seller",
-      val: os?.store?.name ?? "N/A",
+      val: os!.bookStoreName,
     },
     {
       icon: TbDatabaseCog,
@@ -66,6 +66,37 @@ export const fieldsBodyOrderStore = (os: OrderStoreType) =>
       icon: CiDeliveryTruck,
       label: "Delivery price",
       val: priceFormatter(+os.delivery, "Free delivery"),
+    },
+  ].map((el) => ({
+    ...el,
+    id: v4(),
+  }));
+
+export const fieldsAddressOrder = (o: OrderType) =>
+  [
+    {
+      label: "Country",
+      val: o.country,
+    },
+    {
+      label: "State",
+      val: o.state,
+    },
+    {
+      label: "City",
+      val: o.city,
+    },
+    {
+      label: "Street",
+      val: o.street,
+    },
+    {
+      label: "Zip Code",
+      val: o.zipCode,
+    },
+    {
+      label: "Phone",
+      val: o.phone,
     },
   ].map((el) => ({
     ...el,

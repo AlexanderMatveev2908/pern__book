@@ -1,26 +1,26 @@
 import OrderStoreItem from "@/components/elements/cards/orders/OrderStoreItem";
-import ItemID from "@/components/elements/cards/shared/ItemID";
+import ItemID from "@/components/elements/cards/shared/spans/ItemID";
 import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 import { OrderStoreType } from "@/types/all/orders";
 import { type FC } from "react";
 
 type PropsType = {
-  o: OrderStoreType;
+  os: OrderStoreType;
 };
 
-const OrderStoreItemWorker: FC<PropsType> = ({ o }) => {
+const OrderStoreItemWorker: FC<PropsType> = ({ os }) => {
   return (
     <div className="card">
       <div className="body_card">
-        <ItemID {...{ ID: o.id }} />
+        <ItemID {...{ ID: os.id }} />
 
-        <OrderStoreItem {...{ o }} />
+        <OrderStoreItem {...{ os }} />
       </div>
 
       <div className="footer_card">
         <PairBtnsLink
           {...{
-            ids: [`/worker/orders/${o.id}`],
+            ids: [`/worker/orders/${os.id}`],
           }}
         />
       </div>

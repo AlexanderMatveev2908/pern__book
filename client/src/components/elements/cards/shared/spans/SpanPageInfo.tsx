@@ -3,7 +3,7 @@ import { IconType } from "react-icons/lib";
 
 type PropsType = {
   el: {
-    icon: IconType;
+    icon?: IconType;
     label: string;
     val: string;
   };
@@ -38,7 +38,7 @@ const SpanPageInfo: FC<PropsType> = ({
   return (
     <div className={`grid gap-y-3 gap-x-5 items-center ${styleParent}`}>
       <div className={`flex items-center gap-5 ${styleSubParents?.[0] ?? ""}`}>
-        <el.icon className="icon__md" />
+        {el?.icon && <el.icon className="icon__md" />}
         <span className={txt}>{el.label}</span>
       </div>
 

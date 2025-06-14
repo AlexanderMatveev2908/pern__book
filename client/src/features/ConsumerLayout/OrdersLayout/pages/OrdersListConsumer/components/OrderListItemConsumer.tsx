@@ -1,7 +1,7 @@
-import ItemID from "@/components/elements/cards/shared/ItemID";
+import ItemID from "@/components/elements/cards/shared/spans/ItemID";
 import ItemList from "@/components/elements/cards/shared/ItemList";
 import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
+import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
 import { formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";

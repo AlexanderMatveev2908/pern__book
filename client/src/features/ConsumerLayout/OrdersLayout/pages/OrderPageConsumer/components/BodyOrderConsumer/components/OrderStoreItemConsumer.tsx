@@ -1,4 +1,4 @@
-import SpanPageInfo from "@/components/elements/cards/shared/SpanPageInfo";
+import SpanPageInfo from "@/components/elements/cards/shared/spans/SpanPageInfo";
 import { fieldsBodyOrderStore } from "@/features/ConsumerLayout/OrdersLayout/fields/orderPageConsumer";
 import { OrderStoreType } from "@/types/all/orders";
 import type { FC } from "react";

@@ -1,4 +1,4 @@
-import SpanInfoCard from "@/components/elements/cards/shared/SpanInfoCard";
+import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
 import TooltipCpy from "@/components/elements/TooltipCpy/TooltipCpy";
 import { FC } from "react";
 import { IconType } from "react-icons/lib";

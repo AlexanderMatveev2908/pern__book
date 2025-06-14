@@ -1,4 +1,4 @@
-import ItemID from "@/components/elements/cards/shared/ItemID";
+import ItemID from "@/components/elements/cards/shared/spans/ItemID";
 import { BookStoreType } from "@/types/all/bookStore";
 import { FC } from "react";
 import StoreItemList from "@/components/elements/cards/bookstore/StoreItemList";
