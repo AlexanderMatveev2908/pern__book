@@ -87,12 +87,34 @@ export const getOrderConsumer = async (req: ReqApp, res: Response) => {
         as: "orderStores",
         separate: true,
         required: true,
+        attributes: {
+          include: [
+            [
+              literal(`(
+              SELECT SUM(oi.qty)
+              FROM "order_items" AS oi
+              WHERE oi."orderStoreID" = "OrderStore"."id"
+              )`),
+              "totItems",
+            ],
+          ],
+        },
         include: [
+          {
+            model: BookStore,
+            as: "store",
+          },
           {
             model: OrderItemStore,
             as: "orderItemStores",
             separate: true,
             required: true,
+            include: [
+              {
+                model: Book,
+                as: "book",
+              },
+            ],
           },
         ],
       },

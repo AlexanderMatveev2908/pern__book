@@ -7,8 +7,9 @@ import { ordersConsumerSliceAPI } from "../../ordersConsumerSliceAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { isObjOk } from "@/core/lib/lib";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import HeaderOrderPage from "./components/HeaderOrderPage/HeaderOrderPage";
+import HeaderOrderPage from "./components/HeaderOrderPage";
 import { OrderType } from "@/types/all/orders";
+import BodyOrderConsumer from "./components/BodyOrderConsumer/BodyOrderConsumer";
 
 const OrderPageConsumer: FC = () => {
   const { user } = useGetU();
@@ -41,8 +42,10 @@ const OrderPageConsumer: FC = () => {
       />
 
       {isObjOk(order) && (
-        <div className="w-full grid grid-1 gap-6 mt-6">
+        <div className="w-full grid grid-1 gap-10 mt-6">
           <HeaderOrderPage {...{ o: order as OrderType }} />
+
+          <BodyOrderConsumer {...{ o: order as OrderType }} />
         </div>
       )}
     </WrapPageAPI>
