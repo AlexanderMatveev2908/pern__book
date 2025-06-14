@@ -12,6 +12,8 @@ export class OrderStore extends Model {
   expectedArrival?: number;
   stage!: string;
 
+  bookStoreName!: string;
+
   orderItemStores?: OrderItemStoreInstance[];
   store?: BookStoreInstance;
 }
@@ -25,6 +27,11 @@ export const defineOrderStore = (seq: Sequelize) =>
 
       orderID: refSql("orders"),
       bookStoreID: refSql("book_stores", { allowNull: true }),
+
+      bookStoreName: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
 
       amount: {
         type: DataTypes.DECIMAL(10, 2),

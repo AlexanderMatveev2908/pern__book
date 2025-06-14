@@ -27,6 +27,10 @@ export const defineOrderItemStore = (seq: Sequelize) =>
         type: DataTypes.STRING,
         allowNull: false,
       },
+      author: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       qty: {
         type: DataTypes.INTEGER,
         allowNull: false,

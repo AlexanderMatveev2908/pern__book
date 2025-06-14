@@ -74,6 +74,7 @@ export const createOrder = async (req: ReqApp, res: Response) => {
         {
           orderID: order.id,
           bookStoreID: store.id,
+          bookStoreName: store.name,
           delivery: deliveryPrice,
           amount: formatFloat(totAmountStore),
         },
@@ -101,6 +102,7 @@ export const createOrder = async (req: ReqApp, res: Response) => {
             bookID: item!.book!.id,
             qty: item.qty,
             title: item!.book!.title,
+            author: item!.book!.author,
             price: item!.book!.price,
             images: imagesItem?.length ? imagesItem : null,
           },
