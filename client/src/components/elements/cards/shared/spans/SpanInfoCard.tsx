@@ -29,7 +29,7 @@ const SpanInfoCard: FC<PropsType> = ({
       } w-full max-w-fit flex justify-start gap-x-5 items-center`}
     >
       {spanInfo.icon && (
-        <spanInfo.icon className={`icon__sm ${customStyleIcon ?? ""}`} />
+        <spanInfo.icon className={` ${customStyleIcon ?? "icon__sm"}`} />
       )}
       {children}
 

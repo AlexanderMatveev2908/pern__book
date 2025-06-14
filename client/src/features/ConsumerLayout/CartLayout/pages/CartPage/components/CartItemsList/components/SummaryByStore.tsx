@@ -34,7 +34,7 @@ const SummaryByStore: FC<PropsType> = ({ store, items }) => {
                   icon: MdError,
                   label: "This business has been closed",
                 },
-                customStyleIcon: "text-red-600",
+                customStyleIcon: "text-red-600 icon__xl",
               }}
             />
           ) : (

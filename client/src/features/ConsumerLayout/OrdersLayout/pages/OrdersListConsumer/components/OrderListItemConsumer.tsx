@@ -83,7 +83,9 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
         <PairBtnsLink
           {...{
             ids: [`/consumer/orders/${o.id}`],
-            customStyleBtns: ["border-red-600 hover:bg-red-600"],
+            customStyleBtns: isAvailable
+              ? null
+              : ["border-red-600 hover:bg-red-600"],
           }}
         />
       </div>

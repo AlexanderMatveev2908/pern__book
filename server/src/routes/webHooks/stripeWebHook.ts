@@ -2,7 +2,7 @@ import { Response } from "express";
 import { ReqApp } from "../../types/types.js";
 import { __cg } from "../../lib/utils/log.js";
 import { stripe } from "../../config/stripe.js";
-import { err500 } from "../../lib/responseClient/err.js";
+import { err409, err500 } from "../../lib/responseClient/err.js";
 import { res200 } from "../../lib/responseClient/res.js";
 import Stripe from "stripe";
 import { seq } from "../../config/db.js";
@@ -71,7 +71,14 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
       try {
         const { order } = await getPopulatedOrder({ orderID, userID });
 
-        if (!order || order.stage !== OrderStage.PENDING) {
+        if (
+          !order ||
+          order.stage !== OrderStage.PENDING ||
+          order!.orderStores!.some((os) => os.store?.isSoftDeleted()) ||
+          order.orderStores!.some((os) =>
+            os.orderItemStores!.some((ois) => ois.book!.isSoftDeleted())
+          )
+        ) {
           await handleRefund(paymentIntent.id);
           return err500(res, {
             received: true,
