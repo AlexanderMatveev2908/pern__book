@@ -18,7 +18,7 @@ const OrderItemConsumer: FC<PropsType> = ({ ois }) => {
         <SpanTitleCard
           {...{
             label: {
-              label: ois?.book?.title ?? "N/A",
+              label: ois?.title,
               icon: FaBook,
             },
           }}
