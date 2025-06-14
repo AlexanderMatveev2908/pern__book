@@ -22,5 +22,6 @@ export const REG_STORE_DESC = /^[\p{L}\s\d`'@#$&?!.,:;()-]+$/u;
 
 export const REG_PRICE = /^\d+(\.\d{1,2})?$/;
 export const REG_INT = /^\d+$/;
+export const REG_BIG = /^\d{10,16}n?$/;
 
 export const REG_BOOK_TITLE = /^[\p{L}\s\d`'@#$!?&_-]+$/u;

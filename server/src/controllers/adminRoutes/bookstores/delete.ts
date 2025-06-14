@@ -17,7 +17,7 @@ import { res200 } from "../../../lib/responseClient/res.js";
 import { ReqApp } from "../../../types/types.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";
 import {
-  acceptedStageDeleteStore,
+  allowedDeletePatchStore,
   StoreOrderStage,
 } from "../../../types/all/orders.js";
 
@@ -63,7 +63,7 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
   if (bookStore.orders?.length) {
     if (
       bookStore.orders.some(
-        (os) => !acceptedStageDeleteStore.includes(os.stage as StoreOrderStage)
+        (os) => !allowedDeletePatchStore.includes(os.stage as StoreOrderStage)
       )
     )
       return err409(res, {

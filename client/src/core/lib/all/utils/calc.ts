@@ -2,6 +2,7 @@ import { CartItemType } from "@/types/all/Cart";
 import { isWeekend, format } from "date-fns";
 import { BookStoreType } from "@/types/all/bookStore";
 import { priceFormatter } from "./formatters";
+import { REG_BIG } from "@/core/config/regex";
 
 export const calcPriceItem = (qty: number, price: number) =>
   priceFormatter(qty * price);
@@ -18,11 +19,17 @@ export const calcTotPriceCart = (arg: CartItemType[]) =>
 
 export const getExpectedDeliveredDay = ({
   daysToAdd,
+  dayFrom = new Date(),
 }: {
   daysToAdd: number;
+  dayFrom?: string | number | Date;
 }) => {
-  const currDate = new Date();
   let addedDays = 0;
+
+  const currDate =
+    dayFrom instanceof Date
+      ? dayFrom
+      : new Date(REG_BIG.test(dayFrom + "") ? +dayFrom : dayFrom);
 
   while (addedDays < daysToAdd) {
     currDate.setDate(currDate.getDate() + 1);

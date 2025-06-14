@@ -36,5 +36,16 @@ export const ownerOrdersSliceAPI = apiSlice.injectEndpoints({
         },
       ],
     }),
+
+    getOrderOwner: builder.query<
+      BaseResAPI<{ order: OrderStoreType }>,
+      { orderID: string }
+    >({
+      query: ({ orderID }) => ({
+        url: `${B_URL}/${orderID}`,
+        method: "GET",
+      }),
+      providesTags: [TagsAPI.OWNER_ORDER],
+    }),
   }),
 });
