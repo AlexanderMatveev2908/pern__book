@@ -22,6 +22,7 @@ import { delArrCloud } from "../../../lib/cloud/delete.js";
 import { Cart } from "../../../models/all/Cart.js";
 import { checkAvailabilityStock } from "./helpers/checkAvailability.js";
 import { deleteOrder } from "./helpers/deleteOrder.js";
+import { OrderStage } from "../../../types/all/orders.js";
 
 export const createOrder = async (req: ReqApp, res: Response) => {
   const {
@@ -141,7 +142,16 @@ export const getAddressCheckout = async (req: ReqApp, res: Response) => {
 
   if (!order) return err404(res, { msg: "Order not found" });
 
-  if (order.stage !== "pending")
+  if (
+    order.orderStores!.some((os) =>
+      os.orderItemStores!.some((ois) => ois.book!.isSoftDeleted())
+    )
+  )
+    return err409(res, { msg: "One or more items are no longer available" });
+  if (order!.orderStores!.some((os) => os.store?.isSoftDeleted()))
+    return err409(res, { msg: "Some store has closed his activity" });
+
+  if (order.stage !== OrderStage.PENDING)
     return err409(res, { msg: "Order already paid" });
 
   const { isValid } = checkAvailabilityStock({ order });

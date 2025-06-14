@@ -2,12 +2,12 @@ import ItemID from "@/components/elements/cards/shared/spans/ItemID";
 import ItemList from "@/components/elements/cards/shared/ItemList";
 import PairBtnsLink from "@/components/elements/cards/shared/PairBtnsLink";
 import SpanInfoCard from "@/components/elements/cards/shared/spans/SpanInfoCard";
-import { formatD, priceFormatter } from "@/core/lib/lib";
+import { capt, formatD, isObjOk, priceFormatter } from "@/core/lib/lib";
 import { OrderType } from "@/types/all/orders";
 import { useMemo, type FC } from "react";
 import { FaDatabase } from "react-icons/fa";
 import { LuCalendarDays } from "react-icons/lu";
-import { TbPigMoney } from "react-icons/tb";
+import { TbDatabaseStar, TbPigMoney } from "react-icons/tb";
 
 type PropsType = {
   o: OrderType;
@@ -24,8 +24,17 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
     [o]
   );
 
+  const isAvailable = useMemo(
+    () => o!.orderStores!.every((os) => isObjOk(os.store)),
+    [o]
+  );
+
   return (
-    <div className="card">
+    <div
+      className={`card ${
+        isAvailable ? "border-neutral-800" : "border-red-600"
+      }`}
+    >
       <div className="body_card">
         <ItemID {...{ ID: o.id }} />
 
@@ -48,11 +57,22 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
             }}
           />
 
+          {typeof o.orderedAt === "string" && (
+            <SpanInfoCard
+              {...{
+                spanInfo: {
+                  icon: LuCalendarDays,
+                  label: formatD(+o.orderedAt!),
+                },
+              }}
+            />
+          )}
+
           <SpanInfoCard
             {...{
               spanInfo: {
-                icon: LuCalendarDays,
-                label: formatD(+o.orderedAt!),
+                icon: TbDatabaseStar,
+                label: capt(o.stage),
               },
             }}
           />
@@ -60,7 +80,12 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
       </div>
 
       <div className="footer_card">
-        <PairBtnsLink {...{ ids: [`/consumer/orders/${o.id}`] }} />
+        <PairBtnsLink
+          {...{
+            ids: [`/consumer/orders/${o.id}`],
+            customStyleBtns: ["border-red-600 hover:bg-red-600"],
+          }}
+        />
       </div>
     </div>
   );

@@ -6,9 +6,10 @@ import { isStr } from "@/core/lib/lib";
 
 type PropsType = {
   ids?: (string | null)[];
+  customStyleBtns?: string[];
 };
 
-const PairBtnsLink: FC<PropsType> = ({ ids }) => {
+const PairBtnsLink: FC<PropsType> = ({ ids, customStyleBtns }) => {
   const links = useMemo(
     () => linksCardApp(ids).filter((el) => isStr(el.path)),
     [ids]
@@ -25,7 +26,10 @@ const PairBtnsLink: FC<PropsType> = ({ ids }) => {
       }}
     >
       {links.map((el, i) => (
-        <ButtonLink key={ids![i]} {...({ el } as any)} />
+        <ButtonLink
+          key={ids![i]}
+          {...({ el, customStyle: customStyleBtns?.[i] } as any)}
+        />
       ))}
     </div>
   );

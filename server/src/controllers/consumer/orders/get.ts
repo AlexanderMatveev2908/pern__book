@@ -28,8 +28,8 @@ export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
           {
             model: OrderItemStore,
             as: "orderItemStores",
-            required: true,
             separate: true,
+            required: true,
             include: [
               {
                 model: Book,

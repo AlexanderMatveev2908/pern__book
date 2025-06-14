@@ -226,42 +226,9 @@ export const deleteAccount = async (
         }
 
         // ? ORDER AS ORDER STORE(ONE OR MORE THAT CREATE THE BIGGER ONE) OF ORDER(THE BIG ONE OF USER)
-        if (isArrOkSoft(s.orders)) {
-          await OrderStore.update(
-            {
-              bookStoreID: null,
-            },
-            {
-              where: {
-                bookStoreID: s.id,
-              },
-              transaction: t,
-            }
-          );
-        }
 
-        await s.update(
-          {
-            ownerID: null,
-            deletedAt: Date.now(),
-          },
-          { transaction: t }
-        );
+        await s.destroy({ transaction: t });
       }
-    }
-
-    if (isArrOkSoft(user.orders)) {
-      await Order.update(
-        {
-          userID: null,
-        },
-        {
-          where: {
-            userID: user.id,
-          },
-          transaction: t,
-        }
-      );
     }
 
     if (isArrOkSoft(user.stores)) {

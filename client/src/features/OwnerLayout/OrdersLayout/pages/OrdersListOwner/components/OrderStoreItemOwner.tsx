@@ -10,7 +10,7 @@ type PropsType = {
 
 const OrderStoreItemOwner: FC<PropsType> = ({ os }) => {
   return (
-    <div className="card">
+    <div className="card border-neutral-800">
       <div className="body_card">
         <ItemID {...{ ID: os.id }} />
 

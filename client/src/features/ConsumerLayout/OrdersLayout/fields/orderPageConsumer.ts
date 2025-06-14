@@ -13,7 +13,7 @@ export const fieldsHeaderOrder = (o: OrderType) =>
     {
       icon: LuCalendarDays,
       label: "Ordered At",
-      val: formatD(+o!.orderedAt!),
+      val: typeof o!.orderedAt === "string" ? formatD(+o!.orderedAt) : null,
     },
     {
       icon: TbPigMoney,

@@ -25,7 +25,7 @@ const OrderPageConsumer: FC = () => {
     {
       orderID: orderID!,
     },
-    { skip: !isValidID }
+    { skip: !isValidID, refetchOnMountOrArgChange: true }
   );
   useWrapQueryAPI({ ...res });
   const { data: { order } = {} } = res ?? {};

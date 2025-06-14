@@ -73,7 +73,10 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
 
         if (!order || order.stage !== OrderStage.PENDING) {
           await handleRefund(paymentIntent.id);
-          return err500(res);
+          return err500(res, {
+            received: true,
+            refunded: true,
+          });
         }
 
         let i = order.orderStores!.length - 1;
