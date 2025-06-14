@@ -17,6 +17,8 @@ import {
   extractSorters,
 } from "../../../lib/utils/formatters.js";
 import { User } from "../../../models/all/User.js";
+import { OrderStage } from "../../../types/all/orders.js";
+import { hidePendingOrders } from "../../../lib/query/general/orders.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { queryAfterPipe, queryStoreOrders, queryBookStore } =
@@ -33,6 +35,7 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       {
         model: Order,
         as: "order",
+        where: hidePendingOrders("o"),
       },
       {
         model: OrderItemStore,
@@ -94,6 +97,7 @@ export const getOrderOwner = async (req: ReqApp, res: Response) => {
         model: Order,
         as: "order",
         required: true,
+        where: hidePendingOrders("o"),
       },
       {
         model: OrderItemStore,

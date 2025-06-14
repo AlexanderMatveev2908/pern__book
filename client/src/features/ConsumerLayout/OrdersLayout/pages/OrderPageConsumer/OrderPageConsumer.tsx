@@ -10,7 +10,7 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import HeaderOrderPage from "./components/HeaderOrderPage";
 import { OrderType } from "@/types/all/orders";
 import BodyOrderConsumer from "./components/BodyOrderConsumer/BodyOrderConsumer";
-import SpanAddressOrder from "./components/SpanAddressOrder";
+import SpanAddressOrder from "../../../../../components/elements/cards/orders/SpanAddressOrder";
 
 const OrderPageConsumer: FC = () => {
   const { user } = useGetU();
