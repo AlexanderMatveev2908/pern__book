@@ -72,7 +72,7 @@ export type OrderType = {
   phone: string;
 
   totItems?: number;
-  orderedAt?: number;
+  orderedAt?: string;
 
   orderStores?: OrderStoreType[];
 };

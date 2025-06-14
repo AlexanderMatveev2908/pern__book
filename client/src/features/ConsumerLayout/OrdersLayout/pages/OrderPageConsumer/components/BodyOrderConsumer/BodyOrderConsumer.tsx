@@ -10,7 +10,10 @@ const BodyOrderConsumer: FC<PropsType> = ({ o }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-y-6">
       {(o?.orderStores ?? []).map((os) => (
-        <OrderStoreItemConsumer key={os.id} {...{ os }} />
+        <OrderStoreItemConsumer
+          key={os.id}
+          {...{ os, hasBeenOrdered: typeof o.orderedAt === "string" }}
+        />
       ))}
     </div>
   );

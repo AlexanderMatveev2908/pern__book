@@ -25,7 +25,13 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
   );
 
   const isAvailable = useMemo(
-    () => o!.orderStores!.every((os) => isObjOk(os.store)),
+    () =>
+      o!.orderStores!.every(
+        (os) =>
+          (isObjOk(os.store) &&
+            os.orderItemStores!.every((ois) => isObjOk(ois.book))) ||
+          typeof o.orderedAt === "string"
+      ),
     [o]
   );
 
