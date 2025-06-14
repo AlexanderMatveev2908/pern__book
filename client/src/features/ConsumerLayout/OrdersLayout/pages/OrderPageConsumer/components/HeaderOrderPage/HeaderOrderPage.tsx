@@ -4,7 +4,7 @@ import { OrderType } from "@/types/all/orders";
 import type { FC } from "react";
 import { FaDatabase } from "react-icons/fa";
 import { LuCalendarDays } from "react-icons/lu";
-import { TbPigMoney } from "react-icons/tb";
+import { TbDatabaseCog, TbPigMoney } from "react-icons/tb";
 
 type PropsType = {
   o: OrderType;
@@ -41,6 +41,17 @@ const HeaderOrderPage: FC<PropsType> = ({ o }) => {
             icon: FaDatabase,
             label: "Total items",
             val: o.totItems + "",
+          },
+          styleSubParents: [null, "xl:justify-self-end "],
+        }}
+      />
+
+      <SpanPageInfo
+        {...{
+          el: {
+            icon: TbDatabaseCog,
+            label: "Status",
+            val: o.stage,
           },
           styleSubParents: [null, "xl:justify-self-end "],
         }}
