@@ -10,11 +10,18 @@ import { TbPigMoney } from "react-icons/tb";
 
 type PropsType = {
   ois: OrderItemStoreType;
+  hasBeenOrdered?: boolean;
 };
 
-const OrderItemConsumer: FC<PropsType> = ({ ois }) => {
-  const isOutOfStock = useMemo(() => ois?.qty > (ois?.book?.qty ?? 0), [ois]);
-  const isDeleted = useMemo(() => !isObjOk(ois?.book), [ois]);
+const OrderItemConsumer: FC<PropsType> = ({ ois, hasBeenOrdered }) => {
+  const isOutOfStock = useMemo(
+    () => ois?.qty > (ois?.book?.qty ?? 0) && !hasBeenOrdered,
+    [ois, hasBeenOrdered]
+  );
+  const isDeleted = useMemo(
+    () => !isObjOk(ois?.book) && !hasBeenOrdered,
+    [ois, hasBeenOrdered]
+  );
 
   return (
     <div className={`card border-neutral-800`}>

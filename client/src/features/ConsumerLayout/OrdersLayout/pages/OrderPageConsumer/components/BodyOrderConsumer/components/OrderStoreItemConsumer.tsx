@@ -8,10 +8,14 @@ import ErrCard from "@/components/elements/cards/shared/ErrCard";
 
 type PropsType = {
   os: OrderStoreType;
+  hasBeenOrdered?: boolean;
 };
 
-const OrderStoreItemConsumer: FC<PropsType> = ({ os }) => {
-  const hasClosedActivity = useMemo(() => !isObjOk(os?.store), [os]);
+const OrderStoreItemConsumer: FC<PropsType> = ({ os, hasBeenOrdered }) => {
+  const hasClosedActivity = useMemo(
+    () => !isObjOk(os?.store) && !hasBeenOrdered,
+    [os, hasBeenOrdered]
+  );
 
   return (
     <div className="w-full grid grid-cols-1 gap-y-5">
@@ -45,7 +49,7 @@ const OrderStoreItemConsumer: FC<PropsType> = ({ os }) => {
 
       <div className="list_items_app">
         {(os?.orderItemStores ?? []).map((ois) => (
-          <OrderItemConsumer key={ois.id} {...{ ois }} />
+          <OrderItemConsumer key={ois.id} {...{ ois, hasBeenOrdered }} />
         ))}
       </div>
     </div>
