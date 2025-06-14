@@ -26,7 +26,7 @@ export const populateDB = async () => {
       await BookStore.create(
         {
           ownerID: u.id,
-          name: `${u.firstName} ' bookstore`,
+          name: `${u.firstName} 's bookstore`,
 
           categories: Array.from({ length: 3 }, () => pickRandom(catStores)),
           description: doLorem(20),
