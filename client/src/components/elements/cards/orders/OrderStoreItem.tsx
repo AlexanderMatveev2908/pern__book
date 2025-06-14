@@ -42,7 +42,7 @@ const OrderStoreItem: FC<PropsType> = ({ os }) => {
       <SpanInfoCard
         {...{
           spanInfo: {
-            label: formatD(+os.order!.orderedAt!),
+            label: formatD(os.order!.orderedAt!),
             icon: LuCalendarDays,
           },
         }}

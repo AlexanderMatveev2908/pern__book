@@ -39,7 +39,7 @@ const Footer: FC = () => {
           : "pb-10"
       }`}
     >
-      <Link to="/" className="">
+      <Link to="/" className="w-fit">
         <HappyGhost className="w-[100px] h-[100px]" fill="#000" />
       </Link>
 

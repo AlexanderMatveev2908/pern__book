@@ -5,7 +5,7 @@ import { clearUnnecessary, handleAssetsCloud } from "./helpers/cloudUpload.js";
 import { ImgBookStore } from "../../../models/all/img&video/ImgBookStore.js";
 import { VideoBookStore } from "../../../models/all/img&video/VideoBookStore.js";
 import { Book } from "../../../models/all/Book.js";
-import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { err404, err409, err500 } from "../../../lib/responseClient/err.js";
 import { BookStoreUser } from "../../../models/all/BookStoreUser.js";
 import { seq } from "../../../config/db.js";
 import { User } from "../../../models/all/User.js";
@@ -18,6 +18,11 @@ import {
   handleStoreAssetsPut,
 } from "../../../lib/sharedHandlers/assetsHandlers/store.js";
 import { res200 } from "../../../lib/responseClient/res.js";
+import { OrderStore } from "../../../models/all/OrderStore.js";
+import {
+  allowedDeletePatchStore,
+  StoreOrderStage,
+} from "../../../types/all/orders.js";
 
 const choseRandom = () => Math.floor(Math.random() * 3);
 
@@ -37,6 +42,7 @@ export const updateBookStore = async (
       { model: ImgBookStore, as: "images" },
       { model: VideoBookStore, as: "video" },
       { model: Book, as: "books" },
+      { model: OrderStore, as: "orders" },
     ],
     nest: true,
   });
@@ -44,6 +50,19 @@ export const updateBookStore = async (
   if (!bookStore) {
     await clearUnnecessary(videoData!, imagesData!);
     return err404(res, { msg: "Bookstore not found" });
+  }
+
+  if (bookStore?.orders?.length) {
+    if (
+      bookStore.orders.some(
+        (os) => !allowedDeletePatchStore.includes(os.stage as StoreOrderStage)
+      )
+    ) {
+      await clearUnnecessary(videoData!, imagesData!);
+      return err409(res, {
+        msg: "You can not update delivery time with orders in progress",
+      });
+    }
   }
 
   const oldTeam = await BookStoreUser.findAll({

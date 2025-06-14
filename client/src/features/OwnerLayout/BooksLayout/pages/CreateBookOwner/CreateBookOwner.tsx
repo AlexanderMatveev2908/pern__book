@@ -29,13 +29,19 @@ const CreateBookOwner: FC = () => {
 
   useEffect(() => {
     if (isArrOk(stores)) {
-      formCtx.reset({
-        year: makeRandomMinMax(1450, new Date().getFullYear()).toFixed(0),
-        title: "",
-        author: "",
-        description: doLorem(50),
-        price: makeRandomMinMax(1, 50).toFixed(2),
-        qty: makeRandomMinMax(1, 100).toFixed(0),
+      const { setValue } = formCtx;
+
+      setValue(
+        "year",
+        makeRandomMinMax(1450, new Date().getFullYear()).toFixed(0),
+        { shouldValidate: true }
+      );
+      setValue("description", doLorem(50), { shouldValidate: true });
+      setValue("price", makeRandomMinMax(1, 50).toFixed(2), {
+        shouldValidate: true,
+      });
+      setValue("qty", makeRandomMinMax(1, 100).toFixed(0), {
+        shouldValidate: true,
       });
     }
   }, [formCtx, stores]);

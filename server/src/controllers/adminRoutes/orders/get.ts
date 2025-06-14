@@ -16,6 +16,7 @@ import {
   extractOffset,
   extractSorters,
 } from "../../../lib/utils/formatters.js";
+import { User } from "../../../models/all/User.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { queryAfterPipe, queryStoreOrders, queryBookStore } =
@@ -78,4 +79,50 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { nHits, totPages } = extractNoHits(req, count as any);
 
   return res200(res, { orders, totPages, nHits });
+};
+
+export const getOrderOwner = async (req: ReqApp, res: Response) => {
+  const { userID } = req;
+  const { orderID } = req.params;
+
+  const order = await OrderStore.findOne({
+    where: {
+      id: orderID,
+    },
+    include: [
+      {
+        model: Order,
+        as: "order",
+        required: true,
+      },
+      {
+        model: OrderItemStore,
+        as: "orderItemStores",
+        required: true,
+      },
+      {
+        model: BookStore,
+        as: "store",
+        required: true,
+        where: {
+          ownerID: userID,
+        },
+      },
+    ],
+
+    attributes: {
+      include: [
+        [
+          literal(`(
+            SELECT SUM(oi."qty")
+            FROM "order_items" AS oi
+            WHERE oi."orderStoreID" = "OrderStore".id
+            )`),
+          "totItems",
+        ],
+      ],
+    },
+  });
+
+  return res200(res, { order });
 };

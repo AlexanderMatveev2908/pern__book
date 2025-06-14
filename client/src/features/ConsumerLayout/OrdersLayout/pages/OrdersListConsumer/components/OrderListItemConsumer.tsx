@@ -68,7 +68,7 @@ const OrderListItemConsumer: FC<PropsType> = ({ o }) => {
               {...{
                 spanInfo: {
                   icon: LuCalendarDays,
-                  label: formatD(+o.orderedAt!),
+                  label: formatD(o.orderedAt!),
                 },
               }}
             />

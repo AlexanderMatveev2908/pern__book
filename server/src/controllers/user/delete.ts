@@ -23,7 +23,7 @@ import { OrderStore } from "../../models/all/OrderStore.js";
 import { OrderItemStore } from "../../models/all/OrderItemStore.js";
 import { __cg } from "../../lib/utils/log.js";
 import {
-  acceptedStageDeleteStore,
+  allowedDeletePatchStore,
   StoreOrderStage,
 } from "../../types/all/orders.js";
 import { isArrOkSoft, isSoftObjOk } from "../../lib/dataStructures.js";
@@ -139,7 +139,7 @@ export const deleteAccount = async (
     for (const o of user.orders) {
       if (o.orderStores?.length) {
         for (const os of o.orderStores) {
-          if (!acceptedStageDeleteStore.includes(os.stage as StoreOrderStage))
+          if (!allowedDeletePatchStore.includes(os.stage as StoreOrderStage))
             return err409(res, {
               msg: "you can't delete your account because you have pending orders to receive",
             });
@@ -152,7 +152,7 @@ export const deleteAccount = async (
     for (const bs of user.bookStores) {
       if (bs.orders?.length) {
         for (const os of bs.orders) {
-          if (!acceptedStageDeleteStore.includes(os.stage as StoreOrderStage))
+          if (!allowedDeletePatchStore.includes(os.stage as StoreOrderStage))
             return err409(res, {
               msg: "you can't delete your account because you have pending orders to deliver",
             });

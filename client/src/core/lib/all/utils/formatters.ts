@@ -1,3 +1,5 @@
+import { REG_BIG } from "@/core/config/regex";
+
 /* eslint-disable @typescript-eslint/no-explicit-any */
 export const makeNoticeTxt = (txt: string) =>
   `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;
@@ -96,7 +98,12 @@ export const makeNum = (type: "min" | "max", txt?: string) => {
 };
 
 export const formatD = (date: string | Date | number) => {
-  let parsed = new Date(date);
+  let parsed =
+    date instanceof Date
+      ? date
+      : REG_BIG.test(date + "")
+      ? new Date(+date)
+      : new Date(date);
 
   if (isNaN(parsed.getTime())) parsed = new Date(0);
 

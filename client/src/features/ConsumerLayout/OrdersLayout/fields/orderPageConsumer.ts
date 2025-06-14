@@ -13,7 +13,7 @@ export const fieldsHeaderOrder = (o: OrderType) =>
     {
       icon: LuCalendarDays,
       label: "Ordered At",
-      val: typeof o!.orderedAt === "string" ? formatD(+o!.orderedAt) : null,
+      val: typeof o!.orderedAt === "string" ? formatD(o!.orderedAt) : null,
     },
     {
       icon: TbPigMoney,
@@ -35,7 +35,7 @@ export const fieldsHeaderOrder = (o: OrderType) =>
     id: v4(),
   }));
 
-export const fieldsBodyOrderStore = (os: OrderStoreType) =>
+export const fieldsBodyOrderStore = (os: OrderStoreType, orderedAt: string) =>
   [
     {
       icon: HiMiniBuildingLibrary,
@@ -60,7 +60,10 @@ export const fieldsBodyOrderStore = (os: OrderStoreType) =>
     {
       icon: TbTruckDelivery,
       label: "Expected Delivery",
-      val: getExpectedDeliveredDay({ daysToAdd: os?.store?.deliveryTime ?? 0 }),
+      val: getExpectedDeliveredDay({
+        dayFrom: +orderedAt,
+        daysToAdd: os?.store?.deliveryTime ?? 0,
+      }),
     },
     {
       icon: CiDeliveryTruck,
