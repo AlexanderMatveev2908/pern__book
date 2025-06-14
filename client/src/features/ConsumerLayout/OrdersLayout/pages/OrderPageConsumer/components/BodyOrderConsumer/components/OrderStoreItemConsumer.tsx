@@ -11,7 +11,7 @@ type PropsType = {
 const OrderStoreItemConsumer: FC<PropsType> = ({ os }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-y-5">
-      <div className="w-full p-5 border-[3px] border-blue-600 rounded-xl grid grid-cols-1 gap-y-3 lg:grid-cols-2 gap-x-10">
+      <div className="w-full p-5 border-[3px] border-gray-500 rounded-xl grid grid-cols-1 gap-y-3 lg:grid-cols-2 gap-x-10">
         {fieldsBodyOrderStore(os).map((el) => (
           <SpanPageInfo
             key={el.id}
