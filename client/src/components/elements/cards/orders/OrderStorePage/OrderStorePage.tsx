@@ -30,6 +30,7 @@ const OrderStorePage: FC<PropsType> = ({ os }) => {
       <div className="list_items_app">
         {os!.orderItemStores!.map((ois) => (
           <OrderItemList
+            key={ois.id}
             {...{
               ois,
               hasBeenOrdered: typeof os.order!.orderedAt === "string",

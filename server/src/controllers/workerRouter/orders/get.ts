@@ -10,6 +10,7 @@ import { literal } from "sequelize";
 import { makeQueryOrdersWorker } from "../../../lib/query/worker/orders.js";
 import { Order } from "../../../models/all/Order.js";
 import { hidePendingOrders } from "../../../lib/query/general/orders.js";
+import { err404 } from "../../../lib/responseClient/err.js";
 
 export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -76,4 +77,48 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { totPages, nHits } = extractNoHits(req, count);
 
   return res200(res, { orders, totPages, nHits });
+};
+
+export const getOrderWorker = async (req: ReqApp, res: Response) => {
+  const { userID } = req;
+  const { orderID } = req.params;
+
+  const order = await OrderStore.findOne({
+    where: {
+      id: orderID,
+    },
+    include: [
+      {
+        model: Order,
+        as: "order",
+        required: true,
+        where: hidePendingOrders("o"),
+      },
+      {
+        model: OrderItemStore,
+        as: "orderItemStores",
+        required: true,
+      },
+      {
+        model: BookStore,
+        as: "store",
+        required: true,
+        include: [
+          {
+            model: User,
+            as: "team",
+            where: { id: userID },
+            attributes: ["id"],
+            through: {
+              as: "bookStoreUser",
+            },
+          },
+        ],
+      },
+    ],
+  });
+
+  if (!order) return err404(res, { msg: "Order not found" });
+
+  return res200(res, { order });
 };

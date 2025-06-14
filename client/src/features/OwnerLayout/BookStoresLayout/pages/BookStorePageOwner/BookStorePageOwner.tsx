@@ -6,13 +6,13 @@ import { useGetBookStoreQuery } from "../../bookStoreSliceAPI";
 import { useClearCacheItem, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { booksSLiceAPI } from "@/features/OwnerLayout/BooksLayout/booksSliceAPI";
 import { TagsAPI } from "@/types/types";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { isObjOk } from "@/core/lib/lib";
 import Title from "@/components/elements/Title";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import BookStorePage from "@/components/elements/cards/bookstore/BookStorePage";
 import DropActionsOwner from "./components/DropActionsOwner";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BookStorePageOwner: FC = () => {
   const { bookStoreID } = useParams() ?? {};
@@ -31,53 +31,58 @@ const BookStorePageOwner: FC = () => {
   });
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.isOwner && itPass,
         ...res,
+        isSuccess: isObjOk(bookStore),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Book Stores", path: "/owner/book-store/book-stores" },
-            { label: bookStore?.name ?? "book store", path: "#" },
-          ],
-        }}
-      />
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Book Stores", path: "/owner/book-store/book-stores" },
+                { label: bookStore?.name ?? "book store", path: "#" },
+              ],
+            }}
+          />
 
-      <div
-        className={`p_form__1 ${
-          isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
-        }`}
-      >
-        <Title {...{ title: bookStore?.name }} />
+          <div
+            className={`p_form__1 ${
+              isObjOk(bookStore?.video) ? "mb-[-150px]" : ""
+            }`}
+          >
+            <Title {...{ title: bookStore?.name }} />
 
-        <DropActionsOwner {...{ bookStore, user }} />
+            <DropActionsOwner {...{ bookStore, user }} />
 
-        <ImagesScroll
-          {...{
-            images: bookStore?.images,
-          }}
-        />
-        <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
-          <BookStorePage {...{ el: bookStore, isOwner: true }} />
-        </div>
+            <ImagesScroll
+              {...{
+                images: bookStore?.images,
+              }}
+            />
+            <div className="w-full grid grid-cols-1 gap-x-10 gap-y-3">
+              <BookStorePage {...{ el: bookStore, isOwner: true }} />
+            </div>
 
-        {isObjOk(bookStore?.video) && (
-          <div className="w-full flex justify-center mt-[150px]">
-            <video
-              autoPlay
-              muted
-              controls
-              src={bookStore?.video?.url}
-              className="aspect-video w-full object-cover max-w-[800px]"
-            ></video>
+            {isObjOk(bookStore?.video) && (
+              <div className="w-full flex justify-center mt-[150px]">
+                <video
+                  autoPlay
+                  muted
+                  controls
+                  src={bookStore?.video?.url}
+                  className="aspect-video w-full object-cover max-w-[800px]"
+                ></video>
+              </div>
+            )}
           </div>
-        )}
-      </div>
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

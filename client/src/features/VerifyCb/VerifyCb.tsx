@@ -3,12 +3,12 @@ import { checkQueryAuth, isObjOk } from "@/core/lib/lib";
 import { useCallback, useEffect, useMemo, useRef, type FC } from "react";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { AllowedFromApp, TokenEventType } from "@/types/types";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import {
   useVerifyAccountMutation,
   useVerifyEmailForgotPwdMutation,
   useVerifyNewEmailMutation,
 } from "./verifyCbSliceAPI";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const VerifyCb: FC = () => {
   const [searchParams] = useSearchParams();
@@ -87,7 +87,7 @@ const VerifyCb: FC = () => {
     handleVerifyNewEmail,
   ]);
 
-  return <WrapPageAPI {...{ isLoading: true, canStay: !!params }} />;
+  return <WrapApp {...{ isLoading: true, canStay: !!params }} />;
 };
 
 export default VerifyCb;

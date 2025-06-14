@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/BooksLayout/booksSliceWorkerAPI";
@@ -10,6 +9,8 @@ import DropActionsBookWorker from "./components/DropActionsBookWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import BookPage from "@/components/elements/cards/books/BookPage";
+import WrapApp from "@/components/HOC/WrapApp";
+import { isObjOk } from "@/core/lib/lib";
 
 const BookPageWorker: FC = () => {
   const { user } = useGetU();
@@ -25,43 +26,48 @@ const BookPageWorker: FC = () => {
     book?.store?.team ?? ([] as any);
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: itPass,
         ...res,
+        isSuccess: isObjOk(book),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            {
-              label: role ?? "worker",
-              path: "#",
-            },
-            {
-              label: book?.store?.name ?? "Book store",
-              path: `/worker/book-stores/${book?.bookStoreID}`,
-            },
-            {
-              label: book?.title ?? "Book",
-              path: "#",
-            },
-          ],
-        }}
-      />
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                {
+                  label: role ?? "worker",
+                  path: "#",
+                },
+                {
+                  label: book?.store?.name ?? "Book store",
+                  path: `/worker/book-stores/${book?.bookStoreID}`,
+                },
+                {
+                  label: book?.title ?? "Book",
+                  path: "#",
+                },
+              ],
+            }}
+          />
 
-      <div className="p_form__1 ">
-        <Title {...{ title: book?.title }} />
+          <div className="p_form__1 ">
+            <Title {...{ title: book?.title }} />
 
-        <DropActionsBookWorker {...{ book }} />
+            <DropActionsBookWorker {...{ book }} />
 
-        <BookPage
-          {...{
-            el: book!,
-          }}
-        />
-      </div>
-    </WrapPageAPI>
+            <BookPage
+              {...{
+                el: book!,
+              }}
+            />
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

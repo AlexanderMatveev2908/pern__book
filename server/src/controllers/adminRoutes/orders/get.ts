@@ -19,6 +19,7 @@ import {
 import { User } from "../../../models/all/User.js";
 import { OrderStage } from "../../../types/all/orders.js";
 import { hidePendingOrders } from "../../../lib/query/general/orders.js";
+import { err404 } from "../../../lib/responseClient/err.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { queryAfterPipe, queryStoreOrders, queryBookStore } =
@@ -127,6 +128,8 @@ export const getOrderOwner = async (req: ReqApp, res: Response) => {
       ],
     },
   });
+
+  if (!order) return err404(res, { msg: "Order not found" });
 
   return res200(res, { order });
 };
