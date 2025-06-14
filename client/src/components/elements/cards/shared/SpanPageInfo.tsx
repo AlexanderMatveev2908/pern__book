@@ -7,10 +7,17 @@ type PropsType = {
     label: string;
     val: string;
   };
+  styleParent?: string;
   styleSubParents?: (string | null)[];
+  txt?: string;
 };
 
-const SpanPageInfo: FC<PropsType> = ({ el, styleSubParents }) => {
+const SpanPageInfo: FC<PropsType> = ({
+  el,
+  styleSubParents,
+  txt,
+  styleParent,
+}) => {
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const [isScrolling, setIsScrolling] = useState(false);
 
@@ -29,10 +36,10 @@ const SpanPageInfo: FC<PropsType> = ({ el, styleSubParents }) => {
   }, [handleScroll]);
 
   return (
-    <div className="grid grid-cols-2 gap-y-3 gap-x-5 items-center">
+    <div className={`grid gap-y-3 gap-x-5 items-center ${styleParent}`}>
       <div className={`flex items-center gap-5 ${styleSubParents?.[0] ?? ""}`}>
         <el.icon className="icon__md" />
-        <span className="txt__4">{el.label}</span>
+        <span className={txt}>{el.label}</span>
       </div>
 
       <div
@@ -41,7 +48,7 @@ const SpanPageInfo: FC<PropsType> = ({ el, styleSubParents }) => {
           isScrolling ? "mt-3" : ""
         }  ${styleSubParents?.[1] ?? ""}`}
       >
-        <span className={`${isScrolling ? "pb-3" : ""} txt__4 text-nowrap`}>
+        <span className={`${isScrolling ? "pb-3" : ""} ${txt}  text-nowrap`}>
           {el.val}
         </span>
       </div>
