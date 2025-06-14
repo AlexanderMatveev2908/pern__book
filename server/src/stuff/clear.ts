@@ -1,7 +1,7 @@
 import { calcTimeRun } from "../lib/utils/utils.js";
 import { cloud } from "../config/cloud.js";
 import { seq, syncDB } from "../config/db.js";
-import { populateDB } from "./populateDB.js";
+import { populateDB } from "./populateDB/populateDB.js";
 
 export const clearDB = async () => {
   calcTimeRun(async () => {

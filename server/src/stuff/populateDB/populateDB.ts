@@ -1,71 +1,44 @@
-import { seq } from "../config/db.js";
-import { hashPwd } from "../lib/hashEncryptSign/argon.js";
-import { __cg } from "../lib/utils/log.js";
-import { BookStore } from "../models/all/BookStore.js";
-import { BookStoreUser } from "../models/all/BookStoreUser.js";
-import { User, UserInstance } from "../models/all/User.js";
-import { CatBookStore } from "../types/all/bookStore.js";
-import { UserRole } from "../types/types.js";
+import { fileURLToPath } from "url";
+import { seq } from "../../config/db.js";
+import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
+import { __cg } from "../../lib/utils/log.js";
+import { BookStore } from "../../models/all/BookStore.js";
+import { BookStoreUser } from "../../models/all/BookStoreUser.js";
+import { User } from "../../models/all/User.js";
+import { UserRole } from "../../types/types.js";
+import path from "path";
+import fs from "fs/promises";
+import { doLorem, makeRandomMinMax, pickRandom } from "./placeHolders.js";
+import { catStores, users } from "./data.js";
 
-const l = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis quidem dignissimos, voluptatum vero consequuntur aperiam ratione iure sunt aut porro dolor deleniti. Exercitationem maiores, dolores commodi veniam vitae voluptatem quod!`;
+export const getAssetsPath = () =>
+  path.join(
+    path.dirname(fileURLToPath(import.meta.url)),
+    "../..",
+    "./assets_dev/books"
+  );
 
-export const doLorem = (n: number = 1) => {
-  return l.repeat(n);
+export const createBooks = async () => {
+  const booksDir = getAssetsPath();
+
+  const authors = await fs.readdir(booksDir);
+
+  for (const a of authors) {
+    const authorDir = path.join(booksDir, a);
+    const stat = await fs.stat(authorDir);
+
+    if (!stat.isDirectory()) continue;
+
+    const imgDirs = await fs.readdir(authorDir);
+
+    for (const imgD of imgDirs) {
+      const fullPathImg = path.join(authorDir, imgD);
+
+      console.log(fullPathImg);
+    }
+  }
 };
 
-export const makeRandomMinMax = (min: number, max: number) =>
-  Math.random() * (max - min) + min;
-
-const pickRandom = (arr: any[]) =>
-  arr[Math.floor(makeRandomMinMax(0, arr.length))];
-
-const commonFields = {
-  isVerified: true,
-  password: "8cLS4XY!{2Wdvl4*l^4",
-};
-const users = [
-  {
-    firstName: "Tyler",
-    lastName: "Durden",
-    email: "tyler@gmail.com",
-
-    country: "US",
-    state: "CA",
-    city: "Los Angeles",
-    street: "456 Sunset Blvd",
-    zipCode: "90028",
-    phone: "+0 123-456-7890",
-  },
-  {
-    firstName: "John",
-    lastName: "Doe",
-    email: "john@gmail.com",
-
-    country: "US",
-    state: "NY",
-    city: "New York",
-    street: "789 Broadway Ave",
-    zipCode: "10003",
-    phone: "+1 234-567-8901",
-  },
-  {
-    firstName: "Jane",
-    lastName: "Doe",
-    email: "jane@gmail.com",
-
-    country: "US",
-    state: "IL",
-    city: "Chicago",
-    street: "321 Lakeshore Dr",
-    zipCode: "60601",
-    phone: "+2 345-678-9012",
-  },
-].map((el) => ({
-  ...el,
-  ...commonFields,
-}));
-
-const catStores = Object.values(CatBookStore);
 export const populateDB = async () => {
   const safeUsers = await Promise.all(
     users.map(async (u) => {

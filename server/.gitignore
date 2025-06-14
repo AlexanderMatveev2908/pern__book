@@ -5,3 +5,4 @@ node_modules
 .vscode
 certs/ca.pem
 json/
+assets_dev
