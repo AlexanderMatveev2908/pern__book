@@ -42,7 +42,7 @@ const start = async () => {
   try {
     await connectDB();
 
-    // await clearDB();
+    await clearDB();
 
     // await syncDB();
 

@@ -3,9 +3,11 @@ import { ReqApp, UserRole } from "../../../types/types.js";
 import { res200 } from "../../../lib/responseClient/res.js";
 import { Book } from "../../../models/all/Book.js";
 import { BookStore } from "../../../models/all/BookStore.js";
-import { err403 } from "../../../lib/responseClient/err.js";
+import { err403, err500 } from "../../../lib/responseClient/err.js";
 import { delArrCloud } from "../../../lib/cloud/delete.js";
 import { User } from "../../../models/all/User.js";
+import { seq } from "../../../config/db.js";
+import { OrderItemStore } from "../../../models/all/OrderItemStore.js";
 
 export const deleteBookWorker = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -40,14 +42,37 @@ export const deleteBookWorker = async (req: ReqApp, res: Response) => {
 
   if (!book) return err403(res, { msg: "book not found or user not allowed" });
 
-  await Book.destroy({
-    where: {
-      id: bookID,
-    },
-  });
+  const t = await seq.transaction();
 
-  if (book.images?.length)
-    await delArrCloud(book.images.map((img) => img.publicID));
+  try {
+    await Book.destroy({
+      where: {
+        id: bookID,
+      },
+      transaction: t,
+    });
 
-  return res200(res, { msg: "book deleted" });
+    await OrderItemStore.update(
+      {
+        bookID: null,
+      },
+      {
+        where: {
+          bookID,
+        },
+        transaction: t,
+      }
+    );
+
+    await t.commit();
+
+    if (book.images?.length)
+      await delArrCloud(book.images.map((img) => img.publicID));
+
+    return res200(res, { msg: "book deleted" });
+  } catch (err) {
+    await t.rollback();
+
+    return err500(res);
+  }
 };

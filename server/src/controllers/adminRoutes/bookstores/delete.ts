@@ -51,6 +51,10 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
         model: OrderStore,
         as: "orders",
       },
+      {
+        model: OrderStore,
+        as: "orders",
+      },
     ],
   });
 
@@ -97,7 +101,20 @@ export const deleteStore = async (req: ReqApp, res: Response): Promise<any> => {
             [Op.in]: bookStore.books.map((el) => el.id),
           },
         },
+        transaction: t,
       });
+    if (bookStore?.orders?.length)
+      await OrderStore.update(
+        {
+          bookStoreID: null,
+        },
+        {
+          where: {
+            bookStoreID: bookStore.id,
+          },
+          transaction: t,
+        }
+      );
 
     await bookStore.destroy({ transaction: t });
 
