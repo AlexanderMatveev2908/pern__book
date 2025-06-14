@@ -109,6 +109,9 @@ export const getOrderWorker = async (req: ReqApp, res: Response) => {
             as: "team",
             where: { id: userID },
             attributes: ["id"],
+            through: {
+              as: "bookStoreUser",
+            },
           },
         ],
       },

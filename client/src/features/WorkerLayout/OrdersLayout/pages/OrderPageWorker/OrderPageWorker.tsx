@@ -6,6 +6,7 @@ import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import WrapApp from "@/components/HOC/WrapApp";
 import { isObjOk } from "@/core/lib/lib";
+import BreadCrumb from "@/components/elements/BreadCrumb";
 
 const OrderPageWorker: FC = () => {
   const { orderID } = useParams() ?? {};
@@ -24,7 +25,23 @@ const OrderPageWorker: FC = () => {
 
   return (
     <WrapApp {...{ ...res, canStay: isValidID, isSuccess: isObjOk(order) }}>
-      {() => <div className="">{order!.delivery}</div>}
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                {
+                  label:
+                    order!.store!.team?.[0]?.bookStoreUser?.role ?? "worker",
+                  path: "#",
+                },
+                { label: "Orders", path: "/consumer/orders/list" },
+                { label: order?.id ?? "order", path: "#" },
+              ],
+            }}
+          />
+        </>
+      )}
     </WrapApp>
   );
 };

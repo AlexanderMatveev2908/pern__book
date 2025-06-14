@@ -4,11 +4,13 @@ import type { FC } from "react";
 import { useParams } from "react-router-dom";
 import { booksSLiceAPI } from "../../booksSliceAPI";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import DropActionsBook from "@/features/OwnerLayout/BooksLayout/pages/BookPageOwner/components/DropActionsBook";
 import BookPage from "@/components/elements/cards/books/BookPage";
+import WrapApp from "@/components/HOC/WrapApp";
+import { BookType } from "@/types/all/books";
+import { isObjOk } from "@/core/lib/lib";
 
 const BookPageOwner: FC = () => {
   const { bookID = "" } = useParams();
@@ -23,26 +25,35 @@ const BookPageOwner: FC = () => {
   useWrapQueryAPI({ ...res });
 
   return (
-    <WrapPageAPI {...{ canStay: user?.hasBooks && itPass, ...res }}>
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Books", path: "/owner/books/list" },
-            { label: book?.title ?? "book", path: "#" },
-          ],
-        }}
-      />
-      {!book ? null : (
-        <div className="p_form__1 ">
-          <Title {...{ title: book?.title }} />
+    <WrapApp
+      {...{
+        canStay: user?.hasBooks && itPass,
+        ...res,
+        isSuccess: isObjOk(book),
+      }}
+    >
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Books", path: "/owner/books/list" },
+                { label: book?.title ?? "book", path: "#" },
+              ],
+            }}
+          />
 
-          <DropActionsBook {...{ book }} />
+          <div className="p_form__1 ">
+            <Title {...{ title: book?.title }} />
 
-          <BookPage {...{ el: book, isOwner: true }} />
-        </div>
+            <DropActionsBook {...{ book: book as BookType }} />
+
+            <BookPage {...{ el: book as BookType, isOwner: true }} />
+          </div>
+        </>
       )}
-    </WrapPageAPI>
+    </WrapApp>
   );
 };
 
