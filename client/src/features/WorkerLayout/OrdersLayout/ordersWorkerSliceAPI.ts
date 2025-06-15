@@ -1,8 +1,8 @@
 import { SearchOrdersWorkerType } from "@/core/contexts/FormsCtx/hooks/useFormsCtxProvider";
 import { makeParams } from "@/core/lib/all/forms/processVals/general";
-import { isArrOk } from "@/core/lib/lib";
+import { __cg, catchErr, isArrOk } from "@/core/lib/lib";
 import apiSlice from "@/core/store/api/apiSlice";
-import { OrderStoreType } from "@/types/all/orders";
+import { AllowedPatchOrderStages, OrderStoreType } from "@/types/all/orders";
 import {
   BaseResAPI,
   ReqQueryAPI,
@@ -46,6 +46,48 @@ export const ordersWorkerSliceAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: [TagsAPI.ORDER_WORKER],
+    }),
+
+    patchOrderWorker: builder.mutation<
+      BaseResAPI<void>,
+      { orderID: string; stage: AllowedPatchOrderStages }
+    >({
+      query: ({ orderID, stage }) => ({
+        url: `${B_URL}/${orderID}`,
+        method: "PATCH",
+        data: { stage },
+      }),
+
+      async onQueryStarted({ orderID, stage }, { dispatch, queryFulfilled }) {
+        await catchErr(async () => {
+          const patched = dispatch(
+            ordersWorkerSliceAPI.util.updateQueryData(
+              "getWorkerOrder",
+              { orderID },
+              (draft) => {
+                draft.order.stage = stage;
+              }
+            )
+          );
+
+          try {
+            await queryFulfilled;
+            dispatch(
+              ordersWorkerSliceAPI.util.invalidateTags([
+                {
+                  type: TagsAPI.ORDERS_WORKER_LIST,
+                  id: orderID,
+                },
+                TagsAPI.ORDER_WORKER,
+              ])
+            );
+          } catch (err) {
+            __cg("err patchOrderWorker", err);
+
+            patched.undo();
+          }
+        });
+      },
     }),
   }),
 });

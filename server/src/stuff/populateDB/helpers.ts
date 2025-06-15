@@ -2,6 +2,7 @@ import { fileURLToPath } from "url";
 import { cloud } from "../../config/cloud.js";
 import path from "path";
 import fs from "fs/promises";
+import { captAll } from "../../lib/utils/formatters.js";
 
 export const getAssetsPath = (frag: string) =>
   path.join(
@@ -32,8 +33,8 @@ export const createBooksAssets = async (authIn: string[]) => {
 
       images.push({
         path: fullPathImg,
-        auth: a,
-        title: imgD.split(".")[0],
+        auth: captAll(a.split("_").join(" ")),
+        title: captAll(imgD.split(".")[0].split("_").join(" ")),
       });
     }
   }

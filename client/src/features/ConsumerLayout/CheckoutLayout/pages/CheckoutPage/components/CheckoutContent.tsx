@@ -7,7 +7,6 @@ import {
   useWrapQueryAPI,
 } from "@/core/hooks/hooks";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
-import { usePartialSwap } from "@/core/hooks/all/forms/useSwapForm/usePartialSwap";
 import {
   CheckoutAddressType,
   schemaCheckoutAddress,
@@ -28,6 +27,7 @@ import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp } from "@/types/types";
 import { useNavigate } from "react-router-dom";
+import { usePartialSwap } from "@/core/contexts/SwapCtx/ctx/hooks/usePartialSwap";
 
 type PropsType = {
   order: OrderType;

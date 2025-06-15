@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/SearchBar/SearchBar";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
   consumerFieldsTxt,

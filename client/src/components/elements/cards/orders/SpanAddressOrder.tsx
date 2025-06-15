@@ -10,7 +10,7 @@ type PropsType = {
 const SpanAddressOrder: FC<PropsType> = ({ o }) => {
   return (
     typeof o.orderedAt === "string" && (
-      <div className="w-full grid grid-cols-1 gap-y-5 gap-x-10 border-[3px] border-neutral-800 rounded-xl p-5 lg:grid-cols-2">
+      <div className="w-full grid grid-cols-1 gap-y-5 gap-x-10 border-[3px] border-neutral-800 rounded-xl p-5 md:grid-cols-2">
         {fieldsAddressOrder(o).map((el) => (
           <SpanPageInfo
             key={el.id}

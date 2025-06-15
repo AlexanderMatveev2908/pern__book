@@ -2,7 +2,7 @@ import { Response } from "express";
 import { ReqApp, UserRole } from "../../../types/types.js";
 import { res200 } from "../../../lib/responseClient/res.js";
 import { BookStore, BookStoreInstance } from "../../../models/all/BookStore.js";
-import { err404, err500 } from "../../../lib/responseClient/err.js";
+import { err404, err409, err500 } from "../../../lib/responseClient/err.js";
 import { seq } from "../../../config/db.js";
 import {
   deleteOldAssetsStore,
@@ -16,6 +16,11 @@ import {
   clearUnnecessary,
   handleAssetsCloud,
 } from "../../adminRoutes/bookstores/helpers/cloudUpload.js";
+import { OrderStore } from "../../../models/all/OrderStore.js";
+import {
+  allowedDeletePatchStore,
+  StoreOrderStage,
+} from "../../../types/all/orders.js";
 
 export const updateStoreManager = async (
   req: ReqApp,
@@ -56,12 +61,29 @@ export const updateStoreManager = async (
         model: VideoBookStore,
         as: "video",
       },
+      {
+        model: OrderStore,
+        as: "orders",
+      },
     ],
   });
 
   if (!bookStore) {
     await clearUnnecessary(videoData, imagesData);
     return err404(res, { msg: "bookstore not found" });
+  }
+
+  if (bookStore?.orders?.length) {
+    if (
+      bookStore.orders.some(
+        (os) => !allowedDeletePatchStore.includes(os.stage as StoreOrderStage)
+      )
+    ) {
+      await clearUnnecessary(videoData!, imagesData!);
+      return err409(res, {
+        msg: "You can not update delivery time with orders in progress",
+      });
+    }
   }
 
   const t = await seq.transaction();

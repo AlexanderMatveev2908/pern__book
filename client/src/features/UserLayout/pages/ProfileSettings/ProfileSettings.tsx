@@ -27,11 +27,11 @@ import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp, UserType } from "@/types/types";
 import Title from "@/components/elements/Title";
 import Button from "@/components/elements/buttons/Button/Button";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
 import WrapApp from "@/components/HOC/WrapApp";
+import { useFormSwap } from "@/core/contexts/SwapCtx/ctx/hooks/useSwapForm";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 

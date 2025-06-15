@@ -116,6 +116,19 @@ export const getOrderWorker = async (req: ReqApp, res: Response) => {
         ],
       },
     ],
+
+    attributes: {
+      include: [
+        [
+          literal(`(
+          SELECT SUM(oi.qty)
+          FROM "order_items" AS oi
+          WHERE oi."orderStoreID" = "OrderStore"."id"
+          )`),
+          "totItems",
+        ],
+      ],
+    },
   });
 
   if (!order) return err404(res, { msg: "Order not found" });

@@ -1,7 +1,7 @@
 import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
-import { formatD, priceFormatter } from "@/core/lib/lib";
+import { capt, formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderStoreType } from "@/types/all/orders";
-import { Truck } from "lucide-react";
+import { Database, Truck } from "lucide-react";
 import {
   FaDatabase,
   FaRegCalendarAlt,
@@ -39,6 +39,11 @@ export const fieldsOrderStore = (os: OrderStoreType) =>
       label: "Total items",
       icon: FaDatabase,
       val: os.totItems + "",
+    },
+    {
+      label: "Stage order",
+      icon: Database,
+      val: capt(os.stage),
     },
   ].map((el) => ({
     ...el,

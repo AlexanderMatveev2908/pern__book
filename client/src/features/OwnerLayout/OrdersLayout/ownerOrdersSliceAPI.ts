@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { makeParams } from "@/core/lib/all/forms/processVals/general";
-import { isArrOk } from "@/core/lib/lib";
+import { __cg, catchErr, isArrOk } from "@/core/lib/lib";
 import apiSlice from "@/core/store/api/apiSlice";
-import { OrderStoreType } from "@/types/all/orders";
+import { AllowedPatchOrderStages, OrderStoreType } from "@/types/all/orders";
 import {
   BaseResAPI,
   ReqQueryAPI,
@@ -46,6 +46,49 @@ export const ownerOrdersSliceAPI = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: [TagsAPI.OWNER_ORDER],
+    }),
+
+    patchOrderOwner: builder.mutation<
+      BaseResAPI<void>,
+      { orderID: string; stage: AllowedPatchOrderStages }
+    >({
+      query: ({ orderID, stage }) => ({
+        url: `${B_URL}/${orderID}`,
+        method: "PATCH",
+        data: { stage },
+      }),
+
+      async onQueryStarted({ orderID, stage }, { dispatch, queryFulfilled }) {
+        await catchErr(async () => {
+          const patched = dispatch(
+            ownerOrdersSliceAPI.util.updateQueryData(
+              "getOrderOwner",
+              { orderID },
+              (draft) => {
+                draft.order.stage = stage;
+              }
+            )
+          );
+
+          try {
+            await queryFulfilled;
+
+            dispatch(
+              ownerOrdersSliceAPI.util.invalidateTags([
+                {
+                  type: TagsAPI.OWNER_ORDERS_LIST,
+                  id: orderID,
+                },
+                TagsAPI.OWNER_ORDER,
+              ])
+            );
+          } catch (err) {
+            __cg("err patchOrderOwner", err);
+
+            patched.undo();
+          }
+        });
+      },
     }),
   }),
 });

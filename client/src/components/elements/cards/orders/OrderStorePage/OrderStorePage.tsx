@@ -1,5 +1,5 @@
 import { OrderStoreType, OrderType } from "@/types/all/orders";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import { fieldsOrderStore } from "./fields";
 import SpanPageInfo from "../../shared/spans/SpanPageInfo";
 import SpanAddressOrder from "../SpanAddressOrder";
@@ -7,9 +7,10 @@ import OrderItemList from "../OrderItemList";
 
 type PropsType = {
   os: OrderStoreType;
+  Kanban?: () => ReactNode;
 };
 
-const OrderStorePage: FC<PropsType> = ({ os }) => {
+const OrderStorePage: FC<PropsType> = ({ os, Kanban }) => {
   return (
     <div className="w-full grid grid-cols-1 gap-y-8">
       <div className="w-full grid grid-cols-1 p-5 border-blue-600 rounded-xl border-[3px] gap-y-4 gap-x-8 lg:grid-cols-2">
@@ -24,6 +25,8 @@ const OrderStorePage: FC<PropsType> = ({ os }) => {
           />
         ))}
       </div>
+
+      {typeof Kanban === "function" && Kanban()}
 
       <SpanAddressOrder {...{ o: os.order as OrderType }} />
 
