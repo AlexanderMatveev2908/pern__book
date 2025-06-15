@@ -85,7 +85,7 @@ export const generateBooks = async ({
       {
         title: images[i].title,
         author: images[i].auth,
-        ...fillDefVals({ min: 1800, max: 150, u, store: store! }),
+        ...fillDefVals({ min: 1800, max: 1950, u, store: store! }),
         images: [
           {
             url: uploaded[i].url,
