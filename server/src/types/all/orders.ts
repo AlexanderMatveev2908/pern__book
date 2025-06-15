@@ -5,20 +5,28 @@ export enum StoreOrderStage {
   SHIPPED = "shipped",
   DELIVERED = "delivered",
   COMPLETED = "completed",
-  CANCELLED = "cancelled",
   REFUNDED = "refunded",
 }
 
-export const allowedPatchOrderStages = [
+export const stagesOrderFlowFinished = [
+  StoreOrderStage.REFUNDED,
+  StoreOrderStage.COMPLETED,
+];
+
+export const stagesArgCalcPatch = [
+  StoreOrderStage.PAID,
   StoreOrderStage.PROCESSING,
   StoreOrderStage.SHIPPED,
   StoreOrderStage.DELIVERED,
   StoreOrderStage.COMPLETED,
 ];
 
+export const allowedPatchOrderStages = stagesArgCalcPatch.filter(
+  (st) => st !== StoreOrderStage.PAID
+);
+
 export const allowedDeletePatchStore = [
   StoreOrderStage.PENDING,
-  StoreOrderStage.CANCELLED,
   StoreOrderStage.REFUNDED,
   StoreOrderStage.COMPLETED,
 ];
