@@ -9,8 +9,8 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { z } from "zod";
 import { useChoseNewPwdMutation } from "../../authSliceAPI";
 import WrapperAuthPage from "@/components/HOC/WrapperAuthPage";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import NewPwdForm from "@/common/forms/NewPwdForm/NewPwdForm";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const schema = z
   .object({
@@ -81,9 +81,9 @@ const ChoseNewPwd: FC = () => {
 
   return (
     <WrapperAuthPage {...{ title: "RECOVER ACCOUNT", switchForm: false }}>
-      <WrapPageAPI {...{ canStay }}>
-        <NewPwdForm {...{ ...form, isLoading, handleSave }} />
-      </WrapPageAPI>
+      <WrapApp {...{ canStay }}>
+        {() => <NewPwdForm {...{ ...form, isLoading, handleSave }} />}
+      </WrapApp>
     </WrapperAuthPage>
   );
 };
