@@ -45,7 +45,7 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
 
   const {
     control,
-    formState: { errors },
+    formState: { errors, isValid },
     handleSubmit,
     watch,
     reset,
@@ -87,9 +87,9 @@ const ResetPwd: FC<PropsType> = ({ propsPwd, cond, setSwapState }) => {
 
   const isFormOk = useMemo(
     () =>
-      !Object.keys(errors).length &&
-      Object.values([pwd, confirmPwd]).every((val) => val?.trim()?.length),
-    [errors, pwd, confirmPwd]
+      isValid &&
+      Object.values([pwd, confirmPwd]).every((val) => !!val?.trim()?.length),
+    [isValid, pwd, confirmPwd]
   );
 
   useEffect(() => {

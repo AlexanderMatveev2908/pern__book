@@ -2,7 +2,7 @@
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import WrapApp from "@/components/HOC/WrapApp";
 import { REG_ID } from "@/core/config/regex";
 import { usePopulateStoreForm } from "@/core/hooks/all/forms/bookStore/usePopulateStoreForm";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
@@ -140,41 +140,46 @@ const UpdateBookStoreManager: FC = () => {
   });
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: validID && role === UserRole.MANAGER,
         ...res,
+        isSuccess: isObjOk(bookStore),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            {
-              label: "manager",
-              path: "#",
-            },
-            {
-              label: "book stores",
-              path: "/worker/book-stores/list",
-            },
-            {
-              label: "update book store",
-              path: "#",
-            },
-          ],
-        }}
-      />
-
-      <Title {...{ title: "update bookstore" }} />
-
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookStoreForm
-            {...{ handleSave, role: UserRole.MANAGER, isLoading, isFormOk }}
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                {
+                  label: "manager",
+                  path: "#",
+                },
+                {
+                  label: "book stores",
+                  path: "/worker/book-stores/list",
+                },
+                {
+                  label: "update book store",
+                  path: "#",
+                },
+              ],
+            }}
           />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+
+          <Title {...{ title: "update bookstore" }} />
+
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookStoreForm
+                {...{ handleSave, role: UserRole.MANAGER, isLoading, isFormOk }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

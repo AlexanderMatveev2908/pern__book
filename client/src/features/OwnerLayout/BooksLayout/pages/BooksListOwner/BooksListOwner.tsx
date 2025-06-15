@@ -5,7 +5,6 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
 import type { FC } from "react";
 import { booksSLiceAPI } from "../../booksSliceAPI";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { FormProvider } from "react-hook-form";
 import SearchBar from "@/common/SearchBar/SearchBar";
@@ -20,6 +19,7 @@ import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { isArr } from "@/core/lib/lib";
 import BookItemOwner from "@/features/OwnerLayout/BooksLayout/pages/BooksListOwner/components/BookItemOwner";
 import PdfBtn from "@/features/OwnerLayout/BooksLayout/pages/BooksListOwner/components/PdfBtn";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BooksListOwner: FC = () => {
   const { user } = useGetU();
@@ -38,46 +38,55 @@ const BooksListOwner: FC = () => {
   });
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.hasBooks,
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Books", path: "#" },
-          ],
-        }}
-      />
-
-      <div className="p_page -mb-[175px]">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...({
-              hook,
-              txtInputs: fieldsInputsBooks,
-              filters: booksFilters,
-              numericFilters: ownerBooksNumericFilters,
-              sorters: ownerBooksSorters,
-              // ? JUST A METAPHOR
-              innerJoinCat: true,
-              schema: schemaSearchBooks,
-            } as any)}
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Books", path: "#" },
+              ],
+            }}
           />
-        </FormProvider>
 
-        {!isLoading && !isFetching && !!books?.length && <PdfBtn />}
+          <div className="p_page -mb-[175px]">
+            <FormProvider {...formCtx}>
+              <SearchBar
+                {...({
+                  hook,
+                  txtInputs: fieldsInputsBooks,
+                  filters: booksFilters,
+                  numericFilters: ownerBooksNumericFilters,
+                  sorters: ownerBooksSorters,
+                  // ? JUST A METAPHOR
+                  innerJoinCat: true,
+                  schema: schemaSearchBooks,
+                } as any)}
+              />
+            </FormProvider>
 
-        <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          <div className="list_items_app">
-            {isArr(books) &&
-              books!.map((el) => <BookItemOwner key={el.id} {...{ el }} />)}
+            {!isLoading && !isFetching && !!books?.length && <PdfBtn />}
+
+            <WrapperContentAPI
+              {...({ formCtx, hook, isSuccess: isArr(books) } as any)}
+            >
+              {() => (
+                <div className="list_items_app">
+                  {books!.map((el) => (
+                    <BookItemOwner key={el.id} {...{ el }} />
+                  ))}
+                </div>
+              )}
+            </WrapperContentAPI>
           </div>
-        </WrapperContentAPI>
-      </div>
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

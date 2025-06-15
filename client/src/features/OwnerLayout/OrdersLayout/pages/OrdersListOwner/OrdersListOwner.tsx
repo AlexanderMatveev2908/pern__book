@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/SearchBar/SearchBar";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
@@ -18,6 +17,7 @@ import { ownerOrdersSliceAPI } from "@/features/OwnerLayout/OrdersLayout/ownerOr
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import OrderStoreItemOwner from "./components/OrderStoreItemOwner";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const OrdersListOwner: FC = () => {
   const { user } = useGetU();
@@ -29,44 +29,51 @@ const OrdersListOwner: FC = () => {
   const { formSearchOrdersOwnerCtx: formCtx } = useFormCtxConsumer();
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.hasBusinessOrders,
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Orders", path: "#" },
-          ],
-        }}
-      />
-
-      <div className="p_page -mb-[175px]">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...({
-              hook,
-              txtInputs: fieldsInputOrdersOwner,
-              filters: filtersOrdersOwner,
-              numericFilters: ownerNumericFiltersOrders,
-              sorters: ownerSortersOrders,
-              schema: schemaOwnerOrders,
-            } as any)}
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Orders", path: "#" },
+              ],
+            }}
           />
-        </FormProvider>
 
-        <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          <div className="list_items_app">
-            {isArr(orders) &&
-              orders!.map((os) => (
-                <OrderStoreItemOwner key={os.id} {...{ os }} />
-              ))}
+          <div className="p_page -mb-[175px]">
+            <FormProvider {...formCtx}>
+              <SearchBar
+                {...({
+                  hook,
+                  txtInputs: fieldsInputOrdersOwner,
+                  filters: filtersOrdersOwner,
+                  numericFilters: ownerNumericFiltersOrders,
+                  sorters: ownerSortersOrders,
+                  schema: schemaOwnerOrders,
+                } as any)}
+              />
+            </FormProvider>
+
+            <WrapperContentAPI
+              {...({ formCtx, hook, isSuccess: isArr(orders) } as any)}
+            >
+              {() => (
+                <div className="list_items_app">
+                  {orders!.map((os) => (
+                    <OrderStoreItemOwner key={os.id} {...{ os }} />
+                  ))}
+                </div>
+              )}
+            </WrapperContentAPI>
           </div>
-        </WrapperContentAPI>
-      </div>
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

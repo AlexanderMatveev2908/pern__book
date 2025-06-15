@@ -34,13 +34,13 @@ import {
   processTeam,
   processVideo,
 } from "./utils";
-import { isSameData } from "@/core/lib/lib";
+import { isObjOk, isSameData } from "@/core/lib/lib";
 import { useListenFormOk } from "@/core/hooks/all/forms/useListenFormOk";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const UpdateBookStoreOwner: FC = () => {
   const nav = useNavigate();
@@ -168,32 +168,37 @@ const UpdateBookStoreOwner: FC = () => {
   });
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.isOwner && itPass,
         ...res,
+        isSuccess: isObjOk(bookStore),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Book Stores", path: "/owner/book-store/book-stores" },
-            { label: "update", path: "#" },
-          ],
-        }}
-      />
-
-      <Title {...{ title: "update bookstore" }} />
-
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookStoreForm
-            {...{ isLoading, handleSave, isFormOk, role: UserRole.OWNER }}
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Book Stores", path: "/owner/book-store/book-stores" },
+                { label: "update", path: "#" },
+              ],
+            }}
           />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+
+          <Title {...{ title: "update bookstore" }} />
+
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookStoreForm
+                {...{ isLoading, handleSave, isFormOk, role: UserRole.OWNER }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

@@ -1,4 +1,3 @@
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useMemo, type FC } from "react";
@@ -11,6 +10,7 @@ import HeaderOrderPage from "./components/HeaderOrderPage";
 import { OrderType } from "@/types/all/orders";
 import BodyOrderConsumer from "./components/BodyOrderConsumer/BodyOrderConsumer";
 import SpanAddressOrder from "../../../../../components/elements/cards/orders/SpanAddressOrder";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const OrderPageConsumer: FC = () => {
   const { user } = useGetU();
@@ -31,27 +31,29 @@ const OrderPageConsumer: FC = () => {
   const { data: { order } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI {...{ canStay, ...res }}>
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "search", path: "#" },
-            { label: "orders", path: "/consumer/orders/list" },
-            { label: order?.id ?? "ID", path: "#" },
-          ],
-        }}
-      />
+    <WrapApp {...{ canStay, ...res, isSuccess: isObjOk(order) }}>
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "search", path: "#" },
+                { label: "orders", path: "/consumer/orders/list" },
+                { label: order?.id ?? "ID", path: "#" },
+              ],
+            }}
+          />
 
-      {isObjOk(order) && (
-        <div className="w-full grid grid-1 gap-10 mt-6">
-          <HeaderOrderPage {...{ o: order as OrderType }} />
+          <div className="w-full grid grid-1 gap-10 mt-6">
+            <HeaderOrderPage {...{ o: order as OrderType }} />
 
-          <SpanAddressOrder {...{ o: order as OrderType }} />
+            <SpanAddressOrder {...{ o: order as OrderType }} />
 
-          <BodyOrderConsumer {...{ o: order as OrderType }} />
-        </div>
+            <BodyOrderConsumer {...{ o: order as OrderType }} />
+          </div>
+        </>
       )}
-    </WrapPageAPI>
+    </WrapApp>
   );
 };
 

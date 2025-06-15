@@ -1,7 +1,6 @@
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import ImagesScroll from "@/components/elements/imagesHandlers/ImagesScroll/ImagesScroll";
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useWrapQueryAPI } from "@/core/hooks/hooks";
 import { isObjOk } from "@/core/lib/lib";
@@ -12,6 +11,7 @@ import ReadContent from "./components/ReadContent";
 import { useGetCart } from "@/core/hooks/all/api/useGetCart";
 import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
 import ButtonsCart from "@/features/ConsumerLayout/CartLayout/components/ButtonsCart";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BookPageConsumer: FC = () => {
   const bookID = useParams()?.bookID;
@@ -28,42 +28,45 @@ const BookPageConsumer: FC = () => {
   const { data: { book } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         ...res,
+        isSuccess: isObjOk(book),
         canStay: isValidID,
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "search", path: "#" },
-            { label: "books", path: "/consumer/books/list" },
-            { label: book?.title ?? "book", path: "#" },
-          ],
-        }}
-      />
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "search", path: "#" },
+                { label: "books", path: "/consumer/books/list" },
+                { label: book?.title ?? "book", path: "#" },
+              ],
+            }}
+          />
 
-      {isObjOk(book) && (
-        <div className="p_form__1 ">
-          <Title {...{ title: book?.title }} />
+          <div className="p_form__1 ">
+            <Title {...{ title: book?.title }} />
 
-          <div className="w-full grid grid-cols-1 gap-10">
-            <ImagesScroll {...{ images: book!.images }} />
+            <div className="w-full grid grid-cols-1 gap-10">
+              <ImagesScroll {...{ images: book!.images }} />
 
-            {isLoading ? (
-              <div className="w-full flex justify-center">
-                <SpinnerBtn />
-              </div>
-            ) : (
-              <ButtonsCart {...{ book: book!, cart }} />
-            )}
+              {isLoading ? (
+                <div className="w-full flex justify-center">
+                  <SpinnerBtn />
+                </div>
+              ) : (
+                <ButtonsCart {...{ book: book!, cart }} />
+              )}
 
-            <ReadContent {...{ book: book! }} />
+              <ReadContent {...{ book: book! }} />
+            </div>
           </div>
-        </div>
+        </>
       )}
-    </WrapPageAPI>
+    </WrapApp>
   );
 };
 

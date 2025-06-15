@@ -13,10 +13,10 @@ import { usePopulateBookForm } from "@/core/hooks/all/forms/books/usePopulateBoo
 import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
 import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
 import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import BookForm from "@/common/forms/BookForm/BookForm";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const UpdateBookOwner: FC = () => {
   const nav = useNavigate();
@@ -91,7 +91,7 @@ const UpdateBookOwner: FC = () => {
   );
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.hasBooks && isValidID,
         isLoading,
@@ -110,21 +110,25 @@ const UpdateBookOwner: FC = () => {
         }}
       />
 
-      <Title {...{ title: "update book" }} />
+      {() => (
+        <>
+          <Title {...{ title: "update book" }} />
 
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookForm
-            {...{
-              handleSave,
-              isPending: isUpdateLoading,
-              stores,
-              isDisabled: isSame,
-            }}
-          />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookForm
+                {...{
+                  handleSave,
+                  isPending: isUpdateLoading,
+                  stores,
+                  isDisabled: isSame,
+                }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

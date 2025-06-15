@@ -2,7 +2,7 @@
 import BookForm from "@/common/forms/BookForm/BookForm";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
+import WrapApp from "@/components/HOC/WrapApp";
 import { REG_ID } from "@/core/config/regex";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
@@ -75,45 +75,50 @@ const CreateBookWorker: FC = () => {
       setValue("bookStoreID", bookStore?.id ?? "", { shouldValidate: true });
   }, [bookStore, setValue]);
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: isIdOk && role === UserRole.MANAGER,
         ...res,
+        isSuccess: isObjOk(bookStore),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            {
-              label: "manager",
-              path: "#",
-            },
-            {
-              label: bookStore?.name ?? "books",
-              path: `/worker/book-stores/${storeID}`,
-            },
-            {
-              label: "add book",
-              path: "#",
-            },
-          ],
-        }}
-      />
-
-      <Title {...{ title: "add book" }} />
-
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookForm
+      {() => (
+        <>
+          <BreadCrumb
             {...{
-              handleSave,
-              isPending: isLoading,
-              stores: [bookStore as Partial<BookStoreType>],
+              els: [
+                {
+                  label: "manager",
+                  path: "#",
+                },
+                {
+                  label: bookStore?.name ?? "books",
+                  path: `/worker/book-stores/${storeID}`,
+                },
+                {
+                  label: "add book",
+                  path: "#",
+                },
+              ],
             }}
           />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+
+          <Title {...{ title: "add book" }} />
+
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookForm
+                {...{
+                  handleSave,
+                  isPending: isLoading,
+                  stores: [bookStore as Partial<BookStoreType>],
+                }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

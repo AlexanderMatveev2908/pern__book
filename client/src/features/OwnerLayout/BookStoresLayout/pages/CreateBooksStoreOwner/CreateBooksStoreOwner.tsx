@@ -13,13 +13,13 @@ import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { fieldsSwapStore } from "@/core/config/fieldsData/bookStores/forms";
 import { makeFormDataStore } from "@/core/lib/all/forms/processVals/bookStore";
 import { handleFocusErrStore } from "@/core/lib/all/forms/errPostSubmit/bookStore";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import BookStoreForm from "@/common/forms/BookStore/BookStoreForm";
 import { UserRole } from "@/types/types";
 import { doLorem } from "@/core/lib/all/utils/place";
 import { makeRandomMinMax } from "@/core/lib/lib";
+import WrapApp from "@/components/HOC/WrapApp";
 
 export type FormBookStoreType = z.infer<typeof schemaBookStore>;
 
@@ -120,29 +120,38 @@ const CreateBooksStoreOwner: FC = () => {
   }, [setValue]);
 
   return (
-    <WrapPageAPI {...{ canStay: user?.isVerified }}>
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            {
-              label: "Book Stores",
-              path: user?.isOwner ? "/owner/book-store/book-stores" : "#",
-            },
-            { label: "create", path: "#" },
-          ],
-        }}
-      />
-
-      <Title {...{ title: "create a bookstore" }} />
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookStoreForm
-            {...{ handleSave, isFormOk: true, isLoading, role: UserRole.OWNER }}
+    <WrapApp {...{ canStay: user?.isVerified }}>
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                {
+                  label: "Book Stores",
+                  path: user?.isOwner ? "/owner/book-store/book-stores" : "#",
+                },
+                { label: "create", path: "#" },
+              ],
+            }}
           />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+
+          <Title {...{ title: "create a bookstore" }} />
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookStoreForm
+                {...{
+                  handleSave,
+                  isFormOk: true,
+                  isLoading,
+                  role: UserRole.OWNER,
+                }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 
