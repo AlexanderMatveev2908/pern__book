@@ -7,6 +7,8 @@ import {
 import { logJSON } from "../../../../lib/utils/log.js";
 import { validateQueryOwnerOrders } from "../../../../middleware/adminRoutes/orders/validateQueryOwnerOrders.js";
 import { checkID } from "../../../../middleware/sharedValidators/ids.js";
+import { patchOrderOwner } from "../../../../controllers/adminRoutes/orders/patch.js";
+import { checkPatchOrderBusiness } from "../../../../middleware/sharedValidators/orders/checkPatchOrderBusiness.js";
 
 const ordersRouter = express.Router();
 
@@ -17,6 +19,10 @@ ordersRouter.get(
   wrapApp(getOrdersList)
 );
 
-ordersRouter.get("/:orderID", checkID("orderID"), wrapApp(getOrderOwner));
+ordersRouter
+  .route("/:orderID")
+  .all(checkID("orderID"))
+  .get(wrapApp(getOrderOwner))
+  .patch(checkPatchOrderBusiness, wrapApp(patchOrderOwner));
 
 export default ordersRouter;

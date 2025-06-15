@@ -20,6 +20,7 @@ import TruckDrag from "./components/TruckDrag";
 import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp, UserRole } from "@/types/types";
+import SuccessInfo from "../SuccessInfo";
 
 type PropsType = {
   os: OrderStoreType;
@@ -80,9 +81,13 @@ const KanBanOrderStage: FC<PropsType> = ({ os, role, handlePatch }) => {
     };
   };
 
-  return (
+  const sensors = useSensors(useSensor(PointerSensor));
+
+  return os.stage === StoreOrderStage.COMPLETED ? (
+    <SuccessInfo {...{ msg: "Order has been delivered and is completed" }} />
+  ) : (
     <DndContext
-      sensors={useSensors(useSensor(PointerSensor))}
+      sensors={sensors}
       onDragEnd={async ({ active, over }) => {
         if (!over) return;
 
@@ -90,7 +95,7 @@ const KanBanOrderStage: FC<PropsType> = ({ os, role, handlePatch }) => {
 
         if (newI <= oldI) return;
 
-        if (over.id === StoreOrderStage.COMPLETED && level < 2) {
+        if (over.id === StoreOrderStage.COMPLETED && level < 1) {
           handleAdminOnly();
           return;
         }

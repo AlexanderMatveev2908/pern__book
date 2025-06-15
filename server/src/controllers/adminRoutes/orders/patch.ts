@@ -1,17 +1,11 @@
 import { Response } from "express";
-import { ReqApp, UserRole } from "../../../types/types.js";
 import { res200 } from "../../../lib/responseClient/res.js";
+import { ReqApp } from "../../../types/types.js";
 import { OrderStore } from "../../../models/all/OrderStore.js";
 import { Order } from "../../../models/all/Order.js";
 import { hidePendingOrders } from "../../../lib/query/general/orders.js";
+import { Op } from "sequelize";
 import { BookStore } from "../../../models/all/BookStore.js";
-import { User } from "../../../models/all/User.js";
-import {
-  err403,
-  err404,
-  err409,
-  err500,
-} from "../../../lib/responseClient/err.js";
 import {
   allowedDeletePatchStore,
   OrderStage,
@@ -19,11 +13,11 @@ import {
   stagesOrderFlowFinished,
   StoreOrderStage,
 } from "../../../types/all/orders.js";
+import { err409, err500 } from "../../../lib/responseClient/err.js";
 import { seq } from "../../../config/db.js";
 import { __cg } from "../../../lib/utils/log.js";
-import { Op } from "sequelize";
 
-export const patchOrderWorker = async (req: ReqApp, res: Response) => {
+export const patchOrderOwner = async (req: ReqApp, res: Response) => {
   const {
     userID,
     params: { orderID },
@@ -55,23 +49,14 @@ export const patchOrderWorker = async (req: ReqApp, res: Response) => {
       {
         model: BookStore,
         as: "store",
-        required: true,
-        include: [
-          {
-            model: User,
-            as: "team",
-            required: true,
-            where: { id: userID },
-            through: {
-              as: "bookStoreUser",
-            },
-          },
-        ],
+        where: {
+          ownerID: userID,
+        },
       },
     ],
   });
 
-  if (!order) return err404(res, { msg: "Order not found" });
+  if (!order) return res.status(404).json({ message: "Order not found" });
 
   if (allowedDeletePatchStore.includes(order.stage as StoreOrderStage))
     return err409(res, { msg: "Order state can no more be updated" });
@@ -82,15 +67,6 @@ export const patchOrderWorker = async (req: ReqApp, res: Response) => {
     return err409(res, {
       msg: "Is not allowed to go back in stage order flow",
     });
-
-  const [{ bookStoreUser: { role } = {} } = {}] =
-    order!.store!.team ?? ([] as any);
-
-  if (
-    ![UserRole.OWNER, UserRole.MANAGER].includes(role as UserRole) &&
-    order.stage === StoreOrderStage.COMPLETED
-  )
-    return err403(res, { msg: "User not allowed" });
 
   const t = await seq.transaction();
 
@@ -133,12 +109,14 @@ export const patchOrderWorker = async (req: ReqApp, res: Response) => {
 
     await t.commit();
 
-    return res200(res, { msg: "order stage updated" });
+    return res200(res, { msg: "order updated" });
   } catch (err) {
-    __cg("err", err);
+    __cg("err patch order", err);
 
     await t.rollback();
 
     return err500(res);
   }
+
+  return res200(res, {});
 };
