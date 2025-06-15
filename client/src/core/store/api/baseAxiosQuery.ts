@@ -47,11 +47,27 @@ export const axiosBaseQuery = async ({
       data: resultData,
     };
   } catch (err: any) {
-    const { response: { data: errData, config, status } = {} } = err ?? {};
+    const rawData = err?.response?.data;
+
+    let msg: string = err?.response?.data?.msg;
+    const status: number = err?.response?.status;
+
+    if (rawData instanceof Blob && rawData.type === "application/json") {
+      try {
+        const txt = await rawData.text();
+        const parsed = JSON.parse(txt);
+
+        msg = parsed.msg;
+      } catch (err) {
+        __cg("blob parse err", err);
+      }
+    }
+
+    const { response: { data: errData, config } = {} } = err ?? {};
 
     const isRefresh = isRefreshing(config?.url);
     const loggingOut = isLoggingOut(config?.url);
-    const isTokenExp = isAccessExpired(errData?.msg);
+    const isTokenExp = isAccessExpired(msg);
     const skipRefresh =
       status !== 401 || isRefresh || !isTokenExp || loggingOut;
     const removeSession = errData?.pushOut;
