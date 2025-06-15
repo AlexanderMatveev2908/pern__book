@@ -13,6 +13,7 @@ import { OrderStore } from "../../models/all/OrderStore.js";
 import { OrderItemStore } from "../../models/all/OrderItemStore.js";
 import { Book } from "../../models/all/Book.js";
 import { tErr } from "../../stuff/quick.js";
+import { getExpectedDeliveredDay } from "../../lib/utils/calc.js";
 
 const handleRefund = async (id: string) => {
   try {
@@ -117,6 +118,17 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
 
             j--;
           }
+
+          await currStore.update(
+            {
+              expectedArrival: getExpectedDeliveredDay({
+                daysToAdd: currStore.store!.deliveryTime,
+              }),
+            },
+            {
+              transaction: t,
+            }
+          );
 
           i--;
         }
