@@ -1,4 +1,3 @@
-import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { capt, formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderStoreType } from "@/types/all/orders";
 import { Database, Truck } from "lucide-react";
@@ -20,10 +19,7 @@ export const fieldsOrderStore = (os: OrderStoreType) =>
     {
       label: "Expected Delivery",
       icon: FaRegCalendarCheck,
-      val: getExpectedDeliveredDay({
-        dayFrom: os.order!.orderedAt!,
-        daysToAdd: os!.store!.deliveryTime ?? 0,
-      }),
+      val: formatD(os.expectedArrival),
     },
     {
       label: "Total amount",

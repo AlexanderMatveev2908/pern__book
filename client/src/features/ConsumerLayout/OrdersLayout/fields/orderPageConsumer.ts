@@ -1,4 +1,3 @@
-import { getExpectedDeliveredDay } from "@/core/lib/all/utils/calc";
 import { capt, formatD, priceFormatter } from "@/core/lib/lib";
 import { OrderStoreType, OrderType } from "@/types/all/orders";
 import { CiDeliveryTruck } from "react-icons/ci";
@@ -35,7 +34,7 @@ export const fieldsHeaderOrder = (o: OrderType) =>
     id: v4(),
   }));
 
-export const fieldsBodyOrderStore = (os: OrderStoreType, orderedAt: string) =>
+export const fieldsBodyOrderStore = (os: OrderStoreType) =>
   [
     {
       icon: HiMiniBuildingLibrary,
@@ -60,10 +59,7 @@ export const fieldsBodyOrderStore = (os: OrderStoreType, orderedAt: string) =>
     {
       icon: TbTruckDelivery,
       label: "Expected Delivery",
-      val: getExpectedDeliveredDay({
-        dayFrom: +orderedAt,
-        daysToAdd: os?.store?.deliveryTime ?? 0,
-      }),
+      val: formatD(os.expectedArrival),
     },
     {
       icon: CiDeliveryTruck,

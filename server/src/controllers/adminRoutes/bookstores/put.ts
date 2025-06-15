@@ -52,19 +52,6 @@ export const updateBookStore = async (
     return err404(res, { msg: "Bookstore not found" });
   }
 
-  if (bookStore?.orders?.length) {
-    if (
-      bookStore.orders.some(
-        (os) => !allowedDeletePatchStore.includes(os.stage as StoreOrderStage)
-      )
-    ) {
-      await clearUnnecessary(videoData!, imagesData!);
-      return err409(res, {
-        msg: "You can not update delivery time with orders in progress",
-      });
-    }
-  }
-
   const oldTeam = await BookStoreUser.findAll({
     where: {
       bookStoreID,
