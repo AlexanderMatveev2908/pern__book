@@ -17,7 +17,7 @@ const PdfBtn: FC = () => {
   const { isLoading, isFetching } = res;
   const isPending = isLoading || isFetching;
 
-  useWrapQueryAPI({ ...res, hideErr: true });
+  useWrapQueryAPI({ ...res });
 
   const handlePdf = async () => {
     // ? TRY CATCH SI NOT FOR ASYNC OPERATION , EVEN IF IT CRASH WITHOUT UNWRAP ERROR IS NOT THROWN FURTHER SO WILL NOT CAUSE ISSUES, CATCH BLOCK IS MADE TO PREVENT MY DUMMY ERRORS THAT I CAN DO WORKING WITH BLOB 🥸

@@ -5,5 +5,5 @@ const calcFromNow = (...args: number[]) =>
 // MAKE THEM SYNC TO NOT HAVE ERR BETWEEN SERVER AND CLIENT
 export const genExpiryJWE = () => calcFromNow(60 * 24);
 
-export const expiryAccess = "1m";
+export const expiryAccess = "10s";
 export const genExpiryCBC = () => calcFromNow(15);
