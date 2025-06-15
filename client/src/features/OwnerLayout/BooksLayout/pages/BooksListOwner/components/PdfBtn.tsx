@@ -17,7 +17,7 @@ const PdfBtn: FC = () => {
   const { isLoading, isFetching } = res;
   const isPending = isLoading || isFetching;
 
-  useWrapQueryAPI({ ...res });
+  useWrapQueryAPI({ ...res, hideErr: true });
 
   const handlePdf = async () => {
     // ? TRY CATCH SI NOT FOR ASYNC OPERATION , EVEN IF IT CRASH WITHOUT UNWRAP ERROR IS NOT THROWN FURTHER SO WILL NOT CAUSE ISSUES, CATCH BLOCK IS MADE TO PREVENT MY DUMMY ERRORS THAT I CAN DO WORKING WITH BLOB 🥸
@@ -25,7 +25,7 @@ const PdfBtn: FC = () => {
       const res = (await triggerRTK()) ?? {};
 
       const url = URL.createObjectURL(
-        new Blob([res.data], { type: "application/pdf" })
+        new Blob([res.data.blob], { type: "application/pdf" })
       );
       window.open(url, "_blank");
     } catch (err: any) {

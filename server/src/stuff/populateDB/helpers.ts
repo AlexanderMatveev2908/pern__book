@@ -3,6 +3,13 @@ import { cloud } from "../../config/cloud.js";
 import path from "path";
 import fs from "fs/promises";
 import { captAll } from "../../lib/utils/formatters.js";
+import { Book } from "../../models/all/Book.js";
+import { fillDefVals } from "./data.js";
+import { Transaction } from "sequelize";
+import { UserInstance } from "../../models/all/User.js";
+import { BookStoreInstance } from "../../models/all/BookStore.js";
+import { BookStoreUser } from "../../models/all/BookStoreUser.js";
+import { UserRole } from "../../types/types.js";
 
 export const getAssetsPath = (frag: string) =>
   path.join(
@@ -56,4 +63,66 @@ export const createBooksAssets = async (authIn: string[]) => {
     images,
     uploaded,
   };
+};
+
+type AssetsReturn = Awaited<ReturnType<typeof createBooksAssets>>;
+
+export const generateBooks = async ({
+  uploaded,
+  images,
+  t,
+  u,
+  store,
+}: AssetsReturn & {
+  t: Transaction;
+  u: UserInstance;
+  store: BookStoreInstance;
+}) => {
+  let i = 0;
+
+  while (i < uploaded.length) {
+    await Book.create(
+      {
+        title: images[i].title,
+        author: images[i].auth,
+        ...fillDefVals({ min: 1800, max: 1950, u, store: store! }),
+        images: [
+          {
+            url: uploaded[i].url,
+            publicID: uploaded[i].publicID,
+          },
+        ],
+      },
+      { transaction: t }
+    );
+
+    i++;
+  }
+};
+
+export const generateJunction = async ({
+  email,
+  tyler,
+  store,
+  t,
+}: {
+  email: string;
+  tyler: UserInstance;
+  store: BookStoreInstance;
+  t: Transaction;
+}) => {
+  const obj = {
+    "jane@gmail.com": UserRole.MANAGER,
+    "john@gmail.com": UserRole.EMPLOYEE,
+  };
+
+  await BookStoreUser.create(
+    {
+      userID: tyler!.id,
+      bookStoreID: store!.id,
+      userEmail: tyler!.email,
+      role: obj[email as keyof typeof obj],
+    },
+    { transaction: t }
+  );
 };

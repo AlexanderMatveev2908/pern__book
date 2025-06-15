@@ -3,12 +3,12 @@ import { isWeekend } from "date-fns";
 export const getExpectedDeliveredDay = ({
   daysToAdd,
 }: {
-  daysToAdd: number;
+  daysToAdd: number | string;
 }) => {
   const currDate = new Date();
   let addedDays = 0;
 
-  while (addedDays < daysToAdd) {
+  while (addedDays < +daysToAdd) {
     currDate.setDate(currDate.getDate() + 1);
 
     if (!isWeekend(currDate)) addedDays++;

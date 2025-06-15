@@ -10,7 +10,7 @@ export class OrderStore extends Model {
   bookStoreID!: string;
   amount!: number;
   delivery!: number;
-  expectedArrival?: number;
+  expectedArrival!: number;
   stage!: string;
 
   bookStoreName!: string;

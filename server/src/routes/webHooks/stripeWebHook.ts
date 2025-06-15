@@ -13,6 +13,7 @@ import { OrderStore } from "../../models/all/OrderStore.js";
 import { OrderItemStore } from "../../models/all/OrderItemStore.js";
 import { Book } from "../../models/all/Book.js";
 import { tErr } from "../../stuff/quick.js";
+import { getExpectedDeliveredDay } from "../../lib/utils/calc.js";
 
 const handleRefund = async (id: string) => {
   try {
@@ -89,12 +90,12 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
         let i = order.orderStores!.length - 1;
 
         while (i >= 0) {
-          const currStore = order.orderStores![i];
+          const currOrderStore = order.orderStores![i];
 
-          let j = currStore.orderItemStores!.length - 1;
+          let j = currOrderStore.orderItemStores!.length - 1;
 
           while (j >= 0) {
-            const currItem = currStore.orderItemStores![j];
+            const currItem = currOrderStore.orderItemStores![j];
             const { book } = currItem;
 
             if (book!.qty < currItem.qty) {
@@ -118,6 +119,21 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
             j--;
           }
 
+          await OrderStore.update(
+            {
+              stage: OrderStage.PAID,
+              expectedArrival: getExpectedDeliveredDay({
+                daysToAdd: currOrderStore.store!.deliveryTime,
+              }),
+            },
+            {
+              where: {
+                id: currOrderStore.id,
+              },
+              transaction: t,
+            }
+          );
+
           i--;
         }
 
@@ -129,18 +145,6 @@ export const handleStripeWebHook = async (req: ReqApp, res: Response) => {
           {
             where: {
               id: orderID,
-            },
-            transaction: t,
-          }
-        );
-
-        await OrderStore.update(
-          {
-            stage: OrderStage.PAID,
-          },
-          {
-            where: {
-              orderID,
             },
             transaction: t,
           }

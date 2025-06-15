@@ -24,10 +24,7 @@ const OrderStoreItemConsumer: FC<PropsType> = ({ os, hasBeenOrdered }) => {
           hasClosedActivity ? "border-red-600" : "border-gray-500"
         }`}
       >
-        {fieldsBodyOrderStore(
-          os,
-          os!.order?.orderedAt ?? new Date(0).getTime() + ""
-        ).map((el) => (
+        {fieldsBodyOrderStore(os).map((el) => (
           <SpanPageInfo
             key={el.id}
             {...{
