@@ -4,8 +4,10 @@ import { useMemo, useState, type FC } from "react";
 import KanBanItem from "./components/KanBanItem";
 import Draggable from "./components/Draggable";
 import {
+  Active,
   DndContext,
   DragOverlay,
+  Over,
   PointerSensor,
   useSensor,
   useSensors,
@@ -16,19 +18,43 @@ type PropsType = {
   os: OrderStoreType;
 };
 
+type KanBanStage = Exclude<StoreOrderStage, StoreOrderStage.REFUNDED>;
+
 const KanBanOrderStage: FC<PropsType> = ({ os }) => {
   const [stage, setStage] = useState("paid");
 
-  const argStages = useMemo(() => Object.values(StoreOrderStage), []);
+  const argStages = useMemo(
+    () =>
+      Object.values(StoreOrderStage).filter(
+        (st) => st !== StoreOrderStage.REFUNDED
+      ),
+    []
+  );
 
   const ids = useCreateIds({
     lengths: [argStages.length],
   });
 
   const currIndex = useMemo(
-    () => argStages.indexOf(stage as StoreOrderStage),
+    () => argStages.indexOf(stage as KanBanStage),
     [stage, argStages]
   );
+
+  const getIndexes = ({
+    active,
+    over,
+  }: {
+    active: Active;
+    over: Over | null;
+  }) => {
+    const oldI = argStages.indexOf(active.id as unknown as KanBanStage);
+    const newI = argStages.indexOf((over?.id as unknown as KanBanStage) ?? "");
+
+    return {
+      oldI,
+      newI,
+    };
+  };
 
   return (
     <DndContext
@@ -36,11 +62,7 @@ const KanBanOrderStage: FC<PropsType> = ({ os }) => {
       onDragEnd={({ active, over }) => {
         if (!over) return;
 
-        const oldI = argStages.indexOf(active.id as StoreOrderStage);
-        const newI = argStages.indexOf(over.id as StoreOrderStage);
-
-        console.log(active);
-        console.log(over);
+        const { oldI, newI } = getIndexes({ active, over });
 
         if (newI <= oldI) return;
 
@@ -53,6 +75,8 @@ const KanBanOrderStage: FC<PropsType> = ({ os }) => {
             key={ids[0][i]}
             {...{
               st,
+              canDrop: i > currIndex,
+              isIn: i === currIndex,
               Draggable:
                 i === currIndex ? () => <Draggable {...{ st }} /> : null,
             }}
