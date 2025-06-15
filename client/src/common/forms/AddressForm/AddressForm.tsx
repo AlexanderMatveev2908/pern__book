@@ -3,12 +3,12 @@ import MapsBtn from "@/components/elements/buttons/MapsBtn/MapsBtn";
 import QuickFillBtn from "@/components/elements/buttons/QuickFillBtn";
 import ButtonsSwapper from "@/components/forms/layouts/ButtonsSwapper/ButtonsSwapper";
 import FormField from "@/components/forms/inputs/baseTxtFields/FormField";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { BtnAct, FormFieldBasic } from "@/types/types";
 import { FC, useMemo } from "react";
 import { useFormContext } from "react-hook-form";
 import { useSwapCtxConsumer } from "@/core/contexts/SwapCtx/ctx/ctx";
 import { clearBtnField } from "@/core/config/fieldsData/labels/shared";
+import { useFormSwap } from "@/core/contexts/SwapCtx/ctx/hooks/useSwapForm";
 
 type PropsType = {
   swapID: string;

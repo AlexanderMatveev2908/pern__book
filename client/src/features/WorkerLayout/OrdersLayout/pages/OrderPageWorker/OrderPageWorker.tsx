@@ -7,6 +7,7 @@ import WrapApp from "@/components/HOC/WrapApp";
 import { isObjOk } from "@/core/lib/lib";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import OrderStorePage from "@/components/elements/cards/orders/OrderStorePage/OrderStorePage";
+import KanBanOrderStage from "@/components/elements/KanBanOrderStage/KanBanOrderStage";
 import { OrderStoreType } from "@/types/all/orders";
 
 const OrderPageWorker: FC = () => {
@@ -43,7 +44,12 @@ const OrderPageWorker: FC = () => {
           />
 
           <div className="w-full grid grid-cols-1 gap-y-6 mt-10">
-            <OrderStorePage {...{ os: order as OrderStoreType }} />
+            <OrderStorePage
+              {...{
+                os: order as OrderStoreType,
+                Kanban: () => <KanBanOrderStage {...{ os: order! }} />,
+              }}
+            />
           </div>
         </>
       )}

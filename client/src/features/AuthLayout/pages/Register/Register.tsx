@@ -31,7 +31,7 @@ import Button from "@/components/elements/buttons/Button/Button";
 import { RegisterParamsAPI, useRegisterUserMutation } from "../../authSliceAPI";
 import { login } from "../../authSlice";
 import { z } from "zod";
-import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
+import { useFormSwap } from "@/core/contexts/SwapCtx/ctx/hooks/useSwapForm";
 
 type RegisterFormType = z.infer<typeof schemaRegister>;
 

@@ -100,18 +100,18 @@ const UpdateBookOwner: FC = () => {
         isSuccess,
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Books", path: "/owner/books/list" },
-            { label: "update", path: "#" },
-          ],
-        }}
-      />
-
       {() => (
         <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Books", path: "/owner/books/list" },
+                { label: "update", path: "#" },
+              ],
+            }}
+          />
+
           <Title {...{ title: "update book" }} />
 
           <div className="w-full grid justify-items-center gap-6">
