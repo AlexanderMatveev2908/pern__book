@@ -32,15 +32,19 @@ export const axiosBaseQuery = async ({
       responseType,
     });
 
+    const resultData =
+      responseType === "blob"
+        ? {
+            blob: res.data,
+            status: res.status,
+          }
+        : {
+            ...res.data,
+            status: res.status,
+          };
+
     return {
-      data:
-        responseType === "blob"
-          ? res.data
-          : ({ ...res?.data, status: res?.status } as Pick<
-              AxiosResponse,
-              "data"
-            >),
-      status: res?.status,
+      data: resultData,
     };
   } catch (err: any) {
     const { response: { data: errData, config, status } = {} } = err ?? {};
@@ -82,16 +86,26 @@ export const axiosBaseQuery = async ({
         // send same data that failed above
         data: dataParams,
         params,
+        responseType,
       });
 
       __cg("refresh success");
 
+      const refreshedData =
+        responseType === "blob"
+          ? {
+              blob: retry.data,
+              status: retry.status,
+              refreshed: true,
+            }
+          : {
+              ...retry.data,
+              status: retry.status,
+              refreshed: true,
+            };
+
       return {
-        data: {
-          ...retry?.data,
-          status: retry?.status,
-          refreshed: true,
-        } as Pick<AxiosResponse, "data">,
+        data: refreshedData,
       };
     } catch (err: any) {
       __cg("refresh failed");
