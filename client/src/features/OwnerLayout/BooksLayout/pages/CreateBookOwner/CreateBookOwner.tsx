@@ -6,13 +6,13 @@ import { booksSLiceAPI } from "../../booksSliceAPI";
 import { useWrapMutationAPI, useWrapQueryAPI } from "@/core/hooks/hooks";
 import { makeBooksFormData } from "@/core/lib/all/forms/processVals/books";
 import { handleErrsBooks } from "@/core/lib/all/forms/errPostSubmit/books";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
 import { FormProvider } from "react-hook-form";
 import BookForm from "@/common/forms/BookForm/BookForm";
 import { isArrOk, makeRandomMinMax } from "@/core/lib/lib";
 import { doLorem } from "@/core/lib/all/utils/place";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const CreateBookOwner: FC = () => {
   const nav = useNavigate();
@@ -74,33 +74,40 @@ const CreateBookOwner: FC = () => {
   );
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.isOwner,
         ...res,
+        isSuccess: isArrOk(stores),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            {
-              label: "Books",
-              path: user?.hasBooks ? "/owner/books/list" : "#",
-            },
-            { label: "add book", path: "#" },
-          ],
-        }}
-      />
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                {
+                  label: "Books",
+                  path: user?.hasBooks ? "/owner/books/list" : "#",
+                },
+                { label: "add book", path: "#" },
+              ],
+            }}
+          />
 
-      <Title {...{ title: "add book" }} />
+          <Title {...{ title: "add book" }} />
 
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookForm {...{ handleSave, isPending: isCreateLoading, stores }} />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookForm
+                {...{ handleSave, isPending: isCreateLoading, stores }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

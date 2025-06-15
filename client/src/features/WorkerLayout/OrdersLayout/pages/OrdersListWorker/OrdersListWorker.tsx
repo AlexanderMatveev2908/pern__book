@@ -2,7 +2,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import SearchBar from "@/common/SearchBar/SearchBar";
 import BreadCrumb from "@/components/elements/BreadCrumb";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
@@ -19,6 +18,7 @@ import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import OrderStoreItemWorker from "./components/OrderStoreItemWorker";
 import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const OrdersListWorker: FC = () => {
   const { user } = useGetU();
@@ -29,54 +29,65 @@ const OrdersListWorker: FC = () => {
   const { data: { orders } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI {...{ canStay: user?.isWorker }}>
-      {res?.isLoading ? (
-        <div className="w-full flex justify-start mt-5">
-          <SpinnerBtn />
-        </div>
-      ) : (
-        <BreadCrumb
-          {...{
-            els: [
-              {
-                label: decapt(
-                  orders?.[0]?.store?.team?.[0]?.bookStoreUser?.role ?? "worker"
-                ),
-                path: "#",
-              },
-              { label: "Orders", path: "#" },
-            ],
-          }}
-        />
-      )}
+    <WrapApp {...{ canStay: user?.isWorker }}>
+      {() => (
+        <>
+          {res?.isLoading ? (
+            <div className="w-full flex justify-start mt-5">
+              <SpinnerBtn />
+            </div>
+          ) : (
+            <BreadCrumb
+              {...{
+                els: [
+                  {
+                    label: decapt(
+                      orders?.[0]?.store?.team?.[0]?.bookStoreUser?.role ??
+                        "worker"
+                    ),
+                    path: "#",
+                  },
+                  { label: "Orders", path: "#" },
+                ],
+              }}
+            />
+          )}
 
-      <div className="p_page -mb-[175px]">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...({
-              schema: schemaOrdersWorker,
-              hook,
-              paramID: "bookStoreID",
-              txtInputs: fieldsInputOrdersWorker,
-              filters: filtersOrdersWorker,
-              numericFilters: numericFiltersOrdersWorker,
-              sorters: sortersOrdersWorker,
-            } as any)}
-          />
-        </FormProvider>
+          <div className="p_page -mb-[175px]">
+            <FormProvider {...formCtx}>
+              <SearchBar
+                {...({
+                  schema: schemaOrdersWorker,
+                  hook,
+                  paramID: "bookStoreID",
+                  txtInputs: fieldsInputOrdersWorker,
+                  filters: filtersOrdersWorker,
+                  numericFilters: numericFiltersOrdersWorker,
+                  sorters: sortersOrdersWorker,
+                } as any)}
+              />
+            </FormProvider>
 
-        <WrapperContentAPI
-          {...({ formCtx, hook, paramID: "bookStoreID" } as any)}
-        >
-          <div className="list_items_app">
-            {isArrOk(orders) &&
-              orders?.map((os) => (
-                <OrderStoreItemWorker key={os.id} {...{ os }} />
-              ))}
+            <WrapperContentAPI
+              {...({
+                formCtx,
+                hook,
+                paramID: "bookStoreID",
+                isSuccess: isArrOk(orders),
+              } as any)}
+            >
+              {() => (
+                <div className="list_items_app">
+                  {orders?.map((os) => (
+                    <OrderStoreItemWorker key={os.id} {...{ os }} />
+                  ))}
+                </div>
+              )}
+            </WrapperContentAPI>
           </div>
-        </WrapperContentAPI>
-      </div>
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

@@ -17,6 +17,7 @@ import { consumerBooksSliceAPI } from "@/features/ConsumerLayout/BooksLayout/con
 import type { FC } from "react";
 import { FormProvider } from "react-hook-form";
 import BookItemConsumer from "./components/BookItemConsumer";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BookListConsumer: FC = () => {
   const { formSearchBooksConsumerCtx: formCtx } = useFormCtxConsumer();
@@ -27,42 +28,48 @@ const BookListConsumer: FC = () => {
   const { data: { books } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI>
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "search", path: "#" },
-            { label: "books", path: "#" },
-          ],
-        }}
-      />
-
-      <div className="p_page -mb-[175px] ">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...({
-              hook,
-              txtInputs: consumerFieldsTxt,
-              filters: consumerFiltersBooks,
-              sorters: sortersBooksConsumer,
-              numericFilters: numericFiltersBooksConsumer,
-              innerJoinCat: true,
-              schema: schemaConsumerBooks,
-            } as any)}
+    <WrapApp>
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "search", path: "#" },
+                { label: "books", path: "#" },
+              ],
+            }}
           />
-        </FormProvider>
 
-        <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          {isArrOk(books) && (
-            <div className="list_items_app">
-              {books!.map((el) => (
-                <BookItemConsumer key={el.id} {...{ el }} />
-              ))}
-            </div>
-          )}
-        </WrapperContentAPI>
-      </div>
-    </WrapPageAPI>
+          <div className="p_page -mb-[175px] ">
+            <FormProvider {...formCtx}>
+              <SearchBar
+                {...({
+                  hook,
+                  txtInputs: consumerFieldsTxt,
+                  filters: consumerFiltersBooks,
+                  sorters: sortersBooksConsumer,
+                  numericFilters: numericFiltersBooksConsumer,
+                  innerJoinCat: true,
+                  schema: schemaConsumerBooks,
+                } as any)}
+              />
+            </FormProvider>
+
+            <WrapperContentAPI
+              {...({ formCtx, hook, isSuccess: isArrOk(books) } as any)}
+            >
+              {() => (
+                <div className="list_items_app">
+                  {books!.map((el) => (
+                    <BookItemConsumer key={el.id} {...{ el }} />
+                  ))}
+                </div>
+              )}
+            </WrapperContentAPI>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

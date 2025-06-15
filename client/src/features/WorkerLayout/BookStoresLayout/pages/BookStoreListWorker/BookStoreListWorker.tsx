@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/SearchBar/SearchBar";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
   fieldsSearchStoreWorker,
@@ -17,6 +16,7 @@ import BookStoreItemWorker from "./components/BookStoreItemWorker";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { schemaWorkerStores } from "@/features/common/SearchBar/schemasZ/worker/stores";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BookStoreListWorker: FC = () => {
   const { formWorkerBookStores: formCtx } = useFormCtxConsumer();
@@ -30,46 +30,53 @@ const BookStoreListWorker: FC = () => {
   const { data: { bookStores } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI {...{ canStay: user?.isWorker }}>
-      <BreadCrumb
-        {...{
-          els: [
-            {
-              label: "worker",
-              path: "#",
-            },
-            {
-              label: "book stores",
-              path: "#",
-            },
-          ],
-        }}
-      />
-
-      <div className="p_page -mb-[175px]">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...({
-              hook,
-              txtInputs: fieldsSearchStoreWorker,
-              filters: storeFiltersWorker,
-              numericFilters: numericFiltersStoreWorker,
-              sorters: sorterStoreWorker,
-              schema: schemaWorkerStores,
-            } as any)}
+    <WrapApp {...{ canStay: user?.isWorker }}>
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                {
+                  label: "worker",
+                  path: "#",
+                },
+                {
+                  label: "book stores",
+                  path: "#",
+                },
+              ],
+            }}
           />
-        </FormProvider>
 
-        <WrapperContentAPI {...({ formCtx, hook } as any)}>
-          <div className="list_items_app">
-            {isArr(bookStores) &&
-              bookStores!.map((el) => (
-                <BookStoreItemWorker key={el.id} {...{ el }} />
-              ))}
+          <div className="p_page -mb-[175px]">
+            <FormProvider {...formCtx}>
+              <SearchBar
+                {...({
+                  hook,
+                  txtInputs: fieldsSearchStoreWorker,
+                  filters: storeFiltersWorker,
+                  numericFilters: numericFiltersStoreWorker,
+                  sorters: sorterStoreWorker,
+                  schema: schemaWorkerStores,
+                } as any)}
+              />
+            </FormProvider>
+
+            <WrapperContentAPI
+              {...({ formCtx, hook, isSuccess: isArr(bookStores) } as any)}
+            >
+              {() => (
+                <div className="list_items_app">
+                  {bookStores!.map((el) => (
+                    <BookStoreItemWorker key={el.id} {...{ el }} />
+                  ))}
+                </div>
+              )}
+            </WrapperContentAPI>
           </div>
-        </WrapperContentAPI>
-      </div>
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

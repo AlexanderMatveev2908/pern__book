@@ -25,13 +25,13 @@ import { useFocusAddress } from "@/core/hooks/all/UI/useFocusAddress";
 import { makeFormDataProfile } from "../../forms/formatVals";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp, UserType } from "@/types/types";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import Title from "@/components/elements/Title";
 import Button from "@/components/elements/buttons/Button/Button";
 import { useFormSwap } from "@/core/hooks/all/forms/useSwapForm/useSwapForm";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import HeaderUserProfile from "./components/HeaderUserProfile/HeaderUserProfile";
 import BodyUserProfile from "./components/BodyUserProfile/BodyUserProfile";
+import WrapApp from "@/components/HOC/WrapApp";
 
 export type UserProfileForm = z.infer<typeof schemaProfile>;
 
@@ -147,29 +147,33 @@ const ProfileSettings: FC = () => {
   };
 
   return (
-    <WrapPageAPI {...{ isLoading, isError, error, isSuccess: isObjOk(user) }}>
-      <Title {...{ title: "my profile" }} />
-      <FormProvider {...formCtx}>
-        <form onSubmit={handleSave} className="w-full grid">
-          <HeaderUserProfile
-            {...{ user, eventCloseInput: eventClose, setEventClose }}
-          />
+    <WrapApp {...{ isLoading, isError, error, isSuccess: isObjOk(user) }}>
+      {() => (
+        <>
+          <Title {...{ title: "my profile" }} />
+          <FormProvider {...formCtx}>
+            <form onSubmit={handleSave} className="w-full grid">
+              <HeaderUserProfile
+                {...{ user, eventCloseInput: eventClose, setEventClose }}
+              />
 
-          <BodyUserProfile />
+              <BodyUserProfile />
 
-          <div className="w-full max-w-[250px] justify-self-center mt-14">
-            <Button
-              {...{
-                type: "submit",
-                label: "Save Changes",
-                isDisabled: !isFormOk,
-                isAging: isLoadingUpdate,
-              }}
-            />
-          </div>
-        </form>
-      </FormProvider>
-    </WrapPageAPI>
+              <div className="w-full max-w-[250px] justify-self-center mt-14">
+                <Button
+                  {...{
+                    type: "submit",
+                    label: "Save Changes",
+                    isDisabled: !isFormOk,
+                    isAging: isLoadingUpdate,
+                  }}
+                />
+              </div>
+            </form>
+          </FormProvider>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

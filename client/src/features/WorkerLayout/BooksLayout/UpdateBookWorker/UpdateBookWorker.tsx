@@ -2,7 +2,6 @@
 import BookForm from "@/common/forms/BookForm/BookForm";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useCheckEqDataBook } from "@/core/hooks/all/forms/books/useCheckEqDataBook";
@@ -18,6 +17,7 @@ import { UserRole } from "@/types/types";
 import { useEffect, type FC } from "react";
 import { FormProvider } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const UpdateBookWorker: FC = () => {
   const { user } = useGetU();
@@ -83,47 +83,52 @@ const UpdateBookWorker: FC = () => {
   });
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: isValidID,
         ...res,
+        isSuccess: isObjOk(book),
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            {
-              label: role ?? "worker",
-              path: "#",
-            },
-            {
-              label: book?.store?.name ?? "Book store",
-              path: `/worker/book-stores/${book?.bookStoreID}`,
-            },
-            {
-              label: "update book",
-              path: "#",
-            },
-          ],
-        }}
-      />
-
-      <Title {...{ title: "update book" }} />
-
-      <div className="w-full grid justify-items-center gap-6">
-        <FormProvider {...formCtx}>
-          <BookForm
+      {() => (
+        <>
+          <BreadCrumb
             {...{
-              handleSave,
-              isPending: isMutateLoading,
-              stores: [store as Partial<BookStoreType>],
-              isDisabled: isSame,
-              isEmployee: role !== UserRole.MANAGER,
+              els: [
+                {
+                  label: role ?? "worker",
+                  path: "#",
+                },
+                {
+                  label: book?.store?.name ?? "Book store",
+                  path: `/worker/book-stores/${book?.bookStoreID}`,
+                },
+                {
+                  label: "update book",
+                  path: "#",
+                },
+              ],
             }}
           />
-        </FormProvider>
-      </div>
-    </WrapPageAPI>
+
+          <Title {...{ title: "update book" }} />
+
+          <div className="w-full grid justify-items-center gap-6">
+            <FormProvider {...formCtx}>
+              <BookForm
+                {...{
+                  handleSave,
+                  isPending: isMutateLoading,
+                  stores: [store as Partial<BookStoreType>],
+                  isDisabled: isSame,
+                  isEmployee: role !== UserRole.MANAGER,
+                }}
+              />
+            </FormProvider>
+          </div>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

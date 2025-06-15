@@ -1,4 +1,3 @@
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { isArrOk } from "@/core/lib/lib";
 import { useState, type FC } from "react";
 import { CartItemType } from "@/types/all/Cart";
@@ -21,6 +20,7 @@ import { useWrapMutationAPI } from "@/core/hooks/hooks";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { useGroupItemsByStore } from "@/features/ConsumerLayout/CartLayout/hooks/useGroupItemsByStore";
 import { useMixUserCartAsyncStates } from "@/features/ConsumerLayout/CartLayout/hooks/useMixUserCartAsyncStates";
+import WrapApp from "@/components/HOC/WrapApp";
 
 export type CartItemsGroupedType = {
   store: BookStoreType;
@@ -80,7 +80,7 @@ const CartPage: FC = () => {
   };
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         isLoading,
         isError,
@@ -89,26 +89,32 @@ const CartPage: FC = () => {
         canStay: !!cart?.items?.length || canStayNoCart,
       }}
     >
-      <Title {...{ title: "Cart summary" }} />
+      {() => (
+        <>
+          <Title {...{ title: "Cart summary" }} />
 
-      <Title {...{ title: "Items list", styleTxt: "txt__4" }} />
+          <Title {...{ title: "Items list", styleTxt: "txt__4" }} />
 
-      <div className="w-full flex justify-end">
-        <div className="w-full max-w-[300px]">
-          <Button
-            {...{
-              label: "Empty Cart",
-              act: BtnAct.DEL,
-              Icon: FaRegTrashAlt,
-              handleClick: handleOpenPop,
-            }}
+          <div className="w-full flex justify-end">
+            <div className="w-full max-w-[300px]">
+              <Button
+                {...{
+                  label: "Empty Cart",
+                  act: BtnAct.DEL,
+                  Icon: FaRegTrashAlt,
+                  handleClick: handleOpenPop,
+                }}
+              />
+            </div>
+          </div>
+          <CartItemsList {...{ groupedByStoreID, cart: cart! }} />
+
+          <SummaryCart
+            {...{ groupedByStoreID, cart: cart!, setCanStayNoCart }}
           />
-        </div>
-      </div>
-      <CartItemsList {...{ groupedByStoreID, cart: cart! }} />
-
-      <SummaryCart {...{ groupedByStoreID, cart: cart!, setCanStayNoCart }} />
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

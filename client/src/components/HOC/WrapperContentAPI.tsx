@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { useMemo, type FC, type ReactNode } from "react";
-import WrapPageAPI from "./WrapPageAPI";
+import { FC, useMemo, type ReactNode } from "react";
 import PagesCounter from "../elements/PageCounter/PagesCounter";
 import { UseFormReturn } from "react-hook-form";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { TriggerRTK } from "@/types/types";
+import WrapApp from "./WrapApp";
 
 type PropsType = {
-  children: ReactNode;
+  children?: () => ReactNode | ReactNode[];
   formCtx: UseFormReturn<any>;
   hook?: TriggerRTK;
   paramID?: string;
+  isSuccess?: boolean;
 };
 
 const WrapperContentAPI: FC<PropsType> = ({
@@ -18,6 +19,7 @@ const WrapperContentAPI: FC<PropsType> = ({
   paramID,
   hook,
   formCtx,
+  isSuccess = true,
 }) => {
   const [triggerRtk, res] = hook ?? [() => null, {} as any];
   const {
@@ -32,14 +34,15 @@ const WrapperContentAPI: FC<PropsType> = ({
   );
   return (
     <>
-      <WrapPageAPI
+      <WrapApp
         {...{
           ...res,
+          isSuccess,
           isLoading: spinPage,
         }}
       >
-        {children || null}
-      </WrapPageAPI>
+        {() => children?.()}
+      </WrapApp>
 
       {!spinPage && (
         <PagesCounter

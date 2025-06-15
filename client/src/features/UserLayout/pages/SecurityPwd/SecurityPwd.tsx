@@ -11,11 +11,11 @@ import { AllowedFromApp, StorageKeys } from "@/types/types";
 import { setCanManageAccount } from "@/features/AuthLayout/authSlice";
 import { LinksLoggedDrop } from "@/features/AuthLayout/fields/links";
 import Title from "@/components/elements/Title";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import { preventBrowser } from "@/core/lib/all/forms/errPreSubmit/general";
 import PwdField from "@/components/forms/inputs/PwdField/PwdField";
 import Button from "@/components/elements/buttons/Button/Button";
 import { passwordField } from "@/features/AuthLayout/fields/auth";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const schema = z.object({
   ...schemaPwd(),
@@ -74,35 +74,39 @@ const SecurityPwd: FC = () => {
   return (
     <div className="p_page">
       <Title {...{ title: "Confirm your password" }} />
-      <WrapPageAPI {...{ canStay: from === AllowedFromApp.GEN }}>
-        <div className="p_form__1">
-          <form
-            onSubmit={(e) =>
-              preventBrowser(e, async () => {
-                closeAllPwd();
-                await handleSave();
-              })
-            }
-            className="p_form__2"
-          >
-            <div className="w-full grid gap-5 p-6">
-              <PwdField
-                {...{ control, errors, el: passwordField, ...mainPwd }}
-              />
+      <WrapApp {...{ canStay: from === AllowedFromApp.GEN }}>
+        {() => (
+          <>
+            <div className="p_form__1">
+              <form
+                onSubmit={(e) =>
+                  preventBrowser(e, async () => {
+                    closeAllPwd();
+                    await handleSave();
+                  })
+                }
+                className="p_form__2"
+              >
+                <div className="w-full grid gap-5 p-6">
+                  <PwdField
+                    {...{ control, errors, el: passwordField, ...mainPwd }}
+                  />
 
-              <div className="max-w-[300px] w-full justify-self-center mt-10">
-                <Button
-                  {...{
-                    label: "Confirm password",
-                    isDisabled: !formOk,
-                    isAging: isLoading,
-                  }}
-                />
-              </div>
+                  <div className="max-w-[300px] w-full justify-self-center mt-10">
+                    <Button
+                      {...{
+                        label: "Confirm password",
+                        isDisabled: !formOk,
+                        isAging: isLoading,
+                      }}
+                    />
+                  </div>
+                </div>
+              </form>
             </div>
-          </form>
-        </div>
-      </WrapPageAPI>
+          </>
+        )}
+      </WrapApp>
     </div>
   );
 };

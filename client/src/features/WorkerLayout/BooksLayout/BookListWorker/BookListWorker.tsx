@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import SearchBar from "@/common/SearchBar/SearchBar";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import {
   fieldsInputsBooksWorker,
@@ -12,7 +11,7 @@ import { REG_ID } from "@/core/config/regex";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
 import { useSearchCtx } from "@/core/contexts/SearchCtx/hooks/useSearchCtx";
 import { useUpdateJoinCatMount } from "@/features/common/SearchBar/hooks/useUpdateJoinCatMount";
-import { decapt, isArr } from "@/core/lib/lib";
+import { decapt, isArr, isArrOk } from "@/core/lib/lib";
 import { booksSliceWorkerAPI } from "@/features/WorkerLayout/BooksLayout/booksSliceWorkerAPI";
 import { useEffect, useState, type FC } from "react";
 import { FormProvider } from "react-hook-form";
@@ -22,6 +21,7 @@ import BreadCrumb from "@/components/elements/BreadCrumb";
 import { useGetU } from "@/core/hooks/all/api/useGetU";
 import { schemaSearchBooks } from "@/features/common/SearchBar/schemasZ/owner/books";
 import SpinnerBtn from "@/components/elements/spinners/SpinnerBtn/SpinnerBtn";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BookListWorker: FC = () => {
   const { user } = useGetU();
@@ -54,66 +54,78 @@ const BookListWorker: FC = () => {
   }, [books, storeID]);
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay,
       }}
     >
-      {res?.isLoading ? (
-        <div className="w-full flex justify-start mt-5">
-          <SpinnerBtn />
-        </div>
-      ) : (
-        <BreadCrumb
-          {...{
-            els: [
-              {
-                label: decapt(
-                  ((books?.[0]?.store?.team as any)?.[0]?.bookStoreUser
-                    ?.role as any) ?? "worker"
-                ),
-                path: "#",
-              },
-              {
-                label: "books",
-                path: "#",
-              },
-              {
-                label: books?.[0]?.store?.name ?? "Book store",
-                path: `/worker/book-stores/${storeID}`,
-              },
-            ],
-          }}
-        />
-      )}
+      {() => (
+        <>
+          {res?.isLoading ? (
+            <div className="w-full flex justify-start mt-5">
+              <SpinnerBtn />
+            </div>
+          ) : (
+            <BreadCrumb
+              {...{
+                els: [
+                  {
+                    label: decapt(
+                      ((books?.[0]?.store?.team as any)?.[0]?.bookStoreUser
+                        ?.role as any) ?? "worker"
+                    ),
+                    path: "#",
+                  },
+                  {
+                    label: "books",
+                    path: "#",
+                  },
+                  {
+                    label: books?.[0]?.store?.name ?? "Book store",
+                    path: `/worker/book-stores/${storeID}`,
+                  },
+                ],
+              }}
+            />
+          )}
 
-      <div className="p_page -mb-[175px]">
-        <FormProvider {...formCtx}>
-          <SearchBar
-            {...({
-              hook,
-              txtInputs: fieldsInputsBooksWorker,
-              filters: workerBooksFiltersBooks,
-              sorters: workerSortersBooks,
-              numericFilters: workerNumericFieldsBooks,
-              innerJoinCat: true,
-              paramID: "bookStoreID",
-              defVals,
-              schema: schemaSearchBooks,
-            } as any)}
-          />
-        </FormProvider>
+          <div className="p_page -mb-[175px]">
+            <FormProvider {...formCtx}>
+              <SearchBar
+                {...({
+                  hook,
+                  txtInputs: fieldsInputsBooksWorker,
+                  filters: workerBooksFiltersBooks,
+                  sorters: workerSortersBooks,
+                  numericFilters: workerNumericFieldsBooks,
+                  innerJoinCat: true,
+                  paramID: "bookStoreID",
+                  defVals,
+                  schema: schemaSearchBooks,
+                } as any)}
+              />
+            </FormProvider>
 
-        <WrapperContentAPI
-          {...({ formCtx, hook, paramID: "bookStoreID" } as any)}
-        >
-          <div className="list_items_app">
-            {isArr(books) &&
-              books!.map((el) => <BookItemWorker key={el.id} {...{ el }} />)}
+            <WrapperContentAPI
+              {...({
+                formCtx,
+                hook,
+                paramID: "bookStoreID",
+                isSuccess: isArrOk(books),
+              } as any)}
+            >
+              {() => (
+                <div className="list_items_app">
+                  {books!.map((el) => (
+                    <BookItemWorker key={el.id} {...{ el }} />
+                  ))}
+                </div>
+              )}
+            </WrapperContentAPI>
           </div>
-        </WrapperContentAPI>
-      </div>
-    </WrapPageAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 

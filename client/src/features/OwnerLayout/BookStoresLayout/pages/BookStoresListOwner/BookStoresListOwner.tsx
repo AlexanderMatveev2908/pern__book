@@ -3,7 +3,6 @@ import { useGetU } from "@/core/hooks/all/api/useGetU";
 import type { FC } from "react";
 import { bookStoreSliceAPI } from "../../bookStoreSliceAPI";
 import { useFormCtxConsumer } from "@/core/contexts/FormsCtx/hooks/useFormCtxConsumer";
-import WrapPageAPI from "@/components/HOC/WrapPageAPI";
 import BreadCrumb from "@/components/elements/BreadCrumb";
 import { FormProvider } from "react-hook-form";
 import SearchBar from "@/common/SearchBar/SearchBar";
@@ -17,6 +16,7 @@ import { searchBarStore } from "@/features/common/SearchBar/schemasZ/owner/store
 import WrapperContentAPI from "@/components/HOC/WrapperContentAPI";
 import BookStoreItemOwner from "@/features/OwnerLayout/BookStoresLayout/pages/BookStoresListOwner/components/BookStoreItem";
 import { isArr } from "@/core/lib/lib";
+import WrapApp from "@/components/HOC/WrapApp";
 
 const BookStoresListOwner: FC = () => {
   const { user } = useGetU();
@@ -31,42 +31,49 @@ const BookStoresListOwner: FC = () => {
   const { data: { bookStores } = {} } = res ?? {};
 
   return (
-    <WrapPageAPI
+    <WrapApp
       {...{
         canStay: user?.isOwner,
       }}
     >
-      <BreadCrumb
-        {...{
-          els: [
-            { label: "admin", path: "#" },
-            { label: "Book Stores", path: "#" },
-          ],
-        }}
-      />
+      {() => (
+        <>
+          <BreadCrumb
+            {...{
+              els: [
+                { label: "admin", path: "#" },
+                { label: "Book Stores", path: "#" },
+              ],
+            }}
+          />
 
-      <FormProvider {...formCtx}>
-        <SearchBar
-          {...({
-            hook,
-            txtInputs: fieldsSearchStore,
-            filters: storeFilters,
-            numericFilters: numericFiltersStore,
-            sorters: sorterStore,
-            schema: searchBarStore,
-          } as any)}
-        />
-      </FormProvider>
+          <FormProvider {...formCtx}>
+            <SearchBar
+              {...({
+                hook,
+                txtInputs: fieldsSearchStore,
+                filters: storeFilters,
+                numericFilters: numericFiltersStore,
+                sorters: sorterStore,
+                schema: searchBarStore,
+              } as any)}
+            />
+          </FormProvider>
 
-      <WrapperContentAPI {...({ formCtx, hook } as any)}>
-        <div className="list_items_app">
-          {isArr(bookStores) &&
-            bookStores!.map((el) => (
-              <BookStoreItemOwner key={el.id} {...{ el }} />
-            ))}
-        </div>
-      </WrapperContentAPI>
-    </WrapPageAPI>
+          <WrapperContentAPI
+            {...({ formCtx, hook, isSuccess: isArr(bookStores) } as any)}
+          >
+            {() => (
+              <div className="list_items_app">
+                {bookStores!.map((el) => (
+                  <BookStoreItemOwner key={el.id} {...{ el }} />
+                ))}
+              </div>
+            )}
+          </WrapperContentAPI>
+        </>
+      )}
+    </WrapApp>
   );
 };
 
