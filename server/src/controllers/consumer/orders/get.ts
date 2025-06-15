@@ -9,14 +9,13 @@ import { BookStore } from "../../../models/all/BookStore.js";
 import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
 import { literal } from "sequelize";
 import { err404 } from "../../../lib/responseClient/err.js";
+import { makeQueryOrdersConsumer } from "../../../lib/query/consumer/orders.js";
 
 export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
-  const { userID } = req;
+  const { queryOrders, queryAfterPipe } = makeQueryOrdersConsumer(req);
 
   const { rows: orders, count } = await Order.findAndCountAll({
-    where: {
-      userID,
-    },
+    where: queryOrders,
 
     include: [
       {
@@ -44,6 +43,10 @@ export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
         ],
       },
     ],
+
+    group: ["Order.id"],
+
+    having: queryAfterPipe,
 
     attributes: {
       include: [

@@ -22,7 +22,9 @@ const HeaderOrderPage: FC<PropsType> = ({ o }) => {
   const nav = useNavigate();
 
   const isAvailable = useMemo(
-    () => o!.orderStores!.every((os) => isObjOk(os?.store)),
+    () =>
+      o!.orderStores!.every((os) => isObjOk(os?.store)) ||
+      typeof o.orderedAt === "string",
     [o]
   );
   const canGoCheckout = useMemo(() => typeof o.orderedAt !== "string", [o]);

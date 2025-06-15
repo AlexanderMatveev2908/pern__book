@@ -4,17 +4,17 @@ import {
   NumericFilterSearch,
 } from "@/types/types";
 import { FaDatabase } from "react-icons/fa";
-import { TbPigMoney } from "react-icons/tb";
+import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
 import {
   addSortFields,
   createdUpdateAtFields,
-  filtersDelivery,
   priceFilters,
   qtyFilters,
 } from "../general/general";
-import { filtersOrdersStage } from "../general/orders";
 import { addNestedIDs } from "@/core/lib/all/utils/ids";
+import { OrderStage } from "@/types/all/orders";
+import { capt } from "@/core/lib/lib";
 
 export const fieldsInputOrdersConsumer: FormFieldBasic[] = [
   {
@@ -27,9 +27,18 @@ export const fieldsInputOrdersConsumer: FormFieldBasic[] = [
   place: el.label + "...",
 }));
 
+const filtersStageConsumer = {
+  label: "Stage",
+  field: "stage",
+  icon: TbTruckDelivery,
+  fields: Object.values(OrderStage).map((el) => ({
+    label: capt(el.split("_").join(" ")),
+    val: el,
+  })),
+};
+
 export const filtersOrdersConsumer: FilterSearch[] = addNestedIDs([
-  filtersOrdersStage,
-  filtersDelivery,
+  filtersStageConsumer,
 ]) as FilterSearch[];
 
 export const numericFiltersOrdersConsumer: NumericFilterSearch[] = addNestedIDs(
