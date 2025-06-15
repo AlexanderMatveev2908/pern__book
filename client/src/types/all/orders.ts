@@ -11,7 +11,7 @@ export enum StoreOrderStage {
   REFUNDED = "refunded",
 }
 
-export type AllowedPatchOrderStages = Exclude<
+export type AllowedPatchOrderStages = Extract<
   StoreOrderStage,
   | StoreOrderStage.PROCESSING
   | StoreOrderStage.SHIPPED

@@ -21,6 +21,7 @@ import { useDispatch } from "react-redux";
 import { openToast } from "@/features/common/Toast/toastSlice";
 import { EventApp, UserRole } from "@/types/types";
 import SuccessInfo from "../SuccessInfo";
+import { tailwindBreak } from "@/core/config/breakpoints";
 
 type PropsType = {
   os: OrderStoreType;
@@ -81,6 +82,20 @@ const KanBanOrderStage: FC<PropsType> = ({ os, role, handlePatch }) => {
     };
   };
 
+  const handlePhoneClick = async (stage: AllowedPatchOrderStages) => {
+    if (window.innerWidth > tailwindBreak.md) return;
+
+    const oldIndex = argStages.indexOf(os.stage as KanBanStage);
+    const newIndex = argStages.indexOf(stage as KanBanStage);
+
+    if (newIndex < oldIndex) {
+      handleAdminOnly();
+      return;
+    }
+
+    await handlePatch(stage);
+  };
+
   const sensors = useSensors(useSensor(PointerSensor));
 
   return os.stage === StoreOrderStage.COMPLETED ? (
@@ -103,16 +118,23 @@ const KanBanOrderStage: FC<PropsType> = ({ os, role, handlePatch }) => {
         await handlePatch(over.id as AllowedPatchOrderStages);
       }}
     >
-      <div className="w-full grid grid-cols-3 gap-x-10 gap-y-5 items-center">
-        {argStages.map((st, i) => (
+      <div
+        className="w-full grid gap-x-10 gap-y-5 items-center"
+        style={{
+          gridTemplateColumns: "repeat(auto-fit, minmax(200px, 1fr))",
+        }}
+      >
+        {argStages.map((stage, i) => (
           <KanBanItem
             key={ids[0][i]}
             {...{
-              st,
+              stage,
+              handlePhoneClick: () =>
+                handlePhoneClick(stage as AllowedPatchOrderStages),
               canDrop: i > currIndex,
               isIn: i === currIndex,
               Draggable:
-                i === currIndex ? () => <Draggable {...{ st }} /> : null,
+                i === currIndex ? () => <Draggable {...{ stage }} /> : null,
             }}
           />
         ))}

@@ -3,12 +3,12 @@ import type { FC } from "react";
 import TruckDrag from "./TruckDrag";
 
 type PropsType = {
-  st: string;
+  stage: string;
 };
 
-const Draggable: FC<PropsType> = ({ st }) => {
+const Draggable: FC<PropsType> = ({ stage }) => {
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
-    id: st,
+    id: stage,
   });
 
   return (
