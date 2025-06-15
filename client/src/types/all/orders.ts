@@ -11,6 +11,14 @@ export enum StoreOrderStage {
   REFUNDED = "refunded",
 }
 
+export type AllowedPatchOrderStages = Exclude<
+  StoreOrderStage,
+  | StoreOrderStage.PROCESSING
+  | StoreOrderStage.SHIPPED
+  | StoreOrderStage.DELIVERED
+  | StoreOrderStage.COMPLETED
+>;
+
 export enum DeliveryType {
   FREE = "free_delivery",
   PAY = "delivery_charged",

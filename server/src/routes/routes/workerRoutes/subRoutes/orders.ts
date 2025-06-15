@@ -7,6 +7,7 @@ import {
 } from "../../../../controllers/workerRouter/orders/get.js";
 import { validateOrdersQueryWorkers } from "../../../../middleware/workerRouter/orders/validateOrdersQueryWorkers.js";
 import { checkID } from "../../../../middleware/sharedValidators/ids.js";
+import { patchOrderWorker } from "../../../../controllers/workerRouter/orders/patch.js";
 
 const ordersRouterWorker = express.Router();
 
@@ -17,10 +18,10 @@ ordersRouterWorker.get(
   wrapApp(getWorkerOrders)
 );
 
-ordersRouterWorker.get(
-  "/:orderID",
-  checkID("orderID"),
-  wrapApp(getOrderWorker)
-);
+ordersRouterWorker
+  .route("/:orderID")
+  .all(checkID("orderID"))
+  .get(wrapApp(getOrderWorker))
+  .patch(wrapApp(patchOrderWorker));
 
 export default ordersRouterWorker;

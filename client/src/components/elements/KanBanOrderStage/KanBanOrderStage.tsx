@@ -1,6 +1,10 @@
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
-import { OrderStoreType, StoreOrderStage } from "@/types/all/orders";
-import { useMemo, useState, type FC } from "react";
+import {
+  AllowedPatchOrderStages,
+  OrderStoreType,
+  StoreOrderStage,
+} from "@/types/all/orders";
+import { useMemo, type FC } from "react";
 import KanBanItem from "./components/KanBanItem";
 import Draggable from "./components/Draggable";
 import {
@@ -13,15 +17,35 @@ import {
   useSensors,
 } from "@dnd-kit/core";
 import TruckDrag from "./components/TruckDrag";
+import { useDispatch } from "react-redux";
+import { openToast } from "@/features/common/Toast/toastSlice";
+import { EventApp, UserRole } from "@/types/types";
 
 type PropsType = {
   os: OrderStoreType;
+  role: UserRole;
+  handlePatch: (stage: AllowedPatchOrderStages) => void;
 };
 
 type KanBanStage = Exclude<StoreOrderStage, StoreOrderStage.REFUNDED>;
 
-const KanBanOrderStage: FC<PropsType> = ({ os }) => {
-  const [stage, setStage] = useState("paid");
+const KanBanOrderStage: FC<PropsType> = ({ os, role, handlePatch }) => {
+  const level = useMemo(() => {
+    const arg = [UserRole.EMPLOYEE, UserRole.MANAGER, UserRole.OWNER];
+    const i = arg.indexOf(role);
+
+    return i;
+  }, [role]);
+
+  const dispatch = useDispatch();
+  const handleAdminOnly = () =>
+    dispatch(
+      openToast({
+        msg: "Only owner and managers can mark orders as completed",
+        statusCode: 403,
+        type: EventApp.ERR,
+      })
+    );
 
   const argStages = useMemo(
     () =>
@@ -36,8 +60,8 @@ const KanBanOrderStage: FC<PropsType> = ({ os }) => {
   });
 
   const currIndex = useMemo(
-    () => argStages.indexOf(stage as KanBanStage),
-    [stage, argStages]
+    () => argStages.indexOf(os.stage as KanBanStage),
+    [os, argStages]
   );
 
   const getIndexes = ({
@@ -59,14 +83,19 @@ const KanBanOrderStage: FC<PropsType> = ({ os }) => {
   return (
     <DndContext
       sensors={useSensors(useSensor(PointerSensor))}
-      onDragEnd={({ active, over }) => {
+      onDragEnd={async ({ active, over }) => {
         if (!over) return;
 
         const { oldI, newI } = getIndexes({ active, over });
 
         if (newI <= oldI) return;
 
-        setStage(over.id as StoreOrderStage);
+        if (over.id === StoreOrderStage.COMPLETED && level < 2) {
+          handleAdminOnly();
+          return;
+        }
+
+        await handlePatch(over.id as AllowedPatchOrderStages);
       }}
     >
       <div className="w-full grid grid-cols-3 gap-x-10 gap-y-5 items-center">
