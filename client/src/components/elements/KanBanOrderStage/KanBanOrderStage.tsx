@@ -1,9 +1,16 @@
 import { useCreateIds } from "@/core/hooks/all/UI/useCreateIds";
 import { OrderStoreType, StoreOrderStage } from "@/types/all/orders";
-import { useMemo, useRef, useState, type FC } from "react";
+import { useMemo, useState, type FC } from "react";
 import KanBanItem from "./components/KanBanItem";
 import Draggable from "./components/Draggable";
-import { rawTruckSVG } from "@/core/config/assets/rawSvgs/truck";
+import {
+  DndContext,
+  DragOverlay,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
+import TruckDrag from "./components/TruckDrag";
 
 type PropsType = {
   os: OrderStoreType;
@@ -11,9 +18,6 @@ type PropsType = {
 
 const KanBanOrderStage: FC<PropsType> = ({ os }) => {
   const [stage, setStage] = useState("paid");
-  const [isDragging, setIsDragging] = useState(false);
-  const [isDropping, setIsDropping] = useState<StoreOrderStage | null>(null);
-  const dragRef = useRef<HTMLDivElement | null>(null);
 
   const argStages = useMemo(() => Object.values(StoreOrderStage), []);
 
@@ -26,58 +30,40 @@ const KanBanOrderStage: FC<PropsType> = ({ os }) => {
     [stage, argStages]
   );
 
-  const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
-    if (!dragRef.current) return;
-
-    setIsDragging(true);
-  };
-  const handleDragEnd = () => {
-    setIsDragging(false);
-  };
-  const handleDragEnter = (st: StoreOrderStage) => {
-    setIsDropping(st);
-  };
-  const handleDragLeave = () => {
-    setIsDropping(null);
-  };
-  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
-    e.preventDefault();
-    setIsDragging(false);
-    if (isDropping) setStage(isDropping);
-    setIsDropping(null);
-  };
-
   return (
-    <div className="w-full grid grid-cols-3 gap-x-10 gap-y-5 items-center">
-      {argStages.map((st, i) => (
-        <KanBanItem
-          key={ids[0][i]}
-          {...{
-            st,
-            isIn: os.stage === st,
-            handleDragEnter: () => handleDragEnter(st),
-            handleDragLeave,
-            isDropping,
-            handleDrop,
-            currIndex,
-            innerIndex: i,
-            Draggable:
-              i === currIndex
-                ? () => (
-                    <Draggable
-                      {...{
-                        handleDragStart,
-                        handleDragEnd,
-                        isDragging,
-                        dragRef,
-                      }}
-                    />
-                  )
-                : null,
-          }}
-        />
-      ))}
-    </div>
+    <DndContext
+      sensors={useSensors(useSensor(PointerSensor))}
+      onDragEnd={({ active, over }) => {
+        if (!over) return;
+
+        const oldI = argStages.indexOf(active.id as StoreOrderStage);
+        const newI = argStages.indexOf(over.id as StoreOrderStage);
+
+        console.log(active);
+        console.log(over);
+
+        if (newI <= oldI) return;
+
+        setStage(over.id as StoreOrderStage);
+      }}
+    >
+      <div className="w-full grid grid-cols-3 gap-x-10 gap-y-5 items-center">
+        {argStages.map((st, i) => (
+          <KanBanItem
+            key={ids[0][i]}
+            {...{
+              st,
+              Draggable:
+                i === currIndex ? () => <Draggable {...{ st }} /> : null,
+            }}
+          />
+        ))}
+      </div>
+
+      <DragOverlay>
+        <TruckDrag {...{ customStyle: "opacity-100 scale-120" }} />
+      </DragOverlay>
+    </DndContext>
   );
 };
 

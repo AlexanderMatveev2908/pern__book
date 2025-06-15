@@ -1,31 +1,25 @@
-import { Truck } from "lucide-react";
+import { useDraggable } from "@dnd-kit/core";
 import type { FC } from "react";
+import TruckDrag from "./TruckDrag";
 
 type PropsType = {
-  handleDragStart: (e: React.DragEvent<HTMLDivElement>) => void;
-  handleDragEnd: (e: React.DragEvent<HTMLDivElement>) => void;
-  isDragging: boolean;
-  dragRef: React.RefObject<HTMLDivElement | null>;
+  st: string;
 };
 
-const Draggable: FC<PropsType> = ({
-  handleDragStart,
-  handleDragEnd,
-  isDragging,
-  dragRef,
-}) => {
+const Draggable: FC<PropsType> = ({ st }) => {
+  const { attributes, listeners, setNodeRef, isDragging } = useDraggable({
+    id: st,
+  });
+
   return (
-    <div
-      ref={dragRef}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      className={`${
-        isDragging ? "opacity-30" : ""
-      } absolute -top-1/2 -right-[10px] border-blue-600 border-[3px] z-60 min-w-[60px] min-h-[60px] rounded-xl bg-[#000] flex justify-center items-center`}
-      draggable
-    >
-      <Truck className="icon__lg" />
-    </div>
+    <TruckDrag
+      {...{
+        attributes,
+        listeners,
+        setNodeRef,
+        customStyle: isDragging ? "opacity-50" : "opacity-100",
+      }}
+    />
   );
 };
 
