@@ -3,9 +3,3 @@ const l = `Lorem ipsum dolor sit amet consectetur adipisicing elit. Perspiciatis
 export const doLorem = (n: number = 1) => {
   return l.repeat(n);
 };
-
-export const makeRandomMinMax = (min: number, max: number) =>
-  Math.random() * (max - min) + min;
-
-export const pickRandom = (arr: any[]) =>
-  arr[Math.floor(makeRandomMinMax(0, arr.length))];

@@ -3,13 +3,21 @@ import { hashPwd } from "../../lib/hashEncryptSign/argon.js";
 import { __cg } from "../../lib/utils/log.js";
 import { BookStore } from "../../models/all/BookStore.js";
 import { User } from "../../models/all/User.js";
-import { doLorem, makeRandomMinMax, pickRandom } from "./placeHolders.js";
+import { doLorem } from "./placeHolders.js";
 import { catStores, users } from "./data.js";
 import {
-  createBooksAssets,
   generateBooks,
   generateJunction,
+  makeRandomMinMax,
+  pickRandom,
 } from "./helpers.js";
+import { ImgBookStore } from "../../models/all/img&video/ImgBookStore.js";
+import {
+  createBooksAssets,
+  generateStoresAssets,
+  generateVideoStores,
+} from "./assetsHelpers.js";
+import { VideoBookStore } from "../../models/all/img&video/VideoBookStore.js";
 
 export const populateDB = async () => {
   const safeUsers = await Promise.all(
@@ -24,7 +32,11 @@ export const populateDB = async () => {
     const newUsers = await User.bulkCreate(safeUsers, { transaction: t });
 
     for (const u of newUsers) {
-      await BookStore.create(
+      const { uploaded } = await generateStoresAssets(
+        u.firstName.toLowerCase()
+      );
+
+      const store = await BookStore.create(
         {
           ownerID: u.id,
           name: `${u.firstName} 's bookstore`,
@@ -48,6 +60,29 @@ export const populateDB = async () => {
           lastUpdatedBy: u.email,
         },
         { transaction: t }
+      );
+
+      for (const up of uploaded) {
+        await ImgBookStore.create(
+          {
+            bookStoreID: store.id,
+            url: up.url,
+            publicID: up.publicID,
+          },
+          { transaction: t }
+        );
+      }
+
+      const vid = await generateVideoStores();
+
+      await VideoBookStore.create(
+        {
+          bookStoreID: store.id,
+          ...vid,
+        },
+        {
+          transaction: t,
+        }
       );
     }
 

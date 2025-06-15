@@ -1,15 +1,15 @@
 import { fileURLToPath } from "url";
-import { cloud } from "../../config/cloud.js";
 import path from "path";
-import fs from "fs/promises";
-import { captAll } from "../../lib/utils/formatters.js";
 import { Book } from "../../models/all/Book.js";
-import { fillDefVals } from "./data.js";
 import { Transaction } from "sequelize";
 import { UserInstance } from "../../models/all/User.js";
 import { BookStoreInstance } from "../../models/all/BookStore.js";
 import { BookStoreUser } from "../../models/all/BookStoreUser.js";
 import { UserRole } from "../../types/types.js";
+import { createBooksAssets } from "./assetsHelpers.js";
+import { doLorem } from "./placeHolders.js";
+import { CatBookStore } from "../../types/all/bookStore.js";
+import { subcategories } from "../../types/all/books.js";
 
 export const getAssetsPath = (frag: string) =>
   path.join(
@@ -18,52 +18,42 @@ export const getAssetsPath = (frag: string) =>
     `./assets_dev/${frag}`
   );
 
-export const createBooksAssets = async (authIn: string[]) => {
-  const booksDir = getAssetsPath("books");
+export const makeRandomMinMax = (min: number, max: number) =>
+  Math.random() * (max - min) + min;
 
-  const images: { path: string; auth: string; title: string }[] = [];
+export const pickRandom = (arr: any[]) =>
+  arr[Math.floor(makeRandomMinMax(0, arr.length))];
 
-  const authors = await fs.readdir(booksDir);
+export const getValidCat = (mainCat: CatBookStore[]) => {
+  const allowed = Object.entries(subcategories)
+    .filter(([k, v]) => mainCat.some((el) => el === k))
+    .flatMap(([_, v]) => v);
 
-  for (const a of authors) {
-    if (!authIn?.includes(a)) continue;
+  const random = Array.from({ length: 3 }, () => pickRandom(allowed));
 
-    const authorDir = path.join(booksDir, a);
-    const stat = await fs.stat(authorDir);
-
-    if (!stat.isDirectory()) continue;
-
-    const imgDirs = await fs.readdir(authorDir);
-
-    for (const imgD of imgDirs) {
-      const fullPathImg = path.join(authorDir, imgD);
-
-      images.push({
-        path: fullPathImg,
-        auth: captAll(a.split("_").join(" ")),
-        title: captAll(imgD.split(".")[0].split("_").join(" ")),
-      });
-    }
-  }
-
-  const uploaded = await Promise.all(
-    images.map(async (img) => {
-      const res = await cloud.uploader.upload(img.path, {
-        resource_type: "image",
-        folder: "pern__book_books",
-      });
-      return {
-        url: res.secure_url,
-        publicID: res.public_id,
-      };
-    })
-  );
-
-  return {
-    images,
-    uploaded,
-  };
+  return random;
 };
+
+export const fillDefVals = ({
+  min,
+  max,
+  u,
+  store,
+}: {
+  min: number;
+  max: number;
+  u: UserInstance;
+  store: BookStoreInstance;
+}) => ({
+  bookStoreID: store!.id,
+  description: doLorem(20),
+  year: makeRandomMinMax(min, max).toFixed(0),
+  price: makeRandomMinMax(1, 50).toFixed(2),
+  qty: makeRandomMinMax(1, 50).toFixed(0),
+  createdBy: u.email,
+  lastUpdatedBy: u.email,
+  categories: getValidCat(store!.categories),
+});
 
 type AssetsReturn = Awaited<ReturnType<typeof createBooksAssets>>;
 
