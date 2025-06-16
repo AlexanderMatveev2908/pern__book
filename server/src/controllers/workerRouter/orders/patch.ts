@@ -45,9 +45,7 @@ export const patchOrderWorker = async (req: ReqApp, res: Response) => {
             model: OrderStore,
             as: "orderStores",
             where: {
-              id: {
-                [Op.ne]: orderID,
-              },
+              id: orderID,
             },
           },
         ],
@@ -111,6 +109,7 @@ export const patchOrderWorker = async (req: ReqApp, res: Response) => {
       let canCanMarkUserOrderDone = true;
 
       for (const os of order!.order!.orderStores!) {
+        if (os.id === orderID) continue;
         if (!stagesOrderFlowFinished.includes(os.stage as StoreOrderStage)) {
           canCanMarkUserOrderDone = false;
           break;
