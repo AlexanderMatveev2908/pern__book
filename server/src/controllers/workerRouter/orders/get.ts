@@ -11,6 +11,7 @@ import { makeQueryOrdersWorker } from "../../../lib/query/worker/orders.js";
 import { Order } from "../../../models/all/Order.js";
 import { hidePendingOrders } from "../../../lib/query/general/orders.js";
 import { err404 } from "../../../lib/responseClient/err.js";
+import { wrapRawSort } from "../../../lib/query/general/sort.js";
 
 export const getWorkerOrders = async (req: ReqApp, res: Response) => {
   const { userID } = req;
@@ -70,6 +71,24 @@ export const getWorkerOrders = async (req: ReqApp, res: Response) => {
         ],
       ],
     },
+
+    order: [
+      ...wrapRawSort(req, "createdAtSort")(`"OrderStore"."createdAt"`),
+
+      ...wrapRawSort(
+        req,
+        "totAmountSort"
+      )(`("OrderStore"."amount" + "OrderStore"."delivery")`),
+
+      ...wrapRawSort(
+        req,
+        "totItemsSort"
+      )(`(
+        SELECT SUM(oi.qty)
+        FROM "order_items" AS oi
+        WHERE oi."orderStoreID" = "OrderStore"."id"
+        )`),
+    ],
 
     ...extractOffset(req),
   });
