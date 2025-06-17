@@ -38,9 +38,6 @@ export const patchOrderOwner = async (req: ReqApp, res: Response) => {
           {
             model: OrderStore,
             as: "orderStores",
-            where: {
-              id: orderID,
-            },
           },
         ],
       },

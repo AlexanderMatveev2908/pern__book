@@ -27,8 +27,6 @@ const OrderPageWorker: FC = () => {
   const { data: { order } = {} } = res ?? [];
   const [{ bookStoreUser: { role } = {} } = {}] = order?.store?.team ?? [];
 
-  console.log(role);
-
   const [mutate] = ordersWorkerSliceAPI.usePatchOrderWorkerMutation();
   const { wrapMutationAPI } = useWrapMutationAPI();
 
@@ -55,7 +53,10 @@ const OrderPageWorker: FC = () => {
                   label: role ?? "worker",
                   path: "#",
                 },
-                { label: "Orders", path: "/consumer/orders/list" },
+                {
+                  label: "Orders",
+                  path: `/worker/orders/list/${order?.store?.id ?? "#"}`,
+                },
                 { label: order?.id ?? "order", path: "#" },
               ],
             }}
