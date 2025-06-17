@@ -6,15 +6,11 @@ import {
 import { FaDatabase } from "react-icons/fa";
 import { TbPigMoney, TbTruckDelivery } from "react-icons/tb";
 import { v4 } from "uuid";
-import {
-  addSortFields,
-  createdUpdateAtFields,
-  priceFilters,
-  qtyFilters,
-} from "../general/general";
+import { addSortFields, priceFilters, qtyFilters } from "../general/general";
 import { addNestedIDs } from "@/core/lib/all/utils/ids";
 import { OrderStage } from "@/types/all/orders";
 import { capt } from "@/core/lib/lib";
+import { LuAlarmClock } from "react-icons/lu";
 
 export const fieldsInputOrdersConsumer: FormFieldBasic[] = [
   {
@@ -46,7 +42,11 @@ export const numericFiltersOrdersConsumer: NumericFilterSearch[] = addNestedIDs(
 ) as NumericFilterSearch[];
 
 export const sortersOrdersConsumer = addSortFields([
-  ...createdUpdateAtFields,
+  {
+    label: "Created at",
+    field: "createdAtSort",
+    icon: LuAlarmClock,
+  },
 
   {
     label: "Total amount",

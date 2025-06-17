@@ -87,7 +87,7 @@ export const sortByTimeStamps = (req: ReqApp) => [
     : []) as OrderItem[]),
 ];
 
-export const wrapRawSort = (req: ReqApp, key?: string) => (a: string) =>
+export const wrapRawSort = (req: ReqApp, key?: string) => (sql: string) =>
   (req.query?.[key as string]
-    ? [[literal(a), req.query[key as string]]]
+    ? [[literal(sql), req.query[key as string]]]
     : []) as OrderItem[];

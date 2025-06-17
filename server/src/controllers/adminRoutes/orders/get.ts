@@ -20,6 +20,7 @@ import { User } from "../../../models/all/User.js";
 import { OrderStage } from "../../../types/all/orders.js";
 import { hidePendingOrders } from "../../../lib/query/general/orders.js";
 import { err404 } from "../../../lib/responseClient/err.js";
+import { wrapRawSort } from "../../../lib/query/general/sort.js";
 
 export const getOrdersList = async (req: ReqApp, res: Response) => {
   const { queryAfterPipe, queryStoreOrders, queryBookStore } =
@@ -76,7 +77,22 @@ export const getOrdersList = async (req: ReqApp, res: Response) => {
       ],
     },
 
-    ...extractSorters(req),
+    order: [
+      ...wrapRawSort(req, "createdAtSort")(`"createdAt"`),
+      ...wrapRawSort(
+        req,
+        "totAmountSort"
+      )(`SUM("OrderStore".amount + "OrderStore".delivery)`),
+
+      ...wrapRawSort(
+        req,
+        "totItemsSort"
+      )(`(
+        SELECT SUM(oi.qty)
+        FROM "order_items" AS oi
+        WHERE oi."orderStoreID" = "OrderStore".id
+        )`),
+    ],
     ...extractOffset(req),
   });
 

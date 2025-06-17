@@ -7,7 +7,6 @@ import { v4 } from "uuid";
 import { filtersOrdersStage } from "../general/orders";
 import {
   addSortFields,
-  createdUpdateAtFields,
   filtersDelivery,
   priceFilters,
   qtyFilters,
@@ -15,6 +14,7 @@ import {
 import { addNestedIDs } from "@/core/lib/all/utils/ids";
 import { TbPigMoney } from "react-icons/tb";
 import { FaDatabase } from "react-icons/fa";
+import { LuAlarmClock } from "react-icons/lu";
 
 export const fieldsInputOrdersWorker: FormFieldBasic[] = [
   {
@@ -38,7 +38,11 @@ export const numericFiltersOrdersWorker: NumericFilterSearch[] = addNestedIDs([
 ]) as NumericFilterSearch[];
 
 export const sortersOrdersWorker = addSortFields([
-  ...createdUpdateAtFields,
+  {
+    label: "Created at",
+    field: "createdAtSort",
+    icon: LuAlarmClock,
+  },
 
   {
     label: "Total amount",
