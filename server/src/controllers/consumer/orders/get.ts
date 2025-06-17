@@ -10,6 +10,7 @@ import { extractNoHits, extractOffset } from "../../../lib/utils/formatters.js";
 import { literal } from "sequelize";
 import { err404 } from "../../../lib/responseClient/err.js";
 import { makeQueryOrdersConsumer } from "../../../lib/query/consumer/orders.js";
+import { wrapRawSort } from "../../../lib/query/general/sort.js";
 
 export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
   const { queryOrders, queryAfterPipe } = makeQueryOrdersConsumer(req);
@@ -62,6 +63,25 @@ export const getOrdersListConsumer = async (req: ReqApp, res: Response) => {
         ],
       ],
     },
+
+    order: [
+      ...wrapRawSort(req, "createdAtSort")(`"Order"."orderedAt"`),
+      ...wrapRawSort(
+        req,
+        "totAmountSort"
+      )(`("Order".amount - "Order".discount)`),
+
+      ...wrapRawSort(
+        req,
+        "totItemsSort"
+      )(`(
+        SELECT SUM(oi.qty)
+        FROM "orders_stores" AS os
+        INNER JOIN "order_items" AS oi
+        ON os."id" = oi."orderStoreID"
+        WHERE os."orderID" = "Order"."id"
+        )`),
+    ],
 
     ...extractOffset(req),
   });
