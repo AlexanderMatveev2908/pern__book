@@ -12,6 +12,7 @@ import { corsMid } from "./middleware/general/cors.js";
 import http from "http";
 import { clearDB } from "./stuff/clear.js";
 import routerWebhook from "./routes/webHooks.js";
+import { genPpdPwd } from "./stuff/quick.js";
 
 const app = express();
 const PORT = process.env.PORT ? +process.env.PORT : 3000;
@@ -37,6 +38,8 @@ if (!isDev) {
   });
 }
 app.use(errMiddleware);
+
+// genPpdPwd();
 
 const start = async () => {
   try {

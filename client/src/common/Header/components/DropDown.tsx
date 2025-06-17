@@ -142,6 +142,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, user }) => {
 
       <div
         ref={thumbRef}
+        aria-label="dropdown header"
         onClick={() => {
           if (window.innerWidth > tailwindBreak.md) setHasClicked(!hasClicked);
 
