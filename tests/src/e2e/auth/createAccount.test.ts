@@ -2,7 +2,7 @@ import seq from "../../db/config.js";
 import { expect, test } from "@playwright/test";
 import { nav } from "../utils/general.js";
 import { makeNoticeTxt } from "../../lib/utils.js";
-import { account_0 } from "./data.js";
+import { account_0 } from "./lib/data.js";
 
 test.beforeAll(async () => {
   await seq.authenticate();
