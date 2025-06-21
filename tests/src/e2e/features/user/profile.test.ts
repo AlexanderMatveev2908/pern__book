@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
-import { clickBtn, fillInput, nav, searchTxt } from "../lib/general.js";
-import { handleLoginT } from "../lib/login.js";
+import { clickBtn, fillInput, nav, searchTxt } from "../../lib/general.js";
+import { handleLoginT } from "../../lib/login.js";
 
 test.beforeEach(async ({ page }) => {
   await handleLoginT({ page });
