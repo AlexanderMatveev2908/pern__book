@@ -59,6 +59,7 @@ const FormFieldBtn: FC<PropsType> = ({
 
       <button
         type="button"
+        aria-label={`edit ${el.field}`}
         onClick={() => {
           setIsInput(!isInput);
 

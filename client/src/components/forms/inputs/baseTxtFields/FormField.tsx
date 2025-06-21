@@ -53,6 +53,7 @@ const FormField: FC<PropsType> = ({
             render={({ field }) => (
               <input
                 ref={field.ref}
+                name={el.field}
                 type={el.type ?? "text"}
                 step={el.type === "number" ? "any" : undefined}
                 placeholder={

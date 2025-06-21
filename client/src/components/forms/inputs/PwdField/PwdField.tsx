@@ -37,6 +37,7 @@ const PwdField: FC<PropsType> = ({
             render={({ field }) => (
               <input
                 ref={field.ref}
+                name={el.field}
                 type={isPwd ? "password" : "text"}
                 placeholder={el.place ?? `Your ${el.label}...`}
                 className="input__md txt__2"

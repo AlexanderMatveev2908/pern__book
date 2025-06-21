@@ -125,6 +125,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, user }) => {
               onClick={() => {
                 setIsOpen(false);
               }}
+              aria-label={`${el.label} dropdown`}
               className="w-full flex items-center gap-5 el__after_below el__flow hover:text-blue-600"
             >
               <el.icon className="icon__sm" />
@@ -143,6 +144,7 @@ const DropDown: FC<PropsType> = ({ isLogged, init, user }) => {
       <div
         ref={thumbRef}
         aria-label="dropdown header"
+        role="button"
         onClick={() => {
           if (window.innerWidth > tailwindBreak.md) setHasClicked(!hasClicked);
 
