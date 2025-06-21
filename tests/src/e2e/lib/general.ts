@@ -7,21 +7,43 @@ export const nav = async (page: Page, p: string) => {
   await page.goto(`${B_URL}/${p}`);
 };
 
-export const makeNoticeTxt = (txt: string) =>
-  `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;
+export const clickLink = async ({
+  page,
+  aria,
+  testID,
+}: {
+  page: Page;
+  aria?: string;
+  testID?: string;
+}) => {
+  let query = `link`;
+  const arg: string[] = [];
 
-export const clickButton = async (page: Page, name: string) =>
-  await page.getByRole("button", { name }).click();
+  if (testID) arg.push(`[data-testid="${testID}"]`);
+  if (aria) arg.push(`[aria-label="${aria}"]`);
 
-export const clickLink = async (page: Page, name: string) =>
-  await page.getByRole("link", { name }).click();
+  if (arg.length) query += arg.join("");
+
+  await expect(page.locator(query)).toBeVisible();
+  await page.locator(query).click();
+};
 
 export const waitRedirect = async (page: Page, url: string) => {
   await page.waitForURL(url, { timeout: 10000 });
 };
 
-export const searchTxt = async ({ page, txt }: { page: Page; txt: string }) => {
-  await expect(page.getByText(`${txt}`, { exact: true })).toBeVisible();
+export const searchTxt = async ({
+  page,
+  txt,
+  timeout,
+}: {
+  page: Page;
+  txt: string;
+  timeout?: number;
+}) => {
+  await expect(page.getByText(`${txt}`, { exact: true })).toBeVisible({
+    timeout,
+  });
 };
 
 export const fillInput = async ({
@@ -48,10 +70,12 @@ export const clickBtn = async ({
   page,
   aria,
   testID,
+  timeout,
 }: {
   page: Page;
   aria: string;
   testID?: string;
+  timeout?: number;
 }) => {
   let query = "button";
   const arg: string[] = [];
@@ -61,11 +85,11 @@ export const clickBtn = async ({
 
   if (arg.length) query += `:is(${arg.join(", ")})`;
 
-  await page.waitForSelector(query, {
-    state: "visible",
+  await expect(page.locator(query)).toBeVisible({
+    timeout,
   });
 
-  await page.getByRole("button", { name: aria }).click();
+  await page.locator(query).click();
 };
 
 export const listenErr = async ({
@@ -91,3 +115,6 @@ export const listenErr = async ({
 
   expect(errOpacity_0).toBe(true);
 };
+
+export const makeNoticeTxt = (txt: string) =>
+  `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;

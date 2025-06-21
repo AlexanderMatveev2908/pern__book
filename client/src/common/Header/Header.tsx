@@ -50,6 +50,7 @@ const Header: FC = () => {
           )}
 
           <button
+            aria-label="toggle sidebar"
             onClick={() => dispatch(toggleSide())}
             className="justify-self-end"
           >
