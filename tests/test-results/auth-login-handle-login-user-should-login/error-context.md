@@ -1,0 +1,93 @@
+# Page snapshot
+
+```yaml
+- link "SNAS":
+  - /url: /
+- link "Register":
+  - /url: /auth/register
+  - img
+  - text: Register
+- link "Login":
+  - /url: /auth/login
+  - img
+  - text: Login
+- link "Verify email":
+  - /url: /auth/verify-account
+  - img
+  - text: Verify email
+- link "Recover account":
+  - /url: /auth/forgot-pwd
+  - img
+  - text: Recover account
+- img
+- button:
+  - img
+- button:
+  - img
+- button
+- button
+- text: 401 ERROR
+- button:
+  - img
+- text: INVALID CREDENTIALS
+- link "Home":
+  - /url: /
+  - img
+  - text: Home
+- link "Books":
+  - /url: /consumer/books/list
+  - img
+  - text: Books
+- img
+- text: Account
+- img
+- link "Register":
+  - /url: /auth/register
+  - img
+  - text: Register
+- link "Login":
+  - /url: /auth/login
+  - img
+  - text: Login
+- link "Verify email":
+  - /url: /auth/verify-account
+  - img
+  - text: Verify email
+- link "Recover account":
+  - /url: /auth/forgot-pwd
+  - img
+  - text: Recover account
+- heading "LOGIN" [level=1]
+- text: Email
+- textbox "Email": matveevalexander470@gmail.com
+- text: Password
+- textbox "Password": "8cLS4XY!{2Wdvl4*l^4"
+- button:
+  - img
+- button "Login"
+- img
+- text: Don't have an' account ?
+- link "Register":
+  - /url: /auth/register
+- img
+- text: Forgot password ?
+- link "Recover":
+  - /url: /auth/forgot-pwd
+- link:
+  - /url: /
+  - img
+- heading "GITHUB" [level=1]
+- link "Source code":
+  - /url: https://github.com/AlexanderMatveev2908/PERN__BOOK
+  - img
+  - text: Source code
+- heading "CONTACT" [level=1]
+- link "matveevalexander470@gmail.com":
+  - /url: mailto:matveevalexander470@gmail.com?subject=PERN__BOOK%20📚&body=Hi,%20I%20have%20a%20question%20about%20PERN__BOOK%20🧐
+  - img
+  - text: matveevalexander470@gmail.com
+- heading "NEWSLETTER" [level=1]
+- textbox
+- button "Subscribe"
+- paragraph: No copyright. Open source. Contributions welcome ✌🏽
+```
