@@ -5,6 +5,7 @@ import { account_1 } from "../utils/data.js";
 test.describe("handle non existent user", () => {
   test("should not login", async ({ page }) => {
     await nav(page, "auth/login");
+
     await page.getByRole("textbox", { name: "email" }).fill(account_1.email);
     await page.getByLabel("password").fill(account_1.pwd);
     await page.getByRole("button", { name: "login" }).click();

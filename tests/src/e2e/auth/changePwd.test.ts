@@ -31,7 +31,7 @@ test.describe("handle change pwd", () => {
 
     await listenErr({ page, testID: "confirmPassword" });
 
-    // await page.getByRole("button", { name: "Update password" }).click();
-    // await expect(page.getByText("PASSWORD SAVED")).toBeVisible();
+    await page.getByRole("button", { name: "Update password" }).click();
+    await expect(page.getByText("PASSWORD SAVED")).toBeVisible();
   });
 });

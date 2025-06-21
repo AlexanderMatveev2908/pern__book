@@ -58,11 +58,21 @@ export const fillInput = async ({
 export const clickBtn = async ({
   page,
   aria,
+  testID,
 }: {
   page: Page;
   aria: string;
+  testID?: string;
 }) => {
-  await page.waitForSelector(`button[aria-label='${aria}']`, {
+  let query = "button";
+  const arg: string[] = [];
+
+  if (testID) arg.push(`[data-testid="${testID}"]`);
+  if (aria) arg.push(`[aria-label="${aria}"]`);
+
+  if (arg.length) query += `:is(${arg.join(", ")})`;
+
+  await page.waitForSelector(query, {
     state: "visible",
   });
 
