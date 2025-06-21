@@ -1,18 +1,6 @@
-import { nav } from "../../utils/general.js";
-import { expect, Page, test } from "@playwright/test";
+import { expect, Page } from "@playwright/test";
 import { tailwindBreak } from "../../../config/breakpoints.js";
-import { account_0 } from "./data.js";
-
-export const handleBeforeEach = async ({ page }: { page: Page }) => {
-  await nav(page, "auth/login");
-
-  await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
-  await page.getByLabel("password").fill(account_0.pwd);
-
-  await page.getByRole("button", { name: "Login" }).click();
-
-  await expect(page.getByText("login successful".toUpperCase())).toBeVisible();
-};
+import { account_0 } from "../../utils/data.js";
 
 export const handleGoPrivateAccountArea = async ({ page }: { page: Page }) => {
   await expect(

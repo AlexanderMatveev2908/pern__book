@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { nav } from "../utils/general.js";
-import { account_0 } from "./lib/data.js";
+import { account_0 } from "../utils/data.js";
 
 test.describe("recover account", () => {
   test("should recover account", async ({ page }) => {
