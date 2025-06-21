@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { nav } from "../utils/general.js";
 import { account_0 } from "../utils/data.js";
-import { handleDiffPwdLogin } from "../utils/login.js";
+import { handlePwdSwing } from "../utils/login.js";
 
 test.describe("handle login user", () => {
   test("should not login ", async ({ page }) => {
@@ -23,7 +23,7 @@ test.describe("handle login user", () => {
 
     await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
 
-    const success = await handleDiffPwdLogin({
+    const success = await handlePwdSwing({
       page,
       aria: "login",
       txt: "LOGIN SUCCESSFUL",

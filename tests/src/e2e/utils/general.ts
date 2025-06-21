@@ -27,19 +27,21 @@ export const searchTxt = async ({ page, txt }: { page: Page; txt: string }) => {
 export const fillInput = async ({
   page,
   name,
+  testID,
   txt,
 }: {
   page: Page;
   name: string;
+  testID?: string;
   txt: string;
 }) => {
-  await page.waitForSelector(`input[name="${name}"]`, {
-    state: "visible",
-  });
+  let query = `input[name="${name}"]`;
 
-  await page.locator(`input[name="${name}"]`).fill(txt);
+  if (testID) query += `[data-testid="${testID}"]`;
 
-  await expect(page.locator(`input[name="${name}"]`)).toHaveValue(txt);
+  await expect(page.locator(query)).toBeVisible();
+  await page.locator(query).fill(txt);
+  await expect(page.locator(query)).toHaveValue(txt);
 };
 
 export const clickBtn = async ({

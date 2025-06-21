@@ -1,6 +1,12 @@
 import seq from "../../db/config.js";
 import { expect, test } from "@playwright/test";
-import { fillInput, makeNoticeTxt, nav } from "../utils/general.js";
+import {
+  clickBtn,
+  fillInput,
+  makeNoticeTxt,
+  nav,
+  searchTxt,
+} from "../utils/general.js";
 import { account_0 } from "../utils/data.js";
 
 test.beforeAll(async () => {
@@ -16,13 +22,22 @@ test.describe("handle new user", () => {
   test("should register", async ({ page }) => {
     await nav(page, "auth/register");
 
-    await page
-      .getByRole("textbox", { name: "First Name" })
-      .fill(account_0.firstName);
-    await page
-      .getByRole("textbox", { name: "Last Name" })
-      .fill(account_0.lastName);
-    await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
+    await fillInput({
+      page,
+      name: "firstName",
+      txt: account_0.firstName,
+    });
+    await fillInput({
+      page,
+      name: "lastName",
+      txt: account_0.lastName,
+    });
+    await fillInput({
+      page,
+      name: "email",
+      testID: "email-register",
+      txt: account_0.email,
+    });
 
     await page.getByRole("button", { name: "next" }).click();
 
@@ -33,7 +48,7 @@ test.describe("handle new user", () => {
     });
     await fillInput({
       page,
-      name: "Confirm Password",
+      name: "confirmPassword",
       txt: account_0.pwd,
     });
     await page
@@ -61,10 +76,11 @@ test.describe("handle new user", () => {
     //   .getByRole("textbox", { name: "Confirm Password" })
     //   .fill(pwd ?? "");
 
-    await page.getByRole("button", { name: "Register" }).click();
+    await clickBtn({ page, aria: "register" });
     await expect(page.getByRole("button", { name: "Register" })).toBeHidden();
+
     await page.waitForURL("**/notice");
-    await expect(page.getByText("Account created".toUpperCase())).toBeVisible();
+    await searchTxt({ page, txt: "Account created".toUpperCase() });
     await expect(
       page.getByText(makeNoticeTxt("to verify your account"))
     ).toBeVisible();

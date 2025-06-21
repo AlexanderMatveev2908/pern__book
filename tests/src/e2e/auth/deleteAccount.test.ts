@@ -1,6 +1,6 @@
 import { expect, test } from "@playwright/test";
 import { handleGoPrivateAccountArea } from "./lib/utils.js";
-import { clickBtn } from "../utils/general.js";
+import { clickBtn, searchTxt } from "../utils/general.js";
 import { handleLoginT } from "../utils/login.js";
 
 test.beforeEach(async ({ page }) => {
@@ -31,9 +31,10 @@ test.describe("handle delete account", () => {
 
     await clickBtn({ page, aria: "confirm delete account" });
 
-    await page.waitForURL("**/notice", { waitUntil: "networkidle" });
-    await expect(
-      page.getByText("Your account has successfully deleted")
-    ).toBeVisible();
+    await page.waitForURL("**/notice", { waitUntil: "load" });
+    await searchTxt({
+      page,
+      txt: "Your account has successfully deleted",
+    });
   });
 });

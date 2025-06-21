@@ -25,12 +25,13 @@ export const emailField = {
   type: "email",
 };
 
-export const fieldsAuth__0: FormFieldBasic[] = [...namesFields, emailField].map(
-  (el) => ({
-    ...el,
-    id: v4(),
-  })
-);
+export const fieldsAuth__0: FormFieldBasic[] = [
+  ...namesFields,
+  { ...emailField, testID: "email-register" },
+].map((el) => ({
+  ...el,
+  id: v4(),
+}));
 
 export const passwordField = {
   field: "password",

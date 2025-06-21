@@ -54,6 +54,7 @@ const FormField: FC<PropsType> = ({
               <input
                 ref={field.ref}
                 name={el.field}
+                data-testid={el?.testID ?? ""}
                 type={el.type ?? "text"}
                 step={el.type === "number" ? "any" : undefined}
                 placeholder={
