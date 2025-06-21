@@ -17,6 +17,7 @@ export type FormFieldBasic = {
   label?: string;
   place?: string;
   type?: string;
+  testID?: string;
   customCB?: (val: any) => void;
 };
 

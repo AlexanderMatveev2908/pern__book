@@ -2,7 +2,7 @@ import { Page, expect } from "@playwright/test";
 import { account_0 } from "./data.js";
 import { clickBtn, fillInput, nav, searchTxt } from "./general.js";
 
-export const handleDiffPwdLogin = async ({
+export const handlePwdSwing = async ({
   page,
   aria,
   txt,
@@ -13,7 +13,7 @@ export const handleDiffPwdLogin = async ({
 }) => {
   let success = false;
 
-  for (const pwd of [account_0.newPwd, account_0.pwd]) {
+  for (const pwd of [account_0.pwd, account_0.newPwd]) {
     try {
       await fillInput({ page, name: "password", txt: pwd });
       await clickBtn({ page, aria });
@@ -37,7 +37,7 @@ export const handleLoginT = async ({ page }: { page: Page }) => {
 
   await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
 
-  const success = await handleDiffPwdLogin({
+  const success = await handlePwdSwing({
     page,
     aria: "login",
     txt: "LOGIN SUCCESSFUL",

@@ -1,7 +1,7 @@
 import { expect, Page } from "@playwright/test";
 import { tailwindBreak } from "../../../config/breakpoints.js";
 import { account_0 } from "../../utils/data.js";
-import { handleDiffPwdLogin } from "../../utils/login.js";
+import { handlePwdSwing } from "../../utils/login.js";
 
 export const handleGoPrivateAccountArea = async ({ page }: { page: Page }) => {
   await expect(
@@ -23,7 +23,7 @@ export const handleGoPrivateAccountArea = async ({ page }: { page: Page }) => {
   await page.getByRole("link", { name: "Manage Account dropdown" }).click();
   await expect(page.getByText("CONFIRM YOUR PASSWORD")).toBeVisible();
 
-  const success = await handleDiffPwdLogin({
+  const success = await handlePwdSwing({
     page,
     aria: "confirm password",
     txt: "CHANGE EMAIL",
