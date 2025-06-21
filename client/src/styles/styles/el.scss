@@ -1,0 +1,33 @@
+.el__border_sm,
+.el__border_md {
+  @apply border-blue-600 rounded-xl;
+}
+.el__border_sm {
+  @apply border-2;
+}
+.el__border_md {
+  @apply border-[3px];
+}
+
+.el__flow {
+  @apply transition-all duration-300;
+}
+.el__after_below {
+  @apply relative max-w-fit cursor-pointer;
+}
+.el__after_below::after {
+  @apply absolute content-[""] -bottom-2 left-1/2 w-0 h-[3px] bg-blue-600 transition-all duration-300 -translate-x-1/2;
+}
+.el__after_below:hover::after {
+  @apply w-full;
+}
+
+.nav_link.active::after {
+  @apply w-full;
+}
+.nav_link.active {
+  @apply text-blue-600;
+}
+.nav_link.active i {
+  @apply text-blue-600;
+}

@@ -1,0 +1,118 @@
+@use "./styles/buttons.scss";
+@use "./styles/el.scss";
+@use "./styles/icons.scss";
+@use "./styles/inputs.scss";
+@use "./styles/seniorStyles.scss";
+@use "./styles/txt.scss";
+@use "./styles/z.scss";
+@use "./styles/list_items.scss";
+@use "./styles/popup.scss";
+
+@import "./t.css";
+
+/* 
+IMPORTANT: for some practical reasons i prefer using snake case instead of kebab case in css naming, but only because i am working just myself on this project, if i would have been in a team i would have followed conventions of css or those one established by team   
+*/
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("/Sour_Gummy/SourGummy-Italic-VariableFont_wdth,wght.ttf")
+    format("truetype");
+
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
+}
+@font-face {
+  font-family: "Sour Gummy";
+  src: url("/Sour_Gummy/SourGummy-VariableFont_wdth,wght.ttf")
+    format("truetype");
+
+  font-weight: 100 900;
+  font-stretch: 75% 100%;
+}
+
+* {
+  font-family: "Sour Gummy", "Comic Sans MS";
+}
+
+body {
+  overflow-x: hidden;
+}
+
+:root {
+  --blue__app: #2563eb;
+  --red__app: #dc2626;
+  --green__app: #16a34a;
+  --orange__app: #ea580c;
+
+  --gray__app: #d1d5db;
+  --gray__app_500: #6b7280;
+
+  --neutral__app_800: #1f2937;
+  --neutral__app_850: #1c1f26;
+  --neutral__app_900: #111827;
+  --neutral__app_950: #0f172a;
+}
+
+.p_page {
+  @apply w-full grid grid-cols-1 justify-items-center gap-6 text-gray-300;
+}
+.form__size {
+  @apply max-w-[500px] sm:max-w-[600px];
+}
+.p_form__0 {
+  @apply w-full grid grid-cols-1 justify-items-center gap-8;
+}
+.p_form__1 {
+  @apply w-full grid justify-items-center gap-6 text-gray-300;
+}
+.p_form__2 {
+  @apply w-full flex flex-col items-center max-w-[500px] sm:max-w-[600px] text-gray-300 border-blue-600 rounded-xl border-[3px];
+}
+.p_cards {
+  @apply w-full grid grid-cols-1 gap-10;
+
+  @media (min-width: 1000px) {
+    @apply grid-cols-2;
+  }
+  @media (min-width: 1500px) {
+    @apply grid-cols-3;
+  }
+  @media (min-width: 1800px) {
+    @apply grid-cols-4;
+  }
+}
+.c_card {
+  @apply w-full grid grid-cols-1 h-fit items-start border-[3px] gap-y-5 border-blue-600 p-3 pb-5 rounded-xl  justify-self-center;
+}
+
+.scrollbar__hidden::-webkit-scrollbar {
+  display: none;
+}
+.scroll_app {
+  scrollbar-width: auto;
+  scrollbar-color: var(--blue__app) var(--neutral__app_950);
+}
+
+.scroll_app::-webkit-scrollbar-thumb {
+  background-color: var(--blue__app);
+  border-radius: 0.5rem;
+  cursor: pointer;
+}
+
+.scroll_app::-webkit-scrollbar-track {
+  background-color: var(--neutral__app_950);
+}
+
+.scroll_x::-webkit-scrollbar {
+  height: 4px;
+}
+
+.scroll_y::-webkit-scrollbar {
+  width: 8px;
+}
+
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
