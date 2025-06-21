@@ -34,6 +34,7 @@ const DeleteAccount: FC = () => {
       openPopup({
         txt: "Are you sure about deleting your account ?",
         leftBtn: {
+          aria: "confirm delete account",
           cb: async () => {
             dispatch(loadPop(BtnPopupKeys.LEFT));
 
