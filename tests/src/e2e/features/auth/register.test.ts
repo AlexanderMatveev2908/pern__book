@@ -1,4 +1,3 @@
-import seq from "../../db/config.js";
 import { expect, test } from "@playwright/test";
 import {
   clickBtn,
@@ -6,17 +5,8 @@ import {
   makeNoticeTxt,
   nav,
   searchTxt,
-} from "../lib/general.js";
-import { account_0 } from "../lib/data.js";
-
-test.beforeAll(async () => {
-  await seq.authenticate();
-
-  // await clear();
-});
-test.afterAll(async () => {
-  // await clear();
-});
+} from "../../lib/general.js";
+import { account_0 } from "../../lib/data.js";
 
 test.describe("handle new user", () => {
   test("should register", async ({ page }) => {

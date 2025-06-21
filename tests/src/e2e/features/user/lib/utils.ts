@@ -1,7 +1,6 @@
 import { expect, Page } from "@playwright/test";
-import { tailwindBreak } from "../../../config/breakpoints.js";
-import { account_0 } from "../../lib/data.js";
-import { handlePwdSwing } from "../../lib/login.js";
+import { tailwindBreak } from "../../../../config/breakpoints.js";
+import { handlePwdSwing } from "../../../lib/login.js";
 
 export const handleGoPrivateAccountArea = async ({ page }: { page: Page }) => {
   await expect(
