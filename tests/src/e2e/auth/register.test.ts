@@ -1,7 +1,6 @@
 import seq from "../../db/config.js";
 import { expect, test } from "@playwright/test";
-import { nav } from "../utils/general.js";
-import { makeNoticeTxt } from "../lib/utils.js";
+import { makeNoticeTxt, nav } from "../utils/general.js";
 import { account_0 } from "../utils/data.js";
 
 test.beforeAll(async () => {
