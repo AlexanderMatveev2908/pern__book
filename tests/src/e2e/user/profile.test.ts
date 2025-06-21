@@ -1,5 +1,11 @@
 import { expect, test } from "@playwright/test";
-import { handleLoginT, nav } from "../utils/general.js";
+import {
+  clickBtn,
+  fillInput,
+  handleLoginT,
+  nav,
+  searchTxt,
+} from "../utils/general.js";
 
 test.beforeEach(async ({ page }) => {
   await handleLoginT({ page });
@@ -9,17 +15,15 @@ test.describe("profile info", () => {
   test("✅", async ({ page }) => {
     nav(page, "user/profile-settings");
 
-    await expect(
-      page.locator('input[placeholder="Your First Name..."]')
-    ).toHaveValue("Alex");
-    await expect(
-      page.locator('input[placeholder="Your Last Name..."]')
-    ).toHaveValue("Matveev");
+    await clickBtn({ page, aria: "edit firstName" });
+    await clickBtn({ page, aria: "edit lastName" });
+
+    await fillInput({ name: "firstName", page, txt: "John" });
+    await fillInput({ name: "lastName", page, txt: "Doe" });
 
     await page
       .locator('input[type="file"]')
       .setInputFiles("src/assets/angry_bg.jpg");
-
     const fileName = await page
       .locator('input[type="file"]')
       .evaluate((input: HTMLInputElement) => {
@@ -27,13 +31,25 @@ test.describe("profile info", () => {
       });
     expect(fileName).toBe("angry_bg.jpg");
 
-    await page
-      .getByLabel("country")
-      .fill('<script>console.log("hi ✌🏼")</script>');
+    await fillInput({
+      page,
+      name: "country",
+      txt: '<script>console.log("hi ✌🏼")</script>',
+    });
     await expect(
       page.getByRole("button", { name: "Save Changes" })
     ).toBeDisabled();
+    await searchTxt({ page, txt: "Invalid country" });
+    await fillInput({
+      page,
+      name: "country",
+      txt: "United States",
+    });
+
+    await clickBtn({ page, aria: "next" });
+
+    await searchTxt({ page, txt: "Street" });
   });
 
-  test("❌", async ({ page }) => {});
+  // test("🚫", async ({ page }) => {});
 });
