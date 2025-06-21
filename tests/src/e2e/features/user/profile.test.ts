@@ -1,5 +1,5 @@
 import { expect, test } from "@playwright/test";
-import { clickBtn, fillInput, nav, searchTxt } from "../../lib/general.js";
+import { clickBtn, fillInput, nav, searchTxt } from "../../lib/play.js";
 import { handleLoginT } from "../../lib/login.js";
 
 test.beforeEach(async ({ page }) => {
@@ -17,7 +17,7 @@ test.describe("profile info", () => {
 
     await page
       .locator('input[type="file"]')
-      .setInputFiles("src/assets/angry_bg.jpg");
+      .setInputFiles("src/assets/thumbs/angry_bg.jpg");
     const fileName = await page
       .locator('input[type="file"]')
       .evaluate((input: HTMLInputElement) => {

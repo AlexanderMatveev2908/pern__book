@@ -119,6 +119,3 @@ export const listenErr = async ({
 
   expect(errOpacity_0).toBe(true);
 };
-
-export const makeNoticeTxt = (txt: string) =>
-  `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;

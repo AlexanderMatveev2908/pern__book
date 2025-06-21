@@ -1,6 +1,6 @@
 import { Page, expect } from "@playwright/test";
 import { account_0 } from "./data.js";
-import { clickBtn, fillInput, nav, searchTxt } from "./general.js";
+import { clickBtn, fillInput, nav, searchTxt } from "./play.js";
 
 export const handlePwdSwing = async ({
   page,

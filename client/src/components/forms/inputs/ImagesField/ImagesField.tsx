@@ -123,6 +123,7 @@ const ImagesField: FC = () => {
         >
           <input
             ref={inputRef}
+            data-testid={`images-input`}
             type="file"
             multiple
             className="w-0 h-0 opacity-0"

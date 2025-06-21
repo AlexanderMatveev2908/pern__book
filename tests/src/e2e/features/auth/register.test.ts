@@ -1,12 +1,7 @@
 import { expect, test } from "@playwright/test";
-import {
-  clickBtn,
-  fillInput,
-  makeNoticeTxt,
-  nav,
-  searchTxt,
-} from "../../lib/general.js";
+import { clickBtn, fillInput, nav, searchTxt } from "../../lib/play.js";
 import { account_0 } from "../../lib/data.js";
+import { makeNoticeTxt } from "../../lib/utils.js";
 
 test.describe("handle new user", () => {
   test("should register", async ({ page }) => {

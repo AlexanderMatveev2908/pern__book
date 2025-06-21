@@ -1,5 +1,5 @@
 import { test, expect } from "@playwright/test";
-import { nav } from "../../lib/general.js";
+import { nav } from "../../lib/play.js";
 import { account_1 } from "../../lib/data.js";
 
 test.describe("handle non existent user", () => {
