@@ -1,0 +1,37 @@
+.list_items_app {
+  @apply w-full grid grid-cols-1 gap-10;
+
+  @media screen and (min-width: 1200px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .card {
+    @apply w-full grid grid-cols-1 gap-y-5 border-[3px] rounded-xl h-fit px-4 pt-3 pb-5;
+
+    .body_card {
+      @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
+
+      .content {
+        @apply w-full h-fit grid grid-cols-1 gap-y-5 gap-x-10;
+
+        @media screen and (min-width: 600px) {
+          grid-template-columns: 200px 1fr;
+        }
+
+        .images_wrapper {
+          @apply w-full grid grid-cols-1 h-fit items-start;
+        }
+
+        .info_wrapper {
+          @apply w-full grid grid-cols-1 gap-y-3 h-fit;
+        }
+      }
+    }
+
+    .footer_card {
+      @apply w-full grid gap-x-10 gap-y-5 items-center;
+
+      grid-template-columns: repeat(auto-fit, minmax(225px, 1fr));
+    }
+  }
+}

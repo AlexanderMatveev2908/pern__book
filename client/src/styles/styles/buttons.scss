@@ -1,0 +1,52 @@
+$hovers: (
+  sm: 1.2,
+  md: 1.13,
+  lg: 1.2,
+  xl: 1.3,
+);
+
+$actives: (
+  sm: 0.8,
+  md: 0.9,
+  lg: 0.8,
+  xl: 0.8,
+);
+
+button {
+  @apply appearance-none;
+}
+button:disabled {
+  @apply opacity-50;
+}
+
+@each $size, $scale in $hovers {
+  .btn__logic_#{$size}:enabled {
+    transition: 0.3s;
+    cursor: pointer;
+  }
+
+  .btn__logic_#{$size}:enabled:hover {
+    transform: scale($scale);
+  }
+}
+
+@each $size, $scale in $actives {
+  .btn__logic_#{$size}:enabled:active {
+    transition: 0.1s;
+    transform: scale($scale);
+  }
+}
+
+.btn_link {
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.btn_link:hover {
+  transform: scale(1.13);
+}
+
+.btn_link:active {
+  transition: 0.1s;
+  transform: scale(0.8);
+}

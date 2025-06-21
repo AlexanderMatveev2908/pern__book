@@ -1,0 +1,29 @@
+.input__sm,
+.input__md,
+.input__lg {
+  @apply w-full border-2 border-blue-600 rounded-xl px-5 outline-0 transition-all duration-300;
+  appearance: none;
+}
+.input__sm {
+  @apply py-1;
+}
+.input__md {
+  @apply py-2;
+}
+.input__lg {
+  @apply py-[0.6rem];
+}
+.el__shadow,
+.el__focus:focus,
+.input__sm:focus,
+.input__md:focus,
+.input__lg:focus {
+  @apply ring-2 ring-blue-600;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app);
+}
+
+.el__shadow_md {
+  @apply ring-2 ring-blue-600;
+  box-shadow: 0 0 10px var(--blue__app), 0 0 20px var(--blue__app),
+    0 0 30px var(--blue__app);
+}
