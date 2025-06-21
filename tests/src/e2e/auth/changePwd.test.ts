@@ -9,8 +9,6 @@ test.beforeEach(async ({ page }) => {
 
 test.describe("handle change pwd", () => {
   test("should change pwd", async ({ page }) => {
-    await nav(page, "user/manage-account");
-
     await handleGoPrivateAccountArea({ page });
 
     await page.getByRole("button", { name: "next" }).first().click();
@@ -31,20 +29,23 @@ test.describe("handle change pwd", () => {
       .getByPlaceholder("Confirm Your New Password...", { exact: true })
       .fill(account_0.pwd);
 
-    const hasOpacity = await page
-      .locator("text=You should confirm your new password")
-      .evaluate((el) => {
-        let current = el as HTMLElement | null;
+    const errOpacity_0 = await page.evaluate(() => {
+      const el = document.querySelector('[data-testID="err-msg"]');
+      if (!el) return false;
 
-        while (current) {
-          const style = getComputedStyle(current);
-          if (style.opacity === "0") return true;
-          current = current.parentElement;
-        }
+      let current = el as HTMLElement | null;
+      while (current) {
+        const style = getComputedStyle(current);
+        if (style.opacity === "0") return true;
+        current = current.parentElement;
+      }
 
-        return false;
-      });
+      return false;
+    });
 
-    expect(hasOpacity).toBe(true);
+    expect(errOpacity_0).toBe(true);
+
+    await page.getByRole("button", { name: "Update password" }).click();
+    await expect(page.getByText("PASSWORD SAVED")).toBeVisible();
   });
 });

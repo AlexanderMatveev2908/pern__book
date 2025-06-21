@@ -1,5 +1,6 @@
 import { nav } from "../../utils/general.js";
 import { expect, Page, test } from "@playwright/test";
+import { tailwindBreak } from "../../../config/breakpoints.js";
 import { account_0 } from "./data.js";
 
 export const handleBeforeEach = async ({ page }: { page: Page }) => {
@@ -14,7 +15,17 @@ export const handleBeforeEach = async ({ page }: { page: Page }) => {
 };
 
 export const handleGoPrivateAccountArea = async ({ page }: { page: Page }) => {
-  await page.getByRole("button", { name: "dropdown header" }).hover();
+  await expect(
+    page.getByText(
+      "Launch your store online with a few simple, seamless steps and start managing your business effortlessly"
+    )
+  ).toBeVisible();
+  const dropdownBtn = page.getByRole("button", { name: "dropdown header" });
+  await expect(dropdownBtn).toBeVisible();
+
+  if ((page.viewportSize()?.width ?? 0) > tailwindBreak.md)
+    await page.getByRole("button", { name: "dropdown header" }).hover();
+  else await page.getByRole("button", { name: "dropdown header" }).click();
 
   await expect(
     page.getByRole("link", { name: "Manage Account dropdown" })
