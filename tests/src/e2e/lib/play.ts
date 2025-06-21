@@ -103,19 +103,24 @@ export const listenErr = async ({
   page: Page;
   testID: string;
 }) => {
-  const errOpacity_0 = await page.evaluate((testID) => {
-    const el = document.querySelector(`[data-testid='err-msg-${testID}']`);
-    if (!el) return false;
+  const hasOpacity = await page.waitForFunction(
+    (testID) => {
+      const el = document.querySelector(`[data-testid='err-msg-${testID}']`);
+      if (!el) return false;
 
-    let current = el as HTMLElement | null;
-    while (current) {
-      const style = getComputedStyle(current);
-      if (style.opacity === "0") return true;
-      current = current.parentElement;
-    }
+      let current = el as HTMLElement | null;
+      while (current) {
+        const style = getComputedStyle(current);
+        if (style.opacity === "0") return true;
+        current = current.parentElement;
+      }
 
-    return false;
-  }, testID);
+      return false;
+    },
+    testID,
+    { timeout: 10000 }
+  );
 
-  expect(errOpacity_0).toBe(true);
+  const isOK = await hasOpacity.jsonValue();
+  expect(isOK).toBe(true);
 };

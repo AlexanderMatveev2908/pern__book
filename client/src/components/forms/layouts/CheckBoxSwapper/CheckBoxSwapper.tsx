@@ -155,6 +155,7 @@ const CheckBoxSwapper: FC<PropsType> = ({
             setCurrForm: setCurrSwap,
             totLen: Math.ceil(fieldsArg.length / fieldsForSwap),
             isNextDisabled: false,
+            aria: ["prev cat", "next cat"],
           }}
         />
       </div>

@@ -13,7 +13,6 @@ type PropsType = {
   };
   index?: number;
   nestedIndex?: NestedIndexProp;
-  testID?: string;
 };
 
 const ErrorFormField: FC<PropsType> = ({

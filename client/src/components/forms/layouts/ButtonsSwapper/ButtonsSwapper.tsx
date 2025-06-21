@@ -8,6 +8,7 @@ type PropsType = {
   totLen: number;
   isNextDisabled: boolean;
   children?: ReactNode;
+  aria?: string[];
 };
 
 const ButtonsSwapper: FC<PropsType> = ({
@@ -16,12 +17,13 @@ const ButtonsSwapper: FC<PropsType> = ({
   totLen,
   children,
   isNextDisabled,
+  aria,
 }) => {
   return (
     <div className="w-full grid grid-cols-[50px_1fr_50px] items-center">
       <button
         type="button"
-        aria-label="prev"
+        aria-label={aria?.[0] ?? "prev"}
         onClick={() => {
           if (currForm) setCurrForm(currForm - 1);
         }}
@@ -48,7 +50,7 @@ const ButtonsSwapper: FC<PropsType> = ({
 
       {currForm === totLen - 1 ? null : (
         <button
-          aria-label="next"
+          aria-label={aria?.[1] ?? "next"}
           type="button"
           disabled={isNextDisabled}
           onClick={() => currForm < totLen - 1 && setCurrForm(currForm + 1)}

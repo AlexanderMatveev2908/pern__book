@@ -75,6 +75,25 @@ test.describe("", () => {
       );
 
     await listenErr({ page, testID: "images" });
+
+    const cat: string[] = ["Literature & Fiction", "Philosophy"];
+    await clickBtn({
+      page,
+      aria: cat[0] + " button",
+    });
+    await clickBtn({ page, aria: "next cat" });
+    await clickBtn({
+      page,
+      aria: cat[1] + " button",
+    });
+
+    for (const c of cat) {
+      const btn = page.locator(`button[aria-label="${c} button"]`);
+      await expect(btn).toHaveAttribute(
+        "class",
+        expect.stringContaining("border-blue-600 text-blue-600")
+      );
+    }
   });
 
   //   test("🚫", async ({ page }) => {});
