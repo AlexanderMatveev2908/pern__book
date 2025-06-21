@@ -5,6 +5,8 @@ export interface BtnPopupType {
   act: BtnAct;
   isPending: boolean;
   label: string;
+  testID?: string;
+  aria?: string;
 }
 
 export interface PopupStateType {
@@ -19,6 +21,8 @@ export type BtnPopupPayloadType = {
   cb?: () => void;
   act?: BtnAct;
   isPending?: boolean;
+  testID?: string;
+  aria?: string;
 };
 
 export type PayloadOpenPopup = {

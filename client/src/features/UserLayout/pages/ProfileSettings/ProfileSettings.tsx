@@ -162,6 +162,7 @@ const ProfileSettings: FC = () => {
               <div className="w-full max-w-[250px] justify-self-center mt-14">
                 <Button
                   {...{
+                    aria: "update profile",
                     type: "submit",
                     label: "Save Changes",
                     isDisabled: !isFormOk,

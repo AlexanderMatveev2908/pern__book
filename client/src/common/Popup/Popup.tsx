@@ -64,6 +64,8 @@ const Popup: FC = () => {
               <SpinnerBtn key={id} />
             ) : (
               <button
+                data-testid={arrBtn[i]?.testID}
+                aria-label={arrBtn[i]?.aria ?? `button for ${arrBtn[i]?.label}`}
                 disabled={
                   (!i && arrBtn[1]?.isPending) || (!!i && arrBtn[0]?.isPending)
                 }
