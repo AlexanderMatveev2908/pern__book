@@ -1,7 +1,7 @@
 import { test, expect } from "@playwright/test";
-import { nav } from "../utils/general.js";
-import { account_0 } from "../utils/data.js";
-import { handlePwdSwing } from "../utils/login.js";
+import { nav } from "../lib/general.js";
+import { account_0 } from "../lib/data.js";
+import { handlePwdSwing } from "../lib/login.js";
 
 test.describe("handle login user", () => {
   test("should not login ", async ({ page }) => {
