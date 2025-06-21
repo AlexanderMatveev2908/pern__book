@@ -95,6 +95,7 @@ const SecurityPwd: FC = () => {
                   <div className="max-w-[300px] w-full justify-self-center mt-10">
                     <Button
                       {...{
+                        aria: "confirm password",
                         label: "Confirm password",
                         isDisabled: !formOk,
                         isAging: isLoading,

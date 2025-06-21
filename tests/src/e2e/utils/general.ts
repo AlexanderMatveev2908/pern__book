@@ -1,17 +1,5 @@
 import { Page } from "@playwright/test";
-import { account_0 } from "./data.js";
 import { expect } from "@playwright/test";
-
-export const handleLoginT = async ({ page }: { page: Page }) => {
-  await nav(page, "auth/login");
-
-  await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
-  await page.getByLabel("password").fill(account_0.pwd);
-
-  await page.getByRole("button", { name: "Login" }).click();
-
-  await expect(page.getByText("login successful".toUpperCase())).toBeVisible();
-};
 
 const B_URL = "https://localhost";
 
@@ -33,7 +21,6 @@ export const waitRedirect = async (page: Page, url: string) => {
 };
 
 export const searchTxt = async ({ page, txt }: { page: Page; txt: string }) => {
-  await page.waitForSelector(`text='${txt}'`, { state: "visible" });
   await expect(page.getByText(`${txt}`, { exact: true })).toBeVisible();
 };
 
