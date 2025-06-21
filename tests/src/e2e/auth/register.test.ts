@@ -6,8 +6,8 @@ import {
   makeNoticeTxt,
   nav,
   searchTxt,
-} from "../utils/general.js";
-import { account_0 } from "../utils/data.js";
+} from "../lib/general.js";
+import { account_0 } from "../lib/data.js";
 
 test.beforeAll(async () => {
   await seq.authenticate();
