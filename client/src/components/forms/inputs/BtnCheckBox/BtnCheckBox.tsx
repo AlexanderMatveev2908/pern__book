@@ -27,6 +27,7 @@ const BtnCheckBox: FC<PropsType> = ({
         setRemoved(isIn);
         handleClick();
       }}
+      aria-label={`${label} button`}
       onMouseEnter={() => setIsHover(true)}
       onMouseLeave={() => {
         if (isRemoved) setRemoved(false);
