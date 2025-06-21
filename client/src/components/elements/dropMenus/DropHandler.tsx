@@ -22,9 +22,11 @@ const DropHandler: FC<PropsType> = ({
   size = "md",
 }) => {
   return !el ? null : (
-    <div
+    <button
+      type="button"
+      aria-label={`${el.label} dropdown`}
       onClick={() => setIsDropOpen(!isDropOpen)}
-      className="w-full grid grid-cols-[1fr_50px] relative group cursor-pointer items-center hover:text-blue-600"
+      className="appearance-none w-full grid grid-cols-[1fr_50px] relative group cursor-pointer items-center hover:text-blue-600"
     >
       <div className="w-fit flex gap-5 justify-start items-center">
         {el.icon && (
@@ -50,7 +52,7 @@ const DropHandler: FC<PropsType> = ({
           } ${isDropOpen ? "rotate-180" : ""} `}
         />
       </div>
-    </div>
+    </button>
   );
 };
 export default DropHandler;

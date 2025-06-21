@@ -15,6 +15,7 @@ const SideLink: FC<PropsType> = ({ el }) => {
 
   return (
     <NavLink
+      aria-label={`${el.label} sidebar`}
       onClick={handleSideClick}
       {...getPropsNav(el)}
       className="w-fit flex justify-start gap-5 group el__after_below items-center nav_link"
