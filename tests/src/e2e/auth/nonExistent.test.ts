@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 import { nav } from "../utils/general.js";
-import { account_1 } from "./lib/data.js";
+import { account_1 } from "../utils/data.js";
 
 test.describe("handle non existent user", () => {
   test("should not login", async ({ page }) => {

@@ -1,8 +1,9 @@
 import { expect, test } from "@playwright/test";
-import { handleBeforeEach, handleGoPrivateAccountArea } from "./lib/utils.js";
+import { handleGoPrivateAccountArea } from "./lib/utils.js";
+import { handleLoginPreTest } from "../utils/general.js";
 
 test.beforeEach(async ({ page }) => {
-  await handleBeforeEach({ page });
+  await handleLoginPreTest({ page });
 });
 
 test.describe("handle delete account", () => {
