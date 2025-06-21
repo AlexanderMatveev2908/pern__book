@@ -1,10 +1,10 @@
 import { expect, test } from "@playwright/test";
-import { handleLoginPreTest, nav } from "../utils/general.js";
+import { handleLoginT, nav } from "../utils/general.js";
 import { handleGoPrivateAccountArea } from "./lib/utils.js";
 import { account_0 } from "../utils/data.js";
 
 test.beforeEach(async ({ page }) => {
-  await handleLoginPreTest({ page });
+  await handleLoginT({ page });
 });
 
 test.describe("handle change pwd", () => {
