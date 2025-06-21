@@ -94,6 +94,7 @@ const VideoField: FC<PropsType> = ({ register, errors, setValue }) => {
             accept="video/*"
             className="opacity-0 h-0 w-0"
             {...register("video")}
+            data-testid="video"
           />
 
           <ButtonIcon

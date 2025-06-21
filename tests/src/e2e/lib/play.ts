@@ -1,7 +1,7 @@
 import { Page } from "@playwright/test";
 import { expect } from "@playwright/test";
 
-const B_URL = "https://localhost";
+export const B_URL = "https://localhost";
 
 export const nav = async (page: Page, p: string) => {
   await page.goto(`${B_URL}/${p}`);
@@ -11,12 +11,14 @@ export const clickLink = async ({
   page,
   aria,
   testID,
+  timeout,
 }: {
   page: Page;
   aria?: string;
   testID?: string;
+  timeout?: number;
 }) => {
-  let query = `link`;
+  let query = `a`;
   const arg: string[] = [];
 
   if (testID) arg.push(`[data-testid="${testID}"]`);
@@ -24,12 +26,14 @@ export const clickLink = async ({
 
   if (arg.length) query += arg.join("");
 
-  await expect(page.locator(query)).toBeVisible();
+  await expect(page.locator(query)).toBeVisible({
+    timeout: timeout ?? 10000,
+  });
   await page.locator(query).click();
 };
 
 export const waitRedirect = async (page: Page, url: string) => {
-  await page.waitForURL(url, { timeout: 10000 });
+  await page.waitForURL(B_URL + "/" + url, { timeout: 10000 });
 };
 
 export const searchTxt = async ({
@@ -42,7 +46,7 @@ export const searchTxt = async ({
   timeout?: number;
 }) => {
   await expect(page.getByText(`${txt}`, { exact: true })).toBeVisible({
-    timeout,
+    timeout: timeout ?? 10000,
   });
 };
 
@@ -86,7 +90,7 @@ export const clickBtn = async ({
   if (arg.length) query += `:is(${arg.join(", ")})`;
 
   await expect(page.locator(query)).toBeVisible({
-    timeout,
+    timeout: timeout ?? 10000,
   });
 
   await page.locator(query).click();
@@ -115,6 +119,3 @@ export const listenErr = async ({
 
   expect(errOpacity_0).toBe(true);
 };
-
-export const makeNoticeTxt = (txt: string) =>
-  `We've sent you an email ${txt}. If you don't see it, check your spam folder, it might be partying there 🎉`;

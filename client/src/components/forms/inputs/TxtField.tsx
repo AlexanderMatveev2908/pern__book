@@ -26,6 +26,7 @@ const TxtField: FC<PropsType> = ({
             placeholder={el?.place ?? `Your ${el?.label ?? capt(el.field)}...`}
             className="input__sm txt__2 scroll_y scroll_app"
             {...register(el.field)}
+            name={el.field}
             rows={4}
           />
           <ErrorFormField
