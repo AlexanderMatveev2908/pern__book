@@ -1,7 +1,8 @@
 import { expect, test } from "@playwright/test";
-import { handleLoginT, listenErr, nav } from "../utils/general.js";
+import { listenErr, nav } from "../utils/general.js";
 import { handleGoPrivateAccountArea } from "./lib/utils.js";
 import { account_0 } from "../utils/data.js";
+import { handleLoginT } from "../utils/login.js";
 
 test.beforeEach(async ({ page }) => {
   await handleLoginT({ page });

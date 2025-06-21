@@ -113,6 +113,7 @@ const Login: FC = () => {
             <div className="max-w-[250px] w-full justify-self-center mt-10">
               <Button
                 {...{
+                  aria: "login",
                   label: "Login",
                   isDisabled: !isFormOk,
                   isAging: isLoading,

@@ -1,6 +1,7 @@
 import { test, expect } from "@playwright/test";
 import { nav } from "../utils/general.js";
 import { account_0 } from "../utils/data.js";
+import { handleDiffPwdLogin } from "../utils/login.js";
 
 test.describe("handle login user", () => {
   test("should not login ", async ({ page }) => {
@@ -21,11 +22,13 @@ test.describe("handle login user", () => {
     await nav(page, "auth/login");
 
     await page.getByRole("textbox", { name: "email" }).fill(account_0.email);
-    await page.getByLabel("password").fill(account_0.pwd);
 
-    await page.getByRole("button", { name: "Login" }).click();
-    await expect(
-      page.getByText("login successful".toUpperCase())
-    ).toBeVisible();
+    const success = await handleDiffPwdLogin({
+      page,
+      aria: "login",
+      txt: "LOGIN SUCCESSFUL",
+    });
+
+    expect(success).toBe(true);
   });
 });
