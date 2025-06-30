@@ -94,7 +94,7 @@ export const axiosBaseQuery = async ({
       saveStorage({ data: refreshData.accessToken, key: StorageKeys.ACCESS });
       appInstance.defaults.headers.common[
         "Authorization"
-      ] = `Bearer ${refreshData.accessStorage}`;
+      ] = `Bearer ${refreshData.accessToken}`;
 
       const retry: AxiosResponse = await appInstance({
         url,
