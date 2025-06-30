@@ -47,30 +47,29 @@ export const axiosBaseQuery = async ({
       data: resultData,
     };
   } catch (err: any) {
-    const rawData = err?.response?.data;
-
-    let msg: string = err?.response?.data?.msg;
+    let contentData = err?.response?.data;
     const status: number = err?.response?.status;
 
-    if (rawData instanceof Blob && rawData.type === "application/json") {
+    if (
+      contentData instanceof Blob &&
+      contentData.type === "application/json"
+    ) {
       try {
-        const txt = await rawData.text();
-        const parsed = JSON.parse(txt);
-
-        msg = parsed.msg;
+        const txt = await contentData.text();
+        contentData = JSON.parse(txt);
       } catch (err) {
         __cg("blob parse err", err);
       }
     }
 
-    const { response: { data: errData, config } = {} } = err ?? {};
+    const { response: { config } = {} } = err ?? {};
 
     const isRefresh = isRefreshing(config?.url);
     const loggingOut = isLoggingOut(config?.url);
-    const isTokenExp = isAccessExpired(msg);
+    const isTokenExp = isAccessExpired(contentData.msg);
     const skipRefresh =
       status !== 401 || isRefresh || !isTokenExp || loggingOut;
-    const removeSession = errData?.pushOut;
+    const removeSession = contentData?.pushOut;
 
     if (loggingOut || removeSession) clearAuthAxios();
 
