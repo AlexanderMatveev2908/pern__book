@@ -4,7 +4,7 @@
   "main": "server.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon --exec tsx src/server.ts",
+     "dev": "NODE_OPTIONS='--no-warnings' nodemon --exec tsx src/server.ts",
     "build": "npx tsc",
     "start": "node dist/server.js"
   },
