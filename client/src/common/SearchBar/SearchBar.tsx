@@ -63,7 +63,6 @@ const SearchBar: FC<PropsType> = ({
     updateValsNoDebounce,
     setIsPending,
     isPending,
-
     preSubmit: { isPopulated, canMakeAPI },
   } = ctx;
 
